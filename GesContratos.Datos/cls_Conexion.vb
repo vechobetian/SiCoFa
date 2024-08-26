@@ -1,5 +1,4 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports SiCoFa.Entidades
 Public Class cls_Conexion
     Property Conexion As MySqlConnection
     Property Base As String
