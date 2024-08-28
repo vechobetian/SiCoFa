@@ -14,15 +14,12 @@ Public Class FrmFacturarServicios
 
     Public Sub IniciarProcesos()
         Try
+
             Me.FacturarServicios(IdUsuario, "FAC", "0001")
             Me.ProgressBar1.Visible = False
             Me.ObtenerComprobantesEnCola()
             Me.GenerarComprobantes()
 
-            'Me.Mensaje.Left = 75
-            'Me.Mensaje.Top = 50
-            'Me.Mensaje.Text = "Se enviaron " & mobjComprobantes.Count & " reportes"
-            'Me.Aceptar.Visible = True
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -190,6 +187,8 @@ Public Class FrmFacturarServicios
             Me.lblProgressBar.Visible = False
             Me.Mensaje.Text = "-Comprobantes Aprobados: " & mintNumComprobanteA & vbCrLf & "-Comprobantes Rechazados: " & mintNumcomprobanteR
             Me.mstrSiguienteProceso = "EnviarReportesAprobados"
+            Me.Aceptar.Visible = True
+            Me.Aceptar.Text = "&Enviar"
 
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation, "SiCoFa")
@@ -197,7 +196,13 @@ Public Class FrmFacturarServicios
 
     End Sub
     Private Sub EnviarReportes()
-        Dim NumComprobantes As Integer = mobjComprobantes.Count
+        If mintNumComprobanteA = 0 Then
+            Exit Sub
+        End If
+
+        Me.ProgressBar1.Visible = True
+        Me.lblProgressBar.Visible = True
+        Dim NumComprobantes As Integer = Me.mintNumComprobanteA
         Dim NumComprobante As Integer
         Dim Cociente As Decimal
         Dim obj_N_AdminEmail As New cls_N_AdminEmail
@@ -205,7 +210,6 @@ Public Class FrmFacturarServicios
         Dim Archivo As String
 
         Try
-
             Me.lblProgressBar.Text = ""
             Me.Mensaje.Text = "Enviando reportes....." & vbCrLf & vbCrLf & "Aguarde hasta que finalice el proceso"
             Me.Refresh()
@@ -215,18 +219,32 @@ Public Class FrmFacturarServicios
                     Exit Sub
                 End If
 
-                Me.lblProgressBar.Text = NumComprobante & " Reportes enviados de " & NumComprobantes & " Contratos para reportar"
-                Me.ProgressBar1.Value = Cociente
-                Me.Refresh()
+                If c.CAE IsNot Nothing Then
 
-                Archivo = c.TipoComprobante.CodiTC_SiCoFa & c.PVenta & c.NumComp
-                Mensaje = "Estimado Cliente, adjunto Estado de Cuenta" & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
-                obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Detalle de Cuenta", Mensaje, Application.StartupPath & "\Temp\" & c.TipoComprobante.CodiTC_SiCoFa & c.PVenta & c.NumComp & ".pdf")
+                    Archivo = c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
+                    Mensaje = "Estimado Cliente, adjunto Factura" & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
+                    obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Factura Servicios", Mensaje, Application.StartupPath & "\Temp\" & Archivo)
 
-                NumComprobante += 1
-                Cociente = NumComprobante / NumComprobantes * 100
-                Application.DoEvents()
+                    NumComprobante += 1
+                    Cociente = NumComprobante / NumComprobantes * 100
+                    Me.ProgressBar1.Value = Cociente
+                    Me.lblProgressBar.Text = NumComprobante & " Comprobantes enviados de " & NumComprobantes & " Comprobantes para enviar"
+                    Me.Refresh()
+
+                    Application.DoEvents()
+
+                End If
+
             Next
+
+            Me.Mensaje.Left = 75
+            Me.Mensaje.Top = 50
+            Me.Mensaje.Text = "Se enviaron " & mobjComprobantes.Count & " reportes"
+            Me.ProgressBar1.Value = 0
+            Me.ProgressBar1.Visible = False
+            Me.lblProgressBar.Visible = False
+            Me.Aceptar.Text = "&Aceptar"
+            Me.mstrSiguienteProceso = "Finalizar"
 
             obj_N_AdminEmail = Nothing
 
@@ -243,6 +261,7 @@ Public Class FrmFacturarServicios
     Private Sub Aceptar_Click(sender As Object, e As EventArgs) Handles Aceptar.Click
         Select Case mstrSiguienteProceso
             Case "EnviarReportesAprobados"
+                Me.EnviarReportes()
 
             Case "Finalizar"
                 Me.Dispose()

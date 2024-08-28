@@ -30,9 +30,9 @@ Partial Class FrmFacturarServicios
         '
         'Aceptar
         '
-        Me.Aceptar.Location = New System.Drawing.Point(224, 175)
+        Me.Aceptar.Location = New System.Drawing.Point(215, 175)
         Me.Aceptar.Name = "Aceptar"
-        Me.Aceptar.Size = New System.Drawing.Size(75, 23)
+        Me.Aceptar.Size = New System.Drawing.Size(84, 23)
         Me.Aceptar.TabIndex = 36
         Me.Aceptar.TabStop = False
         Me.Aceptar.Text = "&Aceptar"
