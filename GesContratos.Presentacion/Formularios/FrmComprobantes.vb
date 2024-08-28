@@ -34,7 +34,7 @@ Public Class FrmComprobantes
                 .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
                 .Encabezado.Add(argComprobante)
                 .TipoComprobante.Add(argComprobante.TipoComprobante)
-                .Detalle = (argComprobante.Detalle)
+                .Detalle = argComprobante.Detalle
                 .CAE.Add(argComprobante.CAE)
                 .QR.Add(argComprobante.QR)
                 .Copia = "ORIGINAL"
