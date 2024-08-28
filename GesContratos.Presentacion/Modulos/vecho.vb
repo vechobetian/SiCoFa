@@ -247,8 +247,10 @@
 
     End Function
     Public Function CDecimal(ByVal argValor As String) As Decimal
+
         Dim NDecimal As Decimal
-        If InStr(1, ",") = 0 Then
+
+        If InStr(argValor, ",") = 0 Then
             NDecimal = Format(Replace(argValor, ".", ","), "Standard")
         Else
             NDecimal = Format(argValor, "Standard")

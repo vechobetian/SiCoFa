@@ -72,6 +72,13 @@ Public Class FrmMDI
         End With
 
     End Sub
+    Private Sub FacturarServiciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarServiciosToolStripMenuItem.Click
+        With FrmFacturarServicios
+            .Show()
+            .IdUsuario = Me.Secion.Usuario.IdUsuario
+            .IniciarProcesos()
+        End With
+    End Sub
     Private Sub EstadoDeCuentaGruposToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EstadoDeCuentaGruposToolStripMenuItem.Click
 
         With FrmOperaContratos
@@ -162,4 +169,5 @@ Public Class FrmMDI
 
         Return cte
     End Function
+
 End Class

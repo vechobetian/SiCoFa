@@ -42,6 +42,7 @@ Partial Class FrmMDI
         Me.AduditoríaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EstadoDeCuentaGruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComprobantesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EstadoDeCuentaClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -50,7 +51,7 @@ Partial Class FrmMDI
         Me.EstadoSecion = New System.Windows.Forms.Label()
         Me.IdUsuario = New System.Windows.Forms.Label()
         Me.Usuario = New System.Windows.Forms.Label()
-        Me.EstadoDeCuentaClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FacturarServiciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -143,7 +144,7 @@ Partial Class FrmMDI
         '
         'ProcesosToolStripMenuItem
         '
-        Me.ProcesosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DevengarServiciosToolStripMenuItem, Me.EnviarMailServiciosPrestadosToolStripMenuItem})
+        Me.ProcesosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DevengarServiciosToolStripMenuItem, Me.EnviarMailServiciosPrestadosToolStripMenuItem, Me.FacturarServiciosToolStripMenuItem})
         Me.ProcesosToolStripMenuItem.Name = "ProcesosToolStripMenuItem"
         Me.ProcesosToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
         Me.ProcesosToolStripMenuItem.Text = "&Procesos"
@@ -178,6 +179,12 @@ Partial Class FrmMDI
         Me.ComprobantesToolStripMenuItem.Name = "ComprobantesToolStripMenuItem"
         Me.ComprobantesToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
         Me.ComprobantesToolStripMenuItem.Text = "&Comprobantes"
+        '
+        'EstadoDeCuentaClientesToolStripMenuItem
+        '
+        Me.EstadoDeCuentaClientesToolStripMenuItem.Name = "EstadoDeCuentaClientesToolStripMenuItem"
+        Me.EstadoDeCuentaClientesToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
+        Me.EstadoDeCuentaClientesToolStripMenuItem.Text = "Estado de Cuenta Clientes"
         '
         'PictureBox1
         '
@@ -278,11 +285,11 @@ Partial Class FrmMDI
         Me.Usuario.TabIndex = 11
         Me.Usuario.Text = "Usuario"
         '
-        'EstadoDeCuentaClientesToolStripMenuItem
+        'FacturarServiciosToolStripMenuItem
         '
-        Me.EstadoDeCuentaClientesToolStripMenuItem.Name = "EstadoDeCuentaClientesToolStripMenuItem"
-        Me.EstadoDeCuentaClientesToolStripMenuItem.Size = New System.Drawing.Size(211, 22)
-        Me.EstadoDeCuentaClientesToolStripMenuItem.Text = "Estado de Cuenta Clientes"
+        Me.FacturarServiciosToolStripMenuItem.Name = "FacturarServiciosToolStripMenuItem"
+        Me.FacturarServiciosToolStripMenuItem.Size = New System.Drawing.Size(235, 22)
+        Me.FacturarServiciosToolStripMenuItem.Text = "&Facturar Servicios"
         '
         'FrmMDI
         '
@@ -341,4 +348,5 @@ Partial Class FrmMDI
     Friend WithEvents ServiciosPrestadosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ComprobantesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EstadoDeCuentaClientesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FacturarServiciosToolStripMenuItem As ToolStripMenuItem
 End Class
