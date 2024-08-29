@@ -188,9 +188,10 @@ Public Class FrmComprobantes
             End If
 
             If argComprobante.Detalle Is Nothing Then
-                Me.DataGridView2.Rows.Clear()
                 Exit Sub
             End If
+
+            Me.DataGridView2.Rows.Clear()
 
             Dim x As Integer
 
