@@ -118,12 +118,6 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\Form1.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmEstadCuentaClientes.Designer.vb">
       <DependentUpon>FrmEstadCuentaClientes.vb</DependentUpon>
     </Compile>
