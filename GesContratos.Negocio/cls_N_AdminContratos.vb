@@ -167,6 +167,7 @@ Public Class cls_N_AdminContratos
     Public Function ActualizarContrato(
                                       ByVal argIdContrato As Integer,
                                       ByVal argIdGC As Integer,
+                                      ByVal argIdLocador As Integer,
                                       ByVal argUsFTP As String,
                                       ByVal argMesesT As Integer,
                                       ByVal argContacto As String,
@@ -180,6 +181,7 @@ Public Class cls_N_AdminContratos
         Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarContrato(
                                                                            argIdContrato,
                                                                            argIdGC,
+                                                                           argIdLocador,
                                                                            UCase(argUsFTP),
                                                                            argMesesT,
                                                                            UCase(argContacto),

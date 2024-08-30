@@ -366,6 +366,7 @@ Public Class cls_D_AdminContratos
     Public Function ActualizarContrato(
                                         ByVal argIdContrato As Integer,
                                         ByVal argIdGC As Integer,
+                                        ByVal argIdLocador As Integer,
                                         ByVal argUsFTP As String,
                                         ByVal argMesesT As Integer,
                                         ByVal argContacto As String,
@@ -383,6 +384,7 @@ Public Class cls_D_AdminContratos
             Dim cmd As New MySqlCommand("ActualizarContrato", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
             cmd.Parameters.AddWithValue("_IdContrato", argIdContrato)
             cmd.Parameters.AddWithValue("_IdGC", argIdGC)
+            cmd.Parameters.AddWithValue("_IdLocador", argIdLocador)
             cmd.Parameters.AddWithValue("_UsFTP", argUsFTP)
             cmd.Parameters.AddWithValue("_MesesT", argMesesT)
             cmd.Parameters.AddWithValue("_Contacto", argContacto)

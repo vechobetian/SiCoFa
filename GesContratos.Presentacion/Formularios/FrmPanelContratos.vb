@@ -300,7 +300,7 @@ Public Class FrmPanelContratos
                     MsgBox("La Actualizacion se realizo correctamente",, "SiCoFa")
                 End If
             Else
-                If mobj_N_AdminContratos.ActualizarContrato(Me.IdContrato.Text, Me.GrupoContratos.SelectedValue, Me.UsFTP.Text, Meses, Me.Contacto.Text, ImpD, Me.InicioContrato.Text, Me.FinalContrato.Text, FacturaServicios, Me.EstadoContrato.Text) Then
+                If mobj_N_AdminContratos.ActualizarContrato(Me.IdContrato.Text, Me.GrupoContratos.SelectedValue, IdLoc, Me.UsFTP.Text, Meses, Me.Contacto.Text, ImpD, Me.InicioContrato.Text, Me.FinalContrato.Text, FacturaServicios, Me.EstadoContrato.Text) Then
                     MsgBox("La Actualizacion se realizo correctamente",, "SiCoFa")
                 End If
             End If
