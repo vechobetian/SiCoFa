@@ -38,7 +38,7 @@ Namespace WSAA
         '''<remarks/>
         Public Sub New()
             MyBase.New
-            Me.Url = Global.SiCoFa.Negocio.My.MySettings.Default.NegocioSiCoFa_ar_gov_afip_wsaa_LoginCMSService
+            Me.Url = Global.SiCoFa.Datos.MySettings.Default.SiCoFa_Datos_WSAA_LoginCMSService
             If (Me.IsLocalFileSystemWebService(Me.Url) = true) Then
                 Me.UseDefaultCredentials = true
                 Me.useDefaultCredentialsSetExplicitly = false

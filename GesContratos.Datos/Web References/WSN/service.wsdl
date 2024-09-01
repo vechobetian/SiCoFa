@@ -71,6 +71,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Opcionales" type="tns:ArrayOfOpcional" />
           <s:element minOccurs="0" maxOccurs="1" name="Compradores" type="tns:ArrayOfComprador" />
           <s:element minOccurs="0" maxOccurs="1" name="PeriodoAsoc" type="tns:Periodo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Actividades" type="tns:ArrayOfActividad" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfCbteAsoc">
@@ -140,6 +141,16 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="FchDesde" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="FchHasta" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividad">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Actividad" nillable="true" type="tns:Actividad" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Actividad">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
         </s:sequence>
       </s:complexType>
       <s:element name="FECAESolicitarResponse">
@@ -855,6 +866,39 @@
           <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="FEParamGetActividades">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Auth" type="tns:FEAuthRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FEParamGetActividadesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FEParamGetActividadesResult" type="tns:FEActividadesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FEActividadesResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ResultGet" type="tns:ArrayOfActividadesTipo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Errors" type="tns:ArrayOfErr" />
+          <s:element minOccurs="0" maxOccurs="1" name="Events" type="tns:ArrayOfEvt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfActividadesTipo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActividadesTipo" nillable="true" type="tns:ActividadesTipo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ActividadesTipo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="Orden" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desc" type="s:string" />
+        </s:sequence>
+      </s:complexType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="FECAESolicitarSoapIn">
@@ -977,6 +1021,12 @@
   <wsdl:message name="FEParamGetTiposPaisesSoapOut">
     <wsdl:part name="parameters" element="tns:FEParamGetTiposPaisesResponse" />
   </wsdl:message>
+  <wsdl:message name="FEParamGetActividadesSoapIn">
+    <wsdl:part name="parameters" element="tns:FEParamGetActividades" />
+  </wsdl:message>
+  <wsdl:message name="FEParamGetActividadesSoapOut">
+    <wsdl:part name="parameters" element="tns:FEParamGetActividadesResponse" />
+  </wsdl:message>
   <wsdl:portType name="ServiceSoap">
     <wsdl:operation name="FECAESolicitar">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Solicitud de Código de Autorización Electrónico (CAE)</wsdl:documentation>
@@ -1077,6 +1127,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de los diferente paises que pueden ser utilizados  en el servicio de autorizacion</wsdl:documentation>
       <wsdl:input message="tns:FEParamGetTiposPaisesSoapIn" />
       <wsdl:output message="tns:FEParamGetTiposPaisesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Recupera el listado de las diferentes actividades habilitadas para el emisor</wsdl:documentation>
+      <wsdl:input message="tns:FEParamGetActividadesSoapIn" />
+      <wsdl:output message="tns:FEParamGetActividadesSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
@@ -1254,6 +1309,15 @@
     </wsdl:operation>
     <wsdl:operation name="FEParamGetTiposPaises">
       <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetTiposPaises" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <soap:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetActividades" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1444,14 +1508,23 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="FEParamGetActividades">
+      <soap12:operation soapAction="http://ar.gov.afip.dif.FEV1/FEParamGetActividades" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="Service">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Web Service orientado  al  servicio  de Facturacion electronica RG2485 V1</wsdl:documentation>
     <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
-      <soap:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx" />
+      <soap:address location="https://servicios1.afip.gov.ar/wsfev1/service.asmx" />
     </wsdl:port>
     <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
-      <soap12:address location="https://wswhomo.afip.gov.ar/wsfev1/service.asmx" />
+      <soap12:address location="https://servicios1.afip.gov.ar/wsfev1/service.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

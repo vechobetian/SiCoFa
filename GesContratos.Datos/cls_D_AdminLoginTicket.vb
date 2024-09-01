@@ -6,7 +6,7 @@ Imports System.Security.Cryptography.X509Certificates
 Imports System.Text
 Imports System.Xml
 Imports SiCoFa.Entidades
-Public Class cls_N_AdminLoginTicket
+Public Class cls_D_AdminLoginTicket
     Property CertFirmante As X509Certificate2
     Property TicketAcceso As LoginTicket
 

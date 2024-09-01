@@ -53,26 +53,6 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("https://wsaa.afip.gov.ar/ws/services/LoginCms")>  _
-        Public ReadOnly Property NegocioSiCoFa_ar_gov_afip_wsaa_LoginCMSService() As String
-            Get
-                Return CType(Me("NegocioSiCoFa_ar_gov_afip_wsaa_LoginCMSService"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("https://wswhomo.afip.gov.ar/wsfev1/service.asmx")>  _
-        Public ReadOnly Property NegocioSiCoFa_ar_gov_afip_wswhomo_Service() As String
-            Get
-                Return CType(Me("NegocioSiCoFa_ar_gov_afip_wswhomo_Service"),String)
-            End Get
-        End Property
     End Class
 End Namespace
 

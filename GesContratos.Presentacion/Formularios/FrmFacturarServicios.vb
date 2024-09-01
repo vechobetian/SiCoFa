@@ -76,12 +76,13 @@ Public Class FrmFacturarServicios
 
                 mintNumcomprobanteR += 1
                 mobj_N_AdminContratos.RegistrarComprobanteRechazado(argComprobante.IdOperacion)
-                mobj_N_AdminContratos.RegistrarError(argComprobante.IdOperacion, obj_N_AdminCAE.Observaciones & vbCrLf & obj_N_AdminCAE.Errores & vbCrLf & obj_N_AdminCAE.Eventos)
+                'mobj_N_AdminContratos.RegistrarError(argComprobante.IdOperacion, obj_N_AdminCAE.Observaciones & vbCrLf & obj_N_AdminCAE.Errores & vbCrLf & obj_N_AdminCAE.Eventos)
                 Return "R"
 
             End If
 
         Catch ex As Exception
+            mobj_N_AdminContratos.RegistrarError(argComprobante.IdOperacion, ex.Message)
             MsgBox(ex.Message, vbInformation, "SiCoFa")
             Return "ERROR"
 
