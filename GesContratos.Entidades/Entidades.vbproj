@@ -85,6 +85,7 @@
     <Compile Include="ConsumoLuz\ItemConsumoLuz.vb" />
     <Compile Include="Operaciones\OperaContrato.vb" />
     <Compile Include="Contabilidad\RubroContabilidad.vb" />
+    <Compile Include="Sistema\Archivo.vb" />
     <Compile Include="Sistema\Secion.vb" />
     <Compile Include="Contratos\ServicioAsociado.vb" />
     <Compile Include="Contratos\Servicio.vb" />

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="cls_D_AdminDB.vb" />
     <Compile Include="cls_D_AdminEmail.vb" />
+    <Compile Include="cls_D_AdminFTP.vb" />
     <Compile Include="cls_D_AdminPlanCuentas.vb" />
     <Compile Include="cls_D_AdminCAE.vb" />
     <Compile Include="cls_D_AdminLoginTicket.vb" />

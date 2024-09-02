@@ -170,4 +170,12 @@ Public Class FrmMDI
         Return cte
     End Function
 
+    Private Sub ListarArchivosFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListarArchivosFTPToolStripMenuItem.Click
+        Dim obj_N_AdminFTP As New cls_N_AdminFTP
+        'obj_N_AdminFTP.ListFiles("/Actualizaciones")
+
+        MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", "C:\SiCoFa_Server\id7.txt"))
+
+
+    End Sub
 End Class
