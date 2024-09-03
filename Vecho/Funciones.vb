@@ -247,17 +247,23 @@ Public Module Funciones
 
     End Function
     Public Function CDecimal(ByVal argValor As String) As Decimal
-
         Dim NDecimal As Decimal
+        Dim decimalSeparator As String = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator
+        Dim thousandsSeparator As String = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.CurrencyGroupSeparator
 
-        If InStr(argValor, ",") = 0 Then
-            NDecimal = Format(Replace(argValor, ".", ","), "Standard")
-        Else
-            NDecimal = Format(argValor, "Standard")
+        ' Eliminar los separadores de miles (puntos en tu ejemplo)
+        Dim valueWithoutThousands As String = argValor.Replace(thousandsSeparator, "")
+
+        ' Reemplazar el separador decimal (coma en tu ejemplo) por el separador decimal de la cultura actual
+        Dim normalizedValue As String = valueWithoutThousands.Replace(",", decimalSeparator)
+
+        ' Intentar convertir el string a Decimal
+        If Not Decimal.TryParse(normalizedValue, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.CurrentCulture, NDecimal) Then
+            ' Si no se puede convertir, manejar el error (puedes lanzar una excepción o devolver un valor por defecto)
+            Throw New ArgumentException("El valor proporcionado no es un número decimal válido.")
         End If
 
         Return NDecimal
-
     End Function
     Public Function MensajeError(argModulo As String, argProcedimiento As String, argDescripcion As String) As String
 
