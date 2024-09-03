@@ -28,39 +28,41 @@ Public Class cls_D_AdminConsumoLuz
 
             Dim sql As String = "SELECT IdRegistro,FechaLAn,FechaLAc,Mes,Ano,IdMedidor,LecturaAnterior,LecturaActual,Consumo,ImpCalculado,ImpFactura,ImpNeto,Ley3052,IVA,RG2123,Observaciones,Estado FROM TblRegConsumoLuz WHERE IdRegistro=" & argIdRegistro
 
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            datos.Read()
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
 
-            If datos.HasRows = False Then
-                datos.Close()
-                cmd.Dispose()
-                Return Nothing
-                Exit Function
-            End If
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    datos.Read()
 
-            IdRegistro = datos("IdRegistro")
-            FechaLAn = datos("FechaLAn")
-            FechaLAc = datos("FechaLAc")
-            Mes = datos("Mes")
-            Año = datos("Ano")
-            IdMedidor = datos("IdMedidor")
-            LecturaAnterior = datos("LecturaAnterior")
-            LecturaActual = datos("LecturaActual")
-            Consumo = datos("Consumo")
-            ImpCalculado = datos("ImpCalculado")
-            ImpFactura = datos("ImpFactura")
-            ImpNeto = datos("ImpNeto")
-            Ley3052 = datos("Ley3052")
-            IVA = datos("IVA")
-            RG2123 = datos("RG2123")
-            'Observaciones = datos("Observaciones")
-            Estado = datos("Estado")
+                    If datos.HasRows = False Then
+                        datos.Close()
+                        cmd.Dispose()
+                        Return Nothing
+                        Exit Function
+                    End If
 
-            datos.Close()
-            cmd.Dispose()
+                    IdRegistro = datos("IdRegistro")
+                    FechaLAn = datos("FechaLAn")
+                    FechaLAc = datos("FechaLAc")
+                    Mes = datos("Mes")
+                    Año = datos("Ano")
+                    IdMedidor = datos("IdMedidor")
+                    LecturaAnterior = datos("LecturaAnterior")
+                    LecturaActual = datos("LecturaActual")
+                    Consumo = datos("Consumo")
+                    ImpCalculado = datos("ImpCalculado")
+                    ImpFactura = datos("ImpFactura")
+                    ImpNeto = datos("ImpNeto")
+                    Ley3052 = datos("Ley3052")
+                    IVA = datos("IVA")
+                    RG2123 = datos("RG2123")
+                    'Observaciones = datos("Observaciones")
+                    Estado = datos("Estado")
+
+                End Using
+
+            End Using
 
             objMedidor = Me.ObtenerMedidorPorId(IdMedidor)
             objDetCL = Me.ObtenerDetConsumoLuz(IdRegistro)
@@ -108,39 +110,41 @@ Public Class cls_D_AdminConsumoLuz
                 sql = "SELECT IdRegistro,FechaLAn,FechaLAc,Mes,Ano,IdMedidor,LecturaAnterior,LecturaActual,Consumo,ImpCalculado,ImpFactura,ImpNeto,Ley3052,IVA,RG2123,Observaciones,Estado FROM TblRegConsumoLuz WHERE IdRegistro=" & argIdRegistro & " AND Estado='" & argEstado & "'"
             End If
 
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            datos.Read()
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
 
-            If datos.HasRows = False Then
-                datos.Close()
-                cmd.Dispose()
-                Return Nothing
-                Exit Function
-            End If
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    datos.Read()
 
-            IdRegistro = datos("IdRegistro")
-            FechaLAn = datos("FechaLAn")
-            FechaLAc = datos("FechaLAc")
-            Mes = datos("Mes")
-            Año = datos("Ano")
-            IdMedidor = datos("IdMedidor")
-            LecturaAnterior = datos("LecturaAnterior")
-            LecturaActual = datos("LecturaActual")
-            Consumo = datos("Consumo")
-            ImpCalculado = datos("ImpCalculado")
-            ImpFactura = datos("ImpFactura")
-            ImpNeto = datos("ImpNeto")
-            Ley3052 = datos("Ley3052")
-            IVA = datos("IVA")
-            RG2123 = datos("RG2123")
-            'Observaciones = if datos("Observaciones")
-            Estado = datos("Estado")
+                    If datos.HasRows = False Then
+                        datos.Close()
+                        cmd.Dispose()
+                        Return Nothing
+                        Exit Function
+                    End If
 
-            datos.Close()
-            cmd.Dispose()
+                    IdRegistro = datos("IdRegistro")
+                    FechaLAn = datos("FechaLAn")
+                    FechaLAc = datos("FechaLAc")
+                    Mes = datos("Mes")
+                    Año = datos("Ano")
+                    IdMedidor = datos("IdMedidor")
+                    LecturaAnterior = datos("LecturaAnterior")
+                    LecturaActual = datos("LecturaActual")
+                    Consumo = datos("Consumo")
+                    ImpCalculado = datos("ImpCalculado")
+                    ImpFactura = datos("ImpFactura")
+                    ImpNeto = datos("ImpNeto")
+                    Ley3052 = datos("Ley3052")
+                    IVA = datos("IVA")
+                    RG2123 = datos("RG2123")
+                    'Observaciones = if datos("Observaciones")
+                    Estado = datos("Estado")
+
+                End Using
+
+            End Using
 
             objMedidor = Me.ObtenerMedidorPorId(IdMedidor)
             objDetCL = Me.ObtenerDetConsumoLuz(IdRegistro)
@@ -168,19 +172,21 @@ Public Class cls_D_AdminConsumoLuz
         Dim IdRegistro As Long
         Try
 
-            Dim cmd As New MySqlCommand("InsertarRegistroCLuz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-            cmd.Parameters.AddWithValue("FechaUL", argFechaUL)
-            cmd.Parameters.AddWithValue("Mes", argMes)
-            cmd.Parameters.AddWithValue("Año", argAño)
-            cmd.Parameters.AddWithValue("IdMed", argIdMedidor)
-            cmd.Parameters.AddWithValue("KWLAn", argKWLAn)
-            cmd.Parameters.AddWithValue("KWLAc", argKWLAc)
-            cmd.Parameters.AddWithValue("Obser", argObservaciones)
-            cmd.Parameters.Add("IdReg", MySqlDbType.Int64)
-            cmd.Parameters("IdReg").Direction = ParameterDirection.Output
-            cmd.ExecuteNonQuery()
-            IdRegistro = CInt(cmd.Parameters("IdReg").Value)
-            cmd.Dispose()
+            Using cmd As New MySqlCommand("InsertarRegistroCLuz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
+
+                cmd.Parameters.AddWithValue("FechaUL", argFechaUL)
+                cmd.Parameters.AddWithValue("Mes", argMes)
+                cmd.Parameters.AddWithValue("Año", argAño)
+                cmd.Parameters.AddWithValue("IdMed", argIdMedidor)
+                cmd.Parameters.AddWithValue("KWLAn", argKWLAn)
+                cmd.Parameters.AddWithValue("KWLAc", argKWLAc)
+                cmd.Parameters.AddWithValue("Obser", argObservaciones)
+                cmd.Parameters.Add("IdReg", MySqlDbType.Int64)
+                cmd.Parameters("IdReg").Direction = ParameterDirection.Output
+                cmd.ExecuteNonQuery()
+                IdRegistro = CInt(cmd.Parameters("IdReg").Value)
+
+            End Using
             Return IdRegistro
 
         Catch Ex As Exception
@@ -193,10 +199,11 @@ Public Class cls_D_AdminConsumoLuz
         Dim RegistrosAfectados As Integer
         Try
 
-            Dim cmd As New MySqlCommand("EliminarRegistroCluz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-            cmd.Parameters.AddWithValue("_IdRegistro", argIdRegistro)
-            RegistrosAfectados = cmd.ExecuteNonQuery()
-            cmd.Dispose()
+            Using cmd As New MySqlCommand("EliminarRegistroCluz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
+                cmd.Parameters.AddWithValue("_IdRegistro", argIdRegistro)
+                RegistrosAfectados = cmd.ExecuteNonQuery()
+
+            End Using
             Return RegistrosAfectados
 
         Catch Ex As Exception
@@ -209,10 +216,12 @@ Public Class cls_D_AdminConsumoLuz
         Dim RegistrosAfectados As Integer
         Try
 
-            Dim cmd As New MySqlCommand("ActualizarTotalesConsumoLuz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-            cmd.Parameters.AddWithValue("_IdRegistro", argIdRegistro)
-            RegistrosAfectados = cmd.ExecuteNonQuery()
-            cmd.Dispose()
+            Using cmd As New MySqlCommand("ActualizarTotalesConsumoLuz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
+                cmd.Parameters.AddWithValue("_IdRegistro", argIdRegistro)
+                RegistrosAfectados = cmd.ExecuteNonQuery()
+
+            End Using
+
             Return RegistrosAfectados
 
         Catch Ex As Exception
@@ -227,9 +236,9 @@ Public Class cls_D_AdminConsumoLuz
         Try
             Dim sql As String = "UPDATE TblRegConsumoLuz SET Estado='" & argEstadoNuevo & "' WHERE IdRegistro=" & argIdRegistro
 
-            Dim cmd As New MySqlCommand(sql, Mod_D_Admin.ConexionDB.Conexion)
-            RegAfectados = cmd.ExecuteNonQuery
-            cmd.Dispose()
+            Using cmd As New MySqlCommand(sql, Mod_D_Admin.ConexionDB.Conexion)
+                RegAfectados = cmd.ExecuteNonQuery
+            End Using
 
         Catch Ex As Exception
             Throw New Exception(vecho.MensajeError(Me.ToString, "ActualizarEstadoRegistroConsumoLuz", Ex.Message))
@@ -243,21 +252,23 @@ Public Class cls_D_AdminConsumoLuz
 
             Dim sql As String = "SELECT IdMedidor,Descripcion,Categoria,Suministro,NumCliente,IVA,RG2123,IdContrato,FechaUL,UltimaLectura FROM TblMedidoresLuz WHERE IdMedidor=" & argIdMedidor
 
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            datos.Read()
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
 
-            If datos.HasRows Then
-                m = New Medidor(datos("IdMedidor"), datos("Descripcion"), datos("Categoria"), datos("NumCliente"), datos("Suministro"), datos("IVA"), datos("RG2123"), datos("IdContrato"), datos("FechaUL"), datos("UltimaLectura"))
-            Else
-                m = Nothing
-            End If
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    datos.Read()
 
-            datos.Close()
-            cmd.Dispose()
-            Return m
+                    If datos.HasRows Then
+                        m = New Medidor(datos("IdMedidor"), datos("Descripcion"), datos("Categoria"), datos("NumCliente"), datos("Suministro"), datos("IVA"), datos("RG2123"), datos("IdContrato"), datos("FechaUL"), datos("UltimaLectura"))
+                    Else
+                        m = Nothing
+                    End If
+
+                End Using
+
+            End Using
+                Return m
 
         Catch ex As Exception
             Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerMedidorPorId", ex.Message))
