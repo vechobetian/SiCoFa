@@ -5,8 +5,9 @@ Imports System.Security.Cryptography.Pkcs
 Imports System.Security.Cryptography.X509Certificates
 Imports System.Text
 Imports System.Xml
+Imports SiCoFa.Datos.WSAA
 Imports SiCoFa.Entidades
-Public Class cls_D_AdminLoginTicket
+Public Class cls_N_AdminLoginTicket
     Property CertFirmante As X509Certificate2
     Property TicketAcceso As LoginTicket
 
@@ -135,7 +136,7 @@ Public Class cls_D_AdminLoginTicket
         ' PASO 3: Invoco al WSAA para obtener el Login Ticket Response
         Try
 
-            Dim servicioWsaa As New WSAA.LoginCMSService()
+            Dim servicioWsaa As New LoginCMSService()
             servicioWsaa.Url = URLWsaa
 
             ' Veo si hay que salir a traves de un proxy
