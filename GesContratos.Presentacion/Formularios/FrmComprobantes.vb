@@ -52,7 +52,7 @@ Public Class FrmComprobantes
 
             Reporte = Nothing
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
 
@@ -90,7 +90,7 @@ Public Class FrmComprobantes
 
             Reporte = Nothing
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
 
@@ -143,6 +143,7 @@ Public Class FrmComprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
+
         End Try
 
     End Sub
@@ -161,24 +162,33 @@ Public Class FrmComprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
+
         End Try
 
     End Sub
     Private Sub ActualizarDetalle(ByVal argComprobante As Comprobante)
-        Select Case argComprobante.TipoComprobante.CodiTC_SiCoFa
-            Case "REC"
-                Me.DataGridView2.Visible = False
-                Me.DataGridView3.Visible = True
-                Me.ActualizarDetalleRecibo()
-            Case "MCC"
-                Me.DataGridView2.Visible = False
-                Me.DataGridView3.Visible = True
-                Me.ActualizarDetalleRecibo()
-            Case Else
-                Me.DataGridView2.Visible = True
-                Me.DataGridView3.Visible = False
-                Me.ActualizarDetalleComprobante(argComprobante)
-        End Select
+        Try
+
+            Select Case argComprobante.TipoComprobante.CodiTC_SiCoFa
+                Case "REC"
+                    Me.DataGridView2.Visible = False
+                    Me.DataGridView3.Visible = True
+                    Me.ActualizarDetalleRecibo()
+                Case "MCC"
+                    Me.DataGridView2.Visible = False
+                    Me.DataGridView3.Visible = True
+                    Me.ActualizarDetalleRecibo()
+                Case Else
+                    Me.DataGridView2.Visible = True
+                    Me.DataGridView3.Visible = False
+                    Me.ActualizarDetalleComprobante(argComprobante)
+            End Select
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
     Private Sub ActualizarDetalleComprobante(ByVal argComprobante As Comprobante)
 
@@ -209,6 +219,7 @@ Public Class FrmComprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
+
         End Try
 
     End Sub
@@ -226,45 +237,52 @@ Public Class FrmComprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
+
         End Try
 
     End Sub
     Private Sub DetallePago(ByVal argIdPago As Long)
         ' Crear un nuevo formulario para mostrar los datos relacionados
 
-        Dim sql As String = "SELECT Fecha,CodiTo,Resu,ImpFacturado,ImpCancelado,SaldoCA,SaldoCP,SaldoPA,SaldoPP,EstadoOperaContrato FROM ConOperaCancel WHERE IdOperaPago=" & argIdPago
+        Try
+            Dim sql As String = "SELECT Fecha,CodiTo,Resu,ImpFacturado,ImpCancelado,SaldoCA,SaldoCP,SaldoPA,SaldoPP,EstadoOperaContrato FROM ConOperaCancel WHERE IdOperaPago=" & argIdPago
 
-        Dim relatedForm As New Form()
-        With relatedForm
-            .ControlBox = False
-            .FormBorderStyle = FormBorderStyle.None
-            .StartPosition = FormStartPosition.Manual
-            .Left = Me.Left + 32
-            .Top = Me.DataGridView3.Top + 245 + Me.DataGridView3.CurrentRow.Height + Me.DataGridView3.CurrentRow.Index * 22 'Top + (barra de titulo + encabezado dgv) + Altura del Registro
-            .Width = 980
-            .Height = 100
-            .KeyPreview = True
-        End With
+            Dim relatedForm As New Form()
+            With relatedForm
+                .ControlBox = False
+                .FormBorderStyle = FormBorderStyle.None
+                .StartPosition = FormStartPosition.Manual
+                .Left = Me.Left + 32
+                .Top = Me.DataGridView3.Top + 245 + Me.DataGridView3.CurrentRow.Height + Me.DataGridView3.CurrentRow.Index * 22 'Top + (barra de titulo + encabezado dgv) + Altura del Registro
+                .Width = 980
+                .Height = 100
+                .KeyPreview = True
+            End With
 
-        Dim relatedGrid As New DataGridView()
-        With relatedGrid
-            .Dock = DockStyle.Fill
-            .AllowUserToDeleteRows = False
-            .AllowUserToAddRows = False
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .DataSource = mobj_N_AdminDB.ObtenerTabla(sql)
-        End With
+            Dim relatedGrid As New DataGridView()
+            With relatedGrid
+                .Dock = DockStyle.Fill
+                .AllowUserToDeleteRows = False
+                .AllowUserToAddRows = False
+                .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                .DataSource = mobj_N_AdminDB.ObtenerTabla(sql)
+            End With
 
-        AddHandler relatedGrid.DataBindingComplete, AddressOf AdjustColumnWidths
+            AddHandler relatedGrid.DataBindingComplete, AddressOf AdjustColumnWidths
 
-        ' Asignar el evento KeyDown para cerrar el formulario con la tecla Escape
-        AddHandler relatedForm.KeyDown, AddressOf relatedForm_KeyDown
+            ' Asignar el evento KeyDown para cerrar el formulario con la tecla Escape
+            AddHandler relatedForm.KeyDown, AddressOf relatedForm_KeyDown
 
-        With relatedForm
-            .Controls.Add(relatedGrid)
-            .Height = relatedGrid.Height
-            .ShowDialog()
-        End With
+            With relatedForm
+                .Controls.Add(relatedGrid)
+                .Height = relatedGrid.Height
+                .ShowDialog()
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
 
     End Sub
     Private Sub AdjustColumnWidths(sender As Object, e As DataGridViewBindingCompleteEventArgs)
@@ -331,42 +349,70 @@ Public Class FrmComprobantes
         End With
     End Sub
     Private Sub DataGridView3_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick, DataGridView3.CellClick
-        If e.ColumnIndex = 0 AndAlso e.RowIndex >= 0 Then
-            Dim btnCell As DataGridViewButtonCell = CType(Me.DataGridView3.Rows(e.RowIndex).Cells(0), DataGridViewButtonCell)
 
-            With btnCell
-                .UseColumnTextForButtonValue = False
-                .Value = "-"
-            End With
+        Try
+            If e.ColumnIndex = 0 AndAlso e.RowIndex >= 0 Then
+                Dim btnCell As DataGridViewButtonCell = CType(Me.DataGridView3.Rows(e.RowIndex).Cells(0), DataGridViewButtonCell)
 
-            Me.DetallePago(Me.DataGridView3.CurrentRow.Cells(1).Value)
+                With btnCell
+                    .UseColumnTextForButtonValue = False
+                    .Value = "-"
+                End With
 
-        End If
+                Me.DetallePago(Me.DataGridView3.CurrentRow.Cells(1).Value)
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
 
     End Sub
     Private Sub relatedForm_KeyDown(sender As Object, e As KeyEventArgs)
-        ' Cierra el formulario cuando se presiona la tecla Escape
-        If e.KeyCode = Keys.Escape Then
-            DirectCast(sender, Form).Close()
-            Dim btnCell As DataGridViewButtonCell = CType(Me.DataGridView3.CurrentRow.Cells(0), DataGridViewButtonCell)
-            With btnCell
-                .UseColumnTextForButtonValue = False
-                .Value = "+"
-            End With
-        End If
+
+        Try
+            ' Cierra el formulario cuando se presiona la tecla Escape
+            If e.KeyCode = Keys.Escape Then
+                DirectCast(sender, Form).Close()
+                Dim btnCell As DataGridViewButtonCell = CType(Me.DataGridView3.CurrentRow.Cells(0), DataGridViewButtonCell)
+                With btnCell
+                    .UseColumnTextForButtonValue = False
+                    .Value = "+"
+                End With
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
     Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
         If mblnCargaFinalizada = False Then
             Exit Sub
         End If
 
-        Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
-        Me.ActualizarTotales()
-        Me.ActualizarDetalle(c)
+        Try
+            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Me.ActualizarTotales()
+            Me.ActualizarDetalle(c)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
     Private Sub ImprimirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimirToolStripMenuItem.Click
-        Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
-        Me.GenerarReporte(c, "IMPA4")
+        Try
+            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Me.GenerarReporte(c, "IMPA4")
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
     Private Sub GuardarComoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarComoToolStripMenuItem.Click
 
@@ -387,20 +433,28 @@ Public Class FrmComprobantes
             End If
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
         End Try
 
     End Sub
     Private Sub EnviarMailToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnviarMailToolStripMenuItem.Click
 
-        Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
-        Dim path As String = Application.StartupPath & "\Temp\" & c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
-        Me.GenerarReporte(c, "PDFA4", path)
-        Dim obj_N_AdminEmail As New cls_N_AdminEmail
-        Dim Archivo = "REC-" & c.PVenta & "-" & c.NumComp & ".pdf"
-        Dim Mensaje = "Estimado Cliente, adjunto Recibo de Pago" & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
-        obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Recibo de Pago", Mensaje, Application.StartupPath & "\Temp\" & Archivo)
-        MsgBox("Se envió el comprobante " & Archivo, vbInformation, "SiCoFa")
+        Try
+
+            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim path As String = Application.StartupPath & "\Temp\" & c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
+            Me.GenerarReporte(c, "PDFA4", path)
+            Dim obj_N_AdminEmail As New cls_N_AdminEmail
+            Dim Archivo = c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
+            Dim Mensaje = "Estimado Cliente, adjunto Comprobante " & Archivo & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
+            obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, Archivo, Mensaje, Application.StartupPath & "\Temp\" & Archivo)
+            MsgBox("Se envió el comprobante " & Archivo, vbInformation, "SiCoFa")
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
 
     End Sub
     Private Sub FrmComprobantes_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
