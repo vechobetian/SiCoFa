@@ -1231,37 +1231,37 @@ Public Class cls_D_AdminContratos
                 cmd.CommandType = CommandType.Text
                 cmd.CommandText = sql
 
-                Using datosC As MySqlDataReader = cmd.ExecuteReader()
-                    datosC.Read()
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    datos.Read()
 
-                    If datosC.HasRows = False Then
-                        datosC.Close()
-                        cmd.Dispose()
-                        Throw New Exception("Comprobante no Encontrado")
-                    End If
+                    If datos.HasRows Then
+                        CodiTC = datos("CodiTC")
+                        PrefComp = datos("PrefComp")
+                        NumComp = datos("NumComp").ToString
+                        IdCliente = datos("IdCliente")
+                        FechaComp = datos("FechaComp")
+                        ImpBto = datos("ImpBto")
+                        ImpEx = datos("ImpEx")
+                        ImpGrav1 = datos("ImpGrav1")
+                        ImpNeto1 = datos("ImpNeto1")
+                        ImpIVA1 = datos("ImpIVA1")
+                        ImpGrav2 = datos("ImpGrav2")
+                        ImpNeto2 = datos("ImpNeto2")
+                        ImpIVA2 = datos("ImpIVA2")
+                        ImpCB = datos("ImpCB")
+                        ImpEf = datos("ImpEf")
+                        ImpCC = datos("ImpCC")
+                        ImpTar = datos("ImpTar")
+                        IdOperAsoc = datos("IdOperAsoc")
+                        CAE = datos("CAE").ToString
 
-                    CodiTC = datosC("CodiTC")
-                    PrefComp = datosC("PrefComp")
-                    NumComp = datosC("NumComp").ToString
-                    IdCliente = datosC("IdCliente")
-                    FechaComp = datosC("FechaComp")
-                    ImpBto = datosC("ImpBto")
-                    ImpEx = datosC("ImpEx")
-                    ImpGrav1 = datosC("ImpGrav1")
-                    ImpNeto1 = datosC("ImpNeto1")
-                    ImpIVA1 = datosC("ImpIVA1")
-                    ImpGrav2 = datosC("ImpGrav2")
-                    ImpNeto2 = datosC("ImpNeto2")
-                    ImpIVA2 = datosC("ImpIVA2")
-                    ImpCB = datosC("ImpCB")
-                    ImpEf = datosC("ImpEf")
-                    ImpCC = datosC("ImpCC")
-                    ImpTar = datosC("ImpTar")
-                    IdOperAsoc = datosC("IdOperAsoc")
-                    CAE = datosC("CAE").ToString
+                        If datos("VtoCAE") IsNot DBNull.Value Then
+                            VtoCAE = datos("VtoCAE")
+                        End If
+                    Else
+                        Return Nothing
+                        Exit Function
 
-                    If datosC("VtoCAE") IsNot DBNull.Value Then
-                        VtoCAE = datosC("VtoCAE")
                     End If
 
                 End Using
@@ -1333,34 +1333,33 @@ Public Class cls_D_AdminContratos
                 Using datosC As MySqlDataReader = cmd.ExecuteReader()
                     datosC.Read()
 
-                    If datosC.HasRows = False Then
-                        datosC.Close()
-                        cmd.Dispose()
-                        Throw New Exception("Comprobante no Encontrado")
-                    End If
+                    If datosC.HasRows Then
+                        CodiTC = datosC("CodiTC")
+                        PrefComp = datosC("PrefComp")
+                        NumComp = datosC("NumComp").ToString
+                        IdCliente = datosC("IdCliente")
+                        FechaComp = datosC("FechaComp")
+                        ImpBto = datosC("ImpBto")
+                        ImpEx = datosC("ImpEx")
+                        ImpGrav1 = datosC("ImpGrav1")
+                        ImpNeto1 = datosC("ImpNeto1")
+                        ImpIVA1 = datosC("ImpIVA1")
+                        ImpGrav2 = datosC("ImpGrav2")
+                        ImpNeto2 = datosC("ImpNeto2")
+                        ImpIVA2 = datosC("ImpIVA2")
+                        ImpCB = datosC("ImpCB")
+                        ImpEf = datosC("ImpEf")
+                        ImpCC = datosC("ImpCC")
+                        ImpTar = datosC("ImpTar")
+                        IdOperAsoc = datosC("IdOperAsoc")
+                        CAE = datosC("CAE").ToString
 
-                    CodiTC = datosC("CodiTC")
-                    PrefComp = datosC("PrefComp")
-                    NumComp = datosC("NumComp").ToString
-                    IdCliente = datosC("IdCliente")
-                    FechaComp = datosC("FechaComp")
-                    ImpBto = datosC("ImpBto")
-                    ImpEx = datosC("ImpEx")
-                    ImpGrav1 = datosC("ImpGrav1")
-                    ImpNeto1 = datosC("ImpNeto1")
-                    ImpIVA1 = datosC("ImpIVA1")
-                    ImpGrav2 = datosC("ImpGrav2")
-                    ImpNeto2 = datosC("ImpNeto2")
-                    ImpIVA2 = datosC("ImpIVA2")
-                    ImpCB = datosC("ImpCB")
-                    ImpEf = datosC("ImpEf")
-                    ImpCC = datosC("ImpCC")
-                    ImpTar = datosC("ImpTar")
-                    IdOperAsoc = datosC("IdOperAsoc")
-                    CAE = datosC("CAE").ToString
-
-                    If datosC("VtoCAE") IsNot DBNull.Value Then
-                        VtoCAE = datosC("VtoCAE")
+                        If datosC("VtoCAE") IsNot DBNull.Value Then
+                            VtoCAE = datosC("VtoCAE")
+                        End If
+                    Else
+                        Return Nothing
+                        Exit Function
                     End If
 
                 End Using
@@ -1368,12 +1367,6 @@ Public Class cls_D_AdminContratos
             End Using
 
             objCli = Me.ObtenerClientePorId(IdCliente)
-
-            'If CodiTC = "REC" Then
-            'objDetalleC = Me.ObtenerDetalleR(argIdOperAsoc, Me.DisIva(CodiTC))
-            'Else
-            'objDetalleC = Me.ObtenerDetalleC(ar, Me.DisIva(CodiTC))
-            'End If
 
             If CAE <> "" Then
                 objCAE = New CAE(NumComp, CAE, VtoCAE)
@@ -1677,6 +1670,41 @@ Public Class cls_D_AdminContratos
 
     End Function
 
+#End Region
+
+#Region "Administracion Cuentas Email"
+    Public Function ObtenerCuentaEmail() As CuentaEmail
+
+        Dim objCEmail As CuentaEmail = Nothing
+
+        Try
+
+            Dim sql As String
+
+            sql = "SELECT IdCEmail,Port,Host,User,Psw,Mail FROM TblCuentasEmail"
+
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand()
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
+
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    datos.Read()
+
+                    If datos.HasRows Then
+                        objCEmail = New CuentaEmail(datos("IdCEmail"), datos("Port"), datos("Host"), datos("User"), datos("Psw"), datos("Mail"))
+                    End If
+                End Using
+
+            End Using
+
+            Return objCEmail
+
+        Catch ex As Exception
+            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerEmailEmpresa", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
 #End Region
 
 #Region "Administracion Asientos Contables"

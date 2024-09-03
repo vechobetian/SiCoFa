@@ -1,5 +1,4 @@
 ﻿Imports SiCoFa.Datos
-Imports SiCoFa.Entidades
 Public Class cls_N_AdminFTP
     Private mobj_D_AdminFTP As New cls_D_AdminFTP
     Public Sub ListFiles(remotePath As String)

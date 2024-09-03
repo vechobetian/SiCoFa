@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cls_D_AdminDB.vb" />
-    <Compile Include="cls_D_AdminEmail.vb" />
     <Compile Include="cls_D_AdminFTP.vb" />
     <Compile Include="cls_D_AdminPlanCuentas.vb" />
     <Compile Include="cls_D_AdminCAE.vb" />
@@ -72,7 +71,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="vecho.vb" />
     <Compile Include="Web References\WSAA\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,6 +149,10 @@
     <ProjectReference Include="..\GesContratos.Entidades\Entidades.vbproj">
       <Project>{2215aad4-a976-496f-b9f8-87258163c48b}</Project>
       <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vecho\Vecho.vbproj">
+      <Project>{14823426-df84-456c-b790-c99f3c98a050}</Project>
+      <Name>Vecho</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

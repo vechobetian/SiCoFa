@@ -7,32 +7,34 @@ Public Class cls_D_AdminUsuarios
 
             Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Movil,Email,CodiTDoc,NumDoc,Password FROM TblUsuarios WHERE IdUsuario=" & argIdUsuario & " AND Password='" & argPassword & "'"
 
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            datos.Read()
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
 
-            If datos.HasRows Then
-                objUs = New Usuario(
-                            datos("IdUsuario"),
-                            datos("Nombre"),
-                            datos("Domicilio"),
-                            datos("Localidad"),
-                            datos("Provincia"),
-                            datos("Telefono"),
-                            datos("Movil"),
-                            datos("Email"),
-                            datos("CodiTDoc"),
-                            datos("NumDoc"),
-                            datos("Password")
-                            )
-            Else
-                objUs = Nothing
-            End If
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    datos.Read()
 
-            datos.Close()
-            cmd.Dispose()
+                    If datos.HasRows Then
+                        objUs = New Usuario(
+                                    datos("IdUsuario"),
+                                    datos("Nombre"),
+                                    datos("Domicilio"),
+                                    datos("Localidad"),
+                                    datos("Provincia"),
+                                    datos("Telefono"),
+                                    datos("Movil"),
+                                    datos("Email"),
+                                    datos("CodiTDoc"),
+                                    datos("NumDoc"),
+                                    datos("Password")
+                                    )
+                    Else
+                        objUs = Nothing
+                    End If
+                End Using
+
+            End Using
+
             Return objUs
 
         Catch ex As Exception

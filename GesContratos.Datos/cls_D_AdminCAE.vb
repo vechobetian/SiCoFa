@@ -143,7 +143,7 @@ Public Class cls_D_AdminCAE
                     Me.Observaciones &= String.Format("Obs: {0} ({1})", o.Msg, o.Code) & vbCrLf
                 Next
                 'Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
-                MsgBox(vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
+                MsgBox(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
             End If
 
             If r.Errors IsNot Nothing Then
@@ -151,7 +151,7 @@ Public Class cls_D_AdminCAE
                 For Each er In r.Errors
                     Me.Errores &= String.Format("Er: {0}: {1}", er.Code, er.Msg) & vbCrLf
                 Next
-                Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerCAE", Errores))
+                Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Errores))
 
             End If
 
@@ -167,7 +167,7 @@ Public Class cls_D_AdminCAE
 
         Catch ex As Exception
             'If ex.HResult <> -2146233079 Then
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerCAE", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", ex.Message))
             Return Nothing
             'End If
 

@@ -1,4 +1,4 @@
-ï»¿Module vecho
+Public Module Funciones
     Public Function NumEnLetras(Numero As String) As String
         Dim b, paso As Integer
         Dim expresion, entero, deci, flag As String
@@ -209,7 +209,7 @@
                 End If
                 If paso = 7 Then
                     If Len(entero) = 7 And Mid(entero, 1, 1) = "1" Then
-                        expresion = expresion & "millÃ³n "
+                        expresion = expresion & "millón "
                     Else
                         expresion = expresion & "millones "
                     End If
@@ -246,12 +246,24 @@
         End Try
 
     End Function
+    Public Function CDecimal(ByVal argValor As String) As Decimal
+
+        Dim NDecimal As Decimal
+
+        If InStr(argValor, ",") = 0 Then
+            NDecimal = Format(Replace(argValor, ".", ","), "Standard")
+        Else
+            NDecimal = Format(argValor, "Standard")
+        End If
+
+        Return NDecimal
+
+    End Function
     Public Function MensajeError(argModulo As String, argProcedimiento As String, argDescripcion As String) As String
 
         Dim msj As String
-        msj = "Modulo: " & argModulo & vbCrLf & "Procedimiento: " & argProcedimiento & vbCrLf & "DescripciÃ³n: " & argDescripcion
+        msj = "Modulo: " & argModulo & vbCrLf & "Procedimiento: " & argProcedimiento & vbCrLf & "Descripción: " & argDescripcion
         Return msj
 
     End Function
-
 End Module

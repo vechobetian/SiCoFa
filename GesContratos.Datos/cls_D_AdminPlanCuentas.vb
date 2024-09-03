@@ -9,16 +9,23 @@ Public Class cls_D_AdminPlanCuentas
         Try
             Dim sql As String = "SELECT CodiRub,NombreRub FROM TblRubros ORDER BY CodiRub"
 
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            While datos.Read()
-                rb = New RubroContabilidad(datos("CodiRub"), datos("NombreRub"))
-                lr.Add(rb)
-            End While
-            datos.Close()
-            datos.DisposeAsync()
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
+
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    If datos.HasRows Then
+                        While datos.Read()
+                            rb = New RubroContabilidad(datos("CodiRub"), datos("NombreRub"))
+                            lr.Add(rb)
+                        End While
+                    Else
+                        lr = Nothing
+                    End If
+                End Using
+
+            End Using
+
             Return lr
 
         Catch ex As Exception
@@ -33,17 +40,23 @@ Public Class cls_D_AdminPlanCuentas
 
         Try
             Dim sql As String = "SELECT CodiSubRub,CodiRub,NombreSubRubro FROM TblSubRubros WHERE CodiRub='" & argCodiRub & "' ORDER BY CodiSubRub"
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            While datos.Read()
-                srb = New SubRubroContabilidad(datos("CodiSubRub"), datos("CodiRub"), datos("NombreSubRubro"))
-                lsr.Add(srb)
-            End While
 
-            datos.Close()
-            datos.DisposeAsync()
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
+
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    If datos.HasRows Then
+                        While datos.Read()
+                            srb = New SubRubroContabilidad(datos("CodiSubRub"), datos("CodiRub"), datos("NombreSubRubro"))
+                            lsr.Add(srb)
+                        End While
+                    Else
+                        lsr = Nothing
+                    End If
+                End Using
+            End Using
+
             Return lsr
 
         Catch ex As Exception
@@ -59,16 +72,24 @@ Public Class cls_D_AdminPlanCuentas
 
         Try
             Dim sql As String = "SELECT CodiCtaCol,CodiSubRub,NombreCtaCol FROM TblCtasColectivas WHERE CodiSubRub='" & argCodiSubRub & "' ORDER BY CodiCtaCol"
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            While datos.Read()
-                cc = New CuentaColectiva(datos("CodiCtaCol"), datos("CodiSubRub"), datos("NombreCtaCol"))
-                lcc.Add(cc)
-            End While
-            datos.Close()
-            datos.DisposeAsync()
+
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
+
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    If datos.HasRows Then
+                        While datos.Read()
+                            cc = New CuentaColectiva(datos("CodiCtaCol"), datos("CodiSubRub"), datos("NombreCtaCol"))
+                            lcc.Add(cc)
+                        End While
+                    Else
+                        lcc = Nothing
+                    End If
+                End Using
+
+            End Using
+
             Return lcc
 
         Catch ex As Exception
@@ -84,16 +105,24 @@ Public Class cls_D_AdminPlanCuentas
 
         Try
             Dim sql As String = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables WHERE CodiCtaCol='" & argCodiCtaCol & "' ORDER BY CodiCta"
-            Dim cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-            cmd.CommandType = CommandType.Text
-            cmd.CommandText = sql
-            Dim datos As MySqlDataReader = cmd.ExecuteReader()
-            While datos.Read()
-                ci = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("NombreCta"))
-                lci.Add(ci)
-            End While
-            datos.Close()
-            datos.DisposeAsync()
+
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = sql
+
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    If datos.HasRows Then
+                        While datos.Read()
+                            ci = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("NombreCta"))
+                            lci.Add(ci)
+                        End While
+                    Else
+                        lci = Nothing
+                    End If
+                End Using
+
+            End Using
+
             Return lci
 
         Catch ex As Exception
