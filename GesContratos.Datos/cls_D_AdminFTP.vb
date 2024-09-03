@@ -3,7 +3,6 @@ Imports System.Net
 Imports System.IO
 Imports System.Linq
 Imports SiCoFa.Entidades
-
 Public Class cls_D_AdminFTP
     Private ftpServer As String
     Private ftpUsername As String
@@ -48,7 +47,7 @@ Public Class cls_D_AdminFTP
     End Sub
 
     ' Método para subir un archivo al servidor FTP
-    Public Function UploadFile(remotePath As String, localFilePath As String) As String
+    Public Function UploadFile(remotePath As String, localFilePath As String) As Boolean
         Try
             Dim request As FtpWebRequest = CType(WebRequest.Create(ftpServer & remotePath), FtpWebRequest)
             request.Method = WebRequestMethods.Ftp.UploadFile
@@ -63,13 +62,18 @@ Public Class cls_D_AdminFTP
                 requestStream.Write(fileContents, 0, fileContents.Length)
             End Using
 
+            ' Obtiene la respuesta del servidor FTP
             Using response As FtpWebResponse = CType(request.GetResponse(), FtpWebResponse)
-                Return response.StatusDescription
+                ' Verifica si el código de estado es 226 (Transferencia exitosa)
+                If response.StatusCode = FtpStatusCode.ClosingData Then
+                    Return True
+                Else
+                    Return False
+                End If
             End Using
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "UploadFile", ex.Message))
-            Return "ERROR"
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "UploadFile", ex.Message))
 
         End Try
     End Function
