@@ -61,7 +61,7 @@ Public Class FrmMDI
             MsgBox("Se registraron " & RegAfectados & " operaciones", vbInformation, "SiCoFa")
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
     End Sub
@@ -173,28 +173,38 @@ Public Class FrmMDI
 
     Private Sub ListarArchivosFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListarArchivosFTPToolStripMenuItem.Click
 
-        Dim sql As String = "SELECT UsFTP FROM TblContratos"
-        Dim obj_N_AdminDB As New cls_N_AdminDB
-        Dim dt As DataTable = obj_N_AdminDB.ObtenerTabla(sql)
-        Dim filePath As String = "C:\SiCoFa_Server\archivo.txt"
-
         Try
-            Using writer As New StreamWriter(filePath)
-                For Each row As DataRow In dt.Rows
-                    For Each column As DataColumn In dt.Columns
-                        writer.Write(row(column).ToString())
+
+            Dim sql As String = "SELECT UsFTP FROM ConUsFTPHabilitados"
+
+            Dim obj_N_AdminDB As New cls_N_AdminDB
+            Dim dt As DataTable = obj_N_AdminDB.ObtenerTabla(sql)
+
+            Dim filePath As String = "C:\SiCoFa_Server\archivo.txt"
+
+            Try
+                Using writer As New StreamWriter(filePath)
+                    For Each row As DataRow In dt.Rows
+                        For Each column As DataColumn In dt.Columns
+                            writer.Write(row(column).ToString())
+                        Next
+                        writer.WriteLine()
                     Next
-                    writer.WriteLine()
-                Next
-            End Using
+                End Using
+            Catch ex As Exception
+                MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+            End Try
+
+            Dim obj_N_AdminFTP As New cls_N_AdminFTP
+            obj_N_AdminFTP.ListFiles("/Actualizaciones")
+
+            MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", "C:\SiCoFa_Server\archivo.txt"))
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
-        'Dim obj_N_AdminFTP As New cls_N_AdminFTP
-        'obj_N_AdminFTP.ListFiles("/Actualizaciones")
-
-        'MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", "C:\SiCoFa_Server\id7.txt"))
 
 
     End Sub
