@@ -169,43 +169,9 @@ Public Class FrmMDI
         End Select
 
         Return cte
+
     End Function
-
-    Private Sub ListarArchivosFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListarArchivosFTPToolStripMenuItem.Click
-
-        Try
-
-            Dim sql As String = "SELECT UsFTP FROM ConUsFTPHabilitados"
-
-            Dim obj_N_AdminDB As New cls_N_AdminDB
-            Dim dt As DataTable = obj_N_AdminDB.ObtenerTabla(sql)
-
-            Dim filePath As String = "C:\SiCoFa_Server\archivo.txt"
-
-            Try
-                Using writer As New StreamWriter(filePath)
-                    For Each row As DataRow In dt.Rows
-                        For Each column As DataColumn In dt.Columns
-                            writer.Write(row(column).ToString())
-                        Next
-                        writer.WriteLine()
-                    Next
-                End Using
-            Catch ex As Exception
-                MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-            End Try
-
-            Dim obj_N_AdminFTP As New cls_N_AdminFTP
-            obj_N_AdminFTP.ListFiles("/Actualizaciones")
-
-            MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", "C:\SiCoFa_Server\archivo.txt"))
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-
+    Private Sub ActualizarUsFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarUsFTPToolStripMenuItem.Click
+        mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id8.txt")
     End Sub
 End Class

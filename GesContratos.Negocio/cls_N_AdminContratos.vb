@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Datos
+﻿Imports System.IO
+Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminContratos
 
@@ -194,6 +195,41 @@ Public Class cls_N_AdminContratos
         Return Actualizado
     End Function
 
+    Public Function ActualizarUsFTP(ByVal argPathLocal As String) As Boolean
+        Try
+
+            Dim sql As String = "SELECT UsFTP FROM ConUsFTPHabilitados"
+
+            Dim obj_N_AdminDB As New cls_N_AdminDB
+            Dim dt As DataTable = obj_N_AdminDB.ObtenerTabla(sql)
+
+            Dim filePath As String = argPathLocal
+
+            Try
+                Using writer As New StreamWriter(filePath)
+                    For Each row As DataRow In dt.Rows
+                        For Each column As DataColumn In dt.Columns
+                            writer.Write(row(column).ToString())
+                        Next
+                        writer.WriteLine()
+                    Next
+                End Using
+            Catch ex As Exception
+                MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+            End Try
+
+            Dim obj_N_AdminFTP As New cls_N_AdminFTP
+            obj_N_AdminFTP.ListFiles("/Actualizaciones")
+
+            MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", argPathLocal))
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarUsFTP", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
 #End Region
 
 #Region "Administracion de Locadores"

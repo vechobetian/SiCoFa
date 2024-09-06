@@ -52,7 +52,7 @@ Partial Class FrmMDI
         Me.EstadoSecion = New System.Windows.Forms.Label()
         Me.IdUsuario = New System.Windows.Forms.Label()
         Me.Usuario = New System.Windows.Forms.Label()
-        Me.ListarArchivosFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ActualizarUsFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -145,7 +145,7 @@ Partial Class FrmMDI
         '
         'ProcesosToolStripMenuItem
         '
-        Me.ProcesosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DevengarServiciosToolStripMenuItem, Me.EnviarMailServiciosPrestadosToolStripMenuItem, Me.FacturarServiciosToolStripMenuItem, Me.ListarArchivosFTPToolStripMenuItem})
+        Me.ProcesosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DevengarServiciosToolStripMenuItem, Me.EnviarMailServiciosPrestadosToolStripMenuItem, Me.FacturarServiciosToolStripMenuItem, Me.ActualizarUsFTPToolStripMenuItem})
         Me.ProcesosToolStripMenuItem.Name = "ProcesosToolStripMenuItem"
         Me.ProcesosToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
         Me.ProcesosToolStripMenuItem.Text = "&Procesos"
@@ -292,11 +292,11 @@ Partial Class FrmMDI
         Me.Usuario.TabIndex = 11
         Me.Usuario.Text = "Usuario"
         '
-        'ListarArchivosFTPToolStripMenuItem
+        'ActualizarUsFTPToolStripMenuItem
         '
-        Me.ListarArchivosFTPToolStripMenuItem.Name = "ListarArchivosFTPToolStripMenuItem"
-        Me.ListarArchivosFTPToolStripMenuItem.Size = New System.Drawing.Size(235, 22)
-        Me.ListarArchivosFTPToolStripMenuItem.Text = "Listar Archivos FTP"
+        Me.ActualizarUsFTPToolStripMenuItem.Name = "ActualizarUsFTPToolStripMenuItem"
+        Me.ActualizarUsFTPToolStripMenuItem.Size = New System.Drawing.Size(235, 22)
+        Me.ActualizarUsFTPToolStripMenuItem.Text = "&Actualizar UsFTP"
         '
         'FrmMDI
         '
@@ -356,5 +356,5 @@ Partial Class FrmMDI
     Friend WithEvents ComprobantesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EstadoDeCuentaClientesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FacturarServiciosToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ListarArchivosFTPToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ActualizarUsFTPToolStripMenuItem As ToolStripMenuItem
 End Class
