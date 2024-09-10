@@ -2,18 +2,38 @@
 Public Class FrmEdicionTabla
     Property Caption As String
     Property SQL As String
+    Property dTable As DataTable
+
 
     Private obj_N_AdminDB As New cls_N_AdminDB
-    Private dTable As DataTable
     Private MenuContextual As New ContextMenuStrip()
     Private selectedColumn As DataGridViewColumn
     Private Sub FrmEdicionTabla_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        dTable = obj_N_AdminDB.ObtenerTabla(Me.SQL)
-        Me.DataGridView1.DataSource = dTable
+        If SQL <> "" Then
+            dTable = obj_N_AdminDB.ObtenerTabla(Me.SQL)
+        End If
+
+        If dTable IsNot Nothing Then
+            Me.DataGridView1.DataSource = dTable
+            Me.DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+        End If
+
         Me.Text = Me.Caption
+        Me.ActualizarCantidadRegistros()
 
     End Sub
+    Private Sub ActualizarCantidadRegistros()
+        ' Obtener la cantidad de filas del DataGridView
+        Dim cantidadRegistros As Integer = DataGridView1.Rows.Count
+
+        ' Actualizar el texto del ToolStripStatusLabel
+        ToolStripStatusLabel1.Text = "Cantidad de registros: " & cantidadRegistros.ToString()
+    End Sub
     Private Sub DataGridView1_RowValidated(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowValidated
+        If Me.SQL = "" Then
+            Exit Sub
+        End If
+
         obj_N_AdminDB.ActualizarTabla(Me.SQL, dTable)
     End Sub
     Public Sub New()
@@ -229,6 +249,5 @@ Public Class FrmEdicionTabla
             selectedColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         End If
     End Sub
-
 
 End Class

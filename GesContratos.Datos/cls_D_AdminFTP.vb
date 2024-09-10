@@ -34,7 +34,7 @@ Public Class cls_D_AdminFTP
                             If objArchivo IsNot Nothing Then
                                 fileList.Add(objArchivo)
                                 ' Aquí puedes procesar fileInfo según tus necesidades
-                                MsgBox($"Nombre: {objArchivo.Name}, Tamaño: {objArchivo.Size}, Fecha de Modificación: {objArchivo.ModificationDate}")
+                                'MsgBox($"Nombre: {objArchivo.Name}, Tamaño: {objArchivo.Size}, Fecha de Modificación: {objArchivo.ModificationDate}")
                             End If
                             line = reader.ReadLine()
                         End While

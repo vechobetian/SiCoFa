@@ -24,5 +24,17 @@ Public Class cls_N_AdminDB
         End Try
 
     End Sub
+    Public Function ObtenerValor(ByVal argSql As String) As Object
+
+        Try
+
+            Return mobj_D_AdminDB.ObtenerValor(argSql)
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerValor", ex.Message))
+
+        End Try
+
+    End Function
 
 End Class

@@ -36,5 +36,29 @@ Public Class cls_D_AdminDB
         End Try
 
     End Sub
+    Public Function ObtenerValor(ByVal argSql As String) As Object
+        Try
+            ' Crear un comando SQL
+            Dim command As New MySqlCommand(argSql, Mod_D_Admin.ConexionDB.Conexion)
+
+            ' Agregar parámetro para evitar SQL Injection
+            'command.Parameters.AddWithValue("@ID", 1)
+
+            ' Ejecutar la consulta y obtener el valor del campo
+            Dim valor As Object = command.ExecuteScalar()
+
+            ' Comprobar si se obtuvo un valor
+            If valor IsNot Nothing Then
+                Return valor
+            Else
+                Return Nothing
+            End If
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerValor", ex.Message))
+
+        End Try
+
+    End Function
 
 End Class

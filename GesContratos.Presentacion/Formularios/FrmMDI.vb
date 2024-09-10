@@ -174,43 +174,36 @@ Public Class FrmMDI
     Private Sub ActualizarUsFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarUsFTPToolStripMenuItem.Click
         mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id8.txt")
     End Sub
-
     Private Sub RegistroDeActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegistroDeActualizacionesToolStripMenuItem.Click
         ' Crear un nuevo formulario para mostrar los datos relacionados
+        Dim obj_N_AmindDB As New cls_N_AdminDB
         Dim obj_N_AdminFTP As New cls_N_AdminFTP
 
         Try
 
-            Dim FrmRegistro As New Form()
-            With FrmRegistro
-                '.ControlBox = False
-                '.FormBorderStyle = FormBorderStyle.None
-                .StartPosition = FormStartPosition.CenterScreen
-                '.Left = Me.Left + 32
-                '.Top = Me.DataGridView3.Top + 245 + Me.DataGridView3.CurrentRow.Height + Me.DataGridView3.CurrentRow.Index * 22 'Top + (barra de titulo + encabezado dgv) + Altura del Registro
-                .Width = 980
-                .Height = 100
-                '.KeyPreview = True
+            Dim dt As New DataTable
+            With dt.Columns
+                .Add("Cliente", GetType(String))
+                .Add("UsFTP", GetType(String))
+                .Add("Terminal", GetType(String))
+                .Add("FechaUAc", GetType(DateTime))
             End With
 
-            Dim DGV As New DataGridView()
-            With DGV
-                .Dock = DockStyle.Fill
-                .AllowUserToDeleteRows = False
-                .AllowUserToAddRows = False
-                .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-                .DataSource = obj_N_AdminFTP.ListFiles("/ActualizacionesRegistro")
+            Dim Archivos As List(Of Archivo) = obj_N_AdminFTP.ListFiles("/ActualizacionesRegistro")
 
-            End With
+            For Each a As Archivo In Archivos
+                Dim sql As String = "SELECT TblClientes.Nombre AS Cliente FROM TblClientes JOIN TblContratos ON TblClientes.IdCliente=TblContratos.IdCliente WHERE TblContratos.UsFTP='" & Strings.Left(a.Name, 11) & "'"
+                Dim Valor As Object = obj_N_AmindDB.ObtenerValor(sql)
 
-            'AddHandler relatedGrid.DataBindingComplete, AddressOf AdjustColumnWidths
+                If Valor IsNot Nothing Then
+                    Dim NombreCliente As String = Valor.ToString
+                    dt.Rows.Add(NombreCliente, Strings.Left(a.Name, 11), Strings.Mid(a.Name, 12, 2), a.ModificationDate)
+                End If
+            Next
 
-            ' Asignar el evento KeyDown para cerrar el formulario con la tecla Escape
-            'AddHandler relatedForm.KeyDown, AddressOf relatedForm_KeyDown
-
-            With FrmRegistro
-                .Controls.Add(DGV)
-                .Height = DGV.Height
+            With FrmEdicionTabla
+                .dTable = dt
+                .Caption = "Registro de Actualizaciones"
                 .Show()
             End With
 
