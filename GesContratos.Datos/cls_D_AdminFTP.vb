@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Globalization
 Imports System.Net
 Imports System.IO
 Imports System.Linq
@@ -16,7 +17,7 @@ Public Class cls_D_AdminFTP
     End Sub
 
     ' Método para listar archivos en el directorio FTP
-    Public Sub ListFiles(remotePath As String)
+    Public Function ListFiles(remotePath As String) As List(Of Archivo)
         Dim fileList As New List(Of Archivo)
 
         Try
@@ -41,10 +42,14 @@ Public Class cls_D_AdminFTP
                 End Using
             End Using
 
+            Return fileList
+
         Catch ex As Exception
-            Console.WriteLine("Error al listar archivos: " & ex.Message)
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "UploadFile", ex.Message))
+
         End Try
-    End Sub
+
+    End Function
 
     ' Método para subir un archivo al servidor FTP
     Public Function UploadFile(remotePath As String, localFilePath As String) As Boolean
@@ -116,7 +121,9 @@ Public Class cls_D_AdminFTP
                 .User = parts(2) ' Usuario
                 .Group = parts(3) ' Grupo
                 .Size = Long.Parse(parts(4)) ' Tamaño del archivo
-                .ModificationDate = DateTime.Parse(parts(5) & " " & parts(6) & " " & parts(7)) ' Fecha y hora
+
+                Dim fechaStr As String = parts(5) & " " & parts(6) & " " & parts(7)
+                .ModificationDate = Me.ObtenerFecha(fechaStr)
                 .Name = String.Join(" ", parts.Skip(8)) ' Nombre del archivo
             End With
 
@@ -127,5 +134,39 @@ Public Class cls_D_AdminFTP
             Return Nothing
         End Try
     End Function
+
+    Public Function ObtenerFecha(fechaStr As String) As String
+
+        Dim fechaConAnio As DateTime
+        Dim formatoEntrada As String = "MMM d H:mm" ' Formato de entrada sin el año
+        Dim formatoSalida As String = "MMM d yyyy H:mm" ' Formato de salida con el año
+        Dim anioActual As Integer = DateTime.Now.Year ' Año actual
+
+        Try
+            ' Divide la fecha original en partes
+            Dim partes As String() = fechaStr.Split(New Char() {" "c}, StringSplitOptions.RemoveEmptyEntries)
+
+            ' Verifica que partes contenga al menos 3 elementos
+            If partes.Length < 3 Then
+                Throw New FormatException("El formato de la fecha no es válido.")
+            End If
+
+            ' Construye la fecha con el año interpuesto
+            Dim fechaConAnioStr As String = $"{partes(0)} {partes(1)} {anioActual} {partes(2)}"
+
+            ' Intenta analizar la fecha con el año añadido
+            If DateTime.TryParseExact(fechaConAnioStr, formatoSalida, CultureInfo.InvariantCulture, DateTimeStyles.None, fechaConAnio) Then
+                ' Devuelve la fecha en el formato deseado
+                Return fechaConAnio.ToString("yyyy-MM-dd HH:mm")
+            Else
+                Throw New FormatException($"No se pudo convertir la fecha: {fechaConAnioStr}")
+            End If
+        Catch ex As FormatException
+            ' Muestra un mensaje de error en caso de formato no válido
+            MsgBox($"Error al analizar la fecha: {fechaStr}. Error: {ex.Message}")
+            Return "Fecha no válida"
+        End Try
+    End Function
+
 
 End Class

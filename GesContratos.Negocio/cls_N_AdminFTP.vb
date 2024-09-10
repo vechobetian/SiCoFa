@@ -1,15 +1,17 @@
 ﻿Imports SiCoFa.Datos
+Imports SiCoFa.Entidades
 Public Class cls_N_AdminFTP
     Private mobj_D_AdminFTP As New cls_D_AdminFTP
-    Public Sub ListFiles(remotePath As String)
+    Public Function ListFiles(remotePath As String) As List(Of Archivo)
         Try
-            mobj_D_AdminFTP.ListFiles(remotePath)
+            Return mobj_D_AdminFTP.ListFiles(remotePath)
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListFiles", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListFiles", ex.Message))
 
         End Try
-    End Sub
+
+    End Function
     Public Function UploadFile(remotePath As String, localFilePath As String) As String
         Try
             Return mobj_D_AdminFTP.UploadFile(remotePath, localFilePath)
