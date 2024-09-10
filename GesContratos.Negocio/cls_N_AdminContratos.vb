@@ -220,8 +220,6 @@ Public Class cls_N_AdminContratos
             End Try
 
             Dim obj_N_AdminFTP As New cls_N_AdminFTP
-            obj_N_AdminFTP.ListFiles("/Actualizaciones")
-
             MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", argPathLocal))
 
         Catch ex As Exception
