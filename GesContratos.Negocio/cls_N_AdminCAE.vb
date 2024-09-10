@@ -136,14 +136,16 @@ Public Class cls_N_AdminCAE
 
             If mstrEstadoCab = "A" And mstrEstadoDet = "A" Then
                 objCAE = New CAE(NroCbteAutorizado, r.FeDetResp(0).CAE, DateTime.ParseExact(r.FeDetResp(0).CAEFchVto, "yyyyMMdd", CultureInfo.InvariantCulture))
+                Return objCAE
+                Exit Function
             End If
 
             If r.FeDetResp(0).Observaciones IsNot Nothing Then
                 For Each o In r.FeDetResp(0).Observaciones
-                    Me.Observaciones &= String.Format("Obs: {0} ({1})", o.Msg, o.Code) & vbCrLf
+                    Me.Observaciones &= String.Format("Ob: {0} ({1})", o.Msg, o.Code) & vbCrLf
                 Next
-                'Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
-                MsgBox(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
+                Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
+                'MsgBox(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
             End If
 
             If r.Errors IsNot Nothing Then
@@ -160,16 +162,14 @@ Public Class cls_N_AdminCAE
                 For Each ev In r.Events
                     Me.Eventos &= String.Format("Ev: {0}: {1}", ev.Code, ev.Msg) & vbCrLf
                 Next
-                'Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerCAE", Eventos))
+                Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Eventos))
 
             End If
-            Return objCAE
 
         Catch ex As Exception
-            'If ex.HResult <> -2146233079 Then
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", ex.Message))
-            Return Nothing
-            'End If
+            If ex.HResult <> -2146233079 Then
+                Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", ex.Message))
+            End If
 
         End Try
 
