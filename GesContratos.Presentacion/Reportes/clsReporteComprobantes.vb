@@ -116,13 +116,13 @@ Public Class clsReporteComprobantes
 
         Select Case Me.TipoComprobante(0).Letra
             Case "A", "M"
-                report.ReportPath = "C:\GesContratos\GesContratos.Presentacion\Reportes\rptCompAA4.rdlc"
+                report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
             Case "B"
-                report.ReportPath = "C:\GesContratos\GesContratos.Presentacion\Reportes\rptCompBA4.rdlc"
+                report.ReportPath = Application.StartupPath & "\rptCompBA4.rdlc"
             Case "C"
-                report.ReportPath = "C:\GesContratos\GesContratos.Presentacion\Reportes\rptCompCA4.rdlc"
+                report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
             Case "R"
-                report.ReportPath = "C:\GesContratos\GesContratos.Presentacion\Reportes\rptCompRA4.rdlc"
+                report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
         End Select
 
         report.DataSources.Add(New ReportDataSource("Operacion", Operacion))

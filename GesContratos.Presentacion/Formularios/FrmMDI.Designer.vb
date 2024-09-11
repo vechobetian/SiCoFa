@@ -45,6 +45,7 @@ Partial Class FrmMDI
         Me.EstadoDeCuentaGruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ComprobantesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EstadoDeCuentaClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RegistroDeActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -53,7 +54,7 @@ Partial Class FrmMDI
         Me.EstadoSecion = New System.Windows.Forms.Label()
         Me.IdUsuario = New System.Windows.Forms.Label()
         Me.Usuario = New System.Windows.Forms.Label()
-        Me.RegistroDeActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EstadoUsFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -177,7 +178,7 @@ Partial Class FrmMDI
         '
         'AduditoríaToolStripMenuItem
         '
-        Me.AduditoríaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EstadoDeCuentaGruposToolStripMenuItem, Me.ComprobantesToolStripMenuItem, Me.EstadoDeCuentaClientesToolStripMenuItem, Me.RegistroDeActualizacionesToolStripMenuItem})
+        Me.AduditoríaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EstadoDeCuentaGruposToolStripMenuItem, Me.ComprobantesToolStripMenuItem, Me.EstadoDeCuentaClientesToolStripMenuItem, Me.RegistroDeActualizacionesToolStripMenuItem, Me.EstadoUsFTPToolStripMenuItem})
         Me.AduditoríaToolStripMenuItem.Name = "AduditoríaToolStripMenuItem"
         Me.AduditoríaToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.AduditoríaToolStripMenuItem.Text = "Au&ditoría"
@@ -198,7 +199,13 @@ Partial Class FrmMDI
         '
         Me.EstadoDeCuentaClientesToolStripMenuItem.Name = "EstadoDeCuentaClientesToolStripMenuItem"
         Me.EstadoDeCuentaClientesToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
-        Me.EstadoDeCuentaClientesToolStripMenuItem.Text = "Estado de Cuenta Clientes"
+        Me.EstadoDeCuentaClientesToolStripMenuItem.Text = "Estado &de Cuenta Clientes"
+        '
+        'RegistroDeActualizacionesToolStripMenuItem
+        '
+        Me.RegistroDeActualizacionesToolStripMenuItem.Name = "RegistroDeActualizacionesToolStripMenuItem"
+        Me.RegistroDeActualizacionesToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
+        Me.RegistroDeActualizacionesToolStripMenuItem.Text = "&Registro de Actualizaciones"
         '
         'PictureBox1
         '
@@ -299,11 +306,11 @@ Partial Class FrmMDI
         Me.Usuario.TabIndex = 11
         Me.Usuario.Text = "Usuario"
         '
-        'RegistroDeActualizacionesToolStripMenuItem
+        'EstadoUsFTPToolStripMenuItem
         '
-        Me.RegistroDeActualizacionesToolStripMenuItem.Name = "RegistroDeActualizacionesToolStripMenuItem"
-        Me.RegistroDeActualizacionesToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
-        Me.RegistroDeActualizacionesToolStripMenuItem.Text = "&Registro de Actualizaciones"
+        Me.EstadoUsFTPToolStripMenuItem.Name = "EstadoUsFTPToolStripMenuItem"
+        Me.EstadoUsFTPToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
+        Me.EstadoUsFTPToolStripMenuItem.Text = "Estado &UsFTP"
         '
         'FrmMDI
         '
@@ -365,4 +372,5 @@ Partial Class FrmMDI
     Friend WithEvents FacturarServiciosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ActualizarUsFTPToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RegistroDeActualizacionesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EstadoUsFTPToolStripMenuItem As ToolStripMenuItem
 End Class

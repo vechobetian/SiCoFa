@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Collections.Generic
+Imports MySql.Data.MySqlClient
 Public Class cls_D_AdminDB
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
 
@@ -19,6 +20,7 @@ Public Class cls_D_AdminDB
 
     End Function
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
+
         Try
 
             Using adapter = New MySqlDataAdapter(argSql, Mod_D_Admin.ConexionDB.Conexion)
@@ -31,23 +33,17 @@ Public Class cls_D_AdminDB
             End Using
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ActualizarTabla", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarTabla", ex.Message))
 
         End Try
 
     End Sub
     Public Function ObtenerValor(ByVal argSql As String) As Object
+
         Try
-            ' Crear un comando SQL
             Dim command As New MySqlCommand(argSql, Mod_D_Admin.ConexionDB.Conexion)
-
-            ' Agregar parámetro para evitar SQL Injection
-            'command.Parameters.AddWithValue("@ID", 1)
-
-            ' Ejecutar la consulta y obtener el valor del campo
             Dim valor As Object = command.ExecuteScalar()
 
-            ' Comprobar si se obtuvo un valor
             If valor IsNot Nothing Then
                 Return valor
             Else
@@ -60,5 +56,46 @@ Public Class cls_D_AdminDB
         End Try
 
     End Function
+    Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
 
+        Try
+
+            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = argSql
+
+                Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                    If datos.HasRows Then
+
+                        datos.Read()
+
+                        ' Crear un diccionario para almacenar los valores del registro
+                        Dim resultado As New Dictionary(Of String, Object)()
+
+                        ' Iterar sobre todos los campos del registro y agregar sus nombres y valores al diccionario
+                        For i As Integer = 0 To datos.FieldCount - 1
+                            Dim nombreCampo As String = datos.GetName(i)
+                            Dim valorCampo As Object = datos.GetValue(i)
+                            resultado(nombreCampo) = valorCampo
+                        Next
+
+                        ' Retornar el diccionario con los valores
+                        Return resultado
+
+                    Else
+                        Return Nothing
+
+                    End If
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerRegistro", ex.Message))
+
+        End Try
+
+    End Function
 End Class

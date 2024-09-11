@@ -37,4 +37,17 @@ Public Class cls_N_AdminDB
 
     End Function
 
+    Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
+
+        Try
+
+            Return mobj_D_AdminDB.ObtenerRegistro(argSql)
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerValor", ex.Message))
+
+        End Try
+
+    End Function
+
 End Class

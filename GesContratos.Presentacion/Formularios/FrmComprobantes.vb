@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports System.IO
+Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmComprobantes
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
@@ -443,12 +444,12 @@ Public Class FrmComprobantes
         Try
 
             Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
-            Dim path As String = Application.StartupPath & "\Temp\" & c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
-            Me.GenerarReporte(c, "PDFA4", path)
-            Dim obj_N_AdminEmail As New cls_N_AdminEmail
             Dim Archivo = c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
+            Dim TempPat As String = Application.StartupPath & "\Temp\" & Archivo
+            Me.GenerarReporte(c, "PDFA4", TempPat)
+            Dim obj_N_AdminEmail As New cls_N_AdminEmail
             Dim Mensaje = "Estimado Cliente, adjunto Comprobante " & Archivo & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
-            obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, Archivo, Mensaje, Application.StartupPath & "\Temp\" & Archivo)
+            obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, Archivo, Mensaje, TempPat)
             MsgBox("Se envió el comprobante " & Archivo, vbInformation, "SiCoFa")
 
         Catch ex As Exception

@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Negocio
+﻿Imports System.IO
+Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 'Imports System.ComponentModel
 Public Class FrmIngPagoClientes

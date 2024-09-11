@@ -108,7 +108,7 @@ Public Class clsReporteRecibo
         param.Add(New ReportParameter("Copia", Me.Copia))
         param.Add(New ReportParameter("CantiLetras", Me.CantidadEnLetras))
         param.Add(New ReportParameter("Concepto", Me.Concepto))
-        report.ReportPath = "C:\GesContratos\GesContratos.Presentacion\Reportes\rptReciboA4.rdlc" 'Application.StartupPath & "\rptEstadoCuenta.rdlc"
+        report.ReportPath = Application.StartupPath & "\rptReciboA4.rdlc"
         report.DataSources.Add(New ReportDataSource("Locador", Me.Locador))
         report.DataSources.Add(New ReportDataSource("DocumentoLocador", Me.DocumentoLocador))
         report.DataSources.Add(New ReportDataSource("IVALocador", Me.IVALocador))

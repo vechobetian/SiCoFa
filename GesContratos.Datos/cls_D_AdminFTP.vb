@@ -31,10 +31,13 @@ Public Class cls_D_AdminFTP
                         Dim line As String = reader.ReadLine()
                         While Not String.IsNullOrEmpty(line)
                             Dim objArchivo As Archivo = ParseFtpListLine(line)
+
                             If objArchivo IsNot Nothing Then
-                                fileList.Add(objArchivo)
-                                ' Aquí puedes procesar fileInfo según tus necesidades
-                                'MsgBox($"Nombre: {objArchivo.Name}, Tamaño: {objArchivo.Size}, Fecha de Modificación: {objArchivo.ModificationDate}")
+
+                                If objArchivo.Name <> "." And objArchivo.Name <> ".." Then '. es el directorio actual, .. es el directorio padre
+                                    fileList.Add(objArchivo)
+                                End If
+
                             End If
                             line = reader.ReadLine()
                         End While

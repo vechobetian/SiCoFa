@@ -4,12 +4,13 @@ Imports SiCoFa.Entidades
 Public Class FrmMDI
     Property Secion As Secion
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
-
     Private Sub LimpiarCarpetaTemp()
         Try
 
             If System.IO.Directory.Exists(Application.StartupPath & "\Temp") Then
                 System.IO.Directory.Delete(Application.StartupPath & "\Temp", True)
+                System.IO.Directory.CreateDirectory(Application.StartupPath & "\Temp")
+            Else
                 System.IO.Directory.CreateDirectory(Application.StartupPath & "\Temp")
             End If
         Catch ex As Exception
@@ -175,7 +176,7 @@ Public Class FrmMDI
         mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id8.txt")
     End Sub
     Private Sub RegistroDeActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegistroDeActualizacionesToolStripMenuItem.Click
-        ' Crear un nuevo formulario para mostrar los datos relacionados
+
         Dim obj_N_AmindDB As New cls_N_AdminDB
         Dim obj_N_AdminFTP As New cls_N_AdminFTP
 
@@ -187,18 +188,30 @@ Public Class FrmMDI
                 .Add("UsFTP", GetType(String))
                 .Add("Terminal", GetType(String))
                 .Add("FechaUAc", GetType(DateTime))
+                .Add("Estado", GetType(String))
             End With
 
             Dim Archivos As List(Of Archivo) = obj_N_AdminFTP.ListFiles("/ActualizacionesRegistro")
 
             For Each a As Archivo In Archivos
-                Dim sql As String = "SELECT TblClientes.Nombre AS Cliente FROM TblClientes JOIN TblContratos ON TblClientes.IdCliente=TblContratos.IdCliente WHERE TblContratos.UsFTP='" & Strings.Left(a.Name, 11) & "'"
-                Dim Valor As Object = obj_N_AmindDB.ObtenerValor(sql)
+                Dim sql As String = "SELECT TblClientes.Nombre AS Cliente,TblContratos.EstadoContrato AS Estado FROM TblClientes JOIN TblContratos ON TblClientes.IdCliente=TblContratos.IdCliente WHERE TblContratos.UsFTP='" & Strings.Left(a.Name, 11) & "'"
+                Dim Registro As Dictionary(Of String, Object) = obj_N_AmindDB.ObtenerRegistro(sql)
+                Dim fila As DataRow = dt.NewRow()
 
-                If Valor IsNot Nothing Then
-                    Dim NombreCliente As String = Valor.ToString
-                    dt.Rows.Add(NombreCliente, Strings.Left(a.Name, 11), Strings.Mid(a.Name, 12, 2), a.ModificationDate)
+                If Registro IsNot Nothing Then
+                    fila("Cliente") = Registro("Cliente")
+                    fila("Estado") = Registro("Estado")
+                Else
+                    fila("Cliente") = ""
+                    fila("Estado") = ""
                 End If
+
+                fila("UsFTP") = Strings.Left(a.Name, 11)
+                fila("Terminal") = Strings.Mid(a.Name, 12, 2)
+                fila("FechaUAc") = a.ModificationDate
+
+                dt.Rows.Add(fila)
+
             Next
 
             With FrmEdicionTabla
@@ -213,5 +226,11 @@ Public Class FrmMDI
         End Try
 
     End Sub
-
+    Private Sub EstadoUsFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EstadoUsFTPToolStripMenuItem.Click
+        With FrmEdicionTabla
+            .Caption = "Estado Usuarios FTP"
+            .SQL = "SELECT * FROM ConEstadoUsFTP"
+            .Show()
+        End With
+    End Sub
 End Class

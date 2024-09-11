@@ -1,4 +1,4 @@
-﻿Imports System.Drawing.Printing
+﻿Imports System.IO
 Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel

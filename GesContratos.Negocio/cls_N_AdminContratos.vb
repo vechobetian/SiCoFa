@@ -227,7 +227,9 @@ Public Class cls_N_AdminContratos
             Return Nothing
 
         End Try
+
     End Function
+
 #End Region
 
 #Region "Administracion de Locadores"

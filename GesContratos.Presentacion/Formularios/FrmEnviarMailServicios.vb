@@ -1,4 +1,4 @@
-﻿Imports System.Drawing.Printing
+﻿Imports System.IO
 Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
@@ -142,9 +142,9 @@ Public Class FrmEnviarMailServicios
                 Me.ProgressBar1.Value = Cociente
                 Me.Refresh()
 
-                Archivo = "DC" & Format(c.IdContrato, "0000") & c.UltimoDev
+                Archivo = "DC" & Format(c.IdContrato, "0000") & c.UltimoDev & ".pdf"
                 Mensaje = "Estimado Cliente, adjunto Estado de Cuenta" & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
-                obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Detalle de Cuenta", Mensaje, Application.StartupPath & "\Temp\DC" & Format(c.IdContrato, "0000") & c.UltimoDev & ".pdf")
+                obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Detalle de Cuenta", Mensaje, Application.StartupPath & "\Temp\" & Archivo)
 
                 NumReporte += 1
                 Cociente = NumReporte / NumContratos * 100
