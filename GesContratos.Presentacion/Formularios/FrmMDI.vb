@@ -19,6 +19,12 @@ Public Class FrmMDI
 
     End Sub
     Private Sub MostrarSecion()
+
+        If Me.Secion Is Nothing Then
+            Me.Close()
+            Exit Sub
+        End If
+
         Select Case Me.Secion.Estado
             Case "INIC"
                 Me.EstadoSecion.Text = "Seción Iniciada por"
@@ -173,7 +179,7 @@ Public Class FrmMDI
 
     End Function
     Private Sub ActualizarUsFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarUsFTPToolStripMenuItem.Click
-        mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id8.txt")
+        mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id7.txt")
     End Sub
     Private Sub RegistroDeActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegistroDeActualizacionesToolStripMenuItem.Click
 

@@ -220,7 +220,7 @@ Public Class cls_N_AdminContratos
             End Try
 
             Dim obj_N_AdminFTP As New cls_N_AdminFTP
-            MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id8.txt", argPathLocal))
+            MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id7.txt", argPathLocal))
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarUsFTP", ex.Message))
