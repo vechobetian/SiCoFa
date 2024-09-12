@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmEstadCuentaClientes
+Partial Class FrmEstadoCuentaClientes
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -39,7 +39,7 @@ Partial Class FrmEstadCuentaClientes
         Me.ImpTotalAnticipos = New System.Windows.Forms.TextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ImprimirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GuardarComoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OperacionesCanceladasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -170,22 +170,22 @@ Partial Class FrmEstadCuentaClientes
         '
         'ArchivoToolStripMenuItem
         '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ImprimirToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarComoToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
         Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ArchivoToolStripMenuItem.Text = "&Archivo"
         '
-        'ImprimirToolStripMenuItem
+        'GuardarComoToolStripMenuItem
         '
-        Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
-        Me.ImprimirToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ImprimirToolStripMenuItem.Text = "&Imprimir"
+        Me.GuardarComoToolStripMenuItem.Name = "GuardarComoToolStripMenuItem"
+        Me.GuardarComoToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
+        Me.GuardarComoToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
+        Me.GuardarComoToolStripMenuItem.Text = "&Guardar Como"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(193, 22)
         Me.SalirToolStripMenuItem.Text = "&Salir"
         '
         'VerToolStripMenuItem
@@ -299,7 +299,7 @@ Partial Class FrmEstadCuentaClientes
     Friend WithEvents EstadoOperaContrato As DataGridViewTextBoxColumn
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents ArchivoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ImprimirToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GuardarComoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents VerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OperacionesCanceladasToolStripMenuItem As ToolStripMenuItem

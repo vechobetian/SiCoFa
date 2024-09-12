@@ -118,10 +118,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\FrmEstadCuentaClientes.Designer.vb">
-      <DependentUpon>FrmEstadCuentaClientes.vb</DependentUpon>
+    <Compile Include="Formularios\FrmEstadoCuentaClientes.Designer.vb">
+      <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmEstadCuentaClientes.vb">
+    <Compile Include="Formularios\FrmEstadoCuentaClientes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmAperComprobantes.Designer.vb">
@@ -250,8 +250,8 @@
     <EmbeddedResource Include="Formularios\FrmEdicionTabla.resx">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmEstadCuentaClientes.resx">
-      <DependentUpon>FrmEstadCuentaClientes.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmEstadoCuentaClientes.resx">
+      <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmOperaContratos.resx">
       <DependentUpon>FrmOperaContratos.vb</DependentUpon>

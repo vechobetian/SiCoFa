@@ -103,7 +103,7 @@ Public Class FrmEnviarMailServicios
 
                     .TotalAdeudado = "Total Adeudado a la fecha:" & Space(68 - Len(Format(c.TotalAdeudado, "Standard"))) & Format(c.TotalAdeudado, "Standard")
                     .SaldoAnticipos = "Saldo Anticipos:" & Space(78 - Len(Format(c.SaldoAnticipos, "Standard"))) & Format(c.SaldoAnticipos, "Standard")
-                    .NombreArchivo = "DC" & Format(c.IdContrato, "0000") & c.UltimoDev
+                    .PathArchivo = Application.StartupPath & "\Temp\" & "DC" & Format(c.IdContrato, "0000") & c.UltimoDev
                     .Run()
                     .Dispose()
                 End With

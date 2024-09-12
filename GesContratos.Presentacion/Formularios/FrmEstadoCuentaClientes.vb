@@ -1,6 +1,6 @@
 ﻿Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
-Public Class FrmEstadCuentaClientes
+Public Class FrmEstadoCuentaClientes
 
     Private mobjCliente As Cliente
     Private mobjContrato As Contrato
@@ -439,7 +439,7 @@ Public Class FrmEstadCuentaClientes
             .ShowDialog()
         End With
     End Sub
-    Private Sub ImprimirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimirToolStripMenuItem.Click
+    Private Sub GeneraReporte(ByVal argPathArchivo As String)
 
         Try
             Dim obj_N_AdminContratos As New cls_N_AdminContratos
@@ -470,7 +470,8 @@ Public Class FrmEstadCuentaClientes
 
                 .TotalAdeudado = "Total Adeudado a la fecha:" & Space(68 - Len(Format(mobjContrato.TotalAdeudado, "Standard"))) & Format(mobjContrato.TotalAdeudado, "Standard")
                 .SaldoAnticipos = "Saldo Anticipos:" & Space(78 - Len(Format(mobjContrato.SaldoAnticipos, "Standard"))) & Format(mobjContrato.SaldoAnticipos, "Standard")
-                .NombreArchivo = "DC" & Format(mobjContrato.IdContrato, "0000") & mobjContrato.UltimoDev
+                .PathArchivo = argPathArchivo 'argPathArchivo & "DC" & Format(mobjContrato.IdContrato, "0000") & mobjContrato.UltimoDev
+                '.PathArchivo = "DC" & Format(mobjContrato.IdContrato, "0000") & mobjContrato.UltimoDev
                 .Run()
                 .Dispose()
             End With
@@ -517,4 +518,25 @@ Public Class FrmEstadCuentaClientes
         End Try
 
     End Function
+    Private Sub GuardarComoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarComoToolStripMenuItem.Click
+        Dim saveFileDialog1 As New SaveFileDialog()
+
+        Try
+            With saveFileDialog1
+                .Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+                .FilterIndex = 2
+                .FileName = "DC" & Format(mobjContrato.IdContrato, "0000") & mobjContrato.UltimoDev
+                .DefaultExt = ".pdf"
+                .RestoreDirectory = True
+            End With
+
+            If saveFileDialog1.ShowDialog() = DialogResult.OK Then
+                Me.GeneraReporte(saveFileDialog1.FileName)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
 End Class

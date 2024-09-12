@@ -138,7 +138,7 @@ Public Class FrmMDI
         Dim cte As Cliente = BuscarCliente(str)
         Dim cto As Contrato = mobj_N_AdminContratos.ObtenerContrato(0, cte.IdCliente)
 
-        With FrmEstadCuentaClientes
+        With FrmEstadoCuentaClientes
             .OperaContratos(cte, cto, "DEBE")
             .Show()
         End With

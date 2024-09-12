@@ -14,15 +14,15 @@ Public Class clsEstadoCuentaPDF
     Property DetalleCuenta As String
     Property TotalAdeudado As String
     Property SaldoAnticipos As String
-    Property NombreArchivo As String
+    Property PathArchivo As String
 
     Private m_streams As IList(Of Stream)
 
     Public Sub Export(ByVal report As LocalReport)
 
         Dim pdfContent As Byte() = report.Render("PDF")
-        Dim pdfPath As String = Application.StartupPath & "\Temp\" & NombreArchivo & ".pdf"
-        Dim pdfFile As New System.IO.FileStream(pdfPath, System.IO.FileMode.Create)
+        'Dim pdfPath As String = Application.StartupPath & "\Temp\" & NombreArchivo & ".pdf"
+        Dim pdfFile As New System.IO.FileStream(PathArchivo, System.IO.FileMode.Create)
         pdfFile.Write(pdfContent, 0, pdfContent.Length)
         pdfFile.Close()
 
