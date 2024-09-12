@@ -23,11 +23,11 @@ Public Class FrmEdicionTabla
 
     End Sub
     Private Sub ActualizarCantidadRegistros()
-        ' Obtener la cantidad de filas del DataGridView
-        Dim cantidadRegistros As Integer = DataGridView1.Rows.Count
+        ' Obtener la cantidad de filas visibles del DataGridView
+        Dim cantidadRegistros As Integer = DataGridView1.Rows.Cast(Of DataGridViewRow)().Count(Function(row) row.Visible)
 
         ' Actualizar el texto del ToolStripStatusLabel
-        ToolStripStatusLabel1.Text = "Cantidad de registros: " & cantidadRegistros.ToString()
+        ToolStripStatusLabel1.Text = "Cantidad de registros visibles: " & cantidadRegistros.ToString()
     End Sub
     Private Sub DataGridView1_RowValidated(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowValidated
         If Me.SQL = "" Then
@@ -116,6 +116,14 @@ Public Class FrmEdicionTabla
     End Sub
     Private Sub ApplyFilter_Click(sender As Object, e As EventArgs)
         If selectedColumn IsNot Nothing Then
+            ' Crear el Panel primero
+            Dim panel As New Panel()
+            panel.Width = selectedColumn.Width + 50
+            panel.Height = 200
+            panel.Left = DataGridView1.GetCellDisplayRectangle(selectedColumn.Index, -1, True).Left
+            panel.Top = DataGridView1.Top
+            panel.BorderStyle = BorderStyle.FixedSingle
+
             ' Crear CheckedListBox
             Dim checkedListBox As New CheckedListBox()
             checkedListBox.CheckOnClick = True
@@ -124,19 +132,17 @@ Public Class FrmEdicionTabla
             ' Asociar dinámicamente el evento ItemCheck
             AddHandler checkedListBox.ItemCheck, AddressOf CheckedListBox1_ItemCheck
 
-            ' Obtener los valores únicos solo la primera vez
-            If uniqueValues Is Nothing Then
-                uniqueValues = New List(Of String)()
-                For Each row As DataGridViewRow In DataGridView1.Rows
-                    If Not row.IsNewRow Then
-                        Dim cellValue As String = row.Cells(selectedColumn.Index).Value.ToString()
-                        If Not uniqueValues.Contains(cellValue) Then
-                            uniqueValues.Add(cellValue)
-                        End If
+            ' Crear una nueva lista de valores únicos cada vez
+            uniqueValues = New List(Of String)()
+            For Each row As DataGridViewRow In DataGridView1.Rows
+                If Not row.IsNewRow Then
+                    Dim cellValue As String = row.Cells(selectedColumn.Index).Value.ToString()
+                    If Not uniqueValues.Contains(cellValue) Then
+                        uniqueValues.Add(cellValue)
                     End If
-                Next
-                uniqueValues.Insert(0, "Todos")
-            End If
+                End If
+            Next
+            uniqueValues.Insert(0, "Todos")
 
             ' Añadir los valores únicos al CheckedListBox
             checkedListBox.Items.AddRange(uniqueValues.ToArray())
@@ -149,19 +155,19 @@ Public Class FrmEdicionTabla
             ' Crear botones Aceptar y Cancelar
             Dim btnAceptar As New Button()
             btnAceptar.Text = "Aceptar"
-            AddHandler btnAceptar.Click, AddressOf BtnAceptar_Click
+            AddHandler btnAceptar.Click, Sub()
+                                             ApplyFilterToDataGridView(checkedListBox)
+                                             Me.Controls.Remove(panel)
+                                             panel.Dispose()
+                                             Me.ActualizarCantidadRegistros()
+                                         End Sub
 
             Dim btnCancelar As New Button()
             btnCancelar.Text = "Cancelar"
-            AddHandler btnCancelar.Click, AddressOf BtnCancelar_Click
-
-            ' Configurar el tamaño del panel
-            Dim panel As New Panel()
-            panel.Width = selectedColumn.Width + 50
-            panel.Height = 200
-            panel.Left = DataGridView1.GetCellDisplayRectangle(selectedColumn.Index, -1, True).Left
-            panel.Top = DataGridView1.Top
-            panel.BorderStyle = BorderStyle.FixedSingle
+            AddHandler btnCancelar.Click, Sub()
+                                              Me.Controls.Remove(panel)
+                                              panel.Dispose()
+                                          End Sub
 
             ' Ajustar el tamaño del CheckedListBox para que quepa dentro del panel
             checkedListBox.Width = panel.Width - 20
@@ -183,6 +189,12 @@ Public Class FrmEdicionTabla
             panel.Controls.Add(btnAceptar)
             panel.Controls.Add(btnCancelar)
 
+            ' Eliminar cualquier panel anterior del formulario
+            For Each ctrl As Control In Me.Controls.OfType(Of Panel)()
+                Me.Controls.Remove(ctrl)
+                ctrl.Dispose()
+            Next
+
             ' Añadir el panel al formulario
             Me.Controls.Add(panel)
             panel.BringToFront()
@@ -198,6 +210,52 @@ Public Class FrmEdicionTabla
             ' Asegurarse de que el panel reciba los eventos de teclado
             panel.Focus()
         End If
+    End Sub
+    Private Sub ApplyFilterToDataGridView(checkedListBox As CheckedListBox)
+        ' Obtener el índice de la columna seleccionada
+        Dim columnIndex As Integer = DataGridView1.Columns(selectedColumn.Name).Index
+
+        ' Crear una lista de valores seleccionados
+        Dim selectedValues As New List(Of String)()
+
+        ' Agregar solo los elementos seleccionados, excluyendo "Todos" si está seleccionado
+        For Each item In checkedListBox.CheckedItems
+            If item.ToString() <> "Todos" Then
+                selectedValues.Add(item.ToString())
+            End If
+        Next
+
+        ' Si no hay elementos seleccionados, mostrar todas las filas
+        If selectedValues.Count = 0 OrElse checkedListBox.CheckedItems.Contains("Todos") Then
+            For Each row As DataGridViewRow In DataGridView1.Rows
+                row.Visible = True
+            Next
+            Return
+        End If
+
+        ' Verificar si la fila actual debe ocultarse y cambiarla si es necesario
+        Dim currentRow As DataGridViewRow = DataGridView1.CurrentRow
+        If currentRow IsNot Nothing AndAlso Not selectedValues.Contains(currentRow.Cells(columnIndex).Value.ToString()) Then
+            ' Buscar la primera fila que será visible después de aplicar el filtro
+            For Each row As DataGridViewRow In DataGridView1.Rows
+                If selectedValues.Contains(row.Cells(columnIndex).Value.ToString()) Then
+                    DataGridView1.CurrentCell = row.Cells(0) ' Cambia la celda activa a una visible
+                    Exit For
+                End If
+            Next
+        End If
+
+        ' Aplicar el filtro, ocultando las filas que no coincidan con los valores seleccionados
+        For Each row As DataGridViewRow In DataGridView1.Rows
+            If selectedValues.Contains(row.Cells(columnIndex).Value.ToString()) Then
+                row.Visible = True
+            Else
+                row.Visible = False
+            End If
+        Next
+
+        Me.DataGridView1.Refresh()
+
     End Sub
     Private Sub BtnAceptar_Click(sender As Object, e As EventArgs)
         Dim panel As Panel = CType(CType(sender, Control).Parent, Panel)
@@ -225,6 +283,7 @@ Public Class FrmEdicionTabla
         ' Cerrar el panel
         Me.Controls.Remove(panel)
         panel.Dispose()
+
     End Sub
     Private Sub BtnCancelar_Click(sender As Object, e As EventArgs)
         Dim panel As Panel = CType(CType(sender, Control).Parent, Panel)
@@ -232,9 +291,11 @@ Public Class FrmEdicionTabla
         panel.Dispose()
     End Sub
 
-
-    'Fin codigo para menejo del filtro
-    '-----------------------------------------------------------------------------------------------------------------------------------------------------
+    Private Sub DataGridView1_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles DataGridView1.DataBindingComplete
+        ' Llamar al procedimiento después de completar el enlace de datos
+        ActualizarCantidadRegistros()
+    End Sub
+    'Fin codigo para menejo del filtro    '-----------------------------------------------------------------------------------------------------------------------------------------------------
 
     Private Sub AlignLeftMenuItem_Click(sender As Object, e As EventArgs)
         If selectedColumn IsNot Nothing Then

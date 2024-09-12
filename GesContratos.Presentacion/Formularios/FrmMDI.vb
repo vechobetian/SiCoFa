@@ -239,4 +239,11 @@ Public Class FrmMDI
             .Show()
         End With
     End Sub
+    Private Sub ListaDeContratosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListaDeContratosToolStripMenuItem.Click
+        With FrmEdicionTabla
+            .Caption = "Lista de Contratos"
+            .SQL = "SELECT * FROM ConContratos"
+            .Show()
+        End With
+    End Sub
 End Class

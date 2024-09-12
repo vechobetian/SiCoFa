@@ -46,6 +46,7 @@ Partial Class FrmMDI
         Me.ComprobantesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EstadoDeCuentaClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegistroDeActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EstadoUsFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -54,7 +55,7 @@ Partial Class FrmMDI
         Me.EstadoSecion = New System.Windows.Forms.Label()
         Me.IdUsuario = New System.Windows.Forms.Label()
         Me.Usuario = New System.Windows.Forms.Label()
-        Me.EstadoUsFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ListaDeContratosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -178,7 +179,7 @@ Partial Class FrmMDI
         '
         'AduditoríaToolStripMenuItem
         '
-        Me.AduditoríaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EstadoDeCuentaGruposToolStripMenuItem, Me.ComprobantesToolStripMenuItem, Me.EstadoDeCuentaClientesToolStripMenuItem, Me.RegistroDeActualizacionesToolStripMenuItem, Me.EstadoUsFTPToolStripMenuItem})
+        Me.AduditoríaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EstadoDeCuentaGruposToolStripMenuItem, Me.ComprobantesToolStripMenuItem, Me.EstadoDeCuentaClientesToolStripMenuItem, Me.RegistroDeActualizacionesToolStripMenuItem, Me.EstadoUsFTPToolStripMenuItem, Me.ListaDeContratosToolStripMenuItem})
         Me.AduditoríaToolStripMenuItem.Name = "AduditoríaToolStripMenuItem"
         Me.AduditoríaToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
         Me.AduditoríaToolStripMenuItem.Text = "Au&ditoría"
@@ -206,6 +207,12 @@ Partial Class FrmMDI
         Me.RegistroDeActualizacionesToolStripMenuItem.Name = "RegistroDeActualizacionesToolStripMenuItem"
         Me.RegistroDeActualizacionesToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.RegistroDeActualizacionesToolStripMenuItem.Text = "&Registro de Actualizaciones"
+        '
+        'EstadoUsFTPToolStripMenuItem
+        '
+        Me.EstadoUsFTPToolStripMenuItem.Name = "EstadoUsFTPToolStripMenuItem"
+        Me.EstadoUsFTPToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
+        Me.EstadoUsFTPToolStripMenuItem.Text = "Estado &UsFTP"
         '
         'PictureBox1
         '
@@ -306,11 +313,11 @@ Partial Class FrmMDI
         Me.Usuario.TabIndex = 11
         Me.Usuario.Text = "Usuario"
         '
-        'EstadoUsFTPToolStripMenuItem
+        'ListaDeContratosToolStripMenuItem
         '
-        Me.EstadoUsFTPToolStripMenuItem.Name = "EstadoUsFTPToolStripMenuItem"
-        Me.EstadoUsFTPToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
-        Me.EstadoUsFTPToolStripMenuItem.Text = "Estado &UsFTP"
+        Me.ListaDeContratosToolStripMenuItem.Name = "ListaDeContratosToolStripMenuItem"
+        Me.ListaDeContratosToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
+        Me.ListaDeContratosToolStripMenuItem.Text = "Lista de Contratos"
         '
         'FrmMDI
         '
@@ -373,4 +380,5 @@ Partial Class FrmMDI
     Friend WithEvents ActualizarUsFTPToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RegistroDeActualizacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EstadoUsFTPToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ListaDeContratosToolStripMenuItem As ToolStripMenuItem
 End Class
