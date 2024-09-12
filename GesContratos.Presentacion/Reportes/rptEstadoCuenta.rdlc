@@ -531,7 +531,7 @@
             </Paragraphs>
             <Top>4.60256cm</Top>
             <Left>1cm</Left>
-            <Height>12.35939cm</Height>
+            <Height>12.39467cm</Height>
             <Width>19cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
@@ -541,6 +541,36 @@
               <TopBorder>
                 <Style>None</Style>
               </TopBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="txtDocNoValidoComoFactura">
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Documento no válido como Factura</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <Top>16.1273cm</Top>
+            <Left>1.33146cm</Left>
+            <Height>0.6cm</Height>
+            <Width>18.40764cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -1410,7 +1440,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>4cm</Height>
+          <Height>1.11604cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
