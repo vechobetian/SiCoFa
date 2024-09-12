@@ -139,6 +139,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Vecho\Vecho.vbproj">
+      <Project>{14823426-df84-456c-b790-c99f3c98a050}</Project>
+      <Name>Vecho</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

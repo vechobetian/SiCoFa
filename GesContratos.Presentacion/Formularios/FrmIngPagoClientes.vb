@@ -160,6 +160,11 @@ Public Class FrmIngPagoClientes
         Dim x As Integer
         Me.DataGridView1.Rows.Clear()
 
+        If Me.mobjContrato.OperaContratos Is Nothing Then
+            Me.ActualizarTotales()
+            Exit Sub
+        End If
+
         Try
             For Each oc In mobjContrato.OperaContratos
                 If ImpDisponible > 0 Then

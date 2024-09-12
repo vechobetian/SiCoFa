@@ -50,112 +50,186 @@
 
     End Sub
     Public Function SaldoPagoCliente(ByVal argIdOperacion As Long) As Decimal
-        Dim Saldo As Decimal
-        For Each a As PagoCliente In Me.PagosCliente
-            If a.IdOperacion = argIdOperacion Then
-                Saldo = a.ImpPagado - a.ImpAplicado
-                Return Saldo
-                Exit Function
-            End If
-        Next
-        Return -1
+
+        Try
+
+            Dim Saldo As Decimal
+            For Each a As PagoCliente In Me.PagosCliente
+                If a.IdOperacion = argIdOperacion Then
+                    Saldo = a.ImpPagado - a.ImpAplicado
+                    Return Saldo
+                    Exit Function
+                End If
+            Next
+            Return -1
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "SaldoPagoClientes", ex.Message))
+
+        End Try
 
     End Function
     Public Function SaldoOperacion(ByVal argIdOperacion As Long) As Decimal
-        Dim Saldo As Decimal
-        For Each o As OperaContrato In Me.OperaContratos
-            If o.IdOperacion = argIdOperacion Then
-                Saldo = o.ImpFacturado - o.ImpCancelado
-                Return Saldo
-                Exit Function
-            End If
-        Next
-        Return -1
+
+        Try
+            Dim Saldo As Decimal
+            For Each o As OperaContrato In Me.OperaContratos
+                If o.IdOperacion = argIdOperacion Then
+                    Saldo = o.ImpFacturado - o.ImpCancelado
+                    Return Saldo
+                    Exit Function
+                End If
+            Next
+            Return -1
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "SaldoOperacion", ex.Message))
+
+        End Try
 
     End Function
     Public Function ActualizarSaldoOperacion(ByVal argIdOperacion As Long, ByVal argImpAplicado As Decimal) As Decimal
         'OJO!!!!!!!!!!! Solo Actualizo el Importe Cancelado pero no toco el Importe No Cancelado
-        Dim Saldo As Decimal
-        For Each o As OperaContrato In Me.OperaContratos
-            If o.IdOperacion = argIdOperacion Then
-                o.ImpCancelado = 0
-                o.ImpCancelado = (o.ImpFacturado - o.ImpNoCancelado) + argImpAplicado
-                Saldo = o.ImpFacturado - o.ImpCancelado 'OJO el saldo no es igual al ImpNoCancelado porque este dato viene de la base de datos y no contempla el argImpAplicado
-                Return Saldo
-                Exit Function
-            End If
-        Next
-        Return -1
+        Try
+
+            Dim Saldo As Decimal
+            For Each o As OperaContrato In Me.OperaContratos
+                If o.IdOperacion = argIdOperacion Then
+                    o.ImpCancelado = 0
+                    o.ImpCancelado = (o.ImpFacturado - o.ImpNoCancelado) + argImpAplicado
+                    Saldo = o.ImpFacturado - o.ImpCancelado 'OJO el saldo no es igual al ImpNoCancelado porque este dato viene de la base de datos y no contempla el argImpAplicado
+                    Return Saldo
+                    Exit Function
+                End If
+            Next
+            Return -1
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSaldoOperacion", ex.Message))
+
+        End Try
+
     End Function
     Public Function ActualizarSaldoPagoCliente(ByVal argIdOperacion As Long, ByVal argImpAplicado As Decimal) As Decimal
         'OJO!!!!!!!!!!! Solo Actualizo el Importe Aplicado pero no toco el Importe No aplicado
-        Dim Saldo As Decimal
-        For Each p As PagoCliente In Me.PagosCliente
-            If p.IdOperacion = argIdOperacion Then
-                p.ImpAplicado = 0
-                p.ImpAplicado = (p.ImpPagado - p.ImpNoAplicado) + argImpAplicado
-                Saldo = p.ImpPagado - p.ImpAplicado 'OJO el saldo no es igual al ImpNoAplicado porque este dato viene de la base de datos y no contempla el argImpAplicado
-                Return Saldo
-                Exit Function
-            End If
-        Next
-        Return -1
+        Try
+
+            Dim Saldo As Decimal
+            For Each p As PagoCliente In Me.PagosCliente
+                If p.IdOperacion = argIdOperacion Then
+                    p.ImpAplicado = 0
+                    p.ImpAplicado = (p.ImpPagado - p.ImpNoAplicado) + argImpAplicado
+                    Saldo = p.ImpPagado - p.ImpAplicado 'OJO el saldo no es igual al ImpNoAplicado porque este dato viene de la base de datos y no contempla el argImpAplicado
+                    Return Saldo
+                    Exit Function
+                End If
+            Next
+            Return -1
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSaldoPagoCliente", ex.Message))
+
+        End Try
+
     End Function
     Public Function ObtenerOperacion(ByVal argIdOperacion As Long) As OperaContrato
-        For Each o As OperaContrato In Me.OperaContratos
-            If o.IdOperacion = argIdOperacion Then
-                Return o
-                Exit Function
-            End If
-        Next
-        Return Nothing
+        Try
+
+            For Each o As OperaContrato In Me.OperaContratos
+                If o.IdOperacion = argIdOperacion Then
+                    Return o
+                    Exit Function
+                End If
+            Next
+            Return Nothing
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacion", ex.Message))
+
+        End Try
+
     End Function
     Public Function SiguienteOperacionConSaldo() As OperaContrato
         'OJO!!!!!!!!!!!! El saldo no es el ImpNoCancelado porque este importe es el importe de la base de datos
         'y no incluye los importes aplicados en la operacion en curso
+        Try
 
-        For Each o As OperaContrato In Me.OperaContratos
-            If o.ImpFacturado - o.ImpCancelado > 0 Then
-                Return o
-                Exit Function
-            End If
-        Next
-        Return Nothing
+            For Each o As OperaContrato In Me.OperaContratos
+                If o.ImpFacturado - o.ImpCancelado > 0 Then
+                    Return o
+                    Exit Function
+                End If
+            Next
+            Return Nothing
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "SiguienteOperacionConSaldo", ex.Message))
+
+        End Try
+
     End Function
     Public Function SiguientePagoConSaldo() As PagoCliente
         'OJO!!!!!!!!!!!! El saldo no es el ImpNoAplicado porque este importe es el importe de la base de datos
         'y no incluye los importes aplicados en la operacion en curso
+        Try
 
-        For Each a As PagoCliente In Me.PagosCliente
-            If a.ImpPagado - a.ImpAplicado > 0 Then
-                Return a
-                Exit Function
-            End If
-        Next
-        Return Nothing
+            For Each a As PagoCliente In Me.PagosCliente
+                If a.ImpPagado - a.ImpAplicado > 0 Then
+                    Return a
+                    Exit Function
+                End If
+            Next
+            Return Nothing
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "SiguientePagoConSaldo", ex.Message))
+
+        End Try
+
     End Function
     Public Function TotalAdeudado() As Decimal
-        Dim Importe As Decimal
 
-        For Each o As OperaContrato In Me.OperaContratos
-            Importe += o.ImpNoCancelado
-        Next
+        Try
 
-        Return Importe
+            Dim Importe As Decimal
+
+            If Me.OperaContratos Is Nothing Then
+                Return 0
+                Exit Function
+            End If
+
+            For Each o As OperaContrato In Me.OperaContratos
+                Importe += o.ImpNoCancelado
+            Next
+
+            Return Importe
+
+        Catch ex As Exception
+            Throw New Exception(vecho.MensajeError(Me.ToString, "TotalAdeudado", ex.Message))
+
+        End Try
 
     End Function
     Public Function SaldoAnticipos() As Decimal
-        Dim Importe As Decimal
-        If Me.PagosCliente Is Nothing Then
-            Return 0
-            Exit Function
-        End If
 
-        For Each p As PagoCliente In Me.PagosCliente
-            Importe += p.ImpNoAplicado
-        Next
+        Try
 
-        Return Importe
+            Dim Importe As Decimal
+            If Me.PagosCliente Is Nothing Then
+                Return 0
+                Exit Function
+            End If
+
+            For Each p As PagoCliente In Me.PagosCliente
+                Importe += p.ImpNoAplicado
+            Next
+
+            Return Importe
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "SaldoAnticipos", ex.Message))
+
+        End Try
 
     End Function
 
