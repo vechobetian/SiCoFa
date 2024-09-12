@@ -439,4 +439,82 @@ Public Class FrmEstadCuentaClientes
             .ShowDialog()
         End With
     End Sub
+    Private Sub ImprimirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimirToolStripMenuItem.Click
+
+        Try
+            Dim obj_N_AdminContratos As New cls_N_AdminContratos
+            Dim pdf As New clsEstadoCuentaPDF
+
+            mobjContrato.Locador = obj_N_AdminContratos.ObtenerLocadorPorId(mobjContrato.IdLocador)
+            mobjContrato.Cliente = obj_N_AdminContratos.ObtenerClientePorId(mobjContrato.IdCliente)
+            mobjContrato.ServiciosAsociados = obj_N_AdminContratos.ObtenerServiciosAsociados(mobjContrato.IdContrato)
+            mobjContrato.OperaContratos = obj_N_AdminContratos.ListaOperaContratos(0, 0, mobjContrato.IdContrato, "", "DEBE")
+            mobjContrato.PagosCliente = obj_N_AdminContratos.ListaPagosCliente(0, mobjContrato.IdContrato, "ABIERTO")
+
+            With pdf
+                .Locador.Add(mobjContrato.Locador)
+                .DocumentoLocador.Add(mobjContrato.Locador.Documento)
+                .IVALocador.Add(mobjContrato.Locador.IVA)
+                .Cliente.Add(mobjContrato.Cliente)
+                .DocumentoCliente.Add(mobjContrato.Cliente.Documento)
+                .IVACliente.Add(mobjContrato.Cliente.IVA)
+                .TipoDocumentoCliente.Add(mobjContrato.Cliente.Documento.TipoDoc)
+
+                .DetalleServicios = Me.DetalleServicios(mobjContrato.ServiciosAsociados)
+
+                If mobjContrato.TotalAdeudado > 0 Then
+                    .DetalleCuenta = Me.DetalleCuenta(mobjContrato.OperaContratos)
+                Else
+                    .DetalleCuenta = "No se registran Resúmenes adeudados"
+                End If
+
+                .TotalAdeudado = "Total Adeudado a la fecha:" & Space(68 - Len(Format(mobjContrato.TotalAdeudado, "Standard"))) & Format(mobjContrato.TotalAdeudado, "Standard")
+                .SaldoAnticipos = "Saldo Anticipos:" & Space(78 - Len(Format(mobjContrato.SaldoAnticipos, "Standard"))) & Format(mobjContrato.SaldoAnticipos, "Standard")
+                .NombreArchivo = "DC" & Format(mobjContrato.IdContrato, "0000") & mobjContrato.UltimoDev
+                .Run()
+                .Dispose()
+            End With
+
+            pdf = Nothing
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+
+        End Try
+    End Sub
+    Private Function DetalleCuenta(ByVal loc As List(Of OperaContrato)) As String
+        Dim linea As String
+        Dim str As String = ""
+        Try
+
+            For Each oc As OperaContrato In loc
+                linea = "Resumen " & Strings.Left(oc.Resu, 2) & "/" & Strings.Right(oc.Resu, 2) & Space(32 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & Space(26 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & Space(23 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
+                str &= linea
+            Next
+            Return str
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return ""
+
+        End Try
+
+    End Function
+    Private Function DetalleServicios(ByVal lsa As List(Of ServicioAsociado)) As String
+        Dim linea As String
+        Dim str As String = ""
+        Try
+            For Each sa As ServicioAsociado In lsa
+                linea = sa.Servicio.DescripcionServicio & Space(40 - Len(sa.Servicio.DescripcionServicio)) & sa.Cantidad & Space(30 - Len(Format(sa.Servicio.PUnit, "Standard"))) & Format(sa.Servicio.PUnit, "Standard") & Space(23 - Len(Format(sa.Importe, "Standard"))) & Format(sa.Importe, "Standard") & vbCrLf
+                str &= linea
+            Next
+            Return str
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return ""
+
+        End Try
+
+    End Function
 End Class

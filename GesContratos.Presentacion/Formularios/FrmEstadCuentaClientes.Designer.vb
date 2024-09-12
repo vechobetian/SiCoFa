@@ -22,12 +22,12 @@ Partial Class FrmEstadCuentaClientes
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.btnExpandir = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -45,12 +45,12 @@ Partial Class FrmEstadCuentaClientes
         Me.OperacionesCanceladasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OperacionesNoCanceladasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TodasLasOperacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PagosAbiertosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ImpTotalNoCancelado = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.PagosAbiertosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -74,8 +74,8 @@ Partial Class FrmEstadCuentaClientes
         '
         'btnExpandir
         '
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.btnExpandir.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.btnExpandir.DefaultCellStyle = DataGridViewCellStyle1
         Me.btnExpandir.HeaderText = ""
         Me.btnExpandir.Name = "btnExpandir"
         Me.btnExpandir.ReadOnly = True
@@ -87,8 +87,8 @@ Partial Class FrmEstadCuentaClientes
         'IdOperacion
         '
         Me.IdOperacion.DataPropertyName = "IdOperacion"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
-        Me.IdOperacion.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft
+        Me.IdOperacion.DefaultCellStyle = DataGridViewCellStyle2
         Me.IdOperacion.HeaderText = "IdOperacion"
         Me.IdOperacion.Name = "IdOperacion"
         Me.IdOperacion.ReadOnly = True
@@ -99,8 +99,8 @@ Partial Class FrmEstadCuentaClientes
         'Resu
         '
         Me.Resu.DataPropertyName = "Resu"
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
-        Me.Resu.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter
+        Me.Resu.DefaultCellStyle = DataGridViewCellStyle3
         Me.Resu.HeaderText = "Resumen"
         Me.Resu.Name = "Resu"
         Me.Resu.ReadOnly = True
@@ -109,10 +109,10 @@ Partial Class FrmEstadCuentaClientes
         'ImpFacturado
         '
         Me.ImpFacturado.DataPropertyName = "ImpFacturado"
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
-        DataGridViewCellStyle16.Format = "N2"
-        DataGridViewCellStyle16.NullValue = Nothing
-        Me.ImpFacturado.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.ImpFacturado.DefaultCellStyle = DataGridViewCellStyle4
         Me.ImpFacturado.HeaderText = "ImpFacturado"
         Me.ImpFacturado.Name = "ImpFacturado"
         Me.ImpFacturado.ReadOnly = True
@@ -121,10 +121,10 @@ Partial Class FrmEstadCuentaClientes
         'ImpCancelado
         '
         Me.ImpCancelado.DataPropertyName = "ImpCancelado"
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
-        DataGridViewCellStyle17.Format = "N2"
-        DataGridViewCellStyle17.NullValue = Nothing
-        Me.ImpCancelado.DefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
+        DataGridViewCellStyle5.Format = "N2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.ImpCancelado.DefaultCellStyle = DataGridViewCellStyle5
         Me.ImpCancelado.HeaderText = "ImpCancelado"
         Me.ImpCancelado.Name = "ImpCancelado"
         Me.ImpCancelado.ReadOnly = True
@@ -133,10 +133,10 @@ Partial Class FrmEstadCuentaClientes
         'ImpNoCancelado
         '
         Me.ImpNoCancelado.DataPropertyName = "ImpNoCancelado"
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
-        DataGridViewCellStyle18.Format = "N2"
-        DataGridViewCellStyle18.NullValue = Nothing
-        Me.ImpNoCancelado.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.ImpNoCancelado.DefaultCellStyle = DataGridViewCellStyle6
         Me.ImpNoCancelado.HeaderText = "ImpNoCancelado"
         Me.ImpNoCancelado.Name = "ImpNoCancelado"
         Me.ImpNoCancelado.ReadOnly = True
@@ -179,13 +179,13 @@ Partial Class FrmEstadCuentaClientes
         '
         Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
         Me.ImprimirToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ImprimirToolStripMenuItem.Text = "&Imprimir"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SalirToolStripMenuItem.Text = "&Salir"
         '
         'VerToolStripMenuItem
@@ -212,6 +212,12 @@ Partial Class FrmEstadCuentaClientes
         Me.TodasLasOperacionesToolStripMenuItem.Name = "TodasLasOperacionesToolStripMenuItem"
         Me.TodasLasOperacionesToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
         Me.TodasLasOperacionesToolStripMenuItem.Text = "&Todas las Operaciones"
+        '
+        'PagosAbiertosToolStripMenuItem
+        '
+        Me.PagosAbiertosToolStripMenuItem.Name = "PagosAbiertosToolStripMenuItem"
+        Me.PagosAbiertosToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
+        Me.PagosAbiertosToolStripMenuItem.Text = "&Pagos Abiertos"
         '
         'Label1
         '
@@ -257,12 +263,6 @@ Partial Class FrmEstadCuentaClientes
         Me.Label5.Size = New System.Drawing.Size(106, 13)
         Me.Label5.TabIndex = 11
         Me.Label5.Text = "Imp.Total Adeudado:"
-        '
-        'PagosAbiertosToolStripMenuItem
-        '
-        Me.PagosAbiertosToolStripMenuItem.Name = "PagosAbiertosToolStripMenuItem"
-        Me.PagosAbiertosToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
-        Me.PagosAbiertosToolStripMenuItem.Text = "&Pagos Abiertos"
         '
         'FrmEstadCuentaClientes
         '
