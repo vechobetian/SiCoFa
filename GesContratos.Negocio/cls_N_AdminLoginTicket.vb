@@ -18,7 +18,7 @@ Public Class cls_N_AdminLoginTicket
     Private mstrProxyPassword As String = ""
     Private mstrServicio As String = "wsfe"
     Private mstrRutaCertX509Firmante As String
-    Private mstrRutaTA As String = "C:\SiCoFa_Server\CompE\TA.txt"
+    Private mstrRutaTA As String = "C:\GestionContratos\TA.txt"
     Private XmlLoginTicketRequest As XmlDocument = Nothing
     Private URLWsaa As String
     Private ReadOnly XmlStrLoginTicketRequestTemplate As String = "<loginTicketRequest><header><uniqueId></uniqueId><generationTime></generationTime><expirationTime></expirationTime></header><service></service></loginTicketRequest>"
@@ -31,8 +31,8 @@ Public Class cls_N_AdminLoginTicket
             URLWsaa = "https://wsaa.afip.gov.ar/ws/services/LoginCms?WSDL" 'URL WSAA Produccion 
         End If
 
-        If File.Exists("C:\SiCoFa_Server\CompE\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx") Then
-            mstrRutaCertX509Firmante = "C:\SiCoFa_Server\CompE\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx"
+        If File.Exists("C:\GestionContratos\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx") Then
+            mstrRutaCertX509Firmante = "C:\GestionContratos\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx"
         Else
             Throw New Exception(vecho.MensajeError(Me.ToString, "AccesoAlWSN", "No existe certificado digital"))
         End If

@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Imports SiCoFa.Entidades
+﻿Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmComprobantes
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
