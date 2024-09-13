@@ -4,8 +4,7 @@ Imports SiCoFa.Negocio
 Public Class FrmComprobantes
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
     Private mobj_N_AdminDB As New cls_N_AdminDB
-    Private mobjComprobantes As List(Of Comprobante)
-    Private mblnCargaFinalizada As Boolean
+    Private mobjComprobantes As DataTable
     Private Sub GenerarReporte(ByVal argComprobante As Comprobante, ByVal argTipo As String, Optional ByVal argPathArchivo As String = "")
         Select Case argComprobante.TipoComprobante.CodiTC_SiCoFa
             Case "REC"
@@ -99,48 +98,25 @@ Public Class FrmComprobantes
     Public Sub MostrarComprobantes(ByVal argIdCliente As Integer, ByVal argCodiTC As String, ByVal argFechaDesde As String, ByVal argFechaHasta As String)
 
         Try
-            mobjComprobantes = mobj_N_AdminContratos.ObtenerComprobantes(argIdCliente, argCodiTC, argFechaDesde, argFechaHasta)
+            Dim sql As String
+
+            If argIdCliente = 0 And argCodiTC = "0" Then
+                sql = "SELECT IdOperacion,FechaComp,TipoComp,PVenta,NumComp,Locador,Cliente,CompAsoc FROM ConComprobantesCompAsoc WHERE FechaComp BETWEEN '" & argFechaDesde & "' AND '" & argFechaHasta & "'"
+            ElseIf argIdCliente > 0 And argCodiTC <> "0" Then
+                sql = "SELECT IdOperacion,FechaComp,TipoCompr,PVenta,NumComp,Locador,Cliente,CompAsoc FROM ConComprobantesCompAsoc WHERE CodiTC='" & argCodiTC & "' AND IdCliente=" & argIdCliente & " AND FechaComp BETWEEN '" & argFechaDesde & "' AND '" & argFechaHasta & "'"
+            ElseIf argIdCliente = 0 And argCodiTC <> "0" Then
+                sql = "SELECT IdOperacion,FechaComp,TipoComp,PVenta,NumComp,Locador,Cliente,CompAsoc FROM ConComprobantesCompAsoc WHERE CodiTC='" & argCodiTC & "' AND FechaComp BETWEEN '" & argFechaDesde & "' AND '" & argFechaHasta & "'"
+            ElseIf argIdCliente > 0 And argCodiTC = "0" Then
+                sql = "SELECT IdOperacion,FechaComp,TipoComp,PVenta,NumComp,Locador,Cliente,CompAsoc FROM ConComprobantesCompAsoc WHERE IdCliente=" & argIdCliente & " AND FechaComp BETWEEN '" & argFechaDesde & "' AND '" & argFechaHasta & "'"
+            End If
+
+            mobjComprobantes = mobj_N_AdminDB.ObtenerTabla(sql)
 
             If mobjComprobantes Is Nothing Then
                 Exit Sub
             End If
 
-            Dim objLoc As Locador = mobj_N_AdminContratos.ObtenerLocadorPorId(1)
-            Dim x As Integer
-
-            For Each c As Comprobante In mobjComprobantes
-                c.Operacion = mobj_N_AdminContratos.ObtenerOperacion(c.IdOperacion)
-                c.Cliente = mobj_N_AdminContratos.ObtenerClientePorId(c.IdCliente)
-                c.Locador = objLoc
-                c.Detalle = mobj_N_AdminContratos.ObtenerDetalleC(c.IdOperacion, 1)
-
-                If c.IdOperAsoc > 0 Then
-                    c.CompAsoc = mobj_N_AdminContratos.ObtenerComprobante(c.Operacion)
-                End If
-
-                With Me.DataGridView1
-                    .Rows.Add()
-                    .Rows(x).Cells("IdOperacion").Value = c.IdOperacion
-                    .Rows(x).Cells("FechaComp").Value = c.FechaComp
-                    .Rows(x).Cells("TipoComprobante").Value = c.TipoComprobante.TipoComprobante & " " & c.TipoComprobante.Letra
-                    .Rows(x).Cells("PVenta").Value = c.PVenta
-                    .Rows(x).Cells("NumComp").Value = c.NumComp
-                    .Rows(x).Cells("Locador").Value = c.Locador.Nombre
-                    .Rows(x).Cells("Cliente").Value = c.Cliente.Nombre
-
-                    If c.CompAsoc IsNot Nothing Then
-                        .Rows(x).Cells("CompAsoc").Value = c.CompAsoc.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp
-                    End If
-
-                End With
-                x += +1
-            Next
-
-            mblnCargaFinalizada = True
-
-            'Dim Comp As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
-            'Me.ActualizarTotales()
-            'Me.ActualizarDetalle(Comp)
+            Me.DataGridView1.DataSource = mobjComprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -153,13 +129,16 @@ Public Class FrmComprobantes
             If Me.DataGridView1.CurrentRow.Cells(0).Value Is Nothing Then
                 Exit Sub
             End If
+            Dim sql As String = "SELECT ImpBto,ImpEf,ImpCC,ImpCB,ImpTar FROM TblComprobantes WHERE IdOperacion=" & Me.DataGridView1.CurrentRow.Cells(0).Value
 
-            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
-            Me.ImpBto.Text = Format(c.ImpBto, "Standard")
-            Me.ImpEf.Text = Format(c.ImpEf, "Standard")
-            Me.ImpCC.Text = Format(c.ImpCC, "Standard")
-            Me.ImpCB.Text = Format(c.ImpCB, "Standard")
-            Me.ImpTar.Text = Format(c.ImpTar, "Standard")
+            Using dt As DataTable = mobj_N_AdminDB.ObtenerTabla(sql)
+                Dim row As DataRow = dt.Rows(0)
+                Me.ImpBto.Text = Format(row("ImpBto").ToString, "Standard")
+                Me.ImpEf.Text = Format(row("ImpEf").ToString, "Standard")
+                Me.ImpCC.Text = Format(row("ImpCC").ToString, "Standard")
+                Me.ImpCB.Text = Format(row("ImpCB").ToString, "Standard")
+                Me.ImpTar.Text = Format(row("ImpTar").ToString, "Standard")
+            End Using
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -167,22 +146,20 @@ Public Class FrmComprobantes
         End Try
 
     End Sub
-    Private Sub ActualizarDetalle(ByVal argComprobante As Comprobante)
+    Private Sub ActualizarDetalle(ByVal argTipoComp As String)
         Try
 
-            Select Case argComprobante.TipoComprobante.CodiTC_SiCoFa
-                Case "REC"
+            Select Case argTipoComp
+                Case "Recibo"
                     Me.DataGridView2.Visible = False
                     Me.DataGridView3.Visible = True
                     Me.ActualizarDetalleRecibo()
-                Case "MCC"
-                    Me.DataGridView2.Visible = False
-                    Me.DataGridView3.Visible = True
-                    Me.ActualizarDetalleRecibo()
+
                 Case Else
                     Me.DataGridView2.Visible = True
                     Me.DataGridView3.Visible = False
-                    Me.ActualizarDetalleComprobante(argComprobante)
+                    Me.ActualizarDetalleComprobante()
+
             End Select
 
         Catch ex As Exception
@@ -191,32 +168,17 @@ Public Class FrmComprobantes
         End Try
 
     End Sub
-    Private Sub ActualizarDetalleComprobante(ByVal argComprobante As Comprobante)
+    Private Sub ActualizarDetalleComprobante()
 
         Try
             If Me.DataGridView1.CurrentRow.Cells(0).Value Is Nothing Then
                 Exit Sub
             End If
 
-            If argComprobante.Detalle Is Nothing Then
-                Exit Sub
-            End If
-
-            Me.DataGridView2.Rows.Clear()
-
-            Dim x As Integer
-
-            For Each i As ItemComprobante In argComprobante.Detalle
-
-                With Me.DataGridView2
-                    .Rows.Add()
-                    .Rows(x).Cells("Descripcion").Value = i.Descripcion
-                    .Rows(x).Cells("Cantidad").Value = i.Cantidad
-                    .Rows(x).Cells("PUnit").Value = i.PUnit
-                    .Rows(x).Cells("Importe").Value = i.Importe
-                End With
-                x += 1
-            Next
+            Dim sql As String = "SELECT Descripcion,Cantidad,PUnit,(Cantidad*PUnit) AS Importe FROM TblDetServicios WHERE IdOperaFactura=" & Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim DetalleFactura As DataTable = mobj_N_AdminDB.ObtenerTabla(sql)
+            Me.DataGridView3.DataSource = DetalleFactura
+            Me.DataGridView3.Refresh()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -224,6 +186,7 @@ Public Class FrmComprobantes
         End Try
 
     End Sub
+
     Private Sub ActualizarDetalleRecibo()
 
         Try
@@ -389,14 +352,14 @@ Public Class FrmComprobantes
 
     End Sub
     Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
-        If mblnCargaFinalizada = False Then
-            Exit Sub
-        End If
+        'If mblnCargaFinalizada = False Then
+        'Exit Sub
+        'End If
 
         Try
-            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            'Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
             Me.ActualizarTotales()
-            Me.ActualizarDetalle(c)
+            Me.ActualizarDetalle(Me.DataGridView1.CurrentRow.Cells(2).Value)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -406,7 +369,12 @@ Public Class FrmComprobantes
     End Sub
     Private Sub ImprimirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ImprimirToolStripMenuItem.Click
         Try
-            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            If Me.DataGridView1.CurrentRow.Cells(0).Value Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim o As Operacion = mobj_N_AdminContratos.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim c As Comprobante = mobj_N_AdminContratos.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
             Me.GenerarReporte(c, "IMPA4")
 
         Catch ex As Exception
@@ -417,10 +385,20 @@ Public Class FrmComprobantes
     End Sub
     Private Sub GuardarComoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarComoToolStripMenuItem.Click
 
-        Dim saveFileDialog1 As New SaveFileDialog()
-        Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+        If Me.DataGridView1.CurrentRow.Cells(0).Value Is Nothing Then
+            Exit Sub
+        End If
 
         Try
+
+            Dim saveFileDialog1 As New SaveFileDialog()
+            Dim o As Operacion = mobj_N_AdminContratos.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim c As Comprobante = mobj_N_AdminContratos.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+
+            If c.IdOperAsoc > 0 Then
+                c.CompAsoc = mobj_N_AdminContratos.ObtenerComprobante(c.Operacion)
+            End If
+
             With saveFileDialog1
                 .Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
                 .FilterIndex = 2
@@ -441,9 +419,13 @@ Public Class FrmComprobantes
     End Sub
     Private Sub EnviarMailToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnviarMailToolStripMenuItem.Click
 
-        Try
+        If Me.DataGridView1.CurrentRow.Cells(0).Value Is Nothing Then
+            Exit Sub
+        End If
 
-            Dim c As Comprobante = mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+        Try
+            Dim o As Operacion = mobj_N_AdminContratos.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim c As Comprobante = mobj_N_AdminContratos.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
             Dim Archivo = c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
             Dim TempPat As String = Application.StartupPath & "\Temp\" & Archivo
             Me.GenerarReporte(c, "PDFA4", TempPat)

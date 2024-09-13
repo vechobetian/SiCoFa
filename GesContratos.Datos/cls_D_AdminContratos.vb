@@ -1204,7 +1204,7 @@ Public Class cls_D_AdminContratos
             Dim objCAE As CAE = Nothing
             Dim objDetalleC As List(Of ItemComprobante)
             Dim CodiTC As String
-            Dim PrefComp As String
+            Dim PVenta As String
             Dim NumComp As String
             Dim IdCliente As Long
             Dim FechaComp As Date
@@ -1225,7 +1225,7 @@ Public Class cls_D_AdminContratos
             Dim VtoCAE As Date
 
             objLoc = Me.ObtenerLocadorPorId(1)
-            Dim sql As String = "SELECT IdOperación,CodiTC,PrefComp,NumComp,FechaComp,IdCliente,ImpBto,ImpEx,ImpGrav1,ImpNeto1,ImpIVA1,ImpGrav2,ImpNeto2,ImpIVA2,ImpCB,ImpEf,ImpCC,ImpTar,IdOperAsoc,CAE,VtoCAE FROM TblComprobantes WHERE IdOperación=" & argOperacion.IdOperacion
+            Dim sql As String = "SELECT IdOperacion,CodiTC,PVenta,NumComp,FechaComp,IdCliente,ImpBto,ImpEx,ImpGrav1,ImpNeto1,ImpIVA1,ImpGrav2,ImpNeto2,ImpIVA2,ImpCB,ImpEf,ImpCC,ImpTar,IdOperAsoc,CAE,VtoCAE FROM TblComprobantes WHERE IdOperacion=" & argOperacion.IdOperacion
 
             Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
                 cmd.CommandType = CommandType.Text
@@ -1236,7 +1236,7 @@ Public Class cls_D_AdminContratos
 
                     If datos.HasRows Then
                         CodiTC = datos("CodiTC")
-                        PrefComp = datos("PrefComp")
+                        PVenta = datos("PVenta")
                         NumComp = datos("NumComp").ToString
                         IdCliente = datos("IdCliente")
                         FechaComp = datos("FechaComp")
@@ -1278,9 +1278,9 @@ Public Class cls_D_AdminContratos
 
             If IdOperAsoc > 0 Then
                 Dim objCompAsoc As Comprobante = ObtenerComprobanteAsoc(IdOperAsoc)
-                objCbte = New Comprobante(argOperacion.IdOperacion, argOperacion, CodiTC, PrefComp, NumComp, FechaComp, ImpBto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1, ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpTar, objCAE, IdCliente, objCli, IdOperAsoc, objCompAsoc, objLoc, objDetalleC)
+                objCbte = New Comprobante(argOperacion.IdOperacion, argOperacion, CodiTC, PVenta, NumComp, FechaComp, ImpBto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1, ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpTar, objCAE, IdCliente, objCli, IdOperAsoc, objCompAsoc, objLoc, objDetalleC)
             Else
-                objCbte = New Comprobante(argOperacion.IdOperacion, argOperacion, CodiTC, PrefComp, NumComp, FechaComp, ImpBto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1, ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpTar, objCAE, IdCliente, objCli, IdOperAsoc, Nothing, objLoc, objDetalleC)
+                objCbte = New Comprobante(argOperacion.IdOperacion, argOperacion, CodiTC, PVenta, NumComp, FechaComp, ImpBto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1, ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpTar, objCAE, IdCliente, objCli, IdOperAsoc, Nothing, objLoc, objDetalleC)
             End If
 
             Return objCbte

@@ -34,7 +34,7 @@ Partial Class FrmComprobantes
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TipoComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TipoComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NumComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Locador = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -83,16 +83,18 @@ Partial Class FrmComprobantes
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.FechaComp, Me.TipoComprobante, Me.PVenta, Me.NumComp, Me.Locador, Me.Cliente, Me.CompAsoc})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.FechaComp, Me.TipoComp, Me.PVenta, Me.NumComp, Me.Locador, Me.Cliente, Me.CompAsoc})
         Me.DataGridView1.Location = New System.Drawing.Point(0, 27)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(1004, 422)
         Me.DataGridView1.TabIndex = 0
         '
         'IdOperacion
         '
+        Me.IdOperacion.DataPropertyName = "IdOperacion"
         Me.IdOperacion.HeaderText = "IdOperacion"
         Me.IdOperacion.Name = "IdOperacion"
         Me.IdOperacion.ReadOnly = True
@@ -100,6 +102,7 @@ Partial Class FrmComprobantes
         '
         'FechaComp
         '
+        Me.FechaComp.DataPropertyName = "FechaComp"
         DataGridViewCellStyle1.Format = "d"
         DataGridViewCellStyle1.NullValue = Nothing
         Me.FechaComp.DefaultCellStyle = DataGridViewCellStyle1
@@ -107,14 +110,16 @@ Partial Class FrmComprobantes
         Me.FechaComp.Name = "FechaComp"
         Me.FechaComp.ReadOnly = True
         '
-        'TipoComprobante
+        'TipoComp
         '
-        Me.TipoComprobante.HeaderText = "Tipo Comp"
-        Me.TipoComprobante.Name = "TipoComprobante"
-        Me.TipoComprobante.ReadOnly = True
+        Me.TipoComp.DataPropertyName = "TipoComp"
+        Me.TipoComp.HeaderText = "Tipo Comp"
+        Me.TipoComp.Name = "TipoComp"
+        Me.TipoComp.ReadOnly = True
         '
         'PVenta
         '
+        Me.PVenta.DataPropertyName = "PVenta"
         DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         Me.PVenta.DefaultCellStyle = DataGridViewCellStyle2
         Me.PVenta.HeaderText = "P.Venta"
@@ -124,6 +129,7 @@ Partial Class FrmComprobantes
         '
         'NumComp
         '
+        Me.NumComp.DataPropertyName = "NumComp"
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         Me.NumComp.DefaultCellStyle = DataGridViewCellStyle3
         Me.NumComp.HeaderText = "Num.Comp."
@@ -133,6 +139,7 @@ Partial Class FrmComprobantes
         '
         'Locador
         '
+        Me.Locador.DataPropertyName = "Locador"
         Me.Locador.HeaderText = "Locador"
         Me.Locador.Name = "Locador"
         Me.Locador.ReadOnly = True
@@ -140,6 +147,7 @@ Partial Class FrmComprobantes
         '
         'Cliente
         '
+        Me.Cliente.DataPropertyName = "Cliente"
         Me.Cliente.HeaderText = "Cliente"
         Me.Cliente.Name = "Cliente"
         Me.Cliente.ReadOnly = True
@@ -147,6 +155,7 @@ Partial Class FrmComprobantes
         '
         'CompAsoc
         '
+        Me.CompAsoc.DataPropertyName = "CompAsoc"
         Me.CompAsoc.HeaderText = "Comp.Asoc."
         Me.CompAsoc.Name = "CompAsoc"
         Me.CompAsoc.ReadOnly = True
@@ -154,7 +163,7 @@ Partial Class FrmComprobantes
         '
         'ImpBto
         '
-        Me.ImpBto.Location = New System.Drawing.Point(885, 487)
+        Me.ImpBto.Location = New System.Drawing.Point(892, 472)
         Me.ImpBto.Name = "ImpBto"
         Me.ImpBto.ReadOnly = True
         Me.ImpBto.Size = New System.Drawing.Size(100, 20)
@@ -163,7 +172,7 @@ Partial Class FrmComprobantes
         '
         'ImpEf
         '
-        Me.ImpEf.Location = New System.Drawing.Point(885, 513)
+        Me.ImpEf.Location = New System.Drawing.Point(892, 498)
         Me.ImpEf.Name = "ImpEf"
         Me.ImpEf.ReadOnly = True
         Me.ImpEf.Size = New System.Drawing.Size(100, 20)
@@ -172,7 +181,7 @@ Partial Class FrmComprobantes
         '
         'ImpCC
         '
-        Me.ImpCC.Location = New System.Drawing.Point(885, 539)
+        Me.ImpCC.Location = New System.Drawing.Point(892, 524)
         Me.ImpCC.Name = "ImpCC"
         Me.ImpCC.ReadOnly = True
         Me.ImpCC.Size = New System.Drawing.Size(100, 20)
@@ -181,7 +190,7 @@ Partial Class FrmComprobantes
         '
         'ImpCB
         '
-        Me.ImpCB.Location = New System.Drawing.Point(885, 565)
+        Me.ImpCB.Location = New System.Drawing.Point(892, 550)
         Me.ImpCB.Name = "ImpCB"
         Me.ImpCB.ReadOnly = True
         Me.ImpCB.Size = New System.Drawing.Size(100, 20)
@@ -190,7 +199,7 @@ Partial Class FrmComprobantes
         '
         'ImpTar
         '
-        Me.ImpTar.Location = New System.Drawing.Point(885, 591)
+        Me.ImpTar.Location = New System.Drawing.Point(892, 576)
         Me.ImpTar.Name = "ImpTar"
         Me.ImpTar.ReadOnly = True
         Me.ImpTar.Size = New System.Drawing.Size(100, 20)
@@ -200,7 +209,7 @@ Partial Class FrmComprobantes
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(777, 490)
+        Me.Label1.Location = New System.Drawing.Point(784, 475)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(73, 13)
         Me.Label1.TabIndex = 6
@@ -209,7 +218,7 @@ Partial Class FrmComprobantes
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(777, 516)
+        Me.Label2.Location = New System.Drawing.Point(784, 501)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(87, 13)
         Me.Label2.TabIndex = 7
@@ -218,7 +227,7 @@ Partial Class FrmComprobantes
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(777, 542)
+        Me.Label3.Location = New System.Drawing.Point(784, 527)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(83, 13)
         Me.Label3.TabIndex = 8
@@ -227,7 +236,7 @@ Partial Class FrmComprobantes
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(777, 568)
+        Me.Label4.Location = New System.Drawing.Point(784, 553)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(102, 13)
         Me.Label4.TabIndex = 9
@@ -236,7 +245,7 @@ Partial Class FrmComprobantes
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(777, 594)
+        Me.Label5.Location = New System.Drawing.Point(784, 579)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(81, 13)
         Me.Label5.TabIndex = 10
@@ -321,19 +330,19 @@ Partial Class FrmComprobantes
         'ImprimirToolStripMenuItem
         '
         Me.ImprimirToolStripMenuItem.Name = "ImprimirToolStripMenuItem"
-        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ImprimirToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ImprimirToolStripMenuItem.Text = "&Imprimir"
         '
         'GuardarComoToolStripMenuItem
         '
         Me.GuardarComoToolStripMenuItem.Name = "GuardarComoToolStripMenuItem"
-        Me.GuardarComoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.GuardarComoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GuardarComoToolStripMenuItem.Text = "&Guardar Como"
         '
         'EnviarMailToolStripMenuItem
         '
         Me.EnviarMailToolStripMenuItem.Name = "EnviarMailToolStripMenuItem"
-        Me.EnviarMailToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EnviarMailToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EnviarMailToolStripMenuItem.Text = "&Enviar Mail"
         '
         'NotaDeCréditoToolStripMenuItem
@@ -483,7 +492,7 @@ Partial Class FrmComprobantes
     Friend WithEvents EstadoPago As DataGridViewTextBoxColumn
     Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
     Friend WithEvents FechaComp As DataGridViewTextBoxColumn
-    Friend WithEvents TipoComprobante As DataGridViewTextBoxColumn
+    Friend WithEvents TipoComp As DataGridViewTextBoxColumn
     Friend WithEvents PVenta As DataGridViewTextBoxColumn
     Friend WithEvents NumComp As DataGridViewTextBoxColumn
     Friend WithEvents Locador As DataGridViewTextBoxColumn
