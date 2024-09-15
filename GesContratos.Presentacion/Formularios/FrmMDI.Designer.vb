@@ -47,6 +47,7 @@ Partial Class FrmMDI
         Me.EstadoDeCuentaClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RegistroDeActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EstadoUsFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ListaDeContratosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -55,7 +56,8 @@ Partial Class FrmMDI
         Me.EstadoSecion = New System.Windows.Forms.Label()
         Me.IdUsuario = New System.Windows.Forms.Label()
         Me.Usuario = New System.Windows.Forms.Label()
-        Me.ListaDeContratosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnCambiarContraseña = New System.Windows.Forms.Button()
+        Me.btnSeguridad = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -214,6 +216,12 @@ Partial Class FrmMDI
         Me.EstadoUsFTPToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.EstadoUsFTPToolStripMenuItem.Text = "Estado &UsFTP"
         '
+        'ListaDeContratosToolStripMenuItem
+        '
+        Me.ListaDeContratosToolStripMenuItem.Name = "ListaDeContratosToolStripMenuItem"
+        Me.ListaDeContratosToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
+        Me.ListaDeContratosToolStripMenuItem.Text = "Lista de Contratos"
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Blue
@@ -313,11 +321,35 @@ Partial Class FrmMDI
         Me.Usuario.TabIndex = 11
         Me.Usuario.Text = "Usuario"
         '
-        'ListaDeContratosToolStripMenuItem
+        'btnCambiarContraseña
         '
-        Me.ListaDeContratosToolStripMenuItem.Name = "ListaDeContratosToolStripMenuItem"
-        Me.ListaDeContratosToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
-        Me.ListaDeContratosToolStripMenuItem.Text = "Lista de Contratos"
+        Me.btnCambiarContraseña.BackColor = System.Drawing.SystemColors.Highlight
+        Me.btnCambiarContraseña.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCambiarContraseña.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight
+        Me.btnCambiarContraseña.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCambiarContraseña.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCambiarContraseña.Location = New System.Drawing.Point(673, 513)
+        Me.btnCambiarContraseña.Name = "btnCambiarContraseña"
+        Me.btnCambiarContraseña.Size = New System.Drawing.Size(163, 23)
+        Me.btnCambiarContraseña.TabIndex = 13
+        Me.btnCambiarContraseña.Text = "Mi Perfil >>"
+        Me.btnCambiarContraseña.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnCambiarContraseña.UseVisualStyleBackColor = False
+        '
+        'btnSeguridad
+        '
+        Me.btnSeguridad.BackColor = System.Drawing.SystemColors.Highlight
+        Me.btnSeguridad.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnSeguridad.FlatAppearance.BorderColor = System.Drawing.SystemColors.Highlight
+        Me.btnSeguridad.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSeguridad.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnSeguridad.Location = New System.Drawing.Point(673, 539)
+        Me.btnSeguridad.Name = "btnSeguridad"
+        Me.btnSeguridad.Size = New System.Drawing.Size(163, 27)
+        Me.btnSeguridad.TabIndex = 14
+        Me.btnSeguridad.Text = "Cambiar Contraseña >>"
+        Me.btnSeguridad.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.btnSeguridad.UseVisualStyleBackColor = False
         '
         'FrmMDI
         '
@@ -325,6 +357,8 @@ Partial Class FrmMDI
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(848, 584)
+        Me.Controls.Add(Me.btnSeguridad)
+        Me.Controls.Add(Me.btnCambiarContraseña)
         Me.Controls.Add(Me.Usuario)
         Me.Controls.Add(Me.IdUsuario)
         Me.Controls.Add(Me.EstadoSecion)
@@ -381,4 +415,6 @@ Partial Class FrmMDI
     Friend WithEvents RegistroDeActualizacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EstadoUsFTPToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ListaDeContratosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents btnCambiarContraseña As Button
+    Friend WithEvents btnSeguridad As Button
 End Class

@@ -346,7 +346,7 @@ Public Class FrmIngPagoClientes
             mobj_N_AdminContratos.EfectuarAsientoContable(objOpera, objAsCon)
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
 

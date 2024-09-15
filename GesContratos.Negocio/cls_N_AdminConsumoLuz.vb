@@ -8,20 +8,21 @@ Public Class cls_N_AdminConsumoLuz
         Return r
     End Function
     Public Function InsertarRegConsumoLuz(
-                                    ByVal argFechaUL As Date,
-                                    ByVal argMes As String,
-                                    ByVal argAño As String,
-                                    ByVal argIdMedidor As Integer,
-                                    ByVal argKWLAn As Integer,
-                                    ByVal argKWLAc As Integer,
-                                    ByVal argObservaciones As String
-                                    ) As Long
+                                         ByVal argIdContrato As Integer,
+                                        ByVal argFechaUL As Date,
+                                        ByVal argMes As String,
+                                        ByVal argAño As String,
+                                        ByVal argIdMedidor As Integer,
+                                        ByVal argKWLAn As Integer,
+                                        ByVal argKWLAc As Integer,
+                                        ByVal argObservaciones As String
+                                        ) As Long
         Try
-            Dim IdRegistro As Long = mobj_D_AdminConsumoLuz.InsertarRegConsumoLuz(argFechaUL, argMes, argAño, argIdMedidor, argKWLAn, argKWLAc, argObservaciones)
+            Dim IdRegistro As Long = mobj_D_AdminConsumoLuz.InsertarRegConsumoLuz(argIdContrato, argFechaUL, argMes, argAño, argIdMedidor, argKWLAn, argKWLAc, argObservaciones)
             Return IdRegistro
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarRegistroConsumoLuz", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarRegistroConsumoLuz", ex.Message))
             Return 0
 
         End Try

@@ -60,13 +60,14 @@ Public Class FrmComprobantes
         Try
             Dim Reporte As New clsReporteRecibo
             Dim Concepto As String = ""
-            Dim sql As String = "SELECT ImpCancelado,SaldoPP FROM ConOperaCancel WHERE IdOperaPago=" & argComprobante.IdOperacion
+            Dim sql As String = "SELECT ImpPagado,ImpAplicado,ImpNoAplicado FROM ConPagoClientes WHERE IdOperacion=" & argComprobante.IdOperacion
             Dim dt As DataTable = mobj_N_AdminDB.ObtenerTabla(sql)
-            Dim ImpCancelado As Decimal = CType(dt.Rows(0)(0), Decimal)
-            Dim ImpAnticipos As Decimal = CType(dt.Rows(0)(1), Decimal)
+            Dim ImpPagado As Decimal = CType(dt.Rows(0)(0), Decimal)
+            Dim ImpAplicado As Decimal = CType(dt.Rows(0)(1), Decimal)
+            Dim ImpAnticipos As Decimal = CType(dt.Rows(0)(2), Decimal)
 
             Concepto =
-            "-Cancelación Cuenta Clientes:" & Space(10 - Len(Format(ImpCancelado, "Standard"))) & "$" & Format(ImpCancelado, "Standard") & vbCrLf &
+            "-Cancelación Cuenta Clientes:" & Space(10 - Len(Format(ImpAplicado, "Standard"))) & "$" & Format(ImpAplicado, "Standard") & vbCrLf &
             "-Anticipo de Clientes:" & Space(17 - Len(Format(ImpAnticipos, "Standard"))) & "$" & Format(ImpAnticipos, "Standard")
 
             With Reporte

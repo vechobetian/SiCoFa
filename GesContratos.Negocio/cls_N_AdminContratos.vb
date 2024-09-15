@@ -194,7 +194,6 @@ Public Class cls_N_AdminContratos
                                                                            )
         Return Actualizado
     End Function
-
     Public Function ActualizarUsFTP(ByVal argPathLocal As String) As Boolean
         Try
 
@@ -205,26 +204,20 @@ Public Class cls_N_AdminContratos
 
             Dim filePath As String = argPathLocal
 
-            Try
-                Using writer As New StreamWriter(filePath)
-                    For Each row As DataRow In dt.Rows
-                        For Each column As DataColumn In dt.Columns
-                            writer.Write(row(column).ToString())
-                        Next
-                        writer.WriteLine()
+            Using writer As New StreamWriter(filePath)
+                For Each row As DataRow In dt.Rows
+                    For Each column As DataColumn In dt.Columns
+                        writer.Write(row(column).ToString())
                     Next
-                End Using
-            Catch ex As Exception
-                MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-            End Try
+                    writer.WriteLine()
+                Next
+            End Using
 
             Dim obj_N_AdminFTP As New cls_N_AdminFTP
-            MsgBox(obj_N_AdminFTP.UploadFile("/Clientes/id7.txt", argPathLocal))
+            Return obj_N_AdminFTP.UploadFile("/Clientes/id7.txt", argPathLocal)
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarUsFTP", ex.Message))
-            Return Nothing
 
         End Try
 

@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Negocio
+﻿Imports System.IO
+Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Public Class FrmIngConsumoLuz
     Private mobj_N_AdminConsumoLuz As New cls_N_AdminConsumoLuz
@@ -6,6 +7,73 @@ Public Class FrmIngConsumoLuz
     Private mobjRegistroActivo As RegConsumoLuz
     Private mobjMedidorSeleccionado As Medidor
     Private mobjDetalleCL As List(Of ItemConsumoLuz)
+    Private Function CategoriaSubcidio(ByVal argIdCategoria As String) As String
+
+        Select Case argIdCategoria
+            Case "R1"
+                Return "Nivel 1 Usuarios Residenciales"
+            Case "R2"
+                Return "Nivel 2 Usuarios Residenciales"
+            Case "R3"
+                Return "Nivel 1 Usuarios Residenciales"
+            Case "C"
+                Return "Actividad Comercial"
+        End Select
+
+    End Function
+    Private Sub EnviarMail()
+        Try
+
+            Dim obj_N_AdminContratos As New cls_N_AdminContratos
+            Dim obj_N_AdminEmail As New cls_N_AdminEmail
+            Dim cto As Contrato = obj_N_AdminContratos.ObtenerContrato(mobjMedidorSeleccionado.IdContrato)
+            obj_N_AdminEmail.EnviarMail("NELSON BETIAN", cto.Cliente.Email, "Consumo Electrico", Me.DetalleConsumoElectrico(cto.Cliente.Nombre))
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+
+    End Sub
+    Private Function DetalleConsumoElectrico() As String
+
+        Try
+
+            Dim Mensaje As String =
+                "Subsicio: " & Me.CategoriaSubcidio(mobjRegistroActivo.Medidor.Categoria) & vbCrLf &
+                "Período: " & mobjRegistroActivo.Mes & "-" & mobjRegistroActivo.Año & vbCrLf &
+                "Fecha Lectura Anterior: " & mobjRegistroActivo.FechaLAn & vbCrLf &
+                "Fecha Lectura Actual: " & mobjRegistroActivo.FechaLAc & vbCrLf &
+                "Lectura Anterior: " & mobjRegistroActivo.LecturaAnterior & "Kwh" & vbCrLf &
+                "Lectura Actual: " & mobjRegistroActivo.LecturaActual & "Kwh" & vbCrLf &
+                "Consumo: " & mobjRegistroActivo.Consumo & "Kwh" & vbCrLf &
+                "---------------------------------------------------------"
+
+            For Each i As ItemConsumoLuz In mobjRegistroActivo.Detalle
+                Mensaje = Mensaje & vbCrLf &
+            i.Descripcion & ": $" & Format(i.Importe, "Standard")
+                If i.Cantidad > 1 Then
+                    Mensaje = Mensaje & vbCrLf &
+                "Prec.Unit: $" & Format(i.PUnit, "Standard") & vbCrLf &
+                "Cantidad: " & i.Cantidad
+                End If
+                Mensaje = Mensaje & vbCrLf &
+                "---------------------------------------------------------"
+            Next
+
+            Mensaje = Mensaje & vbCrLf &
+            "Imp.Neto: $" & Format(mobjRegistroActivo.ImpNeto, "Standard") & vbCrLf &
+            "Ley 3052: $" & Format(mobjRegistroActivo.Ley3052, "Standard") & vbCrLf &
+            "IVA: $" & Format(mobjRegistroActivo.IVA, "Standard") & vbCrLf &
+            "RG2123: $" & Format(mobjRegistroActivo.RG2123, "Standard") & vbCrLf &
+            "Total: $" & Format(mobjRegistroActivo.ImpCalculado, "Standard")
+            Return Mensaje
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Function
     Private Sub ObtenerMedidores()
         Try
             mobj_N_AdminConsumoLuz.ListarMedidores()
@@ -145,7 +213,7 @@ Public Class FrmIngConsumoLuz
         End If
 
         Dim Fecha As String = Mid(mobjMedidorSeleccionado.FechaUL.ToString, 7, 4) & "/" & Mid(Me.mobjMedidorSeleccionado.FechaUL.ToString, 4, 2) & "/" & Mid(Me.mobjMedidorSeleccionado.FechaUL.ToString, 1, 2)
-        Me.IdRegistro.Text = mobj_N_AdminConsumoLuz.InsertarRegConsumoLuz(Fecha, Me.Mes.Text, Me.Año.Text, mobjMedidorSeleccionado.IdMedidor, mobjMedidorSeleccionado.UltimaLectura, CInt(Me.LecturaActual.Text), "")
+        Me.IdRegistro.Text = mobj_N_AdminConsumoLuz.InsertarRegConsumoLuz(mobjMedidorSeleccionado.IdContrato, Fecha, Me.Mes.Text, Me.Año.Text, mobjMedidorSeleccionado.IdMedidor, mobjMedidorSeleccionado.UltimaLectura, CInt(Me.LecturaActual.Text), "")
 
         'Dim x As Integer
         'Do While Me.IdRegistro.Text = ""
@@ -207,6 +275,7 @@ Public Class FrmIngConsumoLuz
 
     End Sub
     Private Sub FrmIngConsumoLuz_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         Try
             Me.ObtenerMedidores()
             Me.FechaLAc.Text = Date.Now.ToString("d")
@@ -283,23 +352,6 @@ Public Class FrmIngConsumoLuz
             End If
         End If
     End Sub
-    Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
-
-        Try
-            If Me.IdRegistro.Text = "" Then
-                Exit Sub
-            End If
-
-            mobj_N_AdminConsumoLuz.ActualizarEstadoRegistroConsumoLuz(CLng(Me.IdRegistro.Text), "EP")
-            Me.LimpiarTodo()
-            Me.HabilitarControles()
-            Me.Medidor.Select()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
     Private Sub Borrar_Click(sender As Object, e As EventArgs) Handles Borrar.Click
         Try
             If Me.IdRegistro.Text = "" Then
@@ -320,6 +372,24 @@ Public Class FrmIngConsumoLuz
             Me.Medidor.Select()
 
         Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
+
+        Try
+            If Me.IdRegistro.Text = "" Then
+                Exit Sub
+            End If
+
+            Me.EnviarMail()
+            mobj_N_AdminConsumoLuz.ActualizarEstadoRegistroConsumoLuz(CLng(Me.IdRegistro.Text), "EP")
+            Me.LimpiarTodo()
+            Me.HabilitarControles()
+            Me.Medidor.Select()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
     End Sub

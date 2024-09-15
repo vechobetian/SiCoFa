@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmIngConsumoLuz
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,11 +20,11 @@ Partial Class FrmIngConsumoLuz
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Medidor = New System.Windows.Forms.ComboBox()
         Me.LecturaAnterior = New System.Windows.Forms.TextBox()
         Me.LecturaActual = New System.Windows.Forms.TextBox()
@@ -129,30 +129,30 @@ Partial Class FrmIngConsumoLuz
         '
         'Cantidad
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.Format = "N0"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle4
         Me.Cantidad.HeaderText = "Cantidad"
         Me.Cantidad.Name = "Cantidad"
         Me.Cantidad.Width = 60
         '
         'PUnit
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "C4"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.PUnit.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "C4"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.PUnit.DefaultCellStyle = DataGridViewCellStyle5
         Me.PUnit.HeaderText = "PUnit"
         Me.PUnit.Name = "PUnit"
         Me.PUnit.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         '
         'Importe
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.Importe.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "C2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle6
         Me.Importe.HeaderText = "Importe"
         Me.Importe.Name = "Importe"
         Me.Importe.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
@@ -367,9 +367,9 @@ Partial Class FrmIngConsumoLuz
         '
         'Guardar
         '
-        Me.Guardar.Location = New System.Drawing.Point(445, 466)
+        Me.Guardar.Location = New System.Drawing.Point(446, 457)
         Me.Guardar.Name = "Guardar"
-        Me.Guardar.Size = New System.Drawing.Size(66, 29)
+        Me.Guardar.Size = New System.Drawing.Size(66, 23)
         Me.Guardar.TabIndex = 54
         Me.Guardar.TabStop = False
         Me.Guardar.Text = "&Guardar"
@@ -377,9 +377,9 @@ Partial Class FrmIngConsumoLuz
         '
         'Borrar
         '
-        Me.Borrar.Location = New System.Drawing.Point(373, 466)
+        Me.Borrar.Location = New System.Drawing.Point(374, 457)
         Me.Borrar.Name = "Borrar"
-        Me.Borrar.Size = New System.Drawing.Size(66, 29)
+        Me.Borrar.Size = New System.Drawing.Size(66, 23)
         Me.Borrar.TabIndex = 55
         Me.Borrar.TabStop = False
         Me.Borrar.Text = "&Borrar"
@@ -389,7 +389,7 @@ Partial Class FrmIngConsumoLuz
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(523, 511)
+        Me.ClientSize = New System.Drawing.Size(523, 487)
         Me.Controls.Add(Me.Borrar)
         Me.Controls.Add(Me.Guardar)
         Me.Controls.Add(Me.Label13)

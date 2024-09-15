@@ -179,7 +179,19 @@ Public Class FrmMDI
 
     End Function
     Private Sub ActualizarUsFTPToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarUsFTPToolStripMenuItem.Click
-        mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id7.txt")
+        Try
+            Dim ActualizacionExitosa As Boolean = mobj_N_AdminContratos.ActualizarUsFTP(Application.StartupPath & "\Temp\id7.txt")
+
+            If ActualizacionExitosa Then
+                MsgBox("La Actualización finalizo correctamente", vbInformation, "SiCoFa")
+            End If
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
     Private Sub RegistroDeActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegistroDeActualizacionesToolStripMenuItem.Click
 

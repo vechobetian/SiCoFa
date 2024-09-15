@@ -160,6 +160,7 @@ Public Class cls_D_AdminConsumoLuz
 
     End Function
     Public Function InsertarRegConsumoLuz(
+                                        ByVal argIdContrato As Integer,
                                         ByVal argFechaUL As Date,
                                         ByVal argMes As String,
                                         ByVal argAño As String,
@@ -173,7 +174,7 @@ Public Class cls_D_AdminConsumoLuz
         Try
 
             Using cmd As New MySqlCommand("InsertarRegistroCLuz", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-
+                cmd.Parameters.AddWithValue("IdContrato", argIdContrato)
                 cmd.Parameters.AddWithValue("FechaUL", argFechaUL)
                 cmd.Parameters.AddWithValue("Mes", argMes)
                 cmd.Parameters.AddWithValue("Año", argAño)
@@ -190,7 +191,7 @@ Public Class cls_D_AdminConsumoLuz
             Return IdRegistro
 
         Catch Ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarRegistroConsumoLuz", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarRegistroConsumoLuz", Ex.Message))
             Return 0
         End Try
 
