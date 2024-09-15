@@ -24,15 +24,8 @@ Partial Class FrmMDI
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMDI))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuNuevo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PagoDeClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ContratoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RegistroCLuzToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuAbrir = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuAbrirContrato = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContratosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ServiciosPrestadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CuadroTarifarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MedidoresDeLuzToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -48,6 +41,9 @@ Partial Class FrmMDI
         Me.RegistroDeActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EstadoUsFTPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListaDeContratosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OperacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PagoClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsumoLuzToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -65,87 +61,42 @@ Partial Class FrmMDI
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem, Me.EditarToolStripMenuItem, Me.ProcesosToolStripMenuItem, Me.AduditoríaToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OperacionesToolStripMenuItem, Me.EditarToolStripMenuItem, Me.ProcesosToolStripMenuItem, Me.AduditoríaToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(848, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'ArchivoToolStripMenuItem
-        '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevo, Me.mnuAbrir, Me.SalirToolStripMenuItem})
-        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
-        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.ArchivoToolStripMenuItem.Text = "&Archivo"
-        '
-        'mnuNuevo
-        '
-        Me.mnuNuevo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PagoDeClientesToolStripMenuItem, Me.ContratoToolStripMenuItem, Me.RegistroCLuzToolStripMenuItem})
-        Me.mnuNuevo.Name = "mnuNuevo"
-        Me.mnuNuevo.Size = New System.Drawing.Size(109, 22)
-        Me.mnuNuevo.Text = "&Nuevo"
-        '
-        'PagoDeClientesToolStripMenuItem
-        '
-        Me.PagoDeClientesToolStripMenuItem.Name = "PagoDeClientesToolStripMenuItem"
-        Me.PagoDeClientesToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
-        Me.PagoDeClientesToolStripMenuItem.Text = "&Pago de Clientes"
-        '
-        'ContratoToolStripMenuItem
-        '
-        Me.ContratoToolStripMenuItem.Name = "ContratoToolStripMenuItem"
-        Me.ContratoToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
-        Me.ContratoToolStripMenuItem.Text = "&Contrato"
-        '
-        'RegistroCLuzToolStripMenuItem
-        '
-        Me.RegistroCLuzToolStripMenuItem.Name = "RegistroCLuzToolStripMenuItem"
-        Me.RegistroCLuzToolStripMenuItem.Size = New System.Drawing.Size(162, 22)
-        Me.RegistroCLuzToolStripMenuItem.Text = "Registro C.Luz"
-        '
-        'mnuAbrir
-        '
-        Me.mnuAbrir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAbrirContrato})
-        Me.mnuAbrir.Name = "mnuAbrir"
-        Me.mnuAbrir.Size = New System.Drawing.Size(109, 22)
-        Me.mnuAbrir.Text = "&Abrir"
-        '
-        'mnuAbrirContrato
-        '
-        Me.mnuAbrirContrato.Name = "mnuAbrirContrato"
-        Me.mnuAbrirContrato.Size = New System.Drawing.Size(126, 22)
-        Me.mnuAbrirContrato.Text = "&Contratos"
-        '
-        'SalirToolStripMenuItem
-        '
-        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
-        Me.SalirToolStripMenuItem.Text = "&Salir"
-        '
         'EditarToolStripMenuItem
         '
-        Me.EditarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ServiciosPrestadosToolStripMenuItem, Me.CuadroTarifarioToolStripMenuItem, Me.MedidoresDeLuzToolStripMenuItem})
+        Me.EditarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContratosToolStripMenuItem, Me.ServiciosPrestadosToolStripMenuItem, Me.CuadroTarifarioToolStripMenuItem, Me.MedidoresDeLuzToolStripMenuItem})
         Me.EditarToolStripMenuItem.Name = "EditarToolStripMenuItem"
         Me.EditarToolStripMenuItem.Size = New System.Drawing.Size(49, 20)
         Me.EditarToolStripMenuItem.Text = "Editar"
         '
+        'ContratosToolStripMenuItem
+        '
+        Me.ContratosToolStripMenuItem.Name = "ContratosToolStripMenuItem"
+        Me.ContratosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ContratosToolStripMenuItem.Text = "&Contratos"
+        '
         'ServiciosPrestadosToolStripMenuItem
         '
         Me.ServiciosPrestadosToolStripMenuItem.Name = "ServiciosPrestadosToolStripMenuItem"
-        Me.ServiciosPrestadosToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.ServiciosPrestadosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ServiciosPrestadosToolStripMenuItem.Text = "Servicios Prestados"
         '
         'CuadroTarifarioToolStripMenuItem
         '
         Me.CuadroTarifarioToolStripMenuItem.Name = "CuadroTarifarioToolStripMenuItem"
-        Me.CuadroTarifarioToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.CuadroTarifarioToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CuadroTarifarioToolStripMenuItem.Text = "Cuadro Tarifario"
         '
         'MedidoresDeLuzToolStripMenuItem
         '
         Me.MedidoresDeLuzToolStripMenuItem.Name = "MedidoresDeLuzToolStripMenuItem"
-        Me.MedidoresDeLuzToolStripMenuItem.Size = New System.Drawing.Size(174, 22)
+        Me.MedidoresDeLuzToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.MedidoresDeLuzToolStripMenuItem.Text = "Medidores de Luz"
         '
         'ProcesosToolStripMenuItem
@@ -221,6 +172,25 @@ Partial Class FrmMDI
         Me.ListaDeContratosToolStripMenuItem.Name = "ListaDeContratosToolStripMenuItem"
         Me.ListaDeContratosToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.ListaDeContratosToolStripMenuItem.Text = "Lista de Contratos"
+        '
+        'OperacionesToolStripMenuItem
+        '
+        Me.OperacionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PagoClientesToolStripMenuItem, Me.ConsumoLuzToolStripMenuItem})
+        Me.OperacionesToolStripMenuItem.Name = "OperacionesToolStripMenuItem"
+        Me.OperacionesToolStripMenuItem.Size = New System.Drawing.Size(85, 20)
+        Me.OperacionesToolStripMenuItem.Text = "&Operaciones"
+        '
+        'PagoClientesToolStripMenuItem
+        '
+        Me.PagoClientesToolStripMenuItem.Name = "PagoClientesToolStripMenuItem"
+        Me.PagoClientesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PagoClientesToolStripMenuItem.Text = "&Pago Clientes"
+        '
+        'ConsumoLuzToolStripMenuItem
+        '
+        Me.ConsumoLuzToolStripMenuItem.Name = "ConsumoLuzToolStripMenuItem"
+        Me.ConsumoLuzToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ConsumoLuzToolStripMenuItem.Text = "&Consumo Luz"
         '
         'PictureBox1
         '
@@ -383,12 +353,6 @@ Partial Class FrmMDI
     End Sub
 
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents ArchivoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents mnuNuevo As ToolStripMenuItem
-    Friend WithEvents mnuAbrir As ToolStripMenuItem
-    Friend WithEvents mnuAbrirContrato As ToolStripMenuItem
-    Friend WithEvents PagoDeClientesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Label1 As Label
@@ -397,13 +361,11 @@ Partial Class FrmMDI
     Friend WithEvents EstadoSecion As Label
     Friend WithEvents IdUsuario As Label
     Friend WithEvents Usuario As Label
-    Friend WithEvents ContratoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ProcesosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DevengarServiciosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EnviarMailServiciosPrestadosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AduditoríaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EstadoDeCuentaGruposToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RegistroCLuzToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EditarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CuadroTarifarioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MedidoresDeLuzToolStripMenuItem As ToolStripMenuItem
@@ -417,4 +379,8 @@ Partial Class FrmMDI
     Friend WithEvents ListaDeContratosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnCambiarContraseña As Button
     Friend WithEvents btnSeguridad As Button
+    Friend WithEvents OperacionesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PagoClientesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ConsumoLuzToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ContratosToolStripMenuItem As ToolStripMenuItem
 End Class

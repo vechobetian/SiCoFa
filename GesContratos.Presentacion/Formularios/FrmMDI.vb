@@ -45,18 +45,46 @@ Public Class FrmMDI
         Me.LimpiarCarpetaTemp()
         Me.MostrarSecion()
     End Sub
-    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
-        End
-    End Sub
-    Private Sub PagoDeClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PagoDeClientesToolStripMenuItem.Click
+    Private Sub PagoClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PagoClientesToolStripMenuItem.Click
         Dim f As New FrmIngPagoClientes
         f.IdUsuario = Me.Secion.Usuario.IdUsuario
         f.Show()
-
     End Sub
-    Private Sub mnuAbrirContrato_Click(sender As Object, e As EventArgs) Handles mnuAbrirContrato.Click
+    Private Sub ConsumoLuzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsumoLuzToolStripMenuItem.Click
+        With FrmIngConsumoLuz
+            .Show()
+        End With
+    End Sub
+    Private Sub ContratosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContratosToolStripMenuItem.Click
         Dim f As New FrmPanelContratos
         f.Show()
+    End Sub
+    Private Sub ServiciosPrestadosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServiciosPrestadosToolStripMenuItem.Click
+
+        With FrmEdicionTabla
+            .Caption = "Servicios Prestados"
+            .SQL = "SELECT * FROM TblServicios"
+            .Show()
+        End With
+
+    End Sub
+    Private Sub CuadroTarifarioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CuadroTarifarioToolStripMenuItem.Click
+
+        With FrmEdicionTabla
+            .Caption = "Items Consumo de Luz"
+            .SQL = "SELECT * FROM TblItemsConsumoLuz"
+            .Show()
+        End With
+
+    End Sub
+    Private Sub MedidoresDeLuzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MedidoresDeLuzToolStripMenuItem.Click
+
+        With FrmEdicionTabla
+            .Caption = "Medidores de Luz"
+            .SQL = "SELECT * FROM TblMedidoresLuz"
+            .Show()
+        End With
+
     End Sub
     Private Sub DevengarServiciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DevengarServiciosToolStripMenuItem.Click
         Try
@@ -94,40 +122,6 @@ Public Class FrmMDI
             .MostrarDatos()
             .Show()
         End With
-    End Sub
-    Private Sub RegistroCLuzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegistroCLuzToolStripMenuItem.Click
-
-        With FrmIngConsumoLuz
-            .Show()
-        End With
-
-    End Sub
-    Private Sub ServiciosPrestadosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServiciosPrestadosToolStripMenuItem.Click
-
-        With FrmEdicionTabla
-            .Caption = "Servicios Prestados"
-            .SQL = "SELECT * FROM TblServicios"
-            .Show()
-        End With
-
-    End Sub
-    Private Sub CuadroTarifarioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CuadroTarifarioToolStripMenuItem.Click
-
-        With FrmEdicionTabla
-            .Caption = "Items Consumo de Luz"
-            .SQL = "SELECT * FROM TblItemsConsumoLuz"
-            .Show()
-        End With
-
-    End Sub
-    Private Sub MedidoresDeLuzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MedidoresDeLuzToolStripMenuItem.Click
-
-        With FrmEdicionTabla
-            .Caption = "Medidores de Luz"
-            .SQL = "SELECT * FROM TblMedidoresLuz"
-            .Show()
-        End With
-
     End Sub
     Private Sub ComprobantesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ComprobantesToolStripMenuItem.Click
         FrmAperComprobantes.Show()
@@ -258,4 +252,5 @@ Public Class FrmMDI
             .Show()
         End With
     End Sub
+
 End Class
