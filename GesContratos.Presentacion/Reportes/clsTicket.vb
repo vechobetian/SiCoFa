@@ -349,7 +349,7 @@ Public Class clsTicket
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("RECIBI(MOS) LA SUMA DE PESOS: ", printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-        Dim strTextoImporte As String = UCase(vecho.NumEnLetras(Format(Comprobante.ImpBto, "Fixed")))
+        Dim strTextoImporte As String = UCase(Vecho.NumEnLetras(Comprobante.ImpBto))
         Dim CaracteresLeidos As Integer
         Dim TotalCaracteres As Integer = Len(strTextoImporte)
         Dim LeerCantidad As Integer

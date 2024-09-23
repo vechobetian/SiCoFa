@@ -81,7 +81,7 @@ Public Class FrmComprobantes
                 .Encabezado.Add(argComprobante)
                 .TipoComprobante.Add(argComprobante.TipoComprobante)
                 .Copia = "ORIGINAL"
-                .CantidadEnLetras = vecho.NumEnLetras(Me.ImpBto.Text)
+                .CantidadEnLetras = UCase(Vecho.NumEnLetras(Me.ImpBto.Text))
                 .Concepto = Concepto
                 .PathArchivo = argPathArchivo
                 .Run(argTipo)

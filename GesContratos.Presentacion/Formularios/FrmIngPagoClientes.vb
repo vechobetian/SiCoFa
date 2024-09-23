@@ -29,7 +29,7 @@ Public Class FrmIngPagoClientes
                 .Encabezado.Add(argComprobante)
                 .TipoComprobante.Add(argComprobante.TipoComprobante)
                 .Copia = "ORIGINAL"
-                .CantidadEnLetras = vecho.NumEnLetras(Me.ImpPago.Text)
+                .CantidadEnLetras = UCase(Vecho.NumEnLetras(Me.ImpPago.Text))
                 .Concepto = Concepto
                 .PathArchivo = Application.StartupPath & "\Temp\REC-" & argComprobante.PVenta & "-" & argComprobante.NumComp & ".pdf"
                 .Run("PDFA4")
