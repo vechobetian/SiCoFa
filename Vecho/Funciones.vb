@@ -2,7 +2,8 @@ Public Module Funciones
 
     Private Units() As String = {"", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"}
     Private Teens() As String = {"diez", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"}
-    Private Tens() As String = {"", "", "veinti", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"}
+    Private Twenties() As String = {"veinte", "veintiuno", "veintidós", "veintitrés", "veinticuatro", "veinticinco", "veintiséis", "veintisiete", "veintiocho", "veintinueve"}
+    Private Tens() As String = {"", "", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"}
     Private Hundreds() As String = {"", "cien", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"}
 
     Public Function NumEnLetras(ByVal number As Decimal) As String
@@ -23,6 +24,8 @@ Public Module Funciones
             Return Units(number)
         ElseIf number < 20 Then
             Return Teens(number - 10)
+        ElseIf number >= 20 AndAlso number <= 29 Then
+            Return Twenties(number - 20)
         ElseIf number < 100 Then
             Return Tens(number \ 10) & If((number Mod 10) > 0, " y " & Units(number Mod 10), "")
         ElseIf number < 1000 Then
