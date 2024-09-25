@@ -14,9 +14,18 @@ Public Class FrmIngPagoClientes
             Dim pdf As New clsReporteRecibo
             Dim Concepto As String = ""
 
-            Concepto =
+            If Me.ImpTotalCancelado.Text > 0 And Me.ImpAnticipos.Text > 0 Then
+                Concepto =
                 "-Cancelación Cuenta Clientes:" & Space(10 - Len(Format(Me.ImpTotalCancelado.Text, "Standard"))) & "$" & Format(Me.ImpTotalCancelado.Text, "Standard") & vbCrLf &
                 "-Anticipo de Clientes:" & Space(17 - Len(Format(Me.ImpAnticipos.Text, "Standard"))) & "$" & Format(Me.ImpAnticipos.Text, "Standard")
+
+            ElseIf Me.ImpTotalCancelado.Text > 0 And Me.ImpAnticipos.Text = 0 Then
+                Concepto = "Cancelación Cuenta de Clientes"
+
+            ElseIf Me.ImpTotalCancelado.Text = 0 And Me.ImpAnticipos.Text > 0 Then
+                Concepto = "Anticipo de Clientes"
+
+            End If
 
             With pdf
                 .Locador.Add(mobjContrato.Locador)
