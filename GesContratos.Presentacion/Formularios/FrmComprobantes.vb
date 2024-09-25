@@ -66,9 +66,18 @@ Public Class FrmComprobantes
             Dim ImpAplicado As Decimal = CType(dt.Rows(0)(1), Decimal)
             Dim ImpAnticipos As Decimal = CType(dt.Rows(0)(2), Decimal)
 
-            Concepto =
-            "-Cancelación Cuenta Clientes:" & Space(10 - Len(Format(ImpAplicado, "Standard"))) & "$" & Format(ImpAplicado, "Standard") & vbCrLf &
-            "-Anticipo de Clientes:" & Space(17 - Len(Format(ImpAnticipos, "Standard"))) & "$" & Format(ImpAnticipos, "Standard")
+            If ImpAplicado > 0 And ImpAnticipos > 0 Then
+                Concepto =
+                "-Cancelación Cuenta Clientes:" & Space(10 - Len(Format(ImpAplicado, "Standard"))) & "$" & Format(ImpAplicado, "Standard") & vbCrLf &
+                "-Anticipo de Clientes:" & Space(17 - Len(Format(ImpAnticipos, "Standard"))) & "$" & Format(ImpAnticipos, "Standard")
+
+            ElseIf ImpAplicado > 0 And ImpAnticipos = 0 Then
+                Concepto = "Cancelación Cuenta de Clientes"
+
+            ElseIf ImpAplicado = 0 And ImpAnticipos > 0 Then
+                Concepto = "Anticipo de Clientes"
+
+            End If
 
             With Reporte
                 .Locador.Add(argComprobante.Locador)
@@ -81,7 +90,7 @@ Public Class FrmComprobantes
                 .Encabezado.Add(argComprobante)
                 .TipoComprobante.Add(argComprobante.TipoComprobante)
                 .Copia = "ORIGINAL"
-                .CantidadEnLetras = UCase(Vecho.NumEnLetras(Me.ImpBto.Text))
+                .CantidadEnLetras = UCase(Vecho.NumEnLetras(ImpPagado))
                 .Concepto = Concepto
                 .PathArchivo = argPathArchivo
                 .Run(argTipo)
