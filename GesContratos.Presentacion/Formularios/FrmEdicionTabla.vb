@@ -9,17 +9,22 @@ Public Class FrmEdicionTabla
     Private MenuContextual As New ContextMenuStrip()
     Private selectedColumn As DataGridViewColumn
     Private Sub FrmEdicionTabla_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If SQL <> "" Then
-            dTable = obj_N_AdminDB.ObtenerTabla(Me.SQL)
-        End If
+        Try
 
-        If dTable IsNot Nothing Then
-            Me.DataGridView1.DataSource = dTable
-            Me.DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
-        End If
+            If SQL <> "" Then
+                dTable = obj_N_AdminDB.ObtenerTabla(Me.SQL)
+            End If
 
-        Me.Text = Me.Caption
-        Me.ActualizarCantidadRegistros()
+            If dTable IsNot Nothing Then
+                Me.DataGridView1.DataSource = dTable
+                Me.DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+            End If
+
+            Me.Text = Me.Caption
+            Me.ActualizarCantidadRegistros()
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation, "SiCoFa")
+        End Try
 
     End Sub
     Private Sub ActualizarCantidadRegistros()
@@ -30,11 +35,18 @@ Public Class FrmEdicionTabla
         ToolStripStatusLabel1.Text = "Cantidad de registros visibles: " & cantidadRegistros.ToString()
     End Sub
     Private Sub DataGridView1_RowValidated(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowValidated
-        If Me.SQL = "" Then
-            Exit Sub
-        End If
+        Try
 
-        obj_N_AdminDB.ActualizarTabla(Me.SQL, dTable)
+            If Me.SQL = "" Then
+                Exit Sub
+            End If
+
+            obj_N_AdminDB.ActualizarTabla(Me.SQL, dTable)
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation, "SiCoFa")
+
+        End Try
+
     End Sub
     Public Sub New()
         ' Configurar KeyPreview para que el formulario capture las teclas

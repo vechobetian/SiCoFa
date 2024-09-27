@@ -86,6 +86,22 @@ Public Class FrmMDI
         End With
 
     End Sub
+    Private Sub ConsumosFacturadosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsumosFacturadosToolStripMenuItem.Click
+        Try
+
+            Dim Depto As String
+            Depto = UCase(InputBox("Por favor, ingresa el Departamento:", "Ingreso de texto"))
+            With FrmEdicionTabla
+                .Caption = "Consumos Unidad: " & Depto
+                .SQL = "SELECT Ano,Mes,ImpCalculado,ImpFactura FROM TblRegConsumoLuz WHERE IdMedidor='" & Depto & "'"
+                .Show()
+            End With
+        Catch ex As Exception
+            MsgBox(ex.Message, vbInformation, "SiCoFa")
+
+        End Try
+
+    End Sub
     Private Sub DevengarServiciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DevengarServiciosToolStripMenuItem.Click
         Try
 
