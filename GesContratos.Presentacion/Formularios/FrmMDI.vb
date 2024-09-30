@@ -93,7 +93,7 @@ Public Class FrmMDI
             Depto = UCase(InputBox("Por favor, ingresa el Departamento:", "Ingreso de texto"))
             With FrmEdicionTabla
                 .Caption = "Consumos Unidad: " & Depto
-                .SQL = "SELECT Ano,Mes,ImpCalculado,ImpFactura FROM TblRegConsumoLuz WHERE IdMedidor='" & Depto & "'"
+                .SQL = "SELECT Ano,Mes,ImpCalculado,ImpFactura FROM TblRegConsumoLuz INNER JOIN TblMedidoresLuz ON TblRegConsumoLuz.IdMedidor=TblMedidoresLuz.IdMedidor WHERE TblMedidoresLuz.Descripcion='" & Depto & "'"
                 .Show()
             End With
         Catch ex As Exception
