@@ -288,7 +288,7 @@ Public Class cls_D_AdminContratos
 
             End Using
 
-            objC.Cliente = Me.ObtenerClientePorId(argIdCliente)
+            objC.Cliente = Me.ObtenerClientePorId(objC.IdCliente)
             Return objC
 
         Catch ex As Exception

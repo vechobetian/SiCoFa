@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Imports SiCoFa.Negocio
+﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Public Class FrmIngConsumoLuz
     Private mobj_N_AdminConsumoLuz As New cls_N_AdminConsumoLuz
@@ -23,6 +22,12 @@ Public Class FrmIngConsumoLuz
     End Function
     Private Sub EnviarMail()
         Try
+            If mobjMedidorSeleccionado Is Nothing And Me.Medidor.SelectedValue IsNot Nothing Then
+                mobjMedidorSeleccionado = Me.ObtenerMedidor(Me.Medidor.SelectedValue)
+            ElseIf Me.Medidor.SelectedValue Is Nothing Then
+                MsgBox("Seleccione un medidor", vbCritical, "SiCoFa")
+                Exit Sub
+            End If
 
             Dim obj_N_AdminContratos As New cls_N_AdminContratos
             Dim obj_N_AdminEmail As New cls_N_AdminEmail
@@ -34,11 +39,12 @@ Public Class FrmIngConsumoLuz
         End Try
 
     End Sub
-    Private Function DetalleConsumoElectrico() As String
+    Private Function DetalleConsumoElectrico(ByVal argCliente As String) As String
 
         Try
 
             Dim Mensaje As String =
+                "Cliente: " & argCliente & vbCrLf &
                 "Subsicio: " & Me.CategoriaSubcidio(mobjRegistroActivo.Medidor.Categoria) & vbCrLf &
                 "Período: " & mobjRegistroActivo.Mes & "-" & mobjRegistroActivo.Año & vbCrLf &
                 "Fecha Lectura Anterior: " & mobjRegistroActivo.FechaLAn & vbCrLf &
@@ -92,6 +98,7 @@ Public Class FrmIngConsumoLuz
         Try
             Dim objM As Medidor = Nothing
             For Each m As Medidor In mobj_N_AdminConsumoLuz.ListaMedidores
+
                 If m.IdMedidor = argIdMedidor Then
                     objM = m
                     Exit For
