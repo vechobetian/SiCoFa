@@ -55,16 +55,19 @@ Public Class FrmEdicionTabla
         ' Inicializar componentes
         InitializeComponent()
 
+        Dim copyMenuItem As New ToolStripMenuItem("Copiar datos")
         Dim filterMenuItem As New ToolStripMenuItem("Seleccionar Elementos")
         Dim alignLeftMenuItem As New ToolStripMenuItem("Alinear a la Izquierda")
         Dim alignRightMenuItem As New ToolStripMenuItem("Alinear a la Derecha")
 
         ' Agregar manejadores de eventos para los ítems del menú
+        AddHandler copyMenuItem.Click, AddressOf CopyDataGridViewToClipboard
         AddHandler alignLeftMenuItem.Click, AddressOf AlignLeftMenuItem_Click
         AddHandler alignRightMenuItem.Click, AddressOf AlignRightMenuItem_Click
         AddHandler filterMenuItem.Click, AddressOf ApplyFilter_Click
 
         'Agregar items al menu contextual
+        MenuContextual.Items.Add(copyMenuItem)
         MenuContextual.Items.Add(filterMenuItem)
         MenuContextual.Items.Add(alignLeftMenuItem)
         MenuContextual.Items.Add(alignRightMenuItem)
@@ -321,6 +324,26 @@ Public Class FrmEdicionTabla
             ' Establecer el alineamiento de texto a la derecha para la columna seleccionada
             selectedColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         End If
+    End Sub
+    Private Sub CopyDataGridViewToClipboard()
+        Dim clipboardContent As New System.Text.StringBuilder()
+
+        ' Copiar encabezados de las columnas
+        For Each column As DataGridViewColumn In DataGridView1.Columns
+            clipboardContent.Append(column.HeaderText & vbTab)
+        Next
+        clipboardContent.AppendLine()
+
+        ' Copiar las filas
+        For Each row As DataGridViewRow In DataGridView1.Rows
+            For Each cell As DataGridViewCell In row.Cells
+                clipboardContent.Append(cell.Value.ToString() & vbTab)
+            Next
+            clipboardContent.AppendLine()
+        Next
+
+        ' Copiar el contenido al portapapeles
+        Clipboard.SetText(clipboardContent.ToString())
     End Sub
 
 End Class
