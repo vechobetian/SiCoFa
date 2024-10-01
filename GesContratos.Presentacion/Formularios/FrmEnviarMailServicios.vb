@@ -5,6 +5,7 @@ Imports System.ComponentModel
 Public Class FrmEnviarMailServicios
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
     Private mobjContratos As List(Of Contrato)
+    Private mobj_N_AdminDB As New cls_N_AdminDB
     Private mblnSuspender As Boolean
     Public Sub IniciarProcesos()
         Try
@@ -94,7 +95,7 @@ Public Class FrmEnviarMailServicios
                     .DocumentoCliente.Add(c.Cliente.Documento)
                     .IVACliente.Add(c.Cliente.IVA)
                     .TipoDocumentoCliente.Add(c.Cliente.Documento.TipoDoc)
-                    .DetalleServicios = Me.DetalleServicios(c.ServiciosAsociados)
+                    '.DetalleServicios = Me.DetalleServicios(c.ServiciosAsociados)
                     If c.TotalAdeudado > 0 Then
                         .DetalleCuenta = Me.DetalleCuenta(c.OperaContratos)
                     Else
@@ -161,11 +162,42 @@ Public Class FrmEnviarMailServicios
     End Sub
     Private Function DetalleCuenta(ByVal loc As List(Of OperaContrato)) As String
         Dim linea As String
+        Dim x As Integer
         Dim str As String = ""
+
         Try
 
             For Each oc As OperaContrato In loc
                 linea = "Resumen " & Strings.Left(oc.Resu, 2) & "/" & Strings.Right(oc.Resu, 2) & Space(32 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & Space(26 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & Space(23 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
+                str &= linea & vbCrLf & Me.DetalleServicios(oc.IdOperacion)
+
+                If x < loc.Count Then
+                    str &= "-------------------------------------------------------------------------------------------------"
+                End If
+            Next
+            Return str
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return ""
+
+        End Try
+
+    End Function
+    Private Function DetalleServicios(ByVal IdOperacion As Long) As String
+        Dim linea As String
+        Dim str As String = ""
+        Dim sql As String = "SELECT Descripcion,Cantidad,PUnit,Cantidad*PUnit AS Importe FROM TblDetServicios WHERE IdOperaDevin=" & IdOperacion & " ORDER By IdDS"
+
+        Dim dt As DataTable = mobj_N_AdminDB.ObtenerTabla(sql)
+
+        Try
+            For Each row As DataRow In dt.Rows
+                Dim Descripcion As String = row("Descripcion").ToString()
+                Dim Cantidad As Integer = Convert.ToInt32(row("Cantidad"))
+                Dim PUnit As Decimal = Convert.ToDecimal(row("PUnit"))
+                Dim Importe As Decimal = Convert.ToDecimal(row("Importe"))
+                linea = Descripcion & Space(47 - Len(Descripcion)) & Cantidad & Space(23 - Len(Format(PUnit, "Standard"))) & Format(PUnit, "Standard") & Space(23 - Len(Format(Importe, "Standard"))) & Format(Importe, "Standard") & vbCrLf
                 str &= linea
             Next
             Return str
@@ -177,6 +209,7 @@ Public Class FrmEnviarMailServicios
         End Try
 
     End Function
+
     Private Function DetalleServicios(ByVal lsa As List(Of ServicioAsociado)) As String
         Dim linea As String
         Dim str As String = ""

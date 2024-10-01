@@ -10,7 +10,7 @@ Public Class clsEstadoCuentaPDF
     Property DocumentoCliente As New List(Of Documento)
     Property IVACliente As New List(Of IVA)
     Property TipoDocumentoCliente As New List(Of TipoDocumento)
-    Property DetalleServicios As String
+    'Property DetalleServicios As String
     Property DetalleCuenta As String
     Property TotalAdeudado As String
     Property SaldoAnticipos As String
@@ -32,7 +32,7 @@ Public Class clsEstadoCuentaPDF
     Public Sub Run()
         Dim report As New LocalReport()
         Dim param As New List(Of ReportParameter)
-        param.Add(New ReportParameter("DetalleServicios", Me.DetalleServicios))
+        'param.Add(New ReportParameter("DetalleServicios", Me.DetalleServicios))
         param.Add(New ReportParameter("DetalleCuenta", Me.DetalleCuenta))
         param.Add(New ReportParameter("TotalAdeudado", Me.TotalAdeudado))
         param.Add(New ReportParameter("SaldoAnticipos", Me.SaldoAnticipos))
