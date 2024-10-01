@@ -37,6 +37,7 @@ Public Class clsEstadoCuentaPDF
         param.Add(New ReportParameter("TotalAdeudado", Me.TotalAdeudado))
         param.Add(New ReportParameter("SaldoAnticipos", Me.SaldoAnticipos))
         report.ReportPath = Application.StartupPath & "\rptEstadoCuenta.rdlc"
+        'report.ReportPath = "C:\GesContratos\GesContratos.Presentacion\Reportes\rptEstadoCuenta.rdlc"
         report.DataSources.Add(New ReportDataSource("Locador", Me.Locador))
         report.DataSources.Add(New ReportDataSource("DocumentoLocador", Me.DocumentoLocador))
         report.DataSources.Add(New ReportDataSource("IVALocador", Me.IVALocador))

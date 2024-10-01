@@ -459,8 +459,6 @@ Public Class FrmEstadoCuentaClientes
                 .IVACliente.Add(mobjContrato.Cliente.IVA)
                 .TipoDocumentoCliente.Add(mobjContrato.Cliente.Documento.TipoDoc)
 
-                '.DetalleServicios = Me.DetalleServicios(mobjContrato.ServiciosAsociados)
-
                 If mobjContrato.TotalAdeudado > 0 Then
                     .DetalleCuenta = Me.DetalleCuenta(mobjContrato.OperaContratos)
                 Else
@@ -486,12 +484,17 @@ Public Class FrmEstadoCuentaClientes
         Dim linea As String
         Dim x As Integer
         Dim str As String = ""
+
         Try
 
             For Each oc As OperaContrato In loc
                 x += 1
-                linea = "Resumen " & Strings.Left(oc.Resu, 2) & "/" & Strings.Right(oc.Resu, 2) & Space(32 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & Space(26 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & Space(23 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
-                str &= linea & vbCrLf & Me.DetalleServicios(oc.IdOperacion)
+                linea = "Resumen " & Strings.Left(oc.Resu, 2) & "-" & Strings.Right(oc.Resu, 2) & vbCrLf
+                str &= linea & vbCrLf
+                str &= Me.DetalleServicios(oc.IdOperacion) & vbCrLf
+                str &= "                                                                    -Imp.Facturado:" & Space(10 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & vbCrLf
+                str &= "                                                                    -Imp.Cancelado:" & Space(10 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & vbCrLf
+                str &= "                                                                    -Imp.Adeudado: " & Space(10 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
 
                 If x < loc.Count Then
                     str &= "-------------------------------------------------------------------------------------------------"
@@ -520,7 +523,7 @@ Public Class FrmEstadoCuentaClientes
                 Dim Cantidad As Integer = Convert.ToInt32(row("Cantidad"))
                 Dim PUnit As Decimal = Convert.ToDecimal(row("PUnit"))
                 Dim Importe As Decimal = Convert.ToDecimal(row("Importe"))
-                linea = Descripcion & Space(47 - Len(Descripcion)) & Cantidad & Space(23 - Len(Format(PUnit, "Standard"))) & Format(PUnit, "Standard") & Space(23 - Len(Format(Importe, "Standard"))) & Format(Importe, "Standard") & vbCrLf
+                linea = " -" & Descripcion & Space(50 - Len(Descripcion)) & Cantidad & Space(20 - Len(Format(PUnit, "Standard"))) & Format(PUnit, "Standard") & Space(20 - Len(Format(Importe, "Standard"))) & Format(Importe, "Standard") & vbCrLf
                 str &= linea
             Next
             Return str
