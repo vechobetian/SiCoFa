@@ -15,7 +15,7 @@ Public Class FrmFacturarServicios
     Public Sub IniciarProcesos()
         Try
 
-            Me.FacturarServicios(IdUsuario, "FAC", "0001")
+            Me.FacturarServicios(IdUsuario, "FAC", "0002")
             Me.ProgressBar1.Visible = False
             Me.ObtenerComprobantesEnCola()
             Me.GenerarComprobantes()
