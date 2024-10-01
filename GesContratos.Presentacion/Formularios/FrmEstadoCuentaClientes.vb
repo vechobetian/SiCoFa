@@ -483,7 +483,7 @@ Public Class FrmEstadoCuentaClientes
         End Try
     End Sub
     Private Function DetalleCuenta(ByVal loc As List(Of OperaContrato)) As String
-        Dim linea As String = ""
+        Dim linea As String
         Dim x As Integer
         Dim str As String = ""
         Try

@@ -168,6 +168,7 @@ Public Class FrmEnviarMailServicios
         Try
 
             For Each oc As OperaContrato In loc
+                x += 1
                 linea = "Resumen " & Strings.Left(oc.Resu, 2) & "/" & Strings.Right(oc.Resu, 2) & Space(32 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & Space(26 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & Space(23 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
                 str &= linea & vbCrLf & Me.DetalleServicios(oc.IdOperacion)
 
