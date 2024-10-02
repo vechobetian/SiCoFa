@@ -602,7 +602,7 @@ Public Class cls_D_AdminContratos
 
                 cmd.Parameters.Add("_IdOperacion", MySqlDbType.Int64)
                 cmd.Parameters("_IdOperacion").Direction = ParameterDirection.Output
-                cmd.Parameters.Add("_SaldoPago", MySqlDbType.VarChar)
+                cmd.Parameters.Add("_SaldoPago", MySqlDbType.Decimal)
                 cmd.Parameters("_SaldoPago").Direction = ParameterDirection.Output
                 cmd.ExecuteNonQuery()
 
