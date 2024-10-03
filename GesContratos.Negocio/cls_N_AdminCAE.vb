@@ -54,7 +54,7 @@ Public Class cls_N_AdminCAE
             req.FeCabReq = cab
 
             With det
-                .Concepto = 1
+                .Concepto = 2 'Productos=1, Servicio=2, Productos y Servicios=3
                 .DocTipo = argComprobante.Cliente.Documento.TipoDoc.CodiTDoc
                 .DocNro = argComprobante.Cliente.Documento.Numero
 
