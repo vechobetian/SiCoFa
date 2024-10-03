@@ -145,7 +145,7 @@ Public Class FrmEnviarMailServicios
 
                 Archivo = "DC" & Format(c.IdContrato, "0000") & c.UltimoDev & ".pdf"
                 Mensaje = "Estimado Cliente, adjunto Estado de Cuenta" & vbCrLf & vbCrLf & "Atentamente: " & c.Locador.Nombre
-                obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Detalle de Cuenta", Mensaje, Application.StartupPath & "\Temp\" & Archivo)
+                obj_N_AdminEmail.EnviarMail(c.Locador.Nombre, c.Cliente.Email, "Estado de Cuenta", Mensaje, Application.StartupPath & "\Temp\" & Archivo)
 
                 NumReporte += 1
                 Cociente = NumReporte / NumContratos * 100
@@ -169,12 +169,12 @@ Public Class FrmEnviarMailServicios
 
             For Each oc As OperaContrato In loc
                 x += 1
-                linea = "Resumen " & Strings.Left(oc.Resu, 2) & "-" & Strings.Right(oc.Resu, 2) & vbCrLf
+                linea = "Período " & Strings.Left(oc.Resu, 2) & "-" & Strings.Right(oc.Resu, 2) & vbCrLf
                 str &= linea & vbCrLf
                 str &= Me.DetalleServicios(oc.IdOperacion) & vbCrLf
-                str &= "                                                                    -Imp.Facturado:" & Space(10 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & vbCrLf
-                str &= "                                                                    -Imp.Cancelado:" & Space(10 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & vbCrLf
-                str &= "                                                                    -Imp.Adeudado: " & Space(10 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
+                str &= "                                                              -Imp.Total Período: $" & Space(10 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & vbCrLf
+                str &= "                                                              -Imp.Cancelado:     $" & Space(10 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & vbCrLf
+                str &= "                                                              -Imp.Adeudado:      $" & Space(10 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
 
                 If x < loc.Count Then
                     str &= "-------------------------------------------------------------------------------------------------"
