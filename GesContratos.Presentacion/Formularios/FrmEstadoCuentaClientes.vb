@@ -492,6 +492,7 @@ Public Class FrmEstadoCuentaClientes
                 linea = "Período " & Strings.Left(oc.Resu, 2) & "-" & Strings.Right(oc.Resu, 2) & vbCrLf
                 str &= linea & vbCrLf
                 str &= Me.DetalleServicios(oc.IdOperacion) & vbCrLf
+                str &= "                                                              -----------------------------------" & vbCrLf
                 str &= "                                                              -Imp.Total Período: $" & Space(10 - Len(Format(oc.ImpFacturado, "Standard"))) & Format(oc.ImpFacturado, "Standard") & vbCrLf
                 str &= "                                                              -Imp.Cancelado:     $" & Space(10 - Len(Format(oc.ImpCancelado, "Standard"))) & Format(oc.ImpCancelado, "Standard") & vbCrLf
                 str &= "                                                              -Imp.Adeudado:      $" & Space(10 - Len(Format(oc.ImpNoCancelado, "Standard"))) & Format(oc.ImpNoCancelado, "Standard") & vbCrLf
