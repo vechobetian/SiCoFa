@@ -211,6 +211,18 @@ Public Class FrmIngPagoClientes
         End Try
 
     End Sub
+    Private Sub DataGridView1_UserDeletedRow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
+        Me.ActualizarTotales()
+    End Sub
+    Private Sub EstablecerOrdenP()
+        Dim x As Integer
+        For Each dgr As DataGridViewRow In Me.DataGridView1.Rows
+            If dgr.Cells(0).Value > 0 Then
+                x += 1
+                mobj_N_AdminContratos.EstablecerOrdenP(CLng(dgr.Cells(0).Value), x)
+            End If
+        Next
+    End Sub
     Private Sub ActualizarTotales()
         Dim ImpA As Decimal = Me.ImpPago.Text
         Dim ImpT As Decimal
@@ -316,7 +328,9 @@ Public Class FrmIngPagoClientes
         mobjContrato.ActualizarSaldoPagoCliente(argIdOperacion, ImpAplicado)
 
     End Sub
+
     Private Sub Finalizar_Click(sender As Object, e As EventArgs) Handles Finalizar.Click
+        Me.EstablecerOrdenP()
 
         Try
 
