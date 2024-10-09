@@ -214,12 +214,12 @@ Public Class FrmIngPagoClientes
     Private Sub DataGridView1_UserDeletedRow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
         Me.ActualizarTotales()
     End Sub
-    Private Sub EstablecerOrdenP()
+    Private Sub EstablecerItemsPago()
         Dim x As Integer
         For Each dgr As DataGridViewRow In Me.DataGridView1.Rows
             If dgr.Cells(0).Value > 0 Then
                 x += 1
-                mobj_N_AdminContratos.EstablecerOrdenP(CLng(dgr.Cells(0).Value), x)
+                mobj_N_AdminContratos.EstablecerItemsPago(CLng(dgr.Cells(0).Value))
             End If
         Next
     End Sub
@@ -330,7 +330,6 @@ Public Class FrmIngPagoClientes
     End Sub
 
     Private Sub Finalizar_Click(sender As Object, e As EventArgs) Handles Finalizar.Click
-        Me.EstablecerOrdenP()
 
         Try
 

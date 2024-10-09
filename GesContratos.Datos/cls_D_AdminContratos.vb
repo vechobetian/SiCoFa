@@ -588,16 +588,21 @@ Public Class cls_D_AdminContratos
         End Try
 
     End Sub
-    Public Function EstablecerOrdenP(ByVal argIdOpera As Long, argOrdenP As Integer) As Integer
+    Public Sub EstablecerItemsPago(ByVal argIdOpera As Long)
 
         Try
 
-        Catch Ex As Exception
-            MsgBox(Vecho.MensajeError(Me.ToString, "EstablecerOrdenP", Ex.Message))
+            Using cmd As New MySqlCommand("EstablecerItemsPago", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
+                cmd.Parameters.AddWithValue("_IdOperacion", argIdOpera)
+                cmd.ExecuteNonQuery()
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EstablecerItemsPago", ex.Message))
 
         End Try
 
-    End Function
+    End Sub
     Public Function AplicarPagoCliente(ByVal argIdUsuario As Integer, ByVal argIdContrato As Integer, ByVal argCodiAE As String, ByVal argImporte As Decimal) As OperaCancel
         Try
 
