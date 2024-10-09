@@ -33,6 +33,10 @@ Partial Class FrmIngConceptos
         Me.ImpTotalCancelado = New System.Windows.Forms.TextBox()
         Me.lblImpAnticipos = New System.Windows.Forms.Label()
         Me.lblImpTotal = New System.Windows.Forms.Label()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PUnit = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -45,15 +49,16 @@ Partial Class FrmIngConceptos
         '
         'DataGridView1
         '
-        Me.DataGridView1.AllowUserToAddRows = False
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Descripcion, Me.Cantidad, Me.PUnit, Me.Importe})
         Me.DataGridView1.ImeMode = System.Windows.Forms.ImeMode.NoControl
         Me.DataGridView1.Location = New System.Drawing.Point(12, 75)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(457, 215)
         Me.DataGridView1.TabIndex = 4
@@ -131,7 +136,35 @@ Partial Class FrmIngConceptos
         Me.lblImpTotal.TabIndex = 45
         Me.lblImpTotal.Text = "Imp.Total Cencelado:"
         '
-        'FrmIngPagoClientes
+        'Descripcion
+        '
+        Me.Descripcion.HeaderText = "Descripcion"
+        Me.Descripcion.Name = "Descripcion"
+        Me.Descripcion.ReadOnly = True
+        Me.Descripcion.Width = 250
+        '
+        'Cantidad
+        '
+        Me.Cantidad.HeaderText = "Cant"
+        Me.Cantidad.Name = "Cantidad"
+        Me.Cantidad.ReadOnly = True
+        Me.Cantidad.Width = 33
+        '
+        'PUnit
+        '
+        Me.PUnit.HeaderText = "Prec.Unit."
+        Me.PUnit.Name = "PUnit"
+        Me.PUnit.ReadOnly = True
+        Me.PUnit.Width = 85
+        '
+        'Importe
+        '
+        Me.Importe.HeaderText = "Importe"
+        Me.Importe.Name = "Importe"
+        Me.Importe.ReadOnly = True
+        Me.Importe.Width = 85
+        '
+        'FrmIngConceptos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -147,7 +180,7 @@ Partial Class FrmIngConceptos
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Cliente)
         Me.KeyPreview = True
-        Me.Name = "FrmIngPagoClientes"
+        Me.Name = "FrmIngConceptos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Pago de Clientes"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -165,4 +198,8 @@ Partial Class FrmIngConceptos
     Friend WithEvents ImpTotalCancelado As TextBox
     Friend WithEvents lblImpAnticipos As Label
     Friend WithEvents lblImpTotal As Label
+    Friend WithEvents Descripcion As DataGridViewTextBoxColumn
+    Friend WithEvents Cantidad As DataGridViewTextBoxColumn
+    Friend WithEvents PUnit As DataGridViewTextBoxColumn
+    Friend WithEvents Importe As DataGridViewTextBoxColumn
 End Class

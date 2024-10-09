@@ -10,49 +10,7 @@ Public Class FrmIngConceptos
 
     Private mobjContrato As Contrato
     Private mobjOperacion As Operacion
-    Private Sub GenerarReciboPdf(ByVal argComprobante As Comprobante)
-        Try
-            Dim pdf As New clsReporteRecibo
-            Dim Concepto As String = ""
 
-            If Me.ImpTotalCancelado.Text > 0 And Me.ImpAnticipos.Text > 0 Then
-                Concepto =
-                "-Cancelación Cuenta Clientes:" & Space(10 - Len(Format(Me.ImpTotalCancelado.Text, "Standard"))) & "$" & Format(Me.ImpTotalCancelado.Text, "Standard") & vbCrLf &
-                "-Anticipo de Clientes:" & Space(17 - Len(Format(Me.ImpAnticipos.Text, "Standard"))) & "$" & Format(Me.ImpAnticipos.Text, "Standard")
-
-            ElseIf Me.ImpTotalCancelado.Text > 0 And Me.ImpAnticipos.Text = 0 Then
-                Concepto = "Cancelación Cuenta de Clientes"
-
-            ElseIf Me.ImpTotalCancelado.Text = 0 And Me.ImpAnticipos.Text > 0 Then
-                Concepto = "Anticipo de Clientes"
-
-            End If
-
-            With pdf
-                .Locador.Add(mobjContrato.Locador)
-                .DocumentoLocador.Add(mobjContrato.Locador.Documento)
-                .IVALocador.Add(mobjContrato.Locador.IVA)
-                .Cliente.Add(mobjContrato.Cliente)
-                .DocumentoCliente.Add(mobjContrato.Cliente.Documento)
-                .IVACliente.Add(mobjContrato.Cliente.IVA)
-                .TipoDocumentoCliente.Add(mobjContrato.Cliente.Documento.TipoDoc)
-                .Encabezado.Add(argComprobante)
-                .TipoComprobante.Add(argComprobante.TipoComprobante)
-                .Copia = "ORIGINAL"
-                .CantidadEnLetras = UCase(Vecho.NumEnLetras(Me.ImpPago.Text))
-                .Concepto = Concepto
-                .PathArchivo = Application.StartupPath & "\Temp\REC-" & argComprobante.PVenta & "-" & argComprobante.NumComp & ".pdf"
-                .Run("PDFA4")
-                .Dispose()
-            End With
-
-            pdf = Nothing
-        Catch ex As Exception
-            MsgBox(ex.Message)
-
-        End Try
-
-    End Sub
     Private Sub LimpiarTodo()
         With Me
             .mobjContrato = Nothing
@@ -64,7 +22,6 @@ Public Class FrmIngConceptos
             .ImpAnticipos.Text = ""
             .ImpTotalCancelado.Text = ""
             .DataGridView1.Rows.Clear()
-            .DataGridView1.Columns.Clear()
         End With
     End Sub
     Private Sub ObtenerContrato(ByVal argIdCliente As Integer)
@@ -77,57 +34,6 @@ Public Class FrmIngConceptos
         c.OperaContratos = mobj_N_AdminContratos.ListaOperaContratos(0, 0, c.IdContrato, "", "DEBE")
         c.PagosCliente = mobj_N_AdminContratos.ListaPagosCliente(0, c.IdContrato, "ABIERTO")
         Me.mobjContrato = c
-
-        Dim objOC As New DataGridViewTextBoxColumn
-
-        Me.DataGridView1.Columns.Add(objOC)
-        With Me.DataGridView1.Columns(0)
-            .HeaderText = "IdOperaCancelada"
-            .Name = "IdOperaCancelada"
-            .ReadOnly = True
-            .Visible = False
-        End With
-
-        Dim objR As New DataGridViewTextBoxColumn
-        Me.DataGridView1.Columns.Add(objR)
-
-        With Me.DataGridView1.Columns(1)
-            .HeaderText = "Resumen"
-            .Name = "Resu"
-            .ReadOnly = True
-        End With
-
-        Dim objIF As New DataGridViewTextBoxColumn
-        Me.DataGridView1.Columns.Add(objIF)
-
-        With Me.DataGridView1.Columns(2)
-            .HeaderText = "Imp.Fact."
-            .Name = "ImpFacturado"
-            .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .ReadOnly = True
-        End With
-
-        Dim objIC As New DataGridViewTextBoxColumn
-        Me.DataGridView1.Columns.Add(objIC)
-
-        With Me.DataGridView1.Columns(3)
-            .HeaderText = "Imp.Cancel."
-            .Name = "ImpCancelado"
-            .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .ReadOnly = True
-        End With
-
-        Dim objINC As New DataGridViewTextBoxColumn
-        Me.DataGridView1.Columns.Add(objINC)
-
-        With Me.DataGridView1.Columns(4)
-            .HeaderText = "Imp.No Cancel."
-            .Name = "ImpNoCancelado"
-            .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            .ReadOnly = True
-        End With
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = False
-        c = Nothing
 
     End Sub
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
@@ -335,7 +241,6 @@ Public Class FrmIngConceptos
             End If
 
             Dim objComp As Comprobante = mobj_N_AdminContratos.InsertarComprobante(objOpera, "REC", Me.ImpPago.Text, 0, 0, 0, 0, 0, 0, 0, 0, Me.ImpPago.Text, 0, 0, 0, mobjContrato.Cliente, mobjContrato.Locador, Nothing, False)
-            Me.GenerarReciboPdf(objComp)
             Dim obj_N_AdminEmail As New cls_N_AdminEmail
             Dim Archivo = "REC-" & objComp.PVenta & "-" & objComp.NumComp & ".pdf"
             Dim Mensaje = "Estimado Cliente, adjunto Recibo de Pago" & vbCrLf & vbCrLf & "Atentamente: " & mobjContrato.Locador.Nombre

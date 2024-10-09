@@ -55,6 +55,9 @@ Public Class cls_N_AdminCAE
 
             With det
                 .Concepto = 2 'Productos=1, Servicio=2, Productos y Servicios=3
+                .FchServDesde = Now.ToString("yyyyMMdd")
+                .FchServHasta = Now.ToString("yyyyMMdd")
+                .FchVtoPago = Now.ToString("yyyyMMdd")
                 .DocTipo = argComprobante.Cliente.Documento.TipoDoc.CodiTDoc
                 .DocNro = argComprobante.Cliente.Documento.Numero
 
