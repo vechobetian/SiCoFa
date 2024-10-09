@@ -329,6 +329,22 @@ Public Class cls_N_AdminContratos
         End Try
 
     End Sub
+    Public Function EstablecerOrdenP(ByVal argIdOpera As Long, argOrdenP As Integer) As Integer
+
+        Dim RegAfectados As Integer
+
+        Try
+            RegAfectados = mobj_D_AdminContratos.EstablecerOrdenP(argIdOpera, argOrdenP)
+            Return RegAfectados
+
+        Catch Ex As Exception
+            MsgBox(Vecho.MensajeError(Me.ToString, "EstablcerOrdenP", Ex.Message))
+            Return 0
+        End Try
+
+        Return RegAfectados
+
+    End Function
     Public Function AplicarPagoCliente(ByVal argIdUsuario As Integer, ByVal argIdContrato As Integer, ByVal argCodiAE As String, ByVal argImporte As Decimal) As OperaCancel
         Try
             Dim oc As OperaCancel = mobj_D_AdminContratos.AplicarPagoCliente(argIdUsuario, argIdContrato, argCodiAE, argImporte)

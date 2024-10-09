@@ -535,7 +535,7 @@ Public Class cls_D_AdminContratos
         End Try
 
     End Function
-    Public Function RegistrarError(ByVal argIdOpera As String, argDescripcionError As String) As Integer
+    Public Function RegistrarError(ByVal argIdOpera As Long, argDescripcionError As String) As Integer
         Dim RegAfectados As Integer
         Try
             Dim sql As String = "UPDATE TblOpera SET EstadoOpera='Error',DesError='" & argDescripcionError & "' WHERE IdOperacion=" & argIdOpera
@@ -545,7 +545,7 @@ Public Class cls_D_AdminContratos
             End Using
 
         Catch Ex As Exception
-            MsgBox(vecho.MensajeError(Me.ToString, "RegistrarError", Ex.Message))
+            MsgBox(Vecho.MensajeError(Me.ToString, "RegistrarError", Ex.Message))
             Return 0
         End Try
         Return RegAfectados
@@ -588,6 +588,16 @@ Public Class cls_D_AdminContratos
         End Try
 
     End Sub
+    Public Function EstablecerOrdenP(ByVal argIdOpera As Long, argOrdenP As Integer) As Integer
+
+        Try
+
+        Catch Ex As Exception
+            MsgBox(Vecho.MensajeError(Me.ToString, "EstablecerOrdenP", Ex.Message))
+
+        End Try
+
+    End Function
     Public Function AplicarPagoCliente(ByVal argIdUsuario As Integer, ByVal argIdContrato As Integer, ByVal argCodiAE As String, ByVal argImporte As Decimal) As OperaCancel
         Try
 
