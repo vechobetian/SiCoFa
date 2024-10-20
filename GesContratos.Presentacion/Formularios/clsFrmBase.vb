@@ -1,4 +1,4 @@
-﻿Public Class FrmBase
+﻿Public Class clsFrmBase
     Inherits Form
 
     ' Sobrescribimos el método ProcessCmdKey para capturar la tecla Enter en todos los formularios que hereden de FormBase

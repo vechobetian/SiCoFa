@@ -1,7 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmCliente
     'Inherits System.Windows.Forms.Form
-    Inherits FrmBase
+    Inherits clsFrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()>

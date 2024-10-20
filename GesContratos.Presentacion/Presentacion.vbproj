@@ -160,7 +160,7 @@
     <Compile Include="Formularios\FrmFacturarServicios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmBase.vb">
+    <Compile Include="Formularios\clsFrmBase.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Reportes\clsReporteRecibo.vb" />
