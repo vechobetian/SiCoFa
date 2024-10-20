@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmPanelContratos
-    Inherits System.Windows.Forms.Form
+    'Inherits System.Windows.Forms.Form
+    Inherits FrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -22,9 +23,9 @@ Partial Class FrmPanelContratos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -181,7 +182,7 @@ Partial Class FrmPanelContratos
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(10, 282)
+        Me.Label11.Location = New System.Drawing.Point(10, 285)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(27, 13)
         Me.Label11.TabIndex = 53
@@ -190,7 +191,7 @@ Partial Class FrmPanelContratos
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(10, 256)
+        Me.Label10.Location = New System.Drawing.Point(10, 259)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(55, 13)
         Me.Label10.TabIndex = 52
@@ -208,7 +209,7 @@ Partial Class FrmPanelContratos
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(10, 204)
+        Me.Label8.Location = New System.Drawing.Point(11, 207)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(35, 13)
         Me.Label8.TabIndex = 50
@@ -217,7 +218,7 @@ Partial Class FrmPanelContratos
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(10, 151)
+        Me.Label7.Location = New System.Drawing.Point(10, 154)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(52, 13)
         Me.Label7.TabIndex = 49
@@ -226,7 +227,7 @@ Partial Class FrmPanelContratos
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(10, 125)
+        Me.Label6.Location = New System.Drawing.Point(11, 128)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 13)
         Me.Label6.TabIndex = 48
@@ -235,7 +236,7 @@ Partial Class FrmPanelContratos
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(10, 99)
+        Me.Label5.Location = New System.Drawing.Point(10, 102)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(56, 13)
         Me.Label5.TabIndex = 47
@@ -244,7 +245,7 @@ Partial Class FrmPanelContratos
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(10, 73)
+        Me.Label3.Location = New System.Drawing.Point(10, 76)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 45
@@ -311,7 +312,7 @@ Partial Class FrmPanelContratos
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(10, 47)
+        Me.Label1.Location = New System.Drawing.Point(10, 50)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(47, 13)
         Me.Label1.TabIndex = 31
@@ -664,20 +665,20 @@ Partial Class FrmPanelContratos
         '
         'Cantidad
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.Format = "N0"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.Format = "N0"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle4
         Me.Cantidad.HeaderText = "Cantidad"
         Me.Cantidad.Name = "Cantidad"
         Me.Cantidad.Width = 60
         '
         'PUnit
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.PUnit.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "C2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.PUnit.DefaultCellStyle = DataGridViewCellStyle5
         Me.PUnit.HeaderText = "PUnit"
         Me.PUnit.Name = "PUnit"
         Me.PUnit.ReadOnly = True
@@ -685,10 +686,10 @@ Partial Class FrmPanelContratos
         '
         'ImpServ
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.ImpServ.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "C2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.ImpServ.DefaultCellStyle = DataGridViewCellStyle6
         Me.ImpServ.HeaderText = "ImpServ"
         Me.ImpServ.Name = "ImpServ"
         Me.ImpServ.ReadOnly = True

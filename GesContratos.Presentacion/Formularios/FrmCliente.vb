@@ -1,25 +1,11 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports System.ComponentModel
+Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
+Public Class FrmCliente
 
-Public Class frmCliente
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
 
     Private mblnNuevo As Boolean
-    Private Sub LimpiarFormulario()
-        With Me
-            .IdCliente.Clear()
-            .Nombre.Clear()
-            .Domicilio.Clear()
-            .Localidad.Clear()
-            .Provincia.Clear()
-            .Telefono.Clear()
-            .Movil.Clear()
-            .Email.Clear()
-            .TipoDoc.Text = ""
-            .NumDoc.Clear()
-            .IVA.Text = ""
-        End With
-    End Sub
     Private Sub MostrarCliente(ByVal argCliente As Cliente)
         With Me
             .IdCliente.Text = argCliente.IdCliente
@@ -50,23 +36,27 @@ Public Class frmCliente
     Private Sub frmCliente_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Call ObtenerTiposDocumento()
         Call ObtenerTiposIVA()
-
     End Sub
-    Private Sub Nombre_KeyUp(sender As Object, e As KeyEventArgs) Handles Nombre.KeyUp
-        If e.KeyCode = 13 Then
-            Dim c As Cliente = Me.BuscarCliente(Me.Nombre.Text)
+    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
 
-            If c Is Nothing Then
-                'Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarCliente(c)
-                .Nombre.SelectAll()
-            End With
+        If Me.Nombre.Text = "" Or mblnNuevo = True Then
+            Exit Sub
         End If
+
+        Dim c As Cliente = Me.BuscarCliente(Me.Nombre.Text)
+
+        If c Is Nothing Then
+            Me.Nombre.Select()
+            Me.Nombre.Text = ""
+            Exit Sub
+        End If
+
+        With Me
+            .LimpiarFormulario()
+            .MostrarCliente(c)
+            .Nombre.SelectAll()
+        End With
+
     End Sub
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
         Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
@@ -80,7 +70,7 @@ Public Class frmCliente
 
         Select Case lc.Count
             Case 0
-                MsgBox("No se encontro el Cliente",, "SiCoFa")
+                MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
                 Return Nothing
                 Exit Function
             Case 1
@@ -120,10 +110,11 @@ Public Class frmCliente
 
     End Sub
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
-        Call LimpiarFormulario()
+        Me.LimpiarFormulario()
+        Me.Nombre.Select()
     End Sub
     Private Sub Nuevo_Click(sender As Object, e As EventArgs) Handles Nuevo.Click
-        Call LimpiarFormulario()
+        Me.LimpiarFormulario()
         mblnNuevo = True
         Me.Nombre.Focus()
     End Sub

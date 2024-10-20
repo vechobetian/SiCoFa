@@ -1,41 +1,9 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
+Imports System.ComponentModel
 Public Class FrmPanelContratos
 
     Private mobj_N_AdminContratos As New cls_N_AdminContratos
-    Private Sub LimpiarFormularioCliente()
-        With Me
-            .IdCliente.Clear()
-            .Nombre.Clear()
-            .Domicilio.Clear()
-            .Localidad.Clear()
-            .Provincia.Clear()
-            .Telefono.Clear()
-            .Movil.Clear()
-            .Email.Clear()
-            .TipoDoc.SelectedIndex = -1
-            .NumDoc.Clear()
-            .IVA.SelectedIndex = -1
-        End With
-    End Sub
-    Private Sub LimpiarFormularioContrato()
-        With Me
-            .IdContrato.Clear()
-            .GrupoContratos.SelectedIndex = -1
-            .UsFTP.Clear()
-            .MesesT.Clear()
-            .Contacto.Clear()
-            .Deposito.Clear()
-            .InicioContrato.Clear()
-            .FinalContrato.Clear()
-            .UltimoDev.Clear()
-            .EstadoContrato.SelectedIndex = -1
-        End With
-
-    End Sub
-    Private Sub LimpiarFormularioServiciosAsoc()
-        Me.DataGridView1.Rows.Clear()
-    End Sub
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
         Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
@@ -48,7 +16,7 @@ Public Class FrmPanelContratos
 
         Select Case lc.Count
             Case 0
-                MsgBox("No se encontro el Cliente",, "SiCoFa")
+                MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
                 Return Nothing
                 Exit Function
             Case 1
@@ -157,7 +125,7 @@ Public Class FrmPanelContratos
     Private Sub ObtenerContrato(ByVal argIdCliente As Integer)
         Dim c As Contrato = mobj_N_AdminContratos.ObtenerContrato(0, argIdCliente)
         If c Is Nothing Then
-            Call LimpiarFormularioContrato()
+            Me.LimpiarFormulario()
             Exit Sub
         End If
 
@@ -172,29 +140,31 @@ Public Class FrmPanelContratos
             .ObtenerLocadores()
             .ObtenerTiposDocumento()
             .ObtenerTiposIVA()
-            .LimpiarFormularioCliente()
-            .LimpiarFormularioContrato()
+            .LimpiarFormulario()
             .Nombre.Select()
         End With
     End Sub
-    Private Sub Nombre_KeyUp(sender As Object, e As KeyEventArgs) Handles Nombre.KeyUp
-        If e.KeyCode = 13 Then
-            Dim c As Cliente = Me.BuscarCliente(Me.Nombre.Text)
+    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
 
-            If c Is Nothing Then
-                'Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormularioCliente()
-                .LimpiarFormularioContrato()
-                .LimpiarFormularioServiciosAsoc()
-                .MostrarCliente(c)
-                .ObtenerContrato(c.IdCliente)
-                .Nombre.SelectAll()
-            End With
+        If Me.Nombre.Text = "" Then
+            Exit Sub
         End If
+
+        Dim c As Cliente = Me.BuscarCliente(Me.Nombre.Text)
+
+        If c Is Nothing Then
+            e.Cancel = True
+            Me.Nombre.Text = ""
+            Exit Sub
+        End If
+
+        With Me
+            .LimpiarFormulario()
+            .MostrarCliente(c)
+            .ObtenerContrato(c.IdCliente)
+            .Nombre.SelectAll()
+        End With
+
     End Sub
     Private Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar.Click
         Dim str = InputBox("Ingrese el Cliente", "SiCoFa")
@@ -206,9 +176,7 @@ Public Class FrmPanelContratos
         Dim c As Cliente = BuscarCliente(str)
 
         With Me
-            .LimpiarFormularioCliente()
-            .LimpiarFormularioContrato()
-            .LimpiarFormularioServiciosAsoc()
+            .LimpiarFormulario()
             .MostrarCliente(c)
             .ObtenerContrato(c.IdCliente)
             .Nombre.Select()
@@ -217,9 +185,7 @@ Public Class FrmPanelContratos
     End Sub
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
         With Me
-            .LimpiarFormularioCliente()
-            .LimpiarFormularioContrato()
-            .LimpiarFormularioServiciosAsoc()
+            .LimpiarFormulario()
             .Nombre.Select()
         End With
     End Sub
@@ -281,8 +247,8 @@ Public Class FrmPanelContratos
         Dim IdLoc As Integer = Me.Locador.SelectedValue
         Dim IdCli As Integer = Me.IdCliente.Text
         Dim FTP As String = Me.UsFTP.Text
-        Dim Meses As Integer = vecho.CCero(Me.MesesT.Text)
-        Dim ImpD As Decimal = vecho.CCero(Me.Deposito.Text)
+        Dim Meses As Integer = Vecho.CCero(Me.MesesT.Text)
+        Dim ImpD As Decimal = Vecho.CCero(Me.Deposito.Text)
         Dim Inicio As String = Mid(Me.InicioContrato.Text, 7, 4) & "/" & Mid(Me.InicioContrato.Text, 4, 2) & "/" & Mid(Me.InicioContrato.Text, 1, 2)
         Dim Final As String = Mid(Me.FinalContrato.Text, 7, 4) & "/" & Mid(Me.FinalContrato.Text, 4, 2) & "/" & Mid(Me.FinalContrato.Text, 1, 2)
         Dim FacturaServicios As Boolean
@@ -306,7 +272,7 @@ Public Class FrmPanelContratos
             End If
 
         Catch ex As Exception
-            MsgBox(vecho.MensajeError(Me.ToString, "GuardarContrato", ex.Message))
+            MsgBox(Vecho.MensajeError(Me.ToString, "GuardarContrato", ex.Message))
         End Try
 
     End Sub

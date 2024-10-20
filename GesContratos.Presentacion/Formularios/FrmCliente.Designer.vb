@@ -1,9 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmCliente
-    Inherits System.Windows.Forms.Form
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class FrmCliente
+    'Inherits System.Windows.Forms.Form
+    Inherits FrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +21,7 @@ Partial Class frmCliente
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.IdCliente = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -62,7 +63,7 @@ Partial Class frmCliente
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 63)
+        Me.Label1.Location = New System.Drawing.Point(12, 66)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(47, 13)
         Me.Label1.TabIndex = 1
@@ -120,7 +121,7 @@ Partial Class frmCliente
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 40)
+        Me.Label2.Location = New System.Drawing.Point(13, 40)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 13)
         Me.Label2.TabIndex = 13
@@ -129,7 +130,7 @@ Partial Class frmCliente
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 89)
+        Me.Label3.Location = New System.Drawing.Point(12, 92)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(52, 13)
         Me.Label3.TabIndex = 14
@@ -138,7 +139,7 @@ Partial Class frmCliente
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 122)
+        Me.Label5.Location = New System.Drawing.Point(12, 118)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(56, 13)
         Me.Label5.TabIndex = 16
@@ -147,7 +148,7 @@ Partial Class frmCliente
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 141)
+        Me.Label6.Location = New System.Drawing.Point(12, 144)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 13)
         Me.Label6.TabIndex = 17
@@ -156,7 +157,7 @@ Partial Class frmCliente
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 167)
+        Me.Label7.Location = New System.Drawing.Point(11, 170)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(52, 13)
         Me.Label7.TabIndex = 18
@@ -165,7 +166,7 @@ Partial Class frmCliente
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 220)
+        Me.Label8.Location = New System.Drawing.Point(12, 223)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(35, 13)
         Me.Label8.TabIndex = 19
@@ -183,7 +184,7 @@ Partial Class frmCliente
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(12, 272)
+        Me.Label10.Location = New System.Drawing.Point(12, 275)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(55, 13)
         Me.Label10.TabIndex = 21
@@ -192,7 +193,7 @@ Partial Class frmCliente
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(12, 298)
+        Me.Label11.Location = New System.Drawing.Point(12, 301)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(27, 13)
         Me.Label11.TabIndex = 22
@@ -272,7 +273,7 @@ Partial Class frmCliente
         Me.Label12.TabIndex = 29
         Me.Label12.Text = "Movil:"
         '
-        'frmCliente
+        'FrmCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -304,7 +305,7 @@ Partial Class frmCliente
         Me.Controls.Add(Me.Nuevo)
         Me.Controls.Add(Me.Guardar)
         Me.KeyPreview = True
-        Me.Name = "frmCliente"
+        Me.Name = "FrmCliente"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Cliente"
         Me.ResumeLayout(False)

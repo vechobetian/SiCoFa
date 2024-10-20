@@ -102,6 +102,9 @@ Public Class FrmMDI
         End Try
 
     End Sub
+    Private Sub ClienteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClienteToolStripMenuItem.Click
+        FrmCliente.Show()
+    End Sub
     Private Sub DevengarServiciosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DevengarServiciosToolStripMenuItem.Click
         Try
 

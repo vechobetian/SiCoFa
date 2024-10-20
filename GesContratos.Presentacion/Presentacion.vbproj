@@ -160,6 +160,9 @@
     <Compile Include="Formularios\FrmFacturarServicios.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FrmBase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reportes\clsReporteRecibo.vb" />
     <Compile Include="Reportes\clsEstadoCuentaPDF.vb" />
     <Compile Include="Reportes\clsReporteComprobantes.vb" />
