@@ -344,11 +344,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GesContratos.Entidades\Entidades.vbproj">
+    <ProjectReference Include="..\SiCoFa.Entidades\Entidades.vbproj">
       <Project>{2215aad4-a976-496f-b9f8-87258163c48b}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GesContratos.Negocio\Negocio.vbproj">
+    <ProjectReference Include="..\SiCoFa.Negocio\Negocio.vbproj">
       <Project>{6da199d8-678b-4e64-8bed-3c63c7a3bdfb}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
