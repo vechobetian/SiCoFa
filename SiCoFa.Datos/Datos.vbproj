@@ -144,7 +144,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GesContratos.Entidades\Entidades.vbproj">
+    <ProjectReference Include="..\SiCoFa.Entidades\Entidades.vbproj">
       <Project>{2215aad4-a976-496f-b9f8-87258163c48b}</Project>
       <Name>Entidades</Name>
     </ProjectReference>

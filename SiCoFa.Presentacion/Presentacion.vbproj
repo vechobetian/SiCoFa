@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>GesContratos.Presentacion.FrmMDI</StartupObject>
+    <StartupObject>GesContratos.Presentacion.FrmCliente</StartupObject>
     <RootNamespace>GesContratos.Presentacion</RootNamespace>
     <AssemblyName>GestionContratos</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -118,6 +118,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FrmEdicionRegistro.Designer.vb">
+      <DependentUpon>FrmEdicionRegistro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEdicionRegistro.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmEstadoCuentaClientes.Designer.vb">
       <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
     </Compile>
@@ -255,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmComprobantes.resx">
       <DependentUpon>FrmComprobantes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmEdicionRegistro.resx">
+      <DependentUpon>FrmEdicionRegistro.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEdicionTabla.resx">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>

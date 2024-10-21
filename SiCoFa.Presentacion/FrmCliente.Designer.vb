@@ -1,7 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmCliente
     'Inherits System.Windows.Forms.Form
-    Inherits FrmEdicionRegistro
+    Inherits clsFrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()>
@@ -43,6 +43,10 @@ Partial Class FrmCliente
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TipoDoc = New System.Windows.Forms.ComboBox()
         Me.IVA = New System.Windows.Forms.ComboBox()
+        Me.Guardar = New System.Windows.Forms.Button()
+        Me.Limpiar = New System.Windows.Forms.Button()
+        Me.Nuevo = New System.Windows.Forms.Button()
+        Me.Buscar = New System.Windows.Forms.Button()
         Me.Movil = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
@@ -213,6 +217,46 @@ Partial Class FrmCliente
         Me.IVA.Size = New System.Drawing.Size(300, 21)
         Me.IVA.TabIndex = 11
         '
+        'Guardar
+        '
+        Me.Guardar.Location = New System.Drawing.Point(325, 353)
+        Me.Guardar.Name = "Guardar"
+        Me.Guardar.Size = New System.Drawing.Size(66, 29)
+        Me.Guardar.TabIndex = 12
+        Me.Guardar.TabStop = False
+        Me.Guardar.Text = "&Guardar"
+        Me.Guardar.UseVisualStyleBackColor = True
+        '
+        'Limpiar
+        '
+        Me.Limpiar.Location = New System.Drawing.Point(91, 353)
+        Me.Limpiar.Name = "Limpiar"
+        Me.Limpiar.Size = New System.Drawing.Size(66, 29)
+        Me.Limpiar.TabIndex = 25
+        Me.Limpiar.TabStop = False
+        Me.Limpiar.Text = "&Limpiar"
+        Me.Limpiar.UseVisualStyleBackColor = True
+        '
+        'Nuevo
+        '
+        Me.Nuevo.Location = New System.Drawing.Point(253, 353)
+        Me.Nuevo.Name = "Nuevo"
+        Me.Nuevo.Size = New System.Drawing.Size(66, 29)
+        Me.Nuevo.TabIndex = 26
+        Me.Nuevo.TabStop = False
+        Me.Nuevo.Text = "&Nuevo"
+        Me.Nuevo.UseVisualStyleBackColor = True
+        '
+        'Buscar
+        '
+        Me.Buscar.Location = New System.Drawing.Point(163, 353)
+        Me.Buscar.Name = "Buscar"
+        Me.Buscar.Size = New System.Drawing.Size(66, 29)
+        Me.Buscar.TabIndex = 27
+        Me.Buscar.TabStop = False
+        Me.Buscar.Text = "&Buscar"
+        Me.Buscar.UseVisualStyleBackColor = True
+        '
         'Movil
         '
         Me.Movil.Location = New System.Drawing.Point(91, 193)
@@ -233,7 +277,7 @@ Partial Class FrmCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(418, 335)
+        Me.ClientSize = New System.Drawing.Size(418, 412)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Movil)
         Me.Controls.Add(Me.IVA)
@@ -256,32 +300,14 @@ Partial Class FrmCliente
         Me.Controls.Add(Me.Nombre)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.IdCliente)
+        Me.Controls.Add(Me.Limpiar)
+        Me.Controls.Add(Me.Buscar)
+        Me.Controls.Add(Me.Nuevo)
+        Me.Controls.Add(Me.Guardar)
         Me.KeyPreview = True
         Me.Name = "FrmCliente"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Cliente"
-        Me.Controls.SetChildIndex(Me.IdCliente, 0)
-        Me.Controls.SetChildIndex(Me.Label1, 0)
-        Me.Controls.SetChildIndex(Me.Nombre, 0)
-        Me.Controls.SetChildIndex(Me.Domicilio, 0)
-        Me.Controls.SetChildIndex(Me.Localidad, 0)
-        Me.Controls.SetChildIndex(Me.Provincia, 0)
-        Me.Controls.SetChildIndex(Me.Telefono, 0)
-        Me.Controls.SetChildIndex(Me.Email, 0)
-        Me.Controls.SetChildIndex(Me.NumDoc, 0)
-        Me.Controls.SetChildIndex(Me.Label2, 0)
-        Me.Controls.SetChildIndex(Me.Label3, 0)
-        Me.Controls.SetChildIndex(Me.Label5, 0)
-        Me.Controls.SetChildIndex(Me.Label6, 0)
-        Me.Controls.SetChildIndex(Me.Label7, 0)
-        Me.Controls.SetChildIndex(Me.Label8, 0)
-        Me.Controls.SetChildIndex(Me.Label9, 0)
-        Me.Controls.SetChildIndex(Me.Label10, 0)
-        Me.Controls.SetChildIndex(Me.Label11, 0)
-        Me.Controls.SetChildIndex(Me.TipoDoc, 0)
-        Me.Controls.SetChildIndex(Me.IVA, 0)
-        Me.Controls.SetChildIndex(Me.Movil, 0)
-        Me.Controls.SetChildIndex(Me.Label12, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -307,6 +333,10 @@ Partial Class FrmCliente
     Friend WithEvents Label11 As Label
     Friend WithEvents TipoDoc As ComboBox
     Friend WithEvents IVA As ComboBox
+    Friend WithEvents Guardar As Button
+    Friend WithEvents Limpiar As Button
+    Friend WithEvents Nuevo As Button
+    Friend WithEvents Buscar As Button
     Friend WithEvents Movil As TextBox
     Friend WithEvents Label12 As Label
 End Class
