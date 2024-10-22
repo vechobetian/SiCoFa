@@ -7,9 +7,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmCliente</StartupObject>
-    <RootNamespace>SiCoFa.Presentacion</RootNamespace>
-    <AssemblyName>SiCoFa_Com</AssemblyName>
+    <StartupObject>GesContratos.Presentacion.FrmCliente</StartupObject>
+    <RootNamespace>GesContratos.Presentacion</RootNamespace>
+    <AssemblyName>GestionContratos</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsFormsWithCustomSubMain</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -45,7 +45,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SiCoFa_Com.xml</DocumentationFile>
+    <DocumentationFile>GestionContratos.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -55,7 +55,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>SiCoFa_Com.xml</DocumentationFile>
+    <DocumentationFile>GestionContratos.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -118,6 +118,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FrmEdicionRegistro.Designer.vb">
+      <DependentUpon>FrmEdicionRegistro.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEdicionRegistro.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmEstadoCuentaClientes.Designer.vb">
       <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
     </Compile>
@@ -166,10 +172,22 @@
     <Compile Include="Reportes\clsReporteRecibo.vb" />
     <Compile Include="Reportes\clsEstadoCuentaPDF.vb" />
     <Compile Include="Reportes\clsReporteComprobantes.vb" />
+    <Compile Include="Formularios\FrmEnviarMailServicios.Designer.vb">
+      <DependentUpon>FrmEnviarMailServicios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEnviarMailServicios.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmMDI.Designer.vb">
       <DependentUpon>FrmMDI.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmMDI.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmIngConsumoLuz.Designer.vb">
+      <DependentUpon>FrmIngConsumoLuz.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmIngConsumoLuz.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmIngPagoClientes.Designer.vb">
@@ -208,6 +226,12 @@
     <Compile Include="Formularios\FrmPanelContratos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmInicioSecion.Designer.vb">
+      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmInicioSecion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -238,6 +262,9 @@
     <EmbeddedResource Include="Formularios\FrmComprobantes.resx">
       <DependentUpon>FrmComprobantes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmEdicionRegistro.resx">
+      <DependentUpon>FrmEdicionRegistro.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEdicionTabla.resx">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>
     </EmbeddedResource>
@@ -250,11 +277,17 @@
     <EmbeddedResource Include="Formularios\FrmOperaContratos.resx">
       <DependentUpon>FrmOperaContratos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmEnviarMailServicios.resx">
+      <DependentUpon>FrmEnviarMailServicios.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmFacturarServicios.resx">
       <DependentUpon>FrmFacturarServicios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMDI.resx">
       <DependentUpon>FrmMDI.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmIngConsumoLuz.resx">
+      <DependentUpon>FrmIngConsumoLuz.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmIngPagoClientes.resx">
       <DependentUpon>FrmIngPagoClientes.vb</DependentUpon>
@@ -273,6 +306,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPanelContratos.resx">
       <DependentUpon>FrmPanelContratos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmInicioSecion.resx">
+      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
