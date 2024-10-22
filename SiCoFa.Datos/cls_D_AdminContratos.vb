@@ -8,7 +8,7 @@ Public Class cls_D_AdminContratos
         Dim objCli As Cliente
         Try
 
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Movil,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE IdCliente=" & argIdCliente
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE IdCliente=" & argIdCliente
 
             Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
                 cmd.CommandType = CommandType.Text
@@ -23,12 +23,11 @@ Public Class cls_D_AdminContratos
                         Dim Localidad As String = datos("Localidad")
                         Dim Provincia As String = datos("Provincia")
                         Dim Telefono As String = datos("Telefono")
-                        Dim Movil As String = datos("Movil")
                         Dim Email As String = datos("Email")
                         Dim CodiTDoc As String = datos("CodiTDoc")
                         Dim NumDoc As String = datos("NumDoc")
                         Dim CodIVA As String = datos("CodIVA")
-                        objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Movil, Email, CodiTDoc, NumDoc, CodIVA)
+                        objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, CodIVA)
                     Else
                         objCli = Nothing
                     End If
@@ -52,9 +51,9 @@ Public Class cls_D_AdminContratos
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Movil,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes ORDER BY Nombre"
             Else
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Movil,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE Nombre LIKE '" & Replace(UCase(argTextoBuscado), " ", "%") & "%' ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE Nombre LIKE '" & Replace(UCase(argTextoBuscado), " ", "%") & "%' ORDER BY Nombre"
             End If
 
             Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
@@ -66,7 +65,7 @@ Public Class cls_D_AdminContratos
                     If datos.HasRows Then
 
                         While datos.Read()
-                            c = New Cliente(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Movil"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("CodIVA"))
+                            c = New Cliente(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("CodIVA"))
                             lc.Add(c)
                         End While
 
@@ -91,7 +90,6 @@ Public Class cls_D_AdminContratos
                                     ByVal argLocalidad As String,
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
-                                    ByVal argMovil As String,
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String,
@@ -107,7 +105,6 @@ Public Class cls_D_AdminContratos
                 cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
                 cmd.Parameters.AddWithValue("_Provincia", argProvincia)
                 cmd.Parameters.AddWithValue("_Telefono", argTelefono)
-                cmd.Parameters.AddWithValue("_Movil", argMovil)
                 cmd.Parameters.AddWithValue("_Email", argEmail)
                 cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
                 cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
@@ -121,7 +118,7 @@ Public Class cls_D_AdminContratos
             Return IdCliente
 
         Catch Ex As Exception
-            MsgBox(vecho.MensajeError(Me.ToString, "InsertarCliente", Ex.Message))
+            MsgBox(Vecho.MensajeError(Me.ToString, "InsertarCliente", Ex.Message))
             Return 0
         End Try
 
@@ -132,7 +129,6 @@ Public Class cls_D_AdminContratos
                                     ByVal argLocalidad As String,
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
-                                    ByVal argMovil As String,
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String,
@@ -149,7 +145,6 @@ Public Class cls_D_AdminContratos
                 cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
                 cmd.Parameters.AddWithValue("_Provincia", argProvincia)
                 cmd.Parameters.AddWithValue("_Telefono", argTelefono)
-                cmd.Parameters.AddWithValue("_Movil", argMovil)
                 cmd.Parameters.AddWithValue("_Email", argEmail)
                 cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
                 cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
@@ -159,7 +154,7 @@ Public Class cls_D_AdminContratos
             Return True
 
         Catch Ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ActualizarCliente", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCliente", Ex.Message))
             Return False
         End Try
 

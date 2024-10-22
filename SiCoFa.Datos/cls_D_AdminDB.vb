@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Linq
 Imports MySql.Data.MySqlClient
 Public Class cls_D_AdminDB
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
@@ -98,4 +99,30 @@ Public Class cls_D_AdminDB
         End Try
 
     End Function
+    Public Sub InsertarRegistro(ByVal argSql As String, ByVal valoresColumnas As Dictionary(Of String, Object))
+
+        Try
+
+            Dim columnas As String = String.Join(",", valoresColumnas.Keys.Select(Function(k) "`" & k & "`"))
+            Dim valores As String = String.Join(",", valoresColumnas.Keys.Cast(Of String)().Select(Function(k) "@" & k))
+
+            Dim insertCommand As String = $"INSERT INTO {argSql} ({columnas}) VALUES ({valores})"
+
+            Using cmd As New MySqlCommand(insertCommand, Mod_D_Admin.ConexionDB.Conexion)
+
+                For Each columna In valoresColumnas
+                    cmd.Parameters.AddWithValue("@" & columna.Key, columna.Value)
+                Next
+
+                cmd.ExecuteNonQuery()
+
+            End Using
+
+        Catch ex As Exception
+            ' Manejo de excepciones
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarRegistro", $"Error: {ex.Message}{Environment.NewLine}StackTrace: {ex.StackTrace}"))
+        End Try
+
+    End Sub
+
 End Class

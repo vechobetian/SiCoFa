@@ -4,7 +4,6 @@
     Property Localidad As String = ""
     Property Provincia As String = ""
     Property Telefono As String = ""
-    Property Movil As String = ""
     Property Email As String = ""
     Property Documento As Documento
 

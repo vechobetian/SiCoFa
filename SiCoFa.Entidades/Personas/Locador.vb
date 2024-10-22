@@ -23,7 +23,6 @@
         Me.Localidad = argLocalidad
         Me.Provincia = argProvincia
         Me.Telefono = argTelefono
-        Me.Movil = ""
         Me.Email = ""
         Me.Documento = New Documento(80, argCUIT)
         Me.IB = argIB

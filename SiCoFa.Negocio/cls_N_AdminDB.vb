@@ -49,5 +49,17 @@ Public Class cls_N_AdminDB
         End Try
 
     End Function
+    Public Sub InsertarRegistro(ByVal argSql As String, ByVal argValoresColumnas As Dictionary(Of String, Object))
+
+        Try
+
+            mobj_D_AdminDB.InsertarRegistro(argSql, argValoresColumnas)
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarRegistros", ex.Message))
+
+        End Try
+
+    End Sub
 
 End Class

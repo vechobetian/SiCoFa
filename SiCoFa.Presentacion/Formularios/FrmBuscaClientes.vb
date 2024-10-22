@@ -26,7 +26,6 @@ Public Class FrmBuscaClientes
                             Me.DataGridView1.CurrentRow.Cells("Localidad").Value,
                             Me.DataGridView1.CurrentRow.Cells("Provincia").Value,
                             Me.DataGridView1.CurrentRow.Cells("Telefono").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Movil").Value,
                             Me.DataGridView1.CurrentRow.Cells("Email").Value,
                             Me.DataGridView1.CurrentRow.Cells("CodiTDoc").Value,
                             Me.DataGridView1.CurrentRow.Cells("NumDoc").Value,
@@ -46,7 +45,6 @@ Public Class FrmBuscaClientes
                 .Rows(x).Cells("Localidad").Value = c.Localidad
                 .Rows(x).Cells("Provincia").Value = c.Provincia
                 .Rows(x).Cells("Telefono").Value = c.Telefono
-                .Rows(x).Cells("Movil").Value = c.Movil
                 .Rows(x).Cells("Email").Value = c.Email
                 .Rows(x).Cells("CodiTDoc").Value = c.Documento.TipoDoc.CodiTDoc
                 .Rows(x).Cells("TipoDocumento").Value = c.Documento.TipoDoc.TipoDocumento

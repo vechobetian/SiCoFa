@@ -10,7 +10,6 @@
                 ByVal argLocalidad As String,
                 ByVal argProvincia As String,
                 ByVal argTelefono As String,
-                ByVal argMovil As String,
                 ByVal argEmail As String,
                 ByVal argCodiTDoc As String,
                 ByVal argNumDoc As String,
@@ -23,7 +22,6 @@
         Me.Localidad = argLocalidad
         Me.Provincia = argProvincia
         Me.Telefono = argTelefono
-        Me.Movil = argMovil
         Me.Email = argEmail
         Me.Documento = New Documento(argCodiTDoc, argNumDoc)
         Me.IVA = New IVA(argCodIVA)

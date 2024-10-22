@@ -48,7 +48,6 @@ Public Class FrmCliente
             .Localidad.Text = argCliente.Localidad
             .Provincia.Text = argCliente.Provincia
             .Telefono.Text = argCliente.Telefono
-            .Movil.Text = argCliente.Movil
             .Email.Text = argCliente.Email
             .TipoDoc.Text = argCliente.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argCliente.Documento.Numero
@@ -75,7 +74,7 @@ Public Class FrmCliente
         'Codigo para guardar cambios
 
         If mblnNuevo = True Then
-            Dim Id As Integer = mobj_N_AdminContratos.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Movil.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Id As Integer = mobj_N_AdminContratos.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
             If Id > 0 Then
                 Me.IdCliente.Text = Id
                 Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -90,7 +89,7 @@ Public Class FrmCliente
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminContratos.ActualizarCliente(Me.IdCliente.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Movil.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Actualizado As Boolean = mobj_N_AdminContratos.ActualizarCliente(Me.IdCliente.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
 
             If Actualizado = True Then
                 MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")

@@ -43,8 +43,6 @@ Partial Class FrmCliente
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TipoDoc = New System.Windows.Forms.ComboBox()
         Me.IVA = New System.Windows.Forms.ComboBox()
-        Me.Movil = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'IdCliente
@@ -102,14 +100,14 @@ Partial Class FrmCliente
         '
         'Email
         '
-        Me.Email.Location = New System.Drawing.Point(91, 220)
+        Me.Email.Location = New System.Drawing.Point(91, 193)
         Me.Email.Name = "Email"
         Me.Email.Size = New System.Drawing.Size(300, 20)
         Me.Email.TabIndex = 8
         '
         'NumDoc
         '
-        Me.NumDoc.Location = New System.Drawing.Point(91, 272)
+        Me.NumDoc.Location = New System.Drawing.Point(91, 245)
         Me.NumDoc.Name = "NumDoc"
         Me.NumDoc.Size = New System.Drawing.Size(300, 20)
         Me.NumDoc.TabIndex = 10
@@ -162,7 +160,7 @@ Partial Class FrmCliente
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 223)
+        Me.Label8.Location = New System.Drawing.Point(12, 196)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(35, 13)
         Me.Label8.TabIndex = 19
@@ -171,7 +169,7 @@ Partial Class FrmCliente
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(12, 249)
+        Me.Label9.Location = New System.Drawing.Point(12, 222)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(54, 13)
         Me.Label9.TabIndex = 20
@@ -180,7 +178,7 @@ Partial Class FrmCliente
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(12, 275)
+        Me.Label10.Location = New System.Drawing.Point(12, 248)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(55, 13)
         Me.Label10.TabIndex = 21
@@ -189,7 +187,7 @@ Partial Class FrmCliente
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(12, 301)
+        Me.Label11.Location = New System.Drawing.Point(12, 274)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(27, 13)
         Me.Label11.TabIndex = 22
@@ -199,7 +197,7 @@ Partial Class FrmCliente
         '
         Me.TipoDoc.FormattingEnabled = True
         Me.TipoDoc.ItemHeight = 13
-        Me.TipoDoc.Location = New System.Drawing.Point(91, 246)
+        Me.TipoDoc.Location = New System.Drawing.Point(91, 219)
         Me.TipoDoc.Name = "TipoDoc"
         Me.TipoDoc.Size = New System.Drawing.Size(300, 21)
         Me.TipoDoc.TabIndex = 9
@@ -208,34 +206,16 @@ Partial Class FrmCliente
         '
         Me.IVA.FormattingEnabled = True
         Me.IVA.ItemHeight = 13
-        Me.IVA.Location = New System.Drawing.Point(91, 298)
+        Me.IVA.Location = New System.Drawing.Point(91, 271)
         Me.IVA.Name = "IVA"
         Me.IVA.Size = New System.Drawing.Size(300, 21)
         Me.IVA.TabIndex = 11
-        '
-        'Movil
-        '
-        Me.Movil.Location = New System.Drawing.Point(91, 193)
-        Me.Movil.Name = "Movil"
-        Me.Movil.Size = New System.Drawing.Size(300, 20)
-        Me.Movil.TabIndex = 7
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(12, 196)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(35, 13)
-        Me.Label12.TabIndex = 29
-        Me.Label12.Text = "Movil:"
         '
         'FrmCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(418, 335)
-        Me.Controls.Add(Me.Label12)
-        Me.Controls.Add(Me.Movil)
+        Me.ClientSize = New System.Drawing.Size(418, 304)
         Me.Controls.Add(Me.IVA)
         Me.Controls.Add(Me.TipoDoc)
         Me.Controls.Add(Me.Label11)
@@ -280,8 +260,6 @@ Partial Class FrmCliente
         Me.Controls.SetChildIndex(Me.Label11, 0)
         Me.Controls.SetChildIndex(Me.TipoDoc, 0)
         Me.Controls.SetChildIndex(Me.IVA, 0)
-        Me.Controls.SetChildIndex(Me.Movil, 0)
-        Me.Controls.SetChildIndex(Me.Label12, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -307,6 +285,4 @@ Partial Class FrmCliente
     Friend WithEvents Label11 As Label
     Friend WithEvents TipoDoc As ComboBox
     Friend WithEvents IVA As ComboBox
-    Friend WithEvents Movil As TextBox
-    Friend WithEvents Label12 As Label
 End Class

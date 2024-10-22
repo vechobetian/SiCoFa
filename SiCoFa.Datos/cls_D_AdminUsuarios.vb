@@ -5,7 +5,7 @@ Public Class cls_D_AdminUsuarios
         Dim objUs As Usuario
         Try
 
-            Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Movil,Email,CodiTDoc,NumDoc,Password FROM TblUsuarios WHERE IdUsuario=" & argIdUsuario & " AND Password='" & argPassword & "'"
+            Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,Password FROM TblUsuarios WHERE IdUsuario=" & argIdUsuario & " AND Password='" & argPassword & "'"
 
             Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
                 cmd.CommandType = CommandType.Text
@@ -22,7 +22,6 @@ Public Class cls_D_AdminUsuarios
                                     datos("Localidad"),
                                     datos("Provincia"),
                                     datos("Telefono"),
-                                    datos("Movil"),
                                     datos("Email"),
                                     datos("CodiTDoc"),
                                     datos("NumDoc"),
