@@ -8,7 +8,7 @@ Public Class cls_Conexion
     Property Puerto As Integer = 3306
     Public Sub New()
 
-        Me.Base = "sicofaco_contratos"
+        Me.Base = "sicofaco_com"
         Me.Servidor = "www.sicofa.com.ar"
         Me.Usuario = "sicofaco_vecho"
         Me.Clave = "Rene158902"
