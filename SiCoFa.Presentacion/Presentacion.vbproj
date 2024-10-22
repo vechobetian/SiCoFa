@@ -172,22 +172,10 @@
     <Compile Include="Reportes\clsReporteRecibo.vb" />
     <Compile Include="Reportes\clsEstadoCuentaPDF.vb" />
     <Compile Include="Reportes\clsReporteComprobantes.vb" />
-    <Compile Include="Formularios\FrmEnviarMailServicios.Designer.vb">
-      <DependentUpon>FrmEnviarMailServicios.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmEnviarMailServicios.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmMDI.Designer.vb">
       <DependentUpon>FrmMDI.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmMDI.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmIngConsumoLuz.Designer.vb">
-      <DependentUpon>FrmIngConsumoLuz.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmIngConsumoLuz.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmIngPagoClientes.Designer.vb">
@@ -224,12 +212,6 @@
       <DependentUpon>FrmPanelContratos.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmPanelContratos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmInicioSecion.Designer.vb">
-      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmInicioSecion.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -277,17 +259,11 @@
     <EmbeddedResource Include="Formularios\FrmOperaContratos.resx">
       <DependentUpon>FrmOperaContratos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmEnviarMailServicios.resx">
-      <DependentUpon>FrmEnviarMailServicios.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmFacturarServicios.resx">
       <DependentUpon>FrmFacturarServicios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMDI.resx">
       <DependentUpon>FrmMDI.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmIngConsumoLuz.resx">
-      <DependentUpon>FrmIngConsumoLuz.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmIngPagoClientes.resx">
       <DependentUpon>FrmIngPagoClientes.vb</DependentUpon>
@@ -306,9 +282,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPanelContratos.resx">
       <DependentUpon>FrmPanelContratos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmInicioSecion.resx">
-      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
