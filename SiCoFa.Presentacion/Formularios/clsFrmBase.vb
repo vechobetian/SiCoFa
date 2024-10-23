@@ -1,19 +1,33 @@
 ﻿Public Class clsFrmBase
     Inherits Form
 
-    ' Sobrescribimos el método ProcessCmdKey para capturar la tecla Enter en todos los formularios que hereden de FormBase
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal keyData As Keys) As Boolean
-        ' Verifica si la tecla presionada es Enter
-        If keyData = Keys.Enter OrElse keyData = Keys.Down Then
-            ' Mueve el enfoque al siguiente control
-            Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
-            Return True ' Indica que el evento ha sido manejado
-        ElseIf keyData = Keys.Up Then
-            ' Mueve el enfoque al control anterior
-            Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
-            Return True ' Indica que el evento ha sido manejado
+
+        If TypeOf Me.ActiveControl Is ComboBox Then
+            If (keyData And Keys.Alt) = Keys.Alt AndAlso (keyData And Keys.Down) = Keys.Down Then
+                Return False
+            End If
+
+            If (keyData And Keys.Alt) = Keys.Alt AndAlso (keyData And Keys.Up) = Keys.Up Then
+                Return False ' Dejar que el comportamiento predeterminado ocurra
+            End If
+
+            If TypeOf Me.ActiveControl Is ComboBox AndAlso DirectCast(Me.ActiveControl, ComboBox).DroppedDown Then
+                Return False
+            End If
+
         End If
-        ' Si no es Enter, ejecuta el comportamiento predeterminado
+
+        If keyData = Keys.Enter OrElse keyData = Keys.Down Then
+
+            Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
+            Return True
+        ElseIf keyData = Keys.Up Then
+
+            Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
+            Return True
+        End If
+
         Return MyBase.ProcessCmdKey(msg, keyData)
     End Function
 

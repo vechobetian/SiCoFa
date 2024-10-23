@@ -5,7 +5,7 @@ Imports System.ComponentModel
 Public Class FrmFacturarServicios
     Property IdUsuario As Integer
 
-    Private mobj_N_AdminContratos As New cls_N_AdminContratos
+    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
     Private mobjComprobantes As List(Of Comprobante)
     Private mblnSuspender As Boolean
     Private mstrSiguienteProceso As String

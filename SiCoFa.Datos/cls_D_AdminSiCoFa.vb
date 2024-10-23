@@ -1,7 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
-Public Class cls_D_AdminContratos
+Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
     Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente
@@ -1305,7 +1305,7 @@ Public Class cls_D_AdminContratos
     Private Function ObtenerComprobanteAsoc(ByVal argIdOperAsoc As Long) As Comprobante
 
         Try
-            Dim objD_AdminOpera As New cls_D_AdminContratos
+            Dim objD_AdminOpera As New cls_D_AdminSiCoFa
             Dim objOperaAsoc As Operacion = objD_AdminOpera.ObtenerOperacion(argIdOperAsoc)
             Dim objCbte As Comprobante
             Dim objCli As Cliente

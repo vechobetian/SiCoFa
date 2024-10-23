@@ -1,9 +1,9 @@
 ﻿Imports System.IO
 Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
-Public Class cls_N_AdminContratos
+Public Class cls_N_AdminSiCoFa
 
-    Private mobj_D_AdminContratos As New cls_D_AdminContratos
+    Private mobj_D_AdminContratos As New cls_D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
     Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente

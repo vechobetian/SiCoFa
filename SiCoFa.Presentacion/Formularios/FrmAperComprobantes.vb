@@ -2,7 +2,7 @@
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmAperComprobantes
-    Private mobj_N_AdminContratos As New cls_N_AdminContratos
+    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
 
     Private Sub LimpiarFormulario()
         Me.Cliente.Clear()

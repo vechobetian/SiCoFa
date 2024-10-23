@@ -441,7 +441,7 @@ Public Class FrmEstadoCuentaClientes
     Private Sub GeneraReporte(ByVal argPathArchivo As String)
 
         Try
-            Dim obj_N_AdminContratos As New cls_N_AdminContratos
+            Dim obj_N_AdminContratos As New cls_N_AdminSiCoFa
             Dim pdf As New clsEstadoCuentaPDF
 
             mobjContrato.Locador = obj_N_AdminContratos.ObtenerLocadorPorId(mobjContrato.IdLocador)

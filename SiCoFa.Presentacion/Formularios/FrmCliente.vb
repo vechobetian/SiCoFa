@@ -1,10 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
-Imports SiCoFa.Negocio
 Public Class FrmCliente
-
-    Private mobj_N_AdminContratos As New cls_N_AdminContratos
-    Private mblnNuevo As Boolean
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
         Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
@@ -42,7 +38,7 @@ Public Class FrmCliente
     End Function
     Private Sub MostrarCliente(ByVal argCliente As Cliente)
         With Me
-            .IdCliente.Text = argCliente.IdCliente
+            .Id.Text = argCliente.IdCliente
             .Nombre.Text = argCliente.Nombre
             .Domicilio.Text = argCliente.Domicilio
             .Localidad.Text = argCliente.Localidad
@@ -54,42 +50,31 @@ Public Class FrmCliente
             .IVA.Text = argCliente.IVA.TipoIVA
         End With
     End Sub
-    Private Sub ObtenerTiposDocumento()
-        Me.TipoDoc.DataSource = mobj_N_AdminContratos.TiposDocumento
-        Me.TipoDoc.ValueMember = "CodiTDoc"
-        Me.TipoDoc.DisplayMember = "TipoDocumento"
-        Me.TipoDoc.Text = ""
-    End Sub
-    Private Sub ObtenerTiposIVA()
-        Me.IVA.DataSource = mobj_N_AdminContratos.TiposIVA
-        Me.IVA.ValueMember = "CodIVA"
-        Me.IVA.DisplayMember = "TipoIVA"
-        Me.IVA.Text = ""
-    End Sub
-    Private Sub frmCliente_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Call ObtenerTiposDocumento()
-        Call ObtenerTiposIVA()
-    End Sub
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        'Codigo para guardar cambios
+    Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
+        MyBase.Guardar_Click(sender, e)
 
-        If mblnNuevo = True Then
+        If Me.ValidacionOK = False Then
+            Exit Sub
+        End If
+
+        If Me.NuevaPersona = True Then
             Dim Id As Integer = mobj_N_AdminContratos.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
             If Id > 0 Then
-                Me.IdCliente.Text = Id
+                Me.Id.Text = Id
                 Me.Nombre.Text = UCase(Me.Nombre.Text)
                 MsgBox("Se dio de alta el Cliente " & Nombre.Text,, "SiCoFa")
             Else
                 MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                 Exit Sub
             End If
+            Me.NuevaPersona = False
         Else
-            If Me.IdCliente.Text = "" Then
+            If Me.Id.Text = "" Then
                 MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta",, "SiCoFa")
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminContratos.ActualizarCliente(Me.IdCliente.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Actualizado As Boolean = mobj_N_AdminContratos.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
 
             If Actualizado = True Then
                 MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
@@ -98,34 +83,30 @@ Public Class FrmCliente
                 Exit Sub
             End If
         End If
-    End Sub
-    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
+
         Me.LimpiarFormulario()
-        mblnNuevo = True
-        Me.Nombre.Focus()
+        Me.Nombre.Select()
+
     End Sub
-    Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles ToolStripButton3.Click
-        Dim str = InputBox("Ingrese el Cliente", "SiCoFa")
-        If str = "" Then
-            Me.Nombre.Select()
+    Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)
+        MyBase.Buscar_Click(sender, e)
+
+        If Me.TextoBuscar = "" Then
             Exit Sub
         End If
 
-        Dim c As Cliente = BuscarCliente(str)
+        Dim c As Cliente = BuscarCliente(Me.TextoBuscar)
 
         With Me
             .LimpiarFormulario()
             .MostrarCliente(c)
             .Nombre.Select()
         End With
-    End Sub
-    Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
-        Me.LimpiarFormulario()
-        Me.Nombre.Select()
-    End Sub
-    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
 
-        If Me.Nombre.Text = "" Or mblnNuevo = True Then
+    End Sub
+    Public Overrides Sub Nombre_Validating(sender As Object, e As CancelEventArgs)
+
+        If Me.Nombre.Text = "" Or Me.NuevaPersona = True Then
             Exit Sub
         End If
 

@@ -2,7 +2,7 @@
 Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminEmail
-    Private mobj_D_AdminEmail As New cls_D_AdminContratos
+    Private mobj_D_AdminEmail As New cls_D_AdminSiCoFa
     Public Function EnviarMail(ByVal argNombreMostrado As String, ByVal argMail As String, ByVal argAsunto As String, ByVal argMensaje As String, Optional ByVal argPathAdjunto As String = "") As Boolean
 
         Dim CtaE As CuentaEmail = mobj_D_AdminEmail.ObtenerCuentaEmail

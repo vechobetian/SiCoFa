@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>GesContratos.Presentacion.FrmCliente</StartupObject>
+    <StartupObject>GesContratos.Presentacion.FrmEmpleado</StartupObject>
     <RootNamespace>GesContratos.Presentacion</RootNamespace>
     <AssemblyName>GestionContratos</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -118,10 +118,16 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\FrmEdicionRegistro.Designer.vb">
-      <DependentUpon>FrmEdicionRegistro.vb</DependentUpon>
+    <Compile Include="Formularios\FrmEmpleado.Designer.vb">
+      <DependentUpon>FrmEmpleado.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmEdicionRegistro.vb">
+    <Compile Include="Formularios\FrmEmpleado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmEdicionPersonas.Designer.vb">
+      <DependentUpon>FrmEdicionPersonas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEdicionPersonas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmEstadoCuentaClientes.Designer.vb">
@@ -227,14 +233,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Formularios\FrmEmpleado.resx">
+      <DependentUpon>FrmEmpleado.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmAperComprobantes.resx">
       <DependentUpon>FrmAperComprobantes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmComprobantes.resx">
       <DependentUpon>FrmComprobantes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmEdicionRegistro.resx">
-      <DependentUpon>FrmEdicionRegistro.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmEdicionPersonas.resx">
+      <DependentUpon>FrmEdicionPersonas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEdicionTabla.resx">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>

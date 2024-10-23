@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmComprobantes
-    Private mobj_N_AdminContratos As New cls_N_AdminContratos
+    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
     Private mobj_N_AdminDB As New cls_N_AdminDB
     Private mobjComprobantes As DataTable
     Private Sub GenerarReporte(ByVal argComprobante As Comprobante, ByVal argTipo As String, Optional ByVal argPathArchivo As String = "")

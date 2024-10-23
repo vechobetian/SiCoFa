@@ -5,7 +5,7 @@ Imports SiCoFa.Entidades
 Public Class FrmIngPagoClientes
     Property IdUsuario As Long
 
-    Private mobj_N_AdminContratos As New cls_N_AdminContratos
+    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
 
     Private mobjContrato As Contrato
     Private mobjOperacion As Operacion
