@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmCliente
+Partial Class FrmUsuarios
     'Inherits System.Windows.Forms.Form
     Inherits FrmEdicionPersonas
 
@@ -24,31 +24,41 @@ Partial Class FrmCliente
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Password = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(13, 40)
+        Me.Label2.Location = New System.Drawing.Point(12, 275)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 13)
-        Me.Label2.TabIndex = 13
-        Me.Label2.Text = "IdCliente:"
+        Me.Label2.Size = New System.Drawing.Size(56, 13)
+        Me.Label2.TabIndex = 41
+        Me.Label2.Text = "Password:"
         '
-        'FrmCliente
+        'Password
+        '
+        Me.Password.Location = New System.Drawing.Point(92, 272)
+        Me.Password.Name = "Password"
+        Me.Password.Size = New System.Drawing.Size(300, 20)
+        Me.Password.TabIndex = 40
+        '
+        'FrmUsuario
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(418, 304)
+        Me.ClientSize = New System.Drawing.Size(404, 305)
         Me.Controls.Add(Me.Label2)
-        Me.KeyPreview = True
-        Me.Name = "FrmCliente"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Cliente"
+        Me.Controls.Add(Me.Password)
+        Me.Name = "FrmUsuario"
+        Me.Text = "Usuario"
+        Me.Controls.SetChildIndex(Me.Password, 0)
         Me.Controls.SetChildIndex(Me.Label2, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
+
     Friend WithEvents Label2 As Label
+    Friend WithEvents Password As TextBox
 End Class

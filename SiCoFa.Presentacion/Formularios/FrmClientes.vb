@@ -1,6 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
-Public Class FrmCliente
+Public Class FrmClientes
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
         Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing

@@ -71,6 +71,7 @@
     <Compile Include="Comprobantes\CAE.vb" />
     <Compile Include="Contabilidad\AsientoConbable.vb" />
     <Compile Include="Contabilidad\CuentaColectiva.vb" />
+    <Compile Include="Personas\Proveedor.vb" />
     <Compile Include="Personas\CuentaEmail.vb" />
     <Compile Include="Contabilidad\CuentaImputable.vb" />
     <Compile Include="Contabilidad\ItemAsientoContable.vb" />

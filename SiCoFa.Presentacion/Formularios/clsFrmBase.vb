@@ -55,5 +55,16 @@
         LimpiarControles(Me) ' Llama al método para limpiar todos los controles del formulario
     End Sub
 
+    Private Sub InitializeComponent()
+        Me.SuspendLayout()
+        '
+        'clsFrmBase
+        '
+        Me.ClientSize = New System.Drawing.Size(284, 261)
+        Me.Name = "clsFrmBase"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.ResumeLayout(False)
+
+    End Sub
 End Class
 

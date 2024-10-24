@@ -1,5 +1,5 @@
 ﻿Imports SiCoFa.Entidades
-Public Class FrmEmpleado
+Public Class FrmEmpleados
     Private Sub MostrarEmpleado(ByVal argEmpleado As Empleado)
         With Me
             .Id.Text = argEmpleado.IdEmpleado
@@ -13,7 +13,7 @@ Public Class FrmEmpleado
             .NumDoc.Text = argEmpleado.Documento.Numero
         End With
     End Sub
-    Private Sub FrmEmpleado_Invalidated(sender As Object, e As InvalidateEventArgs) Handles Me.Invalidated
+    Private Sub FrmEmpleado_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.IVA.Visible = False
         Me.lblIVA.Visible = False
         Me.Height = Me.Height - Me.IVA.Height + 5

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>GesContratos.Presentacion.FrmEmpleado</StartupObject>
+    <StartupObject>GesContratos.Presentacion.FrmEmpleados</StartupObject>
     <RootNamespace>GesContratos.Presentacion</RootNamespace>
     <AssemblyName>GestionContratos</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -118,10 +118,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\FrmEmpleado.Designer.vb">
-      <DependentUpon>FrmEmpleado.vb</DependentUpon>
+    <Compile Include="Formularios\FrmProveedores.Designer.vb">
+      <DependentUpon>FrmProveedores.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmEmpleado.vb">
+    <Compile Include="Formularios\FrmProveedores.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmUsuarios.Designer.vb">
+      <DependentUpon>FrmUsuarios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmUsuarios.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmEmpleados.Designer.vb">
+      <DependentUpon>FrmEmpleados.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEmpleados.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmEdicionPersonas.Designer.vb">
@@ -208,10 +220,10 @@
     <Compile Include="Formularios\FrmBuscaServicios.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmCliente.Designer.vb">
-      <DependentUpon>FrmCliente.vb</DependentUpon>
+    <Compile Include="Formularios\FrmClientes.Designer.vb">
+      <DependentUpon>FrmClientes.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmCliente.vb">
+    <Compile Include="Formularios\FrmClientes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -233,8 +245,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Formularios\FrmEmpleado.resx">
-      <DependentUpon>FrmEmpleado.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\clsFrmBase.resx">
+      <DependentUpon>clsFrmBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmProveedores.resx">
+      <DependentUpon>FrmProveedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmUsuarios.resx">
+      <DependentUpon>FrmUsuarios.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmEmpleados.resx">
+      <DependentUpon>FrmEmpleados.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmAperComprobantes.resx">
       <DependentUpon>FrmAperComprobantes.vb</DependentUpon>
@@ -275,8 +296,8 @@
     <EmbeddedResource Include="Formularios\FrmBuscaServicios.resx">
       <DependentUpon>FrmBuscaServicios.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmCliente.resx">
-      <DependentUpon>FrmCliente.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmClientes.resx">
+      <DependentUpon>FrmClientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
