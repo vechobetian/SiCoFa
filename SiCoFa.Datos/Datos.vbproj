@@ -55,12 +55,12 @@
     <Import Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cls_Conexion.vb" />
     <Compile Include="cls_D_AdminDB.vb" />
     <Compile Include="cls_D_AdminFTP.vb" />
     <Compile Include="cls_D_AdminPlanCuentas.vb" />
     <Compile Include="mod_D_Admin.vb" />
     <Compile Include="cls_D_AdminSiCoFa.vb" />
-    <Compile Include="cls_Conexion.vb" />
     <Compile Include="cls_D_AdminUsuarios.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Settings.Designer.vb">

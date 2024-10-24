@@ -13,19 +13,30 @@ Public Class cls_Conexion
         Me.Usuario = "sicofaco_vecho"
         Me.Clave = "Rene158902"
 
-        If Me.Conexion Is Nothing Then
-            Me.Conexion = New MySqlConnection(CrearCadena)
-            If Conexion.State = ConnectionState.Closed Then
-                Me.Conexion.Open()
+        Try
+
+            If Me.Conexion Is Nothing Then
+                Me.Conexion = New MySqlConnection(CrearCadena)
+                If Conexion.State = ConnectionState.Closed Then
+                    Me.Conexion.Open()
+                End If
             End If
-        End If
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "Error de conexion", ex.Message))
+
+        End Try
 
     End Sub
     Public Function CrearCadena() As String
         Dim cadena As String
-        cadena = "server=" & Me.Servidor & "; database=" & Me.Base & ";user id=" & Me.Usuario & ";password=" & Me.Clave & ";port=" & Me.Puerto & ";"
+        cadena = "server=" & Me.Servidor & "; database=" & Me.Base & ";user id=" & Me.Usuario & ";password=" & Me.Clave & ";port=" & Me.Puerto & ";" & "Pooling=true; Min Pool Size=0; Max Pool Size=100; Connection Lifetime=0;"
         Return cadena
     End Function
-
+    Public Sub CerrarConexion()
+        If Conexion IsNot Nothing AndAlso Conexion.State = ConnectionState.Open Then
+            Conexion.Close()
+        End If
+    End Sub
 
 End Class

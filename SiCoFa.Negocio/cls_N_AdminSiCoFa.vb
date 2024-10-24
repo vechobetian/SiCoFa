@@ -41,7 +41,8 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argNumDoc As String,
                                     ByVal argCodIVA As String
                                     ) As Integer
-        Dim IdCliente As Integer = mobj_D_AdminContratos.InsertarCliente(
+        Try
+            Dim IdCliente As Integer = mobj_D_AdminContratos.InsertarCliente(
                                                                        UCase(argNombre),
                                                                        UCase(argDomicilio),
                                                                        UCase(argLocalidad),
@@ -52,7 +53,14 @@ Public Class cls_N_AdminSiCoFa
                                                                        UCase(argNumDoc),
                                                                        UCase(argCodIVA)
                                                                        )
-        Return IdCliente
+            Return IdCliente
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCliente", ex.Message))
+            Return 0
+
+        End Try
+
     End Function
     Public Function ActualizarCliente(
                                       ByVal argIdCliente As Integer,
@@ -66,7 +74,8 @@ Public Class cls_N_AdminSiCoFa
                                       ByVal argCodIVA As String
                                      ) As Boolean
 
-        Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarCliente(
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarCliente(
                                                                            argIdCliente,
                                                                            UCase(argDomicilio),
                                                                            UCase(argLocalidad),
@@ -77,7 +86,108 @@ Public Class cls_N_AdminSiCoFa
                                                                            UCase(argNumDoc),
                                                                            UCase(argCodIVA)
                                                                            )
-        Return Actualizado
+            Return Actualizado
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCliente", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+#End Region
+
+#Region "Administracion de Proveedores"
+    Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
+        Dim objProv As Proveedor
+        Try
+            objProv = mobj_D_AdminContratos.ObtenerProveedorPorId(argIdProveedor)
+            Return objProv
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerProveedorPorId", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+    Public Function ListarProveedores(ByVal argTextoBuscado As String) As List(Of Proveedor)
+        Dim lp As List(Of Proveedor)
+        Try
+            lp = mobj_D_AdminContratos.ListarProveedores(argTextoBuscado)
+            Return lp
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarProveedores", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+    Public Function InsertarProveedor(
+                                    ByVal argNombre As String,
+                                    ByVal argDomicilio As String,
+                                    ByVal argLocalidad As String,
+                                    ByVal argProvincia As String,
+                                    ByVal argTelefono As String,
+                                    ByVal argEmail As String,
+                                    ByVal argCodiTDoc As String,
+                                    ByVal argNumDoc As String,
+                                    ByVal argCodIVA As String
+                                    ) As Integer
+        Try
+
+            Dim IdProveedor As Integer = mobj_D_AdminContratos.InsertarCliente(
+                                                                           UCase(argNombre),
+                                                                           UCase(argDomicilio),
+                                                                           UCase(argLocalidad),
+                                                                           UCase(argProvincia),
+                                                                           UCase(argTelefono),
+                                                                           UCase(argEmail),
+                                                                           UCase(argCodiTDoc),
+                                                                           UCase(argNumDoc),
+                                                                           UCase(argCodIVA)
+                                                                           )
+            Return IdProveedor
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarProveedor", ex.Message))
+            Return 0
+
+        End Try
+
+    End Function
+    Public Function ActualizarProveedor(
+                                      ByVal argIdProveedor As Integer,
+                                      ByVal argDomicilio As String,
+                                      ByVal argLocalidad As String,
+                                      ByVal argProvincia As String,
+                                      ByVal argTelefono As String,
+                                      ByVal argEmail As String,
+                                      ByVal argCodiTDoc As String,
+                                      ByVal argNumDoc As String,
+                                      ByVal argCodIVA As String
+                                     ) As Boolean
+
+        Try
+
+            Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarProveedor(
+                                                                               argIdProveedor,
+                                                                               UCase(argDomicilio),
+                                                                               UCase(argLocalidad),
+                                                                               UCase(argProvincia),
+                                                                               UCase(argTelefono),
+                                                                               UCase(argEmail),
+                                                                               UCase(argCodiTDoc),
+                                                                               UCase(argNumDoc),
+                                                                               UCase(argCodIVA)
+                                                                               )
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarProveedor", ex.Message))
+            Return False
+
+        End Try
+
     End Function
 
 #End Region

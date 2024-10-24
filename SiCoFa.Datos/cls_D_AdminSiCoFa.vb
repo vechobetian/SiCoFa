@@ -5,42 +5,50 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
     Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente
+
         Dim objCli As Cliente
+
         Try
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE IdCliente=@IdCliente"
 
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE IdCliente=" & argIdCliente
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-                    datos.Read()
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdCliente", argIdCliente)
 
-                    If datos.HasRows Then
-                        Dim IdCliente As Long = datos("IdCliente")
-                        Dim Nombre As String = datos("Nombre")
-                        Dim Domicilio As String = datos("Domicilio")
-                        Dim Localidad As String = datos("Localidad")
-                        Dim Provincia As String = datos("Provincia")
-                        Dim Telefono As String = datos("Telefono")
-                        Dim Email As String = datos("Email")
-                        Dim CodiTDoc As String = datos("CodiTDoc")
-                        Dim NumDoc As String = datos("NumDoc")
-                        Dim CodIVA As String = datos("CodIVA")
-                        objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, CodIVA)
-                    Else
-                        objCli = Nothing
-                    End If
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        datos.Read()
+
+                        If datos.Read Then
+                            Dim IdCliente As Long = datos("IdCliente")
+                            Dim Nombre As String = datos("Nombre")
+                            Dim Domicilio As String = datos("Domicilio")
+                            Dim Localidad As String = datos("Localidad")
+                            Dim Provincia As String = datos("Provincia")
+                            Dim Telefono As String = datos("Telefono")
+                            Dim Email As String = datos("Email")
+                            Dim CodiTDoc As String = datos("CodiTDoc")
+                            Dim NumDoc As String = datos("NumDoc")
+                            Dim CodIVA As String = datos("CodIVA")
+                            objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, CodIVA)
+                        Else
+                            objCli = Nothing
+                        End If
+
+                    End Using
 
                 End Using
 
             End Using
-
             Return objCli
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerClientePorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerClientePorId", ex.Message))
             Return Nothing
+
         End Try
 
     End Function
@@ -53,34 +61,39 @@ Public Class cls_D_AdminSiCoFa
             If argTextoBuscado = "*" Then
                 sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes ORDER BY Nombre"
             Else
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE Nombre LIKE '" & Replace(UCase(argTextoBuscado), " ", "%") & "%' ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblClientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
 
-                    If datos.HasRows Then
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
 
-                        While datos.Read()
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read
                             c = New Cliente(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("CodIVA"))
                             lc.Add(c)
                         End While
 
-                        Return lc
-                    Else
+                    End Using
 
-                        Return Nothing
-                    End If
                 End Using
 
             End Using
 
+            Return lc
+
         Catch ex As Exception
             Throw New Exception(vecho.MensajeError(Me.ToString, "ListarClientes", ex.Message))
             Return Nothing
+
         End Try
 
     End Function
@@ -98,27 +111,30 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdCliente As Integer
         Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-            Using cmd As New MySqlCommand("InsertarCliente", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-                cmd.Parameters.AddWithValue("_Nombre", argNombre)
-                cmd.Parameters.AddWithValue("_Domicilio", argDomicilio)
-                cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
-                cmd.Parameters.AddWithValue("_Provincia", argProvincia)
-                cmd.Parameters.AddWithValue("_Telefono", argTelefono)
-                cmd.Parameters.AddWithValue("_Email", argEmail)
-                cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
-                cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
-                cmd.Parameters.AddWithValue("_CodIVA", argCodIVA)
-                cmd.Parameters.Add("_IdCliente", MySqlDbType.Int32)
-                cmd.Parameters("_IdCliente").Direction = ParameterDirection.Output
-                cmd.ExecuteNonQuery()
-                IdCliente = CInt(cmd.Parameters("_IdCliente").Value)
+                Using cmd As New MySqlCommand("InsertarCliente", cn) With {.CommandType = CommandType.StoredProcedure}
+                    cmd.Parameters.AddWithValue("_Nombre", argNombre)
+                    cmd.Parameters.AddWithValue("_Domicilio", argDomicilio)
+                    cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
+                    cmd.Parameters.AddWithValue("_Provincia", argProvincia)
+                    cmd.Parameters.AddWithValue("_Telefono", argTelefono)
+                    cmd.Parameters.AddWithValue("_Email", argEmail)
+                    cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
+                    cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
+                    cmd.Parameters.AddWithValue("_CodIVA", argCodIVA)
+                    cmd.Parameters.Add("_IdCliente", MySqlDbType.Int32)
+                    cmd.Parameters("_IdCliente").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdCliente = CInt(cmd.Parameters("_IdCliente").Value)
+                End Using
+
             End Using
-
             Return IdCliente
 
         Catch Ex As Exception
-            MsgBox(Vecho.MensajeError(Me.ToString, "InsertarCliente", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCliente", Ex.Message))
             Return 0
         End Try
 
@@ -138,23 +154,207 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-            Using cmd As New MySqlCommand("ActualizarCliente", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-                cmd.Parameters.AddWithValue("_IdCliente", argIdCliente)
-                cmd.Parameters.AddWithValue("_Domicilio", argDomicilio)
-                cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
-                cmd.Parameters.AddWithValue("_Provincia", argProvincia)
-                cmd.Parameters.AddWithValue("_Telefono", argTelefono)
-                cmd.Parameters.AddWithValue("_Email", argEmail)
-                cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
-                cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
-                cmd.Parameters.AddWithValue("_CodIVA", argCodIVA)
-                cmd.ExecuteNonQuery()
+                Using cmd As New MySqlCommand("ActualizarCliente", cn) With {.CommandType = CommandType.StoredProcedure}
+                    cmd.Parameters.AddWithValue("_IdCliente", argIdCliente)
+                    cmd.Parameters.AddWithValue("_Domicilio", argDomicilio)
+                    cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
+                    cmd.Parameters.AddWithValue("_Provincia", argProvincia)
+                    cmd.Parameters.AddWithValue("_Telefono", argTelefono)
+                    cmd.Parameters.AddWithValue("_Email", argEmail)
+                    cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
+                    cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
+                    cmd.Parameters.AddWithValue("_CodIVA", argCodIVA)
+                    cmd.ExecuteNonQuery()
+                End Using
+
             End Using
+
             Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCliente", Ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+#End Region
+
+#Region "Administracion de Proveedores"
+    Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
+        Dim objProv As Proveedor
+        Try
+
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblProveedores WHERE IdProveedor=@IdProveedor"
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdProveedor", argIdProveedor)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        datos.Read()
+
+                        If datos.Read Then
+                            Dim IdProveedor As Long = datos("IdProveedor")
+                            Dim Nombre As String = datos("Nombre")
+                            Dim Domicilio As String = datos("Domicilio")
+                            Dim Localidad As String = datos("Localidad")
+                            Dim Provincia As String = datos("Provincia")
+                            Dim Telefono As String = datos("Telefono")
+                            Dim Email As String = datos("Email")
+                            Dim CodiTDoc As String = datos("CodiTDoc")
+                            Dim NumDoc As String = datos("NumDoc")
+                            Dim CodIVA As String = datos("CodIVA")
+                            objProv = New Proveedor(IdProveedor, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, CodIVA)
+                        Else
+                            objProv = Nothing
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+
+                Return objProv
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerProveedorPorId", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+    Public Function ListarProveedores(ByVal argTextoBuscado As String) As List(Of Proveedor)
+        Dim lp As New List(Of Proveedor)
+        Dim p As Proveedor
+
+        Try
+            Dim sql As String
+            If argTextoBuscado = "*" Then
+                sql = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblProveedores ORDER BY Nombre"
+            Else
+                sql = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA FROM TblProveedores WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+            End If
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read
+                            p = New Proveedor(datos("IdProveedor"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("CodIVA"))
+                            lp.Add(p)
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return lp
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarProveedores", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+    Public Function InsertarProveedor(
+                                    ByVal argNombre As String,
+                                    ByVal argDomicilio As String,
+                                    ByVal argLocalidad As String,
+                                    ByVal argProvincia As String,
+                                    ByVal argTelefono As String,
+                                    ByVal argEmail As String,
+                                    ByVal argCodiTDoc As String,
+                                    ByVal argNumDoc As String,
+                                    ByVal argCodIVA As String
+                                    ) As Integer
+
+        Dim IdProveedor As Integer
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("InsertarProveedor", cn) With {.CommandType = CommandType.StoredProcedure}
+                    cmd.Parameters.AddWithValue("_Nombre", argNombre)
+                    cmd.Parameters.AddWithValue("_Domicilio", argDomicilio)
+                    cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
+                    cmd.Parameters.AddWithValue("_Provincia", argProvincia)
+                    cmd.Parameters.AddWithValue("_Telefono", argTelefono)
+                    cmd.Parameters.AddWithValue("_Email", argEmail)
+                    cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
+                    cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
+                    cmd.Parameters.AddWithValue("_CodIVA", argCodIVA)
+                    cmd.Parameters.Add("_IdProveedor", MySqlDbType.Int32)
+                    cmd.Parameters("_IdProveedor").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdProveedor = CInt(cmd.Parameters("_IdProveedor").Value)
+                End Using
+
+            End Using
+
+            Return IdProveedor
+
+        Catch Ex As Exception
+            MsgBox(Vecho.MensajeError(Me.ToString, "InsertarProveedor", Ex.Message))
+            Return 0
+        End Try
+
+    End Function
+    Public Function ActualizarProveedor(
+                                    ByVal argIdCliente As Integer,
+                                    ByVal argDomicilio As String,
+                                    ByVal argLocalidad As String,
+                                    ByVal argProvincia As String,
+                                    ByVal argTelefono As String,
+                                    ByVal argEmail As String,
+                                    ByVal argCodiTDoc As String,
+                                    ByVal argNumDoc As String,
+                                    ByVal argCodIVA As String
+                                    ) As Boolean
+
+
+
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("ActualizarProveedor", cn) With {.CommandType = CommandType.StoredProcedure}
+                    cmd.Parameters.AddWithValue("_IdProveedor", argIdCliente)
+                    cmd.Parameters.AddWithValue("_Domicilio", argDomicilio)
+                    cmd.Parameters.AddWithValue("_Localidad", argLocalidad)
+                    cmd.Parameters.AddWithValue("_Provincia", argProvincia)
+                    cmd.Parameters.AddWithValue("_Telefono", argTelefono)
+                    cmd.Parameters.AddWithValue("_Email", argEmail)
+                    cmd.Parameters.AddWithValue("_CodiTDoc", argCodiTDoc)
+                    cmd.Parameters.AddWithValue("_NumDoc", argNumDoc)
+                    cmd.Parameters.AddWithValue("_CodIVA", argCodIVA)
+                    cmd.ExecuteNonQuery()
+                End Using
+
+            End Using
+
+            Return True
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarProveedor", Ex.Message))
             Return False
         End Try
 
