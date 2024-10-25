@@ -7,8 +7,13 @@ Public Class cls_D_AdminDB
         Try
             Dim tbl As New DataTable
 
-            Using adapter = New MySqlDataAdapter(argSql, Mod_D_Admin.ConexionDB.Conexion)
-                adapter.Fill(tbl)
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using adapter = New MySqlDataAdapter(argSql, cn)
+                    adapter.Fill(tbl)
+                End Using
+
             End Using
 
             Return tbl
@@ -24,10 +29,15 @@ Public Class cls_D_AdminDB
 
         Try
 
-            Using adapter = New MySqlDataAdapter(argSql, Mod_D_Admin.ConexionDB.Conexion)
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                Using builder As New MySqlCommandBuilder(adapter)
-                    adapter.Update(argTbl)
+                Using adapter = New MySqlDataAdapter(argSql, cn)
+
+                    Using builder As New MySqlCommandBuilder(adapter)
+                        adapter.Update(argTbl)
+
+                    End Using
 
                 End Using
 
@@ -42,8 +52,16 @@ Public Class cls_D_AdminDB
     Public Function ObtenerValor(ByVal argSql As String) As Object
 
         Try
-            Dim command As New MySqlCommand(argSql, Mod_D_Admin.ConexionDB.Conexion)
-            Dim valor As Object = command.ExecuteScalar()
+            Dim valor As Object
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using command As New MySqlCommand(argSql, cn)
+                    valor = command.ExecuteScalar()
+                End Using
+
+            End Using
 
             If valor IsNot Nothing Then
                 Return valor
@@ -60,34 +78,36 @@ Public Class cls_D_AdminDB
     Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
 
         Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = argSql
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = argSql
 
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
 
-                    If datos.HasRows Then
+                        If datos.Read Then
 
-                        datos.Read()
+                            ' Crear un diccionario para almacenar los valores del registro
+                            Dim resultado As New Dictionary(Of String, Object)()
 
-                        ' Crear un diccionario para almacenar los valores del registro
-                        Dim resultado As New Dictionary(Of String, Object)()
+                            ' Iterar sobre todos los campos del registro y agregar sus nombres y valores al diccionario
+                            For i As Integer = 0 To datos.FieldCount - 1
+                                Dim nombreCampo As String = datos.GetName(i)
+                                Dim valorCampo As Object = datos.GetValue(i)
+                                resultado(nombreCampo) = valorCampo
+                            Next
 
-                        ' Iterar sobre todos los campos del registro y agregar sus nombres y valores al diccionario
-                        For i As Integer = 0 To datos.FieldCount - 1
-                            Dim nombreCampo As String = datos.GetName(i)
-                            Dim valorCampo As Object = datos.GetValue(i)
-                            resultado(nombreCampo) = valorCampo
-                        Next
+                            ' Retornar el diccionario con los valores
+                            Return resultado
 
-                        ' Retornar el diccionario con los valores
-                        Return resultado
+                        Else
+                            Return Nothing
 
-                    Else
-                        Return Nothing
+                        End If
 
-                    End If
+                    End Using
 
                 End Using
 
@@ -108,13 +128,18 @@ Public Class cls_D_AdminDB
 
             Dim insertCommand As String = $"INSERT INTO {argSql} ({columnas}) VALUES ({valores})"
 
-            Using cmd As New MySqlCommand(insertCommand, Mod_D_Admin.ConexionDB.Conexion)
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                For Each columna In valoresColumnas
-                    cmd.Parameters.AddWithValue("@" & columna.Key, columna.Value)
-                Next
+                Using cmd As New MySqlCommand(insertCommand, cn)
 
-                cmd.ExecuteNonQuery()
+                    For Each columna In valoresColumnas
+                        cmd.Parameters.AddWithValue("@" & columna.Key, columna.Value)
+                    Next
+
+                    cmd.ExecuteNonQuery()
+
+                End Using
 
             End Using
 

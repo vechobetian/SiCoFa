@@ -24,7 +24,7 @@ Public Class FrmEdicionPersonas
 
         For Each control As Control In Me.Controls
             If TypeOf control Is TextBox Then
-                If String.IsNullOrWhiteSpace(control.Text) Then
+                If String.IsNullOrWhiteSpace(control.Text) And control.Name <> "Id" Then
                     MsgBox(control.Name & " es un dato requerido", vbCritical, "SiCoFa")
                     control.Focus()
                     Me.ValidacionOK = False

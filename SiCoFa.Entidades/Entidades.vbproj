@@ -87,13 +87,13 @@
     <Compile Include="Operaciones\OperaContrato.vb" />
     <Compile Include="Contabilidad\RubroContabilidad.vb" />
     <Compile Include="Personas\Empleado.vb" />
+    <Compile Include="Personas\Usuario.vb" />
     <Compile Include="Sistema\Archivo.vb" />
     <Compile Include="Sistema\Secion.vb" />
     <Compile Include="Contratos\ServicioAsociado.vb" />
     <Compile Include="Contratos\Servicio.vb" />
     <Compile Include="Contabilidad\SubRubroContabilidad.vb" />
     <Compile Include="Operaciones\TipoOperacion.vb" />
-    <Compile Include="Personas\Usuario.vb" />
     <Compile Include="Personas\Cliente.vb" />
     <Compile Include="Comprobantes\Comprobante.vb" />
     <Compile Include="Comprobantes\ItemComprobante.vb" />

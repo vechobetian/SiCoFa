@@ -11,7 +11,6 @@ Public Class FrmUsuarios
             .Email.Text = argUsuario.Email
             .TipoDoc.Text = argUsuario.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argUsuario.Documento.Numero
-            .Password.Text = argUsuario.Password
         End With
     End Sub
     Private Sub FrmUsuario_Load(sender As Object, e As EventArgs) Handles Me.Load

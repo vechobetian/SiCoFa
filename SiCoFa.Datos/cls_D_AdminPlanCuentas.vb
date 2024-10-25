@@ -9,19 +9,22 @@ Public Class cls_D_AdminPlanCuentas
         Try
             Dim sql As String = "SELECT CodiRub,NombreRub FROM TblRubros ORDER BY CodiRub"
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-                    If datos.HasRows Then
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
                         While datos.Read()
                             rb = New RubroContabilidad(datos("CodiRub"), datos("NombreRub"))
                             lr.Add(rb)
                         End While
-                    Else
-                        lr = Nothing
-                    End If
+
+                    End Using
+
                 End Using
 
             End Using
@@ -39,22 +42,27 @@ Public Class cls_D_AdminPlanCuentas
         Dim srb As SubRubroContabilidad
 
         Try
-            Dim sql As String = "SELECT CodiSubRub,CodiRub,NombreSubRubro FROM TblSubRubros WHERE CodiRub='" & argCodiRub & "' ORDER BY CodiSubRub"
+            Dim sql As String = "SELECT CodiSubRub,CodiRub,NombreSubRubro FROM TblSubRubros WHERE CodiRub=@CodiRub ORDER BY CodiSubRub"
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-                    If datos.HasRows Then
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@CodiRub", argCodiRub)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
                         While datos.Read()
                             srb = New SubRubroContabilidad(datos("CodiSubRub"), datos("CodiRub"), datos("NombreSubRubro"))
                             lsr.Add(srb)
                         End While
-                    Else
-                        lsr = Nothing
-                    End If
+
+                    End Using
+
                 End Using
+
             End Using
 
             Return lsr
@@ -71,21 +79,25 @@ Public Class cls_D_AdminPlanCuentas
         Dim cc As CuentaColectiva
 
         Try
-            Dim sql As String = "SELECT CodiCtaCol,CodiSubRub,NombreCtaCol FROM TblCtasColectivas WHERE CodiSubRub='" & argCodiSubRub & "' ORDER BY CodiCtaCol"
+            Dim sql As String = "SELECT CodiCtaCol,CodiSubRub,NombreCtaCol FROM TblCtasColectivas WHERE CodiSubRub=@CodiSubRub ORDER BY CodiCtaCol"
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-                    If datos.HasRows Then
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@CodiSubRub", argCodiSubRub)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
                         While datos.Read()
                             cc = New CuentaColectiva(datos("CodiCtaCol"), datos("CodiSubRub"), datos("NombreCtaCol"))
                             lcc.Add(cc)
                         End While
-                    Else
-                        lcc = Nothing
-                    End If
+
+                    End Using
+
                 End Using
 
             End Using
@@ -104,21 +116,25 @@ Public Class cls_D_AdminPlanCuentas
         Dim ci As CuentaImputable
 
         Try
-            Dim sql As String = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables WHERE CodiCtaCol='" & argCodiCtaCol & "' ORDER BY CodiCta"
+            Dim sql As String = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables WHERE CodiCtaCol=@CodiCtaCol ORDER BY CodiCta"
 
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
 
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-                    If datos.HasRows Then
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@CodiCtaCol", argCodiCtaCol)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
                         While datos.Read()
                             ci = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("NombreCta"))
                             lci.Add(ci)
                         End While
-                    Else
-                        lci = Nothing
-                    End If
+
+                    End Using
+
                 End Using
 
             End Using

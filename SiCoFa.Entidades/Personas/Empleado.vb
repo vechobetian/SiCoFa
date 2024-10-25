@@ -1,7 +1,6 @@
 ﻿Public Class Empleado
     Inherits Persona
     Property IdEmpleado As Long
-
     Public Sub New(
                 ByVal argIdEmpleado As Long,
                 ByVal argNombre As String,
@@ -22,7 +21,6 @@
         Me.Telefono = argTelefono
         Me.Email = argEmail
         Me.Documento = New Documento(argCodiTDoc, argNumDoc)
-
     End Sub
 
 
