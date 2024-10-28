@@ -2,7 +2,7 @@
 Imports SiCoFa.Entidades
 Public Class FrmClientes
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
-        Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
+        Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
 
         If lc Is Nothing Then
@@ -56,7 +56,7 @@ Public Class FrmClientes
         End If
 
         If Me.NuevaPersona = True Then
-            Dim Id As Integer = mobj_N_AdminContratos.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Id As Integer = mobj_N_AdminSiCoFa.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
             If Id > 0 Then
                 Me.Id.Text = Id
                 Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -72,7 +72,7 @@ Public Class FrmClientes
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminContratos.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
 
             If Actualizado = True Then
                 MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
@@ -107,6 +107,7 @@ Public Class FrmClientes
 
     End Sub
     Public Overrides Sub Nombre_Validating(sender As Object, e As CancelEventArgs)
+        MyBase.Nombre_Validating(sender, e)
 
         If Me.Nombre.Text = "" Or Me.NuevaPersona = True Then
             Exit Sub

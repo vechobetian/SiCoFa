@@ -5,7 +5,7 @@ Imports System.ComponentModel
 Public Class FrmFacturarServicios
     Property IdUsuario As Integer
 
-    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
+    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
     Private mobjComprobantes As List(Of Comprobante)
     Private mblnSuspender As Boolean
     Private mstrSiguienteProceso As String
@@ -31,7 +31,7 @@ Public Class FrmFacturarServicios
             Me.Show()
             Me.Refresh()
 
-            Dim NumComprobantes As Integer = mobj_N_AdminContratos.FacturarServicios(argIdUsuario, argCodiTC, argPVenta)
+            Dim NumComprobantes As Integer = mobj_N_AdminSiCoFa.FacturarServicios(argIdUsuario, argCodiTC, argPVenta)
             Return NumComprobantes
         Catch ex As Exception
 
@@ -43,7 +43,7 @@ Public Class FrmFacturarServicios
     Private Sub ObtenerComprobantesEnCola()
 
         Try
-            Dim objCola As List(Of Comprobante) = mobj_N_AdminContratos.ObtenerComprobantesEnCola
+            Dim objCola As List(Of Comprobante) = mobj_N_AdminSiCoFa.ObtenerComprobantesEnCola
             If objCola IsNot Nothing Then
                 Me.mobjComprobantes = objCola
             End If
@@ -58,10 +58,10 @@ Public Class FrmFacturarServicios
 
         Try
             With argComprobante
-                .Operacion = mobj_N_AdminContratos.ObtenerOperacion(argComprobante.IdOperacion)
-                .Cliente = mobj_N_AdminContratos.ObtenerClientePorId(argComprobante.IdCliente)
-                .Detalle = mobj_N_AdminContratos.ObtenerDetalleC(argComprobante.IdOperacion, False)
-                .Locador = mobj_N_AdminContratos.ObtenerLocadorPorId(1)
+                .Operacion = mobj_N_AdminSiCoFa.ObtenerOperacion(argComprobante.IdOperacion)
+                .Cliente = mobj_N_AdminSiCoFa.ObtenerClientePorId(argComprobante.IdCliente)
+                .Detalle = mobj_N_AdminSiCoFa.ObtenerDetalleC(argComprobante.IdOperacion, False)
+                .Locador = mobj_N_AdminSiCoFa.ObtenerLocadorPorId(1)
             End With
 
             Dim CAE As CAE = obj_N_AdminCAE.ObtenerCAE(argComprobante)
@@ -75,14 +75,14 @@ Public Class FrmFacturarServicios
             Else
 
                 mintNumcomprobanteR += 1
-                mobj_N_AdminContratos.RegistrarComprobanteRechazado(argComprobante.IdOperacion)
-                'mobj_N_AdminContratos.RegistrarError(argComprobante.IdOperacion, obj_N_AdminCAE.Observaciones & vbCrLf & obj_N_AdminCAE.Errores & vbCrLf & obj_N_AdminCAE.Eventos)
+                mobj_N_AdminSiCoFa.RegistrarComprobanteRechazado(argComprobante.IdOperacion)
+                'mobj_N_AdminSiCoFa.RegistrarError(argComprobante.IdOperacion, obj_N_AdminCAE.Observaciones & vbCrLf & obj_N_AdminCAE.Errores & vbCrLf & obj_N_AdminCAE.Eventos)
                 Return "R"
 
             End If
 
         Catch ex As Exception
-            mobj_N_AdminContratos.RegistrarError(argComprobante.IdOperacion, ex.Message)
+            mobj_N_AdminSiCoFa.RegistrarError(argComprobante.IdOperacion, ex.Message)
             MsgBox(ex.Message, vbInformation, "SiCoFa")
             Return "ERROR"
 
@@ -171,14 +171,14 @@ Public Class FrmFacturarServicios
                     Case "A"
                         Me.GenerarQR(c)
                         Me.GenerarPdf(c)
-                        mobj_N_AdminContratos.ActualizarCAE(c)
+                        mobj_N_AdminSiCoFa.ActualizarCAE(c)
                     Case "R"
                         'Aca no hago nada porque en el procedimiento solicitar CAE ya se registra el error
                     Case "ERROR"
                         If c.CAE IsNot Nothing Then
                             Me.GenerarQR(c)
                             Me.GenerarPdf(c)
-                            mobj_N_AdminContratos.ActualizarCAE(c)
+                            mobj_N_AdminSiCoFa.ActualizarCAE(c)
                         End If
                 End Select
             Next

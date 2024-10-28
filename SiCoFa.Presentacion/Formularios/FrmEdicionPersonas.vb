@@ -6,18 +6,18 @@ Public Class FrmEdicionPersonas
     Property NuevaPersona As Boolean
     Property ValidacionOK As Boolean
 
-    Public mobj_N_AdminContratos As New cls_N_AdminSiCoFa
+    Public mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
     Private Sub ObtenerTiposDocumento()
-        Me.TipoDoc.DataSource = mobj_N_AdminContratos.TiposDocumento
+        Me.TipoDoc.DataSource = mobj_N_AdminSiCoFa.TiposDocumento
         Me.TipoDoc.ValueMember = "CodiTDoc"
         Me.TipoDoc.DisplayMember = "TipoDocumento"
-        Me.TipoDoc.Text = ""
+        Me.TipoDoc.SelectedIndex = -1
     End Sub
     Private Sub ObtenerTiposIVA()
-        Me.IVA.DataSource = mobj_N_AdminContratos.TiposIVA
+        Me.IVA.DataSource = mobj_N_AdminSiCoFa.TiposIVA
         Me.IVA.ValueMember = "CodIVA"
         Me.IVA.DisplayMember = "TipoIVA"
-        Me.IVA.Text = ""
+        Me.IVA.SelectedIndex = -1
     End Sub
     Private Sub ValidarCampos()
         Me.ValidacionOK = False

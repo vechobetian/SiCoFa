@@ -3,17 +3,17 @@ Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminSiCoFa
 
-    Private mobj_D_AdminContratos As New cls_D_AdminSiCoFa
+    Private mobj_D_AdminSiCoFa As New cls_D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
     Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente
         Dim objCli As Cliente
         Try
-            objCli = mobj_D_AdminContratos.ObtenerClientePorId(argIdCliente)
+            objCli = mobj_D_AdminSiCoFa.ObtenerClientePorId(argIdCliente)
             Return objCli
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerClientePorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerClientePorId", ex.Message))
             Return Nothing
 
         End Try
@@ -21,11 +21,11 @@ Public Class cls_N_AdminSiCoFa
     Public Function ListarClientes(ByVal argTextoBuscado As String) As List(Of Cliente)
         Dim lc As List(Of Cliente)
         Try
-            lc = mobj_D_AdminContratos.ListarClientes(argTextoBuscado)
+            lc = mobj_D_AdminSiCoFa.ListarClientes(argTextoBuscado)
             Return lc
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListarClientes", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarClientes", ex.Message))
             Return Nothing
 
         End Try
@@ -42,7 +42,7 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argCodIVA As String
                                     ) As Integer
         Try
-            Dim IdCliente As Integer = mobj_D_AdminContratos.InsertarCliente(
+            Dim IdCliente As Integer = mobj_D_AdminSiCoFa.InsertarCliente(
                                                                        UCase(argNombre),
                                                                        UCase(argDomicilio),
                                                                        UCase(argLocalidad),
@@ -75,7 +75,7 @@ Public Class cls_N_AdminSiCoFa
                                      ) As Boolean
 
         Try
-            Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarCliente(
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarCliente(
                                                                            argIdCliente,
                                                                            UCase(argDomicilio),
                                                                            UCase(argLocalidad),
@@ -101,7 +101,7 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
         Dim objProv As Proveedor
         Try
-            objProv = mobj_D_AdminContratos.ObtenerProveedorPorId(argIdProveedor)
+            objProv = mobj_D_AdminSiCoFa.ObtenerProveedorPorId(argIdProveedor)
             Return objProv
 
         Catch ex As Exception
@@ -113,7 +113,7 @@ Public Class cls_N_AdminSiCoFa
     Public Function ListarProveedores(ByVal argTextoBuscado As String) As List(Of Proveedor)
         Dim lp As List(Of Proveedor)
         Try
-            lp = mobj_D_AdminContratos.ListarProveedores(argTextoBuscado)
+            lp = mobj_D_AdminSiCoFa.ListarProveedores(argTextoBuscado)
             Return lp
 
         Catch ex As Exception
@@ -135,7 +135,7 @@ Public Class cls_N_AdminSiCoFa
                                     ) As Integer
         Try
 
-            Dim IdProveedor As Integer = mobj_D_AdminContratos.InsertarCliente(
+            Dim IdProveedor As Integer = mobj_D_AdminSiCoFa.InsertarProveedor(
                                                                            UCase(argNombre),
                                                                            UCase(argDomicilio),
                                                                            UCase(argLocalidad),
@@ -169,7 +169,7 @@ Public Class cls_N_AdminSiCoFa
 
         Try
 
-            Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarProveedor(
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarProveedor(
                                                                                argIdProveedor,
                                                                                UCase(argDomicilio),
                                                                                UCase(argLocalidad),
@@ -197,7 +197,7 @@ Public Class cls_N_AdminSiCoFa
         Dim objEmp As Empleado = Nothing
 
         Try
-            objEmp = mobj_D_AdminContratos.ObtenerEmpleadoPorId(argIdEmpleado)
+            objEmp = mobj_D_AdminSiCoFa.ObtenerEmpleadoPorId(argIdEmpleado)
             Return objEmp
 
         Catch ex As Exception
@@ -209,7 +209,7 @@ Public Class cls_N_AdminSiCoFa
         Dim le As List(Of Empleado) = Nothing
 
         Try
-            le = mobj_D_AdminContratos.ListarEmpleados(argTextoBuscado)
+            le = mobj_D_AdminSiCoFa.ListarEmpleados(argTextoBuscado)
             Return le
 
         Catch ex As Exception
@@ -229,7 +229,7 @@ Public Class cls_N_AdminSiCoFa
                                     ) As Integer
         Try
 
-            Dim IdEmpleado As Integer = mobj_D_AdminContratos.InsertarEmpleado(
+            Dim IdEmpleado As Integer = mobj_D_AdminSiCoFa.InsertarEmpleado(
                                                                            UCase(argNombre),
                                                                            UCase(argDomicilio),
                                                                            UCase(argLocalidad),
@@ -260,7 +260,7 @@ Public Class cls_N_AdminSiCoFa
 
         Try
 
-            Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarEmpleado(
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarEmpleado(
                                                                                argIdEmpleado,
                                                                                UCase(argDomicilio),
                                                                                UCase(argLocalidad),
@@ -281,16 +281,105 @@ Public Class cls_N_AdminSiCoFa
 
 #End Region
 
+#Region "Administracion de Usuarios"
+    Public Function ObtenerUsuarioPorId(ByVal argIdUsuario As Long) As Usuario
+        Dim objUs As Usuario = Nothing
+
+        Try
+            objUs = mobj_D_AdminSiCoFa.ObtenerUsuarioPorId(argIdUsuario)
+            Return objUs
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerUsuarioPorId", ex.Message))
+
+        End Try
+    End Function
+    Public Function ListarUsuarios(ByVal argTextoBuscado As String) As List(Of Usuario)
+        Dim lu As List(Of Usuario) = Nothing
+
+        Try
+            lu = mobj_D_AdminSiCoFa.ListarUsuarios(argTextoBuscado)
+            Return lu
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarUsuarios", ex.Message))
+
+        End Try
+    End Function
+    Public Function InsertarUsuario(
+                                    ByVal argNombre As String,
+                                    ByVal argDomicilio As String,
+                                    ByVal argLocalidad As String,
+                                    ByVal argProvincia As String,
+                                    ByVal argTelefono As String,
+                                    ByVal argEmail As String,
+                                    ByVal argCodiTDoc As String,
+                                    ByVal argNumDoc As String
+                                    ) As Integer
+        Try
+
+            Dim IdUsuario As Integer = mobj_D_AdminSiCoFa.InsertarUsuario(
+                                                                           UCase(argNombre),
+                                                                           UCase(argDomicilio),
+                                                                           UCase(argLocalidad),
+                                                                           UCase(argProvincia),
+                                                                           UCase(argTelefono),
+                                                                           UCase(argEmail),
+                                                                           UCase(argCodiTDoc),
+                                                                           UCase(argNumDoc)
+                                                                           )
+            Return IdUsuario
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarUsuario", ex.Message))
+
+        End Try
+
+    End Function
+    Public Function ActualizarUsuario(
+                                      ByVal argIdEmpleado As Integer,
+                                      ByVal argDomicilio As String,
+                                      ByVal argLocalidad As String,
+                                      ByVal argProvincia As String,
+                                      ByVal argTelefono As String,
+                                      ByVal argEmail As String,
+                                      ByVal argCodiTDoc As String,
+                                      ByVal argNumDoc As String
+                                     ) As Boolean
+
+        Try
+
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarUsuario(
+                                                                               argIdEmpleado,
+                                                                               UCase(argDomicilio),
+                                                                               UCase(argLocalidad),
+                                                                               UCase(argProvincia),
+                                                                               UCase(argTelefono),
+                                                                               UCase(argEmail),
+                                                                               UCase(argCodiTDoc),
+                                                                               UCase(argNumDoc)
+                                                                               )
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarUsuario", ex.Message))
+
+        End Try
+
+    End Function
+
+#End Region
+
 #Region "Administracion de Contratos"
 
     Public Function ListaGrupoContratosCompleta() As List(Of GrupoContratos)
         Dim lgc As List(Of GrupoContratos)
         Try
-            lgc = mobj_D_AdminContratos.ListarGrupoContratos
+            lgc = mobj_D_AdminSiCoFa.ListarGrupoContratos
             Return lgc
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListaGrupoContratosCompleta", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListaGrupoContratosCompleta", ex.Message))
             Return Nothing
 
         End Try
@@ -299,7 +388,7 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerGrupoContratosPorId(ByVal argIdGC As Integer) As GrupoContratos
         Dim objGC As GrupoContratos
         Try
-            objGC = mobj_D_AdminContratos.ObtenerGrupoContratosPorId(argIdGC)
+            objGC = mobj_D_AdminSiCoFa.ObtenerGrupoContratosPorId(argIdGC)
         Catch ex As Exception
             MsgBox(ex.Message)
             Return Nothing
@@ -312,7 +401,7 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerContrato(ByVal Optional argIdContrato As Integer = 0, ByVal Optional argIdCliente As Integer = 0) As Contrato
         Dim objC As Contrato
         Try
-            objC = mobj_D_AdminContratos.ObtenerContrato(argIdContrato, argIdCliente)
+            objC = mobj_D_AdminSiCoFa.ObtenerContrato(argIdContrato, argIdCliente)
             If Not objC Is Nothing Then
                 objC.GrupoContratos = Me.ObtenerGrupoContratosPorId(objC.IdGC)
             End If
@@ -327,9 +416,9 @@ Public Class cls_N_AdminSiCoFa
     End Function
     Public Function ListarContratos(ByVal argEstadoContrato As String) As List(Of Contrato)
         Try
-            Return mobj_D_AdminContratos.ListarContratos(argEstadoContrato)
+            Return mobj_D_AdminSiCoFa.ListarContratos(argEstadoContrato)
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListarContratos", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarContratos", ex.Message))
             Return Nothing
         End Try
     End Function
@@ -346,7 +435,7 @@ Public Class cls_N_AdminSiCoFa
                                    ByVal argFacturaServicios As Boolean
                                    ) As Integer
 
-        Dim IdContrato As Integer = mobj_D_AdminContratos.InsertarContrato(
+        Dim IdContrato As Integer = mobj_D_AdminSiCoFa.InsertarContrato(
                                                                         argIdGC,
                                                                         argIdLocador,
                                                                         argIdCliente,
@@ -374,7 +463,7 @@ Public Class cls_N_AdminSiCoFa
                                       ByVal argEstadoContrato As String
                                       ) As Boolean
 
-        Dim Actualizado As Boolean = mobj_D_AdminContratos.ActualizarContrato(
+        Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarContrato(
                                                                            argIdContrato,
                                                                            argIdGC,
                                                                            argIdLocador,
@@ -424,11 +513,11 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerLocadorPorId(ByVal argIdLocador As Long) As Locador
         Dim objLoc As Locador
         Try
-            objLoc = mobj_D_AdminContratos.ObtenerLocadorPorId(argIdLocador)
+            objLoc = mobj_D_AdminSiCoFa.ObtenerLocadorPorId(argIdLocador)
             Return objLoc
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerLocadorPorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerLocadorPorId", ex.Message))
             Return Nothing
 
         End Try
@@ -436,10 +525,10 @@ Public Class cls_N_AdminSiCoFa
     Public Function LocadoresVigentes() As List(Of Locador)
         Dim list As List(Of Locador)
         Try
-            list = mobj_D_AdminContratos.LocadoresVigentes
+            list = mobj_D_AdminSiCoFa.LocadoresVigentes
             Return list
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "LocadoresVigentes", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "LocadoresVigentes", ex.Message))
             Return Nothing
 
         End Try
@@ -471,7 +560,7 @@ Public Class cls_N_AdminSiCoFa
 #Region "Administracion de Operaciones"
     Public Function ObtenerTipoOperacion(ByVal argCodiTO As String) As TipoOperacion
 
-        Dim TipoOperaciones As List(Of TipoOperacion) = mobj_D_AdminContratos.ListarTipoOperaciones
+        Dim TipoOperaciones As List(Of TipoOperacion) = mobj_D_AdminSiCoFa.ListarTipoOperaciones
 
         Try
 
@@ -484,7 +573,7 @@ Public Class cls_N_AdminSiCoFa
             Return Nothing
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
             Return Nothing
         End Try
 
@@ -494,21 +583,21 @@ Public Class cls_N_AdminSiCoFa
         Dim RegAfectados As Integer
 
         Try
-            RegAfectados = mobj_D_AdminContratos.RegistrarError(argIdOperacion, argDescripcionError)
+            RegAfectados = mobj_D_AdminSiCoFa.RegistrarError(argIdOperacion, argDescripcionError)
             Return RegAfectados
         Catch ex As Exception
-            MsgBox(vecho.MensajeError(Me.ToString, "RegistrarError", ex.Message))
+            MsgBox(Vecho.MensajeError(Me.ToString, "RegistrarError", ex.Message))
             Return 0
         End Try
     End Function
     Public Function DevengarServicios(ByVal argIdUsuario As Integer) As Integer
         Try
             Dim RegAfectados As Integer
-            RegAfectados = mobj_D_AdminContratos.DevengarServicios(argIdUsuario)
+            RegAfectados = mobj_D_AdminSiCoFa.DevengarServicios(argIdUsuario)
             Return RegAfectados
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "DevengarServicios", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "DevengarServicios", ex.Message))
             Return 0
         End Try
 
@@ -516,10 +605,10 @@ Public Class cls_N_AdminSiCoFa
     Public Sub AplicarPagosAbiertos(ByVal argIdUsuario As Integer)
 
         Try
-            mobj_D_AdminContratos.AplicarPagosAbiertos(argIdUsuario)
+            mobj_D_AdminSiCoFa.AplicarPagosAbiertos(argIdUsuario)
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "DevengarServicios", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "DevengarServicios", ex.Message))
 
         End Try
 
@@ -527,7 +616,7 @@ Public Class cls_N_AdminSiCoFa
     Public Sub EstablecerItemsPago(ByVal argIdOpera As Long)
 
         Try
-            mobj_D_AdminContratos.EstablecerItemsPago(argIdOpera)
+            mobj_D_AdminSiCoFa.EstablecerItemsPago(argIdOpera)
 
         Catch Ex As Exception
             MsgBox(Vecho.MensajeError(Me.ToString, "EstablcerItemsPago", Ex.Message))
@@ -537,22 +626,22 @@ Public Class cls_N_AdminSiCoFa
     End Sub
     Public Function AplicarPagoCliente(ByVal argIdUsuario As Integer, ByVal argIdContrato As Integer, ByVal argCodiAE As String, ByVal argImporte As Decimal) As OperaCancel
         Try
-            Dim oc As OperaCancel = mobj_D_AdminContratos.AplicarPagoCliente(argIdUsuario, argIdContrato, argCodiAE, argImporte)
+            Dim oc As OperaCancel = mobj_D_AdminSiCoFa.AplicarPagoCliente(argIdUsuario, argIdContrato, argCodiAE, argImporte)
             Return oc
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "AplicarPagoCliente", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "AplicarPagoCliente", ex.Message))
             Return Nothing
 
         End Try
     End Function
     Public Function FacturarServicios(ByVal argIdUsuario As Integer, ByVal argCodiTC As String, ByVal argPVenta As String) As Integer
         Try
-            Dim NumComprobantes As Integer = mobj_D_AdminContratos.FacturarServicios(argIdUsuario, argCodiTC, argPVenta)
+            Dim NumComprobantes As Integer = mobj_D_AdminSiCoFa.FacturarServicios(argIdUsuario, argCodiTC, argPVenta)
             Return NumComprobantes
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "FacturarServicios", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FacturarServicios", ex.Message))
             Return 0
 
         End Try
@@ -561,11 +650,11 @@ Public Class cls_N_AdminSiCoFa
         Dim objOpera As Operacion
 
         Try
-            objOpera = mobj_D_AdminContratos.InsertarOperacion(argCodiAE, argCodiTO, argIdUsuario)
+            objOpera = mobj_D_AdminSiCoFa.InsertarOperacion(argCodiAE, argCodiTO, argIdUsuario)
             Return objOpera
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacion", ex.Message))
             Return Nothing
         End Try
 
@@ -575,10 +664,10 @@ Public Class cls_N_AdminSiCoFa
         Dim RegAfectados As Integer
 
         Try
-            RegAfectados = mobj_D_AdminContratos.FinalizarOperacion(argIdOperacion)
+            RegAfectados = mobj_D_AdminSiCoFa.FinalizarOperacion(argIdOperacion)
             Return RegAfectados
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
             Return 0
         End Try
 
@@ -586,11 +675,11 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerOperacion(ByVal argIdOpera As Long) As Operacion
 
         Try
-            Dim objOpera As Operacion = mobj_D_AdminContratos.ObtenerOperacion(argIdOpera)
+            Dim objOpera As Operacion = mobj_D_AdminSiCoFa.ObtenerOperacion(argIdOpera)
             Return objOpera
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacion", ex.Message))
             Return Nothing
         End Try
 
@@ -599,10 +688,10 @@ Public Class cls_N_AdminSiCoFa
         Dim IdOC As Long
 
         Try
-            IdOC = mobj_D_AdminContratos.InsertarOperaCancel(argIdOperacion, argIdOperaCancel, argIdOperaAntic, argImporte, argSaldoOperacion, argSaldoAnticipo)
+            IdOC = mobj_D_AdminSiCoFa.InsertarOperaCancel(argIdOperacion, argIdOperaCancel, argIdOperaAntic, argImporte, argSaldoOperacion, argSaldoAnticipo)
             Return IdOC
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarOperaCancel", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperaCancel", ex.Message))
             Return 0
         End Try
 
@@ -611,10 +700,10 @@ Public Class cls_N_AdminSiCoFa
         Dim IdOC As Long
 
         Try
-            IdOC = mobj_D_AdminContratos.InsertarOperaContrato(argIdOperacion, argIdContrato, argResumen, argImporte, argEstado)
+            IdOC = mobj_D_AdminSiCoFa.InsertarOperaContrato(argIdOperacion, argIdContrato, argResumen, argImporte, argEstado)
             Return IdOC
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarOperaContratos", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperaContratos", ex.Message))
             Return 0
         End Try
 
@@ -623,17 +712,17 @@ Public Class cls_N_AdminSiCoFa
         Dim LOC As List(Of OperaContrato)
 
         Try
-            LOC = mobj_D_AdminContratos.ListaOperaContratos(argIdOperacion, argIdGC, argIdContrato, argResu, argEstadoOpera)
+            LOC = mobj_D_AdminSiCoFa.ListaOperaContratos(argIdOperacion, argIdGC, argIdContrato, argResu, argEstadoOpera)
             Return LOC
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListaOperaContratos", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListaOperaContratos", ex.Message))
             Return Nothing
         End Try
 
     End Function
     Public Function ListaPagosCliente(Optional ByVal argIdOperacion As Long = 0, Optional ByVal argIdContrato As Integer = 0, Optional ByVal argEstadoPago As String = "") As List(Of PagoCliente)
-        Return mobj_D_AdminContratos.ListaPagosCliente(argIdOperacion, argIdContrato, argEstadoPago)
+        Return mobj_D_AdminSiCoFa.ListaPagosCliente(argIdOperacion, argIdContrato, argEstadoPago)
     End Function
 
 #End Region
@@ -641,7 +730,7 @@ Public Class cls_N_AdminSiCoFa
 #Region "Administracion de Servicios"
 
     Public Function ObtenerServicio(ByVal argCodiS As String) As Servicio
-        Dim ListaServicios As List(Of Servicio) = mobj_D_AdminContratos.ListarServicios
+        Dim ListaServicios As List(Of Servicio) = mobj_D_AdminSiCoFa.ListarServicios
 
         Try
 
@@ -654,14 +743,14 @@ Public Class cls_N_AdminSiCoFa
             Return Nothing
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerServicio", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerServicio", ex.Message))
             Return Nothing
 
         End Try
 
     End Function
     Public Function ObtenerServiciosAsociados(ByVal argIdContrato As Integer) As List(Of ServicioAsociado)
-        Dim lsa As List(Of ServicioAsociado) = mobj_D_AdminContratos.ListaServiciosAsociados(argIdContrato)
+        Dim lsa As List(Of ServicioAsociado) = mobj_D_AdminSiCoFa.ListaServiciosAsociados(argIdContrato)
 
         Try
 
@@ -677,7 +766,7 @@ Public Class cls_N_AdminSiCoFa
 
             Return lsa
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerServiciosAsociados", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerServiciosAsociados", ex.Message))
             Return Nothing
 
         End Try
@@ -687,11 +776,11 @@ Public Class cls_N_AdminSiCoFa
         Dim RegistrosAfectados As Integer
 
         Try
-            RegistrosAfectados = mobj_D_AdminContratos.EliminarServicioAsociado(argIdDS)
+            RegistrosAfectados = mobj_D_AdminSiCoFa.EliminarServicioAsociado(argIdDS)
             Return RegistrosAfectados
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "EliminarServicioAsociado", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EliminarServicioAsociado", ex.Message))
             Return 0
 
         End Try
@@ -700,11 +789,11 @@ Public Class cls_N_AdminSiCoFa
         Dim RegistrosAfectados As Integer
 
         Try
-            RegistrosAfectados = mobj_D_AdminContratos.InsertarServicioAsociado(argIdContrato, argCodiS)
+            RegistrosAfectados = mobj_D_AdminSiCoFa.InsertarServicioAsociado(argIdContrato, argCodiS)
             Return RegistrosAfectados
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarServicioAsociado", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarServicioAsociado", ex.Message))
             Return 0
 
         End Try
@@ -714,18 +803,18 @@ Public Class cls_N_AdminSiCoFa
         Dim RegistrosAfectados As Integer
 
         Try
-            RegistrosAfectados = mobj_D_AdminContratos.ActualizarServicioAsociado(ArgIdDS, argCantidad)
+            RegistrosAfectados = mobj_D_AdminSiCoFa.ActualizarServicioAsociado(ArgIdDS, argCantidad)
             Return RegistrosAfectados
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "InsertarServicioAsociado", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarServicioAsociado", ex.Message))
             Return 0
 
         End Try
 
     End Function
     Public Function ListarServiciosBuscados(ByVal argTextoBuscado As String) As List(Of Servicio)
-        Dim ListaCompletaServicios As List(Of Servicio) = mobj_D_AdminContratos.ListarServicios
+        Dim ListaCompletaServicios As List(Of Servicio) = mobj_D_AdminSiCoFa.ListarServicios
         Dim ls As New List(Of Servicio)
 
         Try
@@ -738,7 +827,7 @@ Public Class cls_N_AdminSiCoFa
             Return ls
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListarServiciosBuscados", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarServiciosBuscados", ex.Message))
             Return Nothing
         End Try
 
@@ -747,11 +836,11 @@ Public Class cls_N_AdminSiCoFa
         Dim ListaCompletaServicios As List(Of Servicio)
 
         Try
-            ListaCompletaServicios = mobj_D_AdminContratos.ListarServicios
+            ListaCompletaServicios = mobj_D_AdminSiCoFa.ListarServicios
             Return ListaCompletaServicios
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListarServiciosBuscados", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarServiciosBuscados", ex.Message))
             Return Nothing
         End Try
 
@@ -783,22 +872,22 @@ Public Class cls_N_AdminSiCoFa
                                         ) As Comprobante
         Dim objComp As Comprobante
         Try
-            objComp = mobj_D_AdminContratos.InsertarComprobante(argOperacion, argCodiTC, argImpBto, argImpEx, argImpGrav1, argImpNeto1, argImpIVA1, argImpGrav2, argImpNeto2, argImpIVA2, argImpCB, argImpEf, argImpCC, argImpTar, argIdOperAsoc, argCliente, argLocador, argDetalle, argFiscal)
+            objComp = mobj_D_AdminSiCoFa.InsertarComprobante(argOperacion, argCodiTC, argImpBto, argImpEx, argImpGrav1, argImpNeto1, argImpIVA1, argImpGrav2, argImpNeto2, argImpIVA2, argImpCB, argImpEf, argImpCC, argImpTar, argIdOperAsoc, argCliente, argLocador, argDetalle, argFiscal)
             Return objComp
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerServicio", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerServicio", ex.Message))
             Return Nothing
         End Try
     End Function
 
     Public Function ObtenerComprobante(ByVal argOperacion As Operacion) As Comprobante
         Try
-            Dim c As Comprobante = mobj_D_AdminContratos.ObtenerComprobante(argOperacion)
+            Dim c As Comprobante = mobj_D_AdminSiCoFa.ObtenerComprobante(argOperacion)
             Return c
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerComprobante", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerComprobante", ex.Message))
             Return Nothing
 
         End Try
@@ -806,11 +895,11 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerComprobantesEnCola() As List(Of Comprobante)
         Dim objCola As List(Of Comprobante)
         Try
-            objCola = mobj_D_AdminContratos.ObtenerComprobantesEnCola
+            objCola = mobj_D_AdminSiCoFa.ObtenerComprobantesEnCola
             Return objCola
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerComprobantesEnCola", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerComprobantesEnCola", ex.Message))
             Return Nothing
 
         End Try
@@ -819,11 +908,11 @@ Public Class cls_N_AdminSiCoFa
     Public Function ObtenerComprobantes(ByVal argIdCliente As Integer, ByVal argCodiTC As String, ByVal argFechaDesde As String, ByVal argFechaHasta As String) As List(Of Comprobante)
         Dim objCola As List(Of Comprobante)
         Try
-            objCola = mobj_D_AdminContratos.ObtenerComprobantes(argIdCliente, argCodiTC, argFechaDesde, argFechaHasta)
+            objCola = mobj_D_AdminSiCoFa.ObtenerComprobantes(argIdCliente, argCodiTC, argFechaDesde, argFechaHasta)
             Return objCola
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerComprobantes", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerComprobantes", ex.Message))
             Return Nothing
 
         End Try
@@ -833,11 +922,11 @@ Public Class cls_N_AdminSiCoFa
         Dim objDetC As List(Of ItemComprobante)
 
         Try
-            objDetC = mobj_D_AdminContratos.ObtenerDetalleC(argIdOperacion, argDisIva)
+            objDetC = mobj_D_AdminSiCoFa.ObtenerDetalleC(argIdOperacion, argDisIva)
             Return objDetC
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerDetalleC", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerDetalleC", ex.Message))
             Return Nothing
         End Try
     End Function
@@ -845,19 +934,19 @@ Public Class cls_N_AdminSiCoFa
     Public Sub ActualizarCAE(ByVal argCbte As Comprobante)
 
         Try
-            mobj_D_AdminContratos.ActualizarCAE(argCbte)
+            mobj_D_AdminSiCoFa.ActualizarCAE(argCbte)
         Catch Ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
 
         End Try
 
     End Sub
     Public Sub RegistrarComprobanteRechazado(ByVal argIdOpera As String)
         Try
-            mobj_D_AdminContratos.RegistrarComprobanteRechazado(argIdOpera)
+            mobj_D_AdminSiCoFa.RegistrarComprobanteRechazado(argIdOpera)
 
         Catch Ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "RegistrarComprobanteRechazado", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "RegistrarComprobanteRechazado", Ex.Message))
 
         End Try
 
@@ -866,11 +955,11 @@ Public Class cls_N_AdminSiCoFa
         Dim ListaCompletaTipoComprobantes As List(Of TipoComprobante)
 
         Try
-            ListaCompletaTipoComprobantes = mobj_D_AdminContratos.ListarTipoComprobantes
+            ListaCompletaTipoComprobantes = mobj_D_AdminSiCoFa.ListarTipoComprobantes
             Return ListaCompletaTipoComprobantes
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListarTipoComprobantes", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarTipoComprobantes", ex.Message))
             Return Nothing
         End Try
     End Function
@@ -879,7 +968,7 @@ Public Class cls_N_AdminSiCoFa
 
 #Region "Administracion Asientos Contables"
     Public Sub EfectuarAsientoContable(ByVal argOperacion As Operacion, ByVal argAsiento As AsientoContable)
-        mobj_D_AdminContratos.EfectuarAsientoContable(argOperacion, argAsiento)
+        mobj_D_AdminSiCoFa.EfectuarAsientoContable(argOperacion, argAsiento)
     End Sub
 #End Region
 

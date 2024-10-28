@@ -25,12 +25,12 @@ Partial Class FrmEmpleados
     Private Sub InitializeComponent()
         Me.SuspendLayout()
         '
-        'FrmEmpleado
+        'FrmEmpleados
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(404, 309)
-        Me.Name = "FrmEmpleado"
+        Me.ClientSize = New System.Drawing.Size(384, 309)
+        Me.Name = "FrmEmpleados"
         Me.Text = "Empleado"
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -2,7 +2,7 @@
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmAperComprobantes
-    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
+    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
 
     Private Sub LimpiarFormulario()
         Me.Cliente.Clear()
@@ -12,7 +12,7 @@ Public Class FrmAperComprobantes
     End Sub
 
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
-        Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
+        Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
 
         If lc Is Nothing Then

@@ -5,7 +5,7 @@ Imports SiCoFa.Entidades
 Public Class FrmIngPagoClientes
     Property IdUsuario As Long
 
-    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
+    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
 
     Private mobjContrato As Contrato
     Private mobjOperacion As Operacion
@@ -67,14 +67,14 @@ Public Class FrmIngPagoClientes
         End With
     End Sub
     Private Sub ObtenerContrato(ByVal argIdCliente As Integer)
-        Dim c As Contrato = mobj_N_AdminContratos.ObtenerContrato(0, argIdCliente)
+        Dim c As Contrato = mobj_N_AdminSiCoFa.ObtenerContrato(0, argIdCliente)
         If c Is Nothing Then
             Exit Sub
         End If
 
-        c.Locador = mobj_N_AdminContratos.ObtenerLocadorPorId(c.IdLocador)
-        c.OperaContratos = mobj_N_AdminContratos.ListaOperaContratos(0, 0, c.IdContrato, "", "DEBE")
-        c.PagosCliente = mobj_N_AdminContratos.ListaPagosCliente(0, c.IdContrato, "ABIERTO")
+        c.Locador = mobj_N_AdminSiCoFa.ObtenerLocadorPorId(c.IdLocador)
+        c.OperaContratos = mobj_N_AdminSiCoFa.ListaOperaContratos(0, 0, c.IdContrato, "", "DEBE")
+        c.PagosCliente = mobj_N_AdminSiCoFa.ListaPagosCliente(0, c.IdContrato, "ABIERTO")
         Me.mobjContrato = c
 
         Dim objOC As New DataGridViewTextBoxColumn
@@ -130,7 +130,7 @@ Public Class FrmIngPagoClientes
 
     End Sub
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
-        Dim lc As List(Of Cliente) = mobj_N_AdminContratos.ListarClientes(argTextoBuscado)
+        Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
 
         If lc Is Nothing Then
@@ -219,7 +219,7 @@ Public Class FrmIngPagoClientes
         For Each dgr As DataGridViewRow In Me.DataGridView1.Rows
             If dgr.Cells(0).Value > 0 Then
                 x += 1
-                mobj_N_AdminContratos.EstablecerItemsPago(CLng(dgr.Cells(0).Value))
+                mobj_N_AdminSiCoFa.EstablecerItemsPago(CLng(dgr.Cells(0).Value))
             End If
         Next
     End Sub
@@ -339,14 +339,14 @@ Public Class FrmIngPagoClientes
                 Exit Sub
             End If
 
-            Dim objOperaCancel As OperaCancel = mobj_N_AdminContratos.AplicarPagoCliente(Me.IdUsuario, mobjContrato.IdContrato, mobjContrato.GrupoContratos.CodiAE, Me.ImpPago.Text)
+            Dim objOperaCancel As OperaCancel = mobj_N_AdminSiCoFa.AplicarPagoCliente(Me.IdUsuario, mobjContrato.IdContrato, mobjContrato.GrupoContratos.CodiAE, Me.ImpPago.Text)
             Dim objOpera = New Operacion(objOperaCancel.IdOperacion, Now, mobjContrato.GrupoContratos.CodiAE, "CCC", Me.IdUsuario, "Finalizado", "", "")
 
             If objOperaCancel.Importe <> CDec(Me.ImpAnticipos.Text) Then
                 MsgBox("Existe un error", vbCritical, "SiCoFa")
             End If
 
-            Dim objComp As Comprobante = mobj_N_AdminContratos.InsertarComprobante(objOpera, "REC", Me.ImpPago.Text, 0, 0, 0, 0, 0, 0, 0, 0, Me.ImpPago.Text, 0, 0, 0, mobjContrato.Cliente, mobjContrato.Locador, Nothing, False)
+            Dim objComp As Comprobante = mobj_N_AdminSiCoFa.InsertarComprobante(objOpera, "REC", Me.ImpPago.Text, 0, 0, 0, 0, 0, 0, 0, 0, Me.ImpPago.Text, 0, 0, 0, mobjContrato.Cliente, mobjContrato.Locador, Nothing, False)
             Me.GenerarReciboPdf(objComp)
             Dim obj_N_AdminEmail As New cls_N_AdminEmail
             Dim Archivo = "REC-" & objComp.PVenta & "-" & objComp.NumComp & ".pdf"
@@ -365,7 +365,7 @@ Public Class FrmIngPagoClientes
                     .InsertarItem("1.03.01.001", -Me.ImpTotalCancelado.Text)
                 End If
             End With
-            mobj_N_AdminContratos.EfectuarAsientoContable(objOpera, objAsCon)
+            mobj_N_AdminSiCoFa.EfectuarAsientoContable(objOpera, objAsCon)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

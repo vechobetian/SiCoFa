@@ -1,6 +1,5 @@
 ﻿Public Class Proveedor
     Inherits Persona
-    Property IVA As IVA
     Public Sub New(
                 ByVal argIdProveedor As Long,
                 ByVal argNombre As String,

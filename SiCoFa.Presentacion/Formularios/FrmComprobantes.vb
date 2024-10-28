@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmComprobantes
-    Private mobj_N_AdminContratos As New cls_N_AdminSiCoFa
+    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
     Private mobj_N_AdminDB As New cls_N_AdminDB
     Private mobjComprobantes As DataTable
     Private Sub GenerarReporte(ByVal argComprobante As Comprobante, ByVal argTipo As String, Optional ByVal argPathArchivo As String = "")
@@ -382,8 +382,8 @@ Public Class FrmComprobantes
                 Exit Sub
             End If
 
-            Dim o As Operacion = mobj_N_AdminContratos.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
-            Dim c As Comprobante = mobj_N_AdminContratos.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim o As Operacion = mobj_N_AdminSiCoFa.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim c As Comprobante = mobj_N_AdminSiCoFa.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
             Me.GenerarReporte(c, "IMPA4")
 
         Catch ex As Exception
@@ -401,11 +401,11 @@ Public Class FrmComprobantes
         Try
 
             Dim saveFileDialog1 As New SaveFileDialog()
-            Dim o As Operacion = mobj_N_AdminContratos.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
-            Dim c As Comprobante = mobj_N_AdminContratos.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim o As Operacion = mobj_N_AdminSiCoFa.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim c As Comprobante = mobj_N_AdminSiCoFa.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
 
             If c.IdOperAsoc > 0 Then
-                c.CompAsoc = mobj_N_AdminContratos.ObtenerComprobante(c.Operacion)
+                c.CompAsoc = mobj_N_AdminSiCoFa.ObtenerComprobante(c.Operacion)
             End If
 
             With saveFileDialog1
@@ -433,8 +433,8 @@ Public Class FrmComprobantes
         End If
 
         Try
-            Dim o As Operacion = mobj_N_AdminContratos.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
-            Dim c As Comprobante = mobj_N_AdminContratos.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim o As Operacion = mobj_N_AdminSiCoFa.ObtenerOperacion(Me.DataGridView1.CurrentRow.Cells(0).Value)
+            Dim c As Comprobante = mobj_N_AdminSiCoFa.ObtenerComprobante(o) 'mobjComprobantes.Find(Function(p) p.IdOperacion = Me.DataGridView1.CurrentRow.Cells(0).Value)
             Dim Archivo = c.TipoComprobante.CodiTC_SiCoFa & "-" & c.PVenta & "-" & c.NumComp & ".pdf"
             Dim TempPat As String = Application.StartupPath & "\Temp\" & Archivo
             Me.GenerarReporte(c, "PDFA4", TempPat)
