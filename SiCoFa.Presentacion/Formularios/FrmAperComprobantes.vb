@@ -29,17 +29,17 @@ Public Class FrmAperComprobantes
             Case 1
                 c = lc.First
             Case > 1
-                FrmBuscaClientes.Clientes = lc
-                FrmBuscaClientes.ShowDialog()
+                FrmBuscaPersonas.Personas = lc
+                FrmBuscaPersonas.ShowDialog()
 
-                If FrmBuscaClientes.ClienteSeleccionado Is Nothing Then
-                    FrmBuscaClientes.Close()
+                If FrmBuscaPersonas.PersonaSeleccionado Is Nothing Then
+                    FrmBuscaPersonas.Close()
                     Return Nothing
                     Exit Function
                 End If
 
-                c = FrmBuscaClientes.ClienteSeleccionado
-                FrmBuscaClientes.Close()
+                c = FrmBuscaPersonas.PersonaSeleccionado
+                FrmBuscaPersonas.Close()
         End Select
 
         Return c

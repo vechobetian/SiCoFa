@@ -68,7 +68,7 @@ Public Class FrmClientes
             Me.NuevaPersona = False
         Else
             If Me.Id.Text = "" Then
-                MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta",, "SiCoFa")
+                MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
                 Exit Sub
             End If
 

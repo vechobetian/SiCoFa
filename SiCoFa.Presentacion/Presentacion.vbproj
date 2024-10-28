@@ -172,12 +172,6 @@
     <Compile Include="Formularios\FrmEdicionTabla.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmIngConceptos.Designer.vb">
-      <DependentUpon>FrmIngConceptos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmIngConceptos.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmOperaContratos.Designer.vb">
       <DependentUpon>FrmOperaContratos.vb</DependentUpon>
     </Compile>
@@ -212,12 +206,6 @@
       <DependentUpon>FrmPlanCuentas.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmPlanCuentas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmBuscaClientes.Designer.vb">
-      <DependentUpon>FrmBuscaClientes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmBuscaClientes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmBuscaServicios.Designer.vb">
@@ -281,9 +269,6 @@
     <EmbeddedResource Include="Formularios\FrmEstadoCuentaClientes.resx">
       <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmIngConceptos.resx">
-      <DependentUpon>FrmIngConceptos.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmOperaContratos.resx">
       <DependentUpon>FrmOperaContratos.vb</DependentUpon>
     </EmbeddedResource>
@@ -298,9 +283,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPlanCuentas.resx">
       <DependentUpon>FrmPlanCuentas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmBuscaClientes.resx">
-      <DependentUpon>FrmBuscaClientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaServicios.resx">
       <DependentUpon>FrmBuscaServicios.vb</DependentUpon>
