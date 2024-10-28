@@ -513,8 +513,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
-                                    ByVal argNumDoc As String,
-                                    ByVal argCodIVA As String
+                                    ByVal argNumDoc As String
                                     ) As Boolean
 
 
