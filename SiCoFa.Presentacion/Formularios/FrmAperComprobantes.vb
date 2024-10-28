@@ -87,7 +87,7 @@ Public Class FrmAperComprobantes
 
             With Me
                 .LimpiarFormulario()
-                .Cliente.Tag = c.IdCliente
+                .Cliente.Tag = c.Id
                 .Cliente.Text = c.Nombre
                 .Cliente.SelectAll()
             End With

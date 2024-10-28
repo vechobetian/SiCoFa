@@ -2,7 +2,7 @@
 Public Class FrmUsuarios
     Private Sub MostrarUsuario(ByVal argUsuario As Usuario)
         With Me
-            .Id.Text = argUsuario.IdUsuario
+            .Id.Text = argUsuario.Id
             .Nombre.Text = argUsuario.Nombre
             .Domicilio.Text = argUsuario.Domicilio
             .Localidad.Text = argUsuario.Localidad

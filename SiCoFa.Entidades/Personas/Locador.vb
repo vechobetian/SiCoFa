@@ -1,9 +1,7 @@
 ﻿Public Class Locador
     Inherits Persona
-    Property IdLocador As Long
     Property IB As String
     Property InicioActividad As String
-    Property IVA As IVA
     Public Sub New(
                 ByVal argIdLocador As Long,
                 ByVal argNombre As String,
@@ -17,16 +15,9 @@
                 ByVal argIniActiv As String
                 )
 
-        Me.IdLocador = argIdLocador
-        Me.Nombre = argNombre
-        Me.Domicilio = argDomicilio
-        Me.Localidad = argLocalidad
-        Me.Provincia = argProvincia
-        Me.Telefono = argTelefono
-        Me.Email = ""
-        Me.Documento = New Documento(80, argCUIT)
+        MyBase.New(argIdLocador, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, "", "", "", "NA")
+
         Me.IB = argIB
-        Me.IVA = New IVA(argIVA)
         Me.InicioActividad = argIniActiv
     End Sub
 

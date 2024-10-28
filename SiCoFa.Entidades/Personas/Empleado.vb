@@ -1,6 +1,5 @@
 ﻿Public Class Empleado
     Inherits Persona
-    Property IdEmpleado As Long
     Public Sub New(
                 ByVal argIdEmpleado As Long,
                 ByVal argNombre As String,
@@ -13,14 +12,8 @@
                 ByVal argNumDoc As String
                 )
 
-        Me.IdEmpleado = argIdEmpleado
-        Me.Nombre = argNombre
-        Me.Domicilio = argDomicilio
-        Me.Localidad = argLocalidad
-        Me.Provincia = argProvincia
-        Me.Telefono = argTelefono
-        Me.Email = argEmail
-        Me.Documento = New Documento(argCodiTDoc, argNumDoc)
+        MyBase.New(argIdEmpleado, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, "NA")
+
     End Sub
 
 

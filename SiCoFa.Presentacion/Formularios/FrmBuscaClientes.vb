@@ -39,7 +39,7 @@ Public Class FrmBuscaClientes
         For Each c As Cliente In Me.Clientes
             With Me.DataGridView1
                 .Rows.Add()
-                .Rows(x).Cells("IdCliente").Value = c.IdCliente
+                .Rows(x).Cells("IdCliente").Value = c.Id
                 .Rows(x).Cells("Nombre").Value = c.Nombre
                 .Rows(x).Cells("Domicilio").Value = c.Domicilio
                 .Rows(x).Cells("Localidad").Value = c.Localidad

@@ -2,7 +2,7 @@
 Public Class FrmEmpleados
     Private Sub MostrarEmpleado(ByVal argEmpleado As Empleado)
         With Me
-            .Id.Text = argEmpleado.IdEmpleado
+            .Id.Text = argEmpleado.Id
             .Nombre.Text = argEmpleado.Nombre
             .Domicilio.Text = argEmpleado.Domicilio
             .Localidad.Text = argEmpleado.Localidad

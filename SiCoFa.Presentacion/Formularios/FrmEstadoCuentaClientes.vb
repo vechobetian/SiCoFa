@@ -10,7 +10,7 @@ Public Class FrmEstadoCuentaClientes
 
         Select Case argEstadoResu
             Case "DEBE"
-                sql = "SELECT IdOperacion,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdCliente=" & argCliente.IdCliente & " AND EstadoOperaContrato='DEBE'"
+                sql = "SELECT IdOperacion,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdCliente=" & argCliente.Id & " AND EstadoOperaContrato='DEBE'"
                 For Each i As ToolStripMenuItem In Me.VerToolStripMenuItem.DropDownItems
                     i.Checked = False
                 Next
@@ -18,7 +18,7 @@ Public Class FrmEstadoCuentaClientes
                 Me.OperacionesNoCanceladasToolStripMenuItem.Checked = True
 
             Case "CANCELADO"
-                sql = "SELECT IdOperacion,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdCliente=" & argCliente.IdCliente & " AND EstadoOperaContrato='CANCELADO'"
+                sql = "SELECT IdOperacion,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdCliente=" & argCliente.Id & " AND EstadoOperaContrato='CANCELADO'"
 
                 For Each i As ToolStripMenuItem In Me.VerToolStripMenuItem.DropDownItems
                     i.Checked = False
@@ -27,7 +27,7 @@ Public Class FrmEstadoCuentaClientes
                 Me.OperacionesCanceladasToolStripMenuItem.Checked = True
 
             Case "TODOS"
-                sql = "SELECT IdOperacion,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdCliente=" & argCliente.IdCliente
+                sql = "SELECT IdOperacion,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdCliente=" & argCliente.Id
 
                 For Each i As ToolStripMenuItem In Me.VerToolStripMenuItem.DropDownItems
                     i.Checked = False
@@ -39,7 +39,7 @@ Public Class FrmEstadoCuentaClientes
 
         If mobjCliente Is Nothing Then
             Me.mobjCliente = argCliente
-            Me.Label1.Text = "IdCliente:" & Me.mobjCliente.IdCliente
+            Me.Label1.Text = "IdCliente:" & Me.mobjCliente.Id
             Me.Label2.Text = "Cliente:  " & Me.mobjCliente.Nombre
         End If
 

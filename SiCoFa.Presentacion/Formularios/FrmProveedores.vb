@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 Public Class FrmProveedores
     Private Sub MostrarProveedor(ByVal argProveedor As Proveedor)
         With Me
-            .Id.Text = argProveedor.IdProveedor
+            .Id.Text = argProveedor.Id
             .Nombre.Text = argProveedor.Nombre
             .Domicilio.Text = argProveedor.Domicilio
             .Localidad.Text = argProveedor.Localidad

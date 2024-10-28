@@ -260,9 +260,9 @@ Public Class FrmIngPagoClientes
                 Exit Sub
             End If
 
-            Me.Cliente.Tag = c.IdCliente
+            Me.Cliente.Tag = c.Id
             Me.Cliente.Text = c.Nombre
-            Call ObtenerContrato(c.IdCliente)
+            Call ObtenerContrato(c.Id)
             Me.ImpPago.Text = Format(mobjContrato.TotalAdeudado, "Standard")
             Me.ImpPago.Select()
             Me.Cliente.ReadOnly = True

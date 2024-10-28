@@ -1677,7 +1677,7 @@ Public Class cls_D_AdminSiCoFa
                 With cmd.Parameters
                     .AddWithValue("_IdOpera", argOperacion.IdOperacion)
                     .AddWithValue("_CodiTC", argCodiTC)
-                    .AddWithValue("_IdCliente", argCliente.IdCliente)
+                    .AddWithValue("_IdCliente", argCliente.Id)
                     .AddWithValue("_ImpBto", argImpBto)
                     .AddWithValue("_ImpEx", argImpEx)
                     .AddWithValue("_ImpGrav1", argImpGrav1)
@@ -1724,7 +1724,7 @@ Public Class cls_D_AdminSiCoFa
                                                argImpCC,
                                                argImpTar,
                                                Nothing,
-                                               argCliente.IdCliente,
+                                               argCliente.Id,
                                                argCliente,
                                                argIdOperAsoc,
                                                Nothing,

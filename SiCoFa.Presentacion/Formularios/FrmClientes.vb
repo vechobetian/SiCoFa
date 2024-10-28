@@ -19,17 +19,15 @@ Public Class FrmClientes
             Case 1
                 c = lc.First
             Case > 1
-                FrmBuscaClientes.Clientes = lc
-                FrmBuscaClientes.ShowDialog()
+                FrmBuscaPersonas.Personas = lc
+                FrmBuscaPersonas.ShowDialog()
 
-                If FrmBuscaClientes.ClienteSeleccionado Is Nothing Then
-                    FrmBuscaClientes.Close()
-                    Return Nothing
-                    Exit Function
+                ' Verificamos si el usuario seleccionó un cliente
+                If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
+                    Dim p = FrmBuscaPersonas.PersonaSeleccionado
+                    c = New Cliente(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.IVA.CodIVA)
                 End If
-
-                c = FrmBuscaClientes.ClienteSeleccionado
-                FrmBuscaClientes.Close()
+                FrmBuscaPersonas.Close()
         End Select
 
         Return c
@@ -38,7 +36,7 @@ Public Class FrmClientes
     End Function
     Private Sub MostrarCliente(ByVal argCliente As Cliente)
         With Me
-            .Id.Text = argCliente.IdCliente
+            .Id.Text = argCliente.Id
             .Nombre.Text = argCliente.Nombre
             .Domicilio.Text = argCliente.Domicilio
             .Localidad.Text = argCliente.Localidad
@@ -96,6 +94,10 @@ Public Class FrmClientes
         End If
 
         Dim c As Cliente = BuscarCliente(Me.TextoBuscar)
+
+        If c Is Nothing Then
+            Exit Sub
+        End If
 
         With Me
             .LimpiarFormulario()
