@@ -25,7 +25,7 @@ Public Class FrmProveedores
                 ' Verificamos si el usuario seleccionó un cliente
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.IVA.CodIVA)
+                    pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, "", p.Fecha, p.Estado)
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -45,7 +45,8 @@ Public Class FrmProveedores
             .Email.Text = argProveedor.Email
             .TipoDoc.Text = argProveedor.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argProveedor.Documento.Numero
-            .IVA.Text = argProveedor.IVA.TipoIVA
+            .FechaAlta.Text = argProveedor.Fecha
+            .Estado.Text = argProveedor.Estado
         End With
     End Sub
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)

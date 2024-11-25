@@ -46,9 +46,15 @@ Partial Class FrmEdicionPersonas
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblIVA = New System.Windows.Forms.Label()
-        Me.IVA = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.FechaAlta = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Estado = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.IVA = New System.Windows.Forms.ComboBox()
+        Me.IB = New System.Windows.Forms.ComboBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -57,7 +63,7 @@ Partial Class FrmEdicionPersonas
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Guardar, Me.Nuevo, Me.Buscar, Me.Limpiar})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(379, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(394, 25)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -102,68 +108,68 @@ Partial Class FrmEdicionPersonas
         Me.TipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.TipoDoc.FormattingEnabled = True
         Me.TipoDoc.ItemHeight = 13
-        Me.TipoDoc.Location = New System.Drawing.Point(68, 220)
+        Me.TipoDoc.Location = New System.Drawing.Point(79, 220)
         Me.TipoDoc.Name = "TipoDoc"
         Me.TipoDoc.Size = New System.Drawing.Size(300, 21)
-        Me.TipoDoc.TabIndex = 19
+        Me.TipoDoc.TabIndex = 8
         '
         'NumDoc
         '
-        Me.NumDoc.Location = New System.Drawing.Point(68, 246)
+        Me.NumDoc.Location = New System.Drawing.Point(79, 246)
         Me.NumDoc.Name = "NumDoc"
         Me.NumDoc.Size = New System.Drawing.Size(300, 20)
-        Me.NumDoc.TabIndex = 20
+        Me.NumDoc.TabIndex = 9
         '
         'Email
         '
-        Me.Email.Location = New System.Drawing.Point(68, 194)
+        Me.Email.Location = New System.Drawing.Point(79, 194)
         Me.Email.Name = "Email"
         Me.Email.Size = New System.Drawing.Size(300, 20)
-        Me.Email.TabIndex = 18
+        Me.Email.TabIndex = 7
         '
         'Telefono
         '
-        Me.Telefono.Location = New System.Drawing.Point(68, 168)
+        Me.Telefono.Location = New System.Drawing.Point(79, 168)
         Me.Telefono.Name = "Telefono"
         Me.Telefono.Size = New System.Drawing.Size(300, 20)
-        Me.Telefono.TabIndex = 17
+        Me.Telefono.TabIndex = 6
         '
         'Provincia
         '
-        Me.Provincia.Location = New System.Drawing.Point(68, 142)
+        Me.Provincia.Location = New System.Drawing.Point(79, 142)
         Me.Provincia.Name = "Provincia"
         Me.Provincia.Size = New System.Drawing.Size(300, 20)
-        Me.Provincia.TabIndex = 16
+        Me.Provincia.TabIndex = 5
         '
         'Localidad
         '
-        Me.Localidad.Location = New System.Drawing.Point(68, 116)
+        Me.Localidad.Location = New System.Drawing.Point(79, 116)
         Me.Localidad.Name = "Localidad"
         Me.Localidad.Size = New System.Drawing.Size(300, 20)
-        Me.Localidad.TabIndex = 15
+        Me.Localidad.TabIndex = 4
         '
         'Domicilio
         '
-        Me.Domicilio.Location = New System.Drawing.Point(68, 90)
+        Me.Domicilio.Location = New System.Drawing.Point(79, 90)
         Me.Domicilio.Name = "Domicilio"
         Me.Domicilio.Size = New System.Drawing.Size(300, 20)
-        Me.Domicilio.TabIndex = 14
+        Me.Domicilio.TabIndex = 3
         '
         'Nombre
         '
-        Me.Nombre.Location = New System.Drawing.Point(68, 64)
+        Me.Nombre.Location = New System.Drawing.Point(79, 64)
         Me.Nombre.Name = "Nombre"
         Me.Nombre.Size = New System.Drawing.Size(300, 20)
-        Me.Nombre.TabIndex = 13
+        Me.Nombre.TabIndex = 2
         '
         'Id
         '
         Me.Id.Enabled = False
-        Me.Id.Location = New System.Drawing.Point(68, 38)
+        Me.Id.Location = New System.Drawing.Point(79, 38)
         Me.Id.Name = "Id"
         Me.Id.ReadOnly = True
         Me.Id.Size = New System.Drawing.Size(300, 20)
-        Me.Id.TabIndex = 12
+        Me.Id.TabIndex = 1
         '
         'Label10
         '
@@ -237,25 +243,6 @@ Partial Class FrmEdicionPersonas
         Me.Label1.TabIndex = 23
         Me.Label1.Text = "Nombre:"
         '
-        'lblIVA
-        '
-        Me.lblIVA.AutoSize = True
-        Me.lblIVA.Location = New System.Drawing.Point(12, 275)
-        Me.lblIVA.Name = "lblIVA"
-        Me.lblIVA.Size = New System.Drawing.Size(27, 13)
-        Me.lblIVA.TabIndex = 39
-        Me.lblIVA.Text = "IVA:"
-        '
-        'IVA
-        '
-        Me.IVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IVA.FormattingEnabled = True
-        Me.IVA.ItemHeight = 13
-        Me.IVA.Location = New System.Drawing.Point(68, 272)
-        Me.IVA.Name = "IVA"
-        Me.IVA.Size = New System.Drawing.Size(300, 21)
-        Me.IVA.TabIndex = 38
-        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -265,14 +252,95 @@ Partial Class FrmEdicionPersonas
         Me.Label2.TabIndex = 40
         Me.Label2.Text = "Id:"
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(12, 275)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(61, 13)
+        Me.Label11.TabIndex = 44
+        Me.Label11.Text = "Fecha Alta:"
+        '
+        'FechaAlta
+        '
+        Me.FechaAlta.Location = New System.Drawing.Point(79, 272)
+        Me.FechaAlta.Name = "FechaAlta"
+        Me.FechaAlta.ReadOnly = True
+        Me.FechaAlta.Size = New System.Drawing.Size(300, 20)
+        Me.FechaAlta.TabIndex = 10
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(12, 301)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(43, 13)
+        Me.Label12.TabIndex = 46
+        Me.Label12.Text = "Estado:"
+        '
+        'Estado
+        '
+        Me.Estado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Estado.FormattingEnabled = True
+        Me.Estado.ItemHeight = 13
+        Me.Estado.Items.AddRange(New Object() {"ACTIVO", "BAJA"})
+        Me.Estado.Location = New System.Drawing.Point(79, 298)
+        Me.Estado.Name = "Estado"
+        Me.Estado.Size = New System.Drawing.Size(300, 21)
+        Me.Estado.TabIndex = 11
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(12, 328)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(27, 13)
+        Me.Label4.TabIndex = 50
+        Me.Label4.Text = "IVA:"
+        '
+        'IVA
+        '
+        Me.IVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IVA.FormattingEnabled = True
+        Me.IVA.ItemHeight = 13
+        Me.IVA.Location = New System.Drawing.Point(79, 325)
+        Me.IVA.Name = "IVA"
+        Me.IVA.Size = New System.Drawing.Size(300, 21)
+        Me.IVA.TabIndex = 49
+        '
+        'IB
+        '
+        Me.IB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.IB.FormattingEnabled = True
+        Me.IB.ItemHeight = 13
+        Me.IB.Location = New System.Drawing.Point(79, 352)
+        Me.IB.Name = "IB"
+        Me.IB.Size = New System.Drawing.Size(300, 21)
+        Me.IB.TabIndex = 51
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(12, 355)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(23, 13)
+        Me.Label13.TabIndex = 52
+        Me.Label13.Text = "I.B:"
+        '
         'FrmEdicionPersonas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(379, 307)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.lblIVA)
+        Me.ClientSize = New System.Drawing.Size(394, 386)
+        Me.Controls.Add(Me.Label13)
+        Me.Controls.Add(Me.IB)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.IVA)
+        Me.Controls.Add(Me.Label12)
+        Me.Controls.Add(Me.Estado)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.FechaAlta)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
@@ -323,7 +391,13 @@ Partial Class FrmEdicionPersonas
     Friend WithEvents Label5 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents lblIVA As Label
-    Friend WithEvents IVA As ComboBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents FechaAlta As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Estado As ComboBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents IVA As ComboBox
+    Friend WithEvents IB As ComboBox
+    Friend WithEvents Label13 As Label
 End Class

@@ -1,6 +1,12 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmClientes
+    Private Sub ObtenerTiposIVA()
+        Me.IVA.DataSource = mobj_N_AdminSiCoFa.TiposIVA
+        Me.IVA.ValueMember = "CodIVA"
+        Me.IVA.DisplayMember = "TipoIVA"
+        Me.IVA.SelectedIndex = -1
+    End Sub
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
         Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
@@ -22,10 +28,10 @@ Public Class FrmClientes
                 FrmBuscaPersonas.Personas = lc
                 FrmBuscaPersonas.ShowDialog()
 
-                ' Verificamos si el usuario seleccionó un cliente
+                ' Verificamos si el usuario seleccionó un client
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    c = New Cliente(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.IVA.CodIVA)
+                    c = New Cliente(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, "", p.Fecha, p.Estado)
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -46,6 +52,8 @@ Public Class FrmClientes
             .TipoDoc.Text = argCliente.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argCliente.Documento.Numero
             .IVA.Text = argCliente.IVA.TipoIVA
+            .FechaAlta.Text = argCliente.Fecha
+            .Estado.Text = argCliente.Estado
         End With
     End Sub
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
@@ -72,7 +80,7 @@ Public Class FrmClientes
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.Estado.Text)
 
             If Actualizado = True Then
                 MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")

@@ -20,7 +20,11 @@ Public Class FrmBuscaPersonas
                             Me.DataGridView1.CurrentRow.Cells("Email").Value,
                             Me.DataGridView1.CurrentRow.Cells("CodiTDoc").Value,
                             Me.DataGridView1.CurrentRow.Cells("NumDoc").Value,
-                            Me.DataGridView1.CurrentRow.Cells("CodIVA").Value
+                            Me.DataGridView1.CurrentRow.Cells("CodIVA").Value,
+                            Me.DataGridView1.CurrentRow.Cells("IB").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Fecha").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Estado").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Pasword").Value
                             )
         Me.PersonaSeleccionado = p
 

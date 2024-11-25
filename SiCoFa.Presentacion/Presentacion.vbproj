@@ -148,24 +148,6 @@
     <Compile Include="Formularios\FrmEdicionPersonas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmEstadoCuentaClientes.Designer.vb">
-      <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmEstadoCuentaClientes.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmAperComprobantes.Designer.vb">
-      <DependentUpon>FrmAperComprobantes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmAperComprobantes.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmComprobantes.Designer.vb">
-      <DependentUpon>FrmComprobantes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmComprobantes.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmEdicionTabla.Designer.vb">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>
     </Compile>
@@ -178,40 +160,19 @@
     <Compile Include="Formularios\FrmOperaContratos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmFacturarServicios.Designer.vb">
-      <DependentUpon>FrmFacturarServicios.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmFacturarServicios.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\clsFrmBase.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reportes\clsReporteRecibo.vb" />
-    <Compile Include="Reportes\clsEstadoCuentaPDF.vb" />
-    <Compile Include="Reportes\clsReporteComprobantes.vb" />
     <Compile Include="Formularios\FrmMDI.Designer.vb">
       <DependentUpon>FrmMDI.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmMDI.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmIngPagoClientes.Designer.vb">
-      <DependentUpon>FrmIngPagoClientes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmIngPagoClientes.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmPlanCuentas.Designer.vb">
       <DependentUpon>FrmPlanCuentas.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmPlanCuentas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmBuscaServicios.Designer.vb">
-      <DependentUpon>FrmBuscaServicios.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmBuscaServicios.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmClientes.Designer.vb">
@@ -231,7 +192,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reportes\clsTicket.vb" />
     <Compile Include="Settings1.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -254,38 +214,20 @@
     <EmbeddedResource Include="Formularios\FrmEmpleados.resx">
       <DependentUpon>FrmEmpleados.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmAperComprobantes.resx">
-      <DependentUpon>FrmAperComprobantes.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmComprobantes.resx">
-      <DependentUpon>FrmComprobantes.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEdicionPersonas.resx">
       <DependentUpon>FrmEdicionPersonas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEdicionTabla.resx">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmEstadoCuentaClientes.resx">
-      <DependentUpon>FrmEstadoCuentaClientes.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmOperaContratos.resx">
       <DependentUpon>FrmOperaContratos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmFacturarServicios.resx">
-      <DependentUpon>FrmFacturarServicios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMDI.resx">
       <DependentUpon>FrmMDI.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmIngPagoClientes.resx">
-      <DependentUpon>FrmIngPagoClientes.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPlanCuentas.resx">
       <DependentUpon>FrmPlanCuentas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmBuscaServicios.resx">
-      <DependentUpon>FrmBuscaServicios.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmClientes.resx">
       <DependentUpon>FrmClientes.vb</DependentUpon>
@@ -300,7 +242,6 @@
     <EmbeddedResource Include="Reportes\rptCompCA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompRA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptReciboA4.rdlc" />
-    <EmbeddedResource Include="Reportes\rptEstadoCuenta.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

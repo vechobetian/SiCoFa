@@ -24,7 +24,7 @@ Public Class FrmUsuarios
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, "")
+                    u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado, "")
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -126,8 +126,5 @@ Public Class FrmUsuarios
         End With
 
     End Sub
-    Private Sub FrmUsuario_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.IVA.Visible = False
-        Me.lblIVA.Visible = False
-    End Sub
+
 End Class

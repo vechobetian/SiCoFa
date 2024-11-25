@@ -71,6 +71,7 @@
     <Compile Include="Comprobantes\CAE.vb" />
     <Compile Include="Contabilidad\AsientoConbable.vb" />
     <Compile Include="Contabilidad\CuentaColectiva.vb" />
+    <Compile Include="Personas\Empresa.vb" />
     <Compile Include="Personas\Proveedor.vb" />
     <Compile Include="Personas\CuentaEmail.vb" />
     <Compile Include="Contabilidad\CuentaImputable.vb" />
@@ -79,9 +80,6 @@
     <Compile Include="Operaciones\OperaCancel.vb" />
     <Compile Include="ConsumoLuz\Medidor.vb" />
     <Compile Include="ConsumoLuz\RegConsumoLuz.vb" />
-    <Compile Include="Contratos\Contrato.vb" />
-    <Compile Include="Personas\Locador.vb" />
-    <Compile Include="Contratos\GrupoContratos.vb" />
     <Compile Include="Operaciones\PagoCliente.vb" />
     <Compile Include="ConsumoLuz\ItemConsumoLuz.vb" />
     <Compile Include="Operaciones\OperaContrato.vb" />
@@ -90,8 +88,6 @@
     <Compile Include="Personas\Usuario.vb" />
     <Compile Include="Sistema\Archivo.vb" />
     <Compile Include="Sistema\Secion.vb" />
-    <Compile Include="Contratos\ServicioAsociado.vb" />
-    <Compile Include="Contratos\Servicio.vb" />
     <Compile Include="Contabilidad\SubRubroContabilidad.vb" />
     <Compile Include="Operaciones\TipoOperacion.vb" />
     <Compile Include="Personas\Cliente.vb" />
@@ -147,5 +143,6 @@
       <Name>Vecho</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

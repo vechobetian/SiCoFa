@@ -22,7 +22,7 @@
     Property Cliente As Cliente
     Property IdOperAsoc As Long
     Property CompAsoc As Comprobante
-    Property Locador As Locador
+    Property Empresa As Empresa
     Property Detalle As List(Of ItemComprobante)
     Property QR As QRCompE
 
@@ -50,7 +50,7 @@
                   ByVal argCliente As Cliente,
                   ByVal argIdOperAsoc As Long,
                   ByVal argCompAsoc As Comprobante,
-                  ByVal argLocador As Locador,
+                  ByVal argEmpresa As Empresa,
                   ByVal argDetalle As List(Of ItemComprobante)
                   )
         Me.IdOperacion = argIdOperacion
@@ -76,7 +76,7 @@
         Me.Cliente = argCliente
         Me.IdOperAsoc = argIdOperAsoc
         Me.CompAsoc = argCompAsoc
-        Me.Locador = argLocador
+        Me.Empresa = argEmpresa
         Me.Detalle = argDetalle
 
     End Sub

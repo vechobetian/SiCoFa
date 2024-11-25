@@ -13,12 +13,6 @@ Public Class FrmEdicionPersonas
         Me.TipoDoc.DisplayMember = "TipoDocumento"
         Me.TipoDoc.SelectedIndex = -1
     End Sub
-    Private Sub ObtenerTiposIVA()
-        Me.IVA.DataSource = mobj_N_AdminSiCoFa.TiposIVA
-        Me.IVA.ValueMember = "CodIVA"
-        Me.IVA.DisplayMember = "TipoIVA"
-        Me.IVA.SelectedIndex = -1
-    End Sub
     Private Sub ValidarCampos()
         Me.ValidacionOK = False
 
@@ -38,7 +32,6 @@ Public Class FrmEdicionPersonas
     End Sub
     Private Sub FrmEdicionPersonas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.ObtenerTiposDocumento()
-        Me.ObtenerTiposIVA()
     End Sub
     Public Overridable Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Me.ValidarCampos()

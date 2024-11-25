@@ -24,7 +24,7 @@ Public Class FrmEmpleados
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    e = New Empleado(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero)
+                    e = New Empleado(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.Fecha, p.Estado)
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -70,7 +70,7 @@ Public Class FrmEmpleados
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.Text)
 
             If Actualizado = True Then
                 MsgBox("El Empleado " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
@@ -126,9 +126,5 @@ Public Class FrmEmpleados
         End With
 
     End Sub
-    Private Sub FrmEmpleado_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.IVA.Visible = False
-        Me.lblIVA.Visible = False
-        Me.Height = Me.Height - Me.IVA.Height + 5
-    End Sub
+
 End Class

@@ -10,11 +10,12 @@
                 ByVal argEmail As String,
                 ByVal argCodiTDoc As String,
                 ByVal argNumDoc As String,
-                ByVal argCodIVA As String
+                ByVal argCodIVA As String,
+                ByVal argFechaAlta As Date,
+                ByVal argEstado As String
                 )
 
-        MyBase.New(argIdCliente, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, argCodIVA)
-
+        MyBase.New(argIdCliente, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, argCodIVA, "NA", argFechaAlta, argEstado)
 
     End Sub
 

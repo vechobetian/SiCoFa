@@ -1,21 +1,21 @@
-﻿Public Class Proveedor
+﻿Public Class Empresa
     Inherits Persona
     Public Sub New(
-                ByVal argIdProveedor As Long,
+                ByVal argIdEmpresa As Long,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,
                 ByVal argProvincia As String,
                 ByVal argTelefono As String,
                 ByVal argEmail As String,
-                ByVal argCodiTDoc As String,
-                ByVal argNumDoc As String,
+                ByVal argCUIT As String,
                 ByVal argCodIVA As String,
-                ByVal argFechaAlta As Date,
+                ByVal argIB As String,
+                ByVal argInicioActividades As String,
                 ByVal argEstado As String
                 )
 
-        MyBase.New(argIdProveedor, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, "NA", "NA", argFechaAlta, argEstado)
+        MyBase.New(argIdEmpresa, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, "CUIT", argCUIT, argCodIVA, argIB, argInicioActividades, argEstado)
 
     End Sub
 
