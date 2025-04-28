@@ -7,11 +7,8 @@
     Property Telefono As String = ""
     Property Email As String = ""
     Property Documento As Documento
-    Property IVA As IVA
-    Property IB As String
-    Property Fecha As Date
+    Property FechaAlta As Date
     Property Estado As String
-    Property Pasword As String
 
     Public Sub New(
                 ByVal argId As Long,
@@ -23,11 +20,8 @@
                 ByVal argEmail As String,
                 ByVal argCodiTDoc As String,
                 ByVal argNumDoc As String,
-                ByVal argCodIVA As String,
-                ByVal argIB As String,
-                ByVal argFecha As Date,
-                ByVal argEstado As String,
-                Optional ByVal argPasword As String = ""
+                ByVal argFechaAlta As Date,
+                ByVal argEstado As String
                 )
 
         Me.Id = argId
@@ -38,11 +32,8 @@
         Me.Telefono = argTelefono
         Me.Email = argEmail
         Me.Documento = New Documento(argCodiTDoc, argNumDoc)
-        Me.IVA = New IVA(argCodIVA)
-        Me.IB = argIB
-        Me.Fecha = argFecha
+        Me.FechaAlta = argFechaAlta
         Me.Estado = argEstado
-        Me.Pasword = argPasword
     End Sub
 
 End Class

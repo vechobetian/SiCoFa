@@ -3,7 +3,6 @@
 Public Class FrmBuscaPersonas
     Property Personas As IEnumerable(Of Persona)
     Property PersonaSeleccionado As Persona
-
     Private Sub DescargarVariables()
         Personas = Nothing
         PersonaSeleccionado = Nothing
@@ -11,7 +10,7 @@ Public Class FrmBuscaPersonas
     Private Sub SeleccionarPersona()
 
         Dim p As New Persona(
-                            Me.DataGridView1.CurrentRow.Cells("IdCliente").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Id").Value,
                             Me.DataGridView1.CurrentRow.Cells("Nombre").Value,
                             Me.DataGridView1.CurrentRow.Cells("Domicilio").Value,
                             Me.DataGridView1.CurrentRow.Cells("Localidad").Value,
@@ -21,10 +20,7 @@ Public Class FrmBuscaPersonas
                             Me.DataGridView1.CurrentRow.Cells("CodiTDoc").Value,
                             Me.DataGridView1.CurrentRow.Cells("NumDoc").Value,
                             Me.DataGridView1.CurrentRow.Cells("CodIVA").Value,
-                            Me.DataGridView1.CurrentRow.Cells("IB").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Fecha").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Estado").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Pasword").Value
+                            Me.DataGridView1.CurrentRow.Cells("IB").Value
                             )
         Me.PersonaSeleccionado = p
 
@@ -44,8 +40,6 @@ Public Class FrmBuscaPersonas
                 .Rows(x).Cells("CodiTDoc").Value = p.Documento.TipoDoc.CodiTDoc
                 .Rows(x).Cells("TipoDocumento").Value = p.Documento.TipoDoc.TipoDocumento
                 .Rows(x).Cells("NumDoc").Value = p.Documento.Numero
-                .Rows(x).Cells("CodIVA").Value = p.IVA.CodIVA
-                .Rows(x).Cells("IVA").Value = p.IVA.TipoIVA
             End With
             x += 1
         Next

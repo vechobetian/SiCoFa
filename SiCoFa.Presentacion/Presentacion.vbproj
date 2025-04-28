@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>GesContratos.Presentacion.FrmEmpleados</StartupObject>
+    <StartupObject>GesContratos.Presentacion.FrmPlanCuentas</StartupObject>
     <RootNamespace>GesContratos.Presentacion</RootNamespace>
     <AssemblyName>GestionContratos</AssemblyName>
     <FileAlignment>512</FileAlignment>
