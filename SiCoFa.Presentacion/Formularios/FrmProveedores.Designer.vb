@@ -29,7 +29,7 @@ Partial Class FrmProveedores
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(394, 334)
+        Me.ClientSize = New System.Drawing.Size(394, 395)
         Me.KeyPreview = True
         Me.Name = "FrmProveedores"
         Me.Text = "Proveedor"

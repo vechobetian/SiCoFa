@@ -29,7 +29,7 @@ Partial Class FrmEmpleados
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(394, 331)
+        Me.ClientSize = New System.Drawing.Size(394, 392)
         Me.Name = "FrmEmpleados"
         Me.Text = "Empleado"
         Me.ResumeLayout(False)

@@ -15,7 +15,7 @@
                 ByVal argPassword As String
                 )
 
-        MyBase.New(argIdUsuario, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, "NA", "NA", argFechaAlta, argEstado, argPassword)
+        MyBase.New(argIdUsuario, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, argFechaAlta, argEstado)
 
     End Sub
 

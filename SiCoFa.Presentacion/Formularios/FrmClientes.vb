@@ -7,6 +7,18 @@ Public Class FrmClientes
         Me.IVA.DisplayMember = "TipoIVA"
         Me.IVA.SelectedIndex = -1
     End Sub
+    Private Function SeleccionarClienteListado(ByVal Id As Long, ByVal ListaClientes As List(Of Cliente)) As Cliente
+        Dim ClienteSeleccionado As Cliente = Nothing
+
+        For Each c As Cliente In ListaClientes
+            If c.Id = Id Then
+                clienteSeleccionado = c
+                Exit For ' Opcional: detener la búsqueda una vez encontrado el cliente
+            End If
+        Next
+        Return ClienteSeleccionado
+
+    End Function
     Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
         Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
         Dim c As Cliente = Nothing
@@ -28,10 +40,9 @@ Public Class FrmClientes
                 FrmBuscaPersonas.Personas = lc
                 FrmBuscaPersonas.ShowDialog()
 
-                ' Verificamos si el usuario seleccionó un client
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    c = New Cliente(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, "", p.Fecha, p.Estado)
+                    c = Me.SeleccionarClienteListado(p.Id, lc)
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -51,8 +62,8 @@ Public Class FrmClientes
             .Email.Text = argCliente.Email
             .TipoDoc.Text = argCliente.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argCliente.Documento.Numero
-            .IVA.Text = argCliente.IVA.TipoIVA
-            .FechaAlta.Text = argCliente.Fecha
+            .IVA.Text = argCliente.CodiIVA
+            .FechaAlta.Text = argCliente.FechaAlta
             .Estado.Text = argCliente.Estado
         End With
     End Sub

@@ -15,7 +15,7 @@
                 ByVal argEstado As String
                 )
 
-        MyBase.New(argIdEmpresa, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, "CUIT", argCUIT, argCodIVA, argIB, argInicioActividades, argEstado)
+        MyBase.New(argIdEmpresa, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, "CUIT", argCUIT, "01/01/01", argEstado)
 
     End Sub
 

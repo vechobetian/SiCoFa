@@ -19,8 +19,8 @@ Public Class FrmBuscaPersonas
                             Me.DataGridView1.CurrentRow.Cells("Email").Value,
                             Me.DataGridView1.CurrentRow.Cells("CodiTDoc").Value,
                             Me.DataGridView1.CurrentRow.Cells("NumDoc").Value,
-                            Me.DataGridView1.CurrentRow.Cells("CodIVA").Value,
-                            Me.DataGridView1.CurrentRow.Cells("IB").Value
+                            Me.DataGridView1.CurrentRow.Cells("FechaAlta").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Estado").Value
                             )
         Me.PersonaSeleccionado = p
 
@@ -30,7 +30,7 @@ Public Class FrmBuscaPersonas
         For Each p As Persona In Me.Personas
             With Me.DataGridView1
                 .Rows.Add()
-                .Rows(x).Cells("IdCliente").Value = p.Id
+                .Rows(x).Cells("Id").Value = p.Id
                 .Rows(x).Cells("Nombre").Value = p.Nombre
                 .Rows(x).Cells("Domicilio").Value = p.Domicilio
                 .Rows(x).Cells("Localidad").Value = p.Localidad

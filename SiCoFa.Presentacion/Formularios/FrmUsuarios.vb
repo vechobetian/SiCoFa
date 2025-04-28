@@ -24,7 +24,7 @@ Public Class FrmUsuarios
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado, "")
+                    u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, Me.Estado.SelectedValue, "")
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -70,7 +70,7 @@ Public Class FrmUsuarios
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.SelectedValue)
 
             If Actualizado = True Then
                 MsgBox("El Usuario " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

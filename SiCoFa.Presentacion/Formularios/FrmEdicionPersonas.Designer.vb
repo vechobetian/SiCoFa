@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmEdicionPersonas
     'Inherits System.Windows.Forms.Form
     Inherits clsFrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -21,7 +21,7 @@ Partial Class FrmEdicionPersonas
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmEdicionPersonas))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
@@ -51,10 +51,6 @@ Partial Class FrmEdicionPersonas
         Me.FechaAlta = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Estado = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.IVA = New System.Windows.Forms.ComboBox()
-        Me.IB = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -289,53 +285,11 @@ Partial Class FrmEdicionPersonas
         Me.Estado.Size = New System.Drawing.Size(300, 21)
         Me.Estado.TabIndex = 11
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 328)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(27, 13)
-        Me.Label4.TabIndex = 50
-        Me.Label4.Text = "IVA:"
-        '
-        'IVA
-        '
-        Me.IVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IVA.FormattingEnabled = True
-        Me.IVA.ItemHeight = 13
-        Me.IVA.Location = New System.Drawing.Point(79, 325)
-        Me.IVA.Name = "IVA"
-        Me.IVA.Size = New System.Drawing.Size(300, 21)
-        Me.IVA.TabIndex = 49
-        '
-        'IB
-        '
-        Me.IB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IB.FormattingEnabled = True
-        Me.IB.ItemHeight = 13
-        Me.IB.Location = New System.Drawing.Point(79, 352)
-        Me.IB.Name = "IB"
-        Me.IB.Size = New System.Drawing.Size(300, 21)
-        Me.IB.TabIndex = 51
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(12, 355)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(23, 13)
-        Me.Label13.TabIndex = 52
-        Me.Label13.Text = "I.B:"
-        '
         'FrmEdicionPersonas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(394, 386)
-        Me.Controls.Add(Me.Label13)
-        Me.Controls.Add(Me.IB)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.IVA)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.Label11)
@@ -396,8 +350,4 @@ Partial Class FrmEdicionPersonas
     Friend WithEvents FechaAlta As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Estado As ComboBox
-    Friend WithEvents Label4 As Label
-    Friend WithEvents IVA As ComboBox
-    Friend WithEvents IB As ComboBox
-    Friend WithEvents Label13 As Label
 End Class

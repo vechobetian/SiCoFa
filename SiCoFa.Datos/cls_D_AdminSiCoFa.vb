@@ -9,7 +9,7 @@ Public Class cls_D_AdminSiCoFa
         Dim objCli As Cliente
 
         Try
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA,FechaAlta,Estado FROM TblClientes WHERE IdCliente=@IdCliente"
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes WHERE IdCliente=@IdCliente"
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -32,10 +32,10 @@ Public Class cls_D_AdminSiCoFa
                             Dim Email As String = datos("Email")
                             Dim CodiTDoc As String = datos("CodiTDoc")
                             Dim NumDoc As String = datos("NumDoc")
-                            Dim CodIVA As String = datos("CodIVA")
                             Dim FechaAlta As Date = datos("FechaAlta")
                             Dim Estado As String = datos("Estado")
-                            objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, CodIVA, FechaAlta, Estado)
+                            Dim CodIVA As String = datos("CodIVA")
+                            objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado, CodIVA)
                         Else
                             objCli = Nothing
                         End If
@@ -61,9 +61,9 @@ Public Class cls_D_AdminSiCoFa
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA,FechaAlta,Estado FROM TblClientes ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes ORDER BY Nombre"
             Else
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA,FechaAlta,Estado FROM TblClientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
@@ -80,7 +80,7 @@ Public Class cls_D_AdminSiCoFa
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            c = New Cliente(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("CodIVA"), datos("FechaAlta"), datos("Estado"))
+                            c = New Cliente(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"), datos("CodIVA"))
                             lc.Add(c)
                         End While
 

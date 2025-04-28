@@ -26,11 +26,16 @@ Partial Class FrmBuscaPersonas
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Id = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Domicilio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Localidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Provincia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Telefono = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodiTDoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TipoDocumento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NumDoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.FechaAlta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -41,7 +46,7 @@ Partial Class FrmBuscaPersonas
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Telefono, Me.Email, Me.CodiTDoc, Me.TipoDocumento, Me.NumDoc})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Domicilio, Me.Localidad, Me.Provincia, Me.Telefono, Me.Email, Me.CodiTDoc, Me.TipoDocumento, Me.NumDoc, Me.FechaAlta, Me.Estado})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
@@ -63,25 +68,53 @@ Partial Class FrmBuscaPersonas
         '
         'Nombre
         '
+        Me.Nombre.DataPropertyName = "Nombre"
         Me.Nombre.HeaderText = "Nombre"
         Me.Nombre.Name = "Nombre"
         Me.Nombre.ReadOnly = True
         Me.Nombre.Width = 400
         '
+        'Domicilio
+        '
+        Me.Domicilio.DataPropertyName = "Domicilio"
+        Me.Domicilio.HeaderText = "Domicilio"
+        Me.Domicilio.Name = "Domicilio"
+        Me.Domicilio.ReadOnly = True
+        Me.Domicilio.Visible = False
+        '
+        'Localidad
+        '
+        Me.Localidad.DataPropertyName = "Localidad"
+        Me.Localidad.HeaderText = "Localidad"
+        Me.Localidad.Name = "Localidad"
+        Me.Localidad.ReadOnly = True
+        Me.Localidad.Visible = False
+        '
+        'Provincia
+        '
+        Me.Provincia.DataPropertyName = "Provincia"
+        Me.Provincia.HeaderText = "Provincia"
+        Me.Provincia.Name = "Provincia"
+        Me.Provincia.ReadOnly = True
+        Me.Provincia.Visible = False
+        '
         'Telefono
         '
+        Me.Telefono.DataPropertyName = "Telefono"
         Me.Telefono.HeaderText = "Telefono"
         Me.Telefono.Name = "Telefono"
         Me.Telefono.ReadOnly = True
         '
         'Email
         '
+        Me.Email.DataPropertyName = "Email"
         Me.Email.HeaderText = "Email"
         Me.Email.Name = "Email"
         Me.Email.ReadOnly = True
         '
         'CodiTDoc
         '
+        Me.CodiTDoc.DataPropertyName = "CodiTDoc"
         Me.CodiTDoc.HeaderText = "CodiTDoc"
         Me.CodiTDoc.Name = "CodiTDoc"
         Me.CodiTDoc.ReadOnly = True
@@ -89,6 +122,7 @@ Partial Class FrmBuscaPersonas
         '
         'TipoDocumento
         '
+        Me.TipoDocumento.DataPropertyName = "TipoDocumento"
         Me.TipoDocumento.FillWeight = 90.0!
         Me.TipoDocumento.HeaderText = "TipoDocumento"
         Me.TipoDocumento.Name = "TipoDocumento"
@@ -97,9 +131,25 @@ Partial Class FrmBuscaPersonas
         '
         'NumDoc
         '
+        Me.NumDoc.DataPropertyName = "NumDoc"
         Me.NumDoc.HeaderText = "NumDoc"
         Me.NumDoc.Name = "NumDoc"
         Me.NumDoc.ReadOnly = True
+        '
+        'FechaAlta
+        '
+        Me.FechaAlta.DataPropertyName = "FechaAlta"
+        Me.FechaAlta.HeaderText = "FechaAlta"
+        Me.FechaAlta.Name = "FechaAlta"
+        Me.FechaAlta.ReadOnly = True
+        Me.FechaAlta.Visible = False
+        '
+        'Estado
+        '
+        Me.Estado.HeaderText = "Estado"
+        Me.Estado.Name = "Estado"
+        Me.Estado.ReadOnly = True
+        Me.Estado.Visible = False
         '
         'FrmBuscaPersonas
         '
@@ -119,9 +169,14 @@ Partial Class FrmBuscaPersonas
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents Id As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
+    Friend WithEvents Domicilio As DataGridViewTextBoxColumn
+    Friend WithEvents Localidad As DataGridViewTextBoxColumn
+    Friend WithEvents Provincia As DataGridViewTextBoxColumn
     Friend WithEvents Telefono As DataGridViewTextBoxColumn
     Friend WithEvents Email As DataGridViewTextBoxColumn
     Friend WithEvents CodiTDoc As DataGridViewTextBoxColumn
     Friend WithEvents TipoDocumento As DataGridViewTextBoxColumn
     Friend WithEvents NumDoc As DataGridViewTextBoxColumn
+    Friend WithEvents FechaAlta As DataGridViewTextBoxColumn
+    Friend WithEvents Estado As DataGridViewTextBoxColumn
 End Class

@@ -15,7 +15,7 @@
                 ByVal argEstado As String
                 )
 
-        MyBase.New(argIdProveedor, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, "NA", "NA", argFechaAlta, argEstado)
+        MyBase.New(argIdProveedor, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, argFechaAlta, argEstado)
 
     End Sub
 
