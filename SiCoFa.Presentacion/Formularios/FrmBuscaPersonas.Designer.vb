@@ -146,6 +146,7 @@ Partial Class FrmBuscaPersonas
         '
         'Estado
         '
+        Me.Estado.DataPropertyName = "Estado"
         Me.Estado.HeaderText = "Estado"
         Me.Estado.Name = "Estado"
         Me.Estado.ReadOnly = True

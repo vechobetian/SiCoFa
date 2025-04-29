@@ -1,6 +1,9 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmProveedores
+
+    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
+    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
     Private Function BuscarProveedor(ByVal argTextoBuscado As String) As Proveedor
         Dim lp As List(Of Proveedor) = mobj_N_AdminSiCoFa.ListarProveedores(argTextoBuscado)
         Dim pv As Proveedor = Nothing
@@ -25,7 +28,7 @@ Public Class FrmProveedores
                 ' Verificamos si el usuario seleccionó un cliente
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, "", p.FechaAlta, p.Estado)
+                    pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
                 End If
                 FrmBuscaPersonas.Close()
         End Select
@@ -50,14 +53,14 @@ Public Class FrmProveedores
         End With
     End Sub
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
-        MyBase.Guardar_Click(sender, e)
+        Me.ValidarCampos(DatosOpcionales)
 
         If Me.ValidacionOK = False Then
             Exit Sub
         End If
 
         If Me.NuevaPersona = True Then
-            Dim Id As Integer = mobj_N_AdminSiCoFa.InsertarProveedor(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, "")
+            Dim Id As Integer = mobj_N_AdminSiCoFa.InsertarProveedor(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
             If Id > 0 Then
                 Me.Id.Text = Id
                 Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -86,6 +89,16 @@ Public Class FrmProveedores
         Me.LimpiarFormulario()
         Me.Nombre.Select()
 
+    End Sub
+    Public Overrides Sub Nuevo_Click(sender As Object, e As EventArgs)
+        MyBase.Nuevo_Click(sender, e)
+        Dim valoresDefecto As New Dictionary(Of String, Object)
+        valoresDefecto.Add("FechaAlta", Date.Today.ToShortDateString) ' Año, Mes, Día
+        valoresDefecto.Add("Estado", "ACTIVO") ' O el ValueMember si aplica
+        ' Agrega aquí los nombres de todos los controles y sus valores por defecto
+
+        ' Llama al procedimiento para establecer los valores por defecto
+        EstablecerValoresPorDefecto(valoresDefecto)
     End Sub
     Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)
         MyBase.Buscar_Click(sender, e)

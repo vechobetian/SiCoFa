@@ -10,7 +10,6 @@
                 ByVal argEmail As String,
                 ByVal argCodiTDoc As String,
                 ByVal argNumDoc As String,
-                ByVal argCodIVA As String,
                 ByVal argFechaAlta As Date,
                 ByVal argEstado As String
                 )

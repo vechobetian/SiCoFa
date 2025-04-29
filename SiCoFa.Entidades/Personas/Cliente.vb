@@ -1,6 +1,6 @@
 ﻿Public Class Cliente
     Inherits Persona
-    Property CodiIVA As String
+    Property IVA As IVA
     Public Sub New(
                 ByVal argIdCliente As Long,
                 ByVal argNombre As String,
@@ -17,7 +17,7 @@
                )
 
         MyBase.New(argIdCliente, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, argFechaAlta, argEstado)
-        Me.CodiIVA = argCodIVA
+        Me.IVA = New IVA(argCodIVA)
 
     End Sub
 

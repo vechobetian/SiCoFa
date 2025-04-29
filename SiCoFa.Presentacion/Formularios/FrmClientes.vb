@@ -1,6 +1,9 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmClientes
+
+    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
+    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
     Private Sub ObtenerTiposIVA()
         Me.IVA.DataSource = mobj_N_AdminSiCoFa.TiposIVA
         Me.IVA.ValueMember = "CodIVA"
@@ -12,7 +15,7 @@ Public Class FrmClientes
 
         For Each c As Cliente In ListaClientes
             If c.Id = Id Then
-                clienteSeleccionado = c
+                ClienteSeleccionado = c
                 Exit For ' Opcional: detener la búsqueda una vez encontrado el cliente
             End If
         Next
@@ -62,13 +65,13 @@ Public Class FrmClientes
             .Email.Text = argCliente.Email
             .TipoDoc.Text = argCliente.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argCliente.Documento.Numero
-            .IVA.Text = argCliente.CodiIVA
             .FechaAlta.Text = argCliente.FechaAlta
             .Estado.Text = argCliente.Estado
+            .IVA.Text = argCliente.IVA.TipoIVA
         End With
     End Sub
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
-        MyBase.Guardar_Click(sender, e)
+        Me.ValidarCampos(DatosOpcionales)
 
         If Me.ValidacionOK = False Then
             Exit Sub
@@ -104,6 +107,18 @@ Public Class FrmClientes
         Me.LimpiarFormulario()
         Me.Nombre.Select()
 
+    End Sub
+    Public Overrides Sub Nuevo_Click(sender As Object, e As EventArgs)
+        MyBase.Nuevo_Click(sender, e)
+        Dim valoresDefecto As New Dictionary(Of String, Object)
+        With valoresDefecto
+            .Add("FechaAlta", Date.Today.ToShortDateString)
+            .Add("Estado", "ACTIVO")
+        End With
+
+
+
+        EstablecerValoresPorDefecto(valoresDefecto)
     End Sub
     Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)
         MyBase.Buscar_Click(sender, e)
@@ -147,5 +162,8 @@ Public Class FrmClientes
         End With
 
     End Sub
-
+    Private Sub FrmClientes_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.EstablecerReadOnly(Me.ControlesReadOnly)
+        Me.ObtenerTiposIVA()
+    End Sub
 End Class

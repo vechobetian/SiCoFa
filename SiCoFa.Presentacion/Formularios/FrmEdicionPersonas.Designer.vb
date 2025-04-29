@@ -261,7 +261,6 @@ Partial Class FrmEdicionPersonas
         '
         Me.FechaAlta.Location = New System.Drawing.Point(79, 272)
         Me.FechaAlta.Name = "FechaAlta"
-        Me.FechaAlta.ReadOnly = True
         Me.FechaAlta.Size = New System.Drawing.Size(300, 20)
         Me.FechaAlta.TabIndex = 10
         '
@@ -289,7 +288,7 @@ Partial Class FrmEdicionPersonas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(394, 386)
+        Me.ClientSize = New System.Drawing.Size(394, 331)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.Label11)

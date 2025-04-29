@@ -132,8 +132,7 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
-                                    ByVal argNumDoc As String,
-                                    ByVal argCodIVA As String
+                                    ByVal argNumDoc As String
                                     ) As Integer
         Try
 
@@ -145,8 +144,7 @@ Public Class cls_N_AdminSiCoFa
                                                                            UCase(argTelefono),
                                                                            UCase(argEmail),
                                                                            UCase(argCodiTDoc),
-                                                                           UCase(argNumDoc),
-                                                                           UCase(argCodIVA)
+                                                                           UCase(argNumDoc)
                                                                            )
             Return IdProveedor
 

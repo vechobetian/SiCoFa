@@ -197,7 +197,7 @@ Public Class cls_D_AdminSiCoFa
         Dim objProv As Proveedor
         Try
 
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA,FechaAlta,Estado FROM TblProveedores WHERE IdProveedor=@IdProveedor"
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblProveedores WHERE IdProveedor=@IdProveedor"
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
 
@@ -218,10 +218,9 @@ Public Class cls_D_AdminSiCoFa
                             Dim Email As String = datos("Email")
                             Dim CodiTDoc As String = datos("CodiTDoc")
                             Dim NumDoc As String = datos("NumDoc")
-                            Dim CodIVA As String = datos("CodIVA")
                             Dim FechaAlta As Date = datos("FechaAlta")
                             Dim Estado As String = datos("Estado")
-                            objProv = New Proveedor(IdProveedor, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, CodIVA, FechaAlta, Estado)
+                            objProv = New Proveedor(IdProveedor, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado)
                         Else
                             objProv = Nothing
                         End If
@@ -248,9 +247,9 @@ Public Class cls_D_AdminSiCoFa
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA,FechaAlta,Estado FROM TblProveedores ORDER BY Nombre"
+                sql = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblProveedores ORDER BY Nombre"
             Else
-                sql = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,CodIVA,FechaAlta,Estado FROM TblProveedores WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblProveedores WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
@@ -267,7 +266,7 @@ Public Class cls_D_AdminSiCoFa
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            p = New Proveedor(datos("IdProveedor"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("CodIVA"), datos("FechaAlta"), datos("Estado"))
+                            p = New Proveedor(datos("IdProveedor"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"))
                             lp.Add(p)
                         End While
 
@@ -293,8 +292,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
-                                    ByVal argNumDoc As String,
-                                    ByVal argCodIVA As String
+                                    ByVal argNumDoc As String
                                     ) As Integer
 
         Dim IdProveedor As Integer
@@ -312,7 +310,6 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Email", MySqlDbType.VarChar).Value = argEmail
                         .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
                         .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
                         .Add("_IdProveedor", MySqlDbType.Int32)
                     End With
 
@@ -592,7 +589,7 @@ Public Class cls_D_AdminSiCoFa
                             Dim FechaAlta As Date = datos("FechaAlta")
                             Dim Estado As String = datos("Estado")
                             Dim Password As String = datos("Passsword")
-                            objUs = New Usuario(IdEmpleado, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado, Password)
+                            objUs = New Usuario(IdEmpleado, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado)
                         Else
                             objUs = Nothing
                         End If
@@ -637,7 +634,7 @@ Public Class cls_D_AdminSiCoFa
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            u = New Usuario(datos("IdUsuario"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"), datos("Password"))
+                            u = New Usuario(datos("IdUsuario"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"))
                             lu.Add(u)
                         End While
 

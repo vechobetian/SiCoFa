@@ -1,6 +1,9 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmEmpleados
+
+    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
+    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
     Private Function BuscarEmpleado(ByVal argTextoBuscado As String) As Empleado
         Dim le As List(Of Empleado) = mobj_N_AdminSiCoFa.ListarEmpleados(argTextoBuscado)
         Dim e As Empleado = Nothing
@@ -44,10 +47,12 @@ Public Class FrmEmpleados
             .Email.Text = argEmpleado.Email
             .TipoDoc.Text = argEmpleado.Documento.TipoDoc.TipoDocumento
             .NumDoc.Text = argEmpleado.Documento.Numero
+            .FechaAlta.Text = argEmpleado.FechaAlta
+            .Estado.Text = argEmpleado.Estado
         End With
     End Sub
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
-        MyBase.Guardar_Click(sender, e)
+        Me.ValidarCampos(DatosOpcionales)
 
         If Me.ValidacionOK = False Then
             Exit Sub
@@ -83,6 +88,16 @@ Public Class FrmEmpleados
         Me.LimpiarFormulario()
         Me.Nombre.Select()
 
+    End Sub
+    Public Overrides Sub Nuevo_Click(sender As Object, e As EventArgs)
+        MyBase.Nuevo_Click(sender, e)
+        Dim valoresDefecto As New Dictionary(Of String, Object)
+        valoresDefecto.Add("FechaAlta", Date.Today.ToShortDateString) ' Año, Mes, Día
+        valoresDefecto.Add("Estado", "ACTIVO") ' O el ValueMember si aplica
+        ' Agrega aquí los nombres de todos los controles y sus valores por defecto
+
+        ' Llama al procedimiento para establecer los valores por defecto
+        EstablecerValoresPorDefecto(valoresDefecto)
     End Sub
     Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)
         MyBase.Buscar_Click(sender, e)

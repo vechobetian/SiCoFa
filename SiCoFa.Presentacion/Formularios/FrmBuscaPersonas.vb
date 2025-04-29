@@ -40,6 +40,8 @@ Public Class FrmBuscaPersonas
                 .Rows(x).Cells("CodiTDoc").Value = p.Documento.TipoDoc.CodiTDoc
                 .Rows(x).Cells("TipoDocumento").Value = p.Documento.TipoDoc.TipoDocumento
                 .Rows(x).Cells("NumDoc").Value = p.Documento.Numero
+                .Rows(x).Cells("FechaAlta").Value = p.FechaAlta
+                .Rows(x).Cells("Estado").Value = p.Estado
             End With
             x += 1
         Next

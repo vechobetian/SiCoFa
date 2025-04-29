@@ -11,8 +11,7 @@
                 ByVal argCodiTDoc As String,
                 ByVal argNumDoc As String,
                 ByVal argFechaAlta As Date,
-                ByVal argEstado As String,
-                ByVal argPassword As String
+                ByVal argEstado As String
                 )
 
         MyBase.New(argIdUsuario, argNombre, argDomicilio, argLocalidad, argProvincia, argTelefono, argEmail, argCodiTDoc, argNumDoc, argFechaAlta, argEstado)
