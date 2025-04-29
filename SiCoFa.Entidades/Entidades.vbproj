@@ -68,31 +68,28 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comprobantes\CAE.vb" />
-    <Compile Include="Contabilidad\AsientoConbable.vb" />
-    <Compile Include="Contabilidad\CuentaColectiva.vb" />
-    <Compile Include="Personas\Empresa.vb" />
-    <Compile Include="Personas\Proveedor.vb" />
-    <Compile Include="Personas\CuentaEmail.vb" />
-    <Compile Include="Contabilidad\CuentaImputable.vb" />
-    <Compile Include="Contabilidad\ItemAsientoContable.vb" />
-    <Compile Include="Comprobantes\LoginTicket.vb" />
-    <Compile Include="Operaciones\OperaCancel.vb" />
-    <Compile Include="ConsumoLuz\Medidor.vb" />
-    <Compile Include="ConsumoLuz\RegConsumoLuz.vb" />
-    <Compile Include="Operaciones\PagoCliente.vb" />
-    <Compile Include="ConsumoLuz\ItemConsumoLuz.vb" />
-    <Compile Include="Operaciones\OperaContrato.vb" />
-    <Compile Include="Contabilidad\RubroContabilidad.vb" />
-    <Compile Include="Personas\Empleado.vb" />
-    <Compile Include="Personas\Usuario.vb" />
-    <Compile Include="Sistema\Archivo.vb" />
-    <Compile Include="Sistema\Secion.vb" />
-    <Compile Include="Contabilidad\SubRubroContabilidad.vb" />
-    <Compile Include="Operaciones\TipoOperacion.vb" />
-    <Compile Include="Personas\Cliente.vb" />
-    <Compile Include="Comprobantes\Comprobante.vb" />
-    <Compile Include="Comprobantes\ItemComprobante.vb" />
+    <Compile Include="Archivo.vb" />
+    <Compile Include="AsientoConbable.vb" />
+    <Compile Include="CAE.vb" />
+    <Compile Include="Cliente.vb" />
+    <Compile Include="Comprobante.vb" />
+    <Compile Include="CuentaColectiva.vb" />
+    <Compile Include="CuentaEmail.vb" />
+    <Compile Include="CuentaImputable.vb" />
+    <Compile Include="Documento.vb" />
+    <Compile Include="Empleado.vb" />
+    <Compile Include="Empresa.vb" />
+    <Compile Include="ItemAsientoContable.vb" />
+    <Compile Include="ItemComprobante.vb" />
+    <Compile Include="IVA.vb" />
+    <Compile Include="LoginTicket.vb" />
+    <Compile Include="Operacion.vb" />
+    <Compile Include="PagoCliente.vb" />
+    <Compile Include="Persona.vb" />
+    <Compile Include="Proveedor.vb" />
+    <Compile Include="QRCompE.vb" />
+    <Compile Include="RubroContabilidad.vb" />
+    <Compile Include="Secion.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -109,13 +106,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Operaciones\Operacion.vb" />
-    <Compile Include="Personas\Persona.vb" />
-    <Compile Include="Comprobantes\QRCompE.vb" />
-    <Compile Include="Comprobantes\TipoComprobante.vb" />
-    <Compile Include="Personas\Documento.vb" />
-    <Compile Include="Comprobantes\IVA.vb" />
-    <Compile Include="Personas\TipoDocumento.vb" />
+    <Compile Include="SubRubroContabilidad.vb" />
+    <Compile Include="TipoComprobante.vb" />
+    <Compile Include="TipoDocumento.vb" />
+    <Compile Include="TipoOperacion.vb" />
+    <Compile Include="Usuario.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

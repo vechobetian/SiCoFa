@@ -2,87 +2,87 @@
 Imports SiCoFa.Entidades
 Public Class FrmEmpresas
 
-    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
+    Private ControlesReadOnly As New List(Of String) From {"Id", "TipoDoc"}
     Private Sub ObtenerTiposIVA()
         Me.IVA.DataSource = mobj_N_AdminSiCoFa.TiposIVA
         Me.IVA.ValueMember = "CodIVA"
         Me.IVA.DisplayMember = "TipoIVA"
         Me.IVA.SelectedIndex = -1
     End Sub
-    Private Function SeleccionarClienteListado(ByVal Id As Long, ByVal ListaClientes As List(Of Cliente)) As Cliente
-        Dim ClienteSeleccionado As Cliente = Nothing
+    Private Function SeleccionarEmpresaListado(ByVal Id As Long, ByVal ListaEmpresas As List(Of Empresa)) As Empresa
+        Dim EmpresaSeleccionada As Empresa = Nothing
 
-        For Each c As Cliente In ListaClientes
-            If c.Id = Id Then
-                ClienteSeleccionado = c
+        For Each e As Empresa In ListaEmpresas
+            If e.Id = Id Then
+                EmpresaSeleccionada = e
                 Exit For ' Opcional: detener la búsqueda una vez encontrado el cliente
             End If
         Next
-        Return ClienteSeleccionado
+        Return EmpresaSeleccionada
 
     End Function
-    Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
-        Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
-        Dim c As Cliente = Nothing
+    Private Function BuscarEmpresa(ByVal argTextoBuscado As String) As Empresa
+        Dim le As List(Of Empresa) = mobj_N_AdminSiCoFa.ListarEmpresas(argTextoBuscado)
+        Dim e As Empresa = Nothing
 
-        If lc Is Nothing Then
-            MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
+        If le Is Nothing Then
+            MsgBox("Empresa no Encontrada", vbInformation, "SiCoFa")
             Return Nothing
             Exit Function
         End If
 
-        Select Case lc.Count
+        Select Case le.Count
             Case 0
-                MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
+                MsgBox("Empresa no Encontrada", vbInformation, "SiCoFa")
                 Return Nothing
                 Exit Function
             Case 1
-                c = lc.First
+                e = le.First
             Case > 1
-                FrmBuscaPersonas.Personas = lc
+                FrmBuscaPersonas.Personas = le
                 FrmBuscaPersonas.ShowDialog()
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
                     Dim p = FrmBuscaPersonas.PersonaSeleccionado
-                    c = Me.SeleccionarClienteListado(p.Id, lc)
+                    e = Me.SeleccionarEmpresaListado(p.Id, le)
                 End If
                 FrmBuscaPersonas.Close()
         End Select
 
-        Return c
-        c = Nothing
+        Return e
+        e = Nothing
 
     End Function
-    Private Sub MostrarCliente(ByVal argCliente As Cliente)
+    Private Sub MostrarCliente(ByVal argEmpresa As Empresa)
         With Me
-            .Id.Text = argCliente.Id
-            .Nombre.Text = argCliente.Nombre
-            .Domicilio.Text = argCliente.Domicilio
-            .Localidad.Text = argCliente.Localidad
-            .Provincia.Text = argCliente.Provincia
-            .Telefono.Text = argCliente.Telefono
-            .Email.Text = argCliente.Email
-            .TipoDoc.Text = argCliente.Documento.TipoDoc.TipoDocumento
-            .NumDoc.Text = argCliente.Documento.Numero
-            .FechaAlta.Text = argCliente.FechaAlta
-            .Estado.Text = argCliente.Estado
-            .IVA.Text = argCliente.IVA.TipoIVA
+            .Id.Text = argEmpresa.Id
+            .Nombre.Text = argEmpresa.Nombre
+            .Domicilio.Text = argEmpresa.Domicilio
+            .Localidad.Text = argEmpresa.Localidad
+            .Provincia.Text = argEmpresa.Provincia
+            .Telefono.Text = argEmpresa.Telefono
+            .Email.Text = argEmpresa.Email
+            .TipoDoc.Text = argEmpresa.Documento.TipoDoc.TipoDocumento
+            .NumDoc.Text = argEmpresa.Documento.Numero
+            .FechaAlta.Text = argEmpresa.FechaAlta
+            .Estado.Text = argEmpresa.Estado
+            .IVA.Text = argEmpresa.IVA.TipoIVA
+            .IB.Text = argEmpresa.IB
         End With
     End Sub
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
-        Me.ValidarCampos(DatosOpcionales)
+        Me.ValidarCampos(ControlesReadOnly)
 
         If Me.ValidacionOK = False Then
             Exit Sub
         End If
 
         If Me.NuevaPersona = True Then
-            Dim Id As Integer = mobj_N_AdminSiCoFa.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+            Dim Id As Integer = mobj_N_AdminSiCoFa.InsertarEmpresa(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.IB.Text)
             If Id > 0 Then
                 Me.Id.Text = Id
                 Me.Nombre.Text = UCase(Me.Nombre.Text)
-                MsgBox("Se dio de alta el Cliente " & Nombre.Text,, "SiCoFa")
+                MsgBox("Se dio de alta la Empresa " & Nombre.Text,, "SiCoFa")
             Else
                 MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                 Exit Sub
@@ -90,14 +90,14 @@ Public Class FrmEmpresas
             Me.NuevaPersona = False
         Else
             If Me.Id.Text = "" Then
-                MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                MsgBox("La Empresa " & Me.Nombre.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.Estado.Text)
+            Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarEmpresa(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.Estado.Text, Me.IB.Text)
 
             If Actualizado = True Then
-                MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
+                MsgBox("La Empresa " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
             Else
                 MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
                 Exit Sub
@@ -112,11 +112,9 @@ Public Class FrmEmpresas
         MyBase.Nuevo_Click(sender, e)
         Dim valoresDefecto As New Dictionary(Of String, Object)
         With valoresDefecto
-            .Add("FechaAlta", Date.Today.ToShortDateString)
+            .Add("TipoDoc", "80")
             .Add("Estado", "ACTIVO")
         End With
-
-
 
         EstablecerValoresPorDefecto(valoresDefecto)
     End Sub
@@ -127,15 +125,15 @@ Public Class FrmEmpresas
             Exit Sub
         End If
 
-        Dim c As Cliente = BuscarCliente(Me.TextoBuscar)
+        Dim emp As Empresa = BuscarEmpresa(Me.TextoBuscar)
 
-        If c Is Nothing Then
+        If emp Is Nothing Then
             Exit Sub
         End If
 
         With Me
             .LimpiarFormulario()
-            .MostrarCliente(c)
+            .MostrarCliente(emp)
             .Nombre.Select()
         End With
 
@@ -147,9 +145,9 @@ Public Class FrmEmpresas
             Exit Sub
         End If
 
-        Dim c As Cliente = Me.BuscarCliente(Me.Nombre.Text)
+        Dim emp As Empresa = Me.BuscarEmpresa(Me.Nombre.Text)
 
-        If c Is Nothing Then
+        If emp Is Nothing Then
             Me.Nombre.Select()
             Me.Nombre.Text = ""
             Exit Sub
@@ -157,12 +155,12 @@ Public Class FrmEmpresas
 
         With Me
             .LimpiarFormulario()
-            .MostrarCliente(c)
+            .MostrarCliente(emp)
             .Nombre.SelectAll()
         End With
 
     End Sub
-    Private Sub FrmClientes_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmEmpresas_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.EstablecerReadOnly(Me.ControlesReadOnly)
         Me.ObtenerTiposIVA()
     End Sub

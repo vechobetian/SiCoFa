@@ -746,7 +746,7 @@ Public Class cls_D_AdminSiCoFa
         Dim objEmp As Empresa
 
         Try
-            Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CUIT,CodIVA,IB,InicioActividades,Estado FROM TblEmpresas WHERE IdEmpresa=@IdEmpresa"
+            Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblClientes WHERE IdEmpresa=@IdEmpresa"
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -767,12 +767,13 @@ Public Class cls_D_AdminSiCoFa
                             Dim Provincia As String = datos("Provincia")
                             Dim Telefono As String = datos("Telefono")
                             Dim Email As String = datos("Email")
-                            Dim CUIT As String = datos("CUIT")
+                            Dim CodiTDoc As String = datos("CodiTDoc")
+                            Dim NumDoc As String = datos("NumDoc")
+                            Dim FechaAlta As Date = datos("FechaAlta")
+                            Dim Estado As String = datos("Estado")
                             Dim CodIVA As String = datos("CodIVA")
                             Dim IB As String = datos("IB")
-                            Dim InicioActividades As Date = datos("InicioActividades")
-                            Dim Estado As String = datos("Estado")
-                            objEmp = New Empresa(IdEmpresa, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CUIT, CodIVA, IB, InicioActividades, Estado)
+                            objEmp = New Empresa(IdEmpresa, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado, CodIVA, IB)
                         Else
                             objEmp = Nothing
                         End If
@@ -792,15 +793,15 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
     Public Function ListarEmpresas(ByVal argTextoBuscado As String) As List(Of Empresa)
-        Dim lemp As New List(Of Empresa)
-        Dim emp As Empresa
+        Dim le As New List(Of Empresa)
+        Dim e As Empresa
 
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CUIT,CodIVA,IB,InicioActividad,FechaAlta,Estado FROM TblEmpresas ORDER BY Nombre"
+                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblEmpresas ORDER BY Nombre"
             Else
-                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CUIT,CodiIVa,IB,InicioActividades,Estado FROM TblEmpresas WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblEmpresas WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
@@ -817,8 +818,8 @@ Public Class cls_D_AdminSiCoFa
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            emp = New Empresa(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CUIT"), datos("CodIVA"), datos("IB"), datos("InicioActividades"), datos("Estado"))
-                            lemp.Add(emp)
+                            e = New Empresa(datos("IdEmpresa"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"), datos("CodIVA"), datos("IB"))
+                            le.Add(e)
                         End While
 
                     End Using
@@ -827,7 +828,7 @@ Public Class cls_D_AdminSiCoFa
 
             End Using
 
-            Return lemp
+            Return le
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarEmpresas", ex.Message))
@@ -843,10 +844,10 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCUIT As String,
+                                    ByVal argNumDoc As String,
+                                    ByVal argFechaAlta As Date,
                                     ByVal argCodIVA As String,
-                                    ByVal argIB As String,
-                                    ByVal argInicioActividades As String
+                                    ByVal argIB As String
                                     ) As Integer
 
         Dim IdEmpresa As Integer
@@ -862,10 +863,10 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
                         .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
                         .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CUIT", MySqlDbType.VarChar).Value = argCUIT
+                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("_FechaAlta", MySqlDbType.Date).Value = argFechaAlta
                         .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
                         .Add("_IB", MySqlDbType.VarChar).Value = argIB
-                        .Add("_InicioActividades", MySqlDbType.Date).Value = argInicioActividades
                         .Add("_IdEmpresa", MySqlDbType.Int32)
                     End With
 
@@ -890,11 +891,11 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCUIT As String,
+                                    ByVal argNumDoc As String,
+                                    ByVal argFechaAlta As Date,
                                     ByVal argCodIVA As String,
-                                    ByVal argIB As String,
-                                    ByVal argInicioActividades As Date,
-                                    ByVal argEstado As String
+                                    ByVal argEstado As String,
+                                    ByVal argIB As String
                                     ) As Boolean
 
 
@@ -903,7 +904,7 @@ Public Class cls_D_AdminSiCoFa
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
 
-                Using cmd As New MySqlCommand("ActualizarCliente", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ActualizarEmpresa", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdEmpresa", MySqlDbType.Int32).Value = argIdEmpresa
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -911,11 +912,11 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
                         .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
                         .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CUIT", MySqlDbType.VarChar).Value = argCUIT
+                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("_FechaAlta", MySqlDbType.Date).Value = argFechaAlta
                         .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
-                        .Add("_IB", MySqlDbType.VarChar).Value = argIB
-                        .Add("_InicioActividad", MySqlDbType.Date).Value = argInicioActividades
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                        .Add("_IB", MySqlDbType.VarChar).Value = argIB
                     End With
                     cmd.ExecuteNonQuery()
                 End Using
@@ -1037,35 +1038,6 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Sub
-    Public Function AplicarPagoCliente(ByVal argIdUsuario As Integer, ByVal argIdContrato As Integer, ByVal argCodiAE As String, ByVal argImporte As Decimal) As OperaCancel
-        Try
-
-            Using cmd As New MySqlCommand("AplicarPagoCliente", Mod_D_Admin.ConexionDB.Conexion) With {.CommandType = CommandType.StoredProcedure}
-
-                With cmd.Parameters
-                    .AddWithValue("_IdUsuario", argIdUsuario)
-                    .AddWithValue("_IdContrato", argIdContrato)
-                    .AddWithValue("_CodiAE", argCodiAE)
-                    .AddWithValue("_Importe", argImporte)
-                End With
-
-                cmd.Parameters.Add("_IdOperacion", MySqlDbType.Int64)
-                cmd.Parameters("_IdOperacion").Direction = ParameterDirection.Output
-                cmd.Parameters.Add("_SaldoPago", MySqlDbType.Decimal)
-                cmd.Parameters("_SaldoPago").Direction = ParameterDirection.Output
-                cmd.ExecuteNonQuery()
-
-                Dim oc As New OperaCancel(cmd.Parameters("_IdOperacion").Value, 0, 0, cmd.Parameters("_SaldoPago").Value)
-                Return oc
-
-            End Using
-
-        Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "AplicarPagoCliente", ex.Message))
-            Return Nothing
-
-        End Try
-    End Function
     Public Function FacturarServicios(ByVal argIdUsuario As Integer, ByVal argCodiTC As String, ByVal argPVenta As String) As Integer
         Try
             Dim NumComprobantes As Integer
@@ -1232,69 +1204,6 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
-    Public Function ListaOperaContratos(ByVal Optional argIdOperacion As Long = 0, ByVal Optional argIdGC As Integer = 0, ByVal Optional argIdContrato As Integer = 0, ByVal Optional argResu As String = "", ByVal Optional argEstadoOpera As String = "") As List(Of OperaContrato)
-
-        Dim loc As New List(Of OperaContrato)
-        Dim oc As OperaContrato
-        Try
-
-            Dim sql As String = ""
-            If argIdOperacion > 0 Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdOperacion=" & argIdOperacion
-                'Desde aca busco con IdGC
-
-            ElseIf argIdGC > 0 And argResu = "" And argEstadoOpera = "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdGC=" & argIdGC & " ORDER BY IdOperacion"
-            ElseIf argIdGC > 0 And argResu <> "" And argEstadoOpera = "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdGC=" & argIdGC & " AND Resu='" & argResu & "' ORDER BY IdOperacion"
-            ElseIf argIdGC > 0 And argResu <> "" And argEstadoOpera <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdGC=" & argIdGC & " AND Resu='" & argResu & "' AND EstadoOperaContrato='" & argEstadoOpera & "' ORDER BY IdOperacion"
-            ElseIf argIdGC > 0 And argResu = "" And argEstadoOpera <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdGC=" & argIdGC & " AND EstadoOperaContrato='" & argEstadoOpera & "' ORDER BY IdOperacion"
-
-                'Desde aca busco con IdContrato no considero el IdOperacion
-            ElseIf argIdContrato > 0 And argResu = "" And argEstadoOpera = "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdContrato=" & argIdContrato & " ORDER BY IdOperacion"
-            ElseIf argIdContrato > 0 And argResu <> "" And argEstadoOpera = "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdContrato=" & argIdContrato & " AND Resu='" & argResu & "' ORDER BY IdOperacion"
-            ElseIf argIdContrato > 0 And argResu <> "" And argEstadoOpera <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdContrato=" & argIdContrato & " AND Resu='" & argResu & "' AND EstadoOperaContrato='" & argEstadoOpera & "' ORDER BY IdOperacion"
-            ElseIf argIdContrato > 0 And argResu = "" And argEstadoOpera <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE IdContrato=" & argIdContrato & " AND EstadoOperaContrato='" & argEstadoOpera & "' ORDER BY IdOperacion"
-
-                'Desde aca no considero IdOperacion=0 ni el IdContrato=0 solo Resu y EstadoOpera
-            ElseIf argIdOperacion = 0 And argIdContrato = 0 And argResu = "" And argEstadoOpera <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,Resu,ImpFacturado,ImpCancelado,ImpNoCancelado,EstadoOperaContrato FROM ConOperaContratos WHERE EstadoOperaContrato='" & argEstadoOpera & "' ORDER BY IdOperacion"
-            End If
-
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
-
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-
-                    If datos.HasRows Then
-                        While datos.Read()
-                            oc = New OperaContrato(datos("IdOperacion"), datos("IdContrato"), datos("Resu"), datos("ImpFacturado"), datos("ImpCancelado"), datos("ImpNoCancelado"), datos("EstadoOperaContrato"))
-                            loc.Add(oc)
-                        End While
-                    Else
-                        loc = Nothing
-
-                    End If
-
-                End Using
-
-            End Using
-
-            Return loc
-
-        Catch ex As Exception
-            Return Nothing
-            Throw New Exception(vecho.MensajeError(Me.ToString, "OperaContratos", ex.Message))
-        End Try
-
-    End Function
     Public Function ListaPagosCliente(ByVal Optional argIdOperacion As Long = 0, ByVal Optional argIdContrato As Integer = 0, ByVal Optional argEstadoPago As String = "") As List(Of PagoCliente)
 
         Dim lpc As New List(Of PagoCliente)
@@ -1340,7 +1249,7 @@ Public Class cls_D_AdminSiCoFa
 
         Catch ex As Exception
             Return Nothing
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ListaPagosCliente", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListaPagosCliente", ex.Message))
         End Try
     End Function
 

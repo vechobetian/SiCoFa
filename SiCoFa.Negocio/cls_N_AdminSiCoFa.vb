@@ -390,10 +390,10 @@ Public Class cls_N_AdminSiCoFa
         End Try
     End Function
     Public Function ListarEmpresas(ByVal argTextoBuscado As String) As List(Of Empresa)
-        Dim lemp As List(Of Empresa)
+        Dim le As List(Of Empresa)
         Try
-            lemp = mobj_D_AdminSiCoFa.ListarEmpresas(argTextoBuscado)
-            Return lemp
+            le = mobj_D_AdminSiCoFa.ListarEmpresas(argTextoBuscado)
+            Return le
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarEmpresas", ex.Message))
@@ -408,10 +408,10 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCUIT As String,
+                                    ByVal argNumDoc As String,
+                                    ByVal argFechaAlta As Date,
                                     ByVal argCodIVA As String,
-                                    ByVal argIB As String,
-                                    ByVal argInicioActividad As Date
+                                    ByVal argIB As String
                                     ) As Integer
         Try
             Dim IdEmpresa As Integer = mobj_D_AdminSiCoFa.InsertarEmpresa(
@@ -419,12 +419,12 @@ Public Class cls_N_AdminSiCoFa
                                                                        UCase(argDomicilio),
                                                                        UCase(argLocalidad),
                                                                        UCase(argProvincia),
-                                                                       argTelefono,
-                                                                       argEmail,
-                                                                       argCUIT,
+                                                                       UCase(argTelefono),
+                                                                       UCase(argEmail),
+                                                                       UCase(argNumDoc),
+                                                                       argFechaAlta,
                                                                        UCase(argCodIVA),
-                                                                       argIB,
-                                                                       argInicioActividad
+                                                                       UCase(argIB)
                                                                        )
             Return IdEmpresa
 
@@ -436,32 +436,32 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
     Public Function ActualizarEmpresa(
-                                      ByVal argIdEmpesa As Integer,
+                                      ByVal argIdCliente As Integer,
                                       ByVal argDomicilio As String,
                                       ByVal argLocalidad As String,
                                       ByVal argProvincia As String,
                                       ByVal argTelefono As String,
                                       ByVal argEmail As String,
-                                      ByVal argCUIT As String,
+                                      ByVal argNumDoc As String,
+                                      ByVal argFechaAlta As Date,
+                                      ByVal argEstado As String,
                                       ByVal argCodIVA As String,
-                                      ByVal argIB As String,
-                                      ByVal argInicioActividad As Date,
-                                      ByVal argEstado As String
+                                      ByVal argIB As String
                                      ) As Boolean
 
         Try
             Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarEmpresa(
-                                                                           argIdEmpesa,
+                                                                           argIdCliente,
                                                                            UCase(argDomicilio),
                                                                            UCase(argLocalidad),
                                                                            UCase(argProvincia),
                                                                            argTelefono,
                                                                            argEmail,
-                                                                           argCUIT,
-                                                                           UCase(argCodIVA),
-                                                                           argIB,
-                                                                           argInicioActividad,
-                                                                           argEstado
+                                                                           argNumDoc,
+                                                                           argFechaAlta,
+                                                                           argEstado,
+                                                                           argCodIVA,
+                                                                           argIB
                                                                            )
             Return Actualizado
         Catch ex As Exception
@@ -561,17 +561,6 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Sub
-    Public Function AplicarPagoCliente(ByVal argIdUsuario As Integer, ByVal argIdContrato As Integer, ByVal argCodiAE As String, ByVal argImporte As Decimal) As OperaCancel
-        Try
-            Dim oc As OperaCancel = mobj_D_AdminSiCoFa.AplicarPagoCliente(argIdUsuario, argIdContrato, argCodiAE, argImporte)
-            Return oc
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "AplicarPagoCliente", ex.Message))
-            Return Nothing
-
-        End Try
-    End Function
     Public Function FacturarServicios(ByVal argIdUsuario As Integer, ByVal argCodiTC As String, ByVal argPVenta As String) As Integer
         Try
             Dim NumComprobantes As Integer = mobj_D_AdminSiCoFa.FacturarServicios(argIdUsuario, argCodiTC, argPVenta)
@@ -642,19 +631,6 @@ Public Class cls_N_AdminSiCoFa
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperaContratos", ex.Message))
             Return 0
-        End Try
-
-    End Function
-    Public Function ListaOperaContratos(ByVal Optional argIdOperacion As Long = 0, ByVal Optional argIdGC As Integer = 0, ByVal Optional argIdContrato As Integer = 0, ByVal Optional argResu As String = "", ByVal Optional argEstadoOpera As String = "") As List(Of OperaContrato)
-        Dim LOC As List(Of OperaContrato)
-
-        Try
-            LOC = mobj_D_AdminSiCoFa.ListaOperaContratos(argIdOperacion, argIdGC, argIdContrato, argResu, argEstadoOpera)
-            Return LOC
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListaOperaContratos", ex.Message))
-            Return Nothing
         End Try
 
     End Function
