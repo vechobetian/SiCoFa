@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>GesContratos.Presentacion.FrmEmpleados</StartupObject>
+    <StartupObject>GesContratos.Presentacion.FrmEmpresas</StartupObject>
     <RootNamespace>GesContratos.Presentacion</RootNamespace>
     <AssemblyName>GestionContratos</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -124,6 +124,12 @@
     <Compile Include="Formularios\FrmBuscaPersonas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmEmpresas.Designer.vb">
+      <DependentUpon>FrmEmpresas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmEmpresas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmProveedores.Designer.vb">
       <DependentUpon>FrmProveedores.vb</DependentUpon>
     </Compile>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaPersonas.resx">
       <DependentUpon>FrmBuscaPersonas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmEmpresas.resx">
+      <DependentUpon>FrmEmpresas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmProveedores.resx">
       <DependentUpon>FrmProveedores.vb</DependentUpon>
