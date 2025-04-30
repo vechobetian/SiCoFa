@@ -68,7 +68,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlicuotaIVA.vb" />
     <Compile Include="Archivo.vb" />
+    <Compile Include="Articulo.vb" />
     <Compile Include="AsientoConbable.vb" />
     <Compile Include="CAE.vb" />
     <Compile Include="Cliente.vb" />
@@ -84,7 +86,6 @@
     <Compile Include="IVA.vb" />
     <Compile Include="LoginTicket.vb" />
     <Compile Include="Operacion.vb" />
-    <Compile Include="PagoCliente.vb" />
     <Compile Include="Persona.vb" />
     <Compile Include="Proveedor.vb" />
     <Compile Include="QRCompE.vb" />

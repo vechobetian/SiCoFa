@@ -634,9 +634,6 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
-    Public Function ListaPagosCliente(Optional ByVal argIdOperacion As Long = 0, Optional ByVal argIdContrato As Integer = 0, Optional ByVal argEstadoPago As String = "") As List(Of PagoCliente)
-        Return mobj_D_AdminSiCoFa.ListaPagosCliente(argIdOperacion, argIdContrato, argEstadoPago)
-    End Function
 
 #End Region
 

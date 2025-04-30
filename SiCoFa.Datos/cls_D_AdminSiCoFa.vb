@@ -1204,55 +1204,6 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
-    Public Function ListaPagosCliente(ByVal Optional argIdOperacion As Long = 0, ByVal Optional argIdContrato As Integer = 0, ByVal Optional argEstadoPago As String = "") As List(Of PagoCliente)
-
-        Dim lpc As New List(Of PagoCliente)
-        Dim pc As PagoCliente
-
-        Try
-
-            Dim sql As String = ""
-            If argIdOperacion = 0 And argIdContrato = 0 And argEstadoPago = "" Then
-                sql = "SELECT IdOperacion,IdContrato,ImpPagado,ImpAplicado,ImpNoAplicado,EstadoPago FROM ConPagoClientes ORDER BY IdOperacion"
-            ElseIf argIdOperacion > 0 Then
-                sql = "SELECT IdOperacion,IdContrato,ImpPagado,ImpAplicado,ImpNoAplicado,EstadoPago FROM ConPagoClientes WHERE IdOperacion=" & argIdOperacion & " ORDER BY IdOperacion"
-            ElseIf argIdContrato > 0 And argEstadoPago = "" Then
-                sql = "SELECT IdOperacion,IdContrato,ImpPagado,ImpAplicado,ImpNoAplicado,EstadoPago FROM ConPagoClientes WHERE IdContrato=" & argIdContrato & " ORDER BY IdOperacion"
-            ElseIf argIdContrato > 0 And argEstadoPago <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,ImpPagado,ImpAplicado,ImpNoAplicado,EstadoPago FROM ConPagoClientes WHERE IdContrato=" & argIdContrato & " AND EstadoPago='" & argEstadoPago & "' ORDER BY IdOperacion"
-            ElseIf argIdContrato = 0 And argEstadoPago <> "" Then
-                sql = "SELECT IdOperacion,IdContrato,ImpPagado,ImpAplicado,ImpNoAplicado,EstadoPago FROM ConPagoClientes WHERE EstadoOperaContrato='" & argEstadoPago & "' ORDER BY IdOperacion"
-            End If
-
-            Using cmd As MySqlCommand = Mod_D_Admin.ConexionDB.Conexion.CreateCommand
-                cmd.CommandType = CommandType.Text
-                cmd.CommandText = sql
-
-                Using datos As MySqlDataReader = cmd.ExecuteReader()
-
-                    If datos.HasRows Then
-                        While datos.Read()
-                            pc = New PagoCliente(datos("IdOperacion"), datos("IdContrato"), datos("ImpPagado"), datos("ImpAplicado"), datos("ImpNoAplicado"), datos("EstadoPago"))
-                            lpc.Add(pc)
-                        End While
-
-                    Else
-                        lpc = Nothing
-
-                    End If
-
-                End Using
-
-            End Using
-
-            Return lpc
-
-        Catch ex As Exception
-            Return Nothing
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListaPagosCliente", ex.Message))
-        End Try
-    End Function
-
 
 #End Region
 
