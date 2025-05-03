@@ -491,6 +491,12 @@ Public Class cls_N_AdminSiCoFa
         TIVAS.Add(New IVA("EX"))
         Return TIVAS.OrderBy(Function(x) x.TipoIVA).ToList()
     End Function
+    Public Function AlicuotasIVA() As List(Of AlicuotaIVA)
+        Dim ALIVAS As New List(Of AlicuotaIVA)
+        ALIVAS.Add(New AlicuotaIVA("10.50"))
+        ALIVAS.Add(New AlicuotaIVA("21.00"))
+        Return ALIVAS.OrderBy(Function(x) x.AlicuotaIVA).ToList
+    End Function
 
 #End Region
 

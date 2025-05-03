@@ -118,6 +118,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FrmArticulos.Designer.vb">
+      <DependentUpon>FrmArticulos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmArticulos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmBuscaPersonas.Designer.vb">
       <DependentUpon>FrmBuscaPersonas.vb</DependentUpon>
     </Compile>
@@ -158,12 +164,6 @@
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmEdicionTabla.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmOperaContratos.Designer.vb">
-      <DependentUpon>FrmOperaContratos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmOperaContratos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\clsFrmBase.vb">
@@ -213,6 +213,9 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmArticulos.resx">
+      <DependentUpon>FrmArticulos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaPersonas.resx">
       <DependentUpon>FrmBuscaPersonas.vb</DependentUpon>
     </EmbeddedResource>
@@ -233,9 +236,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEdicionTabla.resx">
       <DependentUpon>FrmEdicionTabla.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmOperaContratos.resx">
-      <DependentUpon>FrmOperaContratos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMDI.resx">
       <DependentUpon>FrmMDI.vb</DependentUpon>
@@ -264,18 +264,37 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\DataSources\SiCoFa.Entidades.AlicuotaIVA.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Archivo.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Articulo.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.AsientoContable.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CAE.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Cliente.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Comprobante.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaColectiva.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaEmail.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaImputable.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Documento.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Empleado.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Empresa.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.ItemAsientoContable.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.ItemComprobante.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.IVA.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.ListaPrecios.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Locador.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.LoginTicket.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Operacion.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Persona.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Proveedor.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.QRCompE.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.RubroContabilidad.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Seccion.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Secion.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.SubRubroContabilidad.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.TipoComprobante.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.TipoDocumento.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.TipoOperacion.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Usuario.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
