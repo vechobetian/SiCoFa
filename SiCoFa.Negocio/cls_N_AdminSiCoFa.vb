@@ -649,4 +649,8 @@ Public Class cls_N_AdminSiCoFa
     End Sub
 #End Region
 
+#Region "Administracion de Articulos"
+
+#End Region
+
 End Class

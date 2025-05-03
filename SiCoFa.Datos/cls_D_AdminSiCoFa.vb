@@ -1277,4 +1277,156 @@ Public Class cls_D_AdminSiCoFa
 
 #End Region
 
+#Region "Admnistracion de Articulos"
+    Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Long) As Seccion
+
+        Dim objSec As Seccion
+
+        Try
+            Dim sql As String = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM TblSecciones WHERE IdSeccion=@IdSeccion"
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdSeccion", argIdSeccion)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        datos.Read()
+
+                        If datos.Read Then
+                            Dim IdSeccion As Long = datos("IdSeccion")
+                            Dim Seccion As String = datos("Seccion")
+                            Dim EstablecerPrecio As String = datos("EstablecerPrecio")
+                            objSec = New Seccion(IdSeccion, Seccion, EstablecerPrecio)
+                        Else
+                            objSec = Nothing
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+            Return objSec
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerSeccionPorId", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+    Public Function ListarSecciones(ByVal argTextoBuscado As String) As List(Of Seccion)
+        Dim ls As New List(Of Seccion)
+        Dim s As Seccion
+
+        Try
+            Dim sql As String
+            If argTextoBuscado = "*" Then
+                sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM TblSecciones ORDER BY Seccion"
+            Else
+                sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM TblSecciones WHERE Seccion LIKE @Seccion ORDER BY Seccion"
+            End If
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@Seccion", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read
+                            s = New Seccion(datos("IdSeccion"), datos("Seccion"), datos("EstablecerPrecio"))
+                            ls.Add(s)
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return ls
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarSecciones", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+    Public Function InsertarSeccion(
+                                    ByVal argSeccion As String,
+                                    ByVal argEstablecerPrecio As Boolean
+                                    ) As Integer
+
+        Dim IdSeccion As Integer
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("InsertarSeccion", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
+                        .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
+                        .Add("_IdSeccion", MySqlDbType.Int32)
+                    End With
+
+                    cmd.Parameters("_IdSeccion").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdSeccion = CInt(cmd.Parameters("_IdSeccion").Value)
+                End Using
+
+            End Using
+            Return IdSeccion
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarSeccion", Ex.Message))
+
+        End Try
+
+    End Function
+    Public Function ActualizarSeccion(
+                                    ByVal argIdSeccion As Integer,
+                                    ByVal argSeccion As String,
+                                    ByVal argEstablecerPrecio As Boolean
+                                    ) As Boolean
+
+
+
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("ActualizarSeccion", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
+                        .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
+                        .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
+                    End With
+                    cmd.ExecuteNonQuery()
+                End Using
+
+            End Using
+
+            Return True
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSeccion", Ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+#End Region
+
 End Class

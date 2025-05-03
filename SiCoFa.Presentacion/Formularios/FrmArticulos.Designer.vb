@@ -76,68 +76,32 @@ Partial Class FrmArticulos
         IdArticuloLabel.TabIndex = 1
         IdArticuloLabel.Text = "Id Articulo:"
         '
-        'IdArticulo
-        '
-        Me.IdArticulo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "IdArticulo", True))
-        Me.IdArticulo.Location = New System.Drawing.Point(102, 12)
-        Me.IdArticulo.Name = "IdArticulo"
-        Me.IdArticulo.Size = New System.Drawing.Size(315, 20)
-        Me.IdArticulo.TabIndex = 2
-        '
-        'ArticuloBindingSource
-        '
-        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
-        '
         'CodigoLabel
         '
         CodigoLabel.AutoSize = True
-        CodigoLabel.Location = New System.Drawing.Point(12, 41)
+        CodigoLabel.Location = New System.Drawing.Point(12, 69)
         CodigoLabel.Name = "CodigoLabel"
         CodigoLabel.Size = New System.Drawing.Size(43, 13)
         CodigoLabel.TabIndex = 2
         CodigoLabel.Text = "Codigo:"
         '
-        'Codigo
-        '
-        Me.Codigo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Codigo", True))
-        Me.Codigo.Location = New System.Drawing.Point(102, 38)
-        Me.Codigo.Name = "Codigo"
-        Me.Codigo.Size = New System.Drawing.Size(315, 20)
-        Me.Codigo.TabIndex = 3
-        '
         'CodBarraLabel
         '
         CodBarraLabel.AutoSize = True
-        CodBarraLabel.Location = New System.Drawing.Point(12, 67)
+        CodBarraLabel.Location = New System.Drawing.Point(12, 93)
         CodBarraLabel.Name = "CodBarraLabel"
         CodBarraLabel.Size = New System.Drawing.Size(57, 13)
         CodBarraLabel.TabIndex = 4
         CodBarraLabel.Text = "Cod Barra:"
         '
-        'CodBarra
-        '
-        Me.CodBarra.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "CodBarra", True))
-        Me.CodBarra.Location = New System.Drawing.Point(102, 64)
-        Me.CodBarra.Name = "CodBarra"
-        Me.CodBarra.Size = New System.Drawing.Size(315, 20)
-        Me.CodBarra.TabIndex = 5
-        '
         'NombreLabel
         '
         NombreLabel.AutoSize = True
-        NombreLabel.Location = New System.Drawing.Point(12, 93)
+        NombreLabel.Location = New System.Drawing.Point(12, 43)
         NombreLabel.Name = "NombreLabel"
         NombreLabel.Size = New System.Drawing.Size(47, 13)
         NombreLabel.TabIndex = 6
         NombreLabel.Text = "Nombre:"
-        '
-        'Nombre
-        '
-        Me.Nombre.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
-        Me.Nombre.Location = New System.Drawing.Point(102, 90)
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.Size = New System.Drawing.Size(315, 20)
-        Me.Nombre.TabIndex = 7
         '
         'AlicuotaIVALabel
         '
@@ -148,15 +112,6 @@ Partial Class FrmArticulos
         AlicuotaIVALabel.TabIndex = 8
         AlicuotaIVALabel.Text = "Alicuota IVA:"
         '
-        'AlicuotaIVA
-        '
-        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicIVA.AlicuotaIVA", True))
-        Me.AlicuotaIVA.FormattingEnabled = True
-        Me.AlicuotaIVA.Location = New System.Drawing.Point(102, 116)
-        Me.AlicuotaIVA.Name = "AlicuotaIVA"
-        Me.AlicuotaIVA.Size = New System.Drawing.Size(315, 21)
-        Me.AlicuotaIVA.TabIndex = 9
-        '
         'FechaPrecioLabel
         '
         FechaPrecioLabel.AutoSize = True
@@ -165,14 +120,6 @@ Partial Class FrmArticulos
         FechaPrecioLabel.Size = New System.Drawing.Size(73, 13)
         FechaPrecioLabel.TabIndex = 10
         FechaPrecioLabel.Text = "Fecha Precio:"
-        '
-        'FechaPrecio
-        '
-        Me.FechaPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "FechaPrecio", True))
-        Me.FechaPrecio.Location = New System.Drawing.Point(102, 143)
-        Me.FechaPrecio.Name = "FechaPrecio"
-        Me.FechaPrecio.Size = New System.Drawing.Size(315, 20)
-        Me.FechaPrecio.TabIndex = 11
         '
         'PrecioCostoLabel
         '
@@ -183,14 +130,6 @@ Partial Class FrmArticulos
         PrecioCostoLabel.TabIndex = 12
         PrecioCostoLabel.Text = "Precio Costo:"
         '
-        'PrecioCosto
-        '
-        Me.PrecioCosto.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "PrecioCosto", True))
-        Me.PrecioCosto.Location = New System.Drawing.Point(102, 169)
-        Me.PrecioCosto.Name = "PrecioCosto"
-        Me.PrecioCosto.Size = New System.Drawing.Size(315, 20)
-        Me.PrecioCosto.TabIndex = 13
-        '
         'PrecioVentaLabel
         '
         PrecioVentaLabel.AutoSize = True
@@ -199,14 +138,6 @@ Partial Class FrmArticulos
         PrecioVentaLabel.Size = New System.Drawing.Size(71, 13)
         PrecioVentaLabel.TabIndex = 14
         PrecioVentaLabel.Text = "Precio Venta:"
-        '
-        'PrecioVenta
-        '
-        Me.PrecioVenta.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "PrecioVenta", True))
-        Me.PrecioVenta.Location = New System.Drawing.Point(102, 195)
-        Me.PrecioVenta.Name = "PrecioVenta"
-        Me.PrecioVenta.Size = New System.Drawing.Size(315, 20)
-        Me.PrecioVenta.TabIndex = 15
         '
         'BajaLabel
         '
@@ -217,15 +148,6 @@ Partial Class FrmArticulos
         BajaLabel.TabIndex = 16
         BajaLabel.Text = "Baja:"
         '
-        'Baja
-        '
-        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Baja", True))
-        Me.Baja.FormattingEnabled = True
-        Me.Baja.Location = New System.Drawing.Point(102, 221)
-        Me.Baja.Name = "Baja"
-        Me.Baja.Size = New System.Drawing.Size(315, 21)
-        Me.Baja.TabIndex = 17
-        '
         'SeccionLabel
         '
         SeccionLabel.AutoSize = True
@@ -234,15 +156,6 @@ Partial Class FrmArticulos
         SeccionLabel.Size = New System.Drawing.Size(49, 13)
         SeccionLabel.TabIndex = 18
         SeccionLabel.Text = "Seccion:"
-        '
-        'Seccion
-        '
-        Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Seccion.Seccion", True))
-        Me.Seccion.FormattingEnabled = True
-        Me.Seccion.Location = New System.Drawing.Point(102, 248)
-        Me.Seccion.Name = "Seccion"
-        Me.Seccion.Size = New System.Drawing.Size(315, 21)
-        Me.Seccion.TabIndex = 19
         '
         'ActualizarPrecioLabel
         '
@@ -253,15 +166,6 @@ Partial Class FrmArticulos
         ActualizarPrecioLabel.TabIndex = 20
         ActualizarPrecioLabel.Text = "Actualizar Precio:"
         '
-        'ActualizarPrecio
-        '
-        Me.ActualizarPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "ActualizarPrecio", True))
-        Me.ActualizarPrecio.FormattingEnabled = True
-        Me.ActualizarPrecio.Location = New System.Drawing.Point(102, 275)
-        Me.ActualizarPrecio.Name = "ActualizarPrecio"
-        Me.ActualizarPrecio.Size = New System.Drawing.Size(315, 21)
-        Me.ActualizarPrecio.TabIndex = 21
-        '
         'StockLabel
         '
         StockLabel.AutoSize = True
@@ -270,14 +174,6 @@ Partial Class FrmArticulos
         StockLabel.Size = New System.Drawing.Size(38, 13)
         StockLabel.TabIndex = 22
         StockLabel.Text = "Stock:"
-        '
-        'Stock
-        '
-        Me.Stock.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Stock", True))
-        Me.Stock.Location = New System.Drawing.Point(102, 302)
-        Me.Stock.Name = "Stock"
-        Me.Stock.Size = New System.Drawing.Size(315, 20)
-        Me.Stock.TabIndex = 23
         '
         'FabricanteLabel
         '
@@ -288,19 +184,130 @@ Partial Class FrmArticulos
         FabricanteLabel.TabIndex = 24
         FabricanteLabel.Text = "Fabricante:"
         '
+        'IdArticulo
+        '
+        Me.IdArticulo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "IdArticulo", True))
+        Me.IdArticulo.Location = New System.Drawing.Point(102, 12)
+        Me.IdArticulo.Name = "IdArticulo"
+        Me.IdArticulo.Size = New System.Drawing.Size(315, 20)
+        Me.IdArticulo.TabIndex = 0
+        Me.IdArticulo.TabStop = False
+        '
+        'ArticuloBindingSource
+        '
+        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
+        '
+        'Codigo
+        '
+        Me.Codigo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Codigo", True))
+        Me.Codigo.Location = New System.Drawing.Point(102, 66)
+        Me.Codigo.Name = "Codigo"
+        Me.Codigo.Size = New System.Drawing.Size(315, 20)
+        Me.Codigo.TabIndex = 2
+        '
+        'CodBarra
+        '
+        Me.CodBarra.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "CodBarra", True))
+        Me.CodBarra.Location = New System.Drawing.Point(102, 90)
+        Me.CodBarra.Name = "CodBarra"
+        Me.CodBarra.Size = New System.Drawing.Size(315, 20)
+        Me.CodBarra.TabIndex = 3
+        '
+        'Nombre
+        '
+        Me.Nombre.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
+        Me.Nombre.Location = New System.Drawing.Point(102, 40)
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.Size = New System.Drawing.Size(315, 20)
+        Me.Nombre.TabIndex = 1
+        '
+        'AlicuotaIVA
+        '
+        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicIVA.AlicuotaIVA", True))
+        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicIVA", True))
+        Me.AlicuotaIVA.FormattingEnabled = True
+        Me.AlicuotaIVA.Location = New System.Drawing.Point(102, 116)
+        Me.AlicuotaIVA.Name = "AlicuotaIVA"
+        Me.AlicuotaIVA.Size = New System.Drawing.Size(315, 21)
+        Me.AlicuotaIVA.TabIndex = 4
+        '
+        'FechaPrecio
+        '
+        Me.FechaPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "FechaPrecio", True))
+        Me.FechaPrecio.Location = New System.Drawing.Point(102, 143)
+        Me.FechaPrecio.Name = "FechaPrecio"
+        Me.FechaPrecio.Size = New System.Drawing.Size(315, 20)
+        Me.FechaPrecio.TabIndex = 5
+        '
+        'PrecioCosto
+        '
+        Me.PrecioCosto.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "PrecioCosto", True))
+        Me.PrecioCosto.Location = New System.Drawing.Point(102, 169)
+        Me.PrecioCosto.Name = "PrecioCosto"
+        Me.PrecioCosto.Size = New System.Drawing.Size(315, 20)
+        Me.PrecioCosto.TabIndex = 6
+        '
+        'PrecioVenta
+        '
+        Me.PrecioVenta.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "PrecioVenta", True))
+        Me.PrecioVenta.Location = New System.Drawing.Point(102, 195)
+        Me.PrecioVenta.Name = "PrecioVenta"
+        Me.PrecioVenta.Size = New System.Drawing.Size(315, 20)
+        Me.PrecioVenta.TabIndex = 7
+        '
+        'Baja
+        '
+        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Baja", True))
+        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Baja", True))
+        Me.Baja.FormattingEnabled = True
+        Me.Baja.ItemHeight = 13
+        Me.Baja.Items.AddRange(New Object() {"NO", "SI"})
+        Me.Baja.Location = New System.Drawing.Point(102, 221)
+        Me.Baja.Name = "Baja"
+        Me.Baja.Size = New System.Drawing.Size(315, 21)
+        Me.Baja.TabIndex = 17
+        '
+        'Seccion
+        '
+        Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Seccion.Seccion", True))
+        Me.Seccion.FormattingEnabled = True
+        Me.Seccion.ItemHeight = 13
+        Me.Seccion.Location = New System.Drawing.Point(102, 248)
+        Me.Seccion.Name = "Seccion"
+        Me.Seccion.Size = New System.Drawing.Size(315, 21)
+        Me.Seccion.TabIndex = 19
+        '
+        'ActualizarPrecio
+        '
+        Me.ActualizarPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "ActualizarPrecio", True))
+        Me.ActualizarPrecio.FormattingEnabled = True
+        Me.ActualizarPrecio.ItemHeight = 13
+        Me.ActualizarPrecio.Location = New System.Drawing.Point(102, 275)
+        Me.ActualizarPrecio.Name = "ActualizarPrecio"
+        Me.ActualizarPrecio.Size = New System.Drawing.Size(315, 21)
+        Me.ActualizarPrecio.TabIndex = 21
+        '
+        'Stock
+        '
+        Me.Stock.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Stock", True))
+        Me.Stock.Location = New System.Drawing.Point(102, 302)
+        Me.Stock.Name = "Stock"
+        Me.Stock.Size = New System.Drawing.Size(315, 20)
+        Me.Stock.TabIndex = 11
+        '
         'Fabricante
         '
         Me.Fabricante.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Fabricante", True))
         Me.Fabricante.Location = New System.Drawing.Point(102, 328)
         Me.Fabricante.Name = "Fabricante"
         Me.Fabricante.Size = New System.Drawing.Size(315, 20)
-        Me.Fabricante.TabIndex = 25
+        Me.Fabricante.TabIndex = 12
         '
         'FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(434, 361)
+        Me.ClientSize = New System.Drawing.Size(434, 360)
         Me.Controls.Add(FabricanteLabel)
         Me.Controls.Add(Me.Fabricante)
         Me.Controls.Add(StockLabel)
