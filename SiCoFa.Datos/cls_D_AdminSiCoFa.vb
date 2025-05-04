@@ -158,7 +158,6 @@ Public Class cls_D_AdminSiCoFa
                                     ) As Boolean
 
 
-
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -176,12 +175,13 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
-                    cmd.ExecuteNonQuery()
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
                 End Using
 
             End Using
-
-            Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCliente", Ex.Message))
@@ -360,12 +360,13 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
-                    cmd.ExecuteNonQuery()
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
                 End Using
 
             End Using
-
-            Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarProveedor", Ex.Message))
@@ -542,12 +543,13 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
-                    cmd.ExecuteNonQuery()
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
                 End Using
 
             End Using
-
-            Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpleado", Ex.Message))
@@ -725,12 +727,13 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
-                    cmd.ExecuteNonQuery()
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
                 End Using
 
             End Using
-
-            Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarUsuario", Ex.Message))
@@ -918,12 +921,13 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                         .Add("_IB", MySqlDbType.VarChar).Value = argIB
                     End With
-                    cmd.ExecuteNonQuery()
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
                 End Using
 
             End Using
-
-            Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpresa", Ex.Message))
@@ -1277,7 +1281,7 @@ Public Class cls_D_AdminSiCoFa
 
 #End Region
 
-#Region "Admnistracion de Articulos"
+#Region "Admnistracion de Secciones"
     Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Long) As Seccion
 
         Dim objSec As Seccion
@@ -1413,12 +1417,13 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
                         .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
                     End With
-                    cmd.ExecuteNonQuery()
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
                 End Using
 
             End Using
-
-            Return True
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSeccion", Ex.Message))
@@ -1427,6 +1432,268 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
+
+
 #End Region
+
+#Region "Administracion de Articulos"
+    Public Function ObtenerArticuloPorId(ByVal argIdArticulo As String) As Articulo
+
+        Dim objArt As Articulo
+
+        Try
+            Dim sql As String = "SELECT IdArticulo,Codigo,CodBarra,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE IdArticulo=@IdArticulo"
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdArticulo", argIdArticulo)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read Then
+                            ' Obtener ordinales de las columnas
+                            Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
+                            Dim codigoOrdinal As Integer = datos.GetOrdinal("Codigo")
+                            Dim codBarraOrdinal As Integer = datos.GetOrdinal("CodBarra")
+                            Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                            Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
+                            Dim fechaPrecioOrdinal As Integer = datos.GetOrdinal("FechaPrecio")
+                            Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
+                            Dim precioVentaOrdinal As Integer = datos.GetOrdinal("PrecioVenta")
+                            Dim bajaOrdinal As Integer = datos.GetOrdinal("Baja")
+                            Dim idSeccionOrdinal As Integer = datos.GetOrdinal("IdSeccion")
+                            Dim seccionNombreOrdinal As Integer = datos.GetOrdinal("Seccion")
+                            Dim establecerPrecioOrdinal As Integer = datos.GetOrdinal("EstablecerPrecio")
+                            Dim actualizarPrecioOrdinal As Integer = datos.GetOrdinal("ActualizarPrecio")
+                            Dim stockOrdinal As Integer = datos.GetOrdinal("Stock")
+                            Dim codiLPOrdinal As Integer = datos.GetOrdinal("CodiLP")
+                            Dim listaPreciosNombreOrdinal As Integer = datos.GetOrdinal("ListaPrecios")
+                            Dim fabricanteOrdinal As Integer = datos.GetOrdinal("Fabricante")
+
+                            Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
+                            Dim CodigoResult As String = datos.GetString(codigoOrdinal)
+                            Dim CodBarraResult As String = datos.GetString(codBarraOrdinal)
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim AlicIVA As Double = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDouble(datos.GetValue(alicIVAOrdinal)))
+                            Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
+                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
+                            Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
+                            Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
+                            Dim IdSeccionResult As Int32 = Convert.ToInt32(datos.GetInt64(idSeccionOrdinal))
+                            Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
+                            Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
+                            Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
+                            Dim StockResult As Decimal = If(datos.IsDBNull(stockOrdinal), 0, Convert.ToDecimal(datos.GetValue(stockOrdinal)))
+                            Dim CodiLPResult As String = datos.GetString(codiLPOrdinal)
+                            Dim ListaPreciosResult As String = datos.GetString(listaPreciosNombreOrdinal)
+                            Dim FabricanteResult As String = datos.GetString(fabricanteOrdinal)
+
+                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
+                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
+                            Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
+
+                            objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
+                        Else
+                            ' No se encontró ningún artículo con el ID especificado.
+                            objArt = Nothing
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+            Return objArt
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerArticuloPorId", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+    Public Function ListarArticulos(ByVal argTextoBuscado As String) As List(Of Articulo)
+        Dim objLA As New List(Of Articulo)
+
+        Try
+            Dim sql As String
+            If argTextoBuscado = "*" Then
+                sql = "SELECT IdArticulo,Codigo,CodBarra,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos ORDER BY Nombre"
+            Else
+                sql = "SELECT IdArticulo,Codigo,CodBarra,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+            End If
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
+                        Dim codigoOrdinal As Integer = datos.GetOrdinal("Codigo")
+                        Dim codBarraOrdinal As Integer = datos.GetOrdinal("CodBarra")
+                        Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
+                        Dim fechaPrecioOrdinal As Integer = datos.GetOrdinal("FechaPrecio")
+                        Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
+                        Dim precioVentaOrdinal As Integer = datos.GetOrdinal("PrecioVenta")
+                        Dim bajaOrdinal As Integer = datos.GetOrdinal("Baja")
+                        Dim idSeccionOrdinal As Integer = datos.GetOrdinal("IdSeccion")
+                        Dim seccionNombreOrdinal As Integer = datos.GetOrdinal("Seccion")
+                        Dim establecerPrecioOrdinal As Integer = datos.GetOrdinal("EstablecerPrecio")
+                        Dim actualizarPrecioOrdinal As Integer = datos.GetOrdinal("ActualizarPrecio")
+                        Dim stockOrdinal As Integer = datos.GetOrdinal("Stock")
+                        Dim codiLPOrdinal As Integer = datos.GetOrdinal("CodiLP")
+                        Dim listaPreciosNombreOrdinal As Integer = datos.GetOrdinal("ListaPrecios")
+                        Dim fabricanteOrdinal As Integer = datos.GetOrdinal("Fabricante")
+
+
+                        While datos.Read
+                            ' Manejo explícito de DBNull y conversión a tipos de datos .NET
+                            Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
+                            Dim CodigoResult As String = datos.GetString(codigoOrdinal)
+                            Dim CodBarraResult As String = datos.GetString(codBarraOrdinal)
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim AlicIVA As Double = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDouble(datos.GetValue(alicIVAOrdinal)))
+                            Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
+                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
+                            Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
+                            Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
+                            Dim IdSeccionResult As Int32 = Convert.ToInt32(datos.GetInt64(idSeccionOrdinal))
+                            Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
+                            Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
+                            Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
+                            Dim StockResult As Decimal = If(datos.IsDBNull(stockOrdinal), 0, Convert.ToDecimal(datos.GetValue(stockOrdinal)))
+                            Dim CodiLPResult As String = datos.GetString(codiLPOrdinal)
+                            Dim ListaPreciosResult As String = datos.GetString(listaPreciosNombreOrdinal)
+                            Dim FabricanteResult As String = datos.GetString(fabricanteOrdinal)
+
+                            ' Crear objetos anidados
+                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
+                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
+                            Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
+
+                            Dim articulo As New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
+                            objLA.Add(articulo)
+
+                            Dim objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
+                            objLA.Add(objArt)
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objLA
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulos", ex.Message))
+            Return New List(Of Articulo)
+
+        End Try
+
+    End Function
+    Public Function InsertarArticulo(
+                                    ByVal argCodigo As String,
+                                    ByVal argCodBarra As String,
+                                    ByVal argNombre As String,
+                                    ByVal argAlicIVA As Double,
+                                    ByVal argBaja As Boolean,
+                                    ByVal argIdSeccion As Long,
+                                    ByVal argActualizarPrecio As Boolean,
+                                    ByVal argCodiLP As String,
+                                    ByVal argFabricante As String
+                                    ) As Boolean
+
+        Try
+            Dim IdArticulo As String
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("InsertarArticulo", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("_IdArticulo", MySqlDbType.VarChar).Value = IdArticulo
+                        .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
+                        .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
+                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
+                        .Add("_IdSeccion", MySqlDbType.Int64).Value = argIdSeccion
+                        .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argActualizarPrecio
+                        .Add("_CodiLP", MySqlDbType.VarChar).Value = argCodiLP
+                        .Add("_Fabricante", MySqlDbType.VarChar).Value = argFabricante
+                    End With
+
+                    Dim filasAfectadas As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+                    Return filasAfectadas
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarArticulo", Ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+    Public Function ActualizarArticulo(
+                                        ByVal argIdArticulo As String,
+                                        ByVal argCodigo As String,
+                                        ByVal argCodBarra As String,
+                                        ByVal argNombre As String,
+                                        ByVal argAlicIVA As Double,
+                                        ByVal argBaja As Boolean,
+                                        ByVal argIdSeccion As Long,
+                                        ByVal argActualizarPrecio As Boolean,
+                                        ByVal argFabricante As String
+                                        ) As Boolean
+
+
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("ActualizarArticulo", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
+                        .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
+                        .Add("_CodBarra", MySqlDbType.Bit).Value = argCodBarra
+                        .Add("_Nombre", MySqlDbType.Bit).Value = argNombre
+                        .Add("_AlicIVA", MySqlDbType.Bit).Value = argAlicIVA
+                        .Add("_Baja", MySqlDbType.Bit).Value = argBaja
+                        .Add("_IdSeccion", MySqlDbType.Bit).Value = argCodBarra
+                        .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argCodBarra
+                        .Add("_Fabricante", MySqlDbType.Bit).Value = argCodBarra
+                    End With
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSeccion", Ex.Message))
+
+        End Try
+
+    End Function
+#End Region
+
 
 End Class

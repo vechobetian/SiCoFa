@@ -1,7 +1,7 @@
 ﻿Public Class Empleado
     Inherits Persona
     Public Sub New(
-                ByVal argIdEmpleado As Long,
+                ByVal argIdEmpleado As Int32,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,

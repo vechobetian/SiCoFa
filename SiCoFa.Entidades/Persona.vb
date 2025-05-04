@@ -1,5 +1,5 @@
 ﻿Public Class Persona
-    Property Id As Long
+    Property Id As Int32
     Property Nombre As String
     Property Domicilio As String = ""
     Property Localidad As String = ""
@@ -11,7 +11,7 @@
     Property Estado As String
 
     Public Sub New(
-                ByVal argId As Long,
+                ByVal argId As Int32,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,

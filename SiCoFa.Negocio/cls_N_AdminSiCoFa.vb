@@ -650,6 +650,94 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Articulos"
+    Public Function ObtenerArticuloPorId(ByVal argIdArticulo As Long) As Articulo
+        Dim objArt As Articulo
+        Try
+            objArt = mobj_D_AdminSiCoFa.ObtenerArticuloPorId(argIdArticulo)
+            Return objArt
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerArticuloPorId", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+    Public Function ListarArticulos(ByVal argTextoBuscado As String) As List(Of Articulo)
+        Dim la As List(Of Articulo)
+        Try
+            la = mobj_D_AdminSiCoFa.ListarArticulos(argTextoBuscado)
+            Return la
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulos", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+    Public Function InsertarArticulo(
+                                    ByVal argCodigo As String,
+                                    ByVal argCodBarra As String,
+                                    ByVal argNombre As String,
+                                    ByVal argAlicIVA As Double,
+                                    ByVal argBaja As Boolean,
+                                    ByVal argIdSeccion As Long,
+                                    ByVal argActualizarPrecio As Boolean,
+                                    ByVal argCodiLP As String,
+                                    ByVal argFabricante As String
+                                    ) As Boolean
+        Try
+            Dim ArticuloInsertado As Boolean = mobj_D_AdminSiCoFa.InsertarCliente(
+                                                                                    UCase(argCodigo),
+                                                                                    UCase(argCodBarra),
+                                                                                    UCase(argNombre),
+                                                                                    argAlicIVA,
+                                                                                    argBaja,
+                                                                                    argIdSeccion,
+                                                                                    argActualizarPrecio,
+                                                                                    argCodiLP,
+                                                                                    UCase(argFabricante)
+                                                                                  )
+            Return ArticuloInsertado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarArticulo", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+    Public Function ActualizarArticulo(
+                                        ByVal argIdArticulo As String,
+                                        ByVal argCodigo As String,
+                                        ByVal argCodBarra As String,
+                                        ByVal argNombre As String,
+                                        ByVal argAlicIVA As Double,
+                                        ByVal argBaja As Boolean,
+                                        ByVal argIdSeccion As Long,
+                                        ByVal argActualizarPrecio As Boolean,
+                                        ByVal argFabricante As String
+                                        ) As Boolean
+
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarArticulo(
+                                                                             argIdArticulo,
+                                                                             UCase(argCodigo),
+                                                                             UCase(argCodBarra),
+                                                                             UCase(argNombre),
+                                                                             argAlicIVA,
+                                                                             argBaja,
+                                                                             argIdSeccion,
+                                                                             argActualizarPrecio,
+                                                                             argFabricante
+                                                                             )
+            Return Actualizado
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
 
 #End Region
 

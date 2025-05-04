@@ -9,7 +9,7 @@ Public Class FrmEmpresas
         Me.IVA.DisplayMember = "TipoIVA"
         Me.IVA.SelectedIndex = -1
     End Sub
-    Private Function SeleccionarEmpresaListado(ByVal Id As Long, ByVal ListaEmpresas As List(Of Empresa)) As Empresa
+    Private Function SeleccionarEmpresaListado(ByVal Id As Int32, ByVal ListaEmpresas As List(Of Empresa)) As Empresa
         Dim EmpresaSeleccionada As Empresa = Nothing
 
         For Each e As Empresa In ListaEmpresas

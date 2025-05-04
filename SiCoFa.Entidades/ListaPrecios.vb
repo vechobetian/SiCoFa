@@ -1,18 +1,26 @@
 ﻿Public Class ListaPrecios
     Property CodiLP As String
     Property ListaPrecios As String
-    Property PRef As String
-    Property PAplic As Decimal
-    Property NumAc As Long
-    Property Estado As String
+    Property PrecioReferencia As String
+    Property PorcentajeAplicadp As Decimal?
+    Property NumeroActualizacion As Long?
+    Property Baja As Boolean?
 
-    Public Sub New(ByVal argCodiLP As String, ByVal argListaPrecios As String, ByVal argPRef As String, ByVal argPAplic As Decimal, ByVal argNumAc As Long, ByVal argEstado As String)
+    Public Sub New(ByVal argCodiLP As String, ByVal argListaPrecios As String, ByVal argPrecioReferencia As String, ByVal argPorcentajeAplicado As Decimal?, ByVal argNumeroActualizacion As Long?, ByVal argBaja As Boolean?)
         Me.CodiLP = argCodiLP
         Me.ListaPrecios = argListaPrecios
-        Me.PRef = argPRef
-        Me.PAplic = argPAplic
-        Me.NumAc = argNumAc
-        Me.Estado = argEstado
+        Me.PrecioReferencia = argPrecioReferencia
+        Me.PorcentajeAplicadp = argPorcentajeAplicado
+        Me.NumeroActualizacion = argNumeroActualizacion
+        Me.Baja = argBaja
+    End Sub
+    Public Sub New(ByVal argCodiLP As String, ByVal argListaPrecios As String)
+        Me.CodiLP = argCodiLP
+        Me.ListaPrecios = argListaPrecios
+        Me.PrecioReferencia = Nothing
+        Me.PorcentajeAplicadp = Nothing
+        Me.NumeroActualizacion = Nothing
+        Me.Baja = Nothing
     End Sub
 
 End Class

@@ -2,7 +2,7 @@
     Inherits Persona
     Property IVA As IVA
     Public Sub New(
-                ByVal argIdCliente As Long,
+                ByVal argIdCliente As Int32,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,

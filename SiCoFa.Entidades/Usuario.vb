@@ -1,7 +1,7 @@
 ﻿Public Class Usuario
     Inherits Persona
     Public Sub New(
-                ByVal argIdUsuario As Long,
+                ByVal argIdUsuario As Int32,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,

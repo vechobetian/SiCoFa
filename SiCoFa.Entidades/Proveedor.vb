@@ -1,7 +1,7 @@
 ﻿Public Class Proveedor
     Inherits Persona
     Public Sub New(
-                ByVal argIdProveedor As Long,
+                ByVal argIdProveedor As Int32,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,

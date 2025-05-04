@@ -10,7 +10,7 @@ Public Class FrmClientes
         Me.IVA.DisplayMember = "TipoIVA"
         Me.IVA.SelectedIndex = -1
     End Sub
-    Private Function SeleccionarClienteListado(ByVal Id As Long, ByVal ListaClientes As List(Of Cliente)) As Cliente
+    Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
         Dim ClienteSeleccionado As Cliente = Nothing
 
         For Each c As Cliente In ListaClientes

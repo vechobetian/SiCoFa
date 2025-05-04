@@ -4,7 +4,7 @@
     Property IB As String
 
     Public Sub New(
-                ByVal argIdEmpresa As Long,
+                ByVal argIdEmpresa As Int32,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,
