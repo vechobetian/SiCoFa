@@ -177,7 +177,7 @@ Public Class cls_D_AdminSiCoFa
                     End With
 
                     Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -295,7 +295,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argNumDoc As String
                                     ) As Integer
 
-        Dim IdProveedor As Integer
+        Dim IdProveedor As Int32
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -315,7 +315,7 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("_IdProveedor").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdProveedor = CInt(cmd.Parameters("_IdProveedor").Value)
+                    IdProveedor = Convert.ToInt32(cmd.Parameters("_IdProveedor").Value)
                 End Using
 
             End Using
@@ -361,8 +361,8 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Dim filasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -481,7 +481,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argNumDoc As String
                                     ) As Integer
 
-        Dim IdCliente As Integer
+        Dim IdCliente As Int32
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -501,7 +501,7 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("_IdEmpleado").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdCliente = CInt(cmd.Parameters("_IdEmpleado").Value)
+                    IdCliente = Convert.ToInt32(cmd.Parameters("_IdEmpleado").Value)
                 End Using
 
             End Using
@@ -544,8 +544,8 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -665,7 +665,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argNumDoc As String
                                     ) As Integer
 
-        Dim IdCliente As Integer
+        Dim IdUsuario As Int32
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -685,11 +685,11 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("_IdUsuario").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdCliente = CInt(cmd.Parameters("_IdUsuario").Value)
+                    IdUsuario = Convert.ToInt32(cmd.Parameters("_IdUsuario").Value)
                 End Using
 
             End Using
-            Return IdCliente
+            Return IdUsuario
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarUsuario", Ex.Message))
@@ -728,8 +728,8 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -853,7 +853,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argIB As String
                                     ) As Integer
 
-        Dim IdEmpresa As Integer
+        Dim IdEmpresa As Int32
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -875,7 +875,7 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("_IdEmpresa").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdEmpresa = CInt(cmd.Parameters("_IdEmpresa").Value)
+                    IdEmpresa = Convert.ToInt32(cmd.Parameters("_IdEmpresa").Value)
                 End Using
 
             End Using
@@ -922,8 +922,8 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_IB", MySqlDbType.VarChar).Value = argIB
                     End With
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -1418,8 +1418,8 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
                     End With
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Dim filasAfectadas As Integer = Convert.ToInt32(cmd.ExecuteNonQuery())
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -1612,9 +1612,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argAlicIVA As Double,
                                     ByVal argBaja As Boolean,
                                     ByVal argIdSeccion As Long,
-                                    ByVal argActualizarPrecio As Boolean,
-                                    ByVal argCodiLP As String,
-                                    ByVal argFabricante As String
+                                    ByVal argActualizarPrecio As Boolean
                                     ) As Boolean
 
         Try
@@ -1632,12 +1630,10 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
                         .Add("_IdSeccion", MySqlDbType.Int64).Value = argIdSeccion
                         .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argActualizarPrecio
-                        .Add("_CodiLP", MySqlDbType.VarChar).Value = argCodiLP
-                        .Add("_Fabricante", MySqlDbType.VarChar).Value = argFabricante
                     End With
 
-                    Dim filasAfectadas As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-                    Return filasAfectadas
+                    Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteScalar())
+                    Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
@@ -1657,9 +1653,8 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Double,
                                         ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As Long,
-                                        ByVal argActualizarPrecio As Boolean,
-                                        ByVal argFabricante As String
+                                        ByVal argIdSeccion As Int32,
+                                        ByVal argActualizarPrecio As Boolean
                                         ) As Boolean
 
 
@@ -1671,24 +1666,23 @@ Public Class cls_D_AdminSiCoFa
                     With cmd.Parameters
                         .Add("_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
-                        .Add("_CodBarra", MySqlDbType.Bit).Value = argCodBarra
-                        .Add("_Nombre", MySqlDbType.Bit).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Bit).Value = argAlicIVA
+                        .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
+                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
                         .Add("_Baja", MySqlDbType.Bit).Value = argBaja
-                        .Add("_IdSeccion", MySqlDbType.Bit).Value = argCodBarra
-                        .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argCodBarra
-                        .Add("_Fabricante", MySqlDbType.Bit).Value = argCodBarra
+                        .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
+                        .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argActualizarPrecio
                     End With
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return filasAfectadas > 0 ' Devuelve True si se actualizó al menos una fila
+                    Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
+                    Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
                 End Using
 
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSeccion", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", Ex.Message))
 
         End Try
 

@@ -1,12 +1,11 @@
-﻿Imports System.IO
-Imports SiCoFa.Datos
+﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminSiCoFa
 
     Private mobj_D_AdminSiCoFa As New cls_D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
-    Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente
+    Public Function ObtenerClientePorId(ByVal argIdCliente As Int32) As Cliente
         Dim objCli As Cliente
         Try
             objCli = mobj_D_AdminSiCoFa.ObtenerClientePorId(argIdCliente)
@@ -63,7 +62,7 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
     Public Function ActualizarCliente(
-                                      ByVal argIdCliente As Integer,
+                                      ByVal argIdCliente As Int32,
                                       ByVal argDomicilio As String,
                                       ByVal argLocalidad As String,
                                       ByVal argProvincia As String,
@@ -100,7 +99,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Proveedores"
-    Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
+    Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Int32) As Proveedor
         Dim objProv As Proveedor
         Try
             objProv = mobj_D_AdminSiCoFa.ObtenerProveedorPorId(argIdProveedor)
@@ -156,7 +155,7 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
     Public Function ActualizarProveedor(
-                                      ByVal argIdProveedor As Integer,
+                                      ByVal argIdProveedor As Int32,
                                       ByVal argDomicilio As String,
                                       ByVal argLocalidad As String,
                                       ByVal argProvincia As String,
@@ -195,7 +194,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Empleados"
-    Public Function ObtenerEmpleadoPorId(ByVal argIdEmpleado As Long) As Empleado
+    Public Function ObtenerEmpleadoPorId(ByVal argIdEmpleado As Int32) As Empleado
         Dim objEmp As Empleado = Nothing
 
         Try
@@ -250,7 +249,7 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
     Public Function ActualizarEmpleado(
-                                      ByVal argIdEmpleado As Integer,
+                                      ByVal argIdEmpleado As Int32,
                                       ByVal argDomicilio As String,
                                       ByVal argLocalidad As String,
                                       ByVal argProvincia As String,
@@ -286,7 +285,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Usuarios"
-    Public Function ObtenerUsuarioPorId(ByVal argIdUsuario As Long) As Usuario
+    Public Function ObtenerUsuarioPorId(ByVal argIdUsuario As Int32) As Usuario
         Dim objUs As Usuario = Nothing
 
         Try
@@ -341,7 +340,7 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
     Public Function ActualizarUsuario(
-                                      ByVal argIdEmpleado As Integer,
+                                      ByVal argIdEmpleado As Int32,
                                       ByVal argDomicilio As String,
                                       ByVal argLocalidad As String,
                                       ByVal argProvincia As String,
@@ -377,7 +376,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Empresas"
-    Public Function ObtenerEmpresaPorId(ByVal argIdEmpresa As Long) As Empresa
+    Public Function ObtenerEmpresaPorId(ByVal argIdEmpresa As Int32) As Empresa
         Dim objEmp As Empresa
         Try
             objEmp = mobj_D_AdminSiCoFa.ObtenerEmpresaPorId(argIdEmpresa)
@@ -436,7 +435,7 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
     Public Function ActualizarEmpresa(
-                                      ByVal argIdCliente As Integer,
+                                      ByVal argIdCliente As Int32,
                                       ByVal argDomicilio As String,
                                       ByVal argLocalidad As String,
                                       ByVal argProvincia As String,
@@ -649,8 +648,73 @@ Public Class cls_N_AdminSiCoFa
     End Sub
 #End Region
 
+#Region "Administracion de Secciones"
+    Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Int32) As Seccion
+        Dim objSec As Seccion
+        Try
+            objSec = mobj_D_AdminSiCoFa.ObtenerSeccionPorId(argIdSeccion)
+            Return objSec
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerSeccionPorId", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+    Public Function ListarSecciones(ByVal argTextoBuscado As String) As List(Of Seccion)
+        Dim ls As List(Of Seccion)
+        Try
+            ls = mobj_D_AdminSiCoFa.ListarSecciones(argTextoBuscado)
+            Return ls
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarSecciones", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+    Public Function InsertarSecciones(
+                                    ByVal argSeccion As String,
+                                    ByVal argEstablecerPrecio As Boolean
+                                    ) As Boolean
+        Try
+            Dim SeccionInsertada As Boolean = mobj_D_AdminSiCoFa.InsertarSeccion(
+                                                                                 UCase(argSeccion),
+                                                                                 argEstablecerPrecio
+                                                                                 )
+            Return SeccionInsertada
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarSeccion", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+    Public Function ActualizarSeccion(
+                                      ByVal argIdSeccion As Int32,
+                                      ByVal argSeccion As String,
+                                      ByVal argEstablecerPrecio As Boolean
+                                      ) As Boolean
+
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarSeccion(
+                                                                              argIdSeccion,
+                                                                              UCase(argSeccion),
+                                                                              argEstablecerPrecio
+                                                                              )
+            Return Actualizado
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarSeccion", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+#End Region
+
 #Region "Administracion de Articulos"
-    Public Function ObtenerArticuloPorId(ByVal argIdArticulo As Long) As Articulo
+    Public Function ObtenerArticuloPorId(ByVal argIdArticulo As String) As Articulo
         Dim objArt As Articulo
         Try
             objArt = mobj_D_AdminSiCoFa.ObtenerArticuloPorId(argIdArticulo)
@@ -681,22 +745,18 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argAlicIVA As Double,
                                     ByVal argBaja As Boolean,
                                     ByVal argIdSeccion As Long,
-                                    ByVal argActualizarPrecio As Boolean,
-                                    ByVal argCodiLP As String,
-                                    ByVal argFabricante As String
+                                    ByVal argActualizarPrecio As Boolean                              
                                     ) As Boolean
         Try
-            Dim ArticuloInsertado As Boolean = mobj_D_AdminSiCoFa.InsertarCliente(
-                                                                                    UCase(argCodigo),
-                                                                                    UCase(argCodBarra),
-                                                                                    UCase(argNombre),
-                                                                                    argAlicIVA,
-                                                                                    argBaja,
-                                                                                    argIdSeccion,
-                                                                                    argActualizarPrecio,
-                                                                                    argCodiLP,
-                                                                                    UCase(argFabricante)
-                                                                                  )
+            Dim ArticuloInsertado As Boolean = mobj_D_AdminSiCoFa.InsertarArticulo(
+                                                                                   UCase(argCodigo),
+                                                                                   UCase(argCodBarra),
+                                                                                   UCase(argNombre),
+                                                                                   argAlicIVA,
+                                                                                   argBaja,
+                                                                                   argIdSeccion,
+                                                                                   argActualizarPrecio
+                                                                                   )
             Return ArticuloInsertado
 
         Catch ex As Exception
@@ -714,8 +774,7 @@ Public Class cls_N_AdminSiCoFa
                                         ByVal argAlicIVA As Double,
                                         ByVal argBaja As Boolean,
                                         ByVal argIdSeccion As Long,
-                                        ByVal argActualizarPrecio As Boolean,
-                                        ByVal argFabricante As String
+                                        ByVal argActualizarPrecio As Boolean
                                         ) As Boolean
 
         Try
@@ -727,8 +786,7 @@ Public Class cls_N_AdminSiCoFa
                                                                              argAlicIVA,
                                                                              argBaja,
                                                                              argIdSeccion,
-                                                                             argActualizarPrecio,
-                                                                             argFabricante
+                                                                             argActualizarPrecio
                                                                              )
             Return Actualizado
         Catch ex As Exception

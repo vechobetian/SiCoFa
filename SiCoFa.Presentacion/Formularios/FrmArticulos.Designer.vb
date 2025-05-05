@@ -29,48 +29,40 @@ Partial Class FrmArticulos
         Dim CodBarraLabel As System.Windows.Forms.Label
         Dim NombreLabel As System.Windows.Forms.Label
         Dim AlicuotaIVALabel As System.Windows.Forms.Label
-        Dim FechaPrecioLabel As System.Windows.Forms.Label
-        Dim PrecioCostoLabel As System.Windows.Forms.Label
-        Dim PrecioVentaLabel As System.Windows.Forms.Label
         Dim BajaLabel As System.Windows.Forms.Label
         Dim SeccionLabel As System.Windows.Forms.Label
         Dim ActualizarPrecioLabel As System.Windows.Forms.Label
-        Dim StockLabel As System.Windows.Forms.Label
-        Dim FabricanteLabel As System.Windows.Forms.Label
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmArticulos))
         Me.IdArticulo = New System.Windows.Forms.TextBox()
         Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Codigo = New System.Windows.Forms.TextBox()
         Me.CodBarra = New System.Windows.Forms.TextBox()
         Me.Nombre = New System.Windows.Forms.TextBox()
         Me.AlicuotaIVA = New System.Windows.Forms.ComboBox()
-        Me.FechaPrecio = New System.Windows.Forms.TextBox()
-        Me.PrecioCosto = New System.Windows.Forms.TextBox()
-        Me.PrecioVenta = New System.Windows.Forms.TextBox()
         Me.Baja = New System.Windows.Forms.ComboBox()
         Me.Seccion = New System.Windows.Forms.ComboBox()
         Me.ActualizarPrecio = New System.Windows.Forms.ComboBox()
-        Me.Stock = New System.Windows.Forms.TextBox()
-        Me.Fabricante = New System.Windows.Forms.TextBox()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.Guardar = New System.Windows.Forms.ToolStripButton()
+        Me.Nuevo = New System.Windows.Forms.ToolStripButton()
+        Me.Buscar = New System.Windows.Forms.ToolStripButton()
+        Me.Limpiar = New System.Windows.Forms.ToolStripButton()
         IdArticuloLabel = New System.Windows.Forms.Label()
         CodigoLabel = New System.Windows.Forms.Label()
         CodBarraLabel = New System.Windows.Forms.Label()
         NombreLabel = New System.Windows.Forms.Label()
         AlicuotaIVALabel = New System.Windows.Forms.Label()
-        FechaPrecioLabel = New System.Windows.Forms.Label()
-        PrecioCostoLabel = New System.Windows.Forms.Label()
-        PrecioVentaLabel = New System.Windows.Forms.Label()
         BajaLabel = New System.Windows.Forms.Label()
         SeccionLabel = New System.Windows.Forms.Label()
         ActualizarPrecioLabel = New System.Windows.Forms.Label()
-        StockLabel = New System.Windows.Forms.Label()
-        FabricanteLabel = New System.Windows.Forms.Label()
         CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'IdArticuloLabel
         '
         IdArticuloLabel.AutoSize = True
-        IdArticuloLabel.Location = New System.Drawing.Point(12, 15)
+        IdArticuloLabel.Location = New System.Drawing.Point(10, 43)
         IdArticuloLabel.Name = "IdArticuloLabel"
         IdArticuloLabel.Size = New System.Drawing.Size(57, 13)
         IdArticuloLabel.TabIndex = 1
@@ -79,7 +71,7 @@ Partial Class FrmArticulos
         'CodigoLabel
         '
         CodigoLabel.AutoSize = True
-        CodigoLabel.Location = New System.Drawing.Point(12, 69)
+        CodigoLabel.Location = New System.Drawing.Point(10, 97)
         CodigoLabel.Name = "CodigoLabel"
         CodigoLabel.Size = New System.Drawing.Size(43, 13)
         CodigoLabel.TabIndex = 2
@@ -88,7 +80,7 @@ Partial Class FrmArticulos
         'CodBarraLabel
         '
         CodBarraLabel.AutoSize = True
-        CodBarraLabel.Location = New System.Drawing.Point(12, 93)
+        CodBarraLabel.Location = New System.Drawing.Point(10, 121)
         CodBarraLabel.Name = "CodBarraLabel"
         CodBarraLabel.Size = New System.Drawing.Size(57, 13)
         CodBarraLabel.TabIndex = 4
@@ -97,7 +89,7 @@ Partial Class FrmArticulos
         'NombreLabel
         '
         NombreLabel.AutoSize = True
-        NombreLabel.Location = New System.Drawing.Point(12, 43)
+        NombreLabel.Location = New System.Drawing.Point(10, 71)
         NombreLabel.Name = "NombreLabel"
         NombreLabel.Size = New System.Drawing.Size(47, 13)
         NombreLabel.TabIndex = 6
@@ -106,43 +98,16 @@ Partial Class FrmArticulos
         'AlicuotaIVALabel
         '
         AlicuotaIVALabel.AutoSize = True
-        AlicuotaIVALabel.Location = New System.Drawing.Point(12, 119)
+        AlicuotaIVALabel.Location = New System.Drawing.Point(10, 147)
         AlicuotaIVALabel.Name = "AlicuotaIVALabel"
         AlicuotaIVALabel.Size = New System.Drawing.Size(68, 13)
         AlicuotaIVALabel.TabIndex = 8
         AlicuotaIVALabel.Text = "Alicuota IVA:"
         '
-        'FechaPrecioLabel
-        '
-        FechaPrecioLabel.AutoSize = True
-        FechaPrecioLabel.Location = New System.Drawing.Point(12, 146)
-        FechaPrecioLabel.Name = "FechaPrecioLabel"
-        FechaPrecioLabel.Size = New System.Drawing.Size(73, 13)
-        FechaPrecioLabel.TabIndex = 10
-        FechaPrecioLabel.Text = "Fecha Precio:"
-        '
-        'PrecioCostoLabel
-        '
-        PrecioCostoLabel.AutoSize = True
-        PrecioCostoLabel.Location = New System.Drawing.Point(12, 172)
-        PrecioCostoLabel.Name = "PrecioCostoLabel"
-        PrecioCostoLabel.Size = New System.Drawing.Size(70, 13)
-        PrecioCostoLabel.TabIndex = 12
-        PrecioCostoLabel.Text = "Precio Costo:"
-        '
-        'PrecioVentaLabel
-        '
-        PrecioVentaLabel.AutoSize = True
-        PrecioVentaLabel.Location = New System.Drawing.Point(12, 198)
-        PrecioVentaLabel.Name = "PrecioVentaLabel"
-        PrecioVentaLabel.Size = New System.Drawing.Size(71, 13)
-        PrecioVentaLabel.TabIndex = 14
-        PrecioVentaLabel.Text = "Precio Venta:"
-        '
         'BajaLabel
         '
         BajaLabel.AutoSize = True
-        BajaLabel.Location = New System.Drawing.Point(12, 224)
+        BajaLabel.Location = New System.Drawing.Point(10, 174)
         BajaLabel.Name = "BajaLabel"
         BajaLabel.Size = New System.Drawing.Size(31, 13)
         BajaLabel.TabIndex = 16
@@ -151,7 +116,7 @@ Partial Class FrmArticulos
         'SeccionLabel
         '
         SeccionLabel.AutoSize = True
-        SeccionLabel.Location = New System.Drawing.Point(12, 251)
+        SeccionLabel.Location = New System.Drawing.Point(10, 201)
         SeccionLabel.Name = "SeccionLabel"
         SeccionLabel.Size = New System.Drawing.Size(49, 13)
         SeccionLabel.TabIndex = 18
@@ -160,34 +125,16 @@ Partial Class FrmArticulos
         'ActualizarPrecioLabel
         '
         ActualizarPrecioLabel.AutoSize = True
-        ActualizarPrecioLabel.Location = New System.Drawing.Point(12, 278)
+        ActualizarPrecioLabel.Location = New System.Drawing.Point(10, 228)
         ActualizarPrecioLabel.Name = "ActualizarPrecioLabel"
         ActualizarPrecioLabel.Size = New System.Drawing.Size(89, 13)
         ActualizarPrecioLabel.TabIndex = 20
         ActualizarPrecioLabel.Text = "Actualizar Precio:"
         '
-        'StockLabel
-        '
-        StockLabel.AutoSize = True
-        StockLabel.Location = New System.Drawing.Point(12, 305)
-        StockLabel.Name = "StockLabel"
-        StockLabel.Size = New System.Drawing.Size(38, 13)
-        StockLabel.TabIndex = 22
-        StockLabel.Text = "Stock:"
-        '
-        'FabricanteLabel
-        '
-        FabricanteLabel.AutoSize = True
-        FabricanteLabel.Location = New System.Drawing.Point(12, 331)
-        FabricanteLabel.Name = "FabricanteLabel"
-        FabricanteLabel.Size = New System.Drawing.Size(60, 13)
-        FabricanteLabel.TabIndex = 24
-        FabricanteLabel.Text = "Fabricante:"
-        '
         'IdArticulo
         '
         Me.IdArticulo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "IdArticulo", True))
-        Me.IdArticulo.Location = New System.Drawing.Point(102, 12)
+        Me.IdArticulo.Location = New System.Drawing.Point(104, 40)
         Me.IdArticulo.Name = "IdArticulo"
         Me.IdArticulo.Size = New System.Drawing.Size(315, 20)
         Me.IdArticulo.TabIndex = 0
@@ -200,7 +147,7 @@ Partial Class FrmArticulos
         'Codigo
         '
         Me.Codigo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Codigo", True))
-        Me.Codigo.Location = New System.Drawing.Point(102, 66)
+        Me.Codigo.Location = New System.Drawing.Point(104, 94)
         Me.Codigo.Name = "Codigo"
         Me.Codigo.Size = New System.Drawing.Size(315, 20)
         Me.Codigo.TabIndex = 2
@@ -208,7 +155,7 @@ Partial Class FrmArticulos
         'CodBarra
         '
         Me.CodBarra.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "CodBarra", True))
-        Me.CodBarra.Location = New System.Drawing.Point(102, 90)
+        Me.CodBarra.Location = New System.Drawing.Point(104, 118)
         Me.CodBarra.Name = "CodBarra"
         Me.CodBarra.Size = New System.Drawing.Size(315, 20)
         Me.CodBarra.TabIndex = 3
@@ -216,7 +163,7 @@ Partial Class FrmArticulos
         'Nombre
         '
         Me.Nombre.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
-        Me.Nombre.Location = New System.Drawing.Point(102, 40)
+        Me.Nombre.Location = New System.Drawing.Point(104, 68)
         Me.Nombre.Name = "Nombre"
         Me.Nombre.Size = New System.Drawing.Size(315, 20)
         Me.Nombre.TabIndex = 1
@@ -225,105 +172,105 @@ Partial Class FrmArticulos
         '
         Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicIVA.AlicuotaIVA", True))
         Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicIVA", True))
+        Me.AlicuotaIVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AlicuotaIVA.FormattingEnabled = True
-        Me.AlicuotaIVA.Location = New System.Drawing.Point(102, 116)
+        Me.AlicuotaIVA.Location = New System.Drawing.Point(104, 144)
         Me.AlicuotaIVA.Name = "AlicuotaIVA"
         Me.AlicuotaIVA.Size = New System.Drawing.Size(315, 21)
         Me.AlicuotaIVA.TabIndex = 4
-        '
-        'FechaPrecio
-        '
-        Me.FechaPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "FechaPrecio", True))
-        Me.FechaPrecio.Location = New System.Drawing.Point(102, 143)
-        Me.FechaPrecio.Name = "FechaPrecio"
-        Me.FechaPrecio.Size = New System.Drawing.Size(315, 20)
-        Me.FechaPrecio.TabIndex = 5
-        '
-        'PrecioCosto
-        '
-        Me.PrecioCosto.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "PrecioCosto", True))
-        Me.PrecioCosto.Location = New System.Drawing.Point(102, 169)
-        Me.PrecioCosto.Name = "PrecioCosto"
-        Me.PrecioCosto.Size = New System.Drawing.Size(315, 20)
-        Me.PrecioCosto.TabIndex = 6
-        '
-        'PrecioVenta
-        '
-        Me.PrecioVenta.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "PrecioVenta", True))
-        Me.PrecioVenta.Location = New System.Drawing.Point(102, 195)
-        Me.PrecioVenta.Name = "PrecioVenta"
-        Me.PrecioVenta.Size = New System.Drawing.Size(315, 20)
-        Me.PrecioVenta.TabIndex = 7
         '
         'Baja
         '
         Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Baja", True))
         Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Baja", True))
+        Me.Baja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Baja.FormattingEnabled = True
         Me.Baja.ItemHeight = 13
         Me.Baja.Items.AddRange(New Object() {"NO", "SI"})
-        Me.Baja.Location = New System.Drawing.Point(102, 221)
+        Me.Baja.Location = New System.Drawing.Point(104, 171)
         Me.Baja.Name = "Baja"
         Me.Baja.Size = New System.Drawing.Size(315, 21)
-        Me.Baja.TabIndex = 17
+        Me.Baja.TabIndex = 5
         '
         'Seccion
         '
         Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Seccion.Seccion", True))
+        Me.Seccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Seccion.FormattingEnabled = True
         Me.Seccion.ItemHeight = 13
-        Me.Seccion.Location = New System.Drawing.Point(102, 248)
+        Me.Seccion.Location = New System.Drawing.Point(104, 198)
         Me.Seccion.Name = "Seccion"
         Me.Seccion.Size = New System.Drawing.Size(315, 21)
-        Me.Seccion.TabIndex = 19
+        Me.Seccion.TabIndex = 6
         '
         'ActualizarPrecio
         '
         Me.ActualizarPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "ActualizarPrecio", True))
+        Me.ActualizarPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.ActualizarPrecio.FormattingEnabled = True
         Me.ActualizarPrecio.ItemHeight = 13
-        Me.ActualizarPrecio.Location = New System.Drawing.Point(102, 275)
+        Me.ActualizarPrecio.Location = New System.Drawing.Point(104, 225)
         Me.ActualizarPrecio.Name = "ActualizarPrecio"
         Me.ActualizarPrecio.Size = New System.Drawing.Size(315, 21)
-        Me.ActualizarPrecio.TabIndex = 21
+        Me.ActualizarPrecio.TabIndex = 7
         '
-        'Stock
+        'ToolStrip1
         '
-        Me.Stock.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Stock", True))
-        Me.Stock.Location = New System.Drawing.Point(102, 302)
-        Me.Stock.Name = "Stock"
-        Me.Stock.Size = New System.Drawing.Size(315, 20)
-        Me.Stock.TabIndex = 11
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Guardar, Me.Nuevo, Me.Buscar, Me.Limpiar})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(431, 25)
+        Me.ToolStrip1.TabIndex = 25
+        Me.ToolStrip1.Text = "ToolStrip1"
         '
-        'Fabricante
+        'Guardar
         '
-        Me.Fabricante.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Fabricante", True))
-        Me.Fabricante.Location = New System.Drawing.Point(102, 328)
-        Me.Fabricante.Name = "Fabricante"
-        Me.Fabricante.Size = New System.Drawing.Size(315, 20)
-        Me.Fabricante.TabIndex = 12
+        Me.Guardar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Guardar.Image = CType(resources.GetObject("Guardar.Image"), System.Drawing.Image)
+        Me.Guardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Guardar.Name = "Guardar"
+        Me.Guardar.Size = New System.Drawing.Size(23, 22)
+        Me.Guardar.Text = "Guardar Cambios"
+        '
+        'Nuevo
+        '
+        Me.Nuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Nuevo.Image = CType(resources.GetObject("Nuevo.Image"), System.Drawing.Image)
+        Me.Nuevo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Nuevo.Name = "Nuevo"
+        Me.Nuevo.Size = New System.Drawing.Size(23, 22)
+        Me.Nuevo.Text = "Nuevo"
+        '
+        'Buscar
+        '
+        Me.Buscar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Buscar.Image = CType(resources.GetObject("Buscar.Image"), System.Drawing.Image)
+        Me.Buscar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Buscar.Name = "Buscar"
+        Me.Buscar.Size = New System.Drawing.Size(23, 22)
+        Me.Buscar.Text = "Buscar"
+        '
+        'Limpiar
+        '
+        Me.Limpiar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Limpiar.Image = CType(resources.GetObject("Limpiar.Image"), System.Drawing.Image)
+        Me.Limpiar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Limpiar.Name = "Limpiar"
+        Me.Limpiar.Size = New System.Drawing.Size(23, 22)
+        Me.Limpiar.Text = "Limpiar"
         '
         'FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(434, 360)
-        Me.Controls.Add(FabricanteLabel)
-        Me.Controls.Add(Me.Fabricante)
-        Me.Controls.Add(StockLabel)
-        Me.Controls.Add(Me.Stock)
+        Me.ClientSize = New System.Drawing.Size(431, 260)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(ActualizarPrecioLabel)
         Me.Controls.Add(Me.ActualizarPrecio)
         Me.Controls.Add(SeccionLabel)
         Me.Controls.Add(Me.Seccion)
         Me.Controls.Add(BajaLabel)
         Me.Controls.Add(Me.Baja)
-        Me.Controls.Add(PrecioVentaLabel)
-        Me.Controls.Add(Me.PrecioVenta)
-        Me.Controls.Add(PrecioCostoLabel)
-        Me.Controls.Add(Me.PrecioCosto)
-        Me.Controls.Add(FechaPrecioLabel)
-        Me.Controls.Add(Me.FechaPrecio)
         Me.Controls.Add(AlicuotaIVALabel)
         Me.Controls.Add(Me.AlicuotaIVA)
         Me.Controls.Add(NombreLabel)
@@ -335,8 +282,11 @@ Partial Class FrmArticulos
         Me.Controls.Add(IdArticuloLabel)
         Me.Controls.Add(Me.IdArticulo)
         Me.Name = "FrmArticulos"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmArticulos"
         CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -348,12 +298,12 @@ Partial Class FrmArticulos
     Friend WithEvents CodBarra As TextBox
     Friend WithEvents Nombre As TextBox
     Friend WithEvents AlicuotaIVA As ComboBox
-    Friend WithEvents FechaPrecio As TextBox
-    Friend WithEvents PrecioCosto As TextBox
-    Friend WithEvents PrecioVenta As TextBox
     Friend WithEvents Baja As ComboBox
     Friend WithEvents Seccion As ComboBox
     Friend WithEvents ActualizarPrecio As ComboBox
-    Friend WithEvents Stock As TextBox
-    Friend WithEvents Fabricante As TextBox
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents Guardar As ToolStripButton
+    Friend WithEvents Nuevo As ToolStripButton
+    Friend WithEvents Buscar As ToolStripButton
+    Friend WithEvents Limpiar As ToolStripButton
 End Class

@@ -14,11 +14,14 @@ Public Class FrmArticulos
     End Sub
     Private Sub ObtenerSecciones()
         With Me.Seccion
-
+            .DataSource = mobj_N_AdminSiCoFa.ListarSecciones("*")
+            .ValueMember = "IdSeccion"
+            .DisplayMember = "Seccion"
+            .SelectedIndex = -1
         End With
-
     End Sub
     Private Sub FrmArticulos_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        Me.ObtenerAlicuotasIVA()
+        Me.ObtenerSecciones()
     End Sub
 End Class
