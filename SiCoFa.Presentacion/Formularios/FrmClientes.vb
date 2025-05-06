@@ -116,8 +116,6 @@ Public Class FrmClientes
             .Add("Estado", "ACTIVO")
         End With
 
-
-
         EstablecerValoresPorDefecto(valoresDefecto)
     End Sub
     Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)

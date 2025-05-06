@@ -104,6 +104,30 @@
                     Dim dateTimePickerControl As DateTimePicker = DirectCast(control, DateTimePicker)
                     dateTimePickerControl.Enabled = False
                     ' Puedes agregar más tipos de controles aquí si es necesario
+
+                Else ' Si el control NO está en la lista de ReadOnly, asegurar que NO esté ReadOnly/Disabled
+                    If TypeOf control Is TextBox Then
+                        Dim textBoxControl As TextBox = DirectCast(control, TextBox)
+                        textBoxControl.ReadOnly = False
+                    ElseIf TypeOf control Is ComboBox Then
+                        Dim comboBoxControl As ComboBox = DirectCast(control, ComboBox)
+                        comboBoxControl.Enabled = True
+                    ElseIf TypeOf control Is DateTimePicker Then
+                        Dim dateTimePickerControl As DateTimePicker = DirectCast(control, DateTimePicker)
+                        dateTimePickerControl.Enabled = True
+                    End If
+                End If
+
+            Else ' El control ESTÁ en la lista de exclusión: asegurar que NO esté ReadOnly/Disabled
+                If TypeOf control Is TextBox Then
+                    Dim textBoxControl As TextBox = DirectCast(control, TextBox)
+                    textBoxControl.ReadOnly = False
+                ElseIf TypeOf control Is ComboBox Then
+                    Dim comboBoxControl As ComboBox = DirectCast(control, ComboBox)
+                    comboBoxControl.Enabled = True
+                ElseIf TypeOf control Is DateTimePicker Then
+                    Dim dateTimePickerControl As DateTimePicker = DirectCast(control, DateTimePicker)
+                    dateTimePickerControl.Enabled = True
                 End If
             End If
         Next

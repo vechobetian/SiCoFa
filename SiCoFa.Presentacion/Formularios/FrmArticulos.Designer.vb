@@ -31,7 +31,6 @@ Partial Class FrmArticulos
         Dim AlicuotaIVALabel As System.Windows.Forms.Label
         Dim BajaLabel As System.Windows.Forms.Label
         Dim SeccionLabel As System.Windows.Forms.Label
-        Dim ActualizarPrecioLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmArticulos))
         Me.IdArticulo = New System.Windows.Forms.TextBox()
         Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
@@ -41,7 +40,6 @@ Partial Class FrmArticulos
         Me.AlicuotaIVA = New System.Windows.Forms.ComboBox()
         Me.Baja = New System.Windows.Forms.ComboBox()
         Me.Seccion = New System.Windows.Forms.ComboBox()
-        Me.ActualizarPrecio = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.Guardar = New System.Windows.Forms.ToolStripButton()
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
@@ -54,7 +52,6 @@ Partial Class FrmArticulos
         AlicuotaIVALabel = New System.Windows.Forms.Label()
         BajaLabel = New System.Windows.Forms.Label()
         SeccionLabel = New System.Windows.Forms.Label()
-        ActualizarPrecioLabel = New System.Windows.Forms.Label()
         CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -122,20 +119,12 @@ Partial Class FrmArticulos
         SeccionLabel.TabIndex = 18
         SeccionLabel.Text = "Seccion:"
         '
-        'ActualizarPrecioLabel
-        '
-        ActualizarPrecioLabel.AutoSize = True
-        ActualizarPrecioLabel.Location = New System.Drawing.Point(10, 228)
-        ActualizarPrecioLabel.Name = "ActualizarPrecioLabel"
-        ActualizarPrecioLabel.Size = New System.Drawing.Size(89, 13)
-        ActualizarPrecioLabel.TabIndex = 20
-        ActualizarPrecioLabel.Text = "Actualizar Precio:"
-        '
         'IdArticulo
         '
         Me.IdArticulo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "IdArticulo", True))
         Me.IdArticulo.Location = New System.Drawing.Point(104, 40)
         Me.IdArticulo.Name = "IdArticulo"
+        Me.IdArticulo.ReadOnly = True
         Me.IdArticulo.Size = New System.Drawing.Size(315, 20)
         Me.IdArticulo.TabIndex = 0
         Me.IdArticulo.TabStop = False
@@ -203,17 +192,6 @@ Partial Class FrmArticulos
         Me.Seccion.Size = New System.Drawing.Size(315, 21)
         Me.Seccion.TabIndex = 6
         '
-        'ActualizarPrecio
-        '
-        Me.ActualizarPrecio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "ActualizarPrecio", True))
-        Me.ActualizarPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ActualizarPrecio.FormattingEnabled = True
-        Me.ActualizarPrecio.ItemHeight = 13
-        Me.ActualizarPrecio.Location = New System.Drawing.Point(104, 225)
-        Me.ActualizarPrecio.Name = "ActualizarPrecio"
-        Me.ActualizarPrecio.Size = New System.Drawing.Size(315, 21)
-        Me.ActualizarPrecio.TabIndex = 7
-        '
         'ToolStrip1
         '
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Guardar, Me.Nuevo, Me.Buscar, Me.Limpiar})
@@ -263,10 +241,8 @@ Partial Class FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(431, 260)
+        Me.ClientSize = New System.Drawing.Size(431, 232)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(ActualizarPrecioLabel)
-        Me.Controls.Add(Me.ActualizarPrecio)
         Me.Controls.Add(SeccionLabel)
         Me.Controls.Add(Me.Seccion)
         Me.Controls.Add(BajaLabel)
@@ -300,7 +276,6 @@ Partial Class FrmArticulos
     Friend WithEvents AlicuotaIVA As ComboBox
     Friend WithEvents Baja As ComboBox
     Friend WithEvents Seccion As ComboBox
-    Friend WithEvents ActualizarPrecio As ComboBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents Guardar As ToolStripButton
     Friend WithEvents Nuevo As ToolStripButton

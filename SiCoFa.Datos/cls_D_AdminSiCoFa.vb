@@ -1610,10 +1610,8 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argCodBarra As String,
                                     ByVal argNombre As String,
                                     ByVal argAlicIVA As Double,
-                                    ByVal argBaja As Boolean,
-                                    ByVal argIdSeccion As Long,
-                                    ByVal argActualizarPrecio As Boolean
-                                    ) As Boolean
+                                    ByVal argIdSeccion As Int32
+                                    ) As String
 
         Try
             Dim IdArticulo As String
@@ -1623,17 +1621,16 @@ Public Class cls_D_AdminSiCoFa
 
                 Using cmd As New MySqlCommand("InsertarArticulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdArticulo", MySqlDbType.VarChar).Value = IdArticulo
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
                         .Add("_IdSeccion", MySqlDbType.Int64).Value = argIdSeccion
-                        .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argActualizarPrecio
                     End With
 
-                    Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteScalar())
-                    Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+                    cmd.Parameters("_IdArticulo").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdArticulo = cmd.Parameters("_IdArticulo").Value
 
                 End Using
 
@@ -1653,8 +1650,7 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Double,
                                         ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As Int32,
-                                        ByVal argActualizarPrecio As Boolean
+                                        ByVal argIdSeccion As Int32
                                         ) As Boolean
 
 
@@ -1671,7 +1667,6 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
                         .Add("_Baja", MySqlDbType.Bit).Value = argBaja
                         .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
-                        .Add("_ActualizarPrecio", MySqlDbType.Bit).Value = argActualizarPrecio
                     End With
 
                     Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())

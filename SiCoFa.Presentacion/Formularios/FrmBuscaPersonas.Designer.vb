@@ -59,6 +59,7 @@ Partial Class FrmBuscaPersonas
         '
         'Id
         '
+        Me.Id.DataPropertyName = "Id"
         Me.Id.HeaderText = "Id"
         Me.Id.Name = "Id"
         Me.Id.ReadOnly = True

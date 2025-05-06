@@ -743,25 +743,21 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argCodBarra As String,
                                     ByVal argNombre As String,
                                     ByVal argAlicIVA As Double,
-                                    ByVal argBaja As Boolean,
-                                    ByVal argIdSeccion As Long,
-                                    ByVal argActualizarPrecio As Boolean                              
-                                    ) As Boolean
+                                    ByVal argIdSeccion As Long
+                                    ) As String
         Try
-            Dim ArticuloInsertado As Boolean = mobj_D_AdminSiCoFa.InsertarArticulo(
-                                                                                   UCase(argCodigo),
-                                                                                   UCase(argCodBarra),
-                                                                                   UCase(argNombre),
-                                                                                   argAlicIVA,
-                                                                                   argBaja,
-                                                                                   argIdSeccion,
-                                                                                   argActualizarPrecio
-                                                                                   )
-            Return ArticuloInsertado
+            Dim IdArticulo As String = mobj_D_AdminSiCoFa.InsertarArticulo(
+                                                                           UCase(argCodigo),
+                                                                           UCase(argCodBarra),
+                                                                           UCase(argNombre),
+                                                                           argAlicIVA,
+                                                                           argIdSeccion
+                                                                           )
+            Return IdArticulo
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarArticulo", ex.Message))
-            Return False
+            Return ""
 
         End Try
 
@@ -773,8 +769,7 @@ Public Class cls_N_AdminSiCoFa
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Double,
                                         ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As Long,
-                                        ByVal argActualizarPrecio As Boolean
+                                        ByVal argIdSeccion As Long
                                         ) As Boolean
 
         Try
@@ -785,8 +780,7 @@ Public Class cls_N_AdminSiCoFa
                                                                              UCase(argNombre),
                                                                              argAlicIVA,
                                                                              argBaja,
-                                                                             argIdSeccion,
-                                                                             argActualizarPrecio
+                                                                             argIdSeccion
                                                                              )
             Return Actualizado
         Catch ex As Exception
