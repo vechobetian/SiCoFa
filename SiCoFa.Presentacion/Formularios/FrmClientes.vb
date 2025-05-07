@@ -44,7 +44,7 @@ Public Class FrmClientes
                 FrmBuscaPersonas.ShowDialog()
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                    Dim p = FrmBuscaPersonas.PersonaSeleccionado
+                    Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
                     c = Me.SeleccionarClienteListado(p.Id, lc)
                 End If
                 FrmBuscaPersonas.Close()

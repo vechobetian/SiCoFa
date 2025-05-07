@@ -43,7 +43,7 @@ Public Class FrmEmpresas
                 FrmBuscaPersonas.ShowDialog()
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                    Dim p = FrmBuscaPersonas.PersonaSeleccionado
+                    Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
                     e = Me.SeleccionarEmpresaListado(p.Id, le)
                 End If
                 FrmBuscaPersonas.Close()

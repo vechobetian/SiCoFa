@@ -33,7 +33,6 @@ Partial Class FrmArticulos
         Dim SeccionLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmArticulos))
         Me.IdArticulo = New System.Windows.Forms.TextBox()
-        Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Codigo = New System.Windows.Forms.TextBox()
         Me.CodBarra = New System.Windows.Forms.TextBox()
         Me.Nombre = New System.Windows.Forms.TextBox()
@@ -45,6 +44,7 @@ Partial Class FrmArticulos
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
+        Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         IdArticuloLabel = New System.Windows.Forms.Label()
         CodigoLabel = New System.Windows.Forms.Label()
         CodBarraLabel = New System.Windows.Forms.Label()
@@ -52,8 +52,8 @@ Partial Class FrmArticulos
         AlicuotaIVALabel = New System.Windows.Forms.Label()
         BajaLabel = New System.Windows.Forms.Label()
         SeccionLabel = New System.Windows.Forms.Label()
-        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
+        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'IdArticuloLabel
@@ -128,10 +128,6 @@ Partial Class FrmArticulos
         Me.IdArticulo.Size = New System.Drawing.Size(315, 20)
         Me.IdArticulo.TabIndex = 0
         Me.IdArticulo.TabStop = False
-        '
-        'ArticuloBindingSource
-        '
-        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
         '
         'Codigo
         '
@@ -237,6 +233,10 @@ Partial Class FrmArticulos
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
+        'ArticuloBindingSource
+        '
+        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
+        '
         'FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -260,9 +260,9 @@ Partial Class FrmArticulos
         Me.Name = "FrmArticulos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmArticulos"
-        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

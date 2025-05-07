@@ -23,7 +23,7 @@ Public Class FrmEdicionPersonas
         Me.Nombre.Select()
     End Sub
     Public Overridable Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar.Click
-        Dim str = InputBox("Ingrese el Cliente", "SiCoFa")
+        Dim str = InputBox("Ingrese la Persona", "SiCoFa")
         Me.TextoBuscar = ""
         If str = "" Then
             Me.Nombre.Select()

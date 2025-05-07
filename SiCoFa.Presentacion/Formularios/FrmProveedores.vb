@@ -27,7 +27,7 @@ Public Class FrmProveedores
 
                 ' Verificamos si el usuario seleccionó un cliente
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                    Dim p = FrmBuscaPersonas.PersonaSeleccionado
+                    Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
                     pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
                 End If
                 FrmBuscaPersonas.Close()

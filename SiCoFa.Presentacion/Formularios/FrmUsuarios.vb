@@ -26,7 +26,7 @@ Public Class FrmUsuarios
                 FrmBuscaPersonas.ShowDialog()
 
                 If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                    Dim p = FrmBuscaPersonas.PersonaSeleccionado
+                    Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
                     u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
                 End If
                 FrmBuscaPersonas.Close()

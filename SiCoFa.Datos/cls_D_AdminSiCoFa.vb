@@ -1628,9 +1628,9 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_IdSeccion", MySqlDbType.Int64).Value = argIdSeccion
                     End With
 
-                    cmd.Parameters("_IdArticulo").Direction = ParameterDirection.Output
+                    'cmd.Parameters("_IdArticulo").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdArticulo = cmd.Parameters("_IdArticulo").Value
+                    'IdArticulo = cmd.Parameters("_IdArticulo").Value
 
                 End Using
 
