@@ -22,36 +22,11 @@ Partial Class FrmPanelClientes
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.DatosCliente = New System.Windows.Forms.TabPage()
         Me.PanelCliente = New System.Windows.Forms.TabControl()
-        Me.PanelCliente.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(401, 373)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Cuenta Corriente"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'DatosCliente
-        '
-        Me.DatosCliente.Location = New System.Drawing.Point(4, 22)
-        Me.DatosCliente.Name = "DatosCliente"
-        Me.DatosCliente.Padding = New System.Windows.Forms.Padding(3)
-        Me.DatosCliente.Size = New System.Drawing.Size(401, 364)
-        Me.DatosCliente.TabIndex = 0
-        Me.DatosCliente.Text = "Datos Cliente"
-        Me.DatosCliente.UseVisualStyleBackColor = True
         '
         'PanelCliente
         '
-        Me.PanelCliente.Controls.Add(Me.DatosCliente)
-        Me.PanelCliente.Controls.Add(Me.TabPage2)
         Me.PanelCliente.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelCliente.Location = New System.Drawing.Point(0, 0)
         Me.PanelCliente.Name = "PanelCliente"
@@ -68,12 +43,8 @@ Partial Class FrmPanelClientes
         Me.Name = "FrmPanelClientes"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmPanelClientes"
-        Me.PanelCliente.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents DatosCliente As TabPage
     Friend WithEvents PanelCliente As TabControl
 End Class

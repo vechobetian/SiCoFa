@@ -129,6 +129,37 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\DataSources\AlicuotaIVA.datasource" />
+    <None Include="My Project\DataSources\Archivo.datasource" />
+    <None Include="My Project\DataSources\Articulo.datasource" />
+    <None Include="My Project\DataSources\AsientoContable.datasource" />
+    <None Include="My Project\DataSources\CAE.datasource" />
+    <None Include="My Project\DataSources\Cliente.datasource" />
+    <None Include="My Project\DataSources\Comprobante.datasource" />
+    <None Include="My Project\DataSources\CuentaColectiva.datasource" />
+    <None Include="My Project\DataSources\CuentaCorriente.datasource" />
+    <None Include="My Project\DataSources\CuentaEmail.datasource" />
+    <None Include="My Project\DataSources\CuentaImputable.datasource" />
+    <None Include="My Project\DataSources\Documento.datasource" />
+    <None Include="My Project\DataSources\Empleado.datasource" />
+    <None Include="My Project\DataSources\Empresa.datasource" />
+    <None Include="My Project\DataSources\ItemAsientoContable.datasource" />
+    <None Include="My Project\DataSources\ItemComprobante.datasource" />
+    <None Include="My Project\DataSources\IVA.datasource" />
+    <None Include="My Project\DataSources\ListaPrecios.datasource" />
+    <None Include="My Project\DataSources\LoginTicket.datasource" />
+    <None Include="My Project\DataSources\Operacion.datasource" />
+    <None Include="My Project\DataSources\Persona.datasource" />
+    <None Include="My Project\DataSources\Proveedor.datasource" />
+    <None Include="My Project\DataSources\QRCompE.datasource" />
+    <None Include="My Project\DataSources\RubroContabilidad.datasource" />
+    <None Include="My Project\DataSources\Seccion.datasource" />
+    <None Include="My Project\DataSources\Secion.datasource" />
+    <None Include="My Project\DataSources\SubRubroContabilidad.datasource" />
+    <None Include="My Project\DataSources\TipoComprobante.datasource" />
+    <None Include="My Project\DataSources\TipoDocumento.datasource" />
+    <None Include="My Project\DataSources\TipoOperacion.datasource" />
+    <None Include="My Project\DataSources\Usuario.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

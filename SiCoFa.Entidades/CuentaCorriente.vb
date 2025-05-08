@@ -5,7 +5,7 @@
     Property LimiteCredito As Decimal
     Property FechaAlta As Date
     Property Observaciones As String
-    Property Baja As Boolean
+    Property Estado As String
 
     Public Sub New(
                   ByVal argIdCC As Int32,
@@ -14,7 +14,7 @@
                   ByVal argLimiteCredito As Decimal,
                   ByVal argFechaAlta As Date,
                   ByVal argObservaciones As String,
-                  ByVal argBaja As Boolean
+                  ByVal argEstado As String
                   )
 
         Me.IdCC = argIdCC
@@ -23,7 +23,7 @@
         Me.LimiteCredito = argLimiteCredito
         Me.FechaAlta = argFechaAlta
         Me.Observaciones = argObservaciones
-        Me.Baja = argBaja
+        Me.Estado = argEstado
 
     End Sub
 

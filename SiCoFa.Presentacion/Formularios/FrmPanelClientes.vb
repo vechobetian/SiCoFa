@@ -1,11 +1,36 @@
 ﻿Public Class FrmPanelClientes
-    Private Sub FrmPanelClientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub AnexarPestañas()
         ' Instancia del formulario de cliente
         Dim frmClienteInstancia As New FrmClientes()
-        frmClienteInstancia.TopLevel = False ' Indica que no es un formulario de nivel superior
-        frmClienteInstancia.FormBorderStyle = FormBorderStyle.None ' Opcional: Quita los bordes
-        frmClienteInstancia.Dock = DockStyle.Fill ' Opcional: Rellena toda la pestaña
-        DatosCliente.Controls.Add(frmClienteInstancia) ' Agrega el formulario a la primera pestaña
-        frmClienteInstancia.Show() ' Muestra el formulario dentro de la pestaña
+        Dim tabPageClientes As New TabPage("Datos Cliente") ' Crea una nueva pestaña
+
+        With frmClienteInstancia
+            .TopLevel = False
+            .FormBorderStyle = FormBorderStyle.None
+            .Dock = DockStyle.Fill
+            tabPageClientes.Controls.Add(frmClienteInstancia) ' Agrega el formulario a la pestaña
+            .Show()
+        End With
+
+        PanelCliente.TabPages.Add(tabPageClientes) ' Agrega la pestaña al TabControl
+
+        ' Instancia del formulario de cuenta corriente
+        Dim frmCuentaCorrienteInstancia As New FrmCuentaCorriente()
+        Dim tabPageCuentaCorriente As New TabPage("Cuenta Corriente") ' Crea otra pestaña
+
+        With frmCuentaCorrienteInstancia
+            .TopLevel = False
+            .FormBorderStyle = FormBorderStyle.None
+            .Dock = DockStyle.Fill
+            tabPageCuentaCorriente.Controls.Add(frmCuentaCorrienteInstancia) ' Agrega el formulario a la pestaña
+            .Show()
+        End With
+
+        PanelCliente.TabPages.Add(tabPageCuentaCorriente) ' Agrega la segunda pestaña
+
     End Sub
+    Private Sub FrmPanelClientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.AnexarPestañas()
+    End Sub
+
 End Class
