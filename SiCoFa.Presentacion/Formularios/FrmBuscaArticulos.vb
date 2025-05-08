@@ -37,7 +37,7 @@ Public Class FrmBuscaArticulos
                 .Rows(x).Cells("Codigo").Value = a.Codigo
                 .Rows(x).Cells("CodBarra").Value = a.CodBarra
                 .Rows(x).Cells("Nombre").Value = a.Nombre
-                .Rows(x).Cells("AlicIVA").Value = a.AlicIVA.AlicIVA
+                .Rows(x).Cells("AlicIVA").Value = a.AlicuotaIVA.AlicIVA
                 .Rows(x).Cells("FechaPrecio").Value = a.FechaPrecio
                 .Rows(x).Cells("PrecioCosto").Value = a.PrecioCosto
                 .Rows(x).Cells("PrecioVenta").Value = a.PrecioVenta
@@ -53,7 +53,7 @@ Public Class FrmBuscaArticulos
             End With
             x += 1
         Next
-        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(1)
+        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(3)
     End Sub
     Private Sub FrmBuscaPersonas_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.CargarDatosEnDataGridView()

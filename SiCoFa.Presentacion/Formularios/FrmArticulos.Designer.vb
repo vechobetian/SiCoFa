@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmArticulos
     'Inherits System.Windows.Forms.Form
     Inherits clsFrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -21,7 +21,7 @@ Partial Class FrmArticulos
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim IdArticuloLabel As System.Windows.Forms.Label
@@ -33,18 +33,18 @@ Partial Class FrmArticulos
         Dim SeccionLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmArticulos))
         Me.IdArticulo = New System.Windows.Forms.TextBox()
+        Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Codigo = New System.Windows.Forms.TextBox()
         Me.CodBarra = New System.Windows.Forms.TextBox()
         Me.Nombre = New System.Windows.Forms.TextBox()
         Me.AlicuotaIVA = New System.Windows.Forms.ComboBox()
-        Me.Baja = New System.Windows.Forms.ComboBox()
         Me.Seccion = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.Guardar = New System.Windows.Forms.ToolStripButton()
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
-        Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.Baja = New System.Windows.Forms.ComboBox()
         IdArticuloLabel = New System.Windows.Forms.Label()
         CodigoLabel = New System.Windows.Forms.Label()
         CodBarraLabel = New System.Windows.Forms.Label()
@@ -52,8 +52,8 @@ Partial Class FrmArticulos
         AlicuotaIVALabel = New System.Windows.Forms.Label()
         BajaLabel = New System.Windows.Forms.Label()
         SeccionLabel = New System.Windows.Forms.Label()
-        Me.ToolStrip1.SuspendLayout()
         CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'IdArticuloLabel
@@ -129,6 +129,10 @@ Partial Class FrmArticulos
         Me.IdArticulo.TabIndex = 0
         Me.IdArticulo.TabStop = False
         '
+        'ArticuloBindingSource
+        '
+        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
+        '
         'Codigo
         '
         Me.Codigo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Codigo", True))
@@ -155,8 +159,8 @@ Partial Class FrmArticulos
         '
         'AlicuotaIVA
         '
-        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicIVA.AlicuotaIVA", True))
-        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicIVA", True))
+        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicuotaIVA", True))
+        Me.AlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
         Me.AlicuotaIVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.AlicuotaIVA.FormattingEnabled = True
         Me.AlicuotaIVA.Location = New System.Drawing.Point(104, 144)
@@ -164,22 +168,10 @@ Partial Class FrmArticulos
         Me.AlicuotaIVA.Size = New System.Drawing.Size(315, 21)
         Me.AlicuotaIVA.TabIndex = 4
         '
-        'Baja
-        '
-        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Baja", True))
-        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Baja", True))
-        Me.Baja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Baja.FormattingEnabled = True
-        Me.Baja.ItemHeight = 13
-        Me.Baja.Items.AddRange(New Object() {"NO", "SI"})
-        Me.Baja.Location = New System.Drawing.Point(104, 171)
-        Me.Baja.Name = "Baja"
-        Me.Baja.Size = New System.Drawing.Size(315, 21)
-        Me.Baja.TabIndex = 5
-        '
         'Seccion
         '
         Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Seccion.Seccion", True))
+        Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Seccion", True))
         Me.Seccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Seccion.FormattingEnabled = True
         Me.Seccion.ItemHeight = 13
@@ -233,20 +225,28 @@ Partial Class FrmArticulos
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
-        'ArticuloBindingSource
+        'Baja
         '
-        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
+        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Baja", True))
+        Me.Baja.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Baja", True))
+        Me.Baja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Baja.FormattingEnabled = True
+        Me.Baja.Items.AddRange(New Object() {"NO", "SI"})
+        Me.Baja.Location = New System.Drawing.Point(104, 171)
+        Me.Baja.Name = "Baja"
+        Me.Baja.Size = New System.Drawing.Size(315, 21)
+        Me.Baja.TabIndex = 5
         '
         'FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(431, 232)
+        Me.ClientSize = New System.Drawing.Size(431, 231)
+        Me.Controls.Add(Me.Baja)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(SeccionLabel)
         Me.Controls.Add(Me.Seccion)
         Me.Controls.Add(BajaLabel)
-        Me.Controls.Add(Me.Baja)
         Me.Controls.Add(AlicuotaIVALabel)
         Me.Controls.Add(Me.AlicuotaIVA)
         Me.Controls.Add(NombreLabel)
@@ -260,9 +260,9 @@ Partial Class FrmArticulos
         Me.Name = "FrmArticulos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmArticulos"
+        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -274,11 +274,11 @@ Partial Class FrmArticulos
     Friend WithEvents CodBarra As TextBox
     Friend WithEvents Nombre As TextBox
     Friend WithEvents AlicuotaIVA As ComboBox
-    Friend WithEvents Baja As ComboBox
     Friend WithEvents Seccion As ComboBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents Guardar As ToolStripButton
     Friend WithEvents Nuevo As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
+    Friend WithEvents Baja As ComboBox
 End Class

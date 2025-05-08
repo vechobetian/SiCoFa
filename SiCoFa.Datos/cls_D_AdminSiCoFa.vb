@@ -1583,9 +1583,6 @@ Public Class cls_D_AdminSiCoFa
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
                             Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
 
-                            Dim articulo As New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
-                            objLA.Add(articulo)
-
                             Dim objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
                             objLA.Add(objArt)
                         End While
@@ -1609,7 +1606,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argCodigo As String,
                                     ByVal argCodBarra As String,
                                     ByVal argNombre As String,
-                                    ByVal argAlicIVA As Double,
+                                    ByVal argAlicIVA As Int16,
                                     ByVal argIdSeccion As Int32
                                     ) As String
 
@@ -1624,21 +1621,22 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
-                        .Add("_IdSeccion", MySqlDbType.Int64).Value = argIdSeccion
+                        .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
+                        .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
+                        .Add("_IdArticulo", MySqlDbType.VarChar, 10)
                     End With
 
-                    'cmd.Parameters("_IdArticulo").Direction = ParameterDirection.Output
+                    cmd.Parameters("_IdArticulo").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    'IdArticulo = cmd.Parameters("_IdArticulo").Value
-
+                    IdArticulo = cmd.Parameters("_IdArticulo").Value.ToString
+                    Return IdArticulo
                 End Using
 
             End Using
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarArticulo", Ex.Message))
-            Return False
+            Return ""
 
         End Try
 
@@ -1648,7 +1646,7 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argCodigo As String,
                                         ByVal argCodBarra As String,
                                         ByVal argNombre As String,
-                                        ByVal argAlicIVA As Double,
+                                        ByVal argAlicIVA As Int16,
                                         ByVal argBaja As Boolean,
                                         ByVal argIdSeccion As Int32
                                         ) As Boolean
@@ -1664,7 +1662,7 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Double).Value = argAlicIVA
+                        .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
                         .Add("_Baja", MySqlDbType.Bit).Value = argBaja
                         .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
                     End With

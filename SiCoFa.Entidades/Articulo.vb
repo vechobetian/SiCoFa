@@ -3,7 +3,7 @@
     Property Codigo As String
     Property CodBarra As Long
     Property Nombre As String
-    Property AlicIVA As AlicuotaIVA
+    Property AlicuotaIVA As AlicuotaIVA
     Property FechaPrecio As Date
     Property PrecioCosto As Decimal
     Property PrecioVenta As Decimal
@@ -18,7 +18,7 @@
                    ByVal argCodigo As String,
                    ByVal argCodBarra As Long,
                    ByVal argNombre As String,
-                   ByVal argAlicIVA As AlicuotaIVA,
+                   ByVal argAlicuotaIVA As AlicuotaIVA,
                    ByVal argFechaPrecio As Date,
                    ByVal argPrecioCosto As Decimal,
                    ByVal argPrecioVenta As Decimal,
@@ -34,7 +34,7 @@
         Me.Codigo = argCodigo
         Me.CodBarra = argCodBarra
         Me.Nombre = argNombre
-        Me.AlicIVA = argAlicIVA
+        Me.AlicuotaIVA = argAlicuotaIVA
         Me.FechaPrecio = argFechaPrecio
         Me.PrecioCosto = argPrecioCosto
         Me.PrecioVenta = argPrecioVenta

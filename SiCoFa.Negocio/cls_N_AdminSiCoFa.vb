@@ -492,8 +492,8 @@ Public Class cls_N_AdminSiCoFa
     End Function
     Public Function AlicuotasIVA() As List(Of AlicuotaIVA)
         Dim ALIVAS As New List(Of AlicuotaIVA)
-        ALIVAS.Add(New AlicuotaIVA("10.50"))
-        ALIVAS.Add(New AlicuotaIVA("21.00"))
+        ALIVAS.Add(New AlicuotaIVA("1"))
+        ALIVAS.Add(New AlicuotaIVA("2"))
         Return ALIVAS.OrderBy(Function(x) x.AlicuotaIVA).ToList
     End Function
 

@@ -7,10 +7,18 @@ Public Class FrmEdicionPersonas
 
     Public mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
     Private Sub ObtenerTiposDocumento()
-        Me.TipoDoc.DataSource = mobj_N_AdminSiCoFa.TiposDocumento
-        Me.TipoDoc.ValueMember = "CodiTDoc"
-        Me.TipoDoc.DisplayMember = "TipoDocumento"
-        Me.TipoDoc.SelectedIndex = -1
+
+        Try
+            Me.TipoDoc.DataSource = mobj_N_AdminSiCoFa.TiposDocumento
+            Me.TipoDoc.ValueMember = "CodiTDoc"
+            Me.TipoDoc.DisplayMember = "TipoDocumento"
+            Me.TipoDoc.SelectedIndex = -1
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
     Private Sub FrmEdicionPersonas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.ObtenerTiposDocumento()
@@ -19,6 +27,7 @@ Public Class FrmEdicionPersonas
 
     End Sub
     Public Overridable Sub Nuevo_Click(sender As Object, e As EventArgs) Handles Nuevo.Click
+        Me.LimpiarFormulario()
         Me.NuevaPersona = True
         Me.Nombre.Select()
     End Sub
@@ -35,6 +44,7 @@ Public Class FrmEdicionPersonas
     End Sub
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
         Me.LimpiarFormulario()
+        Me.NuevaPersona = False
         Me.Nombre.Select()
     End Sub
     Public Overridable Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
