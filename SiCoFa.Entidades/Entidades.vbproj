@@ -76,6 +76,7 @@
     <Compile Include="Cliente.vb" />
     <Compile Include="Comprobante.vb" />
     <Compile Include="CuentaColectiva.vb" />
+    <Compile Include="CuentaCorriente.vb" />
     <Compile Include="CuentaEmail.vb" />
     <Compile Include="CuentaImputable.vb" />
     <Compile Include="Documento.vb" />

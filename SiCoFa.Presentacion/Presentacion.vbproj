@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmArticulos</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmPanelClientes</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -142,10 +142,22 @@
     <Compile Include="Formularios\FrmBuscaArticulos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmCuentaCorriente.Designer.vb">
+      <DependentUpon>FrmCuentaCorriente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmCuentaCorriente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmEmpresas.Designer.vb">
       <DependentUpon>FrmEmpresas.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmEmpresas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmPanelClientes.Designer.vb">
+      <DependentUpon>FrmPanelClientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmPanelClientes.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmProveedores.Designer.vb">
@@ -234,8 +246,14 @@
     <EmbeddedResource Include="Formularios\FrmBuscaArticulos.resx">
       <DependentUpon>FrmBuscaArticulos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmCuentaCorriente.resx">
+      <DependentUpon>FrmCuentaCorriente.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEmpresas.resx">
       <DependentUpon>FrmEmpresas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmPanelClientes.resx">
+      <DependentUpon>FrmPanelClientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmProveedores.resx">
       <DependentUpon>FrmProveedores.vb</DependentUpon>
@@ -287,6 +305,7 @@
     <None Include="My Project\DataSources\SiCoFa.Entidades.Cliente.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Comprobante.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaColectiva.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaCorriente.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaEmail.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaImputable.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Documento.datasource" />
