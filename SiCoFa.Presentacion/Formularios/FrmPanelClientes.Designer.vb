@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmPanelClientes
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmPanelClientes
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.DatosCliente = New System.Windows.Forms.TabPage()
@@ -43,7 +43,7 @@ Partial Class FrmPanelClientes
         Me.DatosCliente.Location = New System.Drawing.Point(4, 22)
         Me.DatosCliente.Name = "DatosCliente"
         Me.DatosCliente.Padding = New System.Windows.Forms.Padding(3)
-        Me.DatosCliente.Size = New System.Drawing.Size(441, 424)
+        Me.DatosCliente.Size = New System.Drawing.Size(401, 364)
         Me.DatosCliente.TabIndex = 0
         Me.DatosCliente.Text = "Datos Cliente"
         Me.DatosCliente.UseVisualStyleBackColor = True
@@ -56,14 +56,14 @@ Partial Class FrmPanelClientes
         Me.PanelCliente.Location = New System.Drawing.Point(0, 0)
         Me.PanelCliente.Name = "PanelCliente"
         Me.PanelCliente.SelectedIndex = 0
-        Me.PanelCliente.Size = New System.Drawing.Size(409, 399)
+        Me.PanelCliente.Size = New System.Drawing.Size(409, 390)
         Me.PanelCliente.TabIndex = 0
         '
         'FrmPanelClientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(409, 399)
+        Me.ClientSize = New System.Drawing.Size(409, 390)
         Me.Controls.Add(Me.PanelCliente)
         Me.Name = "FrmPanelClientes"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
