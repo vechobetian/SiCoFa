@@ -55,7 +55,7 @@ Partial Class FrmClientes
         Me.Controls.Add(Me.IVA)
         Me.KeyPreview = True
         Me.Name = "FrmClientes"
-        Me.Text = "Cliente"
+        Me.Text = "j"
         Me.Controls.SetChildIndex(Me.IVA, 0)
         Me.Controls.SetChildIndex(Me.Label4, 0)
         Me.ResumeLayout(False)

@@ -162,7 +162,7 @@ Public Class FrmEmpresas
                 .Add("Estado", "ACTIVO")
             End With
 
-            EstablecerValoresPorDefecto(valoresDefecto)
+            EstablecerValoresPorDefecto(Me, valoresDefecto)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

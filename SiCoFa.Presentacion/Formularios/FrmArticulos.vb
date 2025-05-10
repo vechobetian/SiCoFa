@@ -160,7 +160,7 @@ Public Class FrmArticulos
                 .Add("Baja", "NO")
             End With
 
-            EstablecerValoresPorDefecto(valoresDefecto)
+            EstablecerValoresPorDefecto(Me, valoresDefecto)
 
             With Me.ControlesReadOnly
                 .Add("IdArticulo")

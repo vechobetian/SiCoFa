@@ -132,8 +132,8 @@
             End If
         Next
     End Sub
-    Public Sub EstablecerValoresPorDefecto(ByVal ValoresPorDefecto As Dictionary(Of String, Object))
-        For Each control As Control In Me.Controls
+    Protected Sub EstablecerValoresPorDefecto(ByVal container As Control, ByVal ValoresPorDefecto As Dictionary(Of String, Object))
+        For Each control As Control In container.Controls 'Me.Controls
             If ValoresPorDefecto.ContainsKey(control.Name) Then
                 Dim valorDefecto As Object = ValoresPorDefecto(control.Name)
 
@@ -176,5 +176,6 @@
             End If
         Next
     End Sub
+
 End Class
 

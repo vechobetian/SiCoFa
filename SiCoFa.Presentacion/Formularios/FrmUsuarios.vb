@@ -128,7 +128,7 @@ Public Class FrmUsuarios
             ' Agrega aquí los nombres de todos los controles y sus valores por defecto
 
             ' Llama al procedimiento para establecer los valores por defecto
-            EstablecerValoresPorDefecto(valoresDefecto)
+            EstablecerValoresPorDefecto(Me, valoresDefecto)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
