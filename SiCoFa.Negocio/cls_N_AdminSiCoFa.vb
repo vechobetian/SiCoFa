@@ -111,15 +111,14 @@ Public Class cls_N_AdminSiCoFa
 
         End Try
     End Function
-
     Public Function InsertarCuentaCorriente(
                                             ByVal argIdCliente As Int32,
                                             ByVal argDescripcion As String,
                                             ByVal argCredito As Decimal,
                                             ByVal argObservaciones As String
-                                            ) As Int64
+                                            ) As Int16
         Try
-            Dim IdCC As Int64 = mobj_D_AdminSiCoFa.InsertarCuentaCorriente(argIdCliente,
+            Dim IdCC As Int16 = mobj_D_AdminSiCoFa.InsertarCuentaCorriente(argIdCliente,
                                                                             UCase(argDescripcion),
                                                                             argCredito,
                                                                             argObservaciones
@@ -128,6 +127,27 @@ Public Class cls_N_AdminSiCoFa
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaCorriente", ex.Message))
+            Return 0
+
+        End Try
+
+    End Function
+    Public Function ActualizarCuentaCorriente(
+                                              ByVal argIdCC As Int32,
+                                              ByVal argCredito As Decimal,
+                                              ByVal argObservaciones As String,
+                                              ByVal argEstado As String
+                                              ) As Boolean
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarCuentaCorriente(argIdCC,
+                                                                                      argCredito,
+                                                                                      argObservaciones,
+                                                                                      argEstado
+                                                                                      )
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCuentaCorriente", ex.Message))
             Return 0
 
         End Try
@@ -781,7 +801,7 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argCodBarra As String,
                                     ByVal argNombre As String,
                                     ByVal argAlicIVA As Double,
-                                    ByVal argIdSeccion As Long
+                                    ByVal argIdSeccion As String
                                     ) As String
         Try
             Dim IdArticulo As String = mobj_D_AdminSiCoFa.InsertarArticulo(
@@ -807,7 +827,7 @@ Public Class cls_N_AdminSiCoFa
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Double,
                                         ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As Long
+                                        ByVal argIdSeccion As String
                                         ) As Boolean
 
         Try

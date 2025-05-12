@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmPanelClientes</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmArticulos</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -160,6 +160,12 @@
     <Compile Include="Formularios\FrmProveedores.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmSecciones.Designer.vb">
+      <DependentUpon>FrmSecciones.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmSecciones.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmUsuarios.Designer.vb">
       <DependentUpon>FrmUsuarios.vb</DependentUpon>
     </Compile>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmProveedores.resx">
       <DependentUpon>FrmProveedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmSecciones.resx">
+      <DependentUpon>FrmSecciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmUsuarios.resx">
       <DependentUpon>FrmUsuarios.vb</DependentUpon>

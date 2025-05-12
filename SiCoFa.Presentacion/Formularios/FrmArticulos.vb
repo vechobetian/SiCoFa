@@ -147,6 +147,13 @@ Public Class FrmArticulos
                 End If
             End If
 
+
+            With Me.ControlesReadOnly
+                .Clear()
+                .Add("IdArticulo")
+            End With
+
+            Me.EstablecerReadOnly(Me, ControlesReadOnly)
             Me.LimpiarFormulario()
             Me.Nombre.Select()
 

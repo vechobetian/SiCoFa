@@ -6,8 +6,8 @@ Public Class FrmPanelClientes
     Private NuevaPersona As Boolean
     Private NuevaCtaCte As Boolean
     Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
-    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAltaCliente", "IdCC", "FechaAltaCuentaCorriente"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email", "IdCC", "Observaciones"}
+    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAltaCliente", "IdCC", "Descripcion", "FechaAltaCuentaCorriente"}
+    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email", "IdCC", "Descripcion", "Observaciones"}
     Private pestanaCuentaCorriente As TabPage
     Private indiceOriginalCuentaCorriente As Integer
     Private Sub OcultarPestanaCuentaCorriente()
@@ -254,26 +254,22 @@ Public Class FrmPanelClientes
                 Dim IdCC As Integer = mobj_N_AdminSiCoFa.InsertarCuentaCorriente(Me.Id.Text, UCase(Me.Descripcion.Text), Convert.ToDecimal(Me.Credito.Text), Me.Observaciones.Text)
                 If IdCC > 0 Then
                     Me.IdCC.Text = IdCC
-                    Me.Descripcion.Text = UCase(Me.Descripcion.Text)
-                    MsgBox("Se dio de alta la Cuenta Corriente " & Descripcion.Text,, "SiCoFa")
                 Else
-                    MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
+                    MsgBox("No se pudo crear la cuenta corriente, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
 
-                Me.NuevaPersona = False
+                Me.NuevaCtaCte = False
                 Me.NuevoCliente.Checked = False
 
             ElseIf Me.IdCC.Text <> "" Then
 
-                'Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.EstadoCliente.Text)
+                Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCuentaCorriente(Me.IdCC.Text, Me.Credito.Text, Me.Observaciones.Text, Me.EstadoCuentaCorriente.Text)
 
-                'If Actualizado = True Then
-                'MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
-                'Else
-                'MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
-                'Exit Sub
-                'End If
+                If Actualizado = False Then
+                    MsgBox("No se pudo actualizar la cuenta corriente, intente nuevamente", "SiCoFa")
+                    Exit Sub
+                End If
             End If
 
             Me.LimpiarFormulario()
@@ -359,6 +355,7 @@ Public Class FrmPanelClientes
             Dim valoresDefecto As New Dictionary(Of String, Object)
 
             With valoresDefecto
+                .Add("Descripcion", UCase(Me.Nombre.Text))
                 .Add("FechaAltaCuentaCorriente", Date.Today.ToShortDateString)
                 .Add("EstadoCuentaCorriente", "HABILITADA")
             End With

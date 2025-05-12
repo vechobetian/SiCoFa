@@ -237,15 +237,14 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
-
     Public Function InsertarCuentaCorriente(
                                             ByVal argIdCliente As Int32,
                                             ByVal argDescripcion As String,
                                             ByVal argCredito As Decimal,
                                             ByVal argObservaciones As String
-                                            ) As Int64
+                                            ) As Int16
 
-        Dim IdCC As Int64
+        Dim IdCC As Int16
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -261,7 +260,7 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("_IdCC").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdCC = Convert.ToInt64(cmd.Parameters("_IdCC").Value)
+                    IdCC = Convert.ToInt16(cmd.Parameters("_IdCC").Value)
                 End Using
 
             End Using
@@ -269,6 +268,40 @@ Public Class cls_D_AdminSiCoFa
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaCorriente", Ex.Message))
+
+        End Try
+
+    End Function
+    Public Function ActualizarCuentaCorriente(
+                                    ByVal argIdCC As Int32,
+                                    ByVal argCredito As Decimal,
+                                    ByVal argObservaciones As String,
+                                    ByVal argEstado As String
+                                    ) As Boolean
+
+
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("ActualizarCuentaCorriente", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("_IdCC", MySqlDbType.Int32).Value = argIdCC
+                        .Add("_Credito", MySqlDbType.Decimal).Value = argCredito
+                        .Add("_Observaciones", MySqlDbType.Text).Value = argObservaciones
+                        .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                    End With
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCuentaCorriente", Ex.Message))
+            Return False
 
         End Try
 
@@ -1366,7 +1399,7 @@ Public Class cls_D_AdminSiCoFa
 #End Region
 
 #Region "Admnistracion de Secciones"
-    Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Long) As Seccion
+    Public Function ObtenerSeccionPorId(ByVal argIdSeccion As String) As Seccion
 
         Dim objSec As Seccion
 
@@ -1385,7 +1418,7 @@ Public Class cls_D_AdminSiCoFa
                         datos.Read()
 
                         If datos.Read Then
-                            Dim IdSeccion As Long = datos("IdSeccion")
+                            Dim IdSeccion As String = datos("IdSeccion")
                             Dim Seccion As String = datos("Seccion")
                             Dim EstablecerPrecio As String = datos("EstablecerPrecio")
                             objSec = New Seccion(IdSeccion, Seccion, EstablecerPrecio)
@@ -1455,9 +1488,9 @@ Public Class cls_D_AdminSiCoFa
     Public Function InsertarSeccion(
                                     ByVal argSeccion As String,
                                     ByVal argEstablecerPrecio As Boolean
-                                    ) As Integer
+                                    ) As String
 
-        Dim IdSeccion As Integer
+        Dim IdSeccion As String
         Try
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -1466,12 +1499,12 @@ Public Class cls_D_AdminSiCoFa
                     With cmd.Parameters
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
                         .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
-                        .Add("_IdSeccion", MySqlDbType.Int32)
+                        .Add("_IdSeccion", MySqlDbType.VarChar)
                     End With
 
                     cmd.Parameters("_IdSeccion").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdSeccion = CInt(cmd.Parameters("_IdSeccion").Value)
+                    IdSeccion = cmd.Parameters("_IdSeccion").ToString
                 End Using
 
             End Using
@@ -1479,12 +1512,13 @@ Public Class cls_D_AdminSiCoFa
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarSeccion", Ex.Message))
+            Return ""
 
         End Try
 
     End Function
     Public Function ActualizarSeccion(
-                                    ByVal argIdSeccion As Integer,
+                                    ByVal argIdSeccion As String,
                                     ByVal argSeccion As String,
                                     ByVal argEstablecerPrecio As Boolean
                                     ) As Boolean
@@ -1497,7 +1531,7 @@ Public Class cls_D_AdminSiCoFa
 
                 Using cmd As New MySqlCommand("ActualizarSeccion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
+                        .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
                         .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
                     End With
@@ -1567,7 +1601,7 @@ Public Class cls_D_AdminSiCoFa
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
                             Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
-                            Dim IdSeccionResult As Int32 = Convert.ToInt32(datos.GetInt64(idSeccionOrdinal))
+                            Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
                             Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
                             Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
                             Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
@@ -1653,7 +1687,7 @@ Public Class cls_D_AdminSiCoFa
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
                             Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
-                            Dim IdSeccionResult As Int32 = Convert.ToInt32(datos.GetInt64(idSeccionOrdinal))
+                            Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
                             Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
                             Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
                             Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
@@ -1691,7 +1725,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argCodBarra As String,
                                     ByVal argNombre As String,
                                     ByVal argAlicIVA As Int16,
-                                    ByVal argIdSeccion As Int32
+                                    ByVal argIdSeccion As String
                                     ) As String
 
         Try
@@ -1706,7 +1740,7 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
-                        .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
+                        .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                         .Add("_IdArticulo", MySqlDbType.VarChar, 10)
                     End With
 
@@ -1732,7 +1766,7 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Int16,
                                         ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As Int32
+                                        ByVal argIdSeccion As String
                                         ) As Boolean
 
 
@@ -1748,7 +1782,7 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
                         .Add("_Baja", MySqlDbType.Bit).Value = argBaja
-                        .Add("_IdSeccion", MySqlDbType.Int32).Value = argIdSeccion
+                        .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                     End With
 
                     Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
