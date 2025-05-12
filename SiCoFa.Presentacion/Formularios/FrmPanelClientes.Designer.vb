@@ -32,6 +32,7 @@ Partial Class FrmPanelClientes
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPanelClientes))
         Me.PanelCliente = New System.Windows.Forms.TabControl()
         Me.Cliente = New System.Windows.Forms.TabPage()
+        Me.Provincia = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.IVA = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -51,7 +52,6 @@ Partial Class FrmPanelClientes
         Me.NumDoc = New System.Windows.Forms.TextBox()
         Me.Email = New System.Windows.Forms.TextBox()
         Me.Telefono = New System.Windows.Forms.TextBox()
-        Me.Provincia = New System.Windows.Forms.TextBox()
         Me.Localidad = New System.Windows.Forms.TextBox()
         Me.Domicilio = New System.Windows.Forms.TextBox()
         Me.Nombre = New System.Windows.Forms.TextBox()
@@ -61,13 +61,14 @@ Partial Class FrmPanelClientes
         Me.EstadoCuentaCorriente = New System.Windows.Forms.ComboBox()
         Me.FechaAltaCuentaCorriente = New System.Windows.Forms.TextBox()
         Me.IdCC = New System.Windows.Forms.TextBox()
-        Me.LimiteCredito = New System.Windows.Forms.TextBox()
+        Me.Credito = New System.Windows.Forms.TextBox()
         Me.Observaciones = New System.Windows.Forms.TextBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.Guardar = New System.Windows.Forms.ToolStripButton()
-        Me.Nuevo = New System.Windows.Forms.ToolStripButton()
+        Me.NuevoCliente = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
+        Me.NuevaCuentaCorriente = New System.Windows.Forms.ToolStripButton()
         DescripcionLabel = New System.Windows.Forms.Label()
         EstadoLabel = New System.Windows.Forms.Label()
         FechaAltaLabel = New System.Windows.Forms.Label()
@@ -146,6 +147,7 @@ Partial Class FrmPanelClientes
         '
         'Cliente
         '
+        Me.Cliente.Controls.Add(Me.Provincia)
         Me.Cliente.Controls.Add(Me.Label4)
         Me.Cliente.Controls.Add(Me.IVA)
         Me.Cliente.Controls.Add(Me.Label12)
@@ -165,7 +167,6 @@ Partial Class FrmPanelClientes
         Me.Cliente.Controls.Add(Me.NumDoc)
         Me.Cliente.Controls.Add(Me.Email)
         Me.Cliente.Controls.Add(Me.Telefono)
-        Me.Cliente.Controls.Add(Me.Provincia)
         Me.Cliente.Controls.Add(Me.Localidad)
         Me.Cliente.Controls.Add(Me.Domicilio)
         Me.Cliente.Controls.Add(Me.Nombre)
@@ -177,6 +178,16 @@ Partial Class FrmPanelClientes
         Me.Cliente.TabIndex = 0
         Me.Cliente.Text = "Datos Cliente"
         Me.Cliente.UseVisualStyleBackColor = True
+        '
+        'Provincia
+        '
+        Me.Provincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Provincia.FormattingEnabled = True
+        Me.Provincia.ItemHeight = 13
+        Me.Provincia.Location = New System.Drawing.Point(76, 109)
+        Me.Provincia.Name = "Provincia"
+        Me.Provincia.Size = New System.Drawing.Size(300, 21)
+        Me.Provincia.TabIndex = 4
         '
         'Label4
         '
@@ -195,7 +206,7 @@ Partial Class FrmPanelClientes
         Me.IVA.Location = New System.Drawing.Point(76, 293)
         Me.IVA.Name = "IVA"
         Me.IVA.Size = New System.Drawing.Size(300, 21)
-        Me.IVA.TabIndex = 69
+        Me.IVA.TabIndex = 11
         '
         'Label12
         '
@@ -215,7 +226,7 @@ Partial Class FrmPanelClientes
         Me.EstadoCliente.Location = New System.Drawing.Point(76, 266)
         Me.EstadoCliente.Name = "EstadoCliente"
         Me.EstadoCliente.Size = New System.Drawing.Size(300, 21)
-        Me.EstadoCliente.TabIndex = 57
+        Me.EstadoCliente.TabIndex = 10
         '
         'Label11
         '
@@ -232,6 +243,7 @@ Partial Class FrmPanelClientes
         Me.FechaAltaCliente.Name = "FechaAltaCliente"
         Me.FechaAltaCliente.Size = New System.Drawing.Size(300, 20)
         Me.FechaAltaCliente.TabIndex = 9
+        Me.FechaAltaCliente.TabStop = False
         '
         'Label2
         '
@@ -345,13 +357,6 @@ Partial Class FrmPanelClientes
         Me.Telefono.Size = New System.Drawing.Size(300, 20)
         Me.Telefono.TabIndex = 5
         '
-        'Provincia
-        '
-        Me.Provincia.Location = New System.Drawing.Point(76, 110)
-        Me.Provincia.Name = "Provincia"
-        Me.Provincia.Size = New System.Drawing.Size(300, 20)
-        Me.Provincia.TabIndex = 4
-        '
         'Localidad
         '
         Me.Localidad.Location = New System.Drawing.Point(76, 84)
@@ -393,7 +398,7 @@ Partial Class FrmPanelClientes
         Me.CuentaCorriente.Controls.Add(IdCCLabel)
         Me.CuentaCorriente.Controls.Add(Me.IdCC)
         Me.CuentaCorriente.Controls.Add(LimiteCreditoLabel)
-        Me.CuentaCorriente.Controls.Add(Me.LimiteCredito)
+        Me.CuentaCorriente.Controls.Add(Me.Credito)
         Me.CuentaCorriente.Controls.Add(ObservacionesLabel)
         Me.CuentaCorriente.Controls.Add(Me.Observaciones)
         Me.CuentaCorriente.Location = New System.Drawing.Point(4, 22)
@@ -409,7 +414,7 @@ Partial Class FrmPanelClientes
         Me.Descripcion.Location = New System.Drawing.Point(76, 32)
         Me.Descripcion.Name = "Descripcion"
         Me.Descripcion.Size = New System.Drawing.Size(300, 20)
-        Me.Descripcion.TabIndex = 39
+        Me.Descripcion.TabIndex = 12
         '
         'EstadoCuentaCorriente
         '
@@ -419,7 +424,7 @@ Partial Class FrmPanelClientes
         Me.EstadoCuentaCorriente.Location = New System.Drawing.Point(76, 110)
         Me.EstadoCuentaCorriente.Name = "EstadoCuentaCorriente"
         Me.EstadoCuentaCorriente.Size = New System.Drawing.Size(300, 21)
-        Me.EstadoCuentaCorriente.TabIndex = 45
+        Me.EstadoCuentaCorriente.TabIndex = 14
         '
         'FechaAltaCuentaCorriente
         '
@@ -427,6 +432,7 @@ Partial Class FrmPanelClientes
         Me.FechaAltaCuentaCorriente.Name = "FechaAltaCuentaCorriente"
         Me.FechaAltaCuentaCorriente.Size = New System.Drawing.Size(300, 20)
         Me.FechaAltaCuentaCorriente.TabIndex = 41
+        Me.FechaAltaCuentaCorriente.TabStop = False
         '
         'IdCC
         '
@@ -434,13 +440,14 @@ Partial Class FrmPanelClientes
         Me.IdCC.Name = "IdCC"
         Me.IdCC.Size = New System.Drawing.Size(300, 20)
         Me.IdCC.TabIndex = 38
+        Me.IdCC.TabStop = False
         '
-        'LimiteCredito
+        'Credito
         '
-        Me.LimiteCredito.Location = New System.Drawing.Point(76, 58)
-        Me.LimiteCredito.Name = "LimiteCredito"
-        Me.LimiteCredito.Size = New System.Drawing.Size(300, 20)
-        Me.LimiteCredito.TabIndex = 40
+        Me.Credito.Location = New System.Drawing.Point(76, 58)
+        Me.Credito.Name = "Credito"
+        Me.Credito.Size = New System.Drawing.Size(300, 20)
+        Me.Credito.TabIndex = 13
         '
         'Observaciones
         '
@@ -448,11 +455,11 @@ Partial Class FrmPanelClientes
         Me.Observaciones.Multiline = True
         Me.Observaciones.Name = "Observaciones"
         Me.Observaciones.Size = New System.Drawing.Size(364, 139)
-        Me.Observaciones.TabIndex = 42
+        Me.Observaciones.TabIndex = 15
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Guardar, Me.Nuevo, Me.Buscar, Me.Limpiar})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Guardar, Me.NuevoCliente, Me.Buscar, Me.Limpiar, Me.NuevaCuentaCorriente})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(409, 25)
@@ -468,14 +475,14 @@ Partial Class FrmPanelClientes
         Me.Guardar.Size = New System.Drawing.Size(23, 22)
         Me.Guardar.Text = "Guardar Cambios"
         '
-        'Nuevo
+        'NuevoCliente
         '
-        Me.Nuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Nuevo.Image = CType(resources.GetObject("Nuevo.Image"), System.Drawing.Image)
-        Me.Nuevo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Nuevo.Name = "Nuevo"
-        Me.Nuevo.Size = New System.Drawing.Size(23, 22)
-        Me.Nuevo.Text = "Nuevo"
+        Me.NuevoCliente.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.NuevoCliente.Image = CType(resources.GetObject("NuevoCliente.Image"), System.Drawing.Image)
+        Me.NuevoCliente.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.NuevoCliente.Name = "NuevoCliente"
+        Me.NuevoCliente.Size = New System.Drawing.Size(23, 22)
+        Me.NuevoCliente.Text = "Nuevo Cliente"
         '
         'Buscar
         '
@@ -484,7 +491,7 @@ Partial Class FrmPanelClientes
         Me.Buscar.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Buscar.Name = "Buscar"
         Me.Buscar.Size = New System.Drawing.Size(23, 22)
-        Me.Buscar.Text = "Buscar"
+        Me.Buscar.Text = "Buscar Cliente"
         '
         'Limpiar
         '
@@ -494,6 +501,16 @@ Partial Class FrmPanelClientes
         Me.Limpiar.Name = "Limpiar"
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
+        '
+        'NuevaCuentaCorriente
+        '
+        Me.NuevaCuentaCorriente.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.NuevaCuentaCorriente.Image = CType(resources.GetObject("NuevaCuentaCorriente.Image"), System.Drawing.Image)
+        Me.NuevaCuentaCorriente.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.NuevaCuentaCorriente.Name = "NuevaCuentaCorriente"
+        Me.NuevaCuentaCorriente.Size = New System.Drawing.Size(23, 22)
+        Me.NuevaCuentaCorriente.Text = "Abrir Cuenta Corriente"
+        Me.NuevaCuentaCorriente.Visible = False
         '
         'FrmPanelClientes
         '
@@ -536,7 +553,6 @@ Partial Class FrmPanelClientes
     Friend WithEvents NumDoc As TextBox
     Friend WithEvents Email As TextBox
     Friend WithEvents Telefono As TextBox
-    Friend WithEvents Provincia As TextBox
     Friend WithEvents Localidad As TextBox
     Friend WithEvents Domicilio As TextBox
     Friend WithEvents Nombre As TextBox
@@ -547,11 +563,13 @@ Partial Class FrmPanelClientes
     Friend WithEvents EstadoCuentaCorriente As ComboBox
     Friend WithEvents FechaAltaCuentaCorriente As TextBox
     Friend WithEvents IdCC As TextBox
-    Friend WithEvents LimiteCredito As TextBox
+    Friend WithEvents Credito As TextBox
     Friend WithEvents Observaciones As TextBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents Guardar As ToolStripButton
-    Friend WithEvents Nuevo As ToolStripButton
+    Friend WithEvents NuevoCliente As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
+    Friend WithEvents Provincia As ComboBox
+    Friend WithEvents NuevaCuentaCorriente As ToolStripButton
 End Class

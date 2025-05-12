@@ -90,6 +90,7 @@
     <Compile Include="Operacion.vb" />
     <Compile Include="Persona.vb" />
     <Compile Include="Proveedor.vb" />
+    <Compile Include="Provincia.vb" />
     <Compile Include="QRCompE.vb" />
     <Compile Include="RubroContabilidad.vb" />
     <Compile Include="Seccion.vb" />

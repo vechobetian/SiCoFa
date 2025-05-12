@@ -209,6 +209,7 @@ Partial Class FrmBuscaArticulos
         Me.ControlBox = False
         Me.Controls.Add(Me.DataGridView1)
         Me.Name = "FrmBuscaArticulos"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Lista de Articulos"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

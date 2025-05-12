@@ -33,7 +33,6 @@ Partial Class FrmEdicionPersonas
         Me.NumDoc = New System.Windows.Forms.TextBox()
         Me.Email = New System.Windows.Forms.TextBox()
         Me.Telefono = New System.Windows.Forms.TextBox()
-        Me.Provincia = New System.Windows.Forms.TextBox()
         Me.Localidad = New System.Windows.Forms.TextBox()
         Me.Domicilio = New System.Windows.Forms.TextBox()
         Me.Nombre = New System.Windows.Forms.TextBox()
@@ -51,6 +50,7 @@ Partial Class FrmEdicionPersonas
         Me.FechaAlta = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Estado = New System.Windows.Forms.ComboBox()
+        Me.Provincia = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -129,13 +129,6 @@ Partial Class FrmEdicionPersonas
         Me.Telefono.Name = "Telefono"
         Me.Telefono.Size = New System.Drawing.Size(300, 20)
         Me.Telefono.TabIndex = 6
-        '
-        'Provincia
-        '
-        Me.Provincia.Location = New System.Drawing.Point(79, 142)
-        Me.Provincia.Name = "Provincia"
-        Me.Provincia.Size = New System.Drawing.Size(300, 20)
-        Me.Provincia.TabIndex = 5
         '
         'Localidad
         '
@@ -284,11 +277,21 @@ Partial Class FrmEdicionPersonas
         Me.Estado.Size = New System.Drawing.Size(300, 21)
         Me.Estado.TabIndex = 11
         '
+        'Provincia
+        '
+        Me.Provincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Provincia.FormattingEnabled = True
+        Me.Provincia.Location = New System.Drawing.Point(79, 141)
+        Me.Provincia.Name = "Provincia"
+        Me.Provincia.Size = New System.Drawing.Size(300, 21)
+        Me.Provincia.TabIndex = 5
+        '
         'FrmEdicionPersonas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(394, 331)
+        Me.Controls.Add(Me.Provincia)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.Label11)
@@ -306,7 +309,6 @@ Partial Class FrmEdicionPersonas
         Me.Controls.Add(Me.NumDoc)
         Me.Controls.Add(Me.Email)
         Me.Controls.Add(Me.Telefono)
-        Me.Controls.Add(Me.Provincia)
         Me.Controls.Add(Me.Localidad)
         Me.Controls.Add(Me.Domicilio)
         Me.Controls.Add(Me.Nombre)
@@ -331,7 +333,6 @@ Partial Class FrmEdicionPersonas
     Friend WithEvents NumDoc As TextBox
     Friend WithEvents Email As TextBox
     Friend WithEvents Telefono As TextBox
-    Friend WithEvents Provincia As TextBox
     Friend WithEvents Localidad As TextBox
     Friend WithEvents Domicilio As TextBox
     Friend WithEvents Nombre As TextBox
@@ -349,4 +350,5 @@ Partial Class FrmEdicionPersonas
     Friend WithEvents FechaAlta As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Estado As ComboBox
+    Friend WithEvents Provincia As ComboBox
 End Class

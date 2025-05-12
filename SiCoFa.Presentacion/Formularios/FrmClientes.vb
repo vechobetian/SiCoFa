@@ -36,7 +36,7 @@ Public Class FrmClientes
         End Try
 
     End Function
-    Private Function BuscarCliente(ByVal argTextoBuscado As String) As Cliente
+    Private Sub BuscarCliente(ByVal argTextoBuscado As String)
 
         Try
             Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
@@ -44,15 +44,15 @@ Public Class FrmClientes
 
             If lc Is Nothing Then
                 MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
-                Return Nothing
-                Exit Function
+                Exit Sub
             End If
 
             Select Case lc.Count
                 Case 0
                     MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
-                    Return Nothing
-                    Exit Function
+                    Me.Nombre.Text = ""
+                    Me.Nombre.Select()
+                    Exit Sub
                 Case 1
                     c = lc.First
                 Case > 1
@@ -66,8 +66,6 @@ Public Class FrmClientes
                     FrmBuscaPersonas.Close()
             End Select
 
-            Return c
-            c = Nothing
             With Me
                 .LimpiarFormulario()
                 .MostrarCliente(c)
@@ -77,10 +75,10 @@ Public Class FrmClientes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Return Nothing
+
         End Try
 
-    End Function
+    End Sub
     Private Sub MostrarCliente(ByVal argCliente As Cliente)
 
         Try
@@ -108,7 +106,7 @@ Public Class FrmClientes
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
 
         Try
-            Me.ValidarCampos(DatosOpcionales)
+            Me.ValidarCampos(Me, DatosOpcionales)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -125,6 +123,7 @@ Public Class FrmClientes
                     Exit Sub
                 End If
                 Me.NuevaPersona = False
+                Me.Nuevo.Checked = False
             Else
                 If Me.Id.Text = "" Then
                     MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
@@ -177,17 +176,7 @@ Public Class FrmClientes
                 Exit Sub
             End If
 
-            Dim c As Cliente = BuscarCliente(Me.TextoBuscar)
-
-            If c Is Nothing Then
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarCliente(c)
-                .Nombre.Select()
-            End With
+            Me.BuscarCliente(Me.TextoBuscar)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -204,20 +193,7 @@ Public Class FrmClientes
                 Exit Sub
             End If
 
-            Dim c As Cliente = Me.BuscarCliente(Me.Nombre.Text)
-
-            If c Is Nothing Then
-                Me.Nombre.Select()
-                Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarCliente(c)
-                .Nombre.Select()
-                .Nombre.SelectAll()
-            End With
+            Me.BuscarCliente(Me.Nombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -226,7 +202,7 @@ Public Class FrmClientes
 
     End Sub
     Private Sub FrmClientes_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.EstablecerReadOnly(Me.ControlesReadOnly)
+        Me.EstablecerReadOnly(Me, Me.ControlesReadOnly)
         Me.ObtenerTiposIVA()
     End Sub
 End Class

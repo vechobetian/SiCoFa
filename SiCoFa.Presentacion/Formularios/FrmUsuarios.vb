@@ -4,7 +4,7 @@ Public Class FrmUsuarios
 
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
-    Private Function BuscarUsuario(ByVal argTextoBuscado As String) As Usuario
+    Private Sub BuscarUsuario(ByVal argTextoBuscado As String)
 
         Try
             Dim lu As List(Of Usuario) = mobj_N_AdminSiCoFa.ListarUsuarios(argTextoBuscado)
@@ -12,15 +12,17 @@ Public Class FrmUsuarios
 
             If lu Is Nothing Then
                 MsgBox("Usuario no Encontrado", vbInformation, "SiCoFa")
-                Return Nothing
-                Exit Function
+                Me.Nombre.Text = ""
+                Me.Nombre.Select()
+                Exit Sub
             End If
 
             Select Case lu.Count
                 Case 0
                     MsgBox("Usuario no Encontrado", vbInformation, "SiCoFa")
-                    Return Nothing
-                    Exit Function
+                    Me.Nombre.Text = ""
+                    Me.Nombre.Select()
+                    Exit Sub
                 Case 1
                     u = lu.First
                 Case > 1
@@ -34,9 +36,6 @@ Public Class FrmUsuarios
                     FrmBuscaPersonas.Close()
             End Select
 
-            Return u
-            u = Nothing
-
             With Me
                 .LimpiarFormulario()
                 .MostrarUsuario(u)
@@ -46,10 +45,10 @@ Public Class FrmUsuarios
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Return Nothing
+
         End Try
 
-    End Function
+    End Sub
     Private Sub MostrarUsuario(ByVal argUsuario As Usuario)
 
         Try
@@ -76,7 +75,7 @@ Public Class FrmUsuarios
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
 
         Try
-            Me.ValidarCampos(DatosOpcionales)
+            Me.ValidarCampos(Me, DatosOpcionales)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -93,6 +92,7 @@ Public Class FrmUsuarios
                     Exit Sub
                 End If
                 Me.NuevaPersona = False
+                Me.Nuevo.Checked = False
             Else
                 If Me.Id.Text = "" Then
                     MsgBox("El Usuario " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
@@ -145,17 +145,7 @@ Public Class FrmUsuarios
                 Exit Sub
             End If
 
-            Dim u As Usuario = BuscarUsuario(Me.TextoBuscar)
-
-            If u Is Nothing Then
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarUsuario(u)
-                .Nombre.Select()
-            End With
+            Me.BuscarUsuario(Me.TextoBuscar)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -172,20 +162,7 @@ Public Class FrmUsuarios
                 Exit Sub
             End If
 
-            Dim u As Usuario = Me.BuscarUsuario(Me.Nombre.Text)
-
-            If u Is Nothing Then
-                Me.Nombre.Select()
-                Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarUsuario(u)
-                .Nombre.Select()
-                .Nombre.SelectAll()
-            End With
+            Me.BuscarUsuario(Me.Nombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

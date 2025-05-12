@@ -6,13 +6,29 @@ Public Class FrmEdicionPersonas
     Property NuevaPersona As Boolean
 
     Public mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
+    Private Sub ObtenerProvincias()
+        Try
+            With Me.Provincia
+                .DataSource = mobj_N_AdminSiCoFa.Provincias
+                .ValueMember = "PROVINCIA"
+                .DisplayMember = "PROVINCIA"
+                .SelectedIndex = -1
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+
+    End Sub
     Private Sub ObtenerTiposDocumento()
 
         Try
-            Me.TipoDoc.DataSource = mobj_N_AdminSiCoFa.TiposDocumento
-            Me.TipoDoc.ValueMember = "CodiTDoc"
-            Me.TipoDoc.DisplayMember = "TipoDocumento"
-            Me.TipoDoc.SelectedIndex = -1
+            With Me.TipoDoc
+                .DataSource = mobj_N_AdminSiCoFa.TiposDocumento
+                .ValueMember = "CodiTDoc"
+                .DisplayMember = "TipoDocumento"
+                .SelectedIndex = -1
+            End With
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -30,8 +46,13 @@ Public Class FrmEdicionPersonas
         Me.LimpiarFormulario()
         Me.NuevaPersona = True
         Me.Nombre.Select()
+        Me.Nuevo.Checked = True
     End Sub
     Public Overridable Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar.Click
+        If NuevaPersona = True Then
+            Exit Sub
+        End If
+
         Dim str = InputBox("Ingrese la Persona", "SiCoFa")
         Me.TextoBuscar = ""
         If str = "" Then
@@ -46,6 +67,7 @@ Public Class FrmEdicionPersonas
         Me.LimpiarFormulario()
         Me.NuevaPersona = False
         Me.Nombre.Select()
+        Me.Nuevo.Checked = False
     End Sub
     Public Overridable Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
 

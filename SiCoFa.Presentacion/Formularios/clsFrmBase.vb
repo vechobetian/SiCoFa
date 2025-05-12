@@ -54,10 +54,10 @@
     Public Sub LimpiarFormulario()
         LimpiarControles(Me) ' Llama al método para limpiar todos los controles del formulario
     End Sub
-    Public Sub ValidarCampos(ByVal ControlesNoValidar As List(Of String))
+    Public Sub ValidarCampos(ByVal container As Control, ByVal ControlesNoValidar As List(Of String))
         Me.ValidacionOK = False
 
-        For Each control As Control In Me.Controls
+        For Each control As Control In container.Controls
             If ControlesNoValidar.Contains(control.Name) Then Continue For
 
             If TypeOf control Is TextBox Then
@@ -88,8 +88,8 @@
 
         Me.ValidacionOK = True
     End Sub
-    Public Sub EstablecerReadOnly(ByVal ControlesReadOnly As List(Of String))
-        For Each control As Control In Me.Controls
+    Public Sub EstablecerReadOnly(ByVal container As Control, ByVal ControlesReadOnly As List(Of String))
+        For Each control As Control In container.Controls
             If ControlesReadOnly.Contains(control.Name) Then
                 If TypeOf control Is TextBox Then
                     Dim textBoxControl As TextBox = DirectCast(control, TextBox)

@@ -4,7 +4,7 @@ Public Class FrmEmpleados
 
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
-    Private Function BuscarEmpleado(ByVal argTextoBuscado As String) As Empleado
+    Private Sub BuscarEmpleado(ByVal argTextoBuscado As String)
 
         Try
             Dim le As List(Of Empleado) = mobj_N_AdminSiCoFa.ListarEmpleados(argTextoBuscado)
@@ -12,15 +12,17 @@ Public Class FrmEmpleados
 
             If le Is Nothing Then
                 MsgBox("Empleado no Encontrado", vbInformation, "SiCoFa")
-                Return Nothing
-                Exit Function
+                Me.Nombre.Text = ""
+                Me.Nombre.Select()
+                Exit Sub
             End If
 
             Select Case le.Count
                 Case 0
                     MsgBox("Empleado no Encontrado", vbInformation, "SiCoFa")
-                    Return Nothing
-                    Exit Function
+                    Me.Nombre.Text = ""
+                    Me.Nombre.Select()
+                    Exit Sub
                 Case 1
                     e = le.First
                 Case > 1
@@ -34,9 +36,6 @@ Public Class FrmEmpleados
                     FrmBuscaPersonas.Close()
             End Select
 
-            Return e
-            e = Nothing
-
             With Me
                 .LimpiarFormulario()
                 .MostrarEmpleado(e)
@@ -49,7 +48,7 @@ Public Class FrmEmpleados
 
         End Try
 
-    End Function
+    End Sub
     Private Sub MostrarEmpleado(ByVal argEmpleado As Empleado)
 
         Try
@@ -76,7 +75,7 @@ Public Class FrmEmpleados
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
 
         Try
-            Me.ValidarCampos(DatosOpcionales)
+            Me.ValidarCampos(Me, DatosOpcionales)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -93,6 +92,7 @@ Public Class FrmEmpleados
                     Exit Sub
                 End If
                 Me.NuevaPersona = False
+                Me.Nuevo.Checked = False
             Else
                 If Me.Id.Text = "" Then
                     MsgBox("El Empleado " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
@@ -139,23 +139,14 @@ Public Class FrmEmpleados
     Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)
 
         Try
+
             MyBase.Buscar_Click(sender, e)
 
             If Me.TextoBuscar = "" Then
                 Exit Sub
             End If
 
-            Dim emp As Empleado = BuscarEmpleado(Me.TextoBuscar)
-
-            If emp Is Nothing Then
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarEmpleado(emp)
-                .Nombre.Select()
-            End With
+            Me.BuscarEmpleado(Me.TextoBuscar)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -172,20 +163,7 @@ Public Class FrmEmpleados
                 Exit Sub
             End If
 
-            Dim emp As Empleado = Me.BuscarEmpleado(Me.Nombre.Text)
-
-            If emp Is Nothing Then
-                Me.Nombre.Select()
-                Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarEmpleado(emp)
-                .Nombre.Select()
-                .Nombre.SelectAll()
-            End With
+            Me.BuscarEmpleado(Me.Nombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

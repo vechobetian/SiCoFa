@@ -192,6 +192,90 @@ Public Class cls_D_AdminSiCoFa
     End Function
 #End Region
 
+#Region "Administracion de Cuentas Corriente"
+    Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argCliente As Cliente) As CuentaCorriente
+
+        Dim objCC As CuentaCorriente
+
+        Try
+            Dim sql As String = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado FROM TblCtasCorriente WHERE IdCliente=@IdCliente"
+
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdCliente", argCliente.Id)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read Then
+                            Dim IdCC As Long = datos("IdCC")
+                            Dim IdCliente As Int32 = datos("IdCliente")
+                            Dim Descripcion As String = datos("Descripcion")
+                            Dim Credito As String = datos("Credito")
+                            Dim FechaAlta As String = datos("FechaAlta")
+                            Dim Estado As String = datos("Estado")
+                            Dim Observaciones As String = datos("Observaciones")
+                            objCC = New CuentaCorriente(IdCC, argCliente, Descripcion, Credito, FechaAlta, Observaciones, Estado)
+                        Else
+                            objCC = Nothing
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+            Return objCC
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCuentaCorrientePorIdCliente", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+
+    Public Function InsertarCuentaCorriente(
+                                            ByVal argIdCliente As Int32,
+                                            ByVal argDescripcion As String,
+                                            ByVal argCredito As Decimal,
+                                            ByVal argObservaciones As String
+                                            ) As Int64
+
+        Dim IdCC As Int64
+        Try
+            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
+                cn.Open()
+
+                Using cmd As New MySqlCommand("InsertarCuentaCorriente", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("_IdCliente", MySqlDbType.Int32).Value = argIdCliente
+                        .Add("_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
+                        .Add("_Credito", MySqlDbType.Decimal).Value = argCredito
+                        .Add("_Observaciones", MySqlDbType.Text).Value = argObservaciones
+                        .Add("_IdCC", MySqlDbType.Int64)
+                    End With
+
+                    cmd.Parameters("_IdCC").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdCC = Convert.ToInt64(cmd.Parameters("_IdCC").Value)
+                End Using
+
+            End Using
+            Return IdCC
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaCorriente", Ex.Message))
+
+        End Try
+
+    End Function
+
+#End Region
+
 #Region "Administracion de Proveedores"
     Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
         Dim objProv As Proveedor

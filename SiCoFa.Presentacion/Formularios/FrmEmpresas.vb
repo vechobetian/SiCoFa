@@ -36,7 +36,7 @@ Public Class FrmEmpresas
         End Try
 
     End Function
-    Private Function BuscarEmpresa(ByVal argTextoBuscado As String) As Empresa
+    Private Sub BuscarEmpresa(ByVal argTextoBuscado As String)
 
         Try
             Dim le As List(Of Empresa) = mobj_N_AdminSiCoFa.ListarEmpresas(argTextoBuscado)
@@ -44,15 +44,17 @@ Public Class FrmEmpresas
 
             If le Is Nothing Then
                 MsgBox("Empresa no Encontrada", vbInformation, "SiCoFa")
-                Return Nothing
-                Exit Function
+                Me.Nombre.Text = ""
+                Me.Nombre.Select()
+                Exit Sub
             End If
 
             Select Case le.Count
                 Case 0
                     MsgBox("Empresa no Encontrada", vbInformation, "SiCoFa")
-                    Return Nothing
-                    Exit Function
+                    Me.Nombre.Text = ""
+                    Me.Nombre.Select()
+                    Exit Sub
                 Case 1
                     e = le.First
                 Case > 1
@@ -66,9 +68,6 @@ Public Class FrmEmpresas
                     FrmBuscaPersonas.Close()
             End Select
 
-            Return e
-            e = Nothing
-
             With Me
                 .LimpiarFormulario()
                 .MostrarEmpresa(e)
@@ -77,11 +76,10 @@ Public Class FrmEmpresas
             End With
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Return Nothing
 
         End Try
 
-    End Function
+    End Sub
     Private Sub MostrarEmpresa(ByVal argEmpresa As Empresa)
 
         Try
@@ -110,7 +108,7 @@ Public Class FrmEmpresas
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
 
         Try
-            Me.ValidarCampos(ControlesReadOnly)
+            Me.ValidarCampos(Me, ControlesReadOnly)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -127,6 +125,7 @@ Public Class FrmEmpresas
                     Exit Sub
                 End If
                 Me.NuevaPersona = False
+                Me.Nuevo.Checked = False
             Else
                 If Me.Id.Text = "" Then
                     MsgBox("La Empresa " & Me.Nombre.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
@@ -179,17 +178,7 @@ Public Class FrmEmpresas
                 Exit Sub
             End If
 
-            Dim emp As Empresa = BuscarEmpresa(Me.TextoBuscar)
-
-            If emp Is Nothing Then
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarEmpresa(emp)
-                .Nombre.Select()
-            End With
+            Me.BuscarEmpresa(Me.TextoBuscar)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -207,20 +196,7 @@ Public Class FrmEmpresas
                 Exit Sub
             End If
 
-            Dim emp As Empresa = Me.BuscarEmpresa(Me.Nombre.Text)
-
-            If emp Is Nothing Then
-                Me.Nombre.Select()
-                Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarEmpresa(emp)
-                .Nombre.Select()
-                .Nombre.SelectAll()
-            End With
+            Me.BuscarEmpresa(Me.Nombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -229,7 +205,7 @@ Public Class FrmEmpresas
 
     End Sub
     Private Sub FrmEmpresas_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.EstablecerReadOnly(Me.ControlesReadOnly)
+        Me.EstablecerReadOnly(Me, Me.ControlesReadOnly)
         Me.ObtenerTiposIVA()
     End Sub
 End Class

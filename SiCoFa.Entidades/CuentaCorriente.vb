@@ -2,7 +2,7 @@
     Property IdCC As Int32
     Property Cliente As Cliente
     Property Descripcion As String
-    Property LimiteCredito As Decimal
+    Property Credito As Decimal
     Property FechaAlta As Date
     Property Observaciones As String
     Property Estado As String
@@ -11,7 +11,7 @@
                   ByVal argIdCC As Int32,
                   ByVal argCliente As Cliente,
                   ByVal argDescripcion As String,
-                  ByVal argLimiteCredito As Decimal,
+                  ByVal argCredito As Decimal,
                   ByVal argFechaAlta As Date,
                   ByVal argObservaciones As String,
                   ByVal argEstado As String
@@ -20,7 +20,7 @@
         Me.IdCC = argIdCC
         Me.Cliente = argCliente
         Me.Descripcion = argDescripcion
-        Me.LimiteCredito = argLimiteCredito
+        Me.Credito = argCredito
         Me.FechaAlta = argFechaAlta
         Me.Observaciones = argObservaciones
         Me.Estado = argEstado

@@ -146,7 +146,7 @@
         iwFIEjgxmjo4gEsQi0F6IFohAF0CLybXABgYpAaAALJiYjGlgIEBAJZysXXLiQrrAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="Nuevo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="NuevoCliente.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABfSURBVDhPzcoxDgAhEELRuf+lNQg2i6KFxf5kMgWvXtYO
@@ -168,6 +168,14 @@
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAB4SURBVDhPxY1bDsAgCAQ5OkfzZlQe20j6oPjTSYhRdlb6
         C4nZYoocU5cghOA8IdcFMsY4R+8tWYSEmVOJ3ivZlio715LIJPBoCn5qlygu1iWady1j0apEcx6/x6JP
         Jbr32DsWRklXBibtygBiX15+rkF4PWP1AaIDCHAMRUnNSIoAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="NuevaCuentaCorriente.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACFSURBVDhPpY4JDoAgDAR5uj9XtictWCFOsqmUWWLr3C/Z
+        5s5gJ9lCao7uMMkgrv6tiZA8gl1KIj4itTW4Zw2Mf6E5egDEMhA1gn3KgJeBVBze6Z4ndmQvIEHB+SCE
+        VBk/1xMetTt6sHyVMcVdYlI14bE+Y1I14bE+Y1I14bE+o5c7+UtrD90mqOy4Aii9AAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

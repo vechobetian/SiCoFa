@@ -2,9 +2,8 @@
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Public Class FrmArticulos
-    Property TextoBuscar As String
-    Property NuevoArticulo As Boolean
-
+    Private TextoBuscar As String
+    Private NuevoArticulo As Boolean
     Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String)
     Private Sub ObtenerAlicuotasIVA()
@@ -39,7 +38,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
-    Private Function BuscarArticulo(ByVal argTextoBuscado As String) As Articulo
+    Private Sub BuscarArticulo(ByVal argTextoBuscado As String)
 
         Try
 
@@ -48,15 +47,15 @@ Public Class FrmArticulos
 
             If la Is Nothing Then
                 MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
-                Return Nothing
-                Exit Function
+                Exit Sub
             End If
 
             Select Case la.Count
                 Case 0
                     MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
-                    Return Nothing
-                    Exit Function
+                    Me.Nombre.Text = ""
+                    Me.Nombre.Select()
+                    Exit Sub
                 Case 1
                     a = la.First
                 Case > 1
@@ -69,19 +68,26 @@ Public Class FrmArticulos
                     FrmBuscaArticulos.Close()
             End Select
 
-            Return a
-            a = Nothing
+            With Me
+                .LimpiarFormulario()
+                .MostrarArticulo(a)
+                .Nombre.Select()
+                .Nombre.SelectAll()
+            End With
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Return Nothing
 
         End Try
 
-    End Function
+    End Sub
     Private Sub MostrarArticulo(ByVal argArticulo As Articulo)
 
         Try
+            If argArticulo Is Nothing Then
+                Exit Sub
+            End If
+
             With Me
                 .IdArticulo.Text = argArticulo.IdArticulo
                 .Nombre.Text = argArticulo.Nombre
@@ -105,7 +111,7 @@ Public Class FrmArticulos
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Try
 
-            Me.ValidarCampos(ControlesReadOnly)
+            Me.ValidarCampos(Me, ControlesReadOnly)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -122,6 +128,8 @@ Public Class FrmArticulos
                     Exit Sub
                 End If
                 Me.NuevoArticulo = False
+                Me.Nuevo.Checked = False
+
             Else
                 If Me.IdArticulo.Text = "" Then
                     MsgBox("El Articulo " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
@@ -154,6 +162,7 @@ Public Class FrmArticulos
             Me.LimpiarFormulario()
 
             Me.NuevoArticulo = True
+            Me.Nuevo.Checked = True
 
             Dim valoresDefecto As New Dictionary(Of String, Object)
             With valoresDefecto
@@ -167,7 +176,7 @@ Public Class FrmArticulos
                 .Add("Baja")
             End With
 
-            Me.EstablecerReadOnly(ControlesReadOnly)
+            Me.EstablecerReadOnly(Me, ControlesReadOnly)
 
             Me.Nombre.Select()
 
@@ -180,6 +189,10 @@ Public Class FrmArticulos
     Private Sub Buscar_Click_1(sender As Object, e As EventArgs) Handles Buscar.Click
 
         Try
+            If NuevoArticulo = True Then
+                Exit Sub
+            End If
+
             Dim str = InputBox("Ingrese el articulo buscado", "SiCoFa")
             Me.TextoBuscar = ""
 
@@ -194,18 +207,7 @@ Public Class FrmArticulos
                 Exit Sub
             End If
 
-            Dim a As Articulo = BuscarArticulo(Me.TextoBuscar)
-
-            If a Is Nothing Then
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarArticulo(a)
-                .Nombre.Select()
-                .Nombre.SelectAll()
-            End With
+            Me.BuscarArticulo(Me.TextoBuscar)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -218,13 +220,14 @@ Public Class FrmArticulos
 
             Me.LimpiarFormulario()
             Me.NuevoArticulo = False
+            Me.Nuevo.Checked = False
             Me.ControlesReadOnly.Clear()
 
             With Me.ControlesReadOnly
                 .Add("IdArticulo")
             End With
 
-            Me.EstablecerReadOnly(ControlesReadOnly)
+            Me.EstablecerReadOnly(Me, ControlesReadOnly)
             Me.Nombre.Select()
 
         Catch ex As Exception
@@ -239,20 +242,7 @@ Public Class FrmArticulos
                 Exit Sub
             End If
 
-            Dim art As Articulo = Me.BuscarArticulo(Me.Nombre.Text)
-
-            If art Is Nothing Then
-                Me.Nombre.Select()
-                Me.Nombre.Text = ""
-                Exit Sub
-            End If
-
-            With Me
-                .LimpiarFormulario()
-                .MostrarArticulo(art)
-                .Nombre.Select()
-                .Nombre.SelectAll()
-            End With
+            Me.BuscarArticulo(Me.Nombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
