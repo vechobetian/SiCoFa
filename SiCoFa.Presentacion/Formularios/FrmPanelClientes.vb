@@ -129,14 +129,15 @@ Public Class FrmPanelClientes
                     c = lc.First
 
                 Case > 1
-                    FrmBuscaPersonas.Personas = lc
-                    FrmBuscaPersonas.ShowDialog()
-
-                    If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                        Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
-                        c = Me.SeleccionarClienteListado(p.Id, lc)
-                    End If
-                    FrmBuscaPersonas.Close()
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = lc
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            c = Me.SeleccionarClienteListado(p.Id, lc)
+                        End If
+                        f.Close()
+                    End Using
             End Select
 
             With Me

@@ -56,16 +56,21 @@ Public Class FrmArticulos
                     Me.Nombre.Text = ""
                     Me.Nombre.Select()
                     Exit Sub
+
                 Case 1
                     a = la.First
-                Case > 1
-                    FrmBuscaArticulos.Articulos = la
-                    FrmBuscaArticulos.ShowDialog()
 
-                    If FrmBuscaArticulos.ArticuloSeleccionado IsNot Nothing Then
-                        a = FrmBuscaArticulos.ArticuloSeleccionado
-                    End If
-                    FrmBuscaArticulos.Close()
+                Case > 1
+
+                    Using f As New FrmBuscaArticulos
+                        f.Articulos = la
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            a = f.ArticuloSeleccionado
+                        End If
+                        f.Close()
+                    End Using
+
             End Select
 
             With Me

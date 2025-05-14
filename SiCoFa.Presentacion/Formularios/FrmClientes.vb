@@ -53,17 +53,21 @@ Public Class FrmClientes
                     Me.Nombre.Text = ""
                     Me.Nombre.Select()
                     Exit Sub
+
                 Case 1
                     c = lc.First
-                Case > 1
-                    FrmBuscaPersonas.Personas = lc
-                    FrmBuscaPersonas.ShowDialog()
 
-                    If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                        Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
-                        c = Me.SeleccionarClienteListado(p.Id, lc)
-                    End If
-                    FrmBuscaPersonas.Close()
+                Case > 1
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = lc
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            c = Me.SeleccionarClienteListado(p.Id, lc)
+                        End If
+                        f.Close()
+                    End Using
+
             End Select
 
             With Me
@@ -80,6 +84,10 @@ Public Class FrmClientes
 
     End Sub
     Private Sub MostrarCliente(ByVal argCliente As Cliente)
+
+        If argCliente Is Nothing Then
+            Exit Sub
+        End If
 
         Try
             With Me

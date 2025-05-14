@@ -3,10 +3,6 @@
 Public Class FrmBuscaPersonas
     Property Personas As IEnumerable(Of Persona)
     Property PersonaSeleccionado As Persona
-    Private Sub DescargarVariables()
-        Personas = Nothing
-        PersonaSeleccionado = Nothing
-    End Sub
     Private Sub SeleccionarPersona()
 
         Dim p As New Persona(
@@ -54,11 +50,14 @@ Public Class FrmBuscaPersonas
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.Escape
-                Call DescargarVariables()
-                Me.Hide()
+                Me.DialogResult = DialogResult.Cancel
+                Me.Close()
+
             Case Keys.Enter
                 Call SeleccionarPersona()
+                Me.DialogResult = DialogResult.OK
                 Me.Hide()
+
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)
         End Select

@@ -26,15 +26,15 @@ Public Class FrmProveedores
                 Case 1
                     pv = lp.First
                 Case > 1
-                    FrmBuscaPersonas.Personas = lp
-                    FrmBuscaPersonas.ShowDialog()
-
-                    ' Verificamos si el usuario seleccionó un cliente
-                    If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                        Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
-                        pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
-                    End If
-                    FrmBuscaPersonas.Close()
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = lp
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                        End If
+                        f.Close()
+                    End Using
             End Select
 
             With Me

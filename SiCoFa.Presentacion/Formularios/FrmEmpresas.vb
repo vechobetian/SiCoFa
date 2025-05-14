@@ -58,14 +58,15 @@ Public Class FrmEmpresas
                 Case 1
                     e = le.First
                 Case > 1
-                    FrmBuscaPersonas.Personas = le
-                    FrmBuscaPersonas.ShowDialog()
-
-                    If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                        Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
-                        e = Me.SeleccionarEmpresaListado(p.Id, le)
-                    End If
-                    FrmBuscaPersonas.Close()
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = le
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            e = Me.SeleccionarEmpresaListado(p.Id, le)
+                        End If
+                        f.Close()
+                    End Using
             End Select
 
             With Me

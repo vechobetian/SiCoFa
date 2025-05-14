@@ -23,17 +23,20 @@ Public Class FrmEmpleados
                     Me.Nombre.Text = ""
                     Me.Nombre.Select()
                     Exit Sub
+
                 Case 1
                     e = le.First
-                Case > 1
-                    FrmBuscaPersonas.Personas = le
-                    FrmBuscaPersonas.ShowDialog()
 
-                    If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                        Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
-                        e = New Empleado(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
-                    End If
-                    FrmBuscaPersonas.Close()
+                Case > 1
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = le
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            e = New Empleado(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                        End If
+                        f.Close()
+                    End Using
             End Select
 
             With Me
@@ -159,7 +162,7 @@ Public Class FrmEmpleados
         Try
             MyBase.Nombre_Validating(sender, e)
 
-            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text > 0 Then
+            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text <> "" Then
                 Exit Sub
             End If
 

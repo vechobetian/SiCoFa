@@ -3,10 +3,6 @@
 Public Class FrmBuscaArticulos
     Property Articulos As IEnumerable(Of Articulo)
     Property ArticuloSeleccionado As Articulo
-    Private Sub DescargarVariables()
-        Articulos = Nothing
-        ArticuloSeleccionado = Nothing
-    End Sub
     Private Sub SeleccionarArticulo()
 
         Dim a As New Articulo(
@@ -62,10 +58,11 @@ Public Class FrmBuscaArticulos
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.Escape
-                Call DescargarVariables()
-                Me.Hide()
+                Me.DialogResult = DialogResult.Cancel
+                Me.Close()
             Case Keys.Enter
                 Call SeleccionarArticulo()
+                Me.DialogResult = DialogResult.OK
                 Me.Hide()
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)

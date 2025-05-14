@@ -37,6 +37,7 @@ Public Class FrmEdicionPersonas
 
     End Sub
     Private Sub FrmEdicionPersonas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.ObtenerProvincias()
         Me.ObtenerTiposDocumento()
     End Sub
     Public Overridable Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click

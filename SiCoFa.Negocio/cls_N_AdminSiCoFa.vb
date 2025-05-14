@@ -734,9 +734,9 @@ Public Class cls_N_AdminSiCoFa
     Public Function InsertarSecciones(
                                     ByVal argSeccion As String,
                                     ByVal argEstablecerPrecio As Boolean
-                                    ) As Boolean
+                                    ) As String
         Try
-            Dim SeccionInsertada As Boolean = mobj_D_AdminSiCoFa.InsertarSeccion(
+            Dim SeccionInsertada As String = mobj_D_AdminSiCoFa.InsertarSeccion(
                                                                                  UCase(argSeccion),
                                                                                  argEstablecerPrecio
                                                                                  )
@@ -744,13 +744,13 @@ Public Class cls_N_AdminSiCoFa
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarSeccion", ex.Message))
-            Return False
+            Return ""
 
         End Try
 
     End Function
     Public Function ActualizarSeccion(
-                                      ByVal argIdSeccion As Int32,
+                                      ByVal argIdSeccion As String,
                                       ByVal argSeccion As String,
                                       ByVal argEstablecerPrecio As Boolean
                                       ) As Boolean

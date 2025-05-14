@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmArticulos</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmPanelClientes</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -166,6 +166,12 @@
     <Compile Include="Formularios\FrmSecciones.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmSelectorUniversal.Designer.vb">
+      <DependentUpon>FrmSelectorUniversal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmSelectorUniversal.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmUsuarios.Designer.vb">
       <DependentUpon>FrmUsuarios.vb</DependentUpon>
     </Compile>
@@ -258,6 +264,9 @@
     <EmbeddedResource Include="Formularios\FrmSecciones.resx">
       <DependentUpon>FrmSecciones.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmSelectorUniversal.resx">
+      <DependentUpon>FrmSelectorUniversal.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmUsuarios.resx">
       <DependentUpon>FrmUsuarios.vb</DependentUpon>
     </EmbeddedResource>
@@ -320,6 +329,7 @@
     <None Include="My Project\DataSources\SiCoFa.Entidades.Operacion.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Persona.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Proveedor.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.Provincia.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.QRCompE.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.RubroContabilidad.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Seccion.datasource" />

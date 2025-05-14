@@ -26,14 +26,15 @@ Public Class FrmUsuarios
                 Case 1
                     u = lu.First
                 Case > 1
-                    FrmBuscaPersonas.Personas = lu
-                    FrmBuscaPersonas.ShowDialog()
-
-                    If FrmBuscaPersonas.PersonaSeleccionado IsNot Nothing Then
-                        Dim p As Persona = FrmBuscaPersonas.PersonaSeleccionado
-                        u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
-                    End If
-                    FrmBuscaPersonas.Close()
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = lu
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                        End If
+                        f.Close()
+                    End Using
             End Select
 
             With Me
