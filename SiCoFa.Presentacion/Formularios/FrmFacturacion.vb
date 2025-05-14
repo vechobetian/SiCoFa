@@ -26,15 +26,19 @@
             txtBox.Width = Math.Max(50, anchoDisponible)
         End If
     End Sub
-    Private Sub AjustarAnchoColumnas()
-        DataGridView1.Columns(0).FillWeight = 50  ' Producto
-        DataGridView1.Columns(1).FillWeight = 5   ' Cant
-        DataGridView1.Columns(2).FillWeight = 5   ' U
-        DataGridView1.Columns(3).FillWeight = 10  ' Precio
-        DataGridView1.Columns(4).FillWeight = 15  ' Subtotal
-        DataGridView1.Columns(5).FillWeight = 5   ' Descuento
-        DataGridView1.Columns(6).FillWeight = 10  ' Total
-        DataGridView1.Columns(7).FillWeight = 5   ' Stock
+    Private Sub AjustarAnchoColumnasProporcional()
+        If DataGridView1.ColumnCount = 9 Then
+            Dim totalAncho As Integer = DataGridView1.Width
+            ' Define las proporciones para las 9 columnas (la primera es invisible y tiene ancho 0)
+            Dim proporciones As Double() = {0.0R, 0.5R, 0.05R, 0.05R, 0.1R, 0.1R, 0.05R, 0.1R, 0.1R}
+            ' Suma de las proporciones (excluyendo la primera): 0.1 + 0.15 + 0.1 + 0.2 + 0.05 + 0.15 + 0.1 + 0.05 = 0.9 (ajusta según necesites)
+
+            For i As Integer = 0 To 8 ' Itera a través de las 9 columnas
+                DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
+            Next
+        Else
+            MessageBox.Show("El DataGridView no tiene 9 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
     Private Sub FrmFacturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Evita que los controles se muevan al área de desbordamiento
@@ -43,7 +47,7 @@
         Next
     End Sub
     Private Sub FrmFacturacion_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        Me.AjustarAnchoColumnas()
+        Me.AjustarAnchoColumnasProporcional()
         Me.AjustarAnchoToolStripTextBox()
         ' Le damos el enfoque al ToolStripTextBox para que sea el primer control activo
         For Each item As ToolStripItem In ToolStrip1.Items
@@ -57,7 +61,7 @@
     End Sub
 
     Private Sub FrmFacturacion_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        Me.AjustarAnchoColumnas()
+        Me.AjustarAnchoColumnasProporcional()
         Me.AjustarAnchoToolStripTextBox()
     End Sub
 
