@@ -1,58 +1,147 @@
 ﻿Public Class ItemComprobante
-    Property Descripcion As String
-    Property Cantidad As Decimal
-    Property AlicIVA As Decimal
-    Property PUnit As Decimal
-    Property DUnit As Decimal
-    Property PDes As Decimal
-    Property OtraDescripcion As String
-    Property Importe As Decimal
-    Property ImporteDescuento As Decimal
-    Property ImporteConDescuento As Decimal
+    Private m_IdDP As Long
+    Private m_CodBarras As String
+    Private m_Descripcion As String
+    Private m_Cantidad As Decimal = 0
+    Private m_PrecioUnitario As Decimal = 0
+    Private m_AlicIVA As Decimal = 0
+    Private m_DescuentoUnitario As Decimal = 0
+    Private m_PorcentajeDescuento As Decimal = 0
+    Private m_ImporteSinDescuento As Decimal = 0
+    Private m_ImporteDescuento As Decimal = 0
+    Private m_ImporteConDescuento As Decimal = 0
+
+    Public Property IdDP() As Long
+        Get
+            Return m_IdDP
+        End Get
+        Set(value As Long)
+            m_IdDP = value
+        End Set
+    End Property
+
+    Public Property CodBarras() As String
+        Get
+            Return m_CodBarras
+        End Get
+        Set(value As String)
+            m_CodBarras = value
+        End Set
+    End Property
+
+    Public Property Descripcion() As String
+        Get
+            Return m_Descripcion
+        End Get
+        Set(value As String)
+            m_Descripcion = value
+        End Set
+    End Property
+
+    Public Property Cantidad() As Decimal
+        Get
+            Return m_Cantidad
+        End Get
+        Set(value As Decimal)
+            m_Cantidad = value
+            ' Actualizar propiedades dependientes
+            m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
+            m_ImporteSinDescuento = Math.Round(m_Cantidad * m_PrecioUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteConDescuento = m_ImporteSinDescuento - m_ImporteDescuento
+        End Set
+    End Property
+
+    Public Property PrecioUnitario() As Decimal
+        Get
+            Return m_PrecioUnitario
+        End Get
+        Set(value As Decimal)
+            m_PrecioUnitario = value
+            ' Actualizar propiedades dependientes
+            m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
+            m_ImporteSinDescuento = Math.Round(m_Cantidad * m_PrecioUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteConDescuento = m_ImporteSinDescuento - m_ImporteDescuento
+        End Set
+    End Property
+
+    Public Property AlicIVA() As Decimal
+        Get
+            Return m_AlicIVA
+        End Get
+        Set(value As Decimal)
+            m_AlicIVA = value
+        End Set
+    End Property
+
+    ' DescuentoUnitario ahora se calcula en los Setters y es ReadOnly
+    Public ReadOnly Property DescuentoUnitario() As Decimal
+        Get
+            Return m_DescuentoUnitario
+        End Get
+    End Property
+
+    Public Property PorcentajeDescuento() As Decimal
+        Get
+            Return m_PorcentajeDescuento
+        End Get
+        Set(value As Decimal)
+            m_PorcentajeDescuento = value
+            ' Actualizar propiedades dependientes
+            m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
+            m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteConDescuento = m_ImporteSinDescuento - m_ImporteDescuento
+        End Set
+    End Property
+
+    ' ImporteSinDescuento ahora se calcula en los Setters y es ReadOnly
+    Public ReadOnly Property ImporteSinDescuento() As Decimal
+        Get
+            Return m_ImporteSinDescuento
+        End Get
+    End Property
+
+    ' ImporteDescuento ahora se calcula en los Setters y es ReadOnly
+    Public ReadOnly Property ImporteDescuento() As Decimal
+        Get
+            Return m_ImporteDescuento
+        End Get
+    End Property
+
+    ' ImporteConDescuento ahora se calcula en los Setters y es ReadOnly
+    Public ReadOnly Property ImporteConDescuento() As Decimal
+        Get
+            Return m_ImporteConDescuento
+        End Get
+    End Property
+
 
     Public Sub New(
-                  ByVal argDescripcion As String,
-                  ByVal argCantidad As Decimal,
-                  ByVal argPUnit As Decimal,
-                  ByVal argGravado As Integer,
-                  ByVal argDisIva As Boolean,
-                  ByVal argDUnit As Decimal,
-                  ByVal argPDes As Decimal,
-                  ByVal argOtraDescripcion As String
-                  )
+                    ByVal argCodBarras As String,
+                    ByVal argDescripcion As String,
+                    ByVal argCantidad As Decimal,
+                    ByVal argPrecioUnitario As Decimal,
+                    ByVal argAlicIVA As Decimal,
+                    ByVal argPorcentajeDescuento As Decimal
+                    )
         Try
-            Me.Descripcion = argDescripcion
-            Me.Cantidad = argCantidad
-
-            Select Case argGravado
-                Case 0
-                    Me.AlicIVA = 0
-                Case 1
-                    Me.AlicIVA = 21
-                Case 2
-                    Me.AlicIVA = 10.5
-            End Select
-
-            If argDisIva And argGravado > 0 Then
-                Me.PUnit = Math.Round(argPUnit / (1 + Me.AlicIVA / 100), 2, MidpointRounding.ToEven)
-                Me.DUnit = Math.Round(argDUnit / (1 + Me.AlicIVA / 100), 2, MidpointRounding.ToEven)
-            Else
-                Me.PUnit = Math.Round(argPUnit, 2, MidpointRounding.ToEven)
-                Me.DUnit = Math.Round(argDUnit, 2, MidpointRounding.ToEven)
-            End If
-
-            Me.Importe = Math.Round(Me.Cantidad * Me.PUnit, 2, MidpointRounding.ToEven)
-            Me.PDes = argPDes
-            Me.OtraDescripcion = argOtraDescripcion
-            Me.ImporteDescuento = Math.Round(Me.Cantidad * Me.DUnit, 2, MidpointRounding.ToEven)
-            Me.ImporteConDescuento = Me.Importe - Me.ImporteDescuento
+            m_CodBarras = argCodBarras
+            m_Descripcion = argDescripcion
+            m_Cantidad = argCantidad
+            m_PrecioUnitario = argPrecioUnitario
+            m_AlicIVA = argAlicIVA
+            m_PorcentajeDescuento = argPorcentajeDescuento
+            ' Calcular las propiedades dependientes al inicializar el objeto
+            m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
+            m_ImporteSinDescuento = Math.Round(m_Cantidad * m_PrecioUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
+            m_ImporteConDescuento = m_ImporteSinDescuento - m_ImporteDescuento
 
         Catch ex As Exception
             Throw ex
         End Try
 
     End Sub
-
-
 
 End Class

@@ -1,12 +1,12 @@
 ﻿Public Class AlicuotaIVA
-    Property AlicIVA As Int16
+    Property AlicIVA As Decimal
     Property AlicuotaIVA As String
-    Public Sub New(ByVal argAlicIVA As Int16)
+    Public Sub New(ByVal argAlicIVA As Decimal)
         Me.AlicIVA = argAlicIVA
         Select Case argAlicIVA
-            Case "1"
+            Case 10.5
                 Me.AlicuotaIVA = "10.50%"
-            Case "2"
+            Case 21
                 Me.AlicuotaIVA = "21.00%"
 
         End Select

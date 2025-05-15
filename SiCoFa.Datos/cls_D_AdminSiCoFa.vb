@@ -1596,7 +1596,7 @@ Public Class cls_D_AdminSiCoFa
                             Dim CodigoResult As String = datos.GetString(codigoOrdinal)
                             Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
                             Dim NombreResult As String = datos.GetString(nombreOrdinal)
-                            Dim AlicIVA As Double = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDouble(datos.GetValue(alicIVAOrdinal)))
+                            Dim AlicIVA As Decimal = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDecimal(datos.GetValue(alicIVAOrdinal)))
                             Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
@@ -1656,7 +1656,7 @@ Public Class cls_D_AdminSiCoFa
 
                     If argTextoBuscado <> "*" Then
                         ' Separamos los parámetros para Nombre y CodBarras
-                        cmd.Parameters.AddWithValue("@Nombre", "%" & Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                        cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
                         cmd.Parameters.AddWithValue("@Codigo", argTextoBuscado)
                         cmd.Parameters.AddWithValue("@CodBarras", argTextoBuscado)
                     End If
@@ -1686,7 +1686,7 @@ Public Class cls_D_AdminSiCoFa
                             Dim CodigoResult As String = datos.GetString(codigoOrdinal)
                             Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
                             Dim NombreResult As String = datos.GetString(nombreOrdinal)
-                            Dim AlicIVA As Double = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDouble(datos.GetValue(alicIVAOrdinal)))
+                            Dim AlicIVA As Decimal = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDecimal(datos.GetValue(alicIVAOrdinal)))
                             Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
@@ -1725,7 +1725,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argCodigo As String,
                                     ByVal argCodBarras As String,
                                     ByVal argNombre As String,
-                                    ByVal argAlicIVA As Int16,
+                                    ByVal argAlicIVA As Decimal,
                                     ByVal argIdSeccion As String
                                     ) As String
 
@@ -1740,7 +1740,7 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
+                        .Add("_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
                         .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                         .Add("_IdArticulo", MySqlDbType.VarChar, 10)
                     End With
@@ -1765,7 +1765,7 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argCodigo As String,
                                         ByVal argCodBarras As String,
                                         ByVal argNombre As String,
-                                        ByVal argAlicIVA As Int16,
+                                        ByVal argAlicIVA As Decimal,
                                         ByVal argBaja As Boolean,
                                         ByVal argIdSeccion As String
                                         ) As Boolean
@@ -1781,7 +1781,7 @@ Public Class cls_D_AdminSiCoFa
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
+                        .Add("_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
                         .Add("_Baja", MySqlDbType.Bit).Value = argBaja
                         .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                     End With

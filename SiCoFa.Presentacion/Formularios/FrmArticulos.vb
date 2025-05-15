@@ -262,4 +262,5 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
 End Class

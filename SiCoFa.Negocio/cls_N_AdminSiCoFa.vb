@@ -550,8 +550,8 @@ Public Class cls_N_AdminSiCoFa
     End Function
     Public Function AlicuotasIVA() As List(Of AlicuotaIVA)
         Dim ALIVAS As New List(Of AlicuotaIVA)
-        ALIVAS.Add(New AlicuotaIVA("1"))
-        ALIVAS.Add(New AlicuotaIVA("2"))
+        ALIVAS.Add(New AlicuotaIVA(Convert.ToDecimal(10.5)))
+        ALIVAS.Add(New AlicuotaIVA(Convert.ToDecimal(21)))
         Return ALIVAS.OrderBy(Function(x) x.AlicuotaIVA).ToList
     End Function
 
@@ -800,7 +800,7 @@ Public Class cls_N_AdminSiCoFa
                                     ByVal argCodigo As String,
                                     ByVal argCodBarras As String,
                                     ByVal argNombre As String,
-                                    ByVal argAlicIVA As Double,
+                                    ByVal argAlicIVA As Decimal,
                                     ByVal argIdSeccion As String
                                     ) As String
         Try
@@ -825,7 +825,7 @@ Public Class cls_N_AdminSiCoFa
                                         ByVal argCodigo As String,
                                         ByVal argCodBarras As String,
                                         ByVal argNombre As String,
-                                        ByVal argAlicIVA As Double,
+                                        ByVal argAlicIVA As Decimal,
                                         ByVal argBaja As Boolean,
                                         ByVal argIdSeccion As String
                                         ) As Boolean

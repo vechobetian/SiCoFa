@@ -170,9 +170,9 @@ Public Class FrmSecciones
         End Try
 
     End Sub
-        Private Sub Buscar_Click_1(sender As Object, e As EventArgs) Handles Buscar.Click
+    Private Sub Buscar_Click_1(sender As Object, e As EventArgs) Handles Buscar.Click
 
-            Try
+        Try
             If NuevaSeccion = True Then
                 Exit Sub
             End If
@@ -194,12 +194,12 @@ Public Class FrmSecciones
             Me.BuscarSeccion(Me.TextoBuscar)
 
         Catch ex As Exception
-                MsgBox(ex.Message, vbCritical, "SiCoFa")
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
-            End Try
+        End Try
 
-        End Sub
-        Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
+    End Sub
+    Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
 
         Try
 
@@ -235,4 +235,5 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
 End Class
