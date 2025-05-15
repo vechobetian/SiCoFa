@@ -8,7 +8,7 @@ Public Class FrmBuscaArticulos
         Dim a As New Articulo(
                               Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value,
                               Me.DataGridView1.CurrentRow.Cells("Codigo").Value,
-                              Me.DataGridView1.CurrentRow.Cells("CodBarra").Value,
+                              Me.DataGridView1.CurrentRow.Cells("CodBarras").Value,
                               Me.DataGridView1.CurrentRow.Cells("Nombre").Value,
                               New AlicuotaIVA(Me.DataGridView1.CurrentRow.Cells("AlicIVA").Value),
                               Me.DataGridView1.CurrentRow.Cells("FechaPrecio").Value,
@@ -31,7 +31,7 @@ Public Class FrmBuscaArticulos
                 .Rows.Add()
                 .Rows(x).Cells("IdArticulo").Value = a.IdArticulo
                 .Rows(x).Cells("Codigo").Value = a.Codigo
-                .Rows(x).Cells("CodBarra").Value = a.CodBarra
+                .Rows(x).Cells("CodBarras").Value = a.CodBarras
                 .Rows(x).Cells("Nombre").Value = a.Nombre
                 .Rows(x).Cells("AlicIVA").Value = a.AlicuotaIVA.AlicIVA
                 .Rows(x).Cells("FechaPrecio").Value = a.FechaPrecio

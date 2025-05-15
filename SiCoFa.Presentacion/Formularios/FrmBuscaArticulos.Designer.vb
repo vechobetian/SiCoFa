@@ -26,7 +26,7 @@ Partial Class FrmBuscaArticulos
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.IdArticulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Codigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodBarra = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaPrecio = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -51,7 +51,7 @@ Partial Class FrmBuscaArticulos
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Codigo, Me.CodBarra, Me.Nombre, Me.AlicIVA, Me.FechaPrecio, Me.PrecioCosto, Me.PrecioVenta, Me.Baja, Me.IdSeccion, Me.Seccion, Me.EstablecerPrecio, Me.ActualizarPrecio, Me.Stock, Me.CodiLP, Me.ListaPrecios, Me.Fabricante})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Codigo, Me.CodBarras, Me.Nombre, Me.AlicIVA, Me.FechaPrecio, Me.PrecioCosto, Me.PrecioVenta, Me.Baja, Me.IdSeccion, Me.Seccion, Me.EstablecerPrecio, Me.ActualizarPrecio, Me.Stock, Me.CodiLP, Me.ListaPrecios, Me.Fabricante})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
@@ -80,15 +80,15 @@ Partial Class FrmBuscaArticulos
         Me.Codigo.ReadOnly = True
         Me.Codigo.Visible = False
         '
-        'CodBarra
+        'CodBarras
         '
-        Me.CodBarra.DataPropertyName = "CodBarra"
-        Me.CodBarra.FillWeight = 90.0!
-        Me.CodBarra.HeaderText = "CodBarra"
-        Me.CodBarra.Name = "CodBarra"
-        Me.CodBarra.ReadOnly = True
-        Me.CodBarra.Visible = False
-        Me.CodBarra.Width = 90
+        Me.CodBarras.DataPropertyName = "CodBarras"
+        Me.CodBarras.FillWeight = 90.0!
+        Me.CodBarras.HeaderText = "CodBarras"
+        Me.CodBarras.Name = "CodBarras"
+        Me.CodBarras.ReadOnly = True
+        Me.CodBarras.Visible = False
+        Me.CodBarras.Width = 90
         '
         'Nombre
         '
@@ -219,7 +219,7 @@ Partial Class FrmBuscaArticulos
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents IdArticulo As DataGridViewTextBoxColumn
     Friend WithEvents Codigo As DataGridViewTextBoxColumn
-    Friend WithEvents CodBarra As DataGridViewTextBoxColumn
+    Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
     Friend WithEvents AlicIVA As DataGridViewTextBoxColumn
     Friend WithEvents FechaPrecio As DataGridViewTextBoxColumn

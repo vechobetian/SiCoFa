@@ -1,7 +1,7 @@
 ﻿Public Class Articulo
     Property IdArticulo As String
     Property Codigo As String
-    Property CodBarra As Long
+    Property CodBarras As String
     Property Nombre As String
     Property AlicuotaIVA As AlicuotaIVA
     Property FechaPrecio As Date
@@ -16,7 +16,7 @@
 
     Public Sub New(ByVal argIdArticulo As String,
                    ByVal argCodigo As String,
-                   ByVal argCodBarra As Long,
+                   ByVal argCodBarras As String,
                    ByVal argNombre As String,
                    ByVal argAlicuotaIVA As AlicuotaIVA,
                    ByVal argFechaPrecio As Date,
@@ -32,7 +32,7 @@
 
         Me.IdArticulo = argIdArticulo
         Me.Codigo = argCodigo
-        Me.CodBarra = argCodBarra
+        Me.CodBarras = argCodBarras
         Me.Nombre = argNombre
         Me.AlicuotaIVA = argAlicuotaIVA
         Me.FechaPrecio = argFechaPrecio

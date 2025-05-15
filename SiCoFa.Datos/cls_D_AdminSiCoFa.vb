@@ -1560,7 +1560,7 @@ Public Class cls_D_AdminSiCoFa
         Dim objArt As Articulo
 
         Try
-            Dim sql As String = "SELECT IdArticulo,Codigo,CodBarra,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE IdArticulo=@IdArticulo"
+            Dim sql As String = "SELECT IdArticulo,Codigo,CodBarras,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE IdArticulo=@IdArticulo"
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
                 cn.Open()
@@ -1576,7 +1576,7 @@ Public Class cls_D_AdminSiCoFa
                             ' Obtener ordinales de las columnas
                             Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
                             Dim codigoOrdinal As Integer = datos.GetOrdinal("Codigo")
-                            Dim codBarraOrdinal As Integer = datos.GetOrdinal("CodBarra")
+                            Dim codBarrasOrdinal As Integer = datos.GetOrdinal("CodBarras")
                             Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
                             Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
                             Dim fechaPrecioOrdinal As Integer = datos.GetOrdinal("FechaPrecio")
@@ -1594,7 +1594,7 @@ Public Class cls_D_AdminSiCoFa
 
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim CodigoResult As String = datos.GetString(codigoOrdinal)
-                            Dim CodBarraResult As String = datos.GetString(codBarraOrdinal)
+                            Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
                             Dim NombreResult As String = datos.GetString(nombreOrdinal)
                             Dim AlicIVA As Double = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDouble(datos.GetValue(alicIVAOrdinal)))
                             Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
@@ -1614,7 +1614,7 @@ Public Class cls_D_AdminSiCoFa
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
                             Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
 
-                            objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
+                            objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
                         Else
                             ' No se encontró ningún artículo con el ID especificado.
                             objArt = Nothing
@@ -1639,10 +1639,12 @@ Public Class cls_D_AdminSiCoFa
 
         Try
             Dim sql As String
+            ' Modificamos la consulta SQL para buscar por Nombre o CodBarras
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdArticulo,Codigo,CodBarra,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos ORDER BY Nombre"
+                sql = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM ConArticulos ORDER BY Nombre"
             Else
-                sql = "SELECT IdArticulo,Codigo,CodBarra,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                ' La búsqueda por CodBarras ahora es exacta (=)
+                sql = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM ConArticulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
             End If
 
             Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
@@ -1653,13 +1655,16 @@ Public Class cls_D_AdminSiCoFa
                     cmd.CommandText = sql
 
                     If argTextoBuscado <> "*" Then
-                        cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                        ' Separamos los parámetros para Nombre y CodBarras
+                        cmd.Parameters.AddWithValue("@Nombre", "%" & Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                        cmd.Parameters.AddWithValue("@Codigo", argTextoBuscado)
+                        cmd.Parameters.AddWithValue("@CodBarras", argTextoBuscado)
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
                         Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
                         Dim codigoOrdinal As Integer = datos.GetOrdinal("Codigo")
-                        Dim codBarraOrdinal As Integer = datos.GetOrdinal("CodBarra")
+                        Dim codBarrasOrdinal As Integer = datos.GetOrdinal("CodBarras")
                         Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
                         Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
                         Dim fechaPrecioOrdinal As Integer = datos.GetOrdinal("FechaPrecio")
@@ -1675,12 +1680,11 @@ Public Class cls_D_AdminSiCoFa
                         Dim listaPreciosNombreOrdinal As Integer = datos.GetOrdinal("ListaPrecios")
                         Dim fabricanteOrdinal As Integer = datos.GetOrdinal("Fabricante")
 
-
                         While datos.Read
                             ' Manejo explícito de DBNull y conversión a tipos de datos .NET
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim CodigoResult As String = datos.GetString(codigoOrdinal)
-                            Dim CodBarraResult As String = datos.GetString(codBarraOrdinal)
+                            Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
                             Dim NombreResult As String = datos.GetString(nombreOrdinal)
                             Dim AlicIVA As Double = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDouble(datos.GetValue(alicIVAOrdinal)))
                             Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
@@ -1701,14 +1705,11 @@ Public Class cls_D_AdminSiCoFa
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
                             Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
 
-                            Dim objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarraResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
+                            Dim objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
                             objLA.Add(objArt)
                         End While
-
                     End Using
-
                 End Using
-
             End Using
 
             Return objLA
@@ -1718,11 +1719,11 @@ Public Class cls_D_AdminSiCoFa
             Return New List(Of Articulo)
 
         End Try
-
     End Function
+
     Public Function InsertarArticulo(
                                     ByVal argCodigo As String,
-                                    ByVal argCodBarra As String,
+                                    ByVal argCodBarras As String,
                                     ByVal argNombre As String,
                                     ByVal argAlicIVA As Int16,
                                     ByVal argIdSeccion As String
@@ -1737,7 +1738,7 @@ Public Class cls_D_AdminSiCoFa
                 Using cmd As New MySqlCommand("InsertarArticulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
-                        .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
+                        .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
                         .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
@@ -1762,7 +1763,7 @@ Public Class cls_D_AdminSiCoFa
     Public Function ActualizarArticulo(
                                         ByVal argIdArticulo As String,
                                         ByVal argCodigo As String,
-                                        ByVal argCodBarra As String,
+                                        ByVal argCodBarras As String,
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Int16,
                                         ByVal argBaja As Boolean,
@@ -1778,7 +1779,7 @@ Public Class cls_D_AdminSiCoFa
                     With cmd.Parameters
                         .Add("_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
-                        .Add("_CodBarra", MySqlDbType.VarChar).Value = argCodBarra
+                        .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_AlicIVA", MySqlDbType.Int16).Value = argAlicIVA
                         .Add("_Baja", MySqlDbType.Bit).Value = argBaja

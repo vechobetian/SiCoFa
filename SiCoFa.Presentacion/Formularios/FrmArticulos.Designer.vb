@@ -26,7 +26,7 @@ Partial Class FrmArticulos
         Me.components = New System.ComponentModel.Container()
         Dim IdArticuloLabel As System.Windows.Forms.Label
         Dim CodigoLabel As System.Windows.Forms.Label
-        Dim CodBarraLabel As System.Windows.Forms.Label
+        Dim CodBarrasLabel As System.Windows.Forms.Label
         Dim NombreLabel As System.Windows.Forms.Label
         Dim AlicuotaIVALabel As System.Windows.Forms.Label
         Dim BajaLabel As System.Windows.Forms.Label
@@ -35,7 +35,7 @@ Partial Class FrmArticulos
         Me.IdArticulo = New System.Windows.Forms.TextBox()
         Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Codigo = New System.Windows.Forms.TextBox()
-        Me.CodBarra = New System.Windows.Forms.TextBox()
+        Me.CodBarras = New System.Windows.Forms.TextBox()
         Me.Nombre = New System.Windows.Forms.TextBox()
         Me.AlicuotaIVA = New System.Windows.Forms.ComboBox()
         Me.Seccion = New System.Windows.Forms.ComboBox()
@@ -47,7 +47,7 @@ Partial Class FrmArticulos
         Me.Baja = New System.Windows.Forms.ComboBox()
         IdArticuloLabel = New System.Windows.Forms.Label()
         CodigoLabel = New System.Windows.Forms.Label()
-        CodBarraLabel = New System.Windows.Forms.Label()
+        CodBarrasLabel = New System.Windows.Forms.Label()
         NombreLabel = New System.Windows.Forms.Label()
         AlicuotaIVALabel = New System.Windows.Forms.Label()
         BajaLabel = New System.Windows.Forms.Label()
@@ -74,14 +74,14 @@ Partial Class FrmArticulos
         CodigoLabel.TabIndex = 2
         CodigoLabel.Text = "Codigo:"
         '
-        'CodBarraLabel
+        'CodBarrasLabel
         '
-        CodBarraLabel.AutoSize = True
-        CodBarraLabel.Location = New System.Drawing.Point(10, 121)
-        CodBarraLabel.Name = "CodBarraLabel"
-        CodBarraLabel.Size = New System.Drawing.Size(57, 13)
-        CodBarraLabel.TabIndex = 4
-        CodBarraLabel.Text = "Cod Barra:"
+        CodBarrasLabel.AutoSize = True
+        CodBarrasLabel.Location = New System.Drawing.Point(10, 121)
+        CodBarrasLabel.Name = "CodBarrasLabel"
+        CodBarrasLabel.Size = New System.Drawing.Size(62, 13)
+        CodBarrasLabel.TabIndex = 4
+        CodBarrasLabel.Text = "Cod Barras:"
         '
         'NombreLabel
         '
@@ -141,13 +141,13 @@ Partial Class FrmArticulos
         Me.Codigo.Size = New System.Drawing.Size(315, 20)
         Me.Codigo.TabIndex = 2
         '
-        'CodBarra
+        'CodBarras
         '
-        Me.CodBarra.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "CodBarra", True))
-        Me.CodBarra.Location = New System.Drawing.Point(104, 118)
-        Me.CodBarra.Name = "CodBarra"
-        Me.CodBarra.Size = New System.Drawing.Size(315, 20)
-        Me.CodBarra.TabIndex = 3
+        Me.CodBarras.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "CodBarras", True))
+        Me.CodBarras.Location = New System.Drawing.Point(104, 118)
+        Me.CodBarras.Name = "CodBarras"
+        Me.CodBarras.Size = New System.Drawing.Size(315, 20)
+        Me.CodBarras.TabIndex = 3
         '
         'Nombre
         '
@@ -251,8 +251,8 @@ Partial Class FrmArticulos
         Me.Controls.Add(Me.AlicuotaIVA)
         Me.Controls.Add(NombreLabel)
         Me.Controls.Add(Me.Nombre)
-        Me.Controls.Add(CodBarraLabel)
-        Me.Controls.Add(Me.CodBarra)
+        Me.Controls.Add(CodBarrasLabel)
+        Me.Controls.Add(Me.CodBarras)
         Me.Controls.Add(CodigoLabel)
         Me.Controls.Add(Me.Codigo)
         Me.Controls.Add(IdArticuloLabel)
@@ -271,7 +271,7 @@ Partial Class FrmArticulos
     Friend WithEvents ArticuloBindingSource As BindingSource
     Friend WithEvents IdArticulo As TextBox
     Friend WithEvents Codigo As TextBox
-    Friend WithEvents CodBarra As TextBox
+    Friend WithEvents CodBarras As TextBox
     Friend WithEvents Nombre As TextBox
     Friend WithEvents AlicuotaIVA As ComboBox
     Friend WithEvents Seccion As ComboBox

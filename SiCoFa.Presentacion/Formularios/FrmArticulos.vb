@@ -97,7 +97,7 @@ Public Class FrmArticulos
                 .IdArticulo.Text = argArticulo.IdArticulo
                 .Nombre.Text = argArticulo.Nombre
                 .Codigo.Text = argArticulo.Codigo
-                .CodBarra.Text = argArticulo.CodBarra
+                .CodBarras.Text = argArticulo.CodBarras
                 .AlicuotaIVA.Text = argArticulo.AlicuotaIVA.AlicuotaIVA
                 .Baja.SelectedIndex = If(argArticulo.Baja, 1, 0)
                 .Seccion.Text = argArticulo.Seccion.Seccion
@@ -123,7 +123,7 @@ Public Class FrmArticulos
             End If
 
             If Me.NuevoArticulo = True Then
-                Dim IdArticulo As String = mobj_N_AdminSiCoFa.InsertarArticulo(Me.Codigo.Text, Me.CodBarra.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, Me.Seccion.SelectedValue)
+                Dim IdArticulo As String = mobj_N_AdminSiCoFa.InsertarArticulo(Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, Me.Seccion.SelectedValue)
                 If IdArticulo <> "" Then
                     Me.IdArticulo.Text = IdArticulo
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -142,7 +142,7 @@ Public Class FrmArticulos
                 End If
 
                 Dim baja As Boolean = If(Me.Baja.SelectedItem.ToString() = "SI", True, False)
-                Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarArticulo(Me.IdArticulo.Text, Me.Codigo.Text, Me.CodBarra.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, baja, Me.Seccion.SelectedValue)
+                Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarArticulo(Me.IdArticulo.Text, Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, baja, Me.Seccion.SelectedValue)
 
                 If Actualizado = True Then
                     MsgBox("El Articulo " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

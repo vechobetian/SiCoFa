@@ -27,13 +27,13 @@
         End If
     End Sub
     Private Sub AjustarAnchoColumnasProporcional()
-        If DataGridView1.ColumnCount = 9 Then
+        If DataGridView1.ColumnCount = 10 Then
             Dim totalAncho As Integer = DataGridView1.Width
             ' Define las proporciones para las 9 columnas (la primera es invisible y tiene ancho 0)
-            Dim proporciones As Double() = {0.0R, 0.5R, 0.05R, 0.05R, 0.1R, 0.1R, 0.05R, 0.1R, 0.1R}
+            Dim proporciones As Double() = {0.0R, 0.08R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
             ' Suma de las proporciones (excluyendo la primera): 0.1 + 0.15 + 0.1 + 0.2 + 0.05 + 0.15 + 0.1 + 0.05 = 0.9 (ajusta según necesites)
 
-            For i As Integer = 0 To 8 ' Itera a través de las 9 columnas
+            For i As Integer = 0 To 9 ' Itera a través de las 9 columnas
                 DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
             Next
         Else
@@ -59,7 +59,6 @@
         Next
 
     End Sub
-
     Private Sub FrmFacturacion_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.AjustarAnchoColumnasProporcional()
         Me.AjustarAnchoToolStripTextBox()

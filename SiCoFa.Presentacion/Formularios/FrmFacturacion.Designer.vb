@@ -43,6 +43,7 @@ Partial Class FrmFacturacion
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EdicionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IdArticulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -92,7 +93,7 @@ Partial Class FrmFacturacion
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Nombre, Me.Cantidad, Me.IVA, Me.PrecioUnitario, Me.Importe, Me.PorcDescuento, Me.ImpDescuento, Me.ImpCliente})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.CodBarras, Me.Nombre, Me.Cantidad, Me.IVA, Me.PrecioUnitario, Me.Importe, Me.PorcDescuento, Me.ImpDescuento, Me.ImpCliente})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(3, 58)
         Me.DataGridView1.Name = "DataGridView1"
@@ -244,6 +245,13 @@ Partial Class FrmFacturacion
         Me.IdArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.IdArticulo.Visible = False
         '
+        'CodBarras
+        '
+        Me.CodBarras.DataPropertyName = "CodBarras"
+        Me.CodBarras.HeaderText = "CodBarras"
+        Me.CodBarras.Name = "CodBarras"
+        Me.CodBarras.ReadOnly = True
+        '
         'Nombre
         '
         Me.Nombre.DataPropertyName = "Nombre"
@@ -350,6 +358,7 @@ Partial Class FrmFacturacion
     Friend WithEvents ToolStripTextBox1 As ToolStripTextBox
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents IdArticulo As DataGridViewTextBoxColumn
+    Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
     Friend WithEvents Cantidad As DataGridViewTextBoxColumn
     Friend WithEvents IVA As DataGridViewTextBoxColumn

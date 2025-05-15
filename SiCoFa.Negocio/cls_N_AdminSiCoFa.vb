@@ -798,7 +798,7 @@ Public Class cls_N_AdminSiCoFa
     End Function
     Public Function InsertarArticulo(
                                     ByVal argCodigo As String,
-                                    ByVal argCodBarra As String,
+                                    ByVal argCodBarras As String,
                                     ByVal argNombre As String,
                                     ByVal argAlicIVA As Double,
                                     ByVal argIdSeccion As String
@@ -806,7 +806,7 @@ Public Class cls_N_AdminSiCoFa
         Try
             Dim IdArticulo As String = mobj_D_AdminSiCoFa.InsertarArticulo(
                                                                            UCase(argCodigo),
-                                                                           UCase(argCodBarra),
+                                                                           UCase(argCodBarras),
                                                                            UCase(argNombre),
                                                                            argAlicIVA,
                                                                            argIdSeccion
@@ -823,7 +823,7 @@ Public Class cls_N_AdminSiCoFa
     Public Function ActualizarArticulo(
                                         ByVal argIdArticulo As String,
                                         ByVal argCodigo As String,
-                                        ByVal argCodBarra As String,
+                                        ByVal argCodBarras As String,
                                         ByVal argNombre As String,
                                         ByVal argAlicIVA As Double,
                                         ByVal argBaja As Boolean,
@@ -834,7 +834,7 @@ Public Class cls_N_AdminSiCoFa
             Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarArticulo(
                                                                              argIdArticulo,
                                                                              UCase(argCodigo),
-                                                                             UCase(argCodBarra),
+                                                                             UCase(argCodBarras),
                                                                              UCase(argNombre),
                                                                              argAlicIVA,
                                                                              argBaja,
