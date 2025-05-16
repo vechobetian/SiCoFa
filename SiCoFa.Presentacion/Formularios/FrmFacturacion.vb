@@ -109,11 +109,23 @@ Public Class FrmFacturacion
 
     End Sub
     Private Sub ActualizarTotales()
-        Dim ImporteTotal As Decimal
+
+        Dim CantidadItems As Integer = 0
+        Dim ImporteSinDescuentos As Decimal = 0
+        Dim ImporteDescuentos As Decimal = 0
+        Dim ImporteConDescuentos As Decimal = 0
+
         For Each i As ItemComprobante In Me.Items
-            ImporteTotal = ImporteTotal + i.ImporteConDescuento
+            CantidadItems += 1
+            ImporteSinDescuentos += i.ImporteSinDescuento
+            ImporteDescuentos += i.ImporteDescuento
+            ImporteConDescuentos += i.ImporteConDescuento
         Next
-        MsgBox(ImporteTotal)
+
+        Me.CantidadItems.Text = CantidadItems
+        Me.ImporteSinDescuentos.Text = "$ " & Format(ImporteSinDescuentos, "#,##0.00")
+        Me.ImporteDescuentos.Text = "$ " & Format(ImporteDescuentos, "#,##0.00")
+        Me.ImporteConDescuentos.Text = "$ " & Format(ImporteConDescuentos, "#,##0.00")
 
     End Sub
     Private Sub FrmFacturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -191,6 +203,7 @@ Public Class FrmFacturacion
                     End If
                 Next
                 Me.DataGridView1.ClearSelection()
+                Me.ActualizarTotales()
             End If
         End If
     End Sub

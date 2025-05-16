@@ -59,11 +59,23 @@ Partial Class FrmFacturacion
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EdicionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.ImporteConDescuentos = New System.Windows.Forms.Label()
+        Me.ImporteDescuentos = New System.Windows.Forms.Label()
+        Me.PorcentajeAplicado = New System.Windows.Forms.Label()
+        Me.ImporteSinDescuentos = New System.Windows.Forms.Label()
+        Me.CantidadItems = New System.Windows.Forms.Label()
+        Me.lblItems = New System.Windows.Forms.Label()
+        Me.lblImporteNeto = New System.Windows.Forms.Label()
+        Me.lblImporteDescuentos = New System.Windows.Forms.Label()
+        Me.lblPorcentajeAplicado = New System.Windows.Forms.Label()
+        Me.lblTotalSinDescuentos = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -74,6 +86,7 @@ Partial Class FrmFacturacion
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView1, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel1, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel2, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
@@ -81,7 +94,7 @@ Partial Class FrmFacturacion
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1359, 539)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1359, 545)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'DataGridView1
@@ -105,7 +118,7 @@ Partial Class FrmFacturacion
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DataGridView1.Size = New System.Drawing.Size(1353, 434)
+        Me.DataGridView1.Size = New System.Drawing.Size(1353, 440)
         Me.DataGridView1.TabIndex = 3
         '
         'IdDP
@@ -345,11 +358,120 @@ Partial Class FrmFacturacion
         Me.EdicionToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.EdicionToolStripMenuItem.Text = "&Edicion"
         '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.ImporteConDescuentos)
+        Me.Panel2.Controls.Add(Me.ImporteDescuentos)
+        Me.Panel2.Controls.Add(Me.PorcentajeAplicado)
+        Me.Panel2.Controls.Add(Me.ImporteSinDescuentos)
+        Me.Panel2.Controls.Add(Me.CantidadItems)
+        Me.Panel2.Controls.Add(Me.lblItems)
+        Me.Panel2.Controls.Add(Me.lblImporteNeto)
+        Me.Panel2.Controls.Add(Me.lblImporteDescuentos)
+        Me.Panel2.Controls.Add(Me.lblPorcentajeAplicado)
+        Me.Panel2.Controls.Add(Me.lblTotalSinDescuentos)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(3, 504)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1353, 38)
+        Me.Panel2.TabIndex = 4
+        '
+        'ImporteConDescuentos
+        '
+        Me.ImporteConDescuentos.AutoEllipsis = True
+        Me.ImporteConDescuentos.Location = New System.Drawing.Point(1212, 13)
+        Me.ImporteConDescuentos.Name = "ImporteConDescuentos"
+        Me.ImporteConDescuentos.Size = New System.Drawing.Size(43, 13)
+        Me.ImporteConDescuentos.TabIndex = 9
+        Me.ImporteConDescuentos.Text = "$ 0,00"
+        '
+        'ImporteDescuentos
+        '
+        Me.ImporteDescuentos.AutoEllipsis = True
+        Me.ImporteDescuentos.Location = New System.Drawing.Point(887, 13)
+        Me.ImporteDescuentos.Name = "ImporteDescuentos"
+        Me.ImporteDescuentos.Size = New System.Drawing.Size(41, 13)
+        Me.ImporteDescuentos.TabIndex = 8
+        Me.ImporteDescuentos.Text = "$ 0,00"
+        '
+        'PorcentajeAplicado
+        '
+        Me.PorcentajeAplicado.AutoEllipsis = True
+        Me.PorcentajeAplicado.Location = New System.Drawing.Point(599, 13)
+        Me.PorcentajeAplicado.Name = "PorcentajeAplicado"
+        Me.PorcentajeAplicado.Size = New System.Drawing.Size(34, 13)
+        Me.PorcentajeAplicado.TabIndex = 7
+        Me.PorcentajeAplicado.Text = "0,00"
+        '
+        'ImporteSinDescuentos
+        '
+        Me.ImporteSinDescuentos.AutoEllipsis = True
+        Me.ImporteSinDescuentos.Location = New System.Drawing.Point(319, 13)
+        Me.ImporteSinDescuentos.Name = "ImporteSinDescuentos"
+        Me.ImporteSinDescuentos.Size = New System.Drawing.Size(40, 13)
+        Me.ImporteSinDescuentos.TabIndex = 6
+        Me.ImporteSinDescuentos.Text = "$ 0,00"
+        '
+        'CantidadItems
+        '
+        Me.CantidadItems.AutoEllipsis = True
+        Me.CantidadItems.AutoSize = True
+        Me.CantidadItems.Location = New System.Drawing.Point(50, 13)
+        Me.CantidadItems.Name = "CantidadItems"
+        Me.CantidadItems.Size = New System.Drawing.Size(13, 13)
+        Me.CantidadItems.TabIndex = 5
+        Me.CantidadItems.Text = "0"
+        '
+        'lblItems
+        '
+        Me.lblItems.AutoSize = True
+        Me.lblItems.Location = New System.Drawing.Point(9, 13)
+        Me.lblItems.Name = "lblItems"
+        Me.lblItems.Size = New System.Drawing.Size(35, 13)
+        Me.lblItems.TabIndex = 4
+        Me.lblItems.Text = "Items:"
+        '
+        'lblImporteNeto
+        '
+        Me.lblImporteNeto.AutoSize = True
+        Me.lblImporteNeto.Location = New System.Drawing.Point(1135, 13)
+        Me.lblImporteNeto.Name = "lblImporteNeto"
+        Me.lblImporteNeto.Size = New System.Drawing.Size(71, 13)
+        Me.lblImporteNeto.TabIndex = 3
+        Me.lblImporteNeto.Text = "Importe Neto:"
+        '
+        'lblImporteDescuentos
+        '
+        Me.lblImporteDescuentos.AutoSize = True
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(776, 13)
+        Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(105, 13)
+        Me.lblImporteDescuentos.TabIndex = 2
+        Me.lblImporteDescuentos.Text = "Importe Descuentos:"
+        '
+        'lblPorcentajeAplicado
+        '
+        Me.lblPorcentajeAplicado.AutoSize = True
+        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(491, 13)
+        Me.lblPorcentajeAplicado.Name = "lblPorcentajeAplicado"
+        Me.lblPorcentajeAplicado.Size = New System.Drawing.Size(102, 13)
+        Me.lblPorcentajeAplicado.TabIndex = 1
+        Me.lblPorcentajeAplicado.Text = "PorcentajeAplicado:"
+        '
+        'lblTotalSinDescuentos
+        '
+        Me.lblTotalSinDescuentos.AutoSize = True
+        Me.lblTotalSinDescuentos.Location = New System.Drawing.Point(205, 13)
+        Me.lblTotalSinDescuentos.Name = "lblTotalSinDescuentos"
+        Me.lblTotalSinDescuentos.Size = New System.Drawing.Size(108, 13)
+        Me.lblTotalSinDescuentos.TabIndex = 0
+        Me.lblTotalSinDescuentos.Text = "Total sin descuentos:"
+        '
         'FrmFacturacion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1359, 539)
+        Me.ClientSize = New System.Drawing.Size(1359, 545)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FrmFacturacion"
@@ -364,6 +486,8 @@ Partial Class FrmFacturacion
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -396,4 +520,15 @@ Partial Class FrmFacturacion
     Friend WithEvents PorcentajeDescuento As DataGridViewTextBoxColumn
     Friend WithEvents ImporteDescuento As DataGridViewTextBoxColumn
     Friend WithEvents ImporteConDescuento As DataGridViewTextBoxColumn
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents lblPorcentajeAplicado As Label
+    Friend WithEvents lblTotalSinDescuentos As Label
+    Friend WithEvents lblImporteNeto As Label
+    Friend WithEvents lblImporteDescuentos As Label
+    Friend WithEvents lblItems As Label
+    Friend WithEvents PorcentajeAplicado As Label
+    Friend WithEvents ImporteSinDescuentos As Label
+    Friend WithEvents CantidadItems As Label
+    Friend WithEvents ImporteConDescuentos As Label
+    Friend WithEvents ImporteDescuentos As Label
 End Class
