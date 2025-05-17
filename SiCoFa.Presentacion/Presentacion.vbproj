@@ -127,9 +127,7 @@
     <Compile Include="Formularios\FrmFacturacion.Designer.vb">
       <DependentUpon>FrmFacturacion.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmFacturacion.vb">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Formularios\FrmFacturacion.vb" />
     <Compile Include="Formularios\FrmArticulos.Designer.vb">
       <DependentUpon>FrmArticulos.vb</DependentUpon>
     </Compile>
