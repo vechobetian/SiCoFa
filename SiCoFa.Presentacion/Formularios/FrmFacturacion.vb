@@ -122,10 +122,11 @@ Public Class FrmFacturacion
             ImporteConDescuentos += i.ImporteConDescuento
         Next
 
-        Me.CantidadItems.Text = CantidadItems
-        Me.ImporteSinDescuentos.Text = "$ " & Format(ImporteSinDescuentos, "#,##0.00")
-        Me.ImporteDescuentos.Text = "$ " & Format(ImporteDescuentos, "#,##0.00")
-        Me.ImporteConDescuentos.Text = "$ " & Format(ImporteConDescuentos, "#,##0.00")
+        Me.lblCantidadItems.Text = "Items: " & CantidadItems
+        Me.lblImporteSinDescuentos.Text = "Importe sin Descuentos: $ " & Format(ImporteSinDescuentos, "#,##0.00")
+        Me.lblPorcentajeAplicado.Text = "Porcentaje Aplicado: " & Format(0, "#,##0.00")
+        Me.lblImporteDescuentos.Text = "Importe Descuentos: $ " & Format(ImporteDescuentos, "#,##0.00")
+        Me.lblImporteConDescuentos.Text = "Importe Neto: $ " & Format(ImporteConDescuentos, "#,##0.00")
 
     End Sub
     Private Sub FrmFacturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
