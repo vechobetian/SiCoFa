@@ -59,6 +59,8 @@ Partial Class FrmFacturacion
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EdicionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ElimininarItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblImporteDescuentos = New System.Windows.Forms.Label()
@@ -66,8 +68,6 @@ Partial Class FrmFacturacion
         Me.lblImporteSinDescuentos = New System.Windows.Forms.Label()
         Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.lblImporteConDescuentos = New System.Windows.Forms.Label()
-        Me.ElimininarItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -359,6 +359,20 @@ Partial Class FrmFacturacion
         Me.EdicionToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.EdicionToolStripMenuItem.Text = "&Edicion"
         '
+        'ElimininarItemSeleccionadoToolStripMenuItem
+        '
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("ElimininarItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Name = "ElimininarItemSeleccionadoToolStripMenuItem"
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(268, 22)
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Text = "&Elimininar item seleccionado"
+        '
+        'AplicarDescuentoItemSeleccionadoToolStripMenuItem
+        '
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Name = "AplicarDescuentoItemSeleccionadoToolStripMenuItem"
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(268, 22)
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Text = "Aplicar descuento item seleccionado"
+        '
         'Panel2
         '
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -444,19 +458,6 @@ Partial Class FrmFacturacion
         Me.lblImporteConDescuentos.Size = New System.Drawing.Size(178, 24)
         Me.lblImporteConDescuentos.TabIndex = 9
         Me.lblImporteConDescuentos.Text = "Importe Neto: $ 0,00"
-        '
-        'ElimininarItemSeleccionadoToolStripMenuItem
-        '
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("ElimininarItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Name = "ElimininarItemSeleccionadoToolStripMenuItem"
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(268, 22)
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Text = "&Elimininar item seleccionado"
-        '
-        'AplicarDescuentoItemSeleccionadoToolStripMenuItem
-        '
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Name = "AplicarDescuentoItemSeleccionadoToolStripMenuItem"
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(268, 22)
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Text = "Aplicar descuento item seleccionado"
         '
         'FrmFacturacion
         '
