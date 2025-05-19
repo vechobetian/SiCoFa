@@ -5,10 +5,10 @@ Public Class cls_D_AdminDB
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
 
         Try
+            Dim objConexionDB As New cls_Conexion
             Dim tbl As New DataTable
 
-            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
-                cn.Open()
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using adapter = New MySqlDataAdapter(argSql, cn)
                     adapter.Fill(tbl)
@@ -28,9 +28,9 @@ Public Class cls_D_AdminDB
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
 
         Try
+            Dim objConexionDB As New cls_Conexion
 
-            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
-                cn.Open()
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using adapter = New MySqlDataAdapter(argSql, cn)
 
@@ -52,10 +52,10 @@ Public Class cls_D_AdminDB
     Public Function ObtenerValor(ByVal argSql As String) As Object
 
         Try
+            Dim objConexionDB As New cls_Conexion
             Dim valor As Object
 
-            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
-                cn.Open()
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using command As New MySqlCommand(argSql, cn)
                     valor = command.ExecuteScalar()
@@ -78,8 +78,9 @@ Public Class cls_D_AdminDB
     Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
 
         Try
-            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
-                cn.Open()
+            Dim objConexionDB As New cls_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -122,14 +123,13 @@ Public Class cls_D_AdminDB
     Public Sub InsertarRegistro(ByVal argSql As String, ByVal valoresColumnas As Dictionary(Of String, Object))
 
         Try
-
+            Dim objConexionDB As New cls_Conexion
             Dim columnas As String = String.Join(",", valoresColumnas.Keys.Select(Function(k) "`" & k & "`"))
             Dim valores As String = String.Join(",", valoresColumnas.Keys.Cast(Of String)().Select(Function(k) "@" & k))
 
             Dim insertCommand As String = $"INSERT INTO {argSql} ({columnas}) VALUES ({valores})"
 
-            Using cn As New MySqlConnection(Mod_D_Admin.strConexionDB)
-                cn.Open()
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand(insertCommand, cn)
 

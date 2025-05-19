@@ -1,5 +1,6 @@
 ﻿Public Class ItemComprobante
     Private m_IdDP As Long
+    Private m_Articulo As Articulo
     Private m_CodBarras As String
     Private m_Descripcion As String
     Private m_Cantidad As Decimal = 0
@@ -17,6 +18,15 @@
         End Get
         Set(value As Long)
             m_IdDP = value
+        End Set
+    End Property
+
+    Public Property Articulo() As Articulo
+        Get
+            Return m_Articulo
+        End Get
+        Set(value As Articulo)
+            m_Articulo = value
         End Set
     End Property
 
@@ -118,6 +128,7 @@
 
 
     Public Sub New(
+                    ByVal argArticulo As Articulo,
                     ByVal argCodBarras As String,
                     ByVal argDescripcion As String,
                     ByVal argCantidad As Decimal,
@@ -126,6 +137,7 @@
                     ByVal argPorcentajeDescuento As Decimal
                     )
         Try
+            m_Articulo = argArticulo
             m_CodBarras = argCodBarras
             m_Descripcion = argDescripcion
             m_Cantidad = argCantidad

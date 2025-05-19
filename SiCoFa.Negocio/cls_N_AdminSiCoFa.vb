@@ -558,6 +558,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Operaciones"
+
     Public Function ObtenerTipoOperacion(ByVal argCodiTO As String) As TipoOperacion
 
         Dim TipoOperaciones As List(Of TipoOperacion) = mobj_D_AdminSiCoFa.ListarTipoOperaciones
@@ -578,6 +579,7 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
+
     Public Function RegistrarError(ByVal argIdOperacion As Long, argDescripcionError As String) As Integer
 
         Dim RegAfectados As Integer
@@ -590,51 +592,7 @@ Public Class cls_N_AdminSiCoFa
             Return 0
         End Try
     End Function
-    Public Function DevengarServicios(ByVal argIdUsuario As Integer) As Integer
-        Try
-            Dim RegAfectados As Integer
-            RegAfectados = mobj_D_AdminSiCoFa.DevengarServicios(argIdUsuario)
-            Return RegAfectados
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "DevengarServicios", ex.Message))
-            Return 0
-        End Try
-
-    End Function
-    Public Sub AplicarPagosAbiertos(ByVal argIdUsuario As Integer)
-
-        Try
-            mobj_D_AdminSiCoFa.AplicarPagosAbiertos(argIdUsuario)
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "DevengarServicios", ex.Message))
-
-        End Try
-
-    End Sub
-    Public Sub EstablecerItemsPago(ByVal argIdOpera As Long)
-
-        Try
-            mobj_D_AdminSiCoFa.EstablecerItemsPago(argIdOpera)
-
-        Catch Ex As Exception
-            MsgBox(Vecho.MensajeError(Me.ToString, "EstablcerItemsPago", Ex.Message))
-
-        End Try
-
-    End Sub
-    Public Function FacturarServicios(ByVal argIdUsuario As Integer, ByVal argCodiTC As String, ByVal argPVenta As String) As Integer
-        Try
-            Dim NumComprobantes As Integer = mobj_D_AdminSiCoFa.FacturarServicios(argIdUsuario, argCodiTC, argPVenta)
-            Return NumComprobantes
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "FacturarServicios", ex.Message))
-            Return 0
-
-        End Try
-    End Function
     Public Function InsertarOperacion(ByVal argCodiAE As String, ByVal argCodiTO As String, ByVal argIdUsuario As Integer) As Operacion
         Dim objOpera As Operacion
 
@@ -648,6 +606,7 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
+
     Public Function FinalizarOperacion(ByVal argIdOperacion As Long) As Integer
 
         Dim RegAfectados As Integer
@@ -661,6 +620,7 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
+
     Public Function ObtenerOperacion(ByVal argIdOpera As Long) As Operacion
 
         Try
@@ -670,30 +630,6 @@ Public Class cls_N_AdminSiCoFa
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacion", ex.Message))
             Return Nothing
-        End Try
-
-    End Function
-    Public Function InsertarOperaCancel(ByVal argIdOperacion As Long, ByVal argIdOperaCancel As Long, ByVal argIdOperaAntic As Long, ByVal argImporte As Decimal, ByVal argSaldoOperacion As Decimal, ByVal argSaldoAnticipo As Decimal) As Long
-        Dim IdOC As Long
-
-        Try
-            IdOC = mobj_D_AdminSiCoFa.InsertarOperaCancel(argIdOperacion, argIdOperaCancel, argIdOperaAntic, argImporte, argSaldoOperacion, argSaldoAnticipo)
-            Return IdOC
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperaCancel", ex.Message))
-            Return 0
-        End Try
-
-    End Function
-    Public Function InsertarOperaContrato(ByVal argIdOperacion As Long, ByVal argIdContrato As Integer, ByVal argResumen As String, ByVal argImporte As Decimal, ByVal argEstado As String) As Long
-        Dim IdOC As Long
-
-        Try
-            IdOC = mobj_D_AdminSiCoFa.InsertarOperaContrato(argIdOperacion, argIdContrato, argResumen, argImporte, argEstado)
-            Return IdOC
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperaContratos", ex.Message))
-            Return 0
         End Try
 
     End Function

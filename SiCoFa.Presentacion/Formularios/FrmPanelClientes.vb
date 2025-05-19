@@ -144,6 +144,7 @@ Public Class FrmPanelClientes
                 .LimpiarFormulario()
                 .MostrarCliente(c)
                 .MostrarCuentaCorriente(c)
+                .Nombre.ReadOnly = True
                 .Nombre.Select()
                 .Nombre.SelectAll()
             End With
@@ -288,6 +289,7 @@ Public Class FrmPanelClientes
             Me.LimpiarFormulario()
             Me.NuevaPersona = True
             Me.NuevoCliente.Checked = True
+            Me.Nombre.ReadOnly = False
             Me.Nombre.Select()
 
             Dim valoresDefecto As New Dictionary(Of String, Object)
@@ -341,6 +343,8 @@ Public Class FrmPanelClientes
 
             Me.LimpiarFormulario()
             Me.NuevaPersona = False
+            Me.OcultarPestanaCuentaCorriente()
+            Me.Nombre.ReadOnly = False
             Me.Nombre.Select()
             Me.NuevoCliente.Checked = False
 

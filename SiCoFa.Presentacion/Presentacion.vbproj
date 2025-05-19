@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmFacturacion</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmVentas</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -124,10 +124,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\FrmFacturacion.Designer.vb">
-      <DependentUpon>FrmFacturacion.vb</DependentUpon>
+    <Compile Include="Formularios\FrmVentas.Designer.vb">
+      <DependentUpon>FrmVentas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmFacturacion.vb">
+    <Compile Include="Formularios\FrmVentas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmArticulos.Designer.vb">
@@ -243,8 +243,8 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmFacturacion.resx">
-      <DependentUpon>FrmFacturacion.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmVentas.resx">
+      <DependentUpon>FrmVentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmArticulos.resx">
       <DependentUpon>FrmArticulos.vb</DependentUpon>
