@@ -88,6 +88,7 @@
     <Compile Include="ListaPrecios.vb" />
     <Compile Include="LoginTicket.vb" />
     <Compile Include="Operacion.vb" />
+    <Compile Include="ParametrosTerminal.vb" />
     <Compile Include="Persona.vb" />
     <Compile Include="Proveedor.vb" />
     <Compile Include="Provincia.vb" />
