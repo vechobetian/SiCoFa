@@ -593,30 +593,29 @@ Public Class cls_N_AdminSiCoFa
         End Try
     End Function
 
-    Public Function InsertarOperacion(ByVal argCodiAE As String, ByVal argCodiTO As String, ByVal argIdUsuario As Integer) As Operacion
-        Dim objOpera As Operacion
+    Public Function IniciarOperacion(ByVal argMacAddress As String, ByVal argIdUsuario As Int32, ByVal argCodiTO As String, ByVal argObservaciones As String) As Long
+
 
         Try
-            objOpera = mobj_D_AdminSiCoFa.InsertarOperacion(argCodiAE, argCodiTO, argIdUsuario)
-            Return objOpera
+            Dim IdOperacion = mobj_D_AdminSiCoFa.IniciarOperacion(argMacAddress, argIdUsuario, argCodiTO, argObservaciones)
+            Return IdOperacion
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacion", ex.Message))
-            Return Nothing
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", ex.Message))
+            Return 0
         End Try
 
     End Function
 
-    Public Function FinalizarOperacion(ByVal argIdOperacion As Long) As Integer
-
-        Dim RegAfectados As Integer
+    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argObservaciones As String, ByVal argIdOperacion As String) As Boolean
 
         Try
-            RegAfectados = mobj_D_AdminSiCoFa.FinalizarOperacion(argIdOperacion)
-            Return RegAfectados
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.FinalizarOperacion(argMacAddress, argObservaciones, argIdOperacion)
+            Return Actualizado
+
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
-            Return 0
+            Return False
         End Try
 
     End Function
@@ -781,6 +780,41 @@ Public Class cls_N_AdminSiCoFa
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", ex.Message))
             Return False
 
+        End Try
+
+    End Function
+
+#End Region
+
+#Region "Administracion de Comprobantes"
+    Public Function InsertarItemComprobante(
+                                            ByVal argIdOperacion As Long,
+                                            ByVal argIdArticulo As String,
+                                            ByVal argDescripcion As String,
+                                            ByVal argCantidad As Decimal,
+                                            ByVal argAlicIVA As Decimal,
+                                            ByVal argPrecioCosto As Decimal,
+                                            ByVal argPrecioUnitario As Decimal,
+                                            ByVal argDescuento As Decimal
+                                            ) As Long
+
+
+        Try
+            Dim IdItem As Long = mobj_D_AdminSiCoFa.InsertarItemComprobante(
+                                                                            argIdOperacion,
+                                                                            argIdArticulo,
+                                                                            argDescripcion,
+                                                                            argCantidad,
+                                                                            argAlicIVA,
+                                                                            argPrecioCosto,
+                                                                            argPrecioUnitario,
+                                                                            argDescuento
+                                                                            )
+            Return IdItem
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobante", ex.Message))
+            Return 0
         End Try
 
     End Function

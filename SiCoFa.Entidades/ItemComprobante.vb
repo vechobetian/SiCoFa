@@ -136,23 +136,18 @@
                     ByVal argAlicIVA As Decimal,
                     ByVal argPorcentajeDescuento As Decimal
                     )
-        Try
-            m_Articulo = argArticulo
-            m_CodBarras = argCodBarras
-            m_Descripcion = argDescripcion
-            m_Cantidad = argCantidad
-            m_PrecioUnitario = argPrecioUnitario
-            m_AlicIVA = argAlicIVA
-            m_PorcentajeDescuento = argPorcentajeDescuento
-            ' Calcular las propiedades dependientes al inicializar el objeto
-            m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
-            m_ImporteSinDescuento = Math.Round(m_Cantidad * m_PrecioUnitario, 2, MidpointRounding.ToEven)
-            m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
-            m_ImporteConDescuento = m_ImporteSinDescuento - m_ImporteDescuento
-
-        Catch ex As Exception
-            Throw ex
-        End Try
+        m_Articulo = argArticulo
+        m_CodBarras = argCodBarras
+        m_Descripcion = argDescripcion
+        m_Cantidad = argCantidad
+        m_PrecioUnitario = argPrecioUnitario
+        m_AlicIVA = argAlicIVA
+        m_PorcentajeDescuento = argPorcentajeDescuento
+        ' Calcular las propiedades dependientes al inicializar el objeto
+        m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
+        m_ImporteSinDescuento = Math.Round(m_Cantidad * m_PrecioUnitario, 2, MidpointRounding.ToEven)
+        m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
+        m_ImporteConDescuento = m_ImporteSinDescuento - m_ImporteDescuento
 
     End Sub
 

@@ -1113,7 +1113,7 @@ Public Class cls_D_AdminSiCoFa
         Return RegAfectados
     End Function
 
-    Public Function InsertarOperacion(ByVal argCodiAE As String, ByVal argCodiTO As String, ByVal argIdUsuario As Integer) As Operacion
+    Public Function IniciarOperacion(ByVal argMacAddress As String, ByVal argIdUsuario As Int32, ByVal argCodiTO As String, ByVal argObservaciones As String) As Long
 
         Try
 
@@ -1121,44 +1121,56 @@ Public Class cls_D_AdminSiCoFa
             Dim IdOperacion As Long
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Using cmd As New MySqlCommand("InsertarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
-                    cmd.Parameters.AddWithValue("CodiAE", argCodiAE)
-                    cmd.Parameters.AddWithValue("CodiTO", argCodiTO)
-                    cmd.Parameters.AddWithValue("IdUsuario", argIdUsuario)
-                    cmd.Parameters.Add("IdOperacion", MySqlDbType.Int64)
-                    cmd.Parameters("IdOperacion").Direction = ParameterDirection.Output
+
+                Using cmd As New MySqlCommand("IniciarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
+                        .Add("p_IdUsuario", MySqlDbType.VarChar).Value = argIdUsuario
+                        .Add("p_CodiTO", MySqlDbType.VarChar).Value = argCodiTO
+                        .Add("p_Observaciones", MySqlDbType.VarChar).Value = argObservaciones
+                        .Add("p_IdOperacion", MySqlDbType.Int64)
+                    End With
+
+                    cmd.Parameters("p_IdOperacion").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdOperacion = CInt(cmd.Parameters("IdOperacion").Value)
+                    IdOperacion = CLng(cmd.Parameters("p_IdOperacion").Value)
                 End Using
+
             End Using
 
-            Dim objOpera As New Operacion(IdOperacion, Now, argCodiAE, argCodiTO, argIdUsuario, "INGRESADO", "", "")
-            Return objOpera
+            Return IdOperacion
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacion", Ex.Message))
-            Return Nothing
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", Ex.Message))
+            Return 0
         End Try
 
     End Function
 
-    Public Function FinalizarOperacion(ByVal argIdOpera As String) As Integer
-        Dim objConexionDB As New cls_Conexion
-        Dim RegAfectados As Integer
+    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argObservaciones As String, ByVal argIdOperacion As Long) As Boolean
         Try
-            Dim sql As String = "UPDATE TblOpera SET EstadoOpera='FINALIZADO' WHERE IdOperacion=" & argIdOpera
+
+            Dim objConexionDB As New cls_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Using cmd As New MySqlCommand(sql, cn)
-                    RegAfectados = cmd.ExecuteNonQuery
+
+                Using cmd As New MySqlCommand("FinalizarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
+                        .Add("p_Observaciones", MySqlDbType.VarChar).Value = argObservaciones
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                    End With
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
                 End Using
+
             End Using
 
-            Return RegAfectados
-
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", Ex.Message))
-            Return 0
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", Ex.Message))
+            Return False
         End Try
     End Function
 
@@ -1179,16 +1191,16 @@ Public Class cls_D_AdminSiCoFa
                         datos.Read()
 
                         If datos.HasRows Then
-                            objOpera = New Operacion(
-                                                    datos("IdOperacion"),
-                                                    datos("Fecha"),
-                                                    datos("CodiAE"),
-                                                    datos("CodiTO"),
-                                                    datos("IdUsuario"),
-                                                    datos("EstadoOpera"),
-                                                    datos("Observaciones").ToString,
-                                                    datos("DesError").ToString
-                                                    )
+                            'objOpera = New Operacion(
+                            'datos("IdOperacion"),
+                            'datos("Fecha"),
+                            'datos("CodiAE"),
+                            'datos("CodiTO"),
+                            'datos("IdUsuario"),
+                            'datos("EstadoOpera"),
+                            'datos("Observaciones").ToString,
+                            'datos("DesError").ToString
+                            ')
 
                         Else
                             objOpera = Nothing
@@ -1677,5 +1689,229 @@ Public Class cls_D_AdminSiCoFa
     End Function
 #End Region
 
+#Region "Administracion Comprobantes"
+    Public Function InsertarComprobante(ByVal argOperacion As Operacion,
+                                        ByVal argCodiTC As String,
+                                        ByVal argImpBto As Decimal,
+                                        ByVal argImpEx As Decimal,
+                                        ByVal argImpGrav1 As Decimal,
+                                        ByVal argImpNeto1 As Decimal,
+                                        ByVal argImpIVA1 As Decimal,
+                                        ByVal argImpGrav2 As Decimal,
+                                        ByVal argImpNeto2 As Decimal,
+                                        ByVal argImpIVA2 As Decimal,
+                                        ByVal argImpCB As Decimal,
+                                        ByVal argImpEf As Decimal,
+                                        ByVal argImpCC As Decimal,
+                                        ByVal argImpTar As Decimal,
+                                        ByVal argIdOperAsoc As Long,
+                                        ByVal argCliente As Cliente,
+                                        ByVal argEmpresa As Empresa,
+                                        ByVal argDetalle As List(Of ItemComprobante),
+                                        ByVal argFiscal As Boolean
+                                        ) As Comprobante
+
+        Dim objConexionDB As New cls_Conexion
+        Dim objComp As Comprobante
+
+        Try
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                cn.Open()
+
+                Using cmd As New MySqlCommand("InsertarComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+
+                    With cmd.Parameters
+                        .AddWithValue("_IdOpera", argOperacion.IdOperacion)
+                        .AddWithValue("_CodiTC", argCodiTC)
+                        .AddWithValue("_IdCliente", argCliente.Id)
+                        .AddWithValue("_ImpBto", argImpBto)
+                        .AddWithValue("_ImpEx", argImpEx)
+                        .AddWithValue("_ImpGrav1", argImpGrav1)
+                        .AddWithValue("_ImpNeto1", argImpNeto1)
+                        .AddWithValue("_ImpIVA1", argImpIVA1)
+                        .AddWithValue("_ImpGrav2", argImpGrav2)
+                        .AddWithValue("_ImpNeto2", argImpNeto2)
+                        .AddWithValue("_ImpIVA2", argImpIVA2)
+                        .AddWithValue("_ImpCB", argImpCB)
+                        .AddWithValue("_ImpEf", argImpEf)
+                        .AddWithValue("_ImpCC", argImpCC)
+                        .AddWithValue("_ImpTar", argImpTar)
+                        .AddWithValue("_IdOperAsoc", argIdOperAsoc)
+                        .AddWithValue("_TipoDoc", argCliente.Documento.TipoDoc.CodiTDoc)
+                        .AddWithValue("_NumDoc", argCliente.Documento.Numero)
+                        .AddWithValue("_Cliente", argCliente.Nombre)
+                        .AddWithValue("_Fiscal", argFiscal)
+                    End With
+
+                    cmd.Parameters.Add("_PVenta", MySqlDbType.VarChar)
+                    cmd.Parameters("_PVenta").Direction = ParameterDirection.Output
+                    cmd.Parameters.Add("_NumComp", MySqlDbType.VarChar)
+                    cmd.Parameters("_NumComp").Direction = ParameterDirection.Output
+                    cmd.Parameters.Add("_FechaComp", MySqlDbType.VarChar)
+                    cmd.Parameters("_FechaComp").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+
+                    objComp = New Comprobante(argOperacion.IdOperacion,
+                                               argOperacion,
+                                               argCodiTC,
+                                               cmd.Parameters("_PVenta").Value,
+                                               cmd.Parameters("_NumComp").Value,
+                                               cmd.Parameters("_FechaComp").Value,
+                                               argImpBto,
+                                               argImpEx,
+                                               argImpGrav1,
+                                               argImpNeto1,
+                                               argImpIVA1,
+                                               argImpGrav2,
+                                               argImpNeto2,
+                                               argImpIVA2,
+                                               argImpCB,
+                                               argImpEf,
+                                               argImpCC,
+                                               argImpTar,
+                                               Nothing,
+                                               argCliente.Id,
+                                               argCliente,
+                                               argIdOperAsoc,
+                                               Nothing,
+                                               argEmpresa,
+                                               Nothing
+                                               )
+
+                End Using
+            End Using
+
+            Return objComp
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", Ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+#End Region
+
+#Region "Administracion Items Comprobante"
+
+    Public Function ListarItemsComprobantePorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
+        Dim objConexionDB As New cls_Conexion
+        Dim objLI As New List(Of ItemComprobante)
+
+        Try
+            Dim sql As String = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM ConArticulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    ' Separamos los parámetros para Nombre y CodBarras
+                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
+                        Dim descripcionOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
+                        Dim fechaPrecioOrdinal As Integer = datos.GetOrdinal("FechaPrecio")
+                        Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
+                        Dim precioVentaOrdinal As Integer = datos.GetOrdinal("PrecioVenta")
+                        Dim bajaOrdinal As Integer = datos.GetOrdinal("Baja")
+                        Dim idSeccionOrdinal As Integer = datos.GetOrdinal("IdSeccion")
+                        Dim seccionNombreOrdinal As Integer = datos.GetOrdinal("Seccion")
+                        Dim establecerPrecioOrdinal As Integer = datos.GetOrdinal("EstablecerPrecio")
+                        Dim actualizarPrecioOrdinal As Integer = datos.GetOrdinal("ActualizarPrecio")
+                        Dim stockOrdinal As Integer = datos.GetOrdinal("Stock")
+                        Dim codiLPOrdinal As Integer = datos.GetOrdinal("CodiLP")
+                        Dim listaPreciosNombreOrdinal As Integer = datos.GetOrdinal("ListaPrecios")
+                        Dim fabricanteOrdinal As Integer = datos.GetOrdinal("Fabricante")
+
+                        While datos.Read
+                            ' Manejo explícito de DBNull y conversión a tipos de datos .NET
+                            Dim IdItemResult As String = datos.GetString(idItemOrdinal)
+                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim AlicIVA As Decimal = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDecimal(datos.GetValue(alicIVAOrdinal)))
+                            Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
+                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
+                            Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
+                            Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
+                            Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
+                            Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
+                            Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
+                            Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
+                            Dim StockResult As Decimal = If(datos.IsDBNull(stockOrdinal), 0, Convert.ToDecimal(datos.GetValue(stockOrdinal)))
+                            Dim CodiLPResult As String = datos.GetString(codiLPOrdinal)
+                            Dim ListaPreciosResult As String = datos.GetString(listaPreciosNombreOrdinal)
+                            Dim FabricanteResult As String = datos.GetString(fabricanteOrdinal)
+
+                            ' Crear objetos anidados
+                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
+                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
+                            Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
+
+                            'Dim obItem = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
+                            'objLI.Add(objArt)
+                        End While
+                    End Using
+                End Using
+            End Using
+
+            Return objLI
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulos", ex.Message))
+            Return New List(Of ItemComprobante)
+
+        End Try
+    End Function
+
+    Public Function InsertarItemComprobante(
+                                            ByVal argIdOperacion As Long,
+                                            ByVal argIdArticulo As String,
+                                            ByVal argDescripcion As String,
+                                            ByVal argCantidad As Decimal,
+                                            ByVal argAlicIVA As Decimal,
+                                            ByVal argPrecioCosto As Decimal,
+                                            ByVal argPrecioUnitario As Decimal,
+                                            ByVal argDescuento As Decimal
+                                            ) As Long
+
+        Try
+            Dim objConexionDB As New cls_Conexion
+            Dim IdItem As Long
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("InsertarItemComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                        .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
+                        .Add("p_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
+                        .Add("p_Cantidad", MySqlDbType.Decimal).Value = argCantidad
+                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
+                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argPrecioCosto
+                        .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argPrecioUnitario
+                        .Add("p_Descuento", MySqlDbType.Decimal).Value = argDescuento
+                        .Add("p_IdItem", MySqlDbType.Int64)
+                    End With
+
+                    cmd.Parameters("p_IdItem").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdItem = CLng(cmd.Parameters("p_IdItem").Value)
+                    Return IdItem
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobante", Ex.Message))
+            Return 0
+
+        End Try
+
+    End Function
+#End Region
 
 End Class

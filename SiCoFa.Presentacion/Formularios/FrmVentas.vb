@@ -7,6 +7,38 @@ Public Class FrmVentas
     Private Operacion As Operacion
     Private Items As New BindingList(Of ItemComprobante)
 
+    Private Sub IniciarOperacion()
+        Try
+
+            Dim IdOperacion As Long = mobj_N_AdminSiCoFa.IniciarOperacion(g_ParametrosTerminal.MacAddress, 3, "VTAM", "")
+            Me.InsertarItems(IdOperacion)
+            Dim fin As Boolean = mobj_N_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, "", IdOperacion)
+            MsgBox(fin)
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub InsertarItems(ByVal argIdOperacion As Long)
+        Try
+            For Each i As ItemComprobante In Items
+                mobj_N_AdminSiCoFa.InsertarItemComprobante(argIdOperacion,
+                                                           i.Articulo.IdArticulo,
+                                                           i.Descripcion,
+                                                           i.Cantidad,
+                                                           i.AlicIVA,
+                                                           i.Articulo.PrecioCosto,
+                                                           i.PrecioUnitario,
+                                                           i.DescuentoUnitario
+                                                           )
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
     Private Sub EliminarItemSeleccionado()
         Try
             If DataGridView1.IsCurrentCellInEditMode Then
@@ -411,4 +443,7 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub GuardarToolStripButton_Click(sender As Object, e As EventArgs) Handles GuardarToolStripButton.Click
+        Me.IniciarOperacion()
+    End Sub
 End Class
