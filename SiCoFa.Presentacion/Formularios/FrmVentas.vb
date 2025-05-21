@@ -4,15 +4,31 @@ Imports SiCoFa.Negocio
 
 Public Class FrmVentas
     Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
-    Private Operacion As Operacion
-    Private Items As New BindingList(Of ItemComprobante)
+    Private mobj_Operacion As Operacion
+    Private mobj_TipoOperacion As TipoOperacion
+    Private mobj_Usuario As Usuario
+    Private mobj_Comprobante As Comprobante
+    Private mobj_Items As New BindingList(Of ItemComprobante)
+    Private mint_CantidadItems As Integer = 0
+    Private mdec_ImporteCosto As Decimal = 0
+    Private mdec_ImporteSinDescuentos As Decimal = 0
+    Private mdec_ImporteDescuentos As Decimal = 0
+    Private mdec_ImporteConDescuentos As Decimal = 0
+    Private mdec_PorcentaDescuentos As Decimal = 0
+    Private mdec_ImporteGravado1 As Decimal = 0
+    Private mdec_ImporteGravado2 As Decimal = 0
 
     Private Sub IniciarOperacion()
         Try
+            mobj_Usuario = mobj_N_AdminSiCoFa.ObtenerUsuarioPorId(3)
+            mobj_Operacion = mobj_N_AdminSiCoFa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, mobj_Usuario, mobj_TipoOperacion, "")
+            Me.InsertarItems(mobj_Operacion.IdOperacion)
+            'mobj_Comprobante = mobj_N_AdminSiCoFa.InsertarComprobante(
+            'argOperacion:=mobj_Operacion,
+            'argCodiTC:="FAB",
 
-            Dim IdOperacion As Long = mobj_N_AdminSiCoFa.IniciarOperacion(g_ParametrosTerminal.MacAddress, 3, "VTAM", "")
-            Me.InsertarItems(IdOperacion)
-            Dim fin As Boolean = mobj_N_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, "", IdOperacion)
+            ')
+            Dim fin As Boolean = mobj_N_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, mobj_Operacion)
             MsgBox(fin)
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -22,17 +38,19 @@ Public Class FrmVentas
 
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
         Try
-            For Each i As ItemComprobante In Items
-                mobj_N_AdminSiCoFa.InsertarItemComprobante(argIdOperacion,
-                                                           i.Articulo.IdArticulo,
-                                                           i.Descripcion,
-                                                           i.Cantidad,
-                                                           i.AlicIVA,
-                                                           i.Articulo.PrecioCosto,
-                                                           i.PrecioUnitario,
-                                                           i.DescuentoUnitario
-                                                           )
+            For Each i As ItemComprobante In mobj_Items
+                mobj_N_AdminSiCoFa.InsertarItemComprobante(argIdOperacion, i)
             Next
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub GenerarComprobante()
+        Try
+
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -56,8 +74,8 @@ Public Class FrmVentas
 
                 For i As Integer = DataGridView1.SelectedRows.Count - 1 To 0 Step -1
                     Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(i).Index
-                    If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < Items.Count Then
-                        Items.RemoveAt(indiceFilaSeleccionada)
+                    If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
+                        mobj_Items.RemoveAt(indiceFilaSeleccionada)
                     End If
                 Next
 
@@ -178,7 +196,7 @@ Public Class FrmVentas
             With Me
                 If a IsNot Nothing Then
                     Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicuotaIVA.AlicIVA, 0)
-                    Items.Add(i)
+                    mobj_Items.Add(i)
                     Me.DataGridView1.ClearSelection()
 
                     Dim nuevoIndiceFila As Integer = Me.DataGridView1.Rows.Count - 1
@@ -205,31 +223,41 @@ Public Class FrmVentas
     Private Sub ActualizarTotales()
 
         Try
+            mint_CantidadItems = 0
+            mdec_ImporteCosto = 0
+            mdec_ImporteSinDescuentos = 0
+            mdec_ImporteDescuentos = 0
+            mdec_ImporteConDescuentos = 0
+            mdec_PorcentaDescuentos = 0
+            mdec_ImporteGravado1 = 0
+            mdec_ImporteGravado2 = 0
 
-            Dim CantidadItems As Integer = 0
-            Dim ImporteSinDescuentos As Decimal = 0
-            Dim ImporteDescuentos As Decimal = 0
-            Dim ImporteConDescuentos As Decimal = 0
-            Dim PorcentaDescuentos As Decimal = 0
+            For Each i As ItemComprobante In Me.mobj_Items
+                mint_CantidadItems += 1
+                mdec_ImporteCosto += (i.Articulo.PrecioCosto * i.Cantidad)
+                mdec_ImporteSinDescuentos += i.ImporteSinDescuento
+                mdec_ImporteDescuentos += i.ImporteDescuento
+                mdec_ImporteConDescuentos += i.ImporteConDescuento
 
-            For Each i As ItemComprobante In Me.Items
-                CantidadItems += 1
-                ImporteSinDescuentos += i.ImporteSinDescuento
-                ImporteDescuentos += i.ImporteDescuento
-                ImporteConDescuentos += i.ImporteConDescuento
+                Select Case i.AlicIVA
+                    Case 10.5
+                        mdec_ImporteGravado1 += i.ImporteConDescuento
+                    Case 21
+                        mdec_ImporteGravado2 += i.ImporteConDescuento
+                End Select
             Next
 
-            If ImporteSinDescuentos > 0 Then
-                PorcentaDescuentos = Math.Round(ImporteDescuentos / ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+            If mdec_ImporteSinDescuentos > 0 Then
+                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
             Else
-                PorcentaDescuentos = 0
+                mdec_PorcentaDescuentos = 0
             End If
 
-            Me.lblCantidadItems.Text = "Items: " & CantidadItems
-            Me.lblImporteSinDescuentos.Text = "Importe sin Descuentos: $ " & Format(ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "Porcentaje Descuentos: " & Format(PorcentaDescuentos, "#,##0.00") & "%"
-            Me.lblImporteDescuentos.Text = "Importe Descuentos: $ " & Format(ImporteDescuentos, "#,##0.00")
-            Me.lblImporteConDescuentos.Text = "Importe Neto: $ " & Format(ImporteConDescuentos, "#,##0.00")
+            Me.lblCantidadItems.Text = "Items: " & mint_CantidadItems
+            Me.lblImporteSinDescuentos.Text = "Importe sin Descuentos: $ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
+            Me.lblPorcentajeAplicado.Text = "Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblImporteDescuentos.Text = "Importe Descuentos: $ " & Format(mdec_ImporteDescuentos, "#,##0.00")
+            Me.lblImporteConDescuentos.Text = "Importe Neto: $ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -241,8 +269,11 @@ Public Class FrmVentas
     Private Sub FrmFacturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
+            Me.mobj_TipoOperacion = mobj_N_AdminSiCoFa.ObtenerTipoOperacion("VTAM")
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = Me.Items
+            Me.DataGridView1.DataSource = Me.mobj_Items
+            Me.DataGridView1.ClearSelection()
+
             For Each item As ToolStripItem In ToolStrip1.Items
                 item.Overflow = ToolStripItemOverflow.Never
             Next
@@ -351,7 +382,7 @@ Public Class FrmVentas
 
                 If nombreColumnaEditada.Equals(nombreColumnaCantidad, StringComparison.OrdinalIgnoreCase) Then
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        Dim itemComprobante As ItemComprobante = Items(e.RowIndex)
+                        Dim itemComprobante As ItemComprobante = mobj_Items(e.RowIndex)
 
                         If itemComprobante.Articulo?.Seccion?.EstablecerPrecio Then ' Usando el operador ?. para evitar NullReferenceException
                             Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioUnitario)
@@ -409,8 +440,8 @@ Public Class FrmVentas
             If DataGridView1.SelectedRows.Count = 1 Then
                 Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(0).Index
 
-                If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < Items.Count Then
-                    Dim itemSeleccionado = Items(indiceFilaSeleccionada)
+                If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
+                    Dim itemSeleccionado = mobj_Items(indiceFilaSeleccionada)
 
                     Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
 

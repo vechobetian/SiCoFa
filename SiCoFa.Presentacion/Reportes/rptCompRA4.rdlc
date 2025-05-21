@@ -530,50 +530,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>8.89937cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>16.5cm</Width>
+                  <Width>1.99822cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.03974cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.02295cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.03974cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
                   <Height>0.6cm</Height>
                   <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox13">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Cantidad</Value>
-                                  <Style>
-                                    <FontFamily>Arial Black</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox13</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox25">
@@ -608,34 +583,61 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.6cm</Height>
-                  <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Cantidad">
+                        <Textbox Name="Textbox27">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Cantidad.Value</Value>
+                                  <Value>Cantidad</Value>
                                   <Style>
-                                    <Format>0;(0)</Format>
+                                    <FontFamily>Arial Black</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox29">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Precio Unit.</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
+                          <rd:DefaultName>Textbox29</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Style>Solid</Style>
                             </Border>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -646,6 +648,79 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox17">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>%Desc</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox17</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox31">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Importe</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox31</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Descripcion">
@@ -678,12 +753,150 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Cantidad">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Cantidad.Value</Value>
+                                  <Style>
+                                    <Format>0.000;(0.000)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Cantidad</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <rd:Selected>true</rd:Selected>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PUnit">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PUnit.Value</Value>
+                                  <Style>
+                                    <Format>0.00;(0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PUnit</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PDes">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PDes.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PDes</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ImporteConDescuento">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ImporteConDescuento.Value</Value>
+                                  <Style>
+                                    <Format>0.00;(0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ImporteConDescuento</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
               </TablixMembers>
@@ -702,7 +915,7 @@
             <Top>0.05cm</Top>
             <Left>1cm</Left>
             <Height>1.2cm</Height>
-            <Width>19cm</Width>
+            <Width>19.00002cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -744,7 +957,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>17.35cm</Height>
+        <Height>15.35cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>
@@ -1875,8 +2088,8 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.99111cm</Top>
-                  <Left>9.34952cm</Left>
+                  <Top>1.97361cm</Top>
+                  <Left>9.38863cm</Left>
                   <Height>0.5cm</Height>
                   <Width>9.35047cm</Width>
                   <ZIndex>10</ZIndex>
@@ -1932,12 +2145,222 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>4cm</Height>
+          <Height>6cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Rectangle Name="Rectangle3">
               <ReportItems>
+                <Textbox Name="txtImporte3">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.89111cm</Top>
+                  <Left>15.09999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtImporte1">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>0.29111cm</Top>
+                  <Left>15.09999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtImporte2">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>0,00</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.09111cm</Top>
+                  <Left>15.09999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtDesImporte1">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Subtotal:</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>0.29111cm</Top>
+                  <Left>11.49999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.4cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtDesImporte2">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Otros Tributos:</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.09111cm</Top>
+                  <Left>11.49999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.4cm</Width>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtDesImporte3">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Total:</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.89111cm</Top>
+                  <Left>11.49999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.4cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Image Name="QR">
+                  <Source>Database</Source>
+                  <Value>=First(Fields!QR.Value, "QR")</Value>
+                  <MIMEType>image/jpeg</MIMEType>
+                  <Sizing>FitProportional</Sizing>
+                  <Top>0.29111cm</Top>
+                  <Left>0.19999cm</Left>
+                  <Height>4cm</Height>
+                  <Width>4cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Image>
                 <Textbox Name="txtPagina">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
@@ -1951,14 +2374,143 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.72458cm</Top>
+                  <Top>4.29111cm</Top>
                   <Left>7.99999cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3cm</Width>
+                  <ZIndex>7</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox13">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>C.A.E.</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.49111cm</Top>
+                  <Left>4.99999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>1.53812cm</Width>
+                  <ZIndex>8</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtCAE">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!NumCAE.Value, "CAE")</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.49111cm</Top>
+                  <Left>6.69999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.79569cm</Width>
+                  <ZIndex>9</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox14">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Vto.</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.09111cm</Top>
+                  <Left>4.99999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>1.53813cm</Width>
+                  <ZIndex>10</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtVtoCAE">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!VtoCAE.Value, "CAE")</Value>
+                          <Style>
+                            <Format>d</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.09111cm</Top>
+                  <Left>6.69999cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.79569cm</Width>
+                  <ZIndex>11</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -1993,11 +2545,11 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.18521cm</Top>
-                  <Left>0.33145cm</Left>
+                  <Top>0.29111cm</Top>
+                  <Left>4.99999cm</Left>
                   <Height>1cm</Height>
                   <Width>5cm</Width>
-                  <ZIndex>1</ZIndex>
+                  <ZIndex>12</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2009,143 +2561,11 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtCAE">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!NumCAE.Value, "CAE")</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.58521cm</Top>
-                  <Left>10.38728cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.192cm</Width>
-                  <ZIndex>2</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox14">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>C.A.I.</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.58521cm</Top>
-                  <Left>8.67277cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>1.53812cm</Width>
-                  <ZIndex>3</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox15">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Vto.</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.58521cm</Top>
-                  <Left>14.1511cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>1.53813cm</Width>
-                  <ZIndex>4</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtVtoCAE">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!VtoCAE.Value, "CAE")</Value>
-                          <Style>
-                            <Format>d</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.58521cm</Top>
-                  <Left>15.83034cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>2.86965cm</Width>
-                  <ZIndex>5</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>0.70569cm</Top>
-              <Left>1.03911cm</Left>
-              <Height>2.43347cm</Height>
+              <Top>0.15cm</Top>
+              <Left>1cm</Left>
+              <Height>5cm</Height>
               <Width>19cm</Width>
               <Style>
                 <Border>

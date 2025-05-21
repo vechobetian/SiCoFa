@@ -28,7 +28,7 @@
 
     Public Sub New(
                   ByVal argIdOperacion As Long,
-                  ByVal argOpera As Operacion,
+                  ByVal argOperacion As Operacion,
                   ByVal argCodiTC_SiCoFa As String,
                   ByVal argPVenta As String,
                   ByVal argNumComp As String,
@@ -54,7 +54,7 @@
                   ByVal argDetalle As List(Of ItemComprobante)
                   )
         Me.IdOperacion = argIdOperacion
-        Me.Operacion = argOpera
+        Me.Operacion = argOperacion
         Me.TipoComprobante = New TipoComprobante(argCodiTC_SiCoFa)
         Me.PVenta = argPVenta
         Me.NumComp = argNumComp

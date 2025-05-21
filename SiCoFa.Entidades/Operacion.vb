@@ -3,11 +3,11 @@ Public Class Operacion
     Property IdOperacion() As Long
     Property Inicio() As DateTime
     Property Fin As DateTime
-    Property IdEmpresa As Int32
+    Property Empresa As Empresa
     Property IdPC As String
     Property IdCaja As Int32
-    Property IdUsuario As Int32
-    Property CodiTO As String
+    Property Usuario As Usuario
+    Property TipoOperacion As TipoOperacion
     Property EstadoOperacion As String
     Property Observaciones() As String
     Property DesError As String
@@ -15,11 +15,11 @@ Public Class Operacion
                     ByVal argIdOperacion As Long,
                     ByVal argInicio As DateTime,
                     ByVal argFin As DateTime,
-                    ByVal argIdEmpresa As Int32,
+                    ByVal argEmpresa As Empresa,
                     ByVal argIdPC As String,
                     ByVal argIdCaja As Int32,
-                    ByVal argIdUsuario As Int32,
-                    ByVal argCodiTO As String,
+                    ByVal argUsuario As Usuario,
+                    ByVal argTipoOperacion As TipoOperacion,
                     ByVal argEstadoOperacion As String,
                     ByVal argObservaciones As String,
                     ByVal argDesError As String
@@ -28,11 +28,11 @@ Public Class Operacion
         Me.IdOperacion = argIdOperacion
         Me.Inicio = argInicio
         Me.Fin = argFin
-        Me.IdEmpresa = argIdEmpresa
+        Me.Empresa = argEmpresa
         Me.IdPC = argIdPC
         Me.IdCaja = argIdCaja
-        Me.IdUsuario = argIdUsuario
-        Me.CodiTO = argCodiTO
+        Me.Usuario = argUsuario
+        Me.TipoOperacion = argTipoOperacion
         Me.EstadoOperacion = argEstadoOperacion
         Me.Observaciones = argObservaciones
         Me.DesError = argDesError

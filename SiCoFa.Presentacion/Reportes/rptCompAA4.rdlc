@@ -57,14 +57,14 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>edc0619a-8bcd-48e9-9488-ed267b856340</rd:DataSourceID>
+      <rd:DataSourceID>99a608f8-2403-4536-9fa6-6d2505bcce72</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades8">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>1ae4a639-ab98-401c-b849-82acd793f4b8</rd:DataSourceID>
+      <rd:DataSourceID>056340c3-7e53-40da-9383-1fd497e6220a</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -1160,6 +1160,42 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
+                <Textbox Name="txtEmpRSoc">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!Nombre.Value, "Empresa")</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                            <FontSize>18pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>0.97354cm</Top>
+                  <Left>0.32263cm</Left>
+                  <Height>1.03542cm</Height>
+                  <Width>8.27744cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
                 <Textbox Name="txtLetra">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
@@ -1181,7 +1217,7 @@
                   <Left>8.75cm</Left>
                   <Height>1.5cm</Height>
                   <Width>1.5cm</Width>
-                  <ZIndex>3</ZIndex>
+                  <ZIndex>4</ZIndex>
                   <Style>
                     <Border>
                       <Style>Solid</Style>
@@ -1212,7 +1248,7 @@
                   <Left>14.4cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.9cm</Width>
-                  <ZIndex>4</ZIndex>
+                  <ZIndex>5</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1242,7 +1278,7 @@
                   <Left>12.4cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.5cm</Width>
-                  <ZIndex>5</ZIndex>
+                  <ZIndex>6</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1272,7 +1308,7 @@
                   <Left>10.42639cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.8cm</Width>
-                  <ZIndex>6</ZIndex>
+                  <ZIndex>7</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1305,7 +1341,7 @@
                   <Left>13.79694cm</Left>
                   <Height>0.6cm</Height>
                   <Width>4.94216cm</Width>
-                  <ZIndex>7</ZIndex>
+                  <ZIndex>8</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1335,7 +1371,7 @@
                   <Left>10.42639cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.192cm</Width>
-                  <ZIndex>8</ZIndex>
+                  <ZIndex>9</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1365,7 +1401,7 @@
                   <Left>12.0391cm</Left>
                   <Height>0.6cm</Height>
                   <Width>6.7cm</Width>
-                  <ZIndex>9</ZIndex>
+                  <ZIndex>10</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1397,7 +1433,7 @@
                   <Left>10.42639cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.3cm</Width>
-                  <ZIndex>10</ZIndex>
+                  <ZIndex>11</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1427,7 +1463,7 @@
                   <Left>14.06152cm</Left>
                   <Height>0.6cm</Height>
                   <Width>4.67757cm</Width>
-                  <ZIndex>11</ZIndex>
+                  <ZIndex>12</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1459,7 +1495,7 @@
                   <Left>10.42639cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.45874cm</Width>
-                  <ZIndex>12</ZIndex>
+                  <ZIndex>13</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1491,7 +1527,7 @@
                   <Left>15.20896cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.53013cm</Width>
-                  <ZIndex>13</ZIndex>
+                  <ZIndex>14</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1523,86 +1559,7 @@
                   <Left>10.42639cm</Left>
                   <Height>0.6cm</Height>
                   <Width>4.60618cm</Width>
-                  <ZIndex>14</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Line Name="Line1">
-                  <Top>1cm</Top>
-                  <Height>0cm</Height>
-                  <Width>19cm</Width>
                   <ZIndex>15</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>Solid</Style>
-                    </Border>
-                  </Style>
-                </Line>
-                <Textbox Name="txtEmpRSoc">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Nombre.Value, "Empresa")</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>18pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1cm</Top>
-                  <Left>0.32263cm</Left>
-                  <Height>1.03542cm</Height>
-                  <Width>8.27744cm</Width>
-                  <ZIndex>16</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox1">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Domicilio:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.10597cm</Top>
-                  <Left>0.32263cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>2.2cm</Width>
-                  <ZIndex>17</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1628,10 +1585,70 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.10597cm</Top>
+                  <Top>2.07951cm</Top>
                   <Left>2.59318cm</Left>
                   <Height>0.6cm</Height>
                   <Width>6.00689cm</Width>
+                  <ZIndex>16</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox1">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Domicilio:</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.07951cm</Top>
+                  <Left>0.32263cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.2cm</Width>
+                  <ZIndex>17</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtEmpLocalidad">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!Localidad.Value, "Empresa") &amp; "-" &amp; First(Fields!Provincia.Value, "Empresa")</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.78535cm</Top>
+                  <Left>2.73728cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>5.83633cm</Width>
                   <ZIndex>18</ZIndex>
                   <Style>
                     <Border>
@@ -1660,7 +1677,7 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.81181cm</Top>
+                  <Top>2.78535cm</Top>
                   <Left>0.32263cm</Left>
                   <Height>0.6cm</Height>
                   <Width>2.3cm</Width>
@@ -1675,23 +1692,25 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtEmpLocalidad">
+                <Textbox Name="txtEmpIVA">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!Localidad.Value, "Empresa") &amp; "-" &amp; First(Fields!Provincia.Value, "Empresa")</Value>
+                          <Value>=First(Fields!IVADescripcion.Value, "Empresa")</Value>
                           <Style />
                         </TextRun>
                       </TextRuns>
-                      <Style />
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.81181cm</Top>
-                  <Left>2.73728cm</Left>
+                  <Top>3.49118cm</Top>
+                  <Left>1.56131cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>5.83633cm</Width>
+                  <Width>7.04758cm</Width>
                   <ZIndex>20</ZIndex>
                   <Style>
                     <Border>
@@ -1720,7 +1739,7 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.51764cm</Top>
+                  <Top>3.49118cm</Top>
                   <Left>0.29617cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.08875cm</Width>
@@ -1735,36 +1754,17 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtEmpIVA">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!IVADescripcion.Value, "Empresa")</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.51764cm</Top>
-                  <Left>1.56131cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>7.04758cm</Width>
+                <Line Name="Line1">
+                  <Top>1cm</Top>
+                  <Height>0cm</Height>
+                  <Width>19cm</Width>
                   <ZIndex>22</ZIndex>
                   <Style>
                     <Border>
-                      <Style>None</Style>
+                      <Style>Solid</Style>
                     </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
                   </Style>
-                </Textbox>
+                </Line>
                 <Textbox Name="Textbox16">
                   <CanGrow>true</CanGrow>
                   <CanShrink>true</CanShrink>
@@ -1782,7 +1782,7 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.24528cm</Top>
+                  <Top>4.21882cm</Top>
                   <Left>0.29617cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.08875cm</Width>
@@ -1812,7 +1812,7 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.24528cm</Top>
+                  <Top>4.21882cm</Top>
                   <Left>1.56131cm</Left>
                   <Height>0.6cm</Height>
                   <Width>7.04758cm</Width>
@@ -1859,9 +1859,9 @@
                     </Paragraph>
                   </Paragraphs>
                   <Top>1.35cm</Top>
-                  <Left>11.07651cm</Left>
+                  <Left>11.07054cm</Left>
                   <Height>0.5cm</Height>
-                  <Width>7.62349cm</Width>
+                  <Width>7.66855cm</Width>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1890,7 +1890,7 @@
                     </Paragraph>
                   </Paragraphs>
                   <Top>1.35cm</Top>
-                  <Left>9.36402cm</Left>
+                  <Left>9.32277cm</Left>
                   <Height>0.5cm</Height>
                   <Width>1.57138cm</Width>
                   <ZIndex>1</ZIndex>
@@ -1988,9 +1988,9 @@
                     </Paragraph>
                   </Paragraphs>
                   <Top>0.05cm</Top>
-                  <Left>1.91165cm</Left>
+                  <Left>1.8852cm</Left>
                   <Height>0.5cm</Height>
-                  <Width>16.82744cm</Width>
+                  <Width>16.85389cm</Width>
                   <ZIndex>4</ZIndex>
                   <Style>
                     <Border>
@@ -2023,7 +2023,7 @@
                   <Top>0.05cm</Top>
                   <Left>0.29617cm</Left>
                   <Height>0.5cm</Height>
-                  <Width>1.43909cm</Width>
+                  <Width>1.41264cm</Width>
                   <ZIndex>5</ZIndex>
                   <Style>
                     <Border>
@@ -2051,9 +2051,9 @@
                     </Paragraph>
                   </Paragraphs>
                   <Top>0.75cm</Top>
-                  <Left>2.25561cm</Left>
+                  <Left>2.28207cm</Left>
                   <Height>0.5cm</Height>
-                  <Width>16.48348cm</Width>
+                  <Width>16.45702cm</Width>
                   <ZIndex>6</ZIndex>
                   <Style>
                     <Border>
@@ -2086,45 +2086,12 @@
                   <Top>0.75cm</Top>
                   <Left>0.29617cm</Left>
                   <Height>0.5cm</Height>
-                  <Width>1.78305cm</Width>
+                  <Width>1.80951cm</Width>
                   <ZIndex>7</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtCodigoAT">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!GLN.Value, "Cliente")</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.00889cm</Top>
-                  <Left>1.56131cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>7.62632cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -2149,10 +2116,43 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.00889cm</Top>
+                  <Top>2.02639cm</Top>
                   <Left>0.26cm</Left>
                   <Height>0.5cm</Height>
                   <Width>1.12492cm</Width>
+                  <ZIndex>8</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtCodigoAT">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!GLN.Value, "Cliente")</Value>
+                          <Style>
+                            <FontSize>8pt</FontSize>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.02639cm</Top>
+                  <Left>1.49075cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>7.69688cm</Width>
                   <ZIndex>9</ZIndex>
                   <Style>
                     <Border>
@@ -2182,8 +2182,8 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.00889cm</Top>
-                  <Left>9.38863cm</Left>
+                  <Top>2.02639cm</Top>
+                  <Left>9.36402cm</Left>
                   <Height>0.5cm</Height>
                   <Width>9.35047cm</Width>
                   <ZIndex>10</ZIndex>
@@ -2251,7 +2251,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Value>=First(Fields!IVA2.Value, "Encabezado")</Value>
                           <Style>
                             <Format>0.00;(0.00)</Format>
                           </Style>
@@ -2262,7 +2262,7 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2cm</Top>
+                  <Top>1.35cm</Top>
                   <Left>15cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.6cm</Width>
@@ -2283,7 +2283,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Value>=First(Fields!ImpNeto1.Value, "Encabezado")+First(Fields!ImpNeto2.Value, "Encabezado")+First(Fields!ImpEx.Value, "Encabezado")</Value>
                           <Style>
                             <Format>0.00;(0.00)</Format>
                           </Style>
@@ -2294,7 +2294,7 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.5cm</Top>
+                  <Top>0.03cm</Top>
                   <Left>15cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.6cm</Width>
@@ -2316,7 +2316,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>0,00</Value>
+                          <Value>=First(Fields!ImpNeto1.Value, "Encabezado")+First(Fields!ImpNeto2.Value, "Encabezado")</Value>
                           <Style>
                             <Format>0.00;(0.00)</Format>
                           </Style>
@@ -2327,11 +2327,77 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.2cm</Top>
+                  <Top>0.69cm</Top>
                   <Left>15cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.6cm</Width>
                   <ZIndex>2</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtImporte4">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!IVA1.Value, "Encabezado")</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2cm</Top>
+                  <Left>15cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtImporte5">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.65cm</Top>
+                  <Left>15cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <ZIndex>4</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2360,11 +2426,11 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.5cm</Top>
+                  <Top>0.03cm</Top>
                   <Left>11.5cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.4cm</Width>
-                  <ZIndex>3</ZIndex>
+                  <ZIndex>5</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2383,7 +2449,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Otros Tributos:</Value>
+                          <Value>Imp.Neto:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -2392,11 +2458,11 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.2cm</Top>
+                  <Top>0.69cm</Top>
                   <Left>11.5cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.4cm</Width>
-                  <ZIndex>4</ZIndex>
+                  <ZIndex>6</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2415,7 +2481,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Total:</Value>
+                          <Value>IVA 10,5%:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -2424,48 +2490,15 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2cm</Top>
+                  <Top>1.35cm</Top>
                   <Left>11.5cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.4cm</Width>
-                  <ZIndex>5</ZIndex>
+                  <ZIndex>7</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox18">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Régimen de transparencia Fiscal (Ley 27.743)</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.5cm</Top>
-                  <Left>0.25cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>10.8cm</Width>
-                  <ZIndex>6</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Top</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -2480,7 +2513,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>I.V.A. Contenido:</Value>
+                          <Value>IVA 21 %:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -2489,11 +2522,11 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.2cm</Top>
-                  <Left>0.25cm</Left>
+                  <Top>2cm</Top>
+                  <Left>11.5cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>6.96273cm</Width>
-                  <ZIndex>7</ZIndex>
+                  <Width>3.4cm</Width>
+                  <ZIndex>8</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2512,7 +2545,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Otros Impuestos Nacionales:</Value>
+                          <Value>Total:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -2521,81 +2554,15 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2cm</Top>
-                  <Left>0.25cm</Left>
+                  <Top>2.65cm</Top>
+                  <Left>11.5cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>6.96273cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtImporte4">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!IVA1.Value, "Encabezado")+First(Fields!IVA2.Value, "Encabezado")</Value>
-                          <Style>
-                            <Format>0.00;(0.00)</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.2cm</Top>
-                  <Left>7.5cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.6cm</Width>
+                  <Width>3.4cm</Width>
                   <ZIndex>9</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtImporte5">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>0,00</Value>
-                          <Style>
-                            <Format>0.00;(0.00)</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2cm</Top>
-                  <Left>7.5cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.6cm</Width>
-                  <ZIndex>10</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -2606,7 +2573,7 @@
                   <Left>11.3cm</Left>
                   <Height>3.3cm</Height>
                   <Width>0cm</Width>
-                  <ZIndex>11</ZIndex>
+                  <ZIndex>10</ZIndex>
                   <Style>
                     <Border>
                       <Style>Solid</Style>
@@ -2615,7 +2582,7 @@
                 </Line>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>0.15cm</Top>
+              <Top>0.10583cm</Top>
               <Left>1cm</Left>
               <Height>3.3cm</Height>
               <Width>19cm</Width>
@@ -2641,6 +2608,36 @@
                 </Border>
               </Style>
             </Image>
+            <Textbox Name="txtPagina">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>="Pág." &amp; Globals!PageNumber &amp; "/" &amp; Globals!TotalPages</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>4.9cm</Top>
+              <Left>9.3cm</Left>
+              <Height>0.6cm</Height>
+              <Width>3cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
             <Textbox Name="Textbox13">
               <CanGrow>true</CanGrow>
               <CanShrink>true</CanShrink>
@@ -2662,7 +2659,7 @@
               <Left>3.3cm</Left>
               <Height>0.6cm</Height>
               <Width>1.5cm</Width>
-              <ZIndex>2</ZIndex>
+              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2694,7 +2691,7 @@
               <Left>3.3cm</Left>
               <Height>0.6cm</Height>
               <Width>1.5cm</Width>
-              <ZIndex>3</ZIndex>
+              <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2724,7 +2721,7 @@
               <Left>4.9cm</Left>
               <Height>0.6cm</Height>
               <Width>3.79569cm</Width>
-              <ZIndex>4</ZIndex>
+              <ZIndex>5</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2757,42 +2754,12 @@
               <Left>4.9cm</Left>
               <Height>0.6cm</Height>
               <Width>3.79569cm</Width>
-              <ZIndex>5</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="txtPagina">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>="Pág." &amp; Globals!PageNumber &amp; "/" &amp; Globals!TotalPages</Value>
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <Top>4.9cm</Top>
-              <Left>9.3cm</Left>
-              <Height>0.6cm</Height>
-              <Width>3cm</Width>
               <ZIndex>6</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
+                <VerticalAlign>Middle</VerticalAlign>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>

@@ -240,6 +240,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\clsGenerarPDF.vb" />
+    <Compile Include="Reportes\clsReporteComprobantes.vb" />
     <Compile Include="Settings1.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -304,6 +306,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptCompAA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompBA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompCA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompRA4.rdlc" />

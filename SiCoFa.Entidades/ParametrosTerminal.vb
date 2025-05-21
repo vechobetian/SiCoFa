@@ -1,6 +1,6 @@
 ﻿Public Class ParametrosTerminal
     Property MacAddress As String
-    Property IdEmpresa As Integer
+    Property Empresa As Empresa
     Property IdPc As String
     Property PVenta As String 'Punto de venta
     Property NCaja As String
@@ -9,7 +9,7 @@
     Property Papel As String
 
     Public Sub New(ByVal argMacAddress As String,
-                   ByVal argIdEmpresa As Integer,
+                   ByVal argEmpresa As Empresa,
                    ByVal argIdPC As String,
                    ByVal argPVenta As String,
                    ByVal argNCaja As String,
@@ -19,7 +19,7 @@
                    )
 
         Me.MacAddress = argMacAddress
-        Me.IdEmpresa = argIdEmpresa
+        Me.Empresa = argEmpresa
         Me.IdPc = argIdPC
         Me.PVenta = argPVenta
         Me.NCaja = argNCaja
