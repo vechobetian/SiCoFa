@@ -7,6 +7,7 @@ Public Class FrmVentas
     Private mobj_Operacion As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Usuario As Usuario
+    Private mobj_Cliente As Cliente
     Private mobj_Comprobante As Comprobante
     Private mobj_Items As New BindingList(Of ItemComprobante)
     Private mint_CantidadItems As Integer = 0
@@ -23,11 +24,7 @@ Public Class FrmVentas
             mobj_Usuario = mobj_N_AdminSiCoFa.ObtenerUsuarioPorId(3)
             mobj_Operacion = mobj_N_AdminSiCoFa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, mobj_Usuario, mobj_TipoOperacion, "")
             Me.InsertarItems(mobj_Operacion.IdOperacion)
-            'mobj_Comprobante = mobj_N_AdminSiCoFa.InsertarComprobante(
-            'argOperacion:=mobj_Operacion,
-            'argCodiTC:="FAB",
-
-            ')
+            Me.GenerarComprobante()
             Dim fin As Boolean = mobj_N_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, mobj_Operacion)
             MsgBox(fin)
         Catch ex As Exception
@@ -49,7 +46,25 @@ Public Class FrmVentas
 
     Private Sub GenerarComprobante()
         Try
-
+            mobj_Cliente = mobj_N_AdminSiCoFa.ObtenerClientePorId(1)
+            mobj_Comprobante = mobj_N_AdminSiCoFa.InsertarComprobante(
+                                                                    argOperacion:=mobj_Operacion,
+                                                                    argCodiTC:="FAB",
+                                                                    argImpBto:=mdec_ImporteConDescuentos,
+                                                                    argImpDes:=mdec_ImporteDescuentos,
+                                                                    argImpEx:=0,
+                                                                    argImpGrav1:=mdec_ImporteGravado1,
+                                                                    argImpGrav2:=mdec_ImporteGravado2,
+                                                                    argImpCB:=0,
+                                                                    argImpEf:=mdec_ImporteConDescuentos,
+                                                                    argImpCC:=0,
+                                                                    argImpTar:=0,
+                                                                    argIdOperAsoc:=0,
+                                                                    argCliente:=mobj_Cliente,
+                                                                    argEmpresa:=g_ParametrosTerminal.Empresa,
+                                                                    argDetalle:=mobj_Items.ToList,
+                                                                    argFiscal:="0"
+                                                                    )
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
