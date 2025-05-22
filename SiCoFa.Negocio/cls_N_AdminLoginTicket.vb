@@ -18,7 +18,7 @@ Public Class cls_N_AdminLoginTicket
     Private mstrProxyPassword As String = ""
     Private mstrServicio As String = "wsfe"
     Private mstrRutaCertX509Firmante As String
-    Private mstrRutaTA As String = "C:\GestionContratos\TA.txt"
+    Private mstrRutaTA As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "TA.txt")
     Private XmlLoginTicketRequest As XmlDocument = Nothing
     Private URLWsaa As String
     Private ReadOnly XmlStrLoginTicketRequestTemplate As String = "<loginTicketRequest><header><uniqueId></uniqueId><generationTime></generationTime><expirationTime></expirationTime></header><service></service></loginTicketRequest>"
@@ -28,10 +28,13 @@ Public Class cls_N_AdminLoginTicket
         URLWsaa = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms" 'URL WSAA Homologacion      
         'URLWsaa = "https://wsaa.afip.gov.ar/ws/services/LoginCms?WSDL" 'URL WSAA Produccion 
 
-        If File.Exists("C:\GestionContratos\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx") Then
-            mstrRutaCertX509Firmante = "C:\GestionContratos\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx"
+        Dim carpetaApp As String = AppDomain.CurrentDomain.BaseDirectory
+        Dim rutaCertificado As String = Path.Combine(carpetaApp, "CFESICOFA" & argEmpCUIT & ".pfx")
+
+        If File.Exists(rutaCertificado) Then
+            mstrRutaCertX509Firmante = rutaCertificado
         Else
-            Throw New Exception(vecho.MensajeError(Me.ToString, "AccesoAlWSN", "No existe certificado digital"))
+            Throw New Exception(Vecho.MensajeError(Me.ToString(), "AccesoAlWSN", "No existe certificado digital: " & rutaCertificado))
         End If
 
         Try
