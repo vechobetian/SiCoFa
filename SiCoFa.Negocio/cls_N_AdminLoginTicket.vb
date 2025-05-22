@@ -25,11 +25,8 @@ Public Class cls_N_AdminLoginTicket
     Private Shared _globalUniqueID As UInt32 = 0 ' OJO! NO ES THREAD-SAFE
     Public Function AccesoAlWSN(ByVal argEmpCUIT As String) As Boolean
 
-        If argEmpCUIT = "20210362712" Then
-            URLWsaa = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms" 'URL WSAA Homologacion      
-        Else
-            URLWsaa = "https://wsaa.afip.gov.ar/ws/services/LoginCms?WSDL" 'URL WSAA Produccion 
-        End If
+        URLWsaa = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms" 'URL WSAA Homologacion      
+        'URLWsaa = "https://wsaa.afip.gov.ar/ws/services/LoginCms?WSDL" 'URL WSAA Produccion 
 
         If File.Exists("C:\GestionContratos\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx") Then
             mstrRutaCertX509Firmante = "C:\GestionContratos\CFESICOFA" & Replace(argEmpCUIT, "-", "") & ".pfx"

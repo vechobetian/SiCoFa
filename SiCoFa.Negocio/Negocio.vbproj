@@ -65,8 +65,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cls_N_AdminLoginTicket.vb" />
+    <Compile Include="cls_N_AdminCAE.vb" />
     <Compile Include="cls_N_AdminDB.vb" />
+    <Compile Include="cls_N_AdminLoginTicket.vb" />
     <Compile Include="cls_N_AdminSiCoFa.vb" />
     <Compile Include="cls_N_AdminEmail.vb" />
     <Compile Include="cls_N_AdminFTP.vb" />
