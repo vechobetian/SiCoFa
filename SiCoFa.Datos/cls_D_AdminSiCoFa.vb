@@ -1135,18 +1135,18 @@ Public Class cls_D_AdminSiCoFa
                     Dim IdOperacion As Long = CLng(cmd.Parameters("p_IdOperacion").Value)
                     If IdOperacion > 0 Then
                         Dim objOperacion = New Operacion(
-                                                  argIdOperacion:=IdOperacion,
-                                                  argInicio:=Now,
-                                                  argFin:=Now,
-                                                  argEmpresa:=argEmpresa,
-                                                  argIdPC:=0,
-                                                  argIdCaja:=0,
-                                                  argUsuario:=argUsuario,
-                                                  argTipoOperacion:=argTipoOperacion,
-                                                  argEstadoOperacion:="INICIADO",
-                                                  argObservaciones:=Convert.ToString(argObservaciones),
-                                                  argDesError:=""
-                                                  )
+                                                        argIdOperacion:=IdOperacion,
+                                                        argInicio:=Now,
+                                                        argFin:=Now,
+                                                        argEmpresa:=argEmpresa,
+                                                        argIdPC:=0,
+                                                        argIdCaja:=0,
+                                                        argUsuario:=argUsuario,
+                                                        argTipoOperacion:=argTipoOperacion,
+                                                        argEstadoOperacion:="INICIADO",
+                                                        argObservaciones:=Convert.ToString(argObservaciones),
+                                                        argDesError:=""
+                                                        )
                         Return objOperacion
                     End If
 
@@ -1707,6 +1707,7 @@ Public Class cls_D_AdminSiCoFa
     Public Function InsertarComprobante(ByVal argOperacion As Operacion,
                                         ByVal argCodiTC As String,
                                         ByVal argImpBto As Decimal,
+                                        ByVal argImpDes As Decimal,
                                         ByVal argImpEx As Decimal,
                                         ByVal argImpGrav1 As Decimal,
                                         ByVal argImpGrav2 As Decimal,
@@ -1725,14 +1726,12 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim ImpNeto1 As Decimal = argImpGrav1 / 1.105
-            Dim ImpIVA1 As Decimal = ImpNeto1 * 10.5 / 100
-            Dim ImpNeto2 As Decimal = argImpGrav2 / 1 / 0.21
-            Dim ImpIVA2 As Decimal = ImpNeto2 * 21 / 100
+            Dim ImpNeto1 As Decimal = Math.Round(argImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
+            Dim ImpIVA1 As Decimal = Math.Round(ImpNeto1 * 10.5 / 100, 2, MidpointRounding.ToEven)
+            Dim ImpNeto2 As Decimal = Math.Round(argImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
+            Dim ImpIVA2 As Decimal = Math.Round(ImpNeto2 * 21 / 100, 2, MidpointRounding.ToEven)
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-
-                cn.Open()
 
                 Using cmd As New MySqlCommand("InsertarComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
 
@@ -1741,6 +1740,7 @@ Public Class cls_D_AdminSiCoFa
                         .AddWithValue("p_CodiTC", argCodiTC)
                         .AddWithValue("p_IdCliente", argCliente.Id)
                         .AddWithValue("p_ImpBto", argImpBto)
+                        .AddWithValue("p_ImpDes", argImpDes)
                         .AddWithValue("p_ImpEx", argImpEx)
                         .AddWithValue("p_ImpGrav1", argImpGrav1)
                         .AddWithValue("p_ImpNeto1", ImpNeto1)
