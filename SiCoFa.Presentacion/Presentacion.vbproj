@@ -124,6 +124,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\FrmInicioSecion.Designer.vb">
+      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmInicioSecion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmPagos.Designer.vb">
       <DependentUpon>FrmPagos.vb</DependentUpon>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmInicio.resx">
       <DependentUpon>FrmInicio.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmInicioSecion.resx">
+      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPagos.resx">
       <DependentUpon>FrmPagos.vb</DependentUpon>
