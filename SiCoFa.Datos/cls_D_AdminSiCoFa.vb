@@ -1719,7 +1719,7 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argCliente As Cliente,
                                         ByVal argEmpresa As Empresa,
                                         ByVal argDetalle As List(Of ItemComprobante),
-                                        ByVal argFiscal As Boolean
+                                        ByVal argFiscal As String
                                         ) As Comprobante
 
         Dim objConexionDB As New cls_Conexion
@@ -1925,6 +1925,65 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function ActualizarItemComprobante(
+                                            ByVal argIdItem As Long,
+                                            ByVal argCantidad As Decimal,
+                                            ByVal argPrecioUnitario As Decimal,
+                                            ByVal argDescuento As Decimal
+                                            ) As Boolean
+
+
+        Try
+            Dim objConexionDB As New cls_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("ActualizarItemComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
+                        .Add("p_Cantidad", MySqlDbType.Decimal).Value = argCantidad
+                        .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argPrecioUnitario
+                        .Add("p_Descuento", MySqlDbType.Decimal).Value = argDescuento
+                    End With
+
+                    Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
+                    Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function EliminarItemComprobante(ByVal argIdItem As Long) As Boolean
+        Try
+            Dim objConexionDB As New cls_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("EliminarItemComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
+                    End With
+
+                    Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
+                    Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EliminarItemComprobante", ex.Message))
+        End Try
+    End Function
+
 #End Region
 
 End Class

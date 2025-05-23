@@ -1,5 +1,5 @@
 ﻿Public Class ItemComprobante
-    Private m_IdDP As Long
+    Private m_IdItem As Long
     Private m_Articulo As Articulo
     Private m_CodBarras As String
     Private m_Descripcion As String
@@ -12,12 +12,12 @@
     Private m_ImporteDescuento As Decimal = 0
     Private m_ImporteConDescuento As Decimal = 0
 
-    Public Property IdDP() As Long
+    Public Property IdItem() As Long
         Get
-            Return m_IdDP
+            Return m_IdItem
         End Get
         Set(value As Long)
-            m_IdDP = value
+            m_IdItem = value
         End Set
     End Property
 

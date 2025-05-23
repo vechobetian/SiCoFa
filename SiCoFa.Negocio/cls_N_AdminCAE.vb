@@ -50,9 +50,9 @@ Public Class cls_N_AdminCAE
 
             With det
                 .Concepto = 1 'Productos=1, Servicio=2, Productos y Servicios=3
-                .FchServDesde = Now.ToString("yyyyMMdd")
-                .FchServHasta = Now.ToString("yyyyMMdd")
-                .FchVtoPago = Now.ToString("yyyyMMdd")
+                '.FchServDesde = Now.ToString("yyyyMMdd") 'Esto solo se informa si concepto=2 o 3
+                '.FchServHasta = Now.ToString("yyyyMMdd") 'Esto solo se informa si concepto=2 o 3
+                '.FchVtoPago = Now.ToString("yyyyMMdd")   'Esto solo se informa si concepto=2 o 3
                 .DocTipo = argComprobante.Cliente.Documento.TipoDoc.CodiTDoc
                 .DocNro = argComprobante.Cliente.Documento.Numero
 
@@ -93,7 +93,7 @@ Public Class cls_N_AdminCAE
 
                     If argComprobante.ImpIVA1 > 0 Then
                         With alicuota1
-                            .Id = 5
+                            .Id = 4
                             .BaseImp = argComprobante.ImpNeto1
                             .Importe = argComprobante.ImpIVA1
                         End With
@@ -102,7 +102,7 @@ Public Class cls_N_AdminCAE
 
                     If argComprobante.ImpIVA2 > 0 Then
                         With alicuota2
-                            .Id = 4
+                            .Id = 5
                             .BaseImp = argComprobante.ImpNeto2
                             .Importe = argComprobante.ImpIVA2
                         End With

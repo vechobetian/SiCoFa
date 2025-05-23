@@ -810,7 +810,7 @@ Public Class cls_N_AdminSiCoFa
                                         ByVal argCliente As Cliente,
                                         ByVal argEmpresa As Empresa,
                                         ByVal argDetalle As List(Of ItemComprobante),
-                                        ByVal argFiscal As Boolean
+                                        ByVal argFiscal As String
                                         ) As Comprobante
         Try
             Dim objComprobante As Comprobante = mobj_D_AdminSiCoFa.InsertarComprobante(
@@ -860,6 +860,45 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function ActualizarItemComprobante(
+                                            ByVal argIdItem As Long,
+                                            ByVal argCantidad As Decimal,
+                                            ByVal argPrecioUnitario As Decimal,
+                                            ByVal argDescuento As Decimal
+                                            ) As Boolean
+
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarItemComprobante(
+                                                                                     argIdItem,
+                                                                                     argCantidad,
+                                                                                     argPrecioUnitario,
+                                                                                     argDescuento
+                                                                                     )
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarItemComprobante", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+    Public Function EliminarItemComprobante(ByVal argIdItem As Long) As Boolean
+
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.EliminarItemComprobante(argIdItem)
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EliminarItemComprobante", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
 
 #End Region
 

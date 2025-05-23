@@ -23,6 +23,7 @@ Partial Class FrmVentas
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmVentas))
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -30,19 +31,18 @@ Partial Class FrmVentas
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmVentas))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblImporteDescuentosEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImporteConDescuentosEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImporteDescuentos = New System.Windows.Forms.Label()
+        Me.lblImporteConDescuentos = New System.Windows.Forms.Label()
+        Me.lblPorcentajeAplicado = New System.Windows.Forms.Label()
+        Me.lblCantidadItems = New System.Windows.Forms.Label()
+        Me.lblImporteSinDescuentos = New System.Windows.Forms.Label()
+        Me.lblImporteSinDescuentosEtiqueta = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.IdDP = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteSinDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PorcentajeDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteConDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.NuevoToolStripButton = New System.Windows.Forms.ToolStripButton()
@@ -50,11 +50,11 @@ Partial Class FrmVentas
         Me.GuardarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ImprimirToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.CortarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.CopiarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.PegarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.AyudaToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.SalirToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.SelectorArticulos = New System.Windows.Forms.ToolStripTextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -67,20 +67,27 @@ Partial Class FrmVentas
         Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ModificarPrecioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblImporteDescuentos = New System.Windows.Forms.Label()
-        Me.lblPorcentajeAplicado = New System.Windows.Forms.Label()
-        Me.lblImporteSinDescuentos = New System.Windows.Forms.Label()
-        Me.lblCantidadItems = New System.Windows.Forms.Label()
-        Me.lblImporteConDescuentos = New System.Windows.Forms.Label()
+        Me.ProcesosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FacturarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PresupuestoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.IdItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteSinDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.PorcentajeDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteConDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.TableLayoutPanel3.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -88,19 +95,145 @@ Partial Class FrmVentas
         Me.TableLayoutPanel1.BackColor = System.Drawing.SystemColors.Window
         Me.TableLayoutPanel1.ColumnCount = 1
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.Panel3, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView1, 0, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.Panel1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.Panel2, 0, 2)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 185.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1359, 545)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1359, 692)
         Me.TableLayoutPanel1.TabIndex = 0
+        '
+        'Panel3
+        '
+        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.TableLayoutPanel3)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel3.Location = New System.Drawing.Point(3, 510)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1353, 179)
+        Me.Panel3.TabIndex = 5
+        '
+        'TableLayoutPanel3
+        '
+        Me.TableLayoutPanel3.ColumnCount = 3
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.43169!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.56831!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 254.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentosEtiqueta, 1, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentosEtiqueta, 1, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentos, 2, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblPorcentajeAplicado, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblCantidadItems, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentosEtiqueta, 1, 0)
+        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
+        Me.TableLayoutPanel3.RowCount = 3
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.87013!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.87013!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.25974!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1351, 177)
+        Me.TableLayoutPanel3.TabIndex = 7
+        '
+        'lblImporteDescuentosEtiqueta
+        '
+        Me.lblImporteDescuentosEtiqueta.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblImporteDescuentosEtiqueta.AutoSize = True
+        Me.lblImporteDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(962, 54)
+        Me.lblImporteDescuentosEtiqueta.Name = "lblImporteDescuentosEtiqueta"
+        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(115, 48)
+        Me.lblImporteDescuentosEtiqueta.TabIndex = 8
+        Me.lblImporteDescuentosEtiqueta.Text = "Importe Descuentos:"
+        '
+        'lblImporteConDescuentosEtiqueta
+        '
+        Me.lblImporteConDescuentosEtiqueta.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblImporteConDescuentosEtiqueta.AutoSize = True
+        Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(962, 109)
+        Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
+        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(96, 62)
+        Me.lblImporteConDescuentosEtiqueta.TabIndex = 9
+        Me.lblImporteConDescuentosEtiqueta.Text = "Imp. a pagar:"
+        '
+        'lblImporteDescuentos
+        '
+        Me.lblImporteDescuentos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(1099, 52)
+        Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(249, 52)
+        Me.lblImporteDescuentos.TabIndex = 13
+        Me.lblImporteDescuentos.Text = "0,00"
+        Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImporteConDescuentos
+        '
+        Me.lblImporteConDescuentos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1099, 104)
+        Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(249, 73)
+        Me.lblImporteConDescuentos.TabIndex = 14
+        Me.lblImporteConDescuentos.Text = "0,00"
+        Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblPorcentajeAplicado
+        '
+        Me.lblPorcentajeAplicado.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblPorcentajeAplicado.AutoSize = True
+        Me.lblPorcentajeAplicado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(3, 68)
+        Me.lblPorcentajeAplicado.Name = "lblPorcentajeAplicado"
+        Me.lblPorcentajeAplicado.Size = New System.Drawing.Size(232, 20)
+        Me.lblPorcentajeAplicado.TabIndex = 16
+        Me.lblPorcentajeAplicado.Text = "Porcentaje Descuentos: 0,00 %"
+        '
+        'lblCantidadItems
+        '
+        Me.lblCantidadItems.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblCantidadItems.AutoSize = True
+        Me.lblCantidadItems.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCantidadItems.Location = New System.Drawing.Point(3, 16)
+        Me.lblCantidadItems.Name = "lblCantidadItems"
+        Me.lblCantidadItems.Size = New System.Drawing.Size(66, 20)
+        Me.lblCantidadItems.TabIndex = 10
+        Me.lblCantidadItems.Text = "Items: 0"
+        '
+        'lblImporteSinDescuentos
+        '
+        Me.lblImporteSinDescuentos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(1099, 0)
+        Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(249, 52)
+        Me.lblImporteSinDescuentos.TabIndex = 11
+        Me.lblImporteSinDescuentos.Text = "0,00"
+        Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImporteSinDescuentosEtiqueta
+        '
+        Me.lblImporteSinDescuentosEtiqueta.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblImporteSinDescuentosEtiqueta.AutoSize = True
+        Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(962, 2)
+        Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
+        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(115, 48)
+        Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
+        Me.lblImporteSinDescuentosEtiqueta.Text = "Total sin Descuentos:"
         '
         'DataGridView1
         '
@@ -118,21 +251,237 @@ Partial Class FrmVentas
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdDP, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(3, 58)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DataGridView1.Size = New System.Drawing.Size(1353, 427)
+        Me.DataGridView1.Size = New System.Drawing.Size(1353, 446)
         Me.DataGridView1.TabIndex = 3
         '
-        'IdDP
+        'Panel1
         '
-        Me.IdDP.DataPropertyName = "IdDP"
-        Me.IdDP.HeaderText = "IdDP"
-        Me.IdDP.Name = "IdDP"
-        Me.IdDP.Visible = False
+        Me.Panel1.AutoSize = True
+        Me.Panel1.Controls.Add(Me.ToolStrip1)
+        Me.Panel1.Controls.Add(Me.MenuStrip1)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(3, 3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1353, 49)
+        Me.Panel1.TabIndex = 0
+        '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripButton, Me.AbrirToolStripButton, Me.GuardarToolStripButton, Me.ImprimirToolStripButton, Me.toolStripSeparator, Me.CopiarToolStripButton, Me.PegarToolStripButton, Me.AyudaToolStripButton, Me.ToolStripSeparator1, Me.SalirToolStripButton, Me.SelectorArticulos})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(1353, 25)
+        Me.ToolStrip1.TabIndex = 1
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'NuevoToolStripButton
+        '
+        Me.NuevoToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.NuevoToolStripButton.Image = CType(resources.GetObject("NuevoToolStripButton.Image"), System.Drawing.Image)
+        Me.NuevoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.NuevoToolStripButton.Name = "NuevoToolStripButton"
+        Me.NuevoToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.NuevoToolStripButton.Text = "&Nuevo"
+        '
+        'AbrirToolStripButton
+        '
+        Me.AbrirToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.AbrirToolStripButton.Image = CType(resources.GetObject("AbrirToolStripButton.Image"), System.Drawing.Image)
+        Me.AbrirToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.AbrirToolStripButton.Name = "AbrirToolStripButton"
+        Me.AbrirToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.AbrirToolStripButton.Text = "&Abrir"
+        '
+        'GuardarToolStripButton
+        '
+        Me.GuardarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.GuardarToolStripButton.Image = CType(resources.GetObject("GuardarToolStripButton.Image"), System.Drawing.Image)
+        Me.GuardarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.GuardarToolStripButton.Name = "GuardarToolStripButton"
+        Me.GuardarToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.GuardarToolStripButton.Text = "&Guardar"
+        '
+        'ImprimirToolStripButton
+        '
+        Me.ImprimirToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ImprimirToolStripButton.Image = CType(resources.GetObject("ImprimirToolStripButton.Image"), System.Drawing.Image)
+        Me.ImprimirToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ImprimirToolStripButton.Name = "ImprimirToolStripButton"
+        Me.ImprimirToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.ImprimirToolStripButton.Text = "&Imprimir"
+        '
+        'toolStripSeparator
+        '
+        Me.toolStripSeparator.Name = "toolStripSeparator"
+        Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
+        '
+        'CopiarToolStripButton
+        '
+        Me.CopiarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.CopiarToolStripButton.Image = CType(resources.GetObject("CopiarToolStripButton.Image"), System.Drawing.Image)
+        Me.CopiarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.CopiarToolStripButton.Name = "CopiarToolStripButton"
+        Me.CopiarToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.CopiarToolStripButton.Text = "&Copiar"
+        '
+        'PegarToolStripButton
+        '
+        Me.PegarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.PegarToolStripButton.Image = CType(resources.GetObject("PegarToolStripButton.Image"), System.Drawing.Image)
+        Me.PegarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.PegarToolStripButton.Name = "PegarToolStripButton"
+        Me.PegarToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.PegarToolStripButton.Text = "&Pegar"
+        '
+        'AyudaToolStripButton
+        '
+        Me.AyudaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.AyudaToolStripButton.Image = CType(resources.GetObject("AyudaToolStripButton.Image"), System.Drawing.Image)
+        Me.AyudaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.AyudaToolStripButton.Name = "AyudaToolStripButton"
+        Me.AyudaToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.AyudaToolStripButton.Text = "Ay&uda"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'SalirToolStripButton
+        '
+        Me.SalirToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.SalirToolStripButton.Image = CType(resources.GetObject("SalirToolStripButton.Image"), System.Drawing.Image)
+        Me.SalirToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.SalirToolStripButton.Name = "SalirToolStripButton"
+        Me.SalirToolStripButton.Size = New System.Drawing.Size(23, 22)
+        Me.SalirToolStripButton.Text = "&Salir"
+        Me.SalirToolStripButton.ToolTipText = "Salir"
+        '
+        'SelectorArticulos
+        '
+        Me.SelectorArticulos.AcceptsTab = True
+        Me.SelectorArticulos.AutoSize = False
+        Me.SelectorArticulos.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.SelectorArticulos.Name = "SelectorArticulos"
+        Me.SelectorArticulos.Size = New System.Drawing.Size(100, 25)
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem, Me.EdicionToolStripMenuItem, Me.ToolStripMenuItem1, Me.ProcesosToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(1353, 24)
+        Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'ArchivoToolStripMenuItem
+        '
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AbrirToolStripMenuItem, Me.CerrarToolStripMenuItem, Me.GuardarToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
+        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
+        Me.ArchivoToolStripMenuItem.Text = "&Archivo"
+        '
+        'AbrirToolStripMenuItem
+        '
+        Me.AbrirToolStripMenuItem.Image = CType(resources.GetObject("AbrirToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.AbrirToolStripMenuItem.Name = "AbrirToolStripMenuItem"
+        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.AbrirToolStripMenuItem.Text = "A&brir"
+        '
+        'CerrarToolStripMenuItem
+        '
+        Me.CerrarToolStripMenuItem.Name = "CerrarToolStripMenuItem"
+        Me.CerrarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.CerrarToolStripMenuItem.Text = "&Cerrar"
+        '
+        'GuardarToolStripMenuItem
+        '
+        Me.GuardarToolStripMenuItem.Image = CType(resources.GetObject("GuardarToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
+        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.GuardarToolStripMenuItem.Text = "&Guardar"
+        '
+        'SalirToolStripMenuItem
+        '
+        Me.SalirToolStripMenuItem.Image = CType(resources.GetObject("SalirToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.SalirToolStripMenuItem.Text = "&Salir"
+        '
+        'EdicionToolStripMenuItem
+        '
+        Me.EdicionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ElimininarItemSeleccionadoToolStripMenuItem, Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem, Me.ModificarPrecioToolStripMenuItem})
+        Me.EdicionToolStripMenuItem.Name = "EdicionToolStripMenuItem"
+        Me.EdicionToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
+        Me.EdicionToolStripMenuItem.Text = "&Edicion"
+        '
+        'ElimininarItemSeleccionadoToolStripMenuItem
+        '
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("ElimininarItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Name = "ElimininarItemSeleccionadoToolStripMenuItem"
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.ElimininarItemSeleccionadoToolStripMenuItem.Text = "&Elimininar Item seleccionado"
+        '
+        'AplicarDescuentoItemSeleccionadoToolStripMenuItem
+        '
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Name = "AplicarDescuentoItemSeleccionadoToolStripMenuItem"
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Text = "Aplicar &Descuento Item seleccionado"
+        '
+        'ModificarPrecioToolStripMenuItem
+        '
+        Me.ModificarPrecioToolStripMenuItem.Image = CType(resources.GetObject("ModificarPrecioToolStripMenuItem.Image"), System.Drawing.Image)
+        Me.ModificarPrecioToolStripMenuItem.Name = "ModificarPrecioToolStripMenuItem"
+        Me.ModificarPrecioToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
+        Me.ModificarPrecioToolStripMenuItem.Text = "&Modificar precio Item seleccionado"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
+        '
+        'ProcesosToolStripMenuItem
+        '
+        Me.ProcesosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FacturarToolStripMenuItem, Me.RemitoToolStripMenuItem, Me.PresupuestoToolStripMenuItem})
+        Me.ProcesosToolStripMenuItem.Name = "ProcesosToolStripMenuItem"
+        Me.ProcesosToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.ProcesosToolStripMenuItem.Text = "&Procesos"
+        '
+        'FacturarToolStripMenuItem
+        '
+        Me.FacturarToolStripMenuItem.Name = "FacturarToolStripMenuItem"
+        Me.FacturarToolStripMenuItem.ShortcutKeyDisplayString = "F10"
+        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FacturarToolStripMenuItem.Text = "&Facturar"
+        '
+        'RemitoToolStripMenuItem
+        '
+        Me.RemitoToolStripMenuItem.Name = "RemitoToolStripMenuItem"
+        Me.RemitoToolStripMenuItem.ShortcutKeyDisplayString = "F9"
+        Me.RemitoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RemitoToolStripMenuItem.Text = "&Remito"
+        '
+        'PresupuestoToolStripMenuItem
+        '
+        Me.PresupuestoToolStripMenuItem.Name = "PresupuestoToolStripMenuItem"
+        Me.PresupuestoToolStripMenuItem.ShortcutKeyDisplayString = "F8"
+        Me.PresupuestoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PresupuestoToolStripMenuItem.Text = "&Presupuesto"
+        '
+        'IdItem
+        '
+        Me.IdItem.DataPropertyName = "IdItem"
+        Me.IdItem.HeaderText = "IdItem"
+        Me.IdItem.Name = "IdItem"
+        Me.IdItem.Visible = False
         '
         'CodBarras
         '
@@ -232,284 +581,12 @@ Partial Class FrmVentas
         Me.ImporteConDescuento.Name = "ImporteConDescuento"
         Me.ImporteConDescuento.ReadOnly = True
         '
-        'Panel1
-        '
-        Me.Panel1.AutoSize = True
-        Me.Panel1.Controls.Add(Me.ToolStrip1)
-        Me.Panel1.Controls.Add(Me.MenuStrip1)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(3, 3)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1353, 49)
-        Me.Panel1.TabIndex = 0
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripButton, Me.AbrirToolStripButton, Me.GuardarToolStripButton, Me.ImprimirToolStripButton, Me.toolStripSeparator, Me.CortarToolStripButton, Me.CopiarToolStripButton, Me.PegarToolStripButton, Me.AyudaToolStripButton, Me.ToolStripSeparator1, Me.SelectorArticulos})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1353, 25)
-        Me.ToolStrip1.TabIndex = 1
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'NuevoToolStripButton
-        '
-        Me.NuevoToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.NuevoToolStripButton.Image = CType(resources.GetObject("NuevoToolStripButton.Image"), System.Drawing.Image)
-        Me.NuevoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.NuevoToolStripButton.Name = "NuevoToolStripButton"
-        Me.NuevoToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.NuevoToolStripButton.Text = "&Nuevo"
-        '
-        'AbrirToolStripButton
-        '
-        Me.AbrirToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.AbrirToolStripButton.Image = CType(resources.GetObject("AbrirToolStripButton.Image"), System.Drawing.Image)
-        Me.AbrirToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.AbrirToolStripButton.Name = "AbrirToolStripButton"
-        Me.AbrirToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.AbrirToolStripButton.Text = "&Abrir"
-        '
-        'GuardarToolStripButton
-        '
-        Me.GuardarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.GuardarToolStripButton.Image = CType(resources.GetObject("GuardarToolStripButton.Image"), System.Drawing.Image)
-        Me.GuardarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.GuardarToolStripButton.Name = "GuardarToolStripButton"
-        Me.GuardarToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.GuardarToolStripButton.Text = "&Guardar"
-        '
-        'ImprimirToolStripButton
-        '
-        Me.ImprimirToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ImprimirToolStripButton.Image = CType(resources.GetObject("ImprimirToolStripButton.Image"), System.Drawing.Image)
-        Me.ImprimirToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ImprimirToolStripButton.Name = "ImprimirToolStripButton"
-        Me.ImprimirToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.ImprimirToolStripButton.Text = "&Imprimir"
-        '
-        'toolStripSeparator
-        '
-        Me.toolStripSeparator.Name = "toolStripSeparator"
-        Me.toolStripSeparator.Size = New System.Drawing.Size(6, 25)
-        '
-        'CortarToolStripButton
-        '
-        Me.CortarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CortarToolStripButton.Image = CType(resources.GetObject("CortarToolStripButton.Image"), System.Drawing.Image)
-        Me.CortarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CortarToolStripButton.Name = "CortarToolStripButton"
-        Me.CortarToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.CortarToolStripButton.Text = "Cort&ar"
-        '
-        'CopiarToolStripButton
-        '
-        Me.CopiarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopiarToolStripButton.Image = CType(resources.GetObject("CopiarToolStripButton.Image"), System.Drawing.Image)
-        Me.CopiarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopiarToolStripButton.Name = "CopiarToolStripButton"
-        Me.CopiarToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.CopiarToolStripButton.Text = "&Copiar"
-        '
-        'PegarToolStripButton
-        '
-        Me.PegarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.PegarToolStripButton.Image = CType(resources.GetObject("PegarToolStripButton.Image"), System.Drawing.Image)
-        Me.PegarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.PegarToolStripButton.Name = "PegarToolStripButton"
-        Me.PegarToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.PegarToolStripButton.Text = "&Pegar"
-        '
-        'AyudaToolStripButton
-        '
-        Me.AyudaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.AyudaToolStripButton.Image = CType(resources.GetObject("AyudaToolStripButton.Image"), System.Drawing.Image)
-        Me.AyudaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.AyudaToolStripButton.Name = "AyudaToolStripButton"
-        Me.AyudaToolStripButton.Size = New System.Drawing.Size(23, 22)
-        Me.AyudaToolStripButton.Text = "Ay&uda"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'SelectorArticulos
-        '
-        Me.SelectorArticulos.AcceptsTab = True
-        Me.SelectorArticulos.AutoSize = False
-        Me.SelectorArticulos.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.SelectorArticulos.Name = "SelectorArticulos"
-        Me.SelectorArticulos.Size = New System.Drawing.Size(100, 25)
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArchivoToolStripMenuItem, Me.EdicionToolStripMenuItem, Me.ToolStripMenuItem1})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1353, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'ArchivoToolStripMenuItem
-        '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AbrirToolStripMenuItem, Me.CerrarToolStripMenuItem, Me.GuardarToolStripMenuItem, Me.SalirToolStripMenuItem})
-        Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
-        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.ArchivoToolStripMenuItem.Text = "&Archivo"
-        '
-        'AbrirToolStripMenuItem
-        '
-        Me.AbrirToolStripMenuItem.Image = CType(resources.GetObject("AbrirToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.AbrirToolStripMenuItem.Name = "AbrirToolStripMenuItem"
-        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.AbrirToolStripMenuItem.Text = "A&brir"
-        '
-        'CerrarToolStripMenuItem
-        '
-        Me.CerrarToolStripMenuItem.Name = "CerrarToolStripMenuItem"
-        Me.CerrarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.CerrarToolStripMenuItem.Text = "&Cerrar"
-        '
-        'GuardarToolStripMenuItem
-        '
-        Me.GuardarToolStripMenuItem.Image = CType(resources.GetObject("GuardarToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.GuardarToolStripMenuItem.Text = "&Guardar"
-        '
-        'SalirToolStripMenuItem
-        '
-        Me.SalirToolStripMenuItem.Image = CType(resources.GetObject("SalirToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.SalirToolStripMenuItem.Text = "&Salir"
-        '
-        'EdicionToolStripMenuItem
-        '
-        Me.EdicionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ElimininarItemSeleccionadoToolStripMenuItem, Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem, Me.ModificarPrecioToolStripMenuItem})
-        Me.EdicionToolStripMenuItem.Name = "EdicionToolStripMenuItem"
-        Me.EdicionToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
-        Me.EdicionToolStripMenuItem.Text = "&Edicion"
-        '
-        'ElimininarItemSeleccionadoToolStripMenuItem
-        '
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("ElimininarItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Name = "ElimininarItemSeleccionadoToolStripMenuItem"
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Text = "&Elimininar Item seleccionado"
-        '
-        'AplicarDescuentoItemSeleccionadoToolStripMenuItem
-        '
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Name = "AplicarDescuentoItemSeleccionadoToolStripMenuItem"
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Text = "Aplicar &Descuento Item seleccionado"
-        '
-        'ModificarPrecioToolStripMenuItem
-        '
-        Me.ModificarPrecioToolStripMenuItem.Image = CType(resources.GetObject("ModificarPrecioToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ModificarPrecioToolStripMenuItem.Name = "ModificarPrecioToolStripMenuItem"
-        Me.ModificarPrecioToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.ModificarPrecioToolStripMenuItem.Text = "&Modificar precio Item seleccionado"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 20)
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel2.Controls.Add(Me.TableLayoutPanel2)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(3, 491)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1353, 51)
-        Me.Panel2.TabIndex = 4
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.ColumnCount = 5
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22222!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteDescuentos, 3, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblPorcentajeAplicado, 2, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteSinDescuentos, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblCantidadItems, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteConDescuentos, 4, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1351, 49)
-        Me.TableLayoutPanel2.TabIndex = 7
-        '
-        'lblImporteDescuentos
-        '
-        Me.lblImporteDescuentos.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.lblImporteDescuentos.AutoSize = True
-        Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(753, 14)
-        Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(206, 20)
-        Me.lblImporteDescuentos.TabIndex = 8
-        Me.lblImporteDescuentos.Text = "Importe Descuentos: $ 0,00"
-        '
-        'lblPorcentajeAplicado
-        '
-        Me.lblPorcentajeAplicado.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.lblPorcentajeAplicado.AutoSize = True
-        Me.lblPorcentajeAplicado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(453, 14)
-        Me.lblPorcentajeAplicado.Name = "lblPorcentajeAplicado"
-        Me.lblPorcentajeAplicado.Size = New System.Drawing.Size(214, 20)
-        Me.lblPorcentajeAplicado.TabIndex = 7
-        Me.lblPorcentajeAplicado.Text = "Porcentaje Descuentos: 0,00"
-        '
-        'lblImporteSinDescuentos
-        '
-        Me.lblImporteSinDescuentos.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.lblImporteSinDescuentos.AutoSize = True
-        Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(153, 14)
-        Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(210, 20)
-        Me.lblImporteSinDescuentos.TabIndex = 6
-        Me.lblImporteSinDescuentos.Text = "Total sin Descuentos: $ 0,00"
-        '
-        'lblCantidadItems
-        '
-        Me.lblCantidadItems.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.lblCantidadItems.AutoSize = True
-        Me.lblCantidadItems.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCantidadItems.Location = New System.Drawing.Point(3, 14)
-        Me.lblCantidadItems.Name = "lblCantidadItems"
-        Me.lblCantidadItems.Size = New System.Drawing.Size(66, 20)
-        Me.lblCantidadItems.TabIndex = 5
-        Me.lblCantidadItems.Text = "Items: 0"
-        '
-        'lblImporteConDescuentos
-        '
-        Me.lblImporteConDescuentos.Anchor = System.Windows.Forms.AnchorStyles.Right
-        Me.lblImporteConDescuentos.AutoSize = True
-        Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1170, 12)
-        Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(178, 24)
-        Me.lblImporteConDescuentos.TabIndex = 9
-        Me.lblImporteConDescuentos.Text = "Importe Neto: $ 0,00"
-        '
         'FrmVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1359, 545)
+        Me.ClientSize = New System.Drawing.Size(1359, 692)
+        Me.ControlBox = False
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FrmVentas"
@@ -518,6 +595,9 @@ Partial Class FrmVentas
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.TableLayoutPanel3.PerformLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
@@ -525,9 +605,6 @@ Partial Class FrmVentas
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -543,14 +620,36 @@ Partial Class FrmVentas
     Friend WithEvents GuardarToolStripButton As ToolStripButton
     Friend WithEvents ImprimirToolStripButton As ToolStripButton
     Friend WithEvents toolStripSeparator As ToolStripSeparator
-    Friend WithEvents CortarToolStripButton As ToolStripButton
     Friend WithEvents CopiarToolStripButton As ToolStripButton
     Friend WithEvents PegarToolStripButton As ToolStripButton
     Friend WithEvents AyudaToolStripButton As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents SelectorArticulos As ToolStripTextBox
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents IdDP As DataGridViewTextBoxColumn
+    Friend WithEvents lblImporteDescuentosEtiqueta As Label
+    Friend WithEvents ElimininarItemSeleccionadoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AplicarDescuentoItemSeleccionadoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents AbrirToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CerrarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GuardarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ModificarPrecioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents lblImporteConDescuentosEtiqueta As Label
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents lblImporteSinDescuentosEtiqueta As Label
+    Friend WithEvents lblCantidadItems As Label
+    Friend WithEvents lblImporteDescuentos As Label
+    Friend WithEvents lblImporteConDescuentos As Label
+    Friend WithEvents SalirToolStripButton As ToolStripButton
+    Friend WithEvents lblPorcentajeAplicado As Label
+    Friend WithEvents lblImporteSinDescuentos As Label
+    Friend WithEvents ProcesosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FacturarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RemitoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PresupuestoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents IdItem As DataGridViewTextBoxColumn
     Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents Cantidad As DataGridViewTextBoxColumn
@@ -560,19 +659,4 @@ Partial Class FrmVentas
     Friend WithEvents PorcentajeDescuento As DataGridViewTextBoxColumn
     Friend WithEvents ImporteDescuento As DataGridViewTextBoxColumn
     Friend WithEvents ImporteConDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
-    Friend WithEvents lblImporteDescuentos As Label
-    Friend WithEvents lblPorcentajeAplicado As Label
-    Friend WithEvents lblImporteSinDescuentos As Label
-    Friend WithEvents lblCantidadItems As Label
-    Friend WithEvents lblImporteConDescuentos As Label
-    Friend WithEvents ElimininarItemSeleccionadoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AplicarDescuentoItemSeleccionadoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents AbrirToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CerrarToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GuardarToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ModificarPrecioToolStripMenuItem As ToolStripMenuItem
 End Class

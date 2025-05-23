@@ -4,11 +4,10 @@ Imports SiCoFa.Negocio
 
 Public Class FrmVentas
     Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
+    Private mobj_Usuario As Usuario
     Private mobj_Operacion As Operacion
     Private mobj_TipoOperacion As TipoOperacion
-    Private mobj_Usuario As Usuario
     Private mobj_Cliente As Cliente
-    Private mobj_Comprobante As Comprobante
     Private mobj_Items As New BindingList(Of ItemComprobante)
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
@@ -19,53 +18,44 @@ Public Class FrmVentas
     Private mdec_ImporteGravado1 As Decimal = 0
     Private mdec_ImporteGravado2 As Decimal = 0
 
-    Private Sub IniciarOperacion()
+    Private Sub Finalizar(ByVal argTecla As Keys)
         Try
-            mobj_Usuario = mobj_N_AdminSiCoFa.ObtenerUsuarioPorId(3)
-            mobj_Operacion = mobj_N_AdminSiCoFa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, mobj_Usuario, mobj_TipoOperacion, "")
+            If mobj_Operacion Is Nothing Then
+                mobj_Usuario = mobj_N_AdminSiCoFa.ObtenerUsuarioPorId(3)
+                mobj_Operacion = mobj_N_AdminSiCoFa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, mobj_Usuario, mobj_TipoOperacion, "")
+            End If
+
             Me.InsertarItems(mobj_Operacion.IdOperacion)
-            Me.GenerarComprobante()
-            Dim fin As Boolean = mobj_N_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, mobj_Operacion)
-            MsgBox(fin)
+
+            If mobj_Cliente Is Nothing Then
+                mobj_Cliente = mobj_N_AdminSiCoFa.ObtenerClientePorId(1)
+            End If
+
+            With FrmPagos
+                .Operacion = mobj_Operacion
+                .Cliente = mobj_Cliente
+                .ImporteAPagar = mdec_ImporteConDescuentos
+                .ImporteDescuento = mdec_ImporteDescuentos
+                .ImporteGravado1 = mdec_ImporteGravado1
+                .ImporteGravado2 = mdec_ImporteGravado2
+                .ItemsComprobante = mobj_Items.ToList
+                .GenerarComprobante()
+            End With
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-
         End Try
     End Sub
 
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
         Try
             For Each i As ItemComprobante In mobj_Items
-                mobj_N_AdminSiCoFa.InsertarItemComprobante(argIdOperacion, i)
+                If i.IdItem = 0 Then
+                    i.IdItem = mobj_N_AdminSiCoFa.InsertarItemComprobante(argIdOperacion, i)
+                Else
+                    Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
+                End If
             Next
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
-    Private Sub GenerarComprobante()
-        Try
-            mobj_Cliente = mobj_N_AdminSiCoFa.ObtenerClientePorId(1)
-            mobj_Comprobante = mobj_N_AdminSiCoFa.InsertarComprobante(
-                                                                    argOperacion:=mobj_Operacion,
-                                                                    argCodiTC:="FAB",
-                                                                    argImpBto:=mdec_ImporteConDescuentos,
-                                                                    argImpDes:=mdec_ImporteDescuentos,
-                                                                    argImpEx:=0,
-                                                                    argImpGrav1:=mdec_ImporteGravado1,
-                                                                    argImpGrav2:=mdec_ImporteGravado2,
-                                                                    argImpCB:=0,
-                                                                    argImpEf:=mdec_ImporteConDescuentos,
-                                                                    argImpCC:=0,
-                                                                    argImpTar:=0,
-                                                                    argIdOperAsoc:=0,
-                                                                    argCliente:=mobj_Cliente,
-                                                                    argEmpresa:=g_ParametrosTerminal.Empresa,
-                                                                    argDetalle:=mobj_Items.ToList,
-                                                                    argFiscal:="0"
-                                                                    )
-
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -90,6 +80,10 @@ Public Class FrmVentas
                 For i As Integer = DataGridView1.SelectedRows.Count - 1 To 0 Step -1
                     Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(i).Index
                     If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
+                        If mobj_Items.Item(indiceFilaSeleccionada).IdItem > 0 Then
+                            Dim Eliminado As Boolean = mobj_N_AdminSiCoFa.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
+                        End If
+
                         mobj_Items.RemoveAt(indiceFilaSeleccionada)
                     End If
                 Next
@@ -269,10 +263,10 @@ Public Class FrmVentas
             End If
 
             Me.lblCantidadItems.Text = "Items: " & mint_CantidadItems
-            Me.lblImporteSinDescuentos.Text = "Importe sin Descuentos: $ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
+            Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
             Me.lblPorcentajeAplicado.Text = "Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
-            Me.lblImporteDescuentos.Text = "Importe Descuentos: $ " & Format(mdec_ImporteDescuentos, "#,##0.00")
-            Me.lblImporteConDescuentos.Text = "Importe Neto: $ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+            Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
+            Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -318,6 +312,20 @@ Public Class FrmVentas
         End Try
 
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
+        Select Case keyData
+            Case Keys.F10
+                Me.Finalizar(Keys.F10)
+            Case Keys.F9
+
+            Case Keys.F8
+
+            Case Else
+                Return MyBase.ProcessCmdKey(msg, keyData)
+        End Select
+        Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
+    End Function
 
     Private Sub FrmFacturacion_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.AjustarAnchoColumnasProporcional()
@@ -490,6 +498,16 @@ Public Class FrmVentas
     End Sub
 
     Private Sub GuardarToolStripButton_Click(sender As Object, e As EventArgs) Handles GuardarToolStripButton.Click
-        Me.IniciarOperacion()
+        'Me.IniciarOperacion()
+        FrmPagos.ShowDialog()
     End Sub
+
+    Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
+        Me.Close()
+    End Sub
+
+    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
+        Me.Close()
+    End Sub
+
 End Class
