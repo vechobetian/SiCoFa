@@ -3,29 +3,36 @@
     Property ValidacionOK As Boolean
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, ByVal keyData As Keys) As Boolean
 
+        If keyData = Keys.Enter Then
+            ' Si el botón está enfocado, ejecutá el click
+            If TypeOf Me.ActiveControl Is Button Then
+                Dim boton As Button = DirectCast(Me.ActiveControl, Button)
+                boton.PerformClick()
+                Return True
+            End If
+
+            ' Si no es botón, navegá al siguiente control
+            Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
+            Return True
+        ElseIf keyData = Keys.Down Then
+            Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
+            Return True
+        ElseIf keyData = Keys.Up Then
+            Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
+            Return True
+        End If
+
+        ' Comportamiento especial para ComboBox (como ya tenés)
         If TypeOf Me.ActiveControl Is ComboBox Then
             If (keyData And Keys.Alt) = Keys.Alt AndAlso (keyData And Keys.Down) = Keys.Down Then
                 Return False
             End If
-
             If (keyData And Keys.Alt) = Keys.Alt AndAlso (keyData And Keys.Up) = Keys.Up Then
-                Return False ' Dejar que el comportamiento predeterminado ocurra
-            End If
-
-            If TypeOf Me.ActiveControl Is ComboBox AndAlso DirectCast(Me.ActiveControl, ComboBox).DroppedDown Then
                 Return False
             End If
-
-        End If
-
-        If keyData = Keys.Enter OrElse keyData = Keys.Down Then
-
-            Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
-            Return True
-        ElseIf keyData = Keys.Up Then
-
-            Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
-            Return True
+            If DirectCast(Me.ActiveControl, ComboBox).DroppedDown Then
+                Return False
+            End If
         End If
 
         Return MyBase.ProcessCmdKey(msg, keyData)

@@ -32,6 +32,7 @@ Partial Class FrmInicio
         Me.HerramientasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SistemaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ArticulToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,7 +55,7 @@ Partial Class FrmInicio
         'FacturacionToolStripMenuItem
         '
         Me.FacturacionToolStripMenuItem.Name = "FacturacionToolStripMenuItem"
-        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.FacturacionToolStripMenuItem.Text = "Facturacion"
         '
         'CajaToolStripMenuItem
@@ -77,6 +78,7 @@ Partial Class FrmInicio
         '
         'EdiciónToolStripMenuItem
         '
+        Me.EdiciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArticulToolStripMenuItem})
         Me.EdiciónToolStripMenuItem.Name = "EdiciónToolStripMenuItem"
         Me.EdiciónToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.EdiciónToolStripMenuItem.Text = "&Edición"
@@ -98,6 +100,12 @@ Partial Class FrmInicio
         Me.AyudaToolStripMenuItem.Name = "AyudaToolStripMenuItem"
         Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.AyudaToolStripMenuItem.Text = "Ay&uda"
+        '
+        'ArticulToolStripMenuItem
+        '
+        Me.ArticulToolStripMenuItem.Name = "ArticulToolStripMenuItem"
+        Me.ArticulToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ArticulToolStripMenuItem.Text = "Articul"
         '
         'FrmInicio
         '
@@ -127,4 +135,5 @@ Partial Class FrmInicio
     Friend WithEvents SistemaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AyudaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FacturacionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ArticulToolStripMenuItem As ToolStripMenuItem
 End Class

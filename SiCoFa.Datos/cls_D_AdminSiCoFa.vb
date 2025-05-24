@@ -859,6 +859,36 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
+        Try
+            Dim objConexionDB As New cls_Conexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("VerificarAutorizacionProceso", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
+                        .Add("p_Password", MySqlDbType.VarChar).Value = argPassword
+                        .Add("p_IdProceso", MySqlDbType.Int32).Value = argIdProceso
+                        .Add("p_Autorizacion", MySqlDbType.VarChar)
+                    End With
+
+                    cmd.Parameters("p_Autorizacion").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+
+                    Dim Autorizacion = cmd.Parameters("p_Autorizacion").Value.ToString
+                    Return Autorizacion
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "VerificarAutorizacionProceso", ex.Message))
+
+        End Try
+    End Function
+
 #End Region
 
 #Region "Administracion de Empresas"

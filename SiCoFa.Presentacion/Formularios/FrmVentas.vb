@@ -3,8 +3,9 @@ Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
 Public Class FrmVentas
-    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
-    Private mobj_Usuario As Usuario
+    Property Usuario As Usuario
+
+    Private mobj_N_Adminsicofa As New cls_N_AdminSiCoFa
     Private mobj_Operacion As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
@@ -21,14 +22,13 @@ Public Class FrmVentas
     Private Sub Finalizar(ByVal argTecla As Keys)
         Try
             If mobj_Operacion Is Nothing Then
-                mobj_Usuario = mobj_N_AdminSiCoFa.ObtenerUsuarioPorId(3)
-                mobj_Operacion = mobj_N_AdminSiCoFa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, mobj_Usuario, mobj_TipoOperacion, "")
+                mobj_Operacion = mobj_N_Adminsicofa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "")
             End If
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
             If mobj_Cliente Is Nothing Then
-                mobj_Cliente = mobj_N_AdminSiCoFa.ObtenerClientePorId(1)
+                mobj_Cliente = mobj_N_Adminsicofa.ObtenerClientePorId(1)
             End If
 
             With FrmPagos
@@ -51,9 +51,9 @@ Public Class FrmVentas
         Try
             For Each i As ItemComprobante In mobj_Items
                 If i.IdItem = 0 Then
-                    i.IdItem = mobj_N_AdminSiCoFa.InsertarItemComprobante(argIdOperacion, i)
+                    i.IdItem = mobj_N_Adminsicofa.InsertarItemComprobante(argIdOperacion, i)
                 Else
-                    Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
+                    Dim Actualizado As Boolean = mobj_N_Adminsicofa.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
                 End If
             Next
         Catch ex As Exception
@@ -81,7 +81,7 @@ Public Class FrmVentas
                     Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(i).Index
                     If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
                         If mobj_Items.Item(indiceFilaSeleccionada).IdItem > 0 Then
-                            Dim Eliminado As Boolean = mobj_N_AdminSiCoFa.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
+                            Dim Eliminado As Boolean = mobj_N_Adminsicofa.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
                         End If
 
                         mobj_Items.RemoveAt(indiceFilaSeleccionada)
@@ -173,7 +173,7 @@ Public Class FrmVentas
                     la.Add(a)
 
                 Case Else
-                    la = mobj_N_AdminSiCoFa.ListarArticulos(argTextoBuscado)
+                    la = mobj_N_Adminsicofa.ListarArticulos(argTextoBuscado)
 
             End Select
 
@@ -278,7 +278,7 @@ Public Class FrmVentas
     Private Sub FrmFacturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            Me.mobj_TipoOperacion = mobj_N_AdminSiCoFa.ObtenerTipoOperacion("VTAM")
+            Me.mobj_TipoOperacion = mobj_N_Adminsicofa.ObtenerTipoOperacion("VTAM")
             Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = Me.mobj_Items
             Me.DataGridView1.ClearSelection()

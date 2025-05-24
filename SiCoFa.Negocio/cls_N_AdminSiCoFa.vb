@@ -431,6 +431,19 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
 
+    Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
+
+        Try
+            Dim Autorizacion As String = mobj_D_AdminSiCoFa.VerificarAutorizacionProceso(argIdUsuario, argPassword, argIdProceso)
+            Return Autorizacion
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "VerificarAutorizacionProceso", ex.Message))
+
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Administracion de Empresas"

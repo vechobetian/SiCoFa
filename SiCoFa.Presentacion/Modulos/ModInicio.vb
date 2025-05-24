@@ -11,6 +11,7 @@ Module ModInicio
             g_ParametrosTerminal = ObtenerParametrosTerminal(MacAddress)
 
             If g_ParametrosTerminal Is Nothing Then
+                MsgBox("Terminal no habilitada", vbCritical, "SiCoFa")
                 Exit Sub
             End If
 

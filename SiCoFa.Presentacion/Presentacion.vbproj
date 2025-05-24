@@ -124,10 +124,16 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\FrmInicioSecion.Designer.vb">
-      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
+    <Compile Include="Formularios\FrmBuscaVentasIniciadas.Designer.vb">
+      <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmInicioSecion.vb">
+    <Compile Include="Formularios\FrmBuscaVentasIniciadas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmLoginUser.Designer.vb">
+      <DependentUpon>FrmLoginUser.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmLoginUser.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmPagos.Designer.vb">
@@ -264,11 +270,14 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmBuscaVentasIniciadas.resx">
+      <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmInicio.resx">
       <DependentUpon>FrmInicio.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmInicioSecion.resx">
-      <DependentUpon>FrmInicioSecion.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmLoginUser.resx">
+      <DependentUpon>FrmLoginUser.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPagos.resx">
       <DependentUpon>FrmPagos.vb</DependentUpon>
