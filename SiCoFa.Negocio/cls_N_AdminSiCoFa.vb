@@ -604,7 +604,7 @@ Public Class cls_N_AdminSiCoFa
         End Try
     End Function
 
-    Public Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String) As Operacion
+    Public Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String, ByVal argEstadoOperacion As String) As Operacion
 
 
         Try
@@ -612,13 +612,28 @@ Public Class cls_N_AdminSiCoFa
                                                                   argEmpresa:=argEmpresa,
                                                                   argUsuario:=argUsuario,
                                                                   argTipoOperacion:=argTipoOperacion,
-                                                                  argObservaciones
+                                                                  argObservaciones,
+                                                                  argEstadoOperacion
                                                                   )
             Return objOperacion
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", ex.Message))
             Return Nothing
+        End Try
+
+    End Function
+
+    Public Function ActualizarOperacion(ByRef argOperacion As Operacion) As Boolean
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarOperacion(argOperacion)
+
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpresa", ex.Message))
+            Return False
+
         End Try
 
     End Function
@@ -857,6 +872,18 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion Items Comprobantes"
+
+    Public Function ListarItemsPorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
+        Try
+            Dim objLI As List(Of ItemComprobante) = mobj_D_AdminSiCoFa.ListarItemsPorIdOperacion(argIdOperacion)
+            Return objLI
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobante", ex.Message))
+
+        End Try
+
+    End Function
 
     Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
 

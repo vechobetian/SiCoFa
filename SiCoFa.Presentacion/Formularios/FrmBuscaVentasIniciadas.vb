@@ -1,9 +1,37 @@
 ﻿Imports SiCoFa.Negocio
-Imports SiCoFa.Entidades
 Public Class FrmBuscaVentasIniciadas
-    Property IdUsuario As Int32 = 1
+    Property IdOperacionSeleccionado As Long
 
     Private mobj_AdminDB As New cls_N_AdminDB
+
+    Public Function CargarVentasIniciadas(ByVal argIdEmpresa As Int32, ByVal argIdUsuario As Int32) As Boolean
+        Try
+            Dim sql As String = $"
+            SELECT TblOperaciones.IdOperacion, TblOperaciones.Inicio,
+                   IFNULL(TblClientes.Nombre, 'CONSUMIDOR FINAL') AS Nombre
+            FROM TblOperaciones
+            LEFT JOIN TblOperacionesCL ON TblOperaciones.IdOperacion = TblOperacionesCL.IdOperacion
+            LEFT JOIN TblClientes ON TblOperacionesCL.IdCliente = TblClientes.IdCliente
+            WHERE TblOperaciones.IdEmpresa = {argIdEmpresa} AND 
+                  TblOperaciones.IdUsuario = {argIdUsuario} AND
+                  TblOperaciones.CodiTO='VTAM' AND
+                  TblOperaciones.EstadoOperacion = 'GUARDADO'"
+
+            Dim OperacionesIniciadas As DataTable = mobj_AdminDB.ObtenerTabla(sql)
+
+            If OperacionesIniciadas.Rows.Count = 0 Then
+                Return False
+            End If
+
+            Me.dgvOperacionesIniciadas.DataSource = OperacionesIniciadas
+            Me.dgvOperacionesIniciadas.ClearSelection()
+
+            Return True
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+            Return False
+        End Try
+    End Function
 
     Private Sub MostrarItems()
 
@@ -20,19 +48,6 @@ Public Class FrmBuscaVentasIniciadas
 
     End Sub
 
-    Private Sub FrmBuscaVentasIniciadas_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Try
-            Dim sql As String = "SELECT TblOperaciones.IdOperacion,TblOperaciones.Inicio,IFNULL(TblClientes.Nombre, 'CONSUMIDOR FINAL') AS Nombre FROM TblOperaciones LEFT JOIN TblOperacionesCL ON TblOperaciones.IdOperacion=TblOperacionesCL.IdOperacion 
-                                LEFT JOIN TblClientes ON TblOperacionesCL.IdCliente=TblClientes.IdCliente WHERE TblOperaciones.IdUsuario=" & Me.IdUsuario & " AND TblOperaciones.EstadoOperacion='INICIADO'"
-
-            Dim OperacionesIniciadas As DataTable = mobj_AdminDB.ObtenerTabla(sql)
-            Me.dgvOperacionesIniciadas.DataSource = OperacionesIniciadas
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-    End Sub
-
     Private Sub dgvOperacionesIniciadas_SelectionChanged(sender As Object, e As EventArgs) Handles dgvOperacionesIniciadas.SelectionChanged
 
         Try
@@ -43,5 +58,21 @@ Public Class FrmBuscaVentasIniciadas
         End Try
 
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
+        Select Case keyData
+            Case Keys.Escape
+                Me.DialogResult = DialogResult.Cancel
+                Me.Close()
+            Case Keys.Enter
+                Me.IdOperacionSeleccionado = Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value
+                Me.DialogResult = DialogResult.OK
+                Me.Hide()
+            Case Else
+                Return MyBase.ProcessCmdKey(msg, keyData)
+        End Select
+        Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
+    End Function
+
 
 End Class

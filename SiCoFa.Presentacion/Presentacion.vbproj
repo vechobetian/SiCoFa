@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmBuscaVentasIniciadas</StartupObject>
+    <StartupObject>Sub Main</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -84,6 +84,9 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -124,6 +127,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\clsPortapapelesVenta.vb" />
     <Compile Include="Formularios\FrmBuscaVentasIniciadas.Designer.vb">
       <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
     </Compile>

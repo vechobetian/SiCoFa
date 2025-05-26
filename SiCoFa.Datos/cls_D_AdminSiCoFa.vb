@@ -1305,7 +1305,7 @@ Public Class cls_D_AdminSiCoFa
         Return RegAfectados
     End Function
 
-    Public Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String) As Operacion
+    Public Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String, ByVal argEstadoOperacion As String) As Operacion
 
         Try
 
@@ -1319,8 +1319,10 @@ Public Class cls_D_AdminSiCoFa
                         .Add("p_IdEmpresa", MySqlDbType.Int32).Value = argEmpresa.Id
                         .Add("p_IdUsuario", MySqlDbType.Int32).Value = argUsuario.Id
                         .Add("p_CodiTO", MySqlDbType.VarChar).Value = argTipoOperacion.CodiTO
-                        .Add("p_Observaciones", MySqlDbType.VarChar).Value = argObservaciones
+                        .Add("p_Observaciones", MySqlDbType.Text).Value = argObservaciones
+                        .Add("p_EstadoOperacion", MySqlDbType.VarChar, 15).Value = argEstadoOperacion
                         .Add("p_IdOperacion", MySqlDbType.Int64)
+
                     End With
 
                     cmd.Parameters("p_IdOperacion").Direction = ParameterDirection.Output
@@ -1338,7 +1340,7 @@ Public Class cls_D_AdminSiCoFa
                                                      argIdCaja:=0,
                                                      argUsuario:=argUsuario,
                                                      argTipoOperacion:=argTipoOperacion,
-                                                     argEstadoOperacion:="INICIADO",
+                                                     argEstadoOperacion:=argEstadoOperacion,
                                                      argObservaciones:=Convert.ToString(argObservaciones),
                                                      argDesError:=""
                                                      )
@@ -1353,6 +1355,34 @@ Public Class cls_D_AdminSiCoFa
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ActualizarOperacion(ByVal argOperacion As Operacion) As Boolean
+        Try
+            Dim objConexionDB As New cls_Conexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("ActualizarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argOperacion.IdOperacion
+                        .Add("p_Inicio", MySqlDbType.DateTime).Value = argOperacion.Inicio
+                        .Add("p_Observaciones", MySqlDbType.Text).Value = argOperacion.Observaciones
+                        .Add("p_EstadoOperacion", MySqlDbType.VarChar, 15).Value = argOperacion.EstadoOperacion
+                    End With
+
+                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacion", Ex.Message))
+            Return False
 
         End Try
 
@@ -1402,25 +1432,23 @@ Public Class cls_D_AdminSiCoFa
 
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
-                        Dim objEmpresa As Empresa = Me.ObtenerEmpresaPorId(datos.GetInt32("IdEmpresa"))
-                        Dim objUsuario As Usuario = Me.ObtenerUsuarioPorId(datos.GetInt32("IdUsuario"))
-                        Dim objTOp As TipoOperacion = Me.ObtenerTipoOperacionPorCodiTO(datos.ToString("CodiTO"))
+                        'Dim objEmpresa As Empresa = Me.ObtenerEmpresaPorId(datos.GetInt32("IdEmpresa"))
+                        'Dim objUsuario As Usuario = Me.ObtenerUsuarioPorId(datos.GetInt32("IdUsuario"))
+                        'Dim objTOp As TipoOperacion = Me.ObtenerTipoOperacionPorCodiTO(datos.ToString("CodiTO"))
 
                         If datos.Read() Then
+                            ' Obtener valores manejando posibles DBNull
+                            Dim idOperacion As Long = datos.GetInt64("IdOperacion")
+                            Dim inicio As DateTime = datos.GetDateTime("Inicio")
+                            Dim fin As DateTime = If(datos.IsDBNull(datos.GetOrdinal("Fin")), Now, datos.GetDateTime("Fin"))
+                            Dim idPC As String = datos.GetString("IdPC")
+                            Dim idCaja As Integer = datos.GetInt32("IdCaja")
+                            Dim estado As String = datos.GetString("EstadoOperacion")
+                            Dim observaciones As String = datos.GetString("Observaciones")
+                            Dim desError As String = If(datos.IsDBNull(datos.GetOrdinal("DesError")), "", datos.GetString("DesError"))
 
-                            objOpera = New Operacion(
-                                                    datos.GetInt64("IdOperacion"),
-                                                    datos.GetDateTime("Inicio"),
-                                                    datos.GetDateTime("Fin"),
-                                                    objEmpresa,
-                                                    datos.GetString("IdPC"),
-                                                    datos.GetInt32("IdCaja"),
-                                                    objUsuario,
-                                                    objTOp,
-                                                    datos.GetString("EstadoOperacion"),
-                                                    datos.GetString("Observaciones"),
-                                                    datos.GetString("DesError")
-                                                    )
+                            ' Si luego vas a completar Empresa, Usuario, TipoOperacion, lo dejás en Nothing o los instanciás aparte.
+                            objOpera = New Operacion(idOperacion, inicio, fin, Nothing, idPC, idCaja, Nothing, Nothing, estado, observaciones, desError)
                         End If
 
                     End Using
@@ -2019,6 +2047,74 @@ Public Class cls_D_AdminSiCoFa
 #End Region
 
 #Region "Administracion Items Comprobante"
+    Public Function ListarItemsPorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
+        Dim objConexionDB As New cls_Conexion
+        Dim objLI As New List(Of ItemComprobante)
+
+        Try
+            Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM ConItemsComprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
+                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("Idarticulo")
+                        Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
+                        Dim cantidadOrdinal As Integer = datos.GetOrdinal("Cantidad")
+                        Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
+                        Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
+                        Dim precioUnitarioOrdinal As Integer = datos.GetOrdinal("PrecioUnitario")
+                        Dim descuentoOrdinal As Integer = datos.GetOrdinal("Descuento")
+                        Dim codBarrasOrdinal As Integer = datos.GetOrdinal("CodBarras")
+                        Dim precioVentaOrdinal As Integer = datos.GetOrdinal("PrecioVenta")
+                        Dim idSeccionOrdinal As Integer = datos.GetOrdinal("IdSeccion")
+                        Dim seccionNombreOrdinal As Integer = datos.GetOrdinal("Seccion")
+                        Dim establecerPrecioOrdinal As Integer = datos.GetOrdinal("EstablecerPrecio")
+
+                        While datos.Read
+                            ' Manejo explícito de DBNull y conversión a tipos de datos .NET
+                            Dim IdItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
+                            Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
+                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim CantidadResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadOrdinal))
+                            Dim AlicIVA As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
+                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
+                            Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
+                            Dim DescuentoResult As Decimal = If(datos.IsDBNull(descuentoOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoOrdinal)))
+                            Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
+                            Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
+                            Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
+                            Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
+                            Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
+                            Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
+
+                            ' Crear objetos anidados
+                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
+                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
+                            Dim objArticuloResult As Articulo = New Articulo(IdArticuloResult, 0, CodBarrasResult, DescripcionResult, objAlicuotaIVAResult, Now.Date, PrecioCostoResult, PrecioVentaResult, 0, objSeccionResult, 0, 0, Nothing, "")
+
+                            Dim objIC As New ItemComprobante(objArticuloResult, CodBarrasResult, DescripcionResult, CantidadResult, PrecioUnitarioResult, objAlicuotaIVAResult.AlicIVA, PorcentajeDescuento)
+                            objIC.IdItem = IdItemResult
+                            objLI.Add(objIC)
+                        End While
+                    End Using
+                End Using
+            End Using
+
+            Return objLI
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarItemsPorIdOperacion", ex.Message))
+            Return New List(Of ItemComprobante)
+
+        End Try
+    End Function
 
     Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
 

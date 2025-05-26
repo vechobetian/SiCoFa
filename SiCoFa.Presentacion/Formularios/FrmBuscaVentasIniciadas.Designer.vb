@@ -23,20 +23,20 @@ Partial Class FrmBuscaVentasIniciadas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvItemsOperacion = New System.Windows.Forms.DataGridView()
-        Me.dgvOperacionesIniciadas = New System.Windows.Forms.DataGridView()
-        Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Inicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.dgvOperacionesIniciadas = New System.Windows.Forms.DataGridView()
+        Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Inicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvItemsOperacion, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvOperacionesIniciadas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -68,57 +68,6 @@ Partial Class FrmBuscaVentasIniciadas
         Me.dgvItemsOperacion.Size = New System.Drawing.Size(626, 532)
         Me.dgvItemsOperacion.TabIndex = 4
         Me.dgvItemsOperacion.TabStop = False
-        '
-        'dgvOperacionesIniciadas
-        '
-        Me.dgvOperacionesIniciadas.AllowUserToAddRows = False
-        Me.dgvOperacionesIniciadas.AllowUserToResizeColumns = False
-        Me.dgvOperacionesIniciadas.AllowUserToResizeRows = False
-        Me.dgvOperacionesIniciadas.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvOperacionesIniciadas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvOperacionesIniciadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOperacionesIniciadas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.Inicio, Me.Cliente})
-        Me.dgvOperacionesIniciadas.Dock = System.Windows.Forms.DockStyle.Left
-        Me.dgvOperacionesIniciadas.Location = New System.Drawing.Point(0, 0)
-        Me.dgvOperacionesIniciadas.Name = "dgvOperacionesIniciadas"
-        Me.dgvOperacionesIniciadas.RowHeadersWidth = 20
-        Me.dgvOperacionesIniciadas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.dgvOperacionesIniciadas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvOperacionesIniciadas.Size = New System.Drawing.Size(459, 532)
-        Me.dgvOperacionesIniciadas.TabIndex = 5
-        '
-        'IdOperacion
-        '
-        Me.IdOperacion.DataPropertyName = "IdOperacion"
-        Me.IdOperacion.HeaderText = "IdOperacion"
-        Me.IdOperacion.Name = "IdOperacion"
-        Me.IdOperacion.Visible = False
-        Me.IdOperacion.Width = 70
-        '
-        'Inicio
-        '
-        Me.Inicio.DataPropertyName = "Inicio"
-        Me.Inicio.FillWeight = 60.75637!
-        Me.Inicio.HeaderText = "Fecha"
-        Me.Inicio.Name = "Inicio"
-        Me.Inicio.ReadOnly = True
-        Me.Inicio.Width = 135
-        '
-        'Cliente
-        '
-        Me.Cliente.DataPropertyName = "Nombre"
-        Me.Cliente.FillWeight = 100.9181!
-        Me.Cliente.HeaderText = "Cliente"
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.ReadOnly = True
-        Me.Cliente.Width = 300
         '
         'IdItem
         '
@@ -175,11 +124,63 @@ Partial Class FrmBuscaVentasIniciadas
         Me.Importe.ReadOnly = True
         Me.Importe.Width = 120
         '
+        'dgvOperacionesIniciadas
+        '
+        Me.dgvOperacionesIniciadas.AllowUserToAddRows = False
+        Me.dgvOperacionesIniciadas.AllowUserToResizeColumns = False
+        Me.dgvOperacionesIniciadas.AllowUserToResizeRows = False
+        Me.dgvOperacionesIniciadas.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvOperacionesIniciadas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvOperacionesIniciadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvOperacionesIniciadas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.Inicio, Me.Cliente})
+        Me.dgvOperacionesIniciadas.Dock = System.Windows.Forms.DockStyle.Left
+        Me.dgvOperacionesIniciadas.Location = New System.Drawing.Point(0, 0)
+        Me.dgvOperacionesIniciadas.Name = "dgvOperacionesIniciadas"
+        Me.dgvOperacionesIniciadas.RowHeadersWidth = 20
+        Me.dgvOperacionesIniciadas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.dgvOperacionesIniciadas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvOperacionesIniciadas.Size = New System.Drawing.Size(459, 532)
+        Me.dgvOperacionesIniciadas.TabIndex = 5
+        '
+        'IdOperacion
+        '
+        Me.IdOperacion.DataPropertyName = "IdOperacion"
+        Me.IdOperacion.HeaderText = "IdOperacion"
+        Me.IdOperacion.Name = "IdOperacion"
+        Me.IdOperacion.Visible = False
+        Me.IdOperacion.Width = 70
+        '
+        'Inicio
+        '
+        Me.Inicio.DataPropertyName = "Inicio"
+        Me.Inicio.FillWeight = 60.75637!
+        Me.Inicio.HeaderText = "Fecha"
+        Me.Inicio.Name = "Inicio"
+        Me.Inicio.ReadOnly = True
+        Me.Inicio.Width = 135
+        '
+        'Cliente
+        '
+        Me.Cliente.DataPropertyName = "Nombre"
+        Me.Cliente.FillWeight = 100.9181!
+        Me.Cliente.HeaderText = "Cliente"
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.ReadOnly = True
+        Me.Cliente.Width = 300
+        '
         'FrmBuscaVentasIniciadas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1086, 532)
+        Me.ControlBox = False
         Me.Controls.Add(Me.dgvOperacionesIniciadas)
         Me.Controls.Add(Me.dgvItemsOperacion)
         Me.Name = "FrmBuscaVentasIniciadas"
