@@ -239,6 +239,22 @@
         PdXm80/AfDokTVu+8DfPXv9XCcIPTvjvLQ8YoakAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="ClienteToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIwSURBVDhPvVBfSFNxFN5L1Esl0xisPxRqLrjLpLoOMRZm
+        q9ZuU9ucutDBtZsubzHTQJhrDzcQDKaWkBEUNiQxChEaVJAV+dBLYxCjCPIhIooQ60GExtfO2dYa9FoH
+        vt+fw/m+c86n+28RG65BDtlUYaiqivZ2H0NRlIIiIn2c1/AlfgfxW0dw/0Z3oYjFYmFSJBJBNBqFJEmw
+        2WxclJiR8XCwDMlpD+hNApO9xXkR6my322G1WpkUtZZgwbcdQx3FCIVCTPw+JzHw2A3EGvHt7iEQjwUE
+        QYAoijjfImB1tAqY2IuVayLi/jJ0+tq4I2aPZ0AiD47h05g5v6Zer4fJZMJV80a866tAMrCTMd+2jQVe
+        jFuBqYN5TB7AwuXS/AQ0utFohFcoSjcw4knzlvSUmzFeWQSXy8W7Lo8JPBmB3jStpmkZAQqDwYANa9eg
+        a9d63K4pYXLP1nUsoEz7MXGhDo8GNrGZnsFqNjlLzYd0ehbOHQ549u3GOccl0H/PwCiCySAiixF8XgHu
+        vX0K70sv6qfqCwXqlEV0aym0hr/i5mswmi8uoeVsCmdmwgjPhfFhCZDSJvYn+uF85kT1yNGMD+6hN2iQ
+        V9EZTEEd/gn6k8BJ9Qc8/hRPQURaRX4lo+l5E2pjtSgdyRpJ3asa37PIqd4UTnQt43Bfku8KRwKW1v0M
+        8/VK7kp3uVLOORagg/YVG64UwOHuQYfsRyAQ4MI/Qblcnj3IJf5W/Lvo34RO9wtyNK4YVpRCMAAAAABJ
+        RU5ErkJggg==
+</value>
+  </data>
   <data name="AyudaToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -283,7 +299,7 @@
   <data name="SalirToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAAGlJREFUOE+ljgEKwCAMA/v0/tyRqGOtxZb1IDBdciiLkSSFxYj1L2WoxhLcsWHQ
+        vwAADr8BOAVTJAAAAGlJREFUOE+ljgEKwCAMA/v0/tyRqGOtxZb1IDBdciiLkSSFxYj1L2WoxhLcsWHQ
         446CSIIzGy8YXwRegm82yB5/MykIojEyKQhAWwDscGPGyGadHRdB/oITlrwgSYgX/KItAG0BaAuKiDwV
         Q+k8Ty1uRwAAAABJRU5ErkJggg==
 </value>

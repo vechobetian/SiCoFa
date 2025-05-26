@@ -5,7 +5,7 @@ Public Class FrmPanelClientes
     Private TextoBuscar As String
     Private NuevaPersona As Boolean
     Private NuevaCtaCte As Boolean
-    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAltaCliente", "IdCC", "Descripcion", "FechaAltaCuentaCorriente"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email", "IdCC", "Descripcion", "Observaciones"}
     Private pestanaCuentaCorriente As TabPage
@@ -44,7 +44,7 @@ Public Class FrmPanelClientes
     Private Sub ObtenerProvincias()
         Try
             With Me.Provincia
-                .DataSource = mobj_N_AdminSiCoFa.Provincias
+                .DataSource = mobj_AdminSicofa.Provincias
                 .ValueMember = "PROVINCIA"
                 .DisplayMember = "PROVINCIA"
                 .SelectedIndex = -1
@@ -60,7 +60,7 @@ Public Class FrmPanelClientes
     Private Sub ObtenerTiposDocumento()
 
         Try
-            Me.TipoDoc.DataSource = mobj_N_AdminSiCoFa.TiposDocumento
+            Me.TipoDoc.DataSource = mobj_AdminSicofa.TiposDocumento
             Me.TipoDoc.ValueMember = "CodiTDoc"
             Me.TipoDoc.DisplayMember = "TipoDocumento"
             Me.TipoDoc.SelectedIndex = -1
@@ -75,7 +75,7 @@ Public Class FrmPanelClientes
     Private Sub ObtenerTiposIVA()
 
         Try
-            Me.IVA.DataSource = mobj_N_AdminSiCoFa.TiposIVA
+            Me.IVA.DataSource = mobj_AdminSicofa.TiposIVA
             Me.IVA.ValueMember = "CodIVA"
             Me.IVA.DisplayMember = "TipoIVA"
             Me.IVA.SelectedIndex = -1
@@ -110,7 +110,7 @@ Public Class FrmPanelClientes
 
         Try
 
-            Dim lc As List(Of Cliente) = mobj_N_AdminSiCoFa.ListarClientes(argTextoBuscado)
+            Dim lc As List(Of Cliente) = mobj_AdminSicofa.ListarClientes(argTextoBuscado)
             Dim c As Cliente = Nothing
 
             If lc Is Nothing Then
@@ -182,7 +182,7 @@ Public Class FrmPanelClientes
 
     Private Sub MostrarCuentaCorriente(ByVal argCliente As Cliente)
         Try
-            Dim cc As CuentaCorriente = mobj_N_AdminSiCoFa.ObtenerCuentaCorrientePorIdCliente(argCliente)
+            Dim cc As CuentaCorriente = mobj_AdminSicofa.ObtenerCuentaCorrientePorIdCliente(argCliente)
             If cc IsNot Nothing Then
                 Me.IdCC.Text = cc.IdCC
                 Me.Descripcion.Text = cc.Descripcion
@@ -213,7 +213,7 @@ Public Class FrmPanelClientes
 
             If Me.NuevaPersona = True Then
 
-                Dim IdCliente As Integer = mobj_N_AdminSiCoFa.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+                Dim IdCliente As Integer = mobj_AdminSicofa.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
                 If IdCliente > 0 Then
                     Me.Id.Text = IdCliente
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -232,7 +232,7 @@ Public Class FrmPanelClientes
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.EstadoCliente.Text)
+                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.EstadoCliente.Text)
 
                 If Actualizado = True Then
                     MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
@@ -253,7 +253,7 @@ Public Class FrmPanelClientes
 
             If Me.NuevaCtaCte = True Then
 
-                Dim IdCC As Integer = mobj_N_AdminSiCoFa.InsertarCuentaCorriente(Me.Id.Text, UCase(Me.Descripcion.Text), Convert.ToDecimal(Me.Credito.Text), Me.Observaciones.Text)
+                Dim IdCC As Integer = mobj_AdminSicofa.InsertarCuentaCorriente(Me.Id.Text, UCase(Me.Descripcion.Text), Convert.ToDecimal(Me.Credito.Text), Me.Observaciones.Text)
                 If IdCC > 0 Then
                     Me.IdCC.Text = IdCC
                 Else
@@ -266,7 +266,7 @@ Public Class FrmPanelClientes
 
             ElseIf Me.IdCC.Text <> "" Then
 
-                Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarCuentaCorriente(Me.IdCC.Text, Me.Credito.Text, Me.Observaciones.Text, Me.EstadoCuentaCorriente.Text)
+                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarCuentaCorriente(Me.IdCC.Text, Me.Credito.Text, Me.Observaciones.Text, Me.EstadoCuentaCorriente.Text)
 
                 If Actualizado = False Then
                     MsgBox("No se pudo actualizar la cuenta corriente, intente nuevamente", "SiCoFa")

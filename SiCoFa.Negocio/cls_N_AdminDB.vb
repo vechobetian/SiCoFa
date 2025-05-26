@@ -62,4 +62,18 @@ Public Class cls_N_AdminDB
 
     End Sub
 
+    Public Function CuentaRegistros(ByVal argSql As String) As Integer
+
+        Try
+
+            Dim cantidad As Integer = mobj_D_AdminDB.CuentaRegistros(argSql)
+            Return cantidad
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "CuentaRegistros", ex.Message))
+
+        End Try
+
+    End Function
+
 End Class

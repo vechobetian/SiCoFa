@@ -10,10 +10,10 @@ Public Class FrmPagos
     Property ImporteGravado2 As Decimal
     Property ItemsComprobante As List(Of ItemComprobante)
 
-    Private mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
     Public Sub GenerarComprobante()
         Try
-            Dim objComprobante = mobj_N_AdminSiCoFa.InsertarComprobante(
+            Dim objComprobante = mobj_AdminSicofa.InsertarComprobante(
                                                                         argOperacion:=Operacion,
                                                                         argCodiTC:="FAB",
                                                                         argImpBto:=ImporteAPagar,
@@ -31,8 +31,8 @@ Public Class FrmPagos
                                                                         argDetalle:=ItemsComprobante,
                                                                         argFiscal:="E"
                                                                         )
-            Dim mobj_N_AdminCAE As New cls_N_AdminCAE
-            Dim result_CAE As CAE = mobj_N_AdminCAE.ObtenerCAE(objComprobante)
+            Dim obj_AdminCAE As New cls_N_AdminCAE
+            Dim result_CAE As CAE = obj_AdminCAE.ObtenerCAE(objComprobante)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

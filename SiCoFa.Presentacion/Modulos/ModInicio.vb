@@ -48,10 +48,10 @@ Module ModInicio
     Private Function ObtenerParametrosTerminal(ByVal macAddress As String) As ParametrosTerminal
         Try
 
-            Dim obj_N_AdminDB As New cls_N_AdminDB
+            Dim obj_AdminDB As New cls_N_AdminDB
             Dim sqlPater As String = $"SELECT * FROM TblTerminales WHERE MacAddress = '{macAddress}'"
 
-            Dim registroPaTer As Dictionary(Of String, Object) = obj_N_AdminDB.ObtenerRegistro(sqlPater)
+            Dim registroPaTer As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlPater)
 
             If registroPaTer Is Nothing Then
                 Throw New Exception("No se encontró la terminal con MAC: " & macAddress)
@@ -60,7 +60,7 @@ Module ModInicio
             Dim IdEmpresa As Int32 = Convert.ToInt32(registroPaTer("IdEmpresa"))
             Dim sqlEmpresa As String = $"SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblEmpresas WHERE IdEmpresa = '{IdEmpresa}'"
 
-            Dim registroEmpresa As Dictionary(Of String, Object) = obj_N_AdminDB.ObtenerRegistro(sqlEmpresa)
+            Dim registroEmpresa As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlEmpresa)
             Dim objEmpresa As New Empresa(
                                     argIdEmpresa:=Convert.ToInt32(registroEmpresa("IdEmpresa")),
                                     argNombre:=Convert.ToString(registroEmpresa("Nombre")),

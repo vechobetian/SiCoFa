@@ -5,11 +5,11 @@ Public Class FrmEdicionPersonas
     Property TextoBuscar As String
     Property NuevaPersona As Boolean
 
-    Public mobj_N_AdminSiCoFa As New cls_N_AdminSiCoFa
+    Public mobj_AdminSicofa As New cls_N_AdminSiCoFa
     Private Sub ObtenerProvincias()
         Try
             With Me.Provincia
-                .DataSource = mobj_N_AdminSiCoFa.Provincias
+                .DataSource = mobj_AdminSicofa.Provincias
                 .ValueMember = "PROVINCIA"
                 .DisplayMember = "PROVINCIA"
                 .SelectedIndex = -1
@@ -24,7 +24,7 @@ Public Class FrmEdicionPersonas
 
         Try
             With Me.TipoDoc
-                .DataSource = mobj_N_AdminSiCoFa.TiposDocumento
+                .DataSource = mobj_AdminSicofa.TiposDocumento
                 .ValueMember = "CodiTDoc"
                 .DisplayMember = "TipoDocumento"
                 .SelectedIndex = -1

@@ -5,7 +5,7 @@ Imports SiCoFa.Negocio
 Public Class FrmVentas
     Property Usuario As Usuario
 
-    Private mobj_N_Adminsicofa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
     Private mobj_Operacion As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
@@ -22,13 +22,13 @@ Public Class FrmVentas
     Private Sub Finalizar(ByVal argTecla As Keys)
         Try
             If mobj_Operacion Is Nothing Then
-                mobj_Operacion = mobj_N_Adminsicofa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "")
+                mobj_Operacion = mobj_AdminSicofa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "")
             End If
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
             If mobj_Cliente Is Nothing Then
-                mobj_Cliente = mobj_N_Adminsicofa.ObtenerClientePorId(1)
+                mobj_Cliente = mobj_AdminSicofa.ObtenerClientePorId(1)
             End If
 
             With FrmPagos
@@ -39,7 +39,6 @@ Public Class FrmVentas
                 .ImporteGravado1 = mdec_ImporteGravado1
                 .ImporteGravado2 = mdec_ImporteGravado2
                 .ItemsComprobante = mobj_Items.ToList
-                .GenerarComprobante()
             End With
 
         Catch ex As Exception
@@ -51,9 +50,9 @@ Public Class FrmVentas
         Try
             For Each i As ItemComprobante In mobj_Items
                 If i.IdItem = 0 Then
-                    i.IdItem = mobj_N_Adminsicofa.InsertarItemComprobante(argIdOperacion, i)
+                    i.IdItem = mobj_AdminSicofa.InsertarItemComprobante(argIdOperacion, i)
                 Else
-                    Dim Actualizado As Boolean = mobj_N_Adminsicofa.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
+                    Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
                 End If
             Next
         Catch ex As Exception
@@ -81,7 +80,7 @@ Public Class FrmVentas
                     Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(i).Index
                     If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
                         If mobj_Items.Item(indiceFilaSeleccionada).IdItem > 0 Then
-                            Dim Eliminado As Boolean = mobj_N_Adminsicofa.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
+                            Dim Eliminado As Boolean = mobj_AdminSicofa.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
                         End If
 
                         mobj_Items.RemoveAt(indiceFilaSeleccionada)
@@ -173,7 +172,7 @@ Public Class FrmVentas
                     la.Add(a)
 
                 Case Else
-                    la = mobj_N_Adminsicofa.ListarArticulos(argTextoBuscado)
+                    la = mobj_AdminSicofa.ListarArticulos(argTextoBuscado)
 
             End Select
 
@@ -275,10 +274,24 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub FrmFacturacion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ActualizarDatosOperacion()
+        Dim NombreCliente As String
+        If mobj_Cliente Is Nothing Then
+            NombreCliente = "CONSUMIDOR FINAL"
+        Else
+            NombreCliente = mobj_Cliente.Nombre
+        End If
+        Dim Datos As String = "Inicio Operación: " & mobj_Operacion.Inicio & vbCrLf &
+                              "Usuario: " & mobj_Operacion.Usuario.Nombre & vbCrLf &
+                              "Cliente: " & NombreCliente
+        Me.lblDatosOperacion.Text = Datos
+    End Sub
+
+    Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            Me.mobj_TipoOperacion = mobj_N_Adminsicofa.ObtenerTipoOperacion("VTAM")
+
+            Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = Me.mobj_Items
             Me.DataGridView1.ClearSelection()
@@ -294,7 +307,7 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub FrmFacturacion_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmVentas_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Try
             Me.AjustarAnchoColumnasProporcional()
@@ -313,6 +326,18 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub FrmVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Dim resultado = MessageBox.Show("¿Desea salir sin guardar?", "Confirmar", MessageBoxButtons.YesNoCancel)
+
+        If resultado = DialogResult.Cancel Then
+            e.Cancel = True ' Cancela el cierre del formulario
+        ElseIf resultado = DialogResult.Yes Then
+            ' Guardar cambios antes de salir
+        ElseIf resultado = DialogResult.No Then
+            ' Cerrar sin guardar
+        End If
+    End Sub
+
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.F10
@@ -327,7 +352,7 @@ Public Class FrmVentas
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
     End Function
 
-    Private Sub FrmFacturacion_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+    Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.AjustarAnchoColumnasProporcional()
         Me.AjustarAnchoToolStripTextBox()
     End Sub

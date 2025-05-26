@@ -7,7 +7,7 @@ Public Class FrmEmpleados
     Private Sub BuscarEmpleado(ByVal argTextoBuscado As String)
 
         Try
-            Dim le As List(Of Empleado) = mobj_N_AdminSiCoFa.ListarEmpleados(argTextoBuscado)
+            Dim le As List(Of Empleado) = mobj_AdminSicofa.ListarEmpleados(argTextoBuscado)
             Dim e As Empleado = Nothing
 
             If le Is Nothing Then
@@ -85,7 +85,7 @@ Public Class FrmEmpleados
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mobj_N_AdminSiCoFa.InsertarEmpleado(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+                Dim Id As Integer = mobj_AdminSicofa.InsertarEmpleado(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
                 If Id > 0 Then
                     Me.Id.Text = Id
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -102,7 +102,7 @@ Public Class FrmEmpleados
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_N_AdminSiCoFa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.Text)
+                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.Text)
 
                 If Actualizado = True Then
                     MsgBox("El Empleado " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

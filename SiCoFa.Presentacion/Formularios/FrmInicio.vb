@@ -1,14 +1,17 @@
-﻿Public Class FrmInicio
+﻿Imports SiCoFa.Negocio
+Imports SiCoFa.Entidades
+Public Class FrmInicio
     Private Sub FacturacionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturacionToolStripMenuItem.Click
 
-        With FrmLoginUser
-            .ShowDialog()
-            If .DialogResult = DialogResult.OK Then
-                FrmVentas.Usuario = .Usuario
-                FrmVentas.Show()
-                .Close()
-            End If
-        End With
+        Dim objUsuario As Usuario = Nothing
+        FrmLoginUser.ShowDialog()
+
+        If FrmLoginUser.DialogResult = DialogResult.OK Then
+            objUsuario = FrmLoginUser.Usuario
+            FrmLoginUser.Close()
+            FrmVentas.Usuario = objUsuario
+            FrmVentas.Show()
+        End If
 
     End Sub
 

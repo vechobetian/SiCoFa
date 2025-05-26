@@ -5,14 +5,14 @@ Public Class FrmEdicionTabla
     Property dTable As DataTable
 
 
-    Private obj_N_AdminDB As New cls_N_AdminDB
+    Private obj_AdminDB As New cls_N_AdminDB
     Private MenuContextual As New ContextMenuStrip()
     Private selectedColumn As DataGridViewColumn
     Private Sub FrmEdicionTabla_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
 
             If SQL <> "" Then
-                dTable = obj_N_AdminDB.ObtenerTabla(Me.SQL)
+                dTable = obj_AdminDB.ObtenerTabla(Me.SQL)
             End If
 
             If dTable IsNot Nothing Then
@@ -41,7 +41,7 @@ Public Class FrmEdicionTabla
                 Exit Sub
             End If
 
-            obj_N_AdminDB.ActualizarTabla(Me.SQL, dTable)
+            obj_AdminDB.ActualizarTabla(Me.SQL, dTable)
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation, "SiCoFa")
 

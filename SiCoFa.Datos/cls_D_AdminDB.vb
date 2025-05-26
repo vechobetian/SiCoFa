@@ -150,4 +150,22 @@ Public Class cls_D_AdminDB
 
     End Sub
 
+    Public Function CuentaRegistros(ByVal argSql As String) As Integer
+        Try
+            Dim objConexionDB As New cls_Conexion
+            Dim cantidad As Integer = 0
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                Using cmd As New MySqlCommand(argSql, cn)
+                    cantidad = Convert.ToInt32(cmd.ExecuteScalar())
+                End Using
+            End Using
+
+            Return cantidad
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "CuentaRegistros", ex.Message))
+        End Try
+    End Function
+
 End Class

@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.Linq
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 Public Class cls_D_AdminSiCoFa
@@ -7,7 +8,7 @@ Public Class cls_D_AdminSiCoFa
     Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente
 
         Dim objConexionDB As New cls_Conexion
-        Dim objCli As Cliente
+        Dim objCli As Cliente = Nothing
 
         Try
             Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes WHERE IdCliente=@IdCliente"
@@ -21,22 +22,21 @@ Public Class cls_D_AdminSiCoFa
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
-                        If datos.Read Then
-                            Dim IdCliente As Long = datos("IdCliente")
-                            Dim Nombre As String = datos("Nombre")
-                            Dim Domicilio As String = datos("Domicilio")
-                            Dim Localidad As String = datos("Localidad")
-                            Dim Provincia As String = datos("Provincia")
-                            Dim Telefono As String = datos("Telefono")
-                            Dim Email As String = datos("Email")
-                            Dim CodiTDoc As String = datos("CodiTDoc")
-                            Dim NumDoc As String = datos("NumDoc")
-                            Dim FechaAlta As Date = datos("FechaAlta")
-                            Dim Estado As String = datos("Estado")
-                            Dim CodIVA As String = datos("CodIVA")
-                            objCli = New Cliente(IdCliente, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado, CodIVA)
-                        Else
-                            objCli = Nothing
+                        If datos.Read() Then
+                            objCli = New Cliente(
+                                                datos.GetInt32("IdCliente"),
+                                                datos.GetString("Nombre"),
+                                                If(datos.IsDBNull(datos.GetOrdinal("Domicilio")), "", datos.GetString("Domicilio")),
+                                                If(datos.IsDBNull(datos.GetOrdinal("Localidad")), "", datos.GetString("Localidad")),
+                                                If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
+                                                If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
+                                                If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
+                                                datos.GetString("CodiTDoc"),
+                                                datos.GetString("NumDoc"),
+                                                datos.GetDateTime("FechaAlta"),
+                                                datos.GetString("Estado"),
+                                                datos.GetString("CodIVA")
+                                                )
                         End If
 
                     End Using
@@ -48,7 +48,6 @@ Public Class cls_D_AdminSiCoFa
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerClientePorId", ex.Message))
-            Return Nothing
 
         End Try
 
@@ -77,9 +76,33 @@ Public Class cls_D_AdminSiCoFa
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idClienteOrdinal As Integer = datos.GetOrdinal("IdCliente")
+                        Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim domicilioOrdinal As Integer = datos.GetOrdinal("Domicilio")
+                        Dim localidadOrdinal As Integer = datos.GetOrdinal("Localidad")
+                        Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
+                        Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
+                        Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
+                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
+                        Dim codIVAOrdinal As Integer = datos.GetOrdinal("CodIVA")
 
                         While datos.Read
-                            c = New Cliente(datos("IdCliente"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"), datos("CodIVA"))
+                            Dim IdClienteResult As Int32 = Convert.ToInt32(datos(idClienteOrdinal))
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim DomicilioResult As String = If(datos.IsDBNull(domicilioOrdinal), "", datos(domicilioOrdinal).ToString())
+                            Dim LocalidadResult As String = If(datos.IsDBNull(localidadOrdinal), "", datos(localidadOrdinal).ToString())
+                            Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
+                            Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
+                            Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
+                            Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
+                            Dim NumDocResult As String = datos.GetString(numDocOrdinal)
+                            Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
+                            Dim EstadoResult As String = datos.GetString(estadoOrdinal)
+                            Dim CodIVAResult As String = datos.GetString(codIVAOrdinal)
+                            c = New Cliente(IdClienteResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult, CodIVAResult)
                             lc.Add(c)
                         End While
 
@@ -108,9 +131,9 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String,
                                     ByVal argCodIVA As String
-                                    ) As Integer
+                                    ) As Int32
 
-        Dim IdCliente As Integer
+        Dim IdCliente As Int32
         Try
             Dim objConexionDB As New cls_Conexion
 
@@ -314,10 +337,10 @@ Public Class cls_D_AdminSiCoFa
     Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
 
         Dim objConexionDB As New cls_Conexion
-        Dim objProv As Proveedor
+        Dim objProv As Proveedor = Nothing
         Try
 
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblProveedores WHERE IdProveedor=@IdProveedor"
+            Dim sql As String = "SELECT IdProveedor,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblProveedores WHERE IdProveedor=@IdProveedor"
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
@@ -326,22 +349,21 @@ Public Class cls_D_AdminSiCoFa
                     cmd.Parameters.AddWithValue("@IdProveedor", argIdProveedor)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        If datos.Read() Then
 
-                        If datos.Read Then
-                            Dim IdProveedor As Long = datos("IdProveedor")
-                            Dim Nombre As String = datos("Nombre")
-                            Dim Domicilio As String = datos("Domicilio")
-                            Dim Localidad As String = datos("Localidad")
-                            Dim Provincia As String = datos("Provincia")
-                            Dim Telefono As String = datos("Telefono")
-                            Dim Email As String = datos("Email")
-                            Dim CodiTDoc As String = datos("CodiTDoc")
-                            Dim NumDoc As String = datos("NumDoc")
-                            Dim FechaAlta As Date = datos("FechaAlta")
-                            Dim Estado As String = datos("Estado")
-                            objProv = New Proveedor(IdProveedor, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado)
-                        Else
-                            objProv = Nothing
+                            objProv = New Proveedor(
+                                                    datos.GetInt32("IdProveedor"),
+                                                    datos.GetString("Nombre"),
+                                                    If(datos.IsDBNull(datos.GetOrdinal("Domicilio")), "", datos.GetString("Domicilio")),
+                                                    If(datos.IsDBNull(datos.GetOrdinal("Localidad")), "", datos.GetString("Localidad")),
+                                                    If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
+                                                    If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
+                                                    If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
+                                                    datos.GetString("CodiTDoc"),
+                                                    datos.GetString("NumDoc"),
+                                                    datos.GetDateTime("FechaAlta"),
+                                                    datos.GetString("Estado")
+                                                    )
                         End If
 
                     End Using
@@ -354,7 +376,6 @@ Public Class cls_D_AdminSiCoFa
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerProveedorPorId", ex.Message))
-            Return Nothing
 
         End Try
 
@@ -384,9 +405,32 @@ Public Class cls_D_AdminSiCoFa
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idProveedorOrdinal As Integer = datos.GetOrdinal("IdProveedor")
+                        Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim domicilioOrdinal As Integer = datos.GetOrdinal("Domicilio")
+                        Dim localidadOrdinal As Integer = datos.GetOrdinal("Localidad")
+                        Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
+                        Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
+                        Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
+                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
 
                         While datos.Read
-                            p = New Proveedor(datos("IdProveedor"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"))
+                            Dim IdProveedorResult As Int32 = Convert.ToInt32(datos(idProveedorOrdinal))
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim DomicilioResult As String = If(datos.IsDBNull(domicilioOrdinal), "", datos(domicilioOrdinal).ToString())
+                            Dim LocalidadResult As String = If(datos.IsDBNull(localidadOrdinal), "", datos(localidadOrdinal).ToString())
+                            Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
+                            Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
+                            Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
+                            Dim CodiTDocResult As String = datos(codiTDocOrdinal)
+                            Dim NumDocResult As String = datos(numDocOrdinal)
+                            Dim FechaAltaResult As Date = datos(fechaAltaOrdinal)
+                            Dim EstadoResult As String = datos(estadoOrdinal)
+
+                            p = New Proveedor(IdProveedorResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
                             lp.Add(p)
                         End While
 
@@ -413,7 +457,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String
-                                    ) As Integer
+                                    ) As Int32
 
         Dim IdProveedor As Int32
         Try
@@ -500,7 +544,7 @@ Public Class cls_D_AdminSiCoFa
     Public Function ObtenerEmpleadoPorId(ByVal argIdEmpleado As Long) As Empleado
 
         Dim objConexionDB As New cls_Conexion
-        Dim objEmp As Empleado
+        Dim objEmp As Empleado = Nothing
 
         Try
             Dim sql As String = "SELECT IdEmpleado,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblEmpleado WHERE IdEmpleado=@IdEmpleado"
@@ -514,21 +558,21 @@ Public Class cls_D_AdminSiCoFa
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
-                        If datos.Read Then
-                            Dim IdEmpleado As Long = datos("IdEmpleado")
-                            Dim Nombre As String = datos("Nombre")
-                            Dim Domicilio As String = datos("Domicilio")
-                            Dim Localidad As String = datos("Localidad")
-                            Dim Provincia As String = datos("Provincia")
-                            Dim Telefono As String = datos("Telefono")
-                            Dim Email As String = datos("Email")
-                            Dim CodiTDoc As String = datos("CodiTDoc")
-                            Dim NumDoc As String = datos("NumDoc")
-                            Dim FechaAlta As Date = datos("FechaAlta")
-                            Dim Estado As String = datos("Estado")
-                            objEmp = New Empleado(IdEmpleado, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado)
-                        Else
-                            objEmp = Nothing
+                        If datos.Read() Then
+
+                            objEmp = New Empleado(
+                                                  datos.GetInt32("IdUsuario"),
+                                                  datos.GetString("Nombre"),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Domicilio")), "", datos.GetString("Domicilio")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Localidad")), "", datos.GetString("Localidad")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
+                                                  datos.GetString("CodiTDoc"),
+                                                  datos.GetString("NumDoc"),
+                                                  datos.GetDateTime("FechaAlta"),
+                                                  datos.GetString("Estado")
+                                                  )
                         End If
 
                     End Using
@@ -570,9 +614,32 @@ Public Class cls_D_AdminSiCoFa
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idEmpleadoOrdinal As Integer = datos.GetOrdinal("IdEmpleado")
+                        Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim domicilioOrdinal As Integer = datos.GetOrdinal("Domicilio")
+                        Dim localidadOrdinal As Integer = datos.GetOrdinal("Localidad")
+                        Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
+                        Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
+                        Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
+                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
 
                         While datos.Read
-                            e = New Empleado(datos("IdEmpleado"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"))
+                            Dim IdEmpleadoResult As Int32 = Convert.ToInt32(datos(idEmpleadoOrdinal))
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim DomicilioResult As String = If(datos.IsDBNull(domicilioOrdinal), "", datos(domicilioOrdinal).ToString())
+                            Dim LocalidadResult As String = If(datos.IsDBNull(localidadOrdinal), "", datos(localidadOrdinal).ToString())
+                            Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
+                            Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
+                            Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
+                            Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
+                            Dim NumDocResult As String = datos.GetString(numDocOrdinal)
+                            Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
+                            Dim EstadoResult As String = datos.GetString(estadoOrdinal)
+
+                            e = New Empleado(IdEmpleadoResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
                             le.Add(e)
                         End While
 
@@ -599,9 +666,9 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String
-                                    ) As Integer
+                                    ) As Int32
 
-        Dim IdCliente As Int32
+        Dim IdEmpleado As Int32
         Try
             Dim objConexionDB As New cls_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -621,11 +688,11 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("_IdEmpleado").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdCliente = Convert.ToInt32(cmd.Parameters("_IdEmpleado").Value)
+                    IdEmpleado = Convert.ToInt32(cmd.Parameters("_IdEmpleado").Value)
                 End Using
 
             End Using
-            Return IdCliente
+            Return IdEmpleado
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarEmpleado", Ex.Message))
@@ -682,10 +749,10 @@ Public Class cls_D_AdminSiCoFa
 #Region "Administracion de Usuarios"
     Public Function ObtenerUsuarioPorId(ByVal argIdUsuario As Integer) As Usuario
         Dim objConexionDB As New cls_Conexion
-        Dim objUs As Usuario
+        Dim objUs As Usuario = Nothing
 
         Try
-            Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,Password FROM TblUsuarios WHERE IdUsuario=@IdUsuario"
+            Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblUsuarios WHERE IdUsuario=@IdUsuario"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -696,22 +763,21 @@ Public Class cls_D_AdminSiCoFa
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
-                        If datos.Read Then
-                            Dim IdEmpleado As Long = datos("IdUsuario")
-                            Dim Nombre As String = datos("Nombre")
-                            Dim Domicilio As String = datos("Domicilio")
-                            Dim Localidad As String = datos("Localidad")
-                            Dim Provincia As String = datos("Provincia")
-                            Dim Telefono As String = datos("Telefono")
-                            Dim Email As String = datos("Email")
-                            Dim CodiTDoc As String = datos("CodiTDoc")
-                            Dim NumDoc As String = datos("NumDoc")
-                            Dim FechaAlta As Date = datos("FechaAlta")
-                            Dim Estado As String = datos("Estado")
-                            Dim Password As String = datos("Password")
-                            objUs = New Usuario(IdEmpleado, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado)
-                        Else
-                            objUs = Nothing
+                        If datos.Read() Then
+
+                            objUs = New Usuario(
+                                               datos.GetInt32("IdUsuario"),
+                                               datos.GetString("Nombre"),
+                                               If(datos.IsDBNull(datos.GetOrdinal("Domicilio")), "", datos.GetString("Domicilio")),
+                                               If(datos.IsDBNull(datos.GetOrdinal("Localidad")), "", datos.GetString("Localidad")),
+                                               If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
+                                               If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
+                                               If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
+                                               datos.GetString("CodiTDoc"),
+                                               datos.GetString("NumDoc"),
+                                               datos.GetDateTime("FechaAlta"),
+                                               datos.GetString("Estado")
+                                               )
                         End If
 
                     End Using
@@ -752,9 +818,32 @@ Public Class cls_D_AdminSiCoFa
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idUsuarioOrdinal As Integer = datos.GetOrdinal("IdUsuario")
+                        Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim domicilioOrdinal As Integer = datos.GetOrdinal("Domicilio")
+                        Dim localidadOrdinal As Integer = datos.GetOrdinal("Localidad")
+                        Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
+                        Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
+                        Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
+                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
 
                         While datos.Read
-                            u = New Usuario(datos("IdUsuario"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"))
+                            Dim IdUsuarioResult As Int32 = Convert.ToInt32(datos(idUsuarioOrdinal))
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim DomicilioResult As String = If(datos.IsDBNull(domicilioOrdinal), "", datos(domicilioOrdinal).ToString())
+                            Dim LocalidadResult As String = If(datos.IsDBNull(localidadOrdinal), "", datos(localidadOrdinal).ToString())
+                            Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
+                            Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
+                            Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
+                            Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
+                            Dim NumDocResult As String = datos.GetString(numDocOrdinal)
+                            Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
+                            Dim EstadoResult As String = datos.ToString(estadoOrdinal)
+
+                            u = New Usuario(IdUsuarioResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
                             lu.Add(u)
                         End While
 
@@ -781,7 +870,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String
-                                    ) As Integer
+                                    ) As Int32
 
         Dim IdUsuario As Int32
         Try
@@ -895,7 +984,7 @@ Public Class cls_D_AdminSiCoFa
     Public Function ObtenerEmpresaPorId(ByVal argIdEmpresa As Long) As Empresa
 
         Dim objConexionDB As New cls_Conexion
-        Dim objEmp As Empresa
+        Dim objEmp As Empresa = Nothing
 
         Try
             Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblClientes WHERE IdEmpresa=@IdEmpresa"
@@ -909,23 +998,24 @@ Public Class cls_D_AdminSiCoFa
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
-                        If datos.Read Then
-                            Dim IdEmpresa As Long = datos("IdEmpresa")
-                            Dim Nombre As String = datos("Nombre")
-                            Dim Domicilio As String = datos("Domicilio")
-                            Dim Localidad As String = datos("Localidad")
-                            Dim Provincia As String = datos("Provincia")
-                            Dim Telefono As String = datos("Telefono")
-                            Dim Email As String = datos("Email")
-                            Dim CodiTDoc As String = datos("CodiTDoc")
-                            Dim NumDoc As String = datos("NumDoc")
-                            Dim FechaAlta As Date = datos("FechaAlta")
-                            Dim Estado As String = datos("Estado")
-                            Dim CodIVA As String = datos("CodIVA")
-                            Dim IB As String = datos("IB")
-                            objEmp = New Empresa(IdEmpresa, Nombre, Domicilio, Localidad, Provincia, Telefono, Email, CodiTDoc, NumDoc, FechaAlta, Estado, CodIVA, IB)
-                        Else
-                            objEmp = Nothing
+                        If datos.Read() Then
+
+                            objEmp = New Empresa(
+                                                  datos.GetInt32("IdEmpresa"),
+                                                  datos.GetString("Nombre"),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Domicilio")), "", datos.GetString("Domicilio")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Localidad")), "", datos.GetString("Localidad")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
+                                                  If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
+                                                  datos.GetString("CodiTDoc"),
+                                                  datos.GetString("NumDoc"),
+                                                  datos.GetDateTime("FechaAlta"),
+                                                  datos.GetString("Estado"),
+                                                  datos.GetString("CodIVA"),
+                                                  datos.GetString("IB")
+                                                  )
+
                         End If
 
                     End Using
@@ -933,15 +1023,16 @@ Public Class cls_D_AdminSiCoFa
                 End Using
 
             End Using
+
             Return objEmp
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerEmpresaPorId", ex.Message))
-            Return Nothing
 
         End Try
 
     End Function
+
     Public Function ListarEmpresas(ByVal argTextoBuscado As String) As List(Of Empresa)
         Dim objConexionDB As New cls_Conexion
         Dim le As New List(Of Empresa)
@@ -966,14 +1057,40 @@ Public Class cls_D_AdminSiCoFa
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idEmpresaOrdinal As Integer = datos.GetOrdinal("IdEmpleado")
+                        Dim nombreOrdinal As Integer = datos.GetOrdinal("Nombre")
+                        Dim domicilioOrdinal As Integer = datos.GetOrdinal("Domicilio")
+                        Dim localidadOrdinal As Integer = datos.GetOrdinal("Localidad")
+                        Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
+                        Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
+                        Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
+                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
+                        Dim codIvaOrdinal As Integer = datos.GetOrdinal("CodIVA")
+                        Dim IBOrdinal As Integer = datos.GetOrdinal("IB")
 
                         While datos.Read
-                            e = New Empresa(datos("IdEmpresa"), datos("Nombre"), datos("Domicilio"), datos("Localidad"), datos("Provincia"), datos("Telefono"), datos("Email"), datos("CodiTDoc"), datos("NumDoc"), datos("FechaAlta"), datos("Estado"), datos("CodIVA"), datos("IB"))
+                            Dim IdEmpresaResult As Int32 = Convert.ToInt32(datos(idEmpresaOrdinal))
+                            Dim NombreResult As String = datos.GetString(nombreOrdinal)
+                            Dim DomicilioResult As String = If(datos.IsDBNull(domicilioOrdinal), "", datos(domicilioOrdinal).ToString())
+                            Dim LocalidadResult As String = If(datos.IsDBNull(localidadOrdinal), "", datos(localidadOrdinal).ToString())
+                            Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
+                            Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
+                            Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
+                            Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
+                            Dim NumDocResult As String = datos.GetString(numDocOrdinal)
+                            Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
+                            Dim EstadoResult As String = datos.GetString(estadoOrdinal)
+                            Dim CodIVAResult As String = datos.GetString(codIvaOrdinal)
+                            Dim IBResult As String = datos.GetString(IBOrdinal)
+
+                            e = New Empresa(IdEmpresaResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult, CodIVAResult, IBResult)
                             le.Add(e)
                         End While
 
                     End Using
-
                 End Using
 
             End Using
@@ -998,7 +1115,7 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argFechaAlta As Date,
                                     ByVal argCodIVA As String,
                                     ByVal argIB As String
-                                    ) As Integer
+                                    ) As Int32
 
         Dim IdEmpresa As Int32
         Try
@@ -1087,6 +1204,50 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion de Operaciones"
 
+    Public Function ObtenerTipoOperacionPorCodiTO(ByVal argCodiTO As String) As TipoOperacion
+
+        Dim objConexionDB As New cls_Conexion
+        Dim objTO As TipoOperacion = Nothing
+
+        Try
+            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones WHERE CodiTO=@CodiTO"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@CodiTO", argCodiTO)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read() Then
+
+                            objTO = New TipoOperacion(
+                                                      datos.GetString("CodiTO"),
+                                                      datos.GetString("TipoOperacion"),
+                                                      Convert.ToInt16(datos("EfInv")),
+                                                      Convert.ToBoolean(datos("AfectaCajaAbierta")),
+                                                      Convert.ToInt16(datos("EfFin"))
+                                                      )
+
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objTO
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerTipoOperacionPorCodiTO", ex.Message))
+
+        End Try
+
+    End Function
+
     Public Function ListarTipoOperaciones() As List(Of TipoOperacion)
         Dim objConexionDB As New cls_Conexion
         Dim lto As New List(Of TipoOperacion)
@@ -1094,7 +1255,7 @@ Public Class cls_D_AdminSiCoFa
 
         Try
 
-            Dim sql As String = "SELECT CodiTO,TipoOperacion FROM TblTipoOperaciones ORDER BY TipoOperacion"
+            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones ORDER BY TipoOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 Using cmd As MySqlCommand = cn.CreateCommand
@@ -1105,7 +1266,7 @@ Public Class cls_D_AdminSiCoFa
 
                         If datos.HasRows Then
                             While datos.Read()
-                                top = New TipoOperacion(datos("CodiTO"), datos("TipoOperacion"))
+                                top = New TipoOperacion(datos.ToString("CodiTO"), datos.ToString("TipoOperacion"), Convert.ToInt16(datos("EfFin")), Convert.ToBoolean(datos("AfectaCajaAbierta")), Convert.ToInt16(datos("EfFin")))
                                 lto.Add(top)
                             End While
                         Else
@@ -1125,6 +1286,7 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
+
     Public Function RegistrarError(ByVal argIdOpera As Long, argDescripcionError As String) As Integer
         Dim objConexionDB As New cls_Conexion
         Dim RegAfectados As Integer
@@ -1148,6 +1310,7 @@ Public Class cls_D_AdminSiCoFa
         Try
 
             Dim objConexionDB As New cls_Conexion
+            Dim objOperacion As Operacion = Nothing
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -1162,31 +1325,35 @@ Public Class cls_D_AdminSiCoFa
 
                     cmd.Parameters("p_IdOperacion").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
+
                     Dim IdOperacion As Long = CLng(cmd.Parameters("p_IdOperacion").Value)
+
                     If IdOperacion > 0 Then
-                        Dim objOperacion = New Operacion(
-                                                        argIdOperacion:=IdOperacion,
-                                                        argInicio:=Now,
-                                                        argFin:=Now,
-                                                        argEmpresa:=argEmpresa,
-                                                        argIdPC:=0,
-                                                        argIdCaja:=0,
-                                                        argUsuario:=argUsuario,
-                                                        argTipoOperacion:=argTipoOperacion,
-                                                        argEstadoOperacion:="INICIADO",
-                                                        argObservaciones:=Convert.ToString(argObservaciones),
-                                                        argDesError:=""
-                                                        )
-                        Return objOperacion
+                        objOperacion = New Operacion(
+                                                     argIdOperacion:=IdOperacion,
+                                                     argInicio:=Now,
+                                                     argFin:=Now,
+                                                     argEmpresa:=argEmpresa,
+                                                     argIdPC:=0,
+                                                     argIdCaja:=0,
+                                                     argUsuario:=argUsuario,
+                                                     argTipoOperacion:=argTipoOperacion,
+                                                     argEstadoOperacion:="INICIADO",
+                                                     argObservaciones:=Convert.ToString(argObservaciones),
+                                                     argDesError:=""
+                                                     )
+
                     End If
 
                 End Using
 
             End Using
 
+            Return objOperacion
+
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", Ex.Message))
-            Return Nothing
+
         End Try
 
     End Function
@@ -1218,36 +1385,42 @@ Public Class cls_D_AdminSiCoFa
         End Try
     End Function
 
-    Public Function ObtenerOperacion(ByVal argIdOpera As Long) As Operacion
+    Public Function ObtenerOperacion(ByVal argIdOperacion As Long) As Operacion
         Dim objConexionDB As New cls_Conexion
-        Dim objOpera As Operacion
+        Dim objOpera As Operacion = Nothing
 
         Try
 
-            Dim sql As String = "SELECT IdOperacion,Fecha,CodiAE,CodiTO,IdUsuario,EstadoOpera,Observaciones,DesError FROM TblOpera WHERE IdOperacion=" & argIdOpera
+            Dim sql As String = "SELECT IdOperacion,Inicio,Fin,IdEmpresa,IdPC,IdCaja,IdUsuario,CodiTO,EstadoOperacion,Observaciones,DesError FROM TblOperaciones WHERE IdOperacion=@IdOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
-                        datos.Read()
+                        Dim objEmpresa As Empresa = Me.ObtenerEmpresaPorId(datos.GetInt32("IdEmpresa"))
+                        Dim objUsuario As Usuario = Me.ObtenerUsuarioPorId(datos.GetInt32("IdUsuario"))
+                        Dim objTOp As TipoOperacion = Me.ObtenerTipoOperacionPorCodiTO(datos.ToString("CodiTO"))
 
-                        If datos.HasRows Then
-                            'objOpera = New Operacion(
-                            'datos("IdOperacion"),
-                            'datos("Fecha"),
-                            'datos("CodiAE"),
-                            'datos("CodiTO"),
-                            'datos("IdUsuario"),
-                            'datos("EstadoOpera"),
-                            'datos("Observaciones").ToString,
-                            'datos("DesError").ToString
-                            ')
+                        If datos.Read() Then
 
-                        Else
-                            objOpera = Nothing
+                            objOpera = New Operacion(
+                                                    datos.GetInt64("IdOperacion"),
+                                                    datos.GetDateTime("Inicio"),
+                                                    datos.GetDateTime("Fin"),
+                                                    objEmpresa,
+                                                    datos.GetString("IdPC"),
+                                                    datos.GetInt32("IdCaja"),
+                                                    objUsuario,
+                                                    objTOp,
+                                                    datos.GetString("EstadoOperacion"),
+                                                    datos.GetString("Observaciones"),
+                                                    datos.GetString("DesError")
+                                                    )
                         End If
 
                     End Using
@@ -1534,16 +1707,16 @@ Public Class cls_D_AdminSiCoFa
                             Dim CodigoResult As String = datos.GetString(codigoOrdinal)
                             Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
                             Dim NombreResult As String = datos.GetString(nombreOrdinal)
-                            Dim AlicIVA As Decimal = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDecimal(datos.GetValue(alicIVAOrdinal)))
-                            Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
-                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
-                            Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
+                            Dim AlicIVA As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
+                            Dim FechaPrecioResult As Date = Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal))
+                            Dim PrecioCostoResult As Decimal = Convert.ToDecimal(datos.GetValue(precioCostoOrdinal))
+                            Dim PrecioVentaResult As Decimal = Convert.ToDecimal(datos.GetValue(precioVentaOrdinal))
                             Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
                             Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
                             Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
                             Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
                             Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
-                            Dim StockResult As Decimal = If(datos.IsDBNull(stockOrdinal), 0, Convert.ToDecimal(datos.GetValue(stockOrdinal)))
+                            Dim StockResult As Decimal = Convert.ToDecimal(datos.GetValue(stockOrdinal))
                             Dim CodiLPResult As String = datos.GetString(codiLPOrdinal)
                             Dim ListaPreciosResult As String = datos.GetString(listaPreciosNombreOrdinal)
                             Dim FabricanteResult As String = datos.GetString(fabricanteOrdinal)
@@ -1846,78 +2019,6 @@ Public Class cls_D_AdminSiCoFa
 #End Region
 
 #Region "Administracion Items Comprobante"
-
-    Public Function ListarItemsComprobantePorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
-        Dim objConexionDB As New cls_Conexion
-        Dim objLI As New List(Of ItemComprobante)
-
-        Try
-            Dim sql As String = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM ConArticulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
-
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-
-                Using cmd As MySqlCommand = cn.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = sql
-
-                    ' Separamos los parámetros para Nombre y CodBarras
-                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
-
-                    Using datos As MySqlDataReader = cmd.ExecuteReader()
-                        Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
-                        Dim descripcionOrdinal As Integer = datos.GetOrdinal("Nombre")
-                        Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
-                        Dim fechaPrecioOrdinal As Integer = datos.GetOrdinal("FechaPrecio")
-                        Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
-                        Dim precioVentaOrdinal As Integer = datos.GetOrdinal("PrecioVenta")
-                        Dim bajaOrdinal As Integer = datos.GetOrdinal("Baja")
-                        Dim idSeccionOrdinal As Integer = datos.GetOrdinal("IdSeccion")
-                        Dim seccionNombreOrdinal As Integer = datos.GetOrdinal("Seccion")
-                        Dim establecerPrecioOrdinal As Integer = datos.GetOrdinal("EstablecerPrecio")
-                        Dim actualizarPrecioOrdinal As Integer = datos.GetOrdinal("ActualizarPrecio")
-                        Dim stockOrdinal As Integer = datos.GetOrdinal("Stock")
-                        Dim codiLPOrdinal As Integer = datos.GetOrdinal("CodiLP")
-                        Dim listaPreciosNombreOrdinal As Integer = datos.GetOrdinal("ListaPrecios")
-                        Dim fabricanteOrdinal As Integer = datos.GetOrdinal("Fabricante")
-
-                        While datos.Read
-                            ' Manejo explícito de DBNull y conversión a tipos de datos .NET
-                            Dim IdItemResult As String = datos.GetString(idItemOrdinal)
-                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
-                            Dim AlicIVA As Decimal = If(datos.IsDBNull(alicIVAOrdinal), 0.0, Convert.ToDecimal(datos.GetValue(alicIVAOrdinal)))
-                            Dim FechaPrecioResult As Date = If(datos.IsDBNull(fechaPrecioOrdinal), Date.MinValue, Convert.ToDateTime(datos.GetValue(fechaPrecioOrdinal)))
-                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
-                            Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
-                            Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
-                            Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
-                            Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
-                            Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
-                            Dim ActualizarPrecioResult As Boolean = datos.GetBoolean(actualizarPrecioOrdinal)
-                            Dim StockResult As Decimal = If(datos.IsDBNull(stockOrdinal), 0, Convert.ToDecimal(datos.GetValue(stockOrdinal)))
-                            Dim CodiLPResult As String = datos.GetString(codiLPOrdinal)
-                            Dim ListaPreciosResult As String = datos.GetString(listaPreciosNombreOrdinal)
-                            Dim FabricanteResult As String = datos.GetString(fabricanteOrdinal)
-
-                            ' Crear objetos anidados
-                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
-                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
-                            Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
-
-                            'Dim obItem = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
-                            'objLI.Add(objArt)
-                        End While
-                    End Using
-                End Using
-            End Using
-
-            Return objLI
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulos", ex.Message))
-            Return New List(Of ItemComprobante)
-
-        End Try
-    End Function
 
     Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
 

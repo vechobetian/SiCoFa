@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Datos
+﻿Imports System.Data.SqlClient
+Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminSiCoFa
 
@@ -545,6 +546,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "AFIP"
+
     Public Function TiposDocumento() As List(Of TipoDocumento)
         Dim TDocs As New List(Of TipoDocumento)
         TDocs.Add(New TipoDocumento("80"))
@@ -553,6 +555,7 @@ Public Class cls_N_AdminSiCoFa
         TDocs.Add(New TipoDocumento("96"))
         Return TDocs.OrderBy(Function(x) x.TipoDocumento).ToList()
     End Function
+
     Public Function TiposIVA() As List(Of IVA)
         Dim TIVAS As New List(Of IVA)
         TIVAS.Add(New IVA("CF"))
@@ -572,26 +575,21 @@ Public Class cls_N_AdminSiCoFa
 
 #Region "Administracion de Operaciones"
 
-    Public Function ObtenerTipoOperacion(ByVal argCodiTO As String) As TipoOperacion
+    Public Function ObtenerTipoOperacionPorCodiTO(ByVal argCodiTO As String) As TipoOperacion
 
-        Dim TipoOperaciones As List(Of TipoOperacion) = mobj_D_AdminSiCoFa.ListarTipoOperaciones
+        Dim objTO As TipoOperacion = Nothing
 
         Try
-
-            For Each top As TipoOperacion In TipoOperaciones
-                If top.CodiTO = argCodiTO Then
-                    Return top
-                    Exit For
-                End If
-            Next
-            Return Nothing
+            objTO = mobj_D_AdminSiCoFa.ObtenerTipoOperacionPorCodiTO(argCodiTO)
+            Return objTO
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
-            Return Nothing
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerEmpresaPorId", ex.Message))
+
         End Try
 
     End Function
+
 
     Public Function RegistrarError(ByVal argIdOperacion As Long, argDescripcionError As String) As Integer
 
@@ -859,6 +857,7 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion Items Comprobantes"
+
     Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
 
 

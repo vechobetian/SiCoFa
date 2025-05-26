@@ -23,33 +23,31 @@ Partial Class FrmBuscaVentasIniciadas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.dgvItemsOperacion = New System.Windows.Forms.DataGridView()
+        Me.dgvOperacionesIniciadas = New System.Windows.Forms.DataGridView()
+        Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Inicio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteSinDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PorcentajeDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteConDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        CType(Me.dgvItemsOperacion, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvOperacionesIniciadas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'DataGridView1
+        'dgvItemsOperacion
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToResizeColumns = False
-        Me.DataGridView1.AllowUserToResizeRows = False
-        Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
+        Me.dgvItemsOperacion.AllowUserToAddRows = False
+        Me.dgvItemsOperacion.AllowUserToDeleteRows = False
+        Me.dgvItemsOperacion.AllowUserToResizeColumns = False
+        Me.dgvItemsOperacion.AllowUserToResizeRows = False
+        Me.dgvItemsOperacion.BackgroundColor = System.Drawing.Color.White
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -57,16 +55,70 @@ Partial Class FrmBuscaVentasIniciadas
         DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento})
-        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.DataGridView1.Location = New System.Drawing.Point(288, 0)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.RowHeadersWidth = 20
-        Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DataGridView1.Size = New System.Drawing.Size(997, 484)
-        Me.DataGridView1.TabIndex = 4
+        Me.dgvItemsOperacion.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvItemsOperacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvItemsOperacion.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.Descripcion, Me.Cantidad, Me.PrecioUnitario, Me.Importe})
+        Me.dgvItemsOperacion.Dock = System.Windows.Forms.DockStyle.Right
+        Me.dgvItemsOperacion.Location = New System.Drawing.Point(460, 0)
+        Me.dgvItemsOperacion.Name = "dgvItemsOperacion"
+        Me.dgvItemsOperacion.RowHeadersVisible = False
+        Me.dgvItemsOperacion.RowHeadersWidth = 20
+        Me.dgvItemsOperacion.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.dgvItemsOperacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvItemsOperacion.Size = New System.Drawing.Size(626, 532)
+        Me.dgvItemsOperacion.TabIndex = 4
+        Me.dgvItemsOperacion.TabStop = False
+        '
+        'dgvOperacionesIniciadas
+        '
+        Me.dgvOperacionesIniciadas.AllowUserToAddRows = False
+        Me.dgvOperacionesIniciadas.AllowUserToResizeColumns = False
+        Me.dgvOperacionesIniciadas.AllowUserToResizeRows = False
+        Me.dgvOperacionesIniciadas.BackgroundColor = System.Drawing.Color.White
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvOperacionesIniciadas.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.dgvOperacionesIniciadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvOperacionesIniciadas.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.Inicio, Me.Cliente})
+        Me.dgvOperacionesIniciadas.Dock = System.Windows.Forms.DockStyle.Left
+        Me.dgvOperacionesIniciadas.Location = New System.Drawing.Point(0, 0)
+        Me.dgvOperacionesIniciadas.Name = "dgvOperacionesIniciadas"
+        Me.dgvOperacionesIniciadas.RowHeadersWidth = 20
+        Me.dgvOperacionesIniciadas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.dgvOperacionesIniciadas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvOperacionesIniciadas.Size = New System.Drawing.Size(459, 532)
+        Me.dgvOperacionesIniciadas.TabIndex = 5
+        '
+        'IdOperacion
+        '
+        Me.IdOperacion.DataPropertyName = "IdOperacion"
+        Me.IdOperacion.HeaderText = "IdOperacion"
+        Me.IdOperacion.Name = "IdOperacion"
+        Me.IdOperacion.Visible = False
+        Me.IdOperacion.Width = 70
+        '
+        'Inicio
+        '
+        Me.Inicio.DataPropertyName = "Inicio"
+        Me.Inicio.FillWeight = 60.75637!
+        Me.Inicio.HeaderText = "Fecha"
+        Me.Inicio.Name = "Inicio"
+        Me.Inicio.ReadOnly = True
+        Me.Inicio.Width = 135
+        '
+        'Cliente
+        '
+        Me.Cliente.DataPropertyName = "Nombre"
+        Me.Cliente.FillWeight = 100.9181!
+        Me.Cliente.HeaderText = "Cliente"
+        Me.Cliente.Name = "Cliente"
+        Me.Cliente.ReadOnly = True
+        Me.Cliente.Width = 300
         '
         'IdItem
         '
@@ -76,15 +128,6 @@ Partial Class FrmBuscaVentasIniciadas
         Me.IdItem.Visible = False
         Me.IdItem.Width = 70
         '
-        'CodBarras
-        '
-        Me.CodBarras.DataPropertyName = "CodBarras"
-        Me.CodBarras.FillWeight = 60.75637!
-        Me.CodBarras.HeaderText = "CodBarras"
-        Me.CodBarras.Name = "CodBarras"
-        Me.CodBarras.ReadOnly = True
-        Me.CodBarras.Width = 135
-        '
         'Descripcion
         '
         Me.Descripcion.DataPropertyName = "Descripcion"
@@ -92,7 +135,7 @@ Partial Class FrmBuscaVentasIniciadas
         Me.Descripcion.HeaderText = "Articulo"
         Me.Descripcion.Name = "Descripcion"
         Me.Descripcion.ReadOnly = True
-        Me.Descripcion.Width = 149
+        Me.Descripcion.Width = 300
         '
         'Cantidad
         '
@@ -106,104 +149,56 @@ Partial Class FrmBuscaVentasIniciadas
         Me.Cantidad.Name = "Cantidad"
         Me.Cantidad.Width = 80
         '
-        'AlicIVA
-        '
-        Me.AlicIVA.DataPropertyName = "AlicIVA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle3
-        Me.AlicIVA.FillWeight = 106.2461!
-        Me.AlicIVA.HeaderText = "IVA"
-        Me.AlicIVA.Name = "AlicIVA"
-        Me.AlicIVA.ReadOnly = True
-        Me.AlicIVA.Width = 70
-        '
         'PrecioUnitario
         '
         Me.PrecioUnitario.DataPropertyName = "PrecioUnitario"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle3
         Me.PrecioUnitario.FillWeight = 41.8108!
         Me.PrecioUnitario.HeaderText = "Precio Unitario"
         Me.PrecioUnitario.Name = "PrecioUnitario"
         Me.PrecioUnitario.ReadOnly = True
+        Me.PrecioUnitario.Width = 120
         '
-        'ImporteSinDescuento
+        'Importe
         '
-        Me.ImporteSinDescuento.DataPropertyName = "ImporteSinDescuento"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.ImporteSinDescuento.DefaultCellStyle = DataGridViewCellStyle5
-        Me.ImporteSinDescuento.FillWeight = 36.43246!
-        Me.ImporteSinDescuento.HeaderText = "Importe"
-        Me.ImporteSinDescuento.Name = "ImporteSinDescuento"
-        Me.ImporteSinDescuento.ReadOnly = True
-        Me.ImporteSinDescuento.Width = 120
-        '
-        'PorcentajeDescuento
-        '
-        Me.PorcentajeDescuento.DataPropertyName = "PorcentajeDescuento"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.PorcentajeDescuento.DefaultCellStyle = DataGridViewCellStyle6
-        Me.PorcentajeDescuento.FillWeight = 34.6951!
-        Me.PorcentajeDescuento.HeaderText = "%Descuento"
-        Me.PorcentajeDescuento.Name = "PorcentajeDescuento"
-        Me.PorcentajeDescuento.ReadOnly = True
-        Me.PorcentajeDescuento.Width = 80
-        '
-        'ImporteDescuento
-        '
-        Me.ImporteDescuento.DataPropertyName = "ImporteDescuento"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.ImporteDescuento.DefaultCellStyle = DataGridViewCellStyle7
-        Me.ImporteDescuento.FillWeight = 33.00003!
-        Me.ImporteDescuento.HeaderText = "Imp.Descuento"
-        Me.ImporteDescuento.Name = "ImporteDescuento"
-        Me.ImporteDescuento.ReadOnly = True
-        '
-        'ImporteConDescuento
-        '
-        Me.ImporteConDescuento.DataPropertyName = "ImporteConDescuento"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImporteConDescuento.DefaultCellStyle = DataGridViewCellStyle8
-        Me.ImporteConDescuento.FillWeight = 24.36422!
-        Me.ImporteConDescuento.HeaderText = "Imp.Cliente"
-        Me.ImporteConDescuento.Name = "ImporteConDescuento"
-        Me.ImporteConDescuento.ReadOnly = True
-        Me.ImporteConDescuento.Width = 120
+        Me.Importe.DataPropertyName = "Importe"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Importe.FillWeight = 24.36422!
+        Me.Importe.HeaderText = "Importe"
+        Me.Importe.Name = "Importe"
+        Me.Importe.ReadOnly = True
+        Me.Importe.Width = 120
         '
         'FrmBuscaVentasIniciadas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1285, 484)
-        Me.Controls.Add(Me.DataGridView1)
+        Me.ClientSize = New System.Drawing.Size(1086, 532)
+        Me.Controls.Add(Me.dgvOperacionesIniciadas)
+        Me.Controls.Add(Me.dgvItemsOperacion)
         Me.Name = "FrmBuscaVentasIniciadas"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmBuscaVentasIniciadas"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvItemsOperacion, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvOperacionesIniciadas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvItemsOperacion As DataGridView
+    Friend WithEvents dgvOperacionesIniciadas As DataGridView
+    Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
+    Friend WithEvents Inicio As DataGridViewTextBoxColumn
+    Friend WithEvents Cliente As DataGridViewTextBoxColumn
     Friend WithEvents IdItem As DataGridViewTextBoxColumn
-    Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents Cantidad As DataGridViewTextBoxColumn
-    Friend WithEvents AlicIVA As DataGridViewTextBoxColumn
     Friend WithEvents PrecioUnitario As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteSinDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents PorcentajeDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteConDescuento As DataGridViewTextBoxColumn
+    Friend WithEvents Importe As DataGridViewTextBoxColumn
 End Class
