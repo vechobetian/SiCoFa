@@ -35,6 +35,11 @@ Public Class FrmBuscaVentasIniciadas
 
     Private Sub MostrarItems()
 
+        If Me.dgvOperacionesIniciadas.RowCount = 0 Then
+            Me.dgvItemsOperacion.Rows.Clear()
+            Exit Sub
+        End If
+
         If Me.dgvOperacionesIniciadas.CurrentRow.Cells(0).Value Is Nothing Then
             Exit Sub
         End If
@@ -43,7 +48,6 @@ Public Class FrmBuscaVentasIniciadas
 
         Dim Items As DataTable = mobj_AdminDB.ObtenerTabla(sql)
         Me.dgvItemsOperacion.DataSource = Items
-        Me.dgvItemsOperacion.ClearSelection()
         Me.dgvItemsOperacion.Refresh()
 
     End Sub
@@ -51,7 +55,13 @@ Public Class FrmBuscaVentasIniciadas
     Private Sub dgvOperacionesIniciadas_SelectionChanged(sender As Object, e As EventArgs) Handles dgvOperacionesIniciadas.SelectionChanged
 
         Try
+            If dgvOperacionesIniciadas.CurrentRow Is Nothing Then
+                Me.dgvItemsOperacion.DataSource = Nothing
+                Exit Sub
+            End If
             Me.MostrarItems()
+            Me.dgvItemsOperacion.ClearSelection()
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -64,10 +74,22 @@ Public Class FrmBuscaVentasIniciadas
             Case Keys.Escape
                 Me.DialogResult = DialogResult.Cancel
                 Me.Close()
+
             Case Keys.Enter
                 Me.IdOperacionSeleccionado = Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value
                 Me.DialogResult = DialogResult.OK
                 Me.Hide()
+
+            Case Keys.Delete
+                Dim sql As String = $"DELETE FROM TblOperaciones WHERE IdOperacion= {Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value } "
+                Dim eliminado As Boolean = mobj_AdminDB.EliminarRegistros(sql)
+
+                If eliminado Then
+                    dgvOperacionesIniciadas.Rows.Remove(dgvOperacionesIniciadas.CurrentRow)
+                Else
+                    MessageBox.Show("No se pudo eliminar la operación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)
         End Select

@@ -168,4 +168,24 @@ Public Class cls_D_AdminDB
         End Try
     End Function
 
+    Public Function EliminarRegistros(ByVal argSql As String) As Integer
+        Try
+            Dim objConexionDB As New cls_Conexion
+            Dim filasAfectadas As Integer = 0
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand(argSql, cn)
+                    filasAfectadas = cmd.ExecuteNonQuery()
+                End Using
+
+            End Using
+
+            Return filasAfectadas ' Devuelve cuántas filas se eliminaron
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EliminarRegistros", ex.Message))
+        End Try
+    End Function
+
 End Class

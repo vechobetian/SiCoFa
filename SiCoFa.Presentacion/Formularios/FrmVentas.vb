@@ -92,7 +92,6 @@ Public Class FrmVentas
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
-
             If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
                 With FrmPagos
                     .Operacion = mobj_Operacion
@@ -633,10 +632,12 @@ Public Class FrmVentas
 
     Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click
         Me.GuardarCambios(Keys.Escape)
+        MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
 
     Private Sub GuardarToolStripButton_Click(sender As Object, e As EventArgs) Handles GuardarToolStripButton.Click
         Me.GuardarCambios(Keys.Escape)
+        MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
 
     Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click

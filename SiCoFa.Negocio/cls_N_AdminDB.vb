@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Datos
+﻿Imports System.Data.SqlClient
+Imports SiCoFa.Datos
 Public Class cls_N_AdminDB
 
     Dim mobj_D_AdminDB As New cls_D_AdminDB
@@ -7,9 +8,8 @@ Public Class cls_N_AdminDB
 
             Dim tbl As DataTable = mobj_D_AdminDB.ObtenerTabla(argSql)
             Return tbl
-
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerTabla", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerTabla", ex.Message))
             Return Nothing
         End Try
 
@@ -20,7 +20,7 @@ Public Class cls_N_AdminDB
             mobj_D_AdminDB.ActualizarTabla(argSql, argTbl)
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ActualizarTabla", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarTabla", ex.Message))
         End Try
 
     End Sub
@@ -74,6 +74,16 @@ Public Class cls_N_AdminDB
 
         End Try
 
+    End Function
+
+    Public Function EliminarRegistros(ByVal argSql As String) As Integer
+        Try
+            Dim FilasAfectadas As Integer = mobj_D_AdminDB.EliminarRegistros(argSql)
+            Return FilasAfectadas
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EliminarRegistros", ex.Message))
+        End Try
     End Function
 
 End Class

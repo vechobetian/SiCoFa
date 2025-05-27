@@ -1465,6 +1465,58 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
 
+    Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
+
+        Try
+            Dim objConexionDB As New cls_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("InsertarOperacionCL", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                        .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
+                    End With
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
+        Try
+            Dim objConexionDB As New cls_Conexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("ActualizarOperacionCL", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                        .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
+                    End With
+
+                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacionCL", Ex.Message))
+            Return False
+
+        End Try
+
+    End Function
 #End Region
 
 #Region "Administracion Cuentas Email"

@@ -1,5 +1,4 @@
-﻿Imports System.Data.SqlClient
-Imports SiCoFa.Datos
+﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminSiCoFa
 
@@ -624,14 +623,14 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
 
-    Public Function ActualizarOperacion(ByRef argOperacion As Operacion) As Boolean
+    Public Function ActualizarOperacion(ByVal argOperacion As Operacion) As Boolean
         Try
             Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarOperacion(argOperacion)
 
             Return Actualizado
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpresa", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacion", ex.Message))
             Return False
 
         End Try
@@ -663,6 +662,34 @@ Public Class cls_N_AdminSiCoFa
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacion", ex.Message))
             Return Nothing
+        End Try
+
+    End Function
+
+    Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCL(argIdOperacion, argIdCliente)
+
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+    Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarOperacionCL(argIdOperacion, argIdCliente)
+
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacionCL", ex.Message))
+            Return False
+
         End Try
 
     End Function

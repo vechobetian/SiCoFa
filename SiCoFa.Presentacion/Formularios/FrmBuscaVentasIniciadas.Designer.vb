@@ -127,6 +127,7 @@ Partial Class FrmBuscaVentasIniciadas
         'dgvOperacionesIniciadas
         '
         Me.dgvOperacionesIniciadas.AllowUserToAddRows = False
+        Me.dgvOperacionesIniciadas.AllowUserToDeleteRows = False
         Me.dgvOperacionesIniciadas.AllowUserToResizeColumns = False
         Me.dgvOperacionesIniciadas.AllowUserToResizeRows = False
         Me.dgvOperacionesIniciadas.BackgroundColor = System.Drawing.Color.White
