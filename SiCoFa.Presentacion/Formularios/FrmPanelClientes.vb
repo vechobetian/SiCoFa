@@ -5,7 +5,7 @@ Public Class FrmPanelClientes
     Private TextoBuscar As String
     Private NuevaPersona As Boolean
     Private NuevaCtaCte As Boolean
-    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAltaCliente", "IdCC", "Descripcion", "FechaAltaCuentaCorriente"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email", "IdCC", "Descripcion", "Observaciones"}
     Private pestanaCuentaCorriente As TabPage

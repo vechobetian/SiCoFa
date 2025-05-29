@@ -1,12 +1,12 @@
 ﻿Imports System.Collections.Generic
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
-Public Class cls_D_AdminSiCoFa
+Public Class D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
     Public Function ObtenerClientePorId(ByVal argIdCliente As Long) As Cliente
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objCli As Cliente = Nothing
 
         Try
@@ -58,7 +58,7 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
     Public Function ListarClientes(ByVal argTextoBuscado As String) As List(Of Cliente)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lc As New List(Of Cliente)
         Dim c As Cliente
 
@@ -140,11 +140,11 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdCliente As Int32
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarCliente", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ClienteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -187,11 +187,11 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarCliente", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ClienteActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdCliente", MySqlDbType.Int32).Value = argIdCliente
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -224,7 +224,7 @@ Public Class cls_D_AdminSiCoFa
 #Region "Administracion de Cuentas Corriente"
     Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argIdCliente As Int32) As CuentaCorriente
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objCC As CuentaCorriente = Nothing
 
         Try
@@ -275,10 +275,10 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdCC As Int16
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarCuentaCorriente", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("CtaCorrienteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdCliente", MySqlDbType.Int32).Value = argIdCliente
                         .Add("_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
@@ -310,10 +310,10 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarCuentaCorriente", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("CtaCorrienteActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdCC", MySqlDbType.Int32).Value = argIdCC
                         .Add("_Credito", MySqlDbType.Decimal).Value = argCredito
@@ -341,7 +341,7 @@ Public Class cls_D_AdminSiCoFa
 #Region "Administracion de Proveedores"
     Public Function ObtenerProveedorPorId(ByVal argIdProveedor As Long) As Proveedor
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objProv As Proveedor = Nothing
         Try
 
@@ -387,7 +387,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
     Public Function ListarProveedores(ByVal argTextoBuscado As String) As List(Of Proveedor)
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lp As New List(Of Proveedor)
         Dim p As Proveedor
 
@@ -466,10 +466,10 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdProveedor As Int32
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarProveedor", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ProveedorInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -513,10 +513,10 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarProveedor", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ProveedorActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdProveedor", MySqlDbType.Int32).Value = argIdProveedor
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -548,7 +548,7 @@ Public Class cls_D_AdminSiCoFa
 #Region "Administracion de Empleados"
     Public Function ObtenerEmpleadoPorId(ByVal argIdEmpleado As Long) As Empleado
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objEmp As Empleado = Nothing
 
         Try
@@ -596,7 +596,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
     Public Function ListarEmpleados(ByVal argTextoBuscado As String) As List(Of Empleado)
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim le As New List(Of Empleado)
         Dim e As Empleado
 
@@ -675,10 +675,10 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdEmpleado As Int32
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarEmpleado", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("EmpleadoInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -720,10 +720,10 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarEmpleado", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("EmpleadoActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdEmpleado", MySqlDbType.Int32).Value = argIdEmpleado
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -753,7 +753,7 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion de Usuarios"
     Public Function ObtenerUsuarioPorId(ByVal argIdUsuario As Integer) As Usuario
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objUs As Usuario = Nothing
 
         Try
@@ -800,7 +800,7 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
     Public Function ListarUsuarios(ByVal argTextoBuscado As String) As List(Of Usuario)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lu As New List(Of Usuario)
         Dim u As Usuario
 
@@ -879,10 +879,10 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdUsuario As Int32
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarUsuario", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("UsuarioInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -924,10 +924,10 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarUsuario", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("UsuarioActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -956,7 +956,7 @@ Public Class cls_D_AdminSiCoFa
 
     Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("VerificarAutorizacionProceso", cn) With {.CommandType = CommandType.StoredProcedure}
@@ -988,11 +988,11 @@ Public Class cls_D_AdminSiCoFa
 #Region "Administracion de Empresas"
     Public Function ObtenerEmpresaPorId(ByVal argIdEmpresa As Long) As Empresa
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objEmp As Empresa = Nothing
 
         Try
-            Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblClientes WHERE IdEmpresa=@IdEmpresa"
+            Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblEmpresas WHERE IdEmpresa=@IdEmpresa"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -1039,7 +1039,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
 
     Public Function ListarEmpresas(ByVal argTextoBuscado As String) As List(Of Empresa)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim le As New List(Of Empresa)
         Dim e As Empresa
 
@@ -1124,10 +1124,10 @@ Public Class cls_D_AdminSiCoFa
 
         Dim IdEmpresa As Int32
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarEmpresa", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("EmpresaInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -1173,10 +1173,10 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarEmpresa", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("EmpresaActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdEmpresa", MySqlDbType.Int32).Value = argIdEmpresa
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -1207,11 +1207,168 @@ Public Class cls_D_AdminSiCoFa
     End Function
 #End Region
 
+#Region "Administracion de Cuenta Bancarias"
+    Public Function ObtenerCuentaBancariaPorId(ByVal argIdCB As Long) As CuentaBancaria
+
+        Dim objConexionDB As New D_Conexion
+        Dim objCB As CuentaBancaria = Nothing
+
+        Try
+            Dim sql As String = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM TblCtasBancarias WHERE IdCB=@IdCB"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdCB", argIdCB)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read() Then
+
+                            objCB = New CuentaBancaria(
+                                                      datos.GetInt32("IdCB"),
+                                                      datos.GetString("Descripcion"),
+                                                      datos.GetString("NumCuenta"),
+                                                      datos.GetDateTime("FechaAlta"),
+                                                      datos.GetString("Baja")
+                                                      )
+
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objCB
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCuentaBancariaPorId", ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ListarCuentasBancarias(ByVal argTextoBuscado As String) As List(Of CuentaBancaria)
+        Dim objConexionDB As New D_Conexion
+        Dim lcb As New List(Of CuentaBancaria)
+        Dim cb As CuentaBancaria
+
+        Try
+            Dim sql As String
+            If argTextoBuscado = "*" Then
+                sql = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM TblCtasBancarias ORDER BY Descripcion"
+            Else
+                sql = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM TblCtasBancarias WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
+            End If
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@Descripcion", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idCBOrdinal As Integer = datos.GetOrdinal("IdCB")
+                        Dim desciprionOrdinal As Integer = datos.GetOrdinal("Descripcion")
+                        Dim numCuentaOrdinal As Integer = datos.GetOrdinal("NumCuenta")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim bajaOrdinal As Integer = datos.GetOrdinal("Baja")
+
+                        While datos.Read
+                            Dim IdCBResult As Int32 = Convert.ToInt32(datos(idCBOrdinal))
+                            Dim DescripcionResult As String = datos.GetString(desciprionOrdinal)
+                            Dim NumCuentaResult As String = datos.GetString(numCuentaOrdinal)
+                            Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
+                            Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
+
+                            cb = New CuentaBancaria(IdCBResult, DescripcionResult, NumCuentaResult, FechaAltaResult, BajaResult)
+                            lcb.Add(cb)
+                        End While
+
+                    End Using
+                End Using
+
+            End Using
+
+            Return lcb
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarCuentasBancarias", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+    Public Function InsertarCuentaBancaria(ByVal argDescripcion As String, ByVal argNumCuenta As String) As Int32
+
+        Try
+            Dim objConexionDB As New D_Conexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("CtaBancariaInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
+                        .Add("p_NumCuenta", MySqlDbType.VarChar).Value = argNumCuenta
+                        .Add("p_IdCB", MySqlDbType.Int32)
+                    End With
+
+                    cmd.Parameters("p_IdCB").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    Dim IdCB As Int32 = Convert.ToInt32(cmd.Parameters("p_IdCB").Value)
+                    Return IdCB
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaBancaria", Ex.Message))
+
+        End Try
+
+    End Function
+    Public Function ActualizarCuentaBancaria(ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
+
+        Try
+            Dim objConexionDB As New D_Conexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("CtaBancariaActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB
+                        .Add("p_Baja", MySqlDbType.VarChar).Value = argBaja
+                    End With
+
+                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCuentaBancaria", Ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+#End Region
+
 #Region "Administracion de Operaciones"
 
     Public Function ObtenerTipoOperacionPorCodiTO(ByVal argCodiTO As String) As TipoOperacion
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objTO As TipoOperacion = Nothing
 
         Try
@@ -1254,7 +1411,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
 
     Public Function ListarTipoOperaciones() As List(Of TipoOperacion)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lto As New List(Of TipoOperacion)
         Dim top As TipoOperacion
 
@@ -1293,7 +1450,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
 
     Public Function RegistrarError(ByVal argIdOpera As Long, argDescripcionError As String) As Integer
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim RegAfectados As Integer
         Try
             Dim sql As String = "UPDATE TblOpera SET EstadoOpera='Error',DesError='" & argDescripcionError & "' WHERE IdOperacion=" & argIdOpera
@@ -1314,12 +1471,12 @@ Public Class cls_D_AdminSiCoFa
 
         Try
 
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim objOperacion As Operacion = Nothing
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("IniciarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("OperacionIniciar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdEmpresa", MySqlDbType.Int32).Value = argEmpresa.Id
                         .Add("p_IdUsuario", MySqlDbType.Int32).Value = argUsuario.Id
@@ -1367,10 +1524,10 @@ Public Class cls_D_AdminSiCoFa
 
     Public Function ActualizarOperacion(ByVal argOperacion As Operacion) As Boolean
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("OperacionActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argOperacion.IdOperacion
                         .Add("p_Inicio", MySqlDbType.DateTime).Value = argOperacion.Inicio
@@ -1396,11 +1553,11 @@ Public Class cls_D_AdminSiCoFa
     Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion) As Integer
         Try
 
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("FinalizarOperacion", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("OperacionFinalizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
                         .Add("p_Observaciones", MySqlDbType.VarChar).Value = argOperacion.Observaciones
@@ -1421,7 +1578,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
 
     Public Function ObtenerOperacion(ByVal argIdOperacion As Long) As Operacion
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objOpera As Operacion = Nothing
 
         Try
@@ -1471,7 +1628,7 @@ Public Class cls_D_AdminSiCoFa
     End Function
 
     Public Function ObtenerOperacionCL(ByVal argIdOperacion As Long) As Cliente
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objCliente As Cliente = Nothing
 
         Try
@@ -1512,11 +1669,11 @@ Public Class cls_D_AdminSiCoFa
     Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarOperacionCL", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("OperacionCLInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                         .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
@@ -1538,10 +1695,10 @@ Public Class cls_D_AdminSiCoFa
 
     Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarOperacionCL", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("OperacionCLActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                         .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
@@ -1565,11 +1722,11 @@ Public Class cls_D_AdminSiCoFa
     Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarOperacionCC", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("OperacionCCInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                         .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
@@ -1594,7 +1751,7 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion Cuentas Email"
     Public Function ObtenerCuentaEmail() As CuentaEmail
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objCEmail As CuentaEmail = Nothing
 
         Try
@@ -1631,7 +1788,7 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion Asientos Contables"
     Public Sub EfectuarAsientoContable(ByVal argOperacion As Operacion, ByVal argAsiento As AsientoContable)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim NumAsiento As Long
 
         Try
@@ -1667,7 +1824,7 @@ Public Class cls_D_AdminSiCoFa
 #Region "Admnistracion de Secciones"
     Public Function ObtenerSeccionPorId(ByVal argIdSeccion As String) As Seccion
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objSec As Seccion
 
         Try
@@ -1706,7 +1863,7 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
     Public Function ListarSecciones(ByVal argTextoBuscado As String) As List(Of Seccion)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim ls As New List(Of Seccion)
         Dim s As Seccion
 
@@ -1755,12 +1912,12 @@ Public Class cls_D_AdminSiCoFa
                                     ByVal argEstablecerPrecio As Boolean
                                     ) As String
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim IdSeccion As String
         Try
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarSeccion", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("SeccionInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
                         .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
@@ -1791,10 +1948,10 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarSeccion", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("SeccionActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
@@ -1821,7 +1978,7 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion de Articulos"
     Public Function ObtenerArticuloPorId(ByVal argIdArticulo As String) As Articulo
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objArt As Articulo = Nothing
 
         Try
@@ -1897,7 +2054,7 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
     Public Function ListarArticulos(ByVal argTextoBuscado As String) As List(Of Articulo)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objLA As New List(Of Articulo)
 
         Try
@@ -1985,12 +2142,12 @@ Public Class cls_D_AdminSiCoFa
                                     ) As String
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim IdArticulo As String
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarArticulo", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ArticuloInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
@@ -2027,11 +2184,11 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarArticulo", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ArticuloActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
@@ -2076,7 +2233,7 @@ Public Class cls_D_AdminSiCoFa
                                         ByVal argFiscal As String
                                         ) As Comprobante
 
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
 
 
         Try
@@ -2087,7 +2244,7 @@ Public Class cls_D_AdminSiCoFa
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ComprobanteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
 
                     With cmd.Parameters
                         .AddWithValue("p_IdOpera", argOperacion.IdOperacion)
@@ -2171,11 +2328,11 @@ Public Class cls_D_AdminSiCoFa
     Public Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarCAE", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("CAEActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     cmd.CommandType = CommandType.StoredProcedure
                     cmd.Parameters.AddWithValue("p_IdOperacion", argComprobante.Operacion.IdOperacion)
                     cmd.Parameters.AddWithValue("p_NumComp", argComprobante.NumComp)
@@ -2199,7 +2356,7 @@ Public Class cls_D_AdminSiCoFa
 
 #Region "Administracion Items Comprobante"
     Public Function ListarItemsPorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim objLI As New List(Of ItemComprobante)
 
         Try
@@ -2270,12 +2427,12 @@ Public Class cls_D_AdminSiCoFa
     Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim IdItem As Long
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("InsertarItemComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ItemComprobanteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                         .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
@@ -2313,11 +2470,11 @@ Public Class cls_D_AdminSiCoFa
 
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ActualizarItemComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ItemComprobanteActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
                         .Add("p_Cantidad", MySqlDbType.Decimal).Value = argCantidad
@@ -2341,11 +2498,11 @@ Public Class cls_D_AdminSiCoFa
 
     Public Function EliminarItemComprobante(ByVal argIdItem As Long) As Boolean
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("EliminarItemComprobante", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("ItemComprobanteEliminar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
                     End With

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Sub Main</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmCtasBancarias</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -127,15 +127,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\clsGenerarPDF.vb" />
-    <Compile Include="Clases\clsMediosPagoBinding.vb" />
-    <Compile Include="Clases\clsPortapapelesVenta.vb" />
-    <Compile Include="Clases\clsFacturaElectronica.vb" />
-    <Compile Include="Clases\clsReporteComprobantes.vb" />
+    <Compile Include="Clases\GenerarPDF.vb" />
+    <Compile Include="Clases\MediosPagoBinding.vb" />
+    <Compile Include="Clases\PortapapelesVenta.vb" />
+    <Compile Include="Clases\FacturaElectronica.vb" />
+    <Compile Include="Clases\ReporteComprobantes.vb" />
+    <Compile Include="Clases\OpcionBoolean.vb" />
     <Compile Include="Formularios\FrmBuscaVentasIniciadas.Designer.vb">
       <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmBuscaVentasIniciadas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmCtasBancarias.Designer.vb">
+      <DependentUpon>FrmCtasBancarias.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmCtasBancarias.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmLoginUser.Designer.vb">
@@ -279,6 +286,9 @@
     <EmbeddedResource Include="Formularios\FrmBuscaVentasIniciadas.resx">
       <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmCtasBancarias.resx">
+      <DependentUpon>FrmCtasBancarias.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmInicio.resx">
       <DependentUpon>FrmInicio.vb</DependentUpon>
     </EmbeddedResource>
@@ -361,6 +371,7 @@
     <None Include="My Project\DataSources\SiCoFa.Entidades.CAE.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Cliente.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.Comprobante.datasource" />
+    <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaBancaria.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaColectiva.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaCorriente.datasource" />
     <None Include="My Project\DataSources\SiCoFa.Entidades.CuentaEmail.datasource" />

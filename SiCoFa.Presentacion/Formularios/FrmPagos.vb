@@ -12,9 +12,9 @@ Public Class FrmPagos
     Property ImporteGravado1 As Decimal
     Property ImporteGravado2 As Decimal
 
-    Private mobj_AdminSiCoFa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSiCoFa As New N_AdminSiCoFa
     Private mobj_TipoComprobante As TipoComprobante
-    Private MediosDePago As clsMediosPagoBinding
+    Private MediosDePago As MediosPagoBinding
 
     Private Sub ActualizarClienteMostrado()
         Me.lblNombreCliente.Text = Me.Cliente.Nombre
@@ -60,7 +60,7 @@ Public Class FrmPagos
                                                                         argFiscal:="E"
                                                                         )
 
-            Dim objFE As New clsFacturaElectronica
+            Dim objFE As New FacturaElectronica
             Dim Actualizado As Boolean = objFE.GenerarFacturaElectronica(objComprobante)
             Return objComprobante
 
@@ -89,7 +89,7 @@ Public Class FrmPagos
 
     Private Sub FrmPagos_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
-        Me.MediosDePago = New clsMediosPagoBinding(Me.ImporteAPagar)
+        Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
         Me.mobj_TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
         Me.txtTipoComprobante.Text = $"{mobj_TipoComprobante.TipoComprobante} {mobj_TipoComprobante.Letra}"
         Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")

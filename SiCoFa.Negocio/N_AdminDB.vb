@@ -1,8 +1,8 @@
 ﻿Imports System.Data.SqlClient
 Imports SiCoFa.Datos
-Public Class cls_N_AdminDB
+Public Class N_AdminDB
 
-    Dim mobj_D_AdminDB As New cls_D_AdminDB
+    Dim mobj_D_AdminDB As New D_AdminDB
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
         Try
 

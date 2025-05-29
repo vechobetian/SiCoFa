@@ -4,7 +4,7 @@ Imports System.Net
 Imports System.IO
 Imports System.Linq
 Imports SiCoFa.Entidades
-Public Class cls_D_AdminFTP
+Public Class D_AdminFTP
     Private ftpServer As String
     Private ftpUsername As String
     Private ftpPassword As String

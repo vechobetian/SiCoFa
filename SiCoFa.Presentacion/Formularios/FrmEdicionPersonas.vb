@@ -5,7 +5,7 @@ Public Class FrmEdicionPersonas
     Property TextoBuscar As String
     Property NuevaPersona As Boolean
 
-    Public mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Public mobj_AdminSicofa As New N_AdminSiCoFa
     Private Sub ObtenerProvincias()
         Try
             With Me.Provincia

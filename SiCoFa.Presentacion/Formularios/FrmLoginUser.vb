@@ -5,7 +5,7 @@ Public Class FrmLoginUser
     Property IdProceso As Integer
     Property Usuario As Usuario
 
-    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private Function VerificarAutorizacionProceso(ByVal argIdUsusario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
 
         Try

@@ -5,7 +5,7 @@ Imports System.ComponentModel
 Public Class FrmSecciones
     Private TextoBuscar As String
     Private NuevaSeccion As Boolean
-    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String)
     Private Function SeleccionarSeccionListado(ByVal IdSeccion As String, ByVal ListaSecciones As List(Of Seccion)) As Seccion
 
@@ -170,7 +170,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
-    Private Sub Buscar_Click_1(sender As Object, e As EventArgs) Handles Buscar.Click
+    Private Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar.Click
 
         Try
             If NuevaSeccion = True Then

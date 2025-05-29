@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Public Class FrmPlanCuentas
-    Private mobj_AdminPlanCuentas As New cls_N_AdminPlanCuentas
+    Private mobj_AdminPlanCuentas As New N_AdminPlanCuentas
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim nodo_raiz As TreeNode
         nodo_raiz = Me.TreeView1.Nodes.Add(0, "Rubros Contables")

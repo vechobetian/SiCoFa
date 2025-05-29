@@ -1,9 +1,9 @@
 ﻿Imports System.Data.SqlClient
 Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
-Public Class cls_N_AdminSiCoFa
+Public Class N_AdminSiCoFa
 
-    Private mobj_D_AdminSiCoFa As New cls_D_AdminSiCoFa
+    Private mobj_D_AdminSiCoFa As New D_AdminSiCoFa
 
 #Region "Administracion de Clientes"
     Public Function ObtenerClientePorId(ByVal argIdCliente As Int32) As Cliente
@@ -538,6 +538,62 @@ Public Class cls_N_AdminSiCoFa
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpresa", ex.Message))
             Return False
+
+        End Try
+
+    End Function
+
+#End Region
+
+#Region "Administracion de Cuenta Bancarias"
+    Public Function ObtenerCuentaBancariaPorId(ByVal argIdCB As Long) As CuentaBancaria
+
+        Try
+            Dim objCB As CuentaBancaria = mobj_D_AdminSiCoFa.ObtenerCuentaBancariaPorId(argIdCB)
+            Return objCB
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCuentaBancariaPorId", ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ListarCuentasBancarias(ByVal argTextoBuscado As String) As List(Of CuentaBancaria)
+
+        Try
+            Dim lcb As List(Of CuentaBancaria) = mobj_D_AdminSiCoFa.ListarCuentasBancarias(argTextoBuscado)
+            Return lcb
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarCuentasBancarias", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+    Public Function InsertarCuentaBancaria(ByVal argDescripcion As String, ByVal argNumCuenta As String) As Int32
+
+        Try
+
+            Dim IdCB As Int32 = mobj_D_AdminSiCoFa.InsertarCuentaBancaria(argDescripcion, argNumCuenta)
+            Return IdCB
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaBancaria", Ex.Message))
+
+        End Try
+
+    End Function
+    Public Function ActualizarCuentaBancaria(ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
+
+        Try
+
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarCuentaBancaria(argIdCB, argBaja)
+            Return Actualizado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCuentaBancaria", Ex.Message))
 
         End Try
 

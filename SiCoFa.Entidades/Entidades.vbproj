@@ -75,6 +75,7 @@
     <Compile Include="CAE.vb" />
     <Compile Include="Cliente.vb" />
     <Compile Include="Comprobante.vb" />
+    <Compile Include="CuentaBancaria.vb" />
     <Compile Include="CuentaColectiva.vb" />
     <Compile Include="CuentaCorriente.vb" />
     <Compile Include="CuentaEmail.vb" />

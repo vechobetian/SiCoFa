@@ -84,7 +84,7 @@ Partial Class FrmSecciones
         Me.EstablecerPrecio.Items.AddRange(New Object() {"NO", "SI"})
         Me.EstablecerPrecio.Location = New System.Drawing.Point(107, 91)
         Me.EstablecerPrecio.Name = "EstablecerPrecio"
-        Me.EstablecerPrecio.Size = New System.Drawing.Size(251, 21)
+        Me.EstablecerPrecio.Size = New System.Drawing.Size(265, 21)
         Me.EstablecerPrecio.TabIndex = 2
         '
         'IdSeccion
@@ -93,7 +93,7 @@ Partial Class FrmSecciones
         Me.IdSeccion.Location = New System.Drawing.Point(107, 39)
         Me.IdSeccion.Name = "IdSeccion"
         Me.IdSeccion.ReadOnly = True
-        Me.IdSeccion.Size = New System.Drawing.Size(251, 20)
+        Me.IdSeccion.Size = New System.Drawing.Size(265, 20)
         Me.IdSeccion.TabIndex = 0
         Me.IdSeccion.TabStop = False
         '
@@ -102,7 +102,7 @@ Partial Class FrmSecciones
         Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.SeccionBindingSource1, "Seccion", True))
         Me.Seccion.Location = New System.Drawing.Point(107, 66)
         Me.Seccion.Name = "Seccion"
-        Me.Seccion.Size = New System.Drawing.Size(251, 20)
+        Me.Seccion.Size = New System.Drawing.Size(265, 20)
         Me.Seccion.TabIndex = 1
         '
         'ToolStrip1
@@ -110,7 +110,7 @@ Partial Class FrmSecciones
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Guardar, Me.Nuevo, Me.Buscar, Me.Limpiar})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(370, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(384, 25)
         Me.ToolStrip1.TabIndex = 26
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -152,7 +152,7 @@ Partial Class FrmSecciones
         '
         'FrmSecciones
         '
-        Me.ClientSize = New System.Drawing.Size(370, 129)
+        Me.ClientSize = New System.Drawing.Size(384, 129)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(SeccionLabel)
         Me.Controls.Add(Me.Seccion)

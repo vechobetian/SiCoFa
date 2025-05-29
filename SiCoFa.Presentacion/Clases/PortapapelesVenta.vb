@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Entidades
 Imports System.ComponentModel
 
-Public Class clsPortapapelesVenta
+Public Class PortapapelesVenta
     Public Shared Operacion As Operacion
     Public Shared Cliente As Cliente
 

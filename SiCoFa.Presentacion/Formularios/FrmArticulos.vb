@@ -4,7 +4,7 @@ Imports SiCoFa.Negocio
 Public Class FrmArticulos
     Private TextoBuscar As String
     Private NuevoArticulo As Boolean
-    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String)
     Private Sub ObtenerAlicuotasIVA()
 

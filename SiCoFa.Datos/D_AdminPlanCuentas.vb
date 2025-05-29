@@ -1,9 +1,9 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 Imports System.Collections.Generic
-Public Class cls_D_AdminPlanCuentas
+Public Class D_AdminPlanCuentas
     Public Function Rubros() As List(Of RubroContabilidad)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lr As New List(Of RubroContabilidad)
         Dim rb As RubroContabilidad
 
@@ -38,7 +38,7 @@ Public Class cls_D_AdminPlanCuentas
 
     End Function
     Public Function SubRubros(ByVal argCodiRub As String) As List(Of SubRubroContabilidad)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lsr As New List(Of SubRubroContabilidad)
         Dim srb As SubRubroContabilidad
 
@@ -75,7 +75,7 @@ Public Class cls_D_AdminPlanCuentas
 
     End Function
     Public Function CuentasColectivas(ByVal argCodiSubRub As String) As List(Of CuentaColectiva)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lcc As New List(Of CuentaColectiva)
         Dim cc As CuentaColectiva
 
@@ -112,7 +112,7 @@ Public Class cls_D_AdminPlanCuentas
 
     End Function
     Public Function CuentasImputables(ByVal argCodiCtaCol As String) As List(Of CuentaImputable)
-        Dim objConexionDB As New cls_Conexion
+        Dim objConexionDB As New D_Conexion
         Dim lci As New List(Of CuentaImputable)
         Dim ci As CuentaImputable
 

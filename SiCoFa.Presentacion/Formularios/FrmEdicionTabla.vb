@@ -5,7 +5,7 @@ Public Class FrmEdicionTabla
     Property dTable As DataTable
 
 
-    Private obj_AdminDB As New cls_N_AdminDB
+    Private obj_AdminDB As New N_AdminDB
     Private MenuContextual As New ContextMenuStrip()
     Private selectedColumn As DataGridViewColumn
     Private Sub FrmEdicionTabla_Load(sender As Object, e As EventArgs) Handles MyBase.Load

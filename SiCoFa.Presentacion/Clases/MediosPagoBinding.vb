@@ -1,4 +1,4 @@
-﻿Public Class clsMediosPagoBinding
+﻿Public Class MediosPagoBinding
     Public Sub New(ByVal argImpCliente As Decimal)
         Me.ImporteAPagar = argImpCliente
     End Sub

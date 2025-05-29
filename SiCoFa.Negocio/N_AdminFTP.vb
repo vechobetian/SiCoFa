@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
-Public Class cls_N_AdminFTP
-    Private mobj_D_AdminFTP As New cls_D_AdminFTP
+Public Class N_AdminFTP
+    Private mobj_D_AdminFTP As New D_AdminFTP
     Public Function ListFiles(remotePath As String) As List(Of Archivo)
         Try
             Return mobj_D_AdminFTP.ListFiles(remotePath)

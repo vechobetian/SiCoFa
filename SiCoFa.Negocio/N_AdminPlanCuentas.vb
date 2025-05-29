@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
-Public Class cls_N_AdminPlanCuentas
-    Private mobjD_AdminPlanCuentas As New cls_D_AdminPlanCuentas
+Public Class N_AdminPlanCuentas
+    Private mobjD_AdminPlanCuentas As New D_AdminPlanCuentas
     Public Function Rubros() As List(Of RubroContabilidad)
         Return mobjD_AdminPlanCuentas.Rubros
     End Function

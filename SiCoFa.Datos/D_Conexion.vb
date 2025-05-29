@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.Configuration
 
-Public Class cls_Conexion
+Public Class D_Conexion
     Private cadenaConexion As String
 
     Public Sub New()

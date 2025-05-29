@@ -1,9 +1,9 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 
-Public Class clsFacturaElectronica
+Public Class FacturaElectronica
 
-    Public mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Public mobj_AdminSicofa As New N_AdminSiCoFa
     Public Function GenerarFacturaElectronica(ByRef argComprobante As Comprobante) As Boolean
 
         Try
@@ -25,7 +25,7 @@ Public Class clsFacturaElectronica
 
         Try
 
-            Dim objN_AdminCAE As New cls_N_AdminCAE
+            Dim objN_AdminCAE As New N_AdminCAE
             argComprobante.CAE = objN_AdminCAE.ObtenerCAE(argComprobante)
 
             If argComprobante.CAE Is Nothing Then

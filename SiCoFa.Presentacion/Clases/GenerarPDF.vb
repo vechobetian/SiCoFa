@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports Microsoft.Reporting.WinForms
 Imports SiCoFa.Entidades
-Public Class clsGenerarPDF
+Public Class GenerarPDF
     Property Operacion As New List(Of Operacion)
     Property Empresa As New List(Of Empresa)
     Property Cliente As New List(Of Cliente)

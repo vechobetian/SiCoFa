@@ -51,7 +51,7 @@ Module ModInicio
     Private Function ObtenerParametrosTerminal(ByVal macAddress As String) As ParametrosTerminal
         Try
 
-            Dim obj_AdminDB As New cls_N_AdminDB
+            Dim obj_AdminDB As New N_AdminDB
             Dim sqlPater As String = $"SELECT * FROM TblTerminales WHERE MacAddress = '{macAddress}'"
 
             Dim registroPaTer As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlPater)

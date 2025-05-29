@@ -5,7 +5,7 @@ Imports System.Text
 Imports Microsoft.Reporting.WinForms
 Imports SiCoFa.Entidades
 
-Public Class clsReporteComprobantes
+Public Class ReporteComprobantes
     Implements IDisposable
     Property Operacion As New List(Of Operacion)
     Property Empresa As New List(Of Empresa)

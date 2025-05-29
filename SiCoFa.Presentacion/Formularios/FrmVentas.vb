@@ -20,7 +20,7 @@ Public Class FrmVentas
         End Set
     End Property
 
-    Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
+    Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private mobj_Operacion As Operacion
     Private mobj_OperacionOriginal As Operacion
     Private mobj_TipoOperacion As TipoOperacion
@@ -718,16 +718,16 @@ Public Class FrmVentas
 
     Private Sub CopiarToolStripButton_Click(sender As Object, e As EventArgs) Handles CopiarToolStripButton.Click
 
-        clsPortapapelesVenta.Operacion = ClonarObjeto(mobj_Operacion)
-        clsPortapapelesVenta.Items = ClonarObjeto(mobj_Items)
-        clsPortapapelesVenta.Cliente = ClonarObjeto(mobj_Cliente)
+        PortapapelesVenta.Operacion = ClonarObjeto(mobj_Operacion)
+        PortapapelesVenta.Items = ClonarObjeto(mobj_Items)
+        PortapapelesVenta.Cliente = ClonarObjeto(mobj_Cliente)
 
     End Sub
 
     Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
-        If clsPortapapelesVenta.Operacion IsNot Nothing Then
-            mobj_Items = ClonarObjeto(clsPortapapelesVenta.Items)
-            mobj_Cliente = ClonarObjeto(clsPortapapelesVenta.Cliente)
+        If PortapapelesVenta.Operacion IsNot Nothing Then
+            mobj_Items = ClonarObjeto(PortapapelesVenta.Items)
+            mobj_Cliente = ClonarObjeto(PortapapelesVenta.Cliente)
 
             ' Actualizar la fuente de datos del DataGridView
             Me.DataGridView1.DataSource = Nothing

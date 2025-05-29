@@ -1,11 +1,11 @@
 ﻿Imports System.Collections.Generic
 Imports System.Linq
 Imports MySql.Data.MySqlClient
-Public Class cls_D_AdminDB
+Public Class D_AdminDB
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim tbl As New DataTable
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -28,7 +28,7 @@ Public Class cls_D_AdminDB
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -52,7 +52,7 @@ Public Class cls_D_AdminDB
     Public Function ObtenerValor(ByVal argSql As String) As Object
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim valor As Object
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -78,7 +78,7 @@ Public Class cls_D_AdminDB
     Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -123,7 +123,7 @@ Public Class cls_D_AdminDB
     Public Sub InsertarRegistro(ByVal argSql As String, ByVal valoresColumnas As Dictionary(Of String, Object))
 
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim columnas As String = String.Join(",", valoresColumnas.Keys.Select(Function(k) "`" & k & "`"))
             Dim valores As String = String.Join(",", valoresColumnas.Keys.Cast(Of String)().Select(Function(k) "@" & k))
 
@@ -152,7 +152,7 @@ Public Class cls_D_AdminDB
 
     Public Function CuentaRegistros(ByVal argSql As String) As Integer
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim cantidad As Integer = 0
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -170,7 +170,7 @@ Public Class cls_D_AdminDB
 
     Public Function EliminarRegistros(ByVal argSql As String) As Integer
         Try
-            Dim objConexionDB As New cls_Conexion
+            Dim objConexionDB As New D_Conexion
             Dim filasAfectadas As Integer = 0
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

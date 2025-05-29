@@ -2,7 +2,7 @@
 Public Class FrmBuscaVentasIniciadas
     Property IdOperacionSeleccionado As Long
 
-    Private mobj_AdminDB As New cls_N_AdminDB
+    Private mobj_AdminDB As New N_AdminDB
 
     Public Function CargarVentasIniciadas(ByVal argIdEmpresa As Int32, ByVal argIdUsuario As Int32) As Boolean
         Try
