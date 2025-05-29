@@ -1,11 +1,14 @@
 ﻿Imports System.Net.NetworkInformation
 Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
+Imports System.Net
 Module ModInicio
     Public g_ParametrosTerminal As ParametrosTerminal
 
     Sub Main()
         Try
+
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
 
             Dim MacAddress As String = ObtenerMacAddress()
             g_ParametrosTerminal = ObtenerParametrosTerminal(MacAddress)

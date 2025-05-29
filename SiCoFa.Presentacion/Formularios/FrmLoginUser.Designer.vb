@@ -31,6 +31,8 @@ Partial Class FrmLoginUser
         Me.IdUsuario = New System.Windows.Forms.TextBox()
         Me.PasswordLabel = New System.Windows.Forms.Label()
         Me.UsernameLabel = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -52,7 +54,7 @@ Partial Class FrmLoginUser
         Me.btnCambiarPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCambiarPassword.ForeColor = System.Drawing.SystemColors.ControlDark
         Me.btnCambiarPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnCambiarPassword.Location = New System.Drawing.Point(306, 174)
+        Me.btnCambiarPassword.Location = New System.Drawing.Point(347, 175)
         Me.btnCambiarPassword.Name = "btnCambiarPassword"
         Me.btnCambiarPassword.Size = New System.Drawing.Size(115, 23)
         Me.btnCambiarPassword.TabIndex = 22
@@ -62,23 +64,25 @@ Partial Class FrmLoginUser
         'Password
         '
         Me.Password.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Password.Location = New System.Drawing.Point(221, 123)
+        Me.Password.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Password.Location = New System.Drawing.Point(263, 123)
         Me.Password.Name = "Password"
         Me.Password.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.Password.Size = New System.Drawing.Size(200, 20)
+        Me.Password.Size = New System.Drawing.Size(214, 35)
         Me.Password.TabIndex = 20
         '
         'IdUsuario
         '
         Me.IdUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.IdUsuario.Location = New System.Drawing.Point(221, 55)
+        Me.IdUsuario.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IdUsuario.Location = New System.Drawing.Point(263, 55)
         Me.IdUsuario.Name = "IdUsuario"
-        Me.IdUsuario.Size = New System.Drawing.Size(200, 20)
+        Me.IdUsuario.Size = New System.Drawing.Size(214, 35)
         Me.IdUsuario.TabIndex = 19
         '
         'PasswordLabel
         '
-        Me.PasswordLabel.Location = New System.Drawing.Point(221, 97)
+        Me.PasswordLabel.Location = New System.Drawing.Point(262, 97)
         Me.PasswordLabel.Name = "PasswordLabel"
         Me.PasswordLabel.Size = New System.Drawing.Size(200, 23)
         Me.PasswordLabel.TabIndex = 21
@@ -88,20 +92,48 @@ Partial Class FrmLoginUser
         'UsernameLabel
         '
         Me.UsernameLabel.BackColor = System.Drawing.Color.Transparent
-        Me.UsernameLabel.Location = New System.Drawing.Point(221, 29)
+        Me.UsernameLabel.Location = New System.Drawing.Point(260, 29)
         Me.UsernameLabel.Name = "UsernameLabel"
         Me.UsernameLabel.Size = New System.Drawing.Size(200, 23)
         Me.UsernameLabel.TabIndex = 18
         Me.UsernameLabel.Text = "Usuario"
         Me.UsernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Button1
+        '
+        Me.Button1.Enabled = False
+        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
+        Me.Button1.Location = New System.Drawing.Point(224, 57)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(33, 30)
+        Me.Button1.TabIndex = 23
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Enabled = False
+        Me.Button2.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
+        Me.Button2.Location = New System.Drawing.Point(224, 125)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(33, 30)
+        Me.Button2.TabIndex = 24
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'FrmLoginUser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(448, 222)
+        Me.ClientSize = New System.Drawing.Size(489, 222)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnCambiarPassword)
         Me.Controls.Add(Me.Password)
         Me.Controls.Add(Me.IdUsuario)
@@ -125,4 +157,6 @@ Partial Class FrmLoginUser
     Friend WithEvents IdUsuario As TextBox
     Friend WithEvents PasswordLabel As Label
     Friend WithEvents UsernameLabel As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
 End Class

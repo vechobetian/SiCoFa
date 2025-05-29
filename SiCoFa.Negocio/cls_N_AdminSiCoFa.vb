@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Datos
+﻿Imports System.Data.SqlClient
+Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class cls_N_AdminSiCoFa
 
@@ -99,10 +100,10 @@ Public Class cls_N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Cuentas Corriente"
-    Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argCliente As Cliente) As CuentaCorriente
+    Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argIdCliente As Int32) As CuentaCorriente
         Dim objCC As CuentaCorriente
         Try
-            objCC = mobj_D_AdminSiCoFa.ObtenerCuentaCorrientePorIdCliente(argCliente)
+            objCC = mobj_D_AdminSiCoFa.ObtenerCuentaCorrientePorIdCliente(argIdCliente)
             Return objCC
 
         Catch ex As Exception
@@ -570,6 +571,27 @@ Public Class cls_N_AdminSiCoFa
         Return ALIVAS.OrderBy(Function(x) x.AlicuotaIVA).ToList
     End Function
 
+    Public Function ObtenerTipoComprobanteVenta(ByVal argCodIVAEmpresa As String, ByVal argCodIVACliente As String) As TipoComprobante
+
+        Dim objTC As TipoComprobante = Nothing
+
+        Select Case argCodIVAEmpresa
+            Case "RI"
+                Select Case argCodIVACliente
+                    Case "CF", "MT", "EX"
+                        objTC = New TipoComprobante("FAB")
+                    Case "RI"
+                        objTC = New TipoComprobante("FAA")
+                End Select
+            Case "MT"
+                objTC = New TipoComprobante("FAC")
+
+        End Select
+
+        Return objTC
+
+    End Function
+
 #End Region
 
 #Region "Administracion de Operaciones"
@@ -588,7 +610,6 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
-
 
     Public Function RegistrarError(ByVal argIdOperacion As Long, argDescripcionError As String) As Integer
 
@@ -666,6 +687,19 @@ Public Class cls_N_AdminSiCoFa
 
     End Function
 
+    Public Function ObtenerOperacionCL(ByVal argIdOpera As Long) As Cliente
+
+        Try
+            Dim objCliente As Cliente = mobj_D_AdminSiCoFa.ObtenerOperacionCL(argIdOpera)
+            Return objCliente
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacionCL", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+
     Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
         Try
             Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCL(argIdOperacion, argIdCliente)
@@ -693,6 +727,21 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
+
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCC(argIdOperacion, argIdCC, argImporte)
+
+            Return Actualizado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+
+        End Try
+
+    End Function
+
 
 #End Region
 
@@ -895,6 +944,21 @@ Public Class cls_N_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
+
+        Try
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarCAE(argComprobante)
+
+            Return Actualizado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
+
+        End Try
+
+    End Function
+
 
 #End Region
 

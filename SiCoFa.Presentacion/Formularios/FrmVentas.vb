@@ -6,6 +6,20 @@ Imports SiCoFa.Negocio
 Public Class FrmVentas
     Property Usuario As Usuario
 
+    Public Property Cliente As Cliente
+
+        Get
+            Return mobj_Cliente
+        End Get
+
+        Set(value As Cliente)
+            mobj_Cliente = value
+            Me.ActualizarDatosOperacion()
+            mobj_AdminSicofa.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+            mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+        End Set
+    End Property
+
     Private mobj_AdminSicofa As New cls_N_AdminSiCoFa
     Private mobj_Operacion As Operacion
     Private mobj_OperacionOriginal As Operacion
@@ -28,6 +42,32 @@ Public Class FrmVentas
         Return JsonConvert.DeserializeObject(Of T)(json)
     End Function
 
+    Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
+
+        Try
+            Dim ClienteSeleccionado As Cliente = Nothing
+
+            For Each c As Cliente In ListaClientes
+                If c.Id = Id Then
+                    Dim objCC As CuentaCorriente = mobj_AdminSicofa.ObtenerCuentaCorrientePorIdCliente(c.Id)
+                    If objCC IsNot Nothing Then
+                        c.CuentaCorriente = objCC
+                    End If
+
+                    ClienteSeleccionado = c
+
+                    Exit For ' Opcional: detener la búsqueda una vez encontrado el cliente
+                End If
+            Next
+            Return ClienteSeleccionado
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+            Return Nothing
+        End Try
+
+    End Function
+
     Private Sub AbrirOperacion()
         Try
             Dim frm As New FrmBuscaVentasIniciadas()
@@ -45,10 +85,18 @@ Public Class FrmVentas
                 mobj_Operacion.Usuario = Me.Usuario
                 mobj_Operacion.TipoOperacion = mobj_TipoOperacion
                 mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                mobj_Cliente = mobj_AdminSicofa.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
+
+                If mobj_Cliente Is Nothing Then
+                    mobj_Cliente = mobj_AdminSicofa.ObtenerClientePorId(1)
+                End If
+
+                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
 
                 Dim objItems As List(Of ItemComprobante) = mobj_AdminSicofa.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
                 mobj_Items = New BindingList(Of ItemComprobante)(objItems)
                 mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+                Me.ActualizarTotales()
                 Me.ActualizarDatosOperacion()
 
                 Me.DataGridView1.AutoGenerateColumns = False
@@ -65,6 +113,10 @@ Public Class FrmVentas
 
     Private Sub GuardarCambios(ByVal argTecla As Keys)
         Try
+
+            If Me.mdec_ImporteSinDescuentos = 0 Then
+                Exit Sub
+            End If
 
             If mobj_Operacion Is Nothing Then
                 mobj_Operacion = mobj_AdminSicofa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
@@ -85,24 +137,36 @@ Public Class FrmVentas
 
             If mobj_Cliente Is Nothing Then
                 mobj_Cliente = mobj_AdminSicofa.ObtenerClientePorId(1)
-                If mobj_Cliente IsNot Nothing Then
-                    mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
-                End If
+                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+                mobj_AdminSicofa.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+            End If
+
+            Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
+
+            If clienteCambio Then
+                mobj_AdminSicofa.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
             End If
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
             If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
-                With FrmPagos
-                    .Operacion = mobj_Operacion
-                    .Cliente = mobj_Cliente
-                    .ImporteAPagar = mdec_ImporteConDescuentos
-                    .ImporteDescuento = mdec_ImporteDescuentos
-                    .ImporteGravado1 = mdec_ImporteGravado1
-                    .ImporteGravado2 = mdec_ImporteGravado2
-                    .ItemsComprobante = mobj_Items.ToList
-                    .ShowDialog()
-                End With
+
+                Using FPagos As New FrmPagos
+
+                    With FPagos
+                        .FrmOrigen = Me
+                        .Operacion = mobj_Operacion
+                        .Cliente = mobj_Cliente
+                        .ImporteAPagar = mdec_ImporteConDescuentos
+                        .ImporteDescuento = mdec_ImporteDescuentos
+                        .ImporteGravado1 = mdec_ImporteGravado1
+                        .ImporteGravado2 = mdec_ImporteGravado2
+                        .ItemsComprobante = mobj_Items.ToList
+                        .ShowDialog()
+                    End With
+                End Using
+
             End If
 
         Catch ex As Exception
@@ -328,9 +392,9 @@ Public Class FrmVentas
                 mdec_PorcentaDescuentos = 0
             End If
 
-            Me.lblCantidadItems.Text = "Items: " & mint_CantidadItems
+            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
 
@@ -344,7 +408,7 @@ Public Class FrmVentas
     Private Sub ActualizarDatosOperacion()
         Dim NombreCliente As String
         If mobj_Cliente Is Nothing Then
-            NombreCliente = "CONSUMIDOR FINAL"
+            NombreCliente = "CONSUMIDOR FINAL NO IDENTIFICADO"
         Else
             NombreCliente = mobj_Cliente.Nombre
         End If
@@ -353,15 +417,15 @@ Public Class FrmVentas
 
         If mobj_Operacion Is Nothing Then
             Me.Text = "Nueva venta iniciada el " & Now & " por el usuario " & Me.Usuario.Nombre
-            UltimaActualizacion = "Inicio Operación: " & Now
+            UltimaActualizacion = "- Inicio Operación: " & Now
         Else
             Me.Text = "Venta actualizada el " & mobj_Operacion.Inicio & " por el usuario " & Me.Usuario.Nombre
-            UltimaActualizacion = "Ultima Actualizacion: " & mobj_Operacion.Inicio
+            UltimaActualizacion = "- Ultima Actualizacion: " & mobj_Operacion.Inicio
         End If
 
         Dim Datos As String = UltimaActualizacion & vbCrLf &
-                              "Usuario: " & Me.Usuario.Nombre & vbCrLf &
-                              "Cliente: " & NombreCliente
+                              "- Usuario: " & Me.Usuario.Nombre & vbCrLf &
+                              "- Cliente: " & NombreCliente
         Me.lblDatosOperacion.Text = Datos
     End Sub
 
@@ -662,9 +726,6 @@ Public Class FrmVentas
 
     Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
         If clsPortapapelesVenta.Operacion IsNot Nothing Then
-            'mobj_Operacion = ClonarObjeto(clsPortapapelesVenta.Operacion)
-            'mobj_Operacion.Inicio = Now
-            'mobj_Operacion.EstadoOperacion = "INICIADO"
             mobj_Items = ClonarObjeto(clsPortapapelesVenta.Items)
             mobj_Cliente = ClonarObjeto(clsPortapapelesVenta.Cliente)
 
@@ -677,6 +738,55 @@ Public Class FrmVentas
             Me.ActualizarDatosOperacion()
             Me.ActualizarTotales()
         End If
+    End Sub
+
+    Private Sub ClienteToolStripButton_Click(sender As Object, e As EventArgs) Handles ClienteToolStripButton.Click
+
+        Try
+            Dim str = InputBox("Ingrese la Persona", "SiCoFa")
+
+
+            If str = "" Then
+                Exit Sub
+            End If
+
+            Dim lc As List(Of Cliente) = mobj_AdminSicofa.ListarClientes(str)
+            Dim c As Cliente = Nothing
+
+            If lc Is Nothing Then
+                MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
+                Exit Sub
+            End If
+
+            Select Case lc.Count
+                Case 0
+                    MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
+                    Exit Sub
+
+                Case 1
+                    c = lc.First
+
+                Case > 1
+                    Using f As New FrmBuscaPersonas
+                        f.Personas = lc
+                        f.ShowDialog()
+                        If f.DialogResult = DialogResult.OK Then
+                            Dim p As Persona = f.PersonaSeleccionado
+                            c = Me.SeleccionarClienteListado(p.Id, lc)
+                        End If
+                        f.Close()
+                    End Using
+
+            End Select
+
+            Me.mobj_Cliente = c
+            Me.ActualizarDatosOperacion()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
 
 End Class

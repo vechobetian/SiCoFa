@@ -17,6 +17,7 @@ Public Class FrmClientes
         End Try
 
     End Sub
+
     Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
 
         Try
@@ -36,6 +37,7 @@ Public Class FrmClientes
         End Try
 
     End Function
+
     Private Sub BuscarCliente(ByVal argTextoBuscado As String)
 
         Try

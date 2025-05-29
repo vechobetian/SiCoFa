@@ -12,7 +12,8 @@
                 Me.TipoDocumento = "LC"
             Case "96"
                 Me.TipoDocumento = "DNI"
-
+            Case "99"
+                Me.TipoDocumento = "S/I"
         End Select
 
     End Sub

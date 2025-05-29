@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.Generic
-Imports System.Linq
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 Public Class cls_D_AdminSiCoFa
@@ -37,6 +36,12 @@ Public Class cls_D_AdminSiCoFa
                                                 datos.GetString("Estado"),
                                                 datos.GetString("CodIVA")
                                                 )
+                            Dim objCC As CuentaCorriente = ObtenerCuentaCorrientePorIdCliente(datos("IdCliente"))
+
+                            If objCC IsNot Nothing Then
+                                objCli.CuentaCorriente = objCC
+                            End If
+
                         End If
 
                     End Using
@@ -217,20 +222,20 @@ Public Class cls_D_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Cuentas Corriente"
-    Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argCliente As Cliente) As CuentaCorriente
+    Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argIdCliente As Int32) As CuentaCorriente
 
         Dim objConexionDB As New cls_Conexion
-        Dim objCC As CuentaCorriente
+        Dim objCC As CuentaCorriente = Nothing
 
         Try
-            Dim sql As String = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado FROM TblCtasCorriente WHERE IdCliente=@IdCliente"
+            Dim sql As String = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM ConCtasCorriente WHERE IdCliente=@IdCliente"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
-                    cmd.Parameters.AddWithValue("@IdCliente", argCliente.Id)
+                    cmd.Parameters.AddWithValue("@IdCliente", argIdCliente)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
@@ -242,9 +247,8 @@ Public Class cls_D_AdminSiCoFa
                             Dim FechaAlta As String = datos("FechaAlta")
                             Dim Estado As String = datos("Estado")
                             Dim Observaciones As String = datos("Observaciones")
-                            objCC = New CuentaCorriente(IdCC, argCliente, Descripcion, Credito, FechaAlta, Observaciones, Estado)
-                        Else
-                            objCC = Nothing
+                            Dim Saldo As Decimal = datos("Saldo")
+                            objCC = New CuentaCorriente(IdCC, argIdCliente, Descripcion, Credito, FechaAlta, Observaciones, Estado, Saldo)
                         End If
 
                     End Using
@@ -252,6 +256,7 @@ Public Class cls_D_AdminSiCoFa
                 End Using
 
             End Using
+
             Return objCC
 
         Catch ex As Exception
@@ -1465,6 +1470,45 @@ Public Class cls_D_AdminSiCoFa
 
     End Function
 
+    Public Function ObtenerOperacionCL(ByVal argIdOperacion As Long) As Cliente
+        Dim objConexionDB As New cls_Conexion
+        Dim objCliente As Cliente = Nothing
+
+        Try
+
+            Dim sql As String = "SELECT IdOperacion,IdCliente FROM TblOperacionesCL WHERE IdOperacion=@IdOperacion"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read() Then
+                            Dim idOperacion As Long = datos.GetInt64("IdOperacion")
+                            Dim idCliente As Int32 = datos.GetInt32("IdCliente")
+                            objCliente = ObtenerClientePorId(idCliente)
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objCliente
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacionCL", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+
     Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
 
         Try
@@ -1517,6 +1561,35 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
+
+        Try
+            Dim objConexionDB As New cls_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("InsertarOperacionCC", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                        .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
+                        .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                    End With
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Administracion Cuentas Email"
@@ -1749,7 +1822,7 @@ Public Class cls_D_AdminSiCoFa
 #Region "Administracion de Articulos"
     Public Function ObtenerArticuloPorId(ByVal argIdArticulo As String) As Articulo
         Dim objConexionDB As New cls_Conexion
-        Dim objArt As Articulo
+        Dim objArt As Articulo = Nothing
 
         Try
             Dim sql As String = "SELECT IdArticulo,Codigo,CodBarras,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE IdArticulo=@IdArticulo"
@@ -1806,9 +1879,6 @@ Public Class cls_D_AdminSiCoFa
                             Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
 
                             objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
-                        Else
-                            ' No se encontró ningún artículo con el ID especificado.
-                            objArt = Nothing
                         End If
 
                     End Using
@@ -1816,6 +1886,7 @@ Public Class cls_D_AdminSiCoFa
                 End Using
 
             End Using
+
             Return objArt
 
         Catch ex As Exception
@@ -2096,6 +2167,34 @@ Public Class cls_D_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
+
+        Try
+            Dim objConexionDB As New cls_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("ActualizarCAE", cn) With {.CommandType = CommandType.StoredProcedure}
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("p_IdOperacion", argComprobante.Operacion.IdOperacion)
+                    cmd.Parameters.AddWithValue("p_NumComp", argComprobante.NumComp)
+                    cmd.Parameters.AddWithValue("p_CAE", argComprobante.CAE.NumCAE)
+                    cmd.Parameters.AddWithValue("p_VtoCAE", argComprobante.CAE.VtoCAE)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
+
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Administracion Items Comprobante"

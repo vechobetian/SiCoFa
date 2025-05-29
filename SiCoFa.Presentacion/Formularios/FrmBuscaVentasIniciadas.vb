@@ -8,7 +8,7 @@ Public Class FrmBuscaVentasIniciadas
         Try
             Dim sql As String = $"
             SELECT TblOperaciones.IdOperacion, TblOperaciones.Inicio,
-                   IFNULL(TblClientes.Nombre, 'CONSUMIDOR FINAL') AS Nombre
+                   IFNULL(TblClientes.Nombre, 'CONSUMIDOR FINAL NO IDENTIFICADO') AS Nombre
             FROM TblOperaciones
             LEFT JOIN TblOperacionesCL ON TblOperaciones.IdOperacion = TblOperacionesCL.IdOperacion
             LEFT JOIN TblClientes ON TblOperacionesCL.IdCliente = TblClientes.IdCliente

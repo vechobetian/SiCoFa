@@ -143,7 +143,7 @@ Public Class FrmPanelClientes
             With Me
                 .LimpiarFormulario()
                 .MostrarCliente(c)
-                .MostrarCuentaCorriente(c)
+                .MostrarCuentaCorriente(c.Id)
                 .Nombre.ReadOnly = True
                 .Nombre.Select()
                 .Nombre.SelectAll()
@@ -180,9 +180,9 @@ Public Class FrmPanelClientes
 
     End Sub
 
-    Private Sub MostrarCuentaCorriente(ByVal argCliente As Cliente)
+    Private Sub MostrarCuentaCorriente(ByVal argIdCliente As Int32)
         Try
-            Dim cc As CuentaCorriente = mobj_AdminSicofa.ObtenerCuentaCorrientePorIdCliente(argCliente)
+            Dim cc As CuentaCorriente = mobj_AdminSicofa.ObtenerCuentaCorrientePorIdCliente(argIdCliente)
             If cc IsNot Nothing Then
                 Me.IdCC.Text = cc.IdCC
                 Me.Descripcion.Text = cc.Descripcion

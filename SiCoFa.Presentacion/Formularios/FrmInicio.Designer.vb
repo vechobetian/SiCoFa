@@ -29,10 +29,10 @@ Partial Class FrmInicio
         Me.FiscalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AuditoríaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EdiciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ArticulToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HerramientasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SistemaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ArticulToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -55,7 +55,7 @@ Partial Class FrmInicio
         'FacturacionToolStripMenuItem
         '
         Me.FacturacionToolStripMenuItem.Name = "FacturacionToolStripMenuItem"
-        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FacturacionToolStripMenuItem.Text = "Facturacion"
         '
         'CajaToolStripMenuItem
@@ -83,6 +83,12 @@ Partial Class FrmInicio
         Me.EdiciónToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.EdiciónToolStripMenuItem.Text = "&Edición"
         '
+        'ArticulToolStripMenuItem
+        '
+        Me.ArticulToolStripMenuItem.Name = "ArticulToolStripMenuItem"
+        Me.ArticulToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.ArticulToolStripMenuItem.Text = "Articul"
+        '
         'HerramientasToolStripMenuItem
         '
         Me.HerramientasToolStripMenuItem.Name = "HerramientasToolStripMenuItem"
@@ -100,12 +106,6 @@ Partial Class FrmInicio
         Me.AyudaToolStripMenuItem.Name = "AyudaToolStripMenuItem"
         Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.AyudaToolStripMenuItem.Text = "Ay&uda"
-        '
-        'ArticulToolStripMenuItem
-        '
-        Me.ArticulToolStripMenuItem.Name = "ArticulToolStripMenuItem"
-        Me.ArticulToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ArticulToolStripMenuItem.Text = "Articul"
         '
         'FrmInicio
         '
