@@ -1344,7 +1344,7 @@ Public Class D_AdminSiCoFa
                 Using cmd As New MySqlCommand("CtaBancariaActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB
-                        .Add("p_Baja", MySqlDbType.VarChar).Value = argBaja
+                        .Add("p_Baja", MySqlDbType.Bit).Value = argBaja
                     End With
 
                     Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()

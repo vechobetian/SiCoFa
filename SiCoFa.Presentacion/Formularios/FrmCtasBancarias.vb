@@ -9,8 +9,7 @@ Public Class FrmCtasBancarias
     Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private mobj_CuentaBancaria As CuentaBancaria
 
-    Private ControlesReadOnly As New List(Of String) From {"IdCB", "FechaAlta"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
+    Private ControlesReadOnly As New List(Of String) From {"IdCBTextBox", "FechaAltaTextBox"}
 
     Private Sub ObtenerOpcionesBoolean()
         '
@@ -23,6 +22,14 @@ Public Class FrmCtasBancarias
         BajaComboBox.DisplayMember = "Texto"
         BajaComboBox.ValueMember = "Valor"
 
+    End Sub
+
+    Private Sub DesvincularControles()
+        IdCBTextBox.DataBindings.Clear()
+        DescripcionTextBox.DataBindings.Clear()
+        NumCuentaTextBox.DataBindings.Clear()
+        FechaAltaTextBox.DataBindings.Clear()
+        BajaComboBox.DataBindings.Clear()
     End Sub
 
     Private Sub VincularControles()
@@ -92,10 +99,24 @@ Public Class FrmCtasBancarias
                         f.HeaderPropiedadDescripcion = "Cuenta"
                         If f.ShowDialog() = DialogResult.OK Then
                             cb = Me.SeleccionarCuentaListado(f.Valor1Seleccionado, lcb)
+                        Else
+                            Me.DescripcionTextBox.Text = ""
+                            Me.DescripcionTextBox.Select()
+                            Exit Sub
+
                         End If
-                        f.Close()
                     End Using ' <- aquí se libera completamente
             End Select
+
+
+            With Me.ControlesReadOnly
+                .Clear()
+                .Add("IdCBTextBox")
+                .Add("DescripcionTextBox")
+                .Add("FechaAltaTextBox")
+            End With
+
+            Me.EstablecerReadOnly(Me, ControlesReadOnly)
 
             With Me
                 .LimpiarFormulario()
@@ -125,6 +146,15 @@ Public Class FrmCtasBancarias
             End If
 
             If Me.NuevaCB = True Then
+
+                Dim valoresDefecto As New Dictionary(Of String, Object)
+                With valoresDefecto
+                    .Add("FechaAltaTextBox", Date.Today.ToShortDateString)
+                    .Add("BajaTextBox", "NO")
+                End With
+
+                EstablecerValoresPorDefecto(Me, valoresDefecto)
+
                 Dim Idcb As Int32 = mobj_AdminSicofa.InsertarCuentaBancaria(mobj_CuentaBancaria.Descripcion, mobj_CuentaBancaria.NumCuenta)
                 If Idcb > 0 Then
                     Me.IdCBTextBox.Text = Idcb
@@ -153,14 +183,16 @@ Public Class FrmCtasBancarias
                 End If
             End If
 
-            'With Me.ControlesReadOnly
-            '.Clear()
-            '.Add("IdCBTextBox")
-            '.Add("FechaAltaTextBox")
-            'End With
+            With Me.ControlesReadOnly
+                .Clear()
+                .Add("IdCBTextBox")
+                .Add("FechaAltaTextBox")
+            End With
 
-            'Me.EstablecerReadOnly(Me, ControlesReadOnly)
+            Me.EstablecerReadOnly(Me, ControlesReadOnly)
             Me.LimpiarFormulario()
+            mobj_CuentaBancaria = Nothing
+            DesvincularControles()
             Me.DescripcionTextBox.Select()
 
         Catch ex As Exception
@@ -172,15 +204,8 @@ Public Class FrmCtasBancarias
 
     Private Sub Nuevo_Click(sender As Object, e As EventArgs) Handles Nuevo.Click
 
-        Dim valoresDefecto As New Dictionary(Of String, Object)
-        With valoresDefecto
-            .Add("FechaAlta", Date.Today.ToShortDateString)
-            .Add("Baja", "NO")
-        End With
-
-        EstablecerValoresPorDefecto(Me, valoresDefecto)
-
         mobj_CuentaBancaria = Nothing
+        DesvincularControles()
         Me.LimpiarFormulario()
         Me.NuevaCB = True
         Me.Nuevo.Checked = True
