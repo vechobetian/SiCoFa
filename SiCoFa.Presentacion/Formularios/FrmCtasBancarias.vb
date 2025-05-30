@@ -9,10 +9,10 @@ Public Class FrmCtasBancarias
     Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private mobj_CuentaBancaria As CuentaBancaria
 
-    Private ControlesReadOnly As New List(Of String) From {"IdCBTextBox", "FechaAltaTextBox"}
+    Private ControlesNoValidar As New List(Of String) From {"IdCBTextBox", "FechaAltaTextBox"}
 
     Private Sub ObtenerOpcionesBoolean()
-        '
+
         Dim listaBooleanos As New List(Of OpcionBoolean) From {
             New OpcionBoolean("No", False),
             New OpcionBoolean("Sí", True)
@@ -87,6 +87,7 @@ Public Class FrmCtasBancarias
                     Me.DescripcionTextBox.Text = ""
                     Me.DescripcionTextBox.Select()
                     Exit Sub
+
                 Case 1
                     cb = lcb.First
 
@@ -108,16 +109,6 @@ Public Class FrmCtasBancarias
                     End Using ' <- aquí se libera completamente
             End Select
 
-
-            With Me.ControlesReadOnly
-                .Clear()
-                .Add("IdCBTextBox")
-                .Add("DescripcionTextBox")
-                .Add("FechaAltaTextBox")
-            End With
-
-            Me.EstablecerReadOnly(Me, ControlesReadOnly)
-
             With Me
                 .LimpiarFormulario()
                 mobj_CuentaBancaria = cb
@@ -132,6 +123,7 @@ Public Class FrmCtasBancarias
         End Try
 
     End Sub
+
     Private Sub FrmCtasBancarias_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.ObtenerOpcionesBoolean()
     End Sub
@@ -139,7 +131,7 @@ Public Class FrmCtasBancarias
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Try
 
-            Me.ValidarCampos(Me, ControlesReadOnly)
+            Me.ValidarCampos(Me, ControlesNoValidar)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -148,6 +140,7 @@ Public Class FrmCtasBancarias
             If Me.NuevaCB = True Then
 
                 Dim valoresDefecto As New Dictionary(Of String, Object)
+
                 With valoresDefecto
                     .Add("FechaAltaTextBox", Date.Today.ToShortDateString)
                     .Add("BajaTextBox", "NO")
@@ -156,18 +149,23 @@ Public Class FrmCtasBancarias
                 EstablecerValoresPorDefecto(Me, valoresDefecto)
 
                 Dim Idcb As Int32 = mobj_AdminSicofa.InsertarCuentaBancaria(mobj_CuentaBancaria.Descripcion, mobj_CuentaBancaria.NumCuenta)
+
                 If Idcb > 0 Then
                     Me.IdCBTextBox.Text = Idcb
+                    mobj_CuentaBancaria.IdCB = Idcb
                     Me.DescripcionTextBox.Text = UCase(Me.DescripcionTextBox.Text)
+                    VincularControles()
                     MsgBox("Se dio de alta la cuenta " & Me.DescripcionTextBox.Text, vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
                 End If
+
                 Me.NuevaCB = False
                 Me.Nuevo.Checked = False
 
             Else
+
                 If Me.IdCBTextBox.Text = "" Then
                     MsgBox("La cuenta " & Me.DescripcionTextBox.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
                     Exit Sub
@@ -183,13 +181,6 @@ Public Class FrmCtasBancarias
                 End If
             End If
 
-            With Me.ControlesReadOnly
-                .Clear()
-                .Add("IdCBTextBox")
-                .Add("FechaAltaTextBox")
-            End With
-
-            Me.EstablecerReadOnly(Me, ControlesReadOnly)
             Me.LimpiarFormulario()
             mobj_CuentaBancaria = Nothing
             DesvincularControles()
@@ -204,8 +195,8 @@ Public Class FrmCtasBancarias
 
     Private Sub Nuevo_Click(sender As Object, e As EventArgs) Handles Nuevo.Click
 
-        mobj_CuentaBancaria = Nothing
-        DesvincularControles()
+        mobj_CuentaBancaria = New CuentaBancaria
+        VincularControles()
         Me.LimpiarFormulario()
         Me.NuevaCB = True
         Me.Nuevo.Checked = True
@@ -219,7 +210,7 @@ Public Class FrmCtasBancarias
                 Exit Sub
             End If
 
-            Dim str = InputBox("Ingrese la Seccion buscada", "SiCoFa")
+            Dim str = InputBox("Ingrese la Cuenta buscada", "SiCoFa")
             Me.TextoBuscar = ""
 
             If str = "" Then
@@ -245,6 +236,7 @@ Public Class FrmCtasBancarias
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
 
         mobj_CuentaBancaria = Nothing
+        Me.DesvincularControles()
         Me.LimpiarFormulario()
         Me.NuevaCB = False
         Me.DescripcionTextBox.Select()

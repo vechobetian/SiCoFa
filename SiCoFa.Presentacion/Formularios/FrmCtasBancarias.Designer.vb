@@ -196,6 +196,7 @@ Partial Class FrmCtasBancarias
         Me.Controls.Add(Me.NumCuentaTextBox)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "FrmCtasBancarias"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmCtasBancarias"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()

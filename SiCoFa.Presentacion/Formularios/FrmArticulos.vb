@@ -22,6 +22,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub ObtenerSecciones()
 
         Try
@@ -38,6 +39,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub BuscarArticulo(ByVal argTextoBuscado As String)
 
         Try
@@ -86,6 +88,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub MostrarArticulo(ByVal argArticulo As Articulo)
 
         Try
