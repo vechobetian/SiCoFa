@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SiCoFa.Presentacion.FrmSecciones</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmCtasBancarias</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -149,6 +149,12 @@
       <DependentUpon>FrmLoginUser.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmLoginUser.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmMediosPE.Designer.vb">
+      <DependentUpon>FrmMediosPE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmMediosPE.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmPagos.Designer.vb">
@@ -294,6 +300,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmLoginUser.resx">
       <DependentUpon>FrmLoginUser.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmMediosPE.resx">
+      <DependentUpon>FrmMediosPE.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPagos.resx">
       <DependentUpon>FrmPagos.vb</DependentUpon>

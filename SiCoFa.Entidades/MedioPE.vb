@@ -1,4 +1,4 @@
-﻿Public Class MedioDePagoEletronico
+﻿Public Class MedioPE
     Property IdMPE As String
     Property Descripcion As String
     Property CuentaBancaria As CuentaBancaria

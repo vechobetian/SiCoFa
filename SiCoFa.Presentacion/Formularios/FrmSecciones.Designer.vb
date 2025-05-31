@@ -28,7 +28,6 @@ Partial Class FrmSecciones
         Dim IdSeccionLabel As System.Windows.Forms.Label
         Dim SeccionLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmSecciones))
-        Me.SeccionBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.EstablecerPrecio = New System.Windows.Forms.ComboBox()
         Me.IdSeccion = New System.Windows.Forms.TextBox()
         Me.Seccion = New System.Windows.Forms.TextBox()
@@ -37,17 +36,18 @@ Partial Class FrmSecciones
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
+        Me.SeccionBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         EstablecerPrecioLabel = New System.Windows.Forms.Label()
         IdSeccionLabel = New System.Windows.Forms.Label()
         SeccionLabel = New System.Windows.Forms.Label()
-        CType(Me.SeccionBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
+        CType(Me.SeccionBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'EstablecerPrecioLabel
         '
         EstablecerPrecioLabel.AutoSize = True
-        EstablecerPrecioLabel.Location = New System.Drawing.Point(8, 94)
+        EstablecerPrecioLabel.Location = New System.Drawing.Point(8, 83)
         EstablecerPrecioLabel.Name = "EstablecerPrecioLabel"
         EstablecerPrecioLabel.Size = New System.Drawing.Size(93, 13)
         EstablecerPrecioLabel.TabIndex = 1
@@ -56,7 +56,7 @@ Partial Class FrmSecciones
         'IdSeccionLabel
         '
         IdSeccionLabel.AutoSize = True
-        IdSeccionLabel.Location = New System.Drawing.Point(8, 42)
+        IdSeccionLabel.Location = New System.Drawing.Point(8, 31)
         IdSeccionLabel.Name = "IdSeccionLabel"
         IdSeccionLabel.Size = New System.Drawing.Size(61, 13)
         IdSeccionLabel.TabIndex = 3
@@ -65,15 +65,11 @@ Partial Class FrmSecciones
         'SeccionLabel
         '
         SeccionLabel.AutoSize = True
-        SeccionLabel.Location = New System.Drawing.Point(8, 69)
+        SeccionLabel.Location = New System.Drawing.Point(8, 58)
         SeccionLabel.Name = "SeccionLabel"
         SeccionLabel.Size = New System.Drawing.Size(49, 13)
         SeccionLabel.TabIndex = 4
         SeccionLabel.Text = "Seccion:"
-        '
-        'SeccionBindingSource1
-        '
-        Me.SeccionBindingSource1.DataSource = GetType(SiCoFa.Entidades.Seccion)
         '
         'EstablecerPrecio
         '
@@ -82,7 +78,7 @@ Partial Class FrmSecciones
         Me.EstablecerPrecio.FormattingEnabled = True
         Me.EstablecerPrecio.ItemHeight = 13
         Me.EstablecerPrecio.Items.AddRange(New Object() {"NO", "SI"})
-        Me.EstablecerPrecio.Location = New System.Drawing.Point(107, 91)
+        Me.EstablecerPrecio.Location = New System.Drawing.Point(107, 80)
         Me.EstablecerPrecio.Name = "EstablecerPrecio"
         Me.EstablecerPrecio.Size = New System.Drawing.Size(265, 21)
         Me.EstablecerPrecio.TabIndex = 2
@@ -90,7 +86,7 @@ Partial Class FrmSecciones
         'IdSeccion
         '
         Me.IdSeccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.SeccionBindingSource1, "IdSeccion", True))
-        Me.IdSeccion.Location = New System.Drawing.Point(107, 39)
+        Me.IdSeccion.Location = New System.Drawing.Point(107, 28)
         Me.IdSeccion.Name = "IdSeccion"
         Me.IdSeccion.ReadOnly = True
         Me.IdSeccion.Size = New System.Drawing.Size(265, 20)
@@ -100,7 +96,7 @@ Partial Class FrmSecciones
         'Seccion
         '
         Me.Seccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.SeccionBindingSource1, "Seccion", True))
-        Me.Seccion.Location = New System.Drawing.Point(107, 66)
+        Me.Seccion.Location = New System.Drawing.Point(107, 55)
         Me.Seccion.Name = "Seccion"
         Me.Seccion.Size = New System.Drawing.Size(265, 20)
         Me.Seccion.TabIndex = 1
@@ -150,9 +146,13 @@ Partial Class FrmSecciones
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
+        'SeccionBindingSource1
+        '
+        Me.SeccionBindingSource1.DataSource = GetType(SiCoFa.Entidades.Seccion)
+        '
         'FrmSecciones
         '
-        Me.ClientSize = New System.Drawing.Size(384, 129)
+        Me.ClientSize = New System.Drawing.Size(384, 112)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(SeccionLabel)
         Me.Controls.Add(Me.Seccion)
@@ -162,9 +162,9 @@ Partial Class FrmSecciones
         Me.Controls.Add(Me.IdSeccion)
         Me.Name = "FrmSecciones"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.SeccionBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        CType(Me.SeccionBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
