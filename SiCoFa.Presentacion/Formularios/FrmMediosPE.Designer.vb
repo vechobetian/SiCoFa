@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class FrmMediosPE
-    Inherits System.Windows.Forms.Form
+    'Inherits System.Windows.Forms.Form
+    Inherits clsFrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,23 +23,62 @@ Partial Class FrmMediosPE
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim IdMPELabel As System.Windows.Forms.Label
+        Dim BajaLabel As System.Windows.Forms.Label
+        Dim DescripcionLabel As System.Windows.Forms.Label
+        Dim CuentaBancariaLabel As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMediosPE))
-        Dim SeccionLabel As System.Windows.Forms.Label
-        Dim EstablecerPrecioLabel As System.Windows.Forms.Label
-        Dim IdSeccionLabel As System.Windows.Forms.Label
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.Guardar = New System.Windows.Forms.ToolStripButton()
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
-        Me.Seccion = New System.Windows.Forms.TextBox()
-        Me.EstablecerPrecio = New System.Windows.Forms.ComboBox()
-        Me.IdSeccion = New System.Windows.Forms.TextBox()
-        SeccionLabel = New System.Windows.Forms.Label()
-        EstablecerPrecioLabel = New System.Windows.Forms.Label()
-        IdSeccionLabel = New System.Windows.Forms.Label()
+        Me.IdMPETextBox = New System.Windows.Forms.TextBox()
+        Me.BajaComboBox = New System.Windows.Forms.ComboBox()
+        Me.DescripcionTextBox = New System.Windows.Forms.TextBox()
+        Me.CuentaBancariaComboBox = New System.Windows.Forms.ComboBox()
+        IdMPELabel = New System.Windows.Forms.Label()
+        BajaLabel = New System.Windows.Forms.Label()
+        DescripcionLabel = New System.Windows.Forms.Label()
+        CuentaBancariaLabel = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'IdMPELabel
+        '
+        IdMPELabel.AutoSize = True
+        IdMPELabel.Location = New System.Drawing.Point(20, 31)
+        IdMPELabel.Name = "IdMPELabel"
+        IdMPELabel.Size = New System.Drawing.Size(45, 13)
+        IdMPELabel.TabIndex = 32
+        IdMPELabel.Text = "Id MPE:"
+        '
+        'BajaLabel
+        '
+        BajaLabel.AutoSize = True
+        BajaLabel.Location = New System.Drawing.Point(20, 110)
+        BajaLabel.Name = "BajaLabel"
+        BajaLabel.Size = New System.Drawing.Size(31, 13)
+        BajaLabel.TabIndex = 35
+        BajaLabel.Text = "Baja:"
+        '
+        'DescripcionLabel
+        '
+        DescripcionLabel.AutoSize = True
+        DescripcionLabel.Location = New System.Drawing.Point(20, 57)
+        DescripcionLabel.Name = "DescripcionLabel"
+        DescripcionLabel.Size = New System.Drawing.Size(66, 13)
+        DescripcionLabel.TabIndex = 36
+        DescripcionLabel.Text = "Descripcion:"
+        '
+        'CuentaBancariaLabel
+        '
+        CuentaBancariaLabel.AutoSize = True
+        CuentaBancariaLabel.Location = New System.Drawing.Point(20, 83)
+        CuentaBancariaLabel.Name = "CuentaBancariaLabel"
+        CuentaBancariaLabel.Size = New System.Drawing.Size(71, 13)
+        CuentaBancariaLabel.TabIndex = 38
+        CuentaBancariaLabel.Text = "Cta.Bancaria:"
         '
         'ToolStrip1
         '
@@ -85,74 +125,59 @@ Partial Class FrmMediosPE
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
-        'SeccionLabel
+        'IdMPETextBox
         '
-        SeccionLabel.AutoSize = True
-        SeccionLabel.Location = New System.Drawing.Point(8, 58)
-        SeccionLabel.Name = "SeccionLabel"
-        SeccionLabel.Size = New System.Drawing.Size(49, 13)
-        SeccionLabel.TabIndex = 33
-        SeccionLabel.Text = "Seccion:"
+        Me.IdMPETextBox.Location = New System.Drawing.Point(95, 28)
+        Me.IdMPETextBox.Name = "IdMPETextBox"
+        Me.IdMPETextBox.ReadOnly = True
+        Me.IdMPETextBox.Size = New System.Drawing.Size(265, 20)
+        Me.IdMPETextBox.TabIndex = 0
+        Me.IdMPETextBox.TabStop = False
         '
-        'Seccion
+        'BajaComboBox
         '
-        Me.Seccion.Location = New System.Drawing.Point(107, 55)
-        Me.Seccion.Name = "Seccion"
-        Me.Seccion.Size = New System.Drawing.Size(265, 20)
-        Me.Seccion.TabIndex = 29
+        Me.BajaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.BajaComboBox.FormattingEnabled = True
+        Me.BajaComboBox.Items.AddRange(New Object() {"NO", "SI"})
+        Me.BajaComboBox.Location = New System.Drawing.Point(95, 107)
+        Me.BajaComboBox.Name = "BajaComboBox"
+        Me.BajaComboBox.Size = New System.Drawing.Size(265, 21)
+        Me.BajaComboBox.TabIndex = 3
         '
-        'EstablecerPrecioLabel
+        'DescripcionTextBox
         '
-        EstablecerPrecioLabel.AutoSize = True
-        EstablecerPrecioLabel.Location = New System.Drawing.Point(8, 83)
-        EstablecerPrecioLabel.Name = "EstablecerPrecioLabel"
-        EstablecerPrecioLabel.Size = New System.Drawing.Size(93, 13)
-        EstablecerPrecioLabel.TabIndex = 30
-        EstablecerPrecioLabel.Text = "Establecer Precio:"
+        Me.DescripcionTextBox.Location = New System.Drawing.Point(95, 54)
+        Me.DescripcionTextBox.Name = "DescripcionTextBox"
+        Me.DescripcionTextBox.Size = New System.Drawing.Size(265, 20)
+        Me.DescripcionTextBox.TabIndex = 1
         '
-        'EstablecerPrecio
+        'CuentaBancariaComboBox
         '
-        Me.EstablecerPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.EstablecerPrecio.FormattingEnabled = True
-        Me.EstablecerPrecio.ItemHeight = 13
-        Me.EstablecerPrecio.Items.AddRange(New Object() {"NO", "SI"})
-        Me.EstablecerPrecio.Location = New System.Drawing.Point(107, 80)
-        Me.EstablecerPrecio.Name = "EstablecerPrecio"
-        Me.EstablecerPrecio.Size = New System.Drawing.Size(265, 21)
-        Me.EstablecerPrecio.TabIndex = 31
-        '
-        'IdSeccionLabel
-        '
-        IdSeccionLabel.AutoSize = True
-        IdSeccionLabel.Location = New System.Drawing.Point(8, 31)
-        IdSeccionLabel.Name = "IdSeccionLabel"
-        IdSeccionLabel.Size = New System.Drawing.Size(61, 13)
-        IdSeccionLabel.TabIndex = 32
-        IdSeccionLabel.Text = "Id Seccion:"
-        '
-        'IdSeccion
-        '
-        Me.IdSeccion.Location = New System.Drawing.Point(107, 28)
-        Me.IdSeccion.Name = "IdSeccion"
-        Me.IdSeccion.ReadOnly = True
-        Me.IdSeccion.Size = New System.Drawing.Size(265, 20)
-        Me.IdSeccion.TabIndex = 28
-        Me.IdSeccion.TabStop = False
+        Me.CuentaBancariaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CuentaBancariaComboBox.FormattingEnabled = True
+        Me.CuentaBancariaComboBox.ItemHeight = 13
+        Me.CuentaBancariaComboBox.Location = New System.Drawing.Point(95, 80)
+        Me.CuentaBancariaComboBox.Name = "CuentaBancariaComboBox"
+        Me.CuentaBancariaComboBox.Size = New System.Drawing.Size(265, 21)
+        Me.CuentaBancariaComboBox.TabIndex = 2
         '
         'FrmMediosPE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 450)
-        Me.Controls.Add(SeccionLabel)
-        Me.Controls.Add(Me.Seccion)
-        Me.Controls.Add(EstablecerPrecioLabel)
-        Me.Controls.Add(Me.EstablecerPrecio)
-        Me.Controls.Add(IdSeccionLabel)
-        Me.Controls.Add(Me.IdSeccion)
+        Me.ClientSize = New System.Drawing.Size(384, 153)
+        Me.Controls.Add(CuentaBancariaLabel)
+        Me.Controls.Add(Me.CuentaBancariaComboBox)
+        Me.Controls.Add(Me.BajaComboBox)
+        Me.Controls.Add(BajaLabel)
+        Me.Controls.Add(DescripcionLabel)
+        Me.Controls.Add(Me.DescripcionTextBox)
+        Me.Controls.Add(IdMPELabel)
+        Me.Controls.Add(Me.IdMPETextBox)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "FrmMediosPE"
-        Me.Text = "FrmMediosPagoElectronico"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Medios de Pago Electronico"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
@@ -165,7 +190,8 @@ Partial Class FrmMediosPE
     Friend WithEvents Nuevo As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
-    Friend WithEvents Seccion As TextBox
-    Friend WithEvents EstablecerPrecio As ComboBox
-    Friend WithEvents IdSeccion As TextBox
+    Friend WithEvents IdMPETextBox As TextBox
+    Friend WithEvents BajaComboBox As ComboBox
+    Friend WithEvents DescripcionTextBox As TextBox
+    Friend WithEvents CuentaBancariaComboBox As ComboBox
 End Class

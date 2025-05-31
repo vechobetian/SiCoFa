@@ -6,6 +6,7 @@ Public Class FrmArticulos
     Private NuevoArticulo As Boolean
     Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String)
+
     Private Sub ObtenerAlicuotasIVA()
 
         Try
@@ -112,10 +113,12 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub FrmArticulos_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.ObtenerAlicuotasIVA()
         Me.ObtenerSecciones()
     End Sub
+
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Try
 
@@ -171,6 +174,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub Nuevo_Click(sender As Object, e As EventArgs) Handles Nuevo.Click
         Try
 
@@ -201,6 +205,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub Buscar_Click_1(sender As Object, e As EventArgs) Handles Buscar.Click
 
         Try
@@ -230,6 +235,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
         Try
 
@@ -251,6 +257,7 @@ Public Class FrmArticulos
         End Try
 
     End Sub
+
     Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
         Try
             If Me.Nombre.Text = "" Or Me.NuevoArticulo = True Or Me.IdArticulo.Text <> "" Then

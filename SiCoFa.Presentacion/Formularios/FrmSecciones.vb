@@ -7,6 +7,7 @@ Public Class FrmSecciones
     Private NuevaSeccion As Boolean
     Private mobj_AdminSicofa As New N_AdminSiCoFa
     Private ControlesReadOnly As New List(Of String)
+
     Private Function SeleccionarSeccionListado(ByVal IdSeccion As String, ByVal ListaSecciones As List(Of Seccion)) As Seccion
 
         Try
@@ -74,6 +75,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
     Private Sub MostrarSeccion(ByVal argSeccion As Seccion)
 
         Try
@@ -93,6 +95,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Try
 
@@ -148,6 +151,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
     Private Sub Nuevo_Click(sender As Object, e As EventArgs) Handles Nuevo.Click
         Try
 
@@ -170,6 +174,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
     Private Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar.Click
 
         Try
@@ -199,6 +204,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
 
         Try
@@ -221,6 +227,7 @@ Public Class FrmSecciones
         End Try
 
     End Sub
+
     Private Sub Seccion_Validating(sender As Object, e As CancelEventArgs) Handles Seccion.Validating
         Try
             If Me.Seccion.Text = "" Or Me.NuevaSeccion = True Or Me.IdSeccion.Text <> "" Then

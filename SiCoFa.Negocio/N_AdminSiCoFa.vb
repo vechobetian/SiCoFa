@@ -601,6 +601,63 @@ Public Class N_AdminSiCoFa
 
 #End Region
 
+#Region "Administracion MedioPE"
+    Public Function ObtenerMedioPEPorId(ByVal argIdMPE As Long) As MedioPE
+
+        Try
+            Dim objMPE As MedioPE = mobj_D_AdminSiCoFa.ObtenerMedioPEPorId(argIdMPE)
+            Return objMPE
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerMedioPEPorId", ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ListarMedioPE(ByVal argTextoBuscado As String) As List(Of MedioPE)
+
+        Try
+            Dim lmpe As List(Of MedioPE) = mobj_D_AdminSiCoFa.ListarMedioPE(argTextoBuscado)
+            Return lmpe
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarMediosPE", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+
+    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Int32) As String
+
+        Try
+
+            Dim IdMPE As String = mobj_D_AdminSiCoFa.InsertarMedioPE(argDescripcion, argIdCB)
+            Return IdMPE
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarMedioPE", Ex.Message))
+
+        End Try
+
+    End Function
+    Public Function ActualizarMedioPE(ByVal argIdMPE As String, ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
+
+        Try
+
+            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarMedioPE(argIdMPE, argIdCB, argBaja)
+            Return Actualizado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarMedioPE", Ex.Message))
+
+        End Try
+
+    End Function
+
+#End Region
+
 #Region "AFIP"
 
     Public Function TiposDocumento() As List(Of TipoDocumento)
