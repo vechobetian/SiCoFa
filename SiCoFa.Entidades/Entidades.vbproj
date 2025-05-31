@@ -88,7 +88,7 @@
     <Compile Include="IVA.vb" />
     <Compile Include="ListaPrecios.vb" />
     <Compile Include="LoginTicket.vb" />
-    <Compile Include="MediosPagoElectronico.vb" />
+    <Compile Include="MedioDePagoEletronico.vb" />
     <Compile Include="Operacion.vb" />
     <Compile Include="ParametrosTerminal.vb" />
     <Compile Include="Persona.vb" />
