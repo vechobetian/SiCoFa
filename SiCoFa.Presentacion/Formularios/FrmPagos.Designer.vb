@@ -25,11 +25,11 @@ Partial Class FrmPagos
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPagos))
         Me.PanelDatosCliente = New System.Windows.Forms.Panel()
-        Me.PagoElectronico = New System.Windows.Forms.Label()
+        Me.lblPagoElectronico = New System.Windows.Forms.Label()
         Me.lblNumeroDocumento = New System.Windows.Forms.Label()
         Me.lblTipoContribuyente = New System.Windows.Forms.Label()
         Me.lblNombreCliente = New System.Windows.Forms.Label()
-        Me.lblPagoElectronico = New System.Windows.Forms.Label()
+        Me.lblPagoElectronicoEtiqueta = New System.Windows.Forms.Label()
         Me.lblTipoDocumento = New System.Windows.Forms.Label()
         Me.lblTipoContribuyenteEtiqueta = New System.Windows.Forms.Label()
         Me.lblNombreClienteEtiqueta = New System.Windows.Forms.Label()
@@ -56,11 +56,11 @@ Partial Class FrmPagos
         'PanelDatosCliente
         '
         Me.PanelDatosCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PanelDatosCliente.Controls.Add(Me.PagoElectronico)
+        Me.PanelDatosCliente.Controls.Add(Me.lblPagoElectronico)
         Me.PanelDatosCliente.Controls.Add(Me.lblNumeroDocumento)
         Me.PanelDatosCliente.Controls.Add(Me.lblTipoContribuyente)
         Me.PanelDatosCliente.Controls.Add(Me.lblNombreCliente)
-        Me.PanelDatosCliente.Controls.Add(Me.lblPagoElectronico)
+        Me.PanelDatosCliente.Controls.Add(Me.lblPagoElectronicoEtiqueta)
         Me.PanelDatosCliente.Controls.Add(Me.lblTipoDocumento)
         Me.PanelDatosCliente.Controls.Add(Me.lblTipoContribuyenteEtiqueta)
         Me.PanelDatosCliente.Controls.Add(Me.lblNombreClienteEtiqueta)
@@ -70,15 +70,15 @@ Partial Class FrmPagos
         Me.PanelDatosCliente.Size = New System.Drawing.Size(830, 197)
         Me.PanelDatosCliente.TabIndex = 0
         '
-        'PagoElectronico
+        'lblPagoElectronico
         '
-        Me.PagoElectronico.AccessibleDescription = "IVACliente"
-        Me.PagoElectronico.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PagoElectronico.Location = New System.Drawing.Point(338, 153)
-        Me.PagoElectronico.Name = "PagoElectronico"
-        Me.PagoElectronico.Size = New System.Drawing.Size(487, 29)
-        Me.PagoElectronico.TabIndex = 7
-        Me.PagoElectronico.Text = "No Establecido"
+        Me.lblPagoElectronico.AccessibleDescription = "IVACliente"
+        Me.lblPagoElectronico.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPagoElectronico.Location = New System.Drawing.Point(338, 153)
+        Me.lblPagoElectronico.Name = "lblPagoElectronico"
+        Me.lblPagoElectronico.Size = New System.Drawing.Size(487, 29)
+        Me.lblPagoElectronico.TabIndex = 7
+        Me.lblPagoElectronico.Text = "No Establecido"
         '
         'lblNumeroDocumento
         '
@@ -109,14 +109,14 @@ Partial Class FrmPagos
         Me.lblNombreCliente.TabIndex = 4
         Me.lblNombreCliente.Text = "Consumidor Final"
         '
-        'lblPagoElectronico
+        'lblPagoElectronicoEtiqueta
         '
-        Me.lblPagoElectronico.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPagoElectronico.Location = New System.Drawing.Point(12, 153)
-        Me.lblPagoElectronico.Name = "lblPagoElectronico"
-        Me.lblPagoElectronico.Size = New System.Drawing.Size(329, 29)
-        Me.lblPagoElectronico.TabIndex = 3
-        Me.lblPagoElectronico.Text = "Tarjeta / Pago Electronico:"
+        Me.lblPagoElectronicoEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPagoElectronicoEtiqueta.Location = New System.Drawing.Point(12, 153)
+        Me.lblPagoElectronicoEtiqueta.Name = "lblPagoElectronicoEtiqueta"
+        Me.lblPagoElectronicoEtiqueta.Size = New System.Drawing.Size(327, 29)
+        Me.lblPagoElectronicoEtiqueta.TabIndex = 3
+        Me.lblPagoElectronicoEtiqueta.Text = "Tarjeta / Pago Electronico:"
         '
         'lblTipoDocumento
         '
@@ -260,6 +260,7 @@ Partial Class FrmPagos
         '
         'txtImportePagoElectronico
         '
+        Me.txtImportePagoElectronico.Enabled = False
         Me.txtImportePagoElectronico.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImportePagoElectronico.Location = New System.Drawing.Point(270, 136)
         Me.txtImportePagoElectronico.Name = "txtImportePagoElectronico"
@@ -356,11 +357,11 @@ Partial Class FrmPagos
     Friend WithEvents lblNombreClienteEtiqueta As Label
     Friend WithEvents lblTipoDocumento As Label
     Friend WithEvents lblTipoContribuyenteEtiqueta As Label
-    Friend WithEvents lblPagoElectronico As Label
+    Friend WithEvents lblPagoElectronicoEtiqueta As Label
     Friend WithEvents lblNombreCliente As Label
     Friend WithEvents lblNumeroDocumento As Label
     Friend WithEvents lblTipoContribuyente As Label
-    Friend WithEvents PagoElectronico As Label
+    Friend WithEvents lblPagoElectronico As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents lblImpAPagar As Label
     Friend WithEvents lblTipoComprobante As Label

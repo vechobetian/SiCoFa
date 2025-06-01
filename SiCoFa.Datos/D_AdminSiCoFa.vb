@@ -1370,7 +1370,7 @@ Public Class D_AdminSiCoFa
 #End Region
 
 #Region "Administracion de MediosPE"
-    Public Function ObtenerMedioPEPorId(ByVal argIdMPE As String) As MedioPE
+    Public Function ObtenerMedioPEPorId(ByVal argIdMPE As Int32) As MedioPE
 
         Dim objConexionDB As New D_Conexion
         Dim objMPE As MedioPE = Nothing
@@ -1392,7 +1392,7 @@ Public Class D_AdminSiCoFa
                             Dim objCB As CuentaBancaria = ObtenerCuentaBancariaPorId(datos.GetInt32("IdCB"))
 
                             objMPE = New MedioPE(
-                                                 datos.GetString("IdMPE"),
+                                                 datos.GetInt32("IdMPE"),
                                                  datos.GetString("Descripcion"),
                                                  objCB,
                                                  datos.GetString("Baja")
@@ -1445,8 +1445,8 @@ Public Class D_AdminSiCoFa
                         Dim bajaOrdinal As Integer = datos.GetOrdinal("Baja")
 
                         While datos.Read
-                            Dim IdMPEResult As String = datos.GetString(idMPEOrdinal)
-                            Dim DescripcionResult As String = datos.GetString(desciprionOrdinal)
+                            Dim IdMPEResult As Int32 = datos.GetInt32(idMPEOrdinal)
+                            Dim DescripcionResult As String = UCase(datos.GetString(desciprionOrdinal))
                             Dim IdCBResult As Int32 = datos.GetInt32(idCBOrdinal)
                             Dim BajaResult As Boolean = datos.GetBoolean(bajaOrdinal)
                             Dim objCB As CuentaBancaria = ObtenerCuentaBancariaPorId(IdCBResult)
@@ -1470,7 +1470,7 @@ Public Class D_AdminSiCoFa
         End Try
 
     End Function
-    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Int32) As String
+    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Int32) As Int32
 
         Try
             Dim objConexionDB As New D_Conexion
@@ -1480,12 +1480,12 @@ Public Class D_AdminSiCoFa
                     With cmd.Parameters
                         .Add("p_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
                         .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB
-                        .Add("p_IdMPE", MySqlDbType.VarChar)
+                        .Add("p_IdMPE", MySqlDbType.Int32)
                     End With
 
                     cmd.Parameters("p_IdMPE").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    Dim IdMPE As String = Convert.ToInt32(cmd.Parameters("p_IdMPE").Value)
+                    Dim IdMPE As Int32 = Convert.ToInt32(cmd.Parameters("p_IdMPE").Value)
                     Return IdMPE
 
                 End Using
@@ -1498,7 +1498,8 @@ Public Class D_AdminSiCoFa
         End Try
 
     End Function
-    Public Function ActualizarMedioPE(ByVal argIdMPE As String, ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
+
+    Public Function ActualizarMedioPE(ByVal argIdMPE As Int32, ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
 
         Try
             Dim objConexionDB As New D_Conexion
@@ -1506,7 +1507,7 @@ Public Class D_AdminSiCoFa
 
                 Using cmd As New MySqlCommand("MedioPEActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("p_IdMPE", MySqlDbType.String).Value = argIdMPE
+                        .Add("p_IdMPE", MySqlDbType.Int32).Value = argIdMPE
                         .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB
                         .Add("p_Baja", MySqlDbType.Bit).Value = argBaja
                     End With
@@ -1910,6 +1911,38 @@ Public Class D_AdminSiCoFa
         End Try
 
     End Function
+
+    Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdMPE As Int32, ByVal argImporte As Decimal) As Boolean
+
+        Try
+            Dim objConexionDB As New D_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("OperacionPEInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                        .Add("p_IdMPE", MySqlDbType.Int32).Value = argIdMPE
+                        .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                    End With
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionPE", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Sub FinalizarOperacionConTransaccion()
+
+    End Sub
 
 #End Region
 
@@ -2480,8 +2513,6 @@ Public Class D_AdminSiCoFa
                 End Using
 
             End Using
-
-
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", Ex.Message))

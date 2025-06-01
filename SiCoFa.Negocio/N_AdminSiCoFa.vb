@@ -815,9 +815,9 @@ Public Class N_AdminSiCoFa
 
     Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
         Try
-            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCL(argIdOperacion, argIdCliente)
+            Dim Insertado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCL(argIdOperacion, argIdCliente)
 
-            Return Actualizado
+            Return Insertado
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", ex.Message))
@@ -844,12 +844,26 @@ Public Class N_AdminSiCoFa
     Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
 
         Try
-            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCC(argIdOperacion, argIdCC, argImporte)
+            Dim Insertado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionCC(argIdOperacion, argIdCC, argImporte)
 
-            Return Actualizado
+            Return Insertado
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdMPE As Int32, ByVal argImporte As Decimal) As Boolean
+
+        Try
+            Dim Insertado As Boolean = mobj_D_AdminSiCoFa.InsertarOperacionPE(argIdOperacion, argIdMPE, argImporte)
+
+            Return Insertado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionPE", Ex.Message))
 
         End Try
 

@@ -6,6 +6,7 @@ Public Class FrmPagos
     Property FrmOrigen As FrmVentas
     Property Operacion As Operacion
     Property Cliente As Cliente
+    Property MedioPE As MedioPE
     Property ItemsComprobante As List(Of ItemComprobante)
     Property ImporteAPagar As Decimal
     Property ImporteDescuento As Decimal
@@ -28,7 +29,7 @@ Public Class FrmPagos
         Else
             With Me.txtImporteCuentaCorriente
                 .Enabled = True
-                .Text = Convert.ToDecimal(Me.txtImporteAPagar.Text).ToString("N")
+                .Text = Convert.ToDecimal(Me.txtImporteAPagar.Text).ToString("N2")
                 .Select()
                 .SelectAll()
             End With
@@ -104,9 +105,9 @@ Public Class FrmPagos
     End Sub
 
     Private Sub btnCuentaCorriente_Click(sender As Object, e As EventArgs) Handles btnCuentaCorriente.Click
+
         Try
             Dim str = InputBox("Ingrese la Persona", "SiCoFa")
-
 
             If str = "" Then
                 Exit Sub
@@ -144,8 +145,13 @@ Public Class FrmPagos
             If c Is Nothing Then
                 Exit Sub
             End If
+
             If c.CuentaCorriente Is Nothing Then
                 MsgBox("El cliente seleccionado no tiene Cuenta Corriente", vbInformation, "SiCoFa")
+                Me.txtImporteCuentaCorriente.Text = "0,00"
+                Me.txtImporteCuentaCorriente.Enabled = False
+                Me.txtImporteEfectivo.Select()
+                Me.txtImporteEfectivo.SelectAll()
                 Exit Sub
             End If
 
@@ -153,7 +159,8 @@ Public Class FrmPagos
             FrmOrigen.Cliente = c
             Me.ActualizarClienteMostrado()
             Me.txtImporteCuentaCorriente.Enabled = True
-            Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.txtImporteAPagar.Text).ToString("N")
+            Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
+            Me.txtImporteCuentaCorriente.Select()
             Me.txtImporteCuentaCorriente.SelectAll()
 
         Catch ex As Exception
@@ -188,7 +195,89 @@ Public Class FrmPagos
 
     End Function
 
+    Private Sub btnPagoElectronico_Click(sender As Object, e As EventArgs) Handles btnPagoElectronico.Click
+
+        Try
+            If Me.MediosDePago.ImportePagoEfectivo = 0 Then
+                MsgBox("No tiene saldo para ingresar otro pago", vbInformation, "SiCoFa")
+                Exit Sub
+            End If
+
+            Dim str = InputBox("Medios de pago", "SiCoFa")
+
+            If str = "" Then
+                Exit Sub
+            End If
+
+            Dim lmpe As List(Of MedioPE) = mobj_AdminSiCoFa.ListarMedioPE(str)
+            Dim mpe As MedioPE = Nothing
+
+            If lmpe Is Nothing Then
+                MsgBox("Medio de pago no encontrado", vbInformation, "SiCoFa")
+                Exit Sub
+            End If
+
+            Select Case lmpe.Count
+                Case 0
+                    MsgBox("Medio de pago no Encontrado", vbInformation, "SiCoFa")
+                    Exit Sub
+
+                Case 1
+                    mpe = lmpe.First
+
+                Case > 1
+                    Using f As New FrmSelectorUniversal
+                        f.Text = "Medio de Pago Electronico"
+                        f.Objetos = lmpe
+                        f.NombrePropiedadId = "IdMPE"
+                        f.NombrePropiedadDescripcion = "Descripcion"
+                        f.HeaderPropiedadDescripcion = "Descripcion"
+                        If f.ShowDialog() = DialogResult.OK Then
+                            mpe = Me.SeleccionarMedioPE(f.Valor1Seleccionado, lmpe)
+                        End If
+                        f.Close()
+                    End Using ' <- aquí se libera completamente
+            End Select
+
+            Me.MedioPE = mpe
+            Me.lblPagoElectronico.Text = mpe.Descripcion
+            Me.txtImportePagoElectronico.Enabled = True
+            Me.txtImportePagoElectronico.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
+            Me.txtImportePagoElectronico.Select()
+            Me.txtImportePagoElectronico.SelectAll()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+            End Try
+
+    End Sub
+
+    Private Function SeleccionarMedioPE(ByVal IdMPE As String, ByVal ListaMedioPE As List(Of MedioPE)) As MedioPE
+
+        Try
+            Dim MedioPESeleccionado As MedioPE = Nothing
+
+            For Each mpe As MedioPE In ListaMedioPE
+                If mpe.IdMPE = IdMPE Then
+                    MedioPESeleccionado = mpe
+                    Exit For ' Opcional: detener la búsqueda una vez encontrado el cliente
+                End If
+            Next
+            Return MedioPESeleccionado
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+            Return Nothing
+        End Try
+
+    End Function
+
     Private Sub FinalizarOperacion()
+
+        Dim objCC As OperacionCC
+        Dim objPE As OperacionPE
+        Dim objCb As Comprobante
 
         If Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text) > 0 Then
 
@@ -201,11 +290,47 @@ Public Class FrmPagos
                 Exit Sub
             End If
 
-            Dim Actualizado As Boolean = mobj_AdminSiCoFa.InsertarOperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text))
+            'Dim Insertado As Boolean = mobj_AdminSiCoFa.InsertarOperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text))
+            objCC = New OperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, "", Me.MediosDePago.ImporteCuentaCorriente, "NO CANCELADO", 0)
         End If
+
+        If MedioPE IsNot Nothing AndAlso Convert.ToDecimal(Me.txtImportePagoElectronico.Text) > 0 Then
+            'Dim Insertado As Boolean = mobj_AdminSiCoFa.InsertarOperacionPE(Me.Operacion.IdOperacion, Me.MedioPE.IdMPE, Convert.ToDecimal(Me.txtImportePagoElectronico.Text))
+            objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, Me.MediosDePago.ImportePagoElectronico, "EN CAJA")
+        End If
+
+        objCb = New Comprobante(
+                                Me.Operacion.IdOperacion,
+                                Me.Operacion,
+                                Me.mobj_TipoComprobante.CodiTC_SiCoFa,
+                                "",
+                                "",
+                                "",
+                                Me.ImporteAPagar,
+                                0,
+                                Me.ImporteGravado1,
+                                0,
+                                0,
+                                Me.ImporteGravado2,
+                                0,
+                                0,
+                                0,
+                                Me.MediosDePago.ImportePagoEfectivo,
+                                Me.MediosDePago.ImporteCuentaCorriente,
+                                Me.MediosDePago.ImportePagoElectronico,
+                                Nothing,
+                                Me.Cliente.Id,
+                                Me.Cliente,
+                                0,
+                                Nothing,
+                                g_ParametrosTerminal.Empresa,
+                                ItemsComprobante
+                                )
+
 
         Dim ComprobanteGenerado As Comprobante = Me.GenerarComprobante()
         mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, ComprobanteGenerado.Operacion)
+
         If ComprobanteGenerado.CAE IsNot Nothing Then
             MsgBox($"NumComp: {ComprobanteGenerado.NumComp} CAE:{ComprobanteGenerado.CAE.NumCAE}")
         End If
@@ -242,20 +367,31 @@ Public Class FrmPagos
     Private Sub txtImporteCuentaCorriente_Validating(sender As Object, e As CancelEventArgs) Handles txtImporteCuentaCorriente.Validating
         If Convert.ToDecimal(Me.txtImporteEfectivo.Text) < 0 Then
             MsgBox("El importe ingresado es mayor que el Importe a Pagar", vbCritical, "SiCoFa")
-            Me.txtImporteCuentaCorriente.Text = Me.ImporteAPagar
+            Me.txtImporteCuentaCorriente.Text = Me.ImporteAPagar - Me.MediosDePago.ImportePagoElectronico
             Me.txtImporteCuentaCorriente.Select()
             Me.txtImporteCuentaCorriente.SelectAll()
             e.Cancel = True
         End If
+
+
     End Sub
 
     Private Sub txtImportePagoElectronico_Validating(sender As Object, e As CancelEventArgs) Handles txtImportePagoElectronico.Validating
         If Convert.ToDecimal(Me.txtImporteEfectivo.Text) < 0 Then
             MsgBox("El importe ingresado es mayor que el Importe a Pagar", vbCritical, "SiCoFa")
-            Me.txtImportePagoElectronico.Text = Me.ImporteAPagar
+            Me.txtImportePagoElectronico.Text = Me.ImporteAPagar - Me.MediosDePago.ImporteCuentaCorriente
             Me.txtImportePagoElectronico.Select()
             Me.txtImportePagoElectronico.SelectAll()
             e.Cancel = True
+
+        ElseIf Convert.ToDecimal(Me.txtImportePagoElectronico.Text) = 0 Then
+            Me.MedioPE = Nothing
+            Me.lblPagoElectronico.Text = "No Establecido"
+            Me.txtImportePagoElectronico.Text = "0,00"
+            Me.txtImportePagoElectronico.Enabled = False
+            Me.txtImporteEfectivo.Select()
+            Me.txtImporteEfectivo.SelectAll()
+
         End If
     End Sub
 

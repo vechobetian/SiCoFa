@@ -121,6 +121,7 @@ Public Class FrmMediosPE
             With Me
                 .IdMPETextBox.Text = argMedioPE.IdMPE
                 .DescripcionTextBox.Text = argMedioPE.Descripcion
+                .CuentaBancariaComboBox.Text = argMedioPE.CuentaBancaria.Descripcion
                 .BajaComboBox.SelectedIndex = argMedioPE.Baja
             End With
 
