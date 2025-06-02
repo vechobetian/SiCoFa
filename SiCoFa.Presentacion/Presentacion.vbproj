@@ -127,10 +127,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\FacturaElectronica.vb" />
     <Compile Include="Clases\GenerarPDF.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
     <Compile Include="Clases\PortapapelesVenta.vb" />
-    <Compile Include="Clases\FacturaElectronica.vb" />
     <Compile Include="Clases\ReporteComprobantes.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
     <Compile Include="Formularios\FrmBuscaVentasIniciadas.Designer.vb">

@@ -66,8 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="N_AdminCAE.vb" />
-    <Compile Include="N_AdminDB.vb" />
     <Compile Include="N_AdminLoginTicket.vb" />
+    <Compile Include="N_AdminDB.vb" />
     <Compile Include="N_AdminSiCoFa.vb" />
     <Compile Include="N_AdminEmail.vb" />
     <Compile Include="N_AdminFTP.vb" />

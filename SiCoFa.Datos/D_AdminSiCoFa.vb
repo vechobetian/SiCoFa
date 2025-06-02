@@ -1940,27 +1940,43 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Sub FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante)
-        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe)
-        Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe)
-        Dim objComp As Comprobante = InsertarComprobante(argComprobante.Operacion,
-                                                         argComprobante.TipoComprobante.CodiTC_SiCoFa,
-                                                         argComprobante.ImpBto,
-                                                         argComprobante.ImpDes,
-                                                         argComprobante.ImpEx,
-                                                         argComprobante.ImpGrav1,
-                                                         argComprobante.ImpGrav2,
-                                                         argComprobante.ImpCB,
-                                                         argComprobante.ImpEf,
-                                                         argComprobante.ImpCC,
-                                                         argComprobante.ImpTar,
-                                                         argComprobante.IdOperAsoc,
-                                                         argComprobante.Cliente,
-                                                         argComprobante.Empresa,
-                                                         argComprobante.Detalle,
-                                                         "E"
-                                                        )
-    End Sub
+    Public Function FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante) As Boolean
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+            Dim tx As MySqlTransaction = cn.BeginTransaction()
+
+            Try
+                Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe)
+                Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe)
+                Dim objComp As Comprobante = InsertarComprobante(argComprobante.Operacion,
+                                                             argComprobante.TipoComprobante.CodiTC_SiCoFa,
+                                                             argComprobante.ImpBto,
+                                                             argComprobante.ImpDes,
+                                                             argComprobante.ImpEx,
+                                                             argComprobante.ImpGrav1,
+                                                             argComprobante.ImpGrav2,
+                                                             argComprobante.ImpCB,
+                                                             argComprobante.ImpEf,
+                                                             argComprobante.ImpCC,
+                                                             argComprobante.ImpTar,
+                                                             argComprobante.IdOperAsoc,
+                                                             argComprobante.Cliente,
+                                                             argComprobante.Empresa,
+                                                             argComprobante.Detalle,
+                                                             "E"
+                                                            )
+
+                tx.Commit()
+                Return True
+
+            Catch ex As Exception
+                tx.Rollback()
+                Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+
+            End Try
+        End Using
+    End Function
 
 #End Region
 
@@ -2431,7 +2447,9 @@ Public Class D_AdminSiCoFa
 #End Region
 
 #Region "Administracion Comprobantes"
-    Public Function InsertarComprobante(ByVal argOperacion As Operacion,
+
+    Public Function InsertarComprobante(
+                                        ByVal argOperacion As Operacion,
                                         ByVal argCodiTC As String,
                                         ByVal argImpBto As Decimal,
                                         ByVal argImpDes As Decimal,
@@ -2446,13 +2464,16 @@ Public Class D_AdminSiCoFa
                                         ByVal argCliente As Cliente,
                                         ByVal argEmpresa As Empresa,
                                         ByVal argDetalle As List(Of ItemComprobante),
-                                        ByVal argFiscal As String
+                                        ByVal argFiscal As String,
+                                        Optional ByVal argCn As MySqlConnection = Nothing,
+                                        Optional ByVal argTx As MySqlTransaction = Nothing
                                         ) As Comprobante
 
         Dim objConexionDB As New D_Conexion
 
 
         Try
+
             Dim ImpNeto1 As Decimal = Math.Round(argImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
             Dim ImpIVA1 As Decimal = Math.Round(ImpNeto1 * 10.5 / 100, 2, MidpointRounding.ToEven)
             Dim ImpNeto2 As Decimal = Math.Round(argImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
@@ -2495,32 +2516,33 @@ Public Class D_AdminSiCoFa
                     cmd.ExecuteNonQuery()
 
                     Dim objComp As New Comprobante(
-                                                argIdOperacion:=Convert.ToInt64(argOperacion.IdOperacion),
-                                                argOperacion:=argOperacion,
-                                                argCodiTC_SiCoFa:=argCodiTC,
-                                                argPVenta:=cmd.Parameters("p_PVenta").Value,
-                                                argNumComp:=cmd.Parameters("p_NumComp").Value,
-                                                argFechaComp:=cmd.Parameters("p_FechaComp").Value,
-                                                argImpBto:=argImpBto,
-                                                argImpEx:=argImpEx,
-                                                argImpGrav1:=argImpGrav1,
-                                                argImpNeto1:=ImpNeto1,
-                                                argImpIVA1:=ImpIVA1,
-                                                argImpGrav2:=argImpGrav2,
-                                                argImpNeto2:=ImpNeto2,
-                                                argImpIVA2:=ImpIVA2,
-                                                argImpCB:=argImpCB,
-                                                argImpEf:=argImpEf,
-                                                argImpCC:=argImpCC,
-                                                argImpTar:=argImpTar,
-                                                argCAE:=Nothing,
-                                                argIdCliente:=argCliente.Id,
-                                                argCliente:=argCliente,
-                                                argIdOperAsoc:=argIdOperAsoc,
-                                                argCompAsoc:=Nothing,
-                                                argEmpresa:=argEmpresa,
-                                                argDetalle:=argDetalle
-                                               )
+                                                    argIdOperacion:=Convert.ToInt64(argOperacion.IdOperacion),
+                                                    argOperacion:=argOperacion,
+                                                    argCodiTC_SiCoFa:=argCodiTC,
+                                                    argPVenta:=cmd.Parameters("p_PVenta").Value,
+                                                    argNumComp:=cmd.Parameters("p_NumComp").Value,
+                                                    argFechaComp:=cmd.Parameters("p_FechaComp").Value,
+                                                    argImpBto:=argImpBto,
+                                                    argImpDes:=argImpDes,
+                                                    argImpEx:=argImpEx,
+                                                    argImpGrav1:=argImpGrav1,
+                                                    argImpNeto1:=ImpNeto1,
+                                                    argImpIVA1:=ImpIVA1,
+                                                    argImpGrav2:=argImpGrav2,
+                                                    argImpNeto2:=ImpNeto2,
+                                                    argImpIVA2:=ImpIVA2,
+                                                    argImpCB:=argImpCB,
+                                                    argImpEf:=argImpEf,
+                                                    argImpCC:=argImpCC,
+                                                    argImpTar:=argImpTar,
+                                                    argCAE:=Nothing,
+                                                    argIdCliente:=argCliente.Id,
+                                                    argCliente:=argCliente,
+                                                    argIdOperAsoc:=argIdOperAsoc,
+                                                    argCompAsoc:=Nothing,
+                                                    argEmpresa:=argEmpresa,
+                                                    argDetalle:=argDetalle
+                                                   )
 
                     If objComp IsNot Nothing Then
                         Return objComp

@@ -4,6 +4,7 @@ Imports SiCoFa.Entidades
 Public Class FacturaElectronica
 
     Public mobj_AdminSicofa As New N_AdminSiCoFa
+
     Public Function GenerarFacturaElectronica(ByRef argComprobante As Comprobante) As Boolean
 
         Try
