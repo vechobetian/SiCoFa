@@ -1940,8 +1940,26 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Sub FinalizarOperacionConTransaccion()
-
+    Public Sub FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante)
+        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe)
+        Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe)
+        Dim objComp As Comprobante = InsertarComprobante(argComprobante.Operacion,
+                                                         argComprobante.TipoComprobante.CodiTC_SiCoFa,
+                                                         argComprobante.ImpBto,
+                                                         argComprobante.ImpDes,
+                                                         argComprobante.ImpEx,
+                                                         argComprobante.ImpGrav1,
+                                                         argComprobante.ImpGrav2,
+                                                         argComprobante.ImpCB,
+                                                         argComprobante.ImpEf,
+                                                         argComprobante.ImpCC,
+                                                         argComprobante.ImpTar,
+                                                         argComprobante.IdOperAsoc,
+                                                         argComprobante.Cliente,
+                                                         argComprobante.Empresa,
+                                                         argComprobante.Detalle,
+                                                         "E"
+                                                        )
     End Sub
 
 #End Region

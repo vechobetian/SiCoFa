@@ -308,6 +308,7 @@ Public Class FrmPagos
                                 "",
                                 Me.ImporteAPagar,
                                 0,
+                                0,
                                 Me.ImporteGravado1,
                                 0,
                                 0,

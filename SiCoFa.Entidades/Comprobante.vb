@@ -6,6 +6,7 @@
     Property NumComp As String
     Property FechaComp As Date
     Property ImpBto As Decimal
+    Property ImpDes As Decimal
     Property ImpEx As Decimal
     Property ImpGrav1 As Decimal
     Property ImpNeto1 As Decimal
@@ -34,6 +35,7 @@
                   ByVal argNumComp As String,
                   ByVal argFechaComp As Date,
                   ByVal argImpBto As Decimal,
+                  ByVal argImpDes As Decimal,
                   ByVal argImpEx As Decimal,
                   ByVal argImpGrav1 As Decimal,
                   ByVal argImpNeto1 As Decimal,
@@ -60,6 +62,7 @@
         Me.NumComp = argNumComp
         Me.FechaComp = argFechaComp
         Me.ImpBto = Math.Round(argImpBto, 2)
+        Me.ImpDes = Math.Round(argImpDes, 2)
         Me.ImpEx = Math.Round(argImpEx, 2)
         Me.ImpGrav1 = Math.Round(argImpGrav1, 2)
         Me.ImpNeto1 = Math.Round(argImpNeto1, 2)
