@@ -2010,7 +2010,7 @@ Public Class D_AdminSiCoFa
             Return objCEmail
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerEmailEmpresa", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerEmailEmpresa", ex.Message))
             Return Nothing
         End Try
 
@@ -2045,7 +2045,7 @@ Public Class D_AdminSiCoFa
                 Next
             End Using
         Catch Ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "EfectuarAsientoContable", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EfectuarAsientoContable", Ex.Message))
 
         End Try
     End Sub
@@ -2464,9 +2464,7 @@ Public Class D_AdminSiCoFa
                                         ByVal argCliente As Cliente,
                                         ByVal argEmpresa As Empresa,
                                         ByVal argDetalle As List(Of ItemComprobante),
-                                        ByVal argFiscal As String,
-                                        Optional ByVal argCn As MySqlConnection = Nothing,
-                                        Optional ByVal argTx As MySqlTransaction = Nothing
+                                        ByVal argFiscal As String
                                         ) As Comprobante
 
         Dim objConexionDB As New D_Conexion
