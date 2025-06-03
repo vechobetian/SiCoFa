@@ -40,39 +40,6 @@ Public Class FrmPagos
         txtImporteEfectivo.Text = MediosDePago.ImportePagoEfectivo.ToString("N2")
     End Sub
 
-    Public Function GenerarComprobante() As Comprobante
-        Try
-            Dim objComprobante = mobj_AdminSiCoFa.InsertarComprobante(
-                                                                        argOperacion:=Operacion,
-                                                                        argCodiTC:=mobj_TipoComprobante.CodiTC_SiCoFa,
-                                                                        argImpBto:=Me.ImporteAPagar,
-                                                                        argImpDes:=ImporteDescuento,
-                                                                        argImpEx:=0,
-                                                                        argImpGrav1:=ImporteGravado1,
-                                                                        argImpGrav2:=ImporteGravado2,
-                                                                        argImpCB:=0,
-                                                                        argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
-                                                                        argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
-                                                                        argImpTar:=Me.MediosDePago.ImportePagoElectronico,
-                                                                        argIdOperAsoc:=0,
-                                                                        argCliente:=Cliente,
-                                                                        argEmpresa:=g_ParametrosTerminal.Empresa,
-                                                                        argDetalle:=ItemsComprobante,
-                                                                        argFiscal:="E"
-                                                                        )
-
-            Dim objFE As New FacturaElectronica
-            Dim Actualizado As Boolean = objFE.GenerarFacturaElectronica(objComprobante)
-            Return objComprobante
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Return Nothing
-
-        End Try
-
-    End Function
-
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.Escape
@@ -275,9 +242,9 @@ Public Class FrmPagos
 
     Private Sub FinalizarOperacion()
 
-        Dim objCC As OperacionCC
-        Dim objPE As OperacionPE
-        Dim objCb As Comprobante
+        Dim objCC As OperacionCC = Nothing
+        Dim objPE As OperacionPE = Nothing
+        Dim objCb As Comprobante = Nothing
 
         If Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text) > 0 Then
 
@@ -290,54 +257,53 @@ Public Class FrmPagos
                 Exit Sub
             End If
 
-            'Dim Insertado As Boolean = mobj_AdminSiCoFa.InsertarOperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text))
             objCC = New OperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, "", Me.MediosDePago.ImporteCuentaCorriente, "NO CANCELADO", 0)
         End If
 
         If MedioPE IsNot Nothing AndAlso Convert.ToDecimal(Me.txtImportePagoElectronico.Text) > 0 Then
-            'Dim Insertado As Boolean = mobj_AdminSiCoFa.InsertarOperacionPE(Me.Operacion.IdOperacion, Me.MedioPE.IdMPE, Convert.ToDecimal(Me.txtImportePagoElectronico.Text))
             objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, Me.MediosDePago.ImportePagoElectronico, "EN CAJA")
         End If
 
         objCb = New Comprobante(
-                                Me.Operacion.IdOperacion,
-                                Me.Operacion,
-                                Me.mobj_TipoComprobante.CodiTC_SiCoFa,
-                                "",
-                                "",
-                                "",
-                                Me.ImporteAPagar,
-                                0,
-                                0,
-                                Me.ImporteGravado1,
-                                0,
-                                0,
-                                Me.ImporteGravado2,
-                                0,
-                                0,
-                                0,
-                                Me.MediosDePago.ImportePagoEfectivo,
-                                Me.MediosDePago.ImporteCuentaCorriente,
-                                Me.MediosDePago.ImportePagoElectronico,
-                                Nothing,
-                                Me.Cliente.Id,
-                                Me.Cliente,
-                                0,
-                                Nothing,
-                                g_ParametrosTerminal.Empresa,
-                                ItemsComprobante
+                                argIdOperacion:=Me.Operacion.IdOperacion,
+                                argOperacion:=Me.Operacion,
+                                argCodiTC_SiCoFa:=Me.mobj_TipoComprobante.CodiTC_SiCoFa,
+                                argPVenta:="",
+                                argNumComp:="",
+                                argFechaComp:=Date.MinValue,
+                                argImpBto:=Me.ImporteAPagar,
+                                argImpDes:=0,
+                                argImpEx:=0,
+                                argImpGrav1:=Me.ImporteGravado1,
+                                argImpNeto1:=0,
+                                argImpIVA1:=0,
+                                argImpGrav2:=Me.ImporteGravado2,
+                                argImpNeto2:=0,
+                                argImpIVA2:=0,
+                                argImpCB:=0,
+                                argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
+                                argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
+                                argImpTar:=Me.MediosDePago.ImportePagoElectronico,
+                                argCAE:=Nothing,
+                                argIdCliente:=Me.Cliente.Id,
+                                argCliente:=Me.Cliente,
+                                argIdOperAsoc:=0,
+                                argCompAsoc:=Nothing,
+                                argEmpresa:=g_ParametrosTerminal.Empresa,
+                                argDetalle:=ItemsComprobante
                                 )
 
+        mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
+        Dim objFE As New FacturaElectronica
+        objFE.GenerarFacturaElectronica(objCb)
 
-        Dim ComprobanteGenerado As Comprobante = Me.GenerarComprobante()
-        mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, ComprobanteGenerado.Operacion)
-
-        If ComprobanteGenerado.CAE IsNot Nothing Then
-            MsgBox($"NumComp: {ComprobanteGenerado.NumComp} CAE:{ComprobanteGenerado.CAE.NumCAE}")
+        If objCb.CAE IsNot Nothing Then
+            MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
+            mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
         End If
 
         Dim nuevaVentanaVentas As New FrmVentas()
-        nuevaVentanaVentas.Usuario = ComprobanteGenerado.Operacion.Usuario
+        nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
         nuevaVentanaVentas.Show()
 
         Me.FrmOrigen.Close()

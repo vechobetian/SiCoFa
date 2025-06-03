@@ -22,6 +22,7 @@ Public Class FacturaElectronica
         End Try
 
     End Function
+
     Private Function SolicitarCAE(ByRef argComprobante As Comprobante) As Boolean
 
         Try
@@ -45,6 +46,7 @@ Public Class FacturaElectronica
         End Try
 
     End Function
+
     Private Sub GenerarQR(ByRef argComprobante As Comprobante)
 
         Try
@@ -61,6 +63,7 @@ Public Class FacturaElectronica
             Throw New Exception(Vecho.MensajeError(Me.ToString, "GenerarQR", ex.Message))
         End Try
     End Sub
+
     Private Sub pdfA4(ByVal argPath As String, ByVal argComprobante As Comprobante)
 
         Try
@@ -68,6 +71,7 @@ Public Class FacturaElectronica
             Throw ex
         End Try
     End Sub
+
     Private Sub ImprimirA4(ByVal argNumCopias As Integer)
 
         Try
@@ -77,6 +81,7 @@ Public Class FacturaElectronica
         End Try
 
     End Sub
+
     Private Sub ImprimirTK(ByVal argNumCopias As Integer)
 
         Try
@@ -85,6 +90,7 @@ Public Class FacturaElectronica
             MsgBox(ex.Message)
         End Try
     End Sub
+
     Private Sub ImprimirTK58(ByVal argNumCopias As Integer)
 
         Try
@@ -93,6 +99,7 @@ Public Class FacturaElectronica
             Throw ex
         End Try
     End Sub
+
     Private Sub EnviarMail()
 
 
@@ -105,6 +112,7 @@ Public Class FacturaElectronica
         End Try
 
     End Sub
+
     Private Sub GuardarComo()
 
         Try

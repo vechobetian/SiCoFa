@@ -1885,23 +1885,33 @@ Public Class D_AdminSiCoFa
     End Function
 
     Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
-
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return InsertarOperacionCC(argIdOperacion, argIdCC, argImporte, cn, Nothing)
+            End Using
 
-                Using cmd As New MySqlCommand("OperacionCCInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                        .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
-                        .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
-                    End With
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+        End Try
+    End Function
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
-                End Using
+        Try
+
+            Using cmd As New MySqlCommand("OperacionCCInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+
+                With cmd.Parameters
+                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                    .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
+                    .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                End With
+
+                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
             End Using
 
@@ -1912,24 +1922,33 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdMPE As Int32, ByVal argImporte As Decimal) As Boolean
-
+    Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return InsertarOperacionPE(argIdOperacion, argIdCC, argImporte, cn, Nothing)
+            End Using
 
-                Using cmd As New MySqlCommand("OperacionPEInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                        .Add("p_IdMPE", MySqlDbType.Int32).Value = argIdMPE
-                        .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
-                    End With
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionPE", Ex.Message))
+        End Try
+    End Function
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+    Friend Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdMPE As Int32, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
-                End Using
+        Try
+
+            Using cmd As New MySqlCommand("OperacionPEInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+                With cmd.Parameters
+                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                    .Add("p_IdMPE", MySqlDbType.Int32).Value = argIdMPE
+                    .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                End With
+
+                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
             End Using
 
@@ -1940,42 +1959,37 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante) As Boolean
+    Public Function FinalizarOperacionConTransaccion(ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante) As Boolean
+
         Dim objConexionDB As New D_Conexion
 
         Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
-            Dim tx As MySqlTransaction = cn.BeginTransaction()
 
-            Try
-                Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe)
-                Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe)
-                Dim objComp As Comprobante = InsertarComprobante(argComprobante.Operacion,
-                                                             argComprobante.TipoComprobante.CodiTC_SiCoFa,
-                                                             argComprobante.ImpBto,
-                                                             argComprobante.ImpDes,
-                                                             argComprobante.ImpEx,
-                                                             argComprobante.ImpGrav1,
-                                                             argComprobante.ImpGrav2,
-                                                             argComprobante.ImpCB,
-                                                             argComprobante.ImpEf,
-                                                             argComprobante.ImpCC,
-                                                             argComprobante.ImpTar,
-                                                             argComprobante.IdOperAsoc,
-                                                             argComprobante.Cliente,
-                                                             argComprobante.Empresa,
-                                                             argComprobante.Detalle,
-                                                             "E"
-                                                            )
+            Using tx As MySqlTransaction = cn.BeginTransaction()
 
-                tx.Commit()
-                Return True
+                Try
+                    If argOperacionCC IsNot Nothing Then
+                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
+                    End If
 
-            Catch ex As Exception
-                tx.Rollback()
-                Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+                    If argOperacionPE IsNot Nothing Then
+                        Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
+                    End If
 
-            End Try
+                    Me.InsertarComprobante(argComprobante, cn, tx)
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+
+                End Try
+
+            End Using
+
         End Using
+
     End Function
 
 #End Region
@@ -2448,107 +2462,68 @@ Public Class D_AdminSiCoFa
 
 #Region "Administracion Comprobantes"
 
-    Public Function InsertarComprobante(
-                                        ByVal argOperacion As Operacion,
-                                        ByVal argCodiTC As String,
-                                        ByVal argImpBto As Decimal,
-                                        ByVal argImpDes As Decimal,
-                                        ByVal argImpEx As Decimal,
-                                        ByVal argImpGrav1 As Decimal,
-                                        ByVal argImpGrav2 As Decimal,
-                                        ByVal argImpCB As Decimal,
-                                        ByVal argImpEf As Decimal,
-                                        ByVal argImpCC As Decimal,
-                                        ByVal argImpTar As Decimal,
-                                        ByVal argIdOperAsoc As Long,
-                                        ByVal argCliente As Cliente,
-                                        ByVal argEmpresa As Empresa,
-                                        ByVal argDetalle As List(Of ItemComprobante),
-                                        ByVal argFiscal As String
-                                        ) As Comprobante
+    Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
+        Try
+            Dim objConexionDB As New D_Conexion
 
-        Dim objConexionDB As New D_Conexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return InsertarComprobante(argComprobante, cn, Nothing)
+            End Using
 
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+        End Try
+    End Function
+
+    Friend Function InsertarComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
-            Dim ImpNeto1 As Decimal = Math.Round(argImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
+            Dim ImpNeto1 As Decimal = Math.Round(argComprobante.ImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
             Dim ImpIVA1 As Decimal = Math.Round(ImpNeto1 * 10.5 / 100, 2, MidpointRounding.ToEven)
-            Dim ImpNeto2 As Decimal = Math.Round(argImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
+            Dim ImpNeto2 As Decimal = Math.Round(argComprobante.ImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
             Dim ImpIVA2 As Decimal = Math.Round(ImpNeto2 * 21 / 100, 2, MidpointRounding.ToEven)
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cmd As New MySqlCommand("ComprobanteInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
-                Using cmd As New MySqlCommand("ComprobanteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                With cmd.Parameters
+                    .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
+                    .AddWithValue("p_CodiTC", argComprobante.TipoComprobante.CodiTC_SiCoFa)
+                    .AddWithValue("p_IdCliente", argComprobante.Cliente.Id)
+                    .AddWithValue("p_ImpBto", argComprobante.ImpBto)
+                    .AddWithValue("p_ImpDes", argComprobante.ImpDes)
+                    .AddWithValue("p_ImpEx", argComprobante.ImpEx)
+                    .AddWithValue("p_ImpGrav1", argComprobante.ImpGrav1)
+                    .AddWithValue("p_ImpNeto1", ImpNeto1)
+                    .AddWithValue("p_ImpIVA1", ImpIVA1)
+                    .AddWithValue("p_ImpGrav2", argComprobante.ImpGrav2)
+                    .AddWithValue("p_ImpNeto2", ImpNeto2)
+                    .AddWithValue("p_ImpIVA2", ImpIVA2)
+                    .AddWithValue("p_ImpCB", argComprobante.ImpCB)
+                    .AddWithValue("p_ImpEf", argComprobante.ImpEf)
+                    .AddWithValue("p_ImpCC", argComprobante.ImpCC)
+                    .AddWithValue("p_ImpTar", argComprobante.ImpTar)
+                    .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
+                    .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
+                    .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
+                    .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
+                    .AddWithValue("p_Fiscal", "E")
+                End With
 
-                    With cmd.Parameters
-                        .AddWithValue("p_IdOpera", argOperacion.IdOperacion)
-                        .AddWithValue("p_CodiTC", argCodiTC)
-                        .AddWithValue("p_IdCliente", argCliente.Id)
-                        .AddWithValue("p_ImpBto", argImpBto)
-                        .AddWithValue("p_ImpDes", argImpDes)
-                        .AddWithValue("p_ImpEx", argImpEx)
-                        .AddWithValue("p_ImpGrav1", argImpGrav1)
-                        .AddWithValue("p_ImpNeto1", ImpNeto1)
-                        .AddWithValue("p_ImpIVA1", ImpIVA1)
-                        .AddWithValue("p_ImpGrav2", argImpGrav2)
-                        .AddWithValue("p_ImpNeto2", ImpNeto2)
-                        .AddWithValue("p_ImpIVA2", ImpIVA2)
-                        .AddWithValue("p_ImpCB", argImpCB)
-                        .AddWithValue("p_ImpEf", argImpEf)
-                        .AddWithValue("p_ImpCC", argImpCC)
-                        .AddWithValue("p_ImpTar", argImpTar)
-                        .AddWithValue("p_IdOperAsoc", argIdOperAsoc)
-                        .AddWithValue("p_TipoDoc", argCliente.Documento.TipoDoc.CodiTDoc)
-                        .AddWithValue("p_NumDoc", argCliente.Documento.Numero)
-                        .AddWithValue("p_Cliente", argCliente.Nombre)
-                        .AddWithValue("p_Fiscal", argFiscal)
-                    End With
+                cmd.Parameters.Add("p_PVenta", MySqlDbType.VarChar)
+                cmd.Parameters("p_PVenta").Direction = ParameterDirection.Output
+                cmd.Parameters.Add("p_NumComp", MySqlDbType.VarChar)
+                cmd.Parameters("p_NumComp").Direction = ParameterDirection.Output
+                cmd.Parameters.Add("p_FechaComp", MySqlDbType.VarChar)
+                cmd.Parameters("p_FechaComp").Direction = ParameterDirection.Output
+                Dim Insertado As Boolean = cmd.ExecuteNonQuery()
 
-                    cmd.Parameters.Add("p_PVenta", MySqlDbType.VarChar)
-                    cmd.Parameters("p_PVenta").Direction = ParameterDirection.Output
-                    cmd.Parameters.Add("p_NumComp", MySqlDbType.VarChar)
-                    cmd.Parameters("p_NumComp").Direction = ParameterDirection.Output
-                    cmd.Parameters.Add("p_FechaComp", MySqlDbType.VarChar)
-                    cmd.Parameters("p_FechaComp").Direction = ParameterDirection.Output
-                    cmd.ExecuteNonQuery()
+                argComprobante.PVenta = cmd.Parameters("p_PVenta").Value
+                argComprobante.NumComp = cmd.Parameters("p_NumComp").Value
+                argComprobante.FechaComp = cmd.Parameters("p_FechaComp").Value
 
-                    Dim objComp As New Comprobante(
-                                                    argIdOperacion:=Convert.ToInt64(argOperacion.IdOperacion),
-                                                    argOperacion:=argOperacion,
-                                                    argCodiTC_SiCoFa:=argCodiTC,
-                                                    argPVenta:=cmd.Parameters("p_PVenta").Value,
-                                                    argNumComp:=cmd.Parameters("p_NumComp").Value,
-                                                    argFechaComp:=cmd.Parameters("p_FechaComp").Value,
-                                                    argImpBto:=argImpBto,
-                                                    argImpDes:=argImpDes,
-                                                    argImpEx:=argImpEx,
-                                                    argImpGrav1:=argImpGrav1,
-                                                    argImpNeto1:=ImpNeto1,
-                                                    argImpIVA1:=ImpIVA1,
-                                                    argImpGrav2:=argImpGrav2,
-                                                    argImpNeto2:=ImpNeto2,
-                                                    argImpIVA2:=ImpIVA2,
-                                                    argImpCB:=argImpCB,
-                                                    argImpEf:=argImpEf,
-                                                    argImpCC:=argImpCC,
-                                                    argImpTar:=argImpTar,
-                                                    argCAE:=Nothing,
-                                                    argIdCliente:=argCliente.Id,
-                                                    argCliente:=argCliente,
-                                                    argIdOperAsoc:=argIdOperAsoc,
-                                                    argCompAsoc:=Nothing,
-                                                    argEmpresa:=argEmpresa,
-                                                    argDetalle:=argDetalle
-                                                   )
-
-                    If objComp IsNot Nothing Then
-                        Return objComp
-                    Else
-                        Return Nothing
-                    End If
-
-                End Using
+                Return Insertado
 
             End Using
 

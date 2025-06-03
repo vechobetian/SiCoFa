@@ -869,6 +869,12 @@ Public Class N_AdminSiCoFa
 
     End Function
 
+    Public Function FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante) As Boolean
+        Dim Finalizado As Boolean = mobj_D_AdminSiCoFa.FinalizarOperacionConTransaccion(argOperacion, argOperacionCC, argOperacionPE, argComprobante)
+
+        Return Finalizado
+
+    End Function
 
 #End Region
 
@@ -1024,45 +1030,12 @@ Public Class N_AdminSiCoFa
 #End Region
 
 #Region "Administracion de Comprobantes"
-    Public Function InsertarComprobante(ByVal argOperacion As Operacion,
-                                        ByVal argCodiTC As String,
-                                        ByVal argImpBto As Decimal,
-                                        ByVal argImpDes As Decimal,
-                                        ByVal argImpEx As Decimal,
-                                        ByVal argImpGrav1 As Decimal,
-                                        ByVal argImpGrav2 As Decimal,
-                                        ByVal argImpCB As Decimal,
-                                        ByVal argImpEf As Decimal,
-                                        ByVal argImpCC As Decimal,
-                                        ByVal argImpTar As Decimal,
-                                        ByVal argIdOperAsoc As Long,
-                                        ByVal argCliente As Cliente,
-                                        ByVal argEmpresa As Empresa,
-                                        ByVal argDetalle As List(Of ItemComprobante),
-                                        ByVal argFiscal As String
-                                        ) As Comprobante
+    Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
+
         Try
-            Dim objComprobante As Comprobante = mobj_D_AdminSiCoFa.InsertarComprobante(
-                                                                                    argOperacion:=argOperacion,
-                                                                                    argCodiTC:=argCodiTC,
-                                                                                    argImpBto:=argImpBto,
-                                                                                    argImpDes:=argImpDes,
-                                                                                    argImpEx:=argImpEx,
-                                                                                    argImpGrav1:=argImpGrav1,
-                                                                                    argImpGrav2:=argImpGrav2,
-                                                                                    argImpCB:=argImpCB,
-                                                                                    argImpEf:=argImpEf,
-                                                                                    argImpCC:=argImpCC,
-                                                                                    argImpTar:=argImpTar,
-                                                                                    argCliente:=argCliente,
-                                                                                    argIdOperAsoc:=argIdOperAsoc,
-                                                                                    argEmpresa:=argEmpresa,
-                                                                                    argDetalle:=argDetalle,
-                                                                                    argFiscal:=argFiscal
-                                                                                    )
+            Dim Insertado As Boolean = mobj_D_AdminSiCoFa.InsertarComprobante(argComprobante)
 
-
-            Return objComprobante
+            Return Insertado
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", ex.Message))
