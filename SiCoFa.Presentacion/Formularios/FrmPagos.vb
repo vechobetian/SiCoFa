@@ -283,7 +283,7 @@ Public Class FrmPagos
                                 argImpCB:=0,
                                 argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
                                 argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
-                                argImpTar:=Me.MediosDePago.ImportePagoElectronico,
+                                argImpPE:=Me.MediosDePago.ImportePagoElectronico,
                                 argCAE:=Nothing,
                                 argIdCliente:=Me.Cliente.Id,
                                 argCliente:=Me.Cliente,
@@ -293,13 +293,17 @@ Public Class FrmPagos
                                 argDetalle:=ItemsComprobante
                                 )
 
-        mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
-        Dim objFE As New FacturaElectronica
-        objFE.GenerarFacturaElectronica(objCb)
+        Dim Finalizado As Boolean = mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
 
-        If objCb.CAE IsNot Nothing Then
-            MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
-            mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
+        If Finalizado Then
+            Dim objFE As New FacturaElectronica
+            Dim Autorizado As Boolean = objFE.GenerarFacturaElectronica(objCb)
+
+            If Autorizado Then
+                MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
+                mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
+            End If
+
         End If
 
         Dim nuevaVentanaVentas As New FrmVentas()

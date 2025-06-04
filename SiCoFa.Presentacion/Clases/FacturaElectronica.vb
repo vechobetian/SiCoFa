@@ -10,8 +10,10 @@ Public Class FacturaElectronica
         Try
             If SolicitarCAE(argComprobante) = True Then
                 GenerarQR(argComprobante)
-                Dim Actualizaco As Boolean = mobj_AdminSicofa.ActualizarCAE(argComprobante)
+                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarCAE(argComprobante)
+                Call ImprimirA4(argComprobante, 1)
                 Return True
+
             Else
                 Return False
             End If
@@ -72,13 +74,84 @@ Public Class FacturaElectronica
         End Try
     End Sub
 
-    Private Sub ImprimirA4(ByVal argNumCopias As Integer)
+    Private Sub ImprimirA4(ByVal argComprobante As Comprobante, ByVal argNumCopias As Integer)
+        Dim objRC As New ReporteComprobantes
+        Dim Copia As String = ""
 
         Try
+            If argNumCopias < 0 Then
+                Select Case Math.Abs(argNumCopias)
+                    Case 1
+                        Copia = "ORIGINAL"
+                    Case 2
+                        Copia = "DUPLICADO"
+                    Case 3
+                        Copia = "TRIPLICADO"
+                End Select
+
+                With objRC
+                    .Operacion.Add(argComprobante.Operacion)
+                    .Empresa.Add(argComprobante.Empresa)
+                    .Cliente.Add(argComprobante.Cliente)
+                    .TipoComprobante.Add(argComprobante.TipoComprobante)
+                    .Encabezado.Add(argComprobante)
+                    .Detalle = argComprobante.Detalle
+                    .CAE.Add(argComprobante.CAE)
+                    .QR.Add(argComprobante.QR)
+                    .Copia = Copia
+                    '.PathReporte = mobjPater.PathServer
+                    '.Impresora = mobjPater.Impresora
+
+                    If argComprobante.CompAsoc IsNot Nothing Then
+                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                    Else
+                        .CompAsoc = ""
+                    End If
+                End With
+
+                objRC.Run()
+                argNumCopias = 0
+            End If
+
+            For x = 1 To argNumCopias
+                Select Case x
+                    Case 1
+                        Copia = "ORIGINAL"
+                    Case 2
+                        Copia = "DUPLICADO"
+                    Case 3
+                        Copia = "TRIPLICADO"
+                End Select
+
+                With objRC
+                    .Operacion.Add(argComprobante.Operacion)
+                    .Empresa.Add(argComprobante.Empresa)
+                    .Cliente.Add(argComprobante.Cliente)
+                    .TipoComprobante.Add(argComprobante.TipoComprobante)
+                    .Encabezado.Add(argComprobante)
+                    .Detalle = argComprobante.Detalle
+                    .CAE.Add(argComprobante.CAE)
+                    .QR.Add(argComprobante.QR)
+                    .Copia = Copia
+                    '.PathReporte = mobjPater.PathServer
+                    '.Impresora = mobjPater.Impresora
+
+                    If argComprobante.CompAsoc IsNot Nothing Then
+                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                    Else
+                        .CompAsoc = ""
+                    End If
+                End With
+
+                objRC.Run()
+            Next
+            objRC.Dispose()
 
         Catch ex As Exception
             Throw ex
         End Try
+
+        objRC.Dispose()
 
     End Sub
 

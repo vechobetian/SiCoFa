@@ -82,9 +82,9 @@ Public Class ReporteComprobantes
 
         Dim printDoc As New PrintDocument()
 
-        If Me.Impresora <> "" Then
-            printDoc.PrinterSettings.PrinterName = Me.Impresora
-        End If
+        'If Me.Impresora <> "" Then
+        'printDoc.PrinterSettings.PrinterName = Me.Impresora
+        'End If
 
         If Not printDoc.PrinterSettings.IsValid Then
             Throw New Exception("Error: No se puede encontrar la impresora predeterminada.")

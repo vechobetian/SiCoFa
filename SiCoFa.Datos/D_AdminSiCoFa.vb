@@ -2503,7 +2503,7 @@ Public Class D_AdminSiCoFa
                     .AddWithValue("p_ImpCB", argComprobante.ImpCB)
                     .AddWithValue("p_ImpEf", argComprobante.ImpEf)
                     .AddWithValue("p_ImpCC", argComprobante.ImpCC)
-                    .AddWithValue("p_ImpTar", argComprobante.ImpTar)
+                    .AddWithValue("p_ImpPE", argComprobante.ImpPE)
                     .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
                     .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)

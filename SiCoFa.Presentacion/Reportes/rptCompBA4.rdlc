@@ -66,6 +66,41 @@
       </ConnectionProperties>
       <rd:DataSourceID>1ae4a639-ab98-401c-b849-82acd793f4b8</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="SiCoFaEntidades9">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>f36ff2b3-d62a-482a-8290-befbd388e549</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="SiCoFaEntidades10">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>06eedaa1-2d6e-4650-8201-67cdb187de84</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="SiCoFaEntidades11">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>2e86f178-2f7e-493f-88d0-03768f64bab7</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="SiCoFaEntidades12">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>f0a53f3c-6406-4021-a020-4f93cd2770ad</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="SiCoFaEntidades13">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>db1f3b22-bbe6-44a0-9fa5-5a4bf2876847</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="Empresa">
@@ -74,33 +109,37 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="CUIT">
-          <DataField>CUIT</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Documento">
+          <DataField>Documento</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Documento</rd:TypeName>
         </Field>
         <Field Name="Domicilio">
           <DataField>Domicilio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GLN">
-          <DataField>GLN</DataField>
+        <Field Name="Email">
+          <DataField>Email</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Estado">
+          <DataField>Estado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaAlta">
+          <DataField>FechaAlta</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="IB">
           <DataField>IB</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="InicioActividad">
-          <DataField>InicioActividad</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="IVA">
           <DataField>IVA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="IVADescripcion">
-          <DataField>IVADescripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>SiCoFa.Entidades.IVA</rd:TypeName>
         </Field>
         <Field Name="Localidad">
           <DataField>Localidad</DataField>
@@ -122,7 +161,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
         <rd:TableName>Empresa</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Empresa, SiCoFa.Entidades, Version=4.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Empresa, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="Cliente">
@@ -131,53 +170,37 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="Calle">
-          <DataField>Calle</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="CuentaCorriente">
+          <DataField>CuentaCorriente</DataField>
+          <rd:TypeName>SiCoFa.Entidades.CuentaCorriente</rd:TypeName>
         </Field>
-        <Field Name="CodiTD_AFIP">
-          <DataField>CodiTD_AFIP</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="CUIT">
-          <DataField>CUIT</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DNI">
-          <DataField>DNI</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Documento">
+          <DataField>Documento</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Documento</rd:TypeName>
         </Field>
         <Field Name="Domicilio">
           <DataField>Domicilio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Estado">
           <DataField>Estado</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GLN">
-          <DataField>GLN</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="FechaAlta">
+          <DataField>FechaAlta</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="IdCliente">
-          <DataField>IdCliente</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="IdGCli">
-          <DataField>IdGCli</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="IVA">
           <DataField>IVA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="IVADescripcion">
-          <DataField>IVADescripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Limite">
-          <DataField>Limite</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+          <rd:TypeName>SiCoFa.Entidades.IVA</rd:TypeName>
         </Field>
         <Field Name="Localidad">
           <DataField>Localidad</DataField>
@@ -185,14 +208,6 @@
         </Field>
         <Field Name="Nombre">
           <DataField>Nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="NumDoc">
-          <DataField>NumDoc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Numero">
-          <DataField>Numero</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Provincia">
@@ -203,15 +218,11 @@
           <DataField>Telefono</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TipoDoc">
-          <DataField>TipoDoc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
         <rd:TableName>Cliente</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Cliente, SiCoFa.Entidades, Version=4.0.0.12, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Cliente, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="Encabezado">
@@ -240,6 +251,18 @@
           <DataField>FechaComp</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="IdCliente">
+          <DataField>IdCliente</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="IdOperacion">
+          <DataField>IdOperacion</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="IdOperAsoc">
+          <DataField>IdOperAsoc</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
         <Field Name="ImpBto">
           <DataField>ImpBto</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -250,6 +273,10 @@
         </Field>
         <Field Name="ImpCC">
           <DataField>ImpCC</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ImpDes">
+          <DataField>ImpDes</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="ImpEf">
@@ -268,6 +295,14 @@
           <DataField>ImpGrav2</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="ImpIVA1">
+          <DataField>ImpIVA1</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ImpIVA2">
+          <DataField>ImpIVA2</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="ImpNeto1">
           <DataField>ImpNeto1</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -276,16 +311,8 @@
           <DataField>ImpNeto2</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="ImpTar">
-          <DataField>ImpTar</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="IVA1">
-          <DataField>IVA1</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="IVA2">
-          <DataField>IVA2</DataField>
+        <Field Name="ImpPE">
+          <DataField>ImpPE</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="NumComp">
@@ -296,8 +323,8 @@
           <DataField>Operacion</DataField>
           <rd:TypeName>SiCoFa.Entidades.Operacion</rd:TypeName>
         </Field>
-        <Field Name="PuntoVta">
-          <DataField>PuntoVta</DataField>
+        <Field Name="PVenta">
+          <DataField>PVenta</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="QR">
@@ -312,7 +339,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
         <rd:TableName>Comprobante</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Comprobante, SiCoFa.Entidades, Version=6.0.0.52, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Comprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="Detalle">
@@ -325,21 +352,29 @@
           <DataField>AlicIVA</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Articulo">
+          <DataField>Articulo</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Articulo</rd:TypeName>
+        </Field>
         <Field Name="Cantidad">
           <DataField>Cantidad</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CodBarras">
+          <DataField>CodBarras</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Descripcion">
           <DataField>Descripcion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="DUnit">
-          <DataField>DUnit</DataField>
+        <Field Name="DescuentoUnitario">
+          <DataField>DescuentoUnitario</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="Importe">
-          <DataField>Importe</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="IdItem">
+          <DataField>IdItem</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
         <Field Name="ImporteConDescuento">
           <DataField>ImporteConDescuento</DataField>
@@ -349,16 +384,16 @@
           <DataField>ImporteDescuento</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="OtraDescripcion">
-          <DataField>OtraDescripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PDes">
-          <DataField>PDes</DataField>
+        <Field Name="ImporteSinDescuento">
+          <DataField>ImporteSinDescuento</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="PUnit">
-          <DataField>PUnit</DataField>
+        <Field Name="PorcentajeDescuento">
+          <DataField>PorcentajeDescuento</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecioUnitario">
+          <DataField>PrecioUnitario</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -497,12 +532,16 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="CodiTO">
-          <DataField>CodiTO</DataField>
+        <Field Name="DesError">
+          <DataField>DesError</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Estado">
-          <DataField>Estado</DataField>
+        <Field Name="Empresa">
+          <DataField>Empresa</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Empresa</rd:TypeName>
+        </Field>
+        <Field Name="EstadoOperacion">
+          <DataField>EstadoOperacion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Fin">
@@ -511,14 +550,6 @@
         </Field>
         <Field Name="IdCaja">
           <DataField>IdCaja</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="IdEmpleado">
-          <DataField>IdEmpleado</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="IdEmpr">
-          <DataField>IdEmpr</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="IdOperacion">
@@ -537,11 +568,124 @@
           <DataField>Observaciones</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="TipoOperacion">
+          <DataField>TipoOperacion</DataField>
+          <rd:TypeName>SiCoFa.Entidades.TipoOperacion</rd:TypeName>
+        </Field>
+        <Field Name="Usuario">
+          <DataField>Usuario</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Usuario</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
         <rd:TableName>Operacion</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Operacion, SiCoFa.Entidades, Version=4.0.0.1, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Operacion, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DocumentoEmpresa">
+      <Query>
+        <DataSourceName>SiCoFaEntidades9</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Numero">
+          <DataField>Numero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDoc">
+          <DataField>TipoDoc</DataField>
+          <rd:TypeName>SiCoFa.Entidades.TipoDocumento</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>Documento</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Documento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="IVAEmpresa">
+      <Query>
+        <DataSourceName>SiCoFaEntidades10</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CodIVA">
+          <DataField>CodIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoIVA">
+          <DataField>TipoIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>IVA</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.IVA, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DocumentoCliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades11</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Numero">
+          <DataField>Numero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDoc">
+          <DataField>TipoDoc</DataField>
+          <rd:TypeName>SiCoFa.Entidades.TipoDocumento</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>Documento</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Documento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="IVACliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades12</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CodIVA">
+          <DataField>CodIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoIVA">
+          <DataField>TipoIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>IVA</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.IVA, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="TipoDocumentoCliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades13</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CodiTDoc">
+          <DataField>CodiTDoc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDocumento">
+          <DataField>TipoDocumento</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>TipoDocumento</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.TipoDocumento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -858,7 +1002,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PUnit.Value</Value>
+                                  <Value>=Fields!PrecioUnitario.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
@@ -892,7 +1036,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PDes.Value</Value>
+                                  <Value>=Fields!PorcentajeDescuento.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
@@ -1223,13 +1367,13 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtPtoVenta">
+                <Textbox Name="txtPVenta">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!PuntoVta.Value, "Encabezado")</Value>
+                          <Value>=First(Fields!PVenta.Value, "Encabezado")</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -1352,7 +1496,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!CUIT.Value, "Empresa")</Value>
+                          <Value>=First(Fields!Numero.Value, "DocumentoEmpresa")</Value>
                           <Style />
                         </TextRun>
                       </TextRuns>
@@ -1476,7 +1620,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!InicioActividad.Value, "Empresa")</Value>
+                          <Value>=First(Fields!FechaAlta.Value, "Empresa")</Value>
                           <Style>
                             <Format>d</Format>
                           </Style>
@@ -1741,7 +1885,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!IVADescripcion.Value, "Empresa")</Value>
+                          <Value>=First(Fields!TipoIVA.Value, "IVAEmpresa")</Value>
                           <Style />
                         </TextRun>
                       </TextRuns>
@@ -1755,68 +1899,6 @@
                   <Height>0.6cm</Height>
                   <Width>7.04758cm</Width>
                   <ZIndex>22</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox16">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>GLN:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.24528cm</Top>
-                  <Left>0.29617cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>1.08875cm</Width>
-                  <ZIndex>23</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtEmpIVA2">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!GLN.Value, "Empresa")</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.24528cm</Top>
-                  <Left>1.56131cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>7.04758cm</Width>
-                  <ZIndex>24</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1847,7 +1929,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!NumDoc.Value, "Cliente")</Value>
+                          <Value>=First(Fields!Numero.Value, "DocumentoCliente")</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
@@ -1879,7 +1961,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!TipoDoc.Value, "Cliente") &amp; ": "</Value>
+                          <Value>First(Fields!TipoDocumento.Value, "TipoDocumentoCliente") &amp; ": "</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                             <FontSize>8pt</FontSize>
@@ -1943,7 +2025,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!IVADescripcion.Value, "Cliente")</Value>
+                          <Value>=First(Fields!TipoIVA.Value, "IVACliente")</Value>
                           <Style>
                             <FontSize>8pt</FontSize>
                           </Style>
@@ -2098,73 +2180,6 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtCodigoAT">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!GLN.Value, "Cliente")</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.00889cm</Top>
-                  <Left>1.56131cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>7.62632cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtTipoCodiAT">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>GLN:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.00889cm</Top>
-                  <Left>0.26cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>1.12492cm</Width>
-                  <ZIndex>9</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
                 <Textbox Name="txtCompAsoc">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
@@ -2186,7 +2201,7 @@
                   <Left>9.38863cm</Left>
                   <Height>0.5cm</Height>
                   <Width>9.35047cm</Width>
-                  <ZIndex>10</ZIndex>
+                  <ZIndex>8</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2542,7 +2557,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!IVA1.Value, "Encabezado")+First(Fields!IVA2.Value, "Encabezado")</Value>
+                          <Value>=First(Fields!IVA2.Value, "Encabezado")+First(Fields!IVA2.Value, "Encabezado")</Value>
                           <Style>
                             <Format>0.00;(0.00)</Format>
                           </Style>

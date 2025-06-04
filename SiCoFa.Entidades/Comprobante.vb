@@ -16,7 +16,7 @@
     Property ImpIVA2 As Decimal
     Property ImpEf As Decimal
     Property ImpCC As Decimal
-    Property ImpTar As Decimal
+    Property ImpPE As Decimal
     Property ImpCB As Decimal
     Property CAE As CAE
     Property IdCliente As Long
@@ -46,7 +46,7 @@
                   ByVal argImpCB As Decimal,
                   ByVal argImpEf As Decimal,
                   ByVal argImpCC As Decimal,
-                  ByVal argImpTar As Decimal,
+                  ByVal argImpPE As Decimal,
                   ByVal argCAE As CAE,
                   ByVal argIdCliente As Long,
                   ByVal argCliente As Cliente,
@@ -73,7 +73,7 @@
         Me.ImpCB = Math.Round(argImpCB, 2)
         Me.ImpEf = Math.Round(argImpEf, 2)
         Me.ImpCC = Math.Round(argImpCC, 2)
-        Me.ImpTar = Math.Round(argImpTar, 2)
+        Me.ImpPE = Math.Round(argImpPE, 2)
         Me.CAE = argCAE
         Me.IdCliente = argIdCliente
         Me.Cliente = argCliente
