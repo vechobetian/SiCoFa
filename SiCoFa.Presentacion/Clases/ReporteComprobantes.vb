@@ -9,9 +9,14 @@ Public Class ReporteComprobantes
     Implements IDisposable
     Property Operacion As New List(Of Operacion)
     Property Empresa As New List(Of Empresa)
+    Property DocumentoEmpresa As New List(Of Documento)
+    Property IVAEmpresa As New List(Of IVA)
     Property Cliente As New List(Of Cliente)
-    Property TipoComprobante As New List(Of TipoComprobante)
+    Property DocumentoCliente As New List(Of Documento)
+    Property IVACliente As New List(Of IVA)
+    Property TipoDocumentoCliente As New List(Of TipoDocumento)
     Property Encabezado As New List(Of Comprobante)
+    Property TipoComprobante As New List(Of TipoComprobante)
     Property Detalle As New List(Of ItemComprobante)
     Property CAE As New List(Of CAE)
     Property QR As New List(Of QRCompE)
@@ -33,23 +38,23 @@ Public Class ReporteComprobantes
     'Exportar el informe dado como un archivo EMF (metarchivo mejorado).
     Public Sub Export(ByVal report As LocalReport)
         Dim deviceInfo As String =
-          "<DeviceInfo>" +
-          "  <OutputFormat>EMF</OutputFormat>" +
-          "  <PageWidth>21cm</PageWidth>" +
-          "  <PageHeight>29.7cm</PageHeight>" +
-          "  <MarginTop>0cm</MarginTop>" +
-          "  <MarginLeft>0cm</MarginLeft>" +
-          "  <MarginRight>0cm</MarginRight>" +
-          "  <MarginBottom>0cm</MarginBottom>" +
-          "</DeviceInfo>"
+      "<DeviceInfo>" +
+      "  <OutputFormat>EMF</OutputFormat>" +
+      "  <PageWidth>21cm</PageWidth>" +
+      "  <PageHeight>29.7cm</PageHeight>" +
+      "  <MarginTop>0cm</MarginTop>" +
+      "  <MarginLeft>0cm</MarginLeft>" +
+      "  <MarginRight>0cm</MarginRight>" +
+      "  <MarginBottom>0cm</MarginBottom>" +
+      "</DeviceInfo>"
         Dim warnings() As Warning = Nothing
-        m_streams = New List(Of Stream)()
+            m_streams = New List(Of Stream)()
 
-        report.Render("Image", deviceInfo, AddressOf CreateStream, warnings)
+            report.Render("Image", deviceInfo, AddressOf CreateStream, warnings)
 
-        For Each stream As Stream In m_streams
-            stream.Position = 0
-        Next
+            For Each stream As Stream In m_streams
+                stream.Position = 0
+            Next
     End Sub
 
     'Controlador para PrintPageEvents
@@ -108,7 +113,8 @@ Public Class ReporteComprobantes
             Case "A", "M"
                 report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
             Case "B"
-                report.ReportPath = Application.StartupPath & "\rptCompBA4.rdlc"
+                'report.ReportPath = Application.StartupPath & "\rptCompBA4.rdlc"
+                report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
             Case "C"
                 report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
             Case "R"
@@ -117,9 +123,14 @@ Public Class ReporteComprobantes
 
         report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
         report.DataSources.Add(New ReportDataSource("Empresa", Empresa))
+        report.DataSources.Add(New ReportDataSource("DocumentoEmpresa", DocumentoEmpresa))
+        report.DataSources.Add(New ReportDataSource("IVAEmpresa", IVAEmpresa))
         report.DataSources.Add(New ReportDataSource("Cliente", Cliente))
-        report.DataSources.Add(New ReportDataSource("TipoComprobante", TipoComprobante))
+        report.DataSources.Add(New ReportDataSource("DocumentoCliente", DocumentoCliente))
+        report.DataSources.Add(New ReportDataSource("IVACliente", IVACliente))
+        report.DataSources.Add(New ReportDataSource("TipoDocumentoCliente", TipoDocumentoCliente))
         report.DataSources.Add(New ReportDataSource("Encabezado", Encabezado))
+        report.DataSources.Add(New ReportDataSource("TipoComprobante", TipoComprobante))
         report.DataSources.Add(New ReportDataSource("Detalle", Detalle))
         report.DataSources.Add(New ReportDataSource("CAE", CAE))
         report.DataSources.Add(New ReportDataSource("QR", QR))

@@ -995,7 +995,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PUnit">
+                        <Textbox Name="PrecioUnitario">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1013,7 +1013,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PUnit</rd:DefaultName>
+                          <rd:DefaultName>PrecioUnitario</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1029,7 +1029,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PDes">
+                        <Textbox Name="PorcentajeDescuento">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1047,7 +1047,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PDes</rd:DefaultName>
+                          <rd:DefaultName>PorcentajeDescuento</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1961,7 +1961,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>First(Fields!TipoDocumento.Value, "TipoDocumentoCliente") &amp; ": "</Value>
+                          <Value>=First(Fields!TipoDocumento.Value, "TipoDocumentoCliente") &amp; ": "</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                             <FontSize>8pt</FontSize>

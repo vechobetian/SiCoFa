@@ -92,9 +92,14 @@ Public Class FacturaElectronica
                 With objRC
                     .Operacion.Add(argComprobante.Operacion)
                     .Empresa.Add(argComprobante.Empresa)
+                    .DocumentoEmpresa.Add(argComprobante.Empresa.Documento)
+                    .IVAEmpresa.Add(argComprobante.Empresa.IVA)
                     .Cliente.Add(argComprobante.Cliente)
-                    .TipoComprobante.Add(argComprobante.TipoComprobante)
+                    .DocumentoCliente.Add(argComprobante.Cliente.Documento)
+                    .IVACliente.Add(argComprobante.Cliente.IVA)
+                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
                     .Encabezado.Add(argComprobante)
+                    .TipoComprobante.Add(argComprobante.TipoComprobante)
                     .Detalle = argComprobante.Detalle
                     .CAE.Add(argComprobante.CAE)
                     .QR.Add(argComprobante.QR)
@@ -126,9 +131,14 @@ Public Class FacturaElectronica
                 With objRC
                     .Operacion.Add(argComprobante.Operacion)
                     .Empresa.Add(argComprobante.Empresa)
+                    .DocumentoEmpresa.Add(argComprobante.Empresa.Documento)
+                    .IVAEmpresa.Add(argComprobante.Empresa.IVA)
                     .Cliente.Add(argComprobante.Cliente)
-                    .TipoComprobante.Add(argComprobante.TipoComprobante)
+                    .DocumentoCliente.Add(argComprobante.Cliente.Documento)
+                    .IVACliente.Add(argComprobante.Cliente.IVA)
+                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
                     .Encabezado.Add(argComprobante)
+                    .TipoComprobante.Add(argComprobante.TipoComprobante)
                     .Detalle = argComprobante.Detalle
                     .CAE.Add(argComprobante.CAE)
                     .QR.Add(argComprobante.QR)
