@@ -17,12 +17,12 @@ Public Class ReporteComprobantes
     Property TipoDocumentoCliente As New List(Of TipoDocumento)
     Property Encabezado As New List(Of Comprobante)
     Property TipoComprobante As New List(Of TipoComprobante)
-    Property Detalle As New List(Of ItemComprobante)
+    'Property Detalle As New List(Of ItemComprobante)
     Property CAE As New List(Of CAE)
     Property QR As New List(Of QRCompE)
     Property Impresora As String
-    Property Copia As String
-    Property CompAsoc As String
+    'Property Copia As String
+    'Property CompAsoc As String
 
     Private m_currentPageIndex As Integer
 
@@ -48,13 +48,13 @@ Public Class ReporteComprobantes
       "  <MarginBottom>0cm</MarginBottom>" +
       "</DeviceInfo>"
         Dim warnings() As Warning = Nothing
-            m_streams = New List(Of Stream)()
+        m_streams = New List(Of Stream)()
 
-            report.Render("Image", deviceInfo, AddressOf CreateStream, warnings)
+        report.Render("Image", deviceInfo, AddressOf CreateStream, warnings)
 
-            For Each stream As Stream In m_streams
-                stream.Position = 0
-            Next
+        For Each stream As Stream In m_streams
+            stream.Position = 0
+        Next
     End Sub
 
     'Controlador para PrintPageEvents
@@ -104,41 +104,53 @@ Public Class ReporteComprobantes
 
     'Crear un informe local para Report.rdlc, cargar los datos, exportar el informe a un archivo .emf e imprimirlo.
     Public Sub Run()
-        Dim report As New LocalReport()
-        Dim param As New List(Of ReportParameter)
-        param.Add(New ReportParameter("Copia", Me.Copia))
-        param.Add(New ReportParameter("CompAsoc", Me.CompAsoc))
+        Try
+            Dim report As New LocalReport()
+            'Dim param As New List(Of ReportParameter)
+            'param.Add(New ReportParameter("Copia", Me.Copia))
+            'param.Add(New ReportParameter("CompAsoc", Me.CompAsoc))
 
-        Select Case Me.TipoComprobante(0).Letra
-            Case "A", "M"
-                report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
-            Case "B"
-                'report.ReportPath = Application.StartupPath & "\rptCompBA4.rdlc"
-                report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
-            Case "C"
-                report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
-            Case "R"
-                report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
-        End Select
+            'Select Case Me.TipoComprobante(0).Letra
+            'Case "A", "M"
+            'report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
+            'Case "B"
+            'report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
+            report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\report1.rdlc"
+            'Case "C"
+            'report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
+            'Case "R"
+            'report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
+            'End Select
 
-        report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
-        report.DataSources.Add(New ReportDataSource("Empresa", Empresa))
-        report.DataSources.Add(New ReportDataSource("DocumentoEmpresa", DocumentoEmpresa))
-        report.DataSources.Add(New ReportDataSource("IVAEmpresa", IVAEmpresa))
-        report.DataSources.Add(New ReportDataSource("Cliente", Cliente))
-        report.DataSources.Add(New ReportDataSource("DocumentoCliente", DocumentoCliente))
-        report.DataSources.Add(New ReportDataSource("IVACliente", IVACliente))
-        report.DataSources.Add(New ReportDataSource("TipoDocumentoCliente", TipoDocumentoCliente))
-        report.DataSources.Add(New ReportDataSource("Encabezado", Encabezado))
-        report.DataSources.Add(New ReportDataSource("TipoComprobante", TipoComprobante))
-        report.DataSources.Add(New ReportDataSource("Detalle", Detalle))
-        report.DataSources.Add(New ReportDataSource("CAE", CAE))
-        report.DataSources.Add(New ReportDataSource("QR", QR))
-        report.SetParameters(param)
+            'report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
+            report.DataSources.Add(New ReportDataSource("Empresa", Empresa))
+            report.DataSources.Add(New ReportDataSource("DocumentoEmpresa", DocumentoEmpresa))
+            report.DataSources.Add(New ReportDataSource("IVAEmpresa", IVAEmpresa))
+            report.DataSources.Add(New ReportDataSource("Cliente", Cliente))
+            report.DataSources.Add(New ReportDataSource("DocumentoCliente", DocumentoCliente))
+            report.DataSources.Add(New ReportDataSource("IVACliente", IVACliente))
+            report.DataSources.Add(New ReportDataSource("TipoDocumentoCliente", TipoDocumentoCliente))
+            report.DataSources.Add(New ReportDataSource("Encabezado", Encabezado))
+            report.DataSources.Add(New ReportDataSource("TipoComprobante", TipoComprobante))
+            'report.DataSources.Add(New ReportDataSource("Detalle", Detalle))
+            report.DataSources.Add(New ReportDataSource("CAE", CAE))
+            report.DataSources.Add(New ReportDataSource("QR", QR))
+            'report.SetParameters(param)
 
-        Export(report)
-        Print()
-
+            Export(report)
+            Print()
+        Catch ex As Exception
+            ' Registra la excepción para un análisis detallado.
+            ' Para depuración, puedes usar un MsgBox para retroalimentación inmediata,
+            ' pero para producción, el registro en un archivo o visor de eventos es mejor.
+            MsgBox("Se produjo un error al generar o imprimir el informe: " & ex.Message & vbCrLf & "StackTrace: " & ex.StackTrace, MsgBoxStyle.Critical, "Error de Informe")
+            ' Podrías querer relanzar la excepción o manejarla de manera más elegante
+            ' dependiendo de la estrategia general de manejo de errores de la aplicación.
+            ' Throw ex
+        Finally
+            ' Asegúrate de que el objeto report se libere si es necesario, aunque es una variable local.
+            ' Si el informe tuviera recursos no administrados que necesitaran una limpieza explícita más allá del GC estándar.
+        End Try
     End Sub
 
     Public Sub Dispose() Implements IDisposable.Dispose
