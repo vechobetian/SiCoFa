@@ -17,12 +17,12 @@ Public Class ReporteComprobantes
     Property TipoDocumentoCliente As New List(Of TipoDocumento)
     Property Encabezado As New List(Of Comprobante)
     Property TipoComprobante As New List(Of TipoComprobante)
-    'Property Detalle As New List(Of ItemComprobante)
+    Property Detalle As New List(Of ItemComprobante)
     Property CAE As New List(Of CAE)
     Property QR As New List(Of QRCompE)
     Property Impresora As String
-    'Property Copia As String
-    'Property CompAsoc As String
+    Property Copia As String
+    Property CompAsoc As String
 
     Private m_currentPageIndex As Integer
 
@@ -106,21 +106,20 @@ Public Class ReporteComprobantes
     Public Sub Run()
         Try
             Dim report As New LocalReport()
-            'Dim param As New List(Of ReportParameter)
-            'param.Add(New ReportParameter("Copia", Me.Copia))
-            'param.Add(New ReportParameter("CompAsoc", Me.CompAsoc))
+            Dim param As New List(Of ReportParameter)
+            param.Add(New ReportParameter("Copia", Me.Copia))
+            param.Add(New ReportParameter("CompAsoc", Me.CompAsoc))
 
-            'Select Case Me.TipoComprobante(0).Letra
-            'Case "A", "M"
-            'report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
-            'Case "B"
-            'report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
-            report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\report1.rdlc"
-            'Case "C"
-            'report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
-            'Case "R"
-            'report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
-            'End Select
+            Select Case Me.TipoComprobante(0).Letra
+                Case "A", "M"
+                    report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
+                Case "B"
+                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
+                Case "C"
+                    report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
+                Case "R"
+                    report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
+            End Select
 
             'report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
             report.DataSources.Add(New ReportDataSource("Empresa", Empresa))
@@ -132,10 +131,10 @@ Public Class ReporteComprobantes
             report.DataSources.Add(New ReportDataSource("TipoDocumentoCliente", TipoDocumentoCliente))
             report.DataSources.Add(New ReportDataSource("Encabezado", Encabezado))
             report.DataSources.Add(New ReportDataSource("TipoComprobante", TipoComprobante))
-            'report.DataSources.Add(New ReportDataSource("Detalle", Detalle))
+            report.DataSources.Add(New ReportDataSource("Detalle", Detalle))
             report.DataSources.Add(New ReportDataSource("CAE", CAE))
             report.DataSources.Add(New ReportDataSource("QR", QR))
-            'report.SetParameters(param)
+            report.SetParameters(param)
 
             Export(report)
             Print()

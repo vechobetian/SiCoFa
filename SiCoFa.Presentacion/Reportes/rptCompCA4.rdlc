@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
-  <Author>Nelson Betian</Author>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="SiCoFaEntidades">
@@ -8,95 +7,88 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>a2b4f653-4afa-43ea-81ab-91a29863f3ab</rd:DataSourceID>
+      <rd:DataSourceID>c49ba8a4-1e26-4e6b-81ec-921467656e97</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades1">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>7fc210f6-d140-49cf-ab15-9a492b852105</rd:DataSourceID>
+      <rd:DataSourceID>ae0435e0-0792-41d9-872e-052b14963638</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades2">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>d8f0ad45-1cb6-45bd-9601-d26438b83b55</rd:DataSourceID>
+      <rd:DataSourceID>5c8b7332-c43f-4c82-a4b1-ae88b59c51f5</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades3">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>d586d6ad-17e2-40e3-8c40-940cac64f099</rd:DataSourceID>
+      <rd:DataSourceID>7ed4c454-9034-4446-bdd1-09beb280503a</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades4">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>8073f353-b118-45ca-a1fc-aa0011e2a601</rd:DataSourceID>
+      <rd:DataSourceID>d386e1c3-0a99-43a9-8118-c4a59bb8a2c8</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades5">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>7b9d0bd5-b0dd-4fc9-9f4c-613730c62383</rd:DataSourceID>
+      <rd:DataSourceID>d7b33522-240d-499d-a15d-557691440782</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades6">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>a0a56ccc-d204-4e6d-b71c-6297d11db4f8</rd:DataSourceID>
+      <rd:DataSourceID>68d8b301-e290-41aa-8321-e2d981de9594</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades7">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>76f87be5-3dc9-4369-ae06-697e0859f198</rd:DataSourceID>
+      <rd:DataSourceID>2d6fff46-eece-4dbf-98db-860bb774ad92</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades8">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>7649aa62-e963-492d-960a-6bc5c34532cd</rd:DataSourceID>
+      <rd:DataSourceID>b48abfde-904e-4fb8-8e31-b28d8e2ef3bb</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades9">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>31d463ae-ee8a-47ea-b5a2-3f27fc1533c0</rd:DataSourceID>
+      <rd:DataSourceID>a106b600-01fc-4cf1-931a-f30c0e13e3c5</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades10">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>449b4e33-d86d-4a72-86f2-72189e0b7076</rd:DataSourceID>
+      <rd:DataSourceID>1aa74f27-7c01-4c40-8ec5-0f5cd6b62373</rd:DataSourceID>
     </DataSource>
     <DataSource Name="SiCoFaEntidades11">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>2fc1c588-1f10-476c-a01f-b0d87572c2dc</rd:DataSourceID>
-    </DataSource>
-    <DataSource Name="SiCoFaEntidades12">
-      <ConnectionProperties>
-        <DataProvider>System.Data.DataSet</DataProvider>
-        <ConnectString>/* Local Connection */</ConnectString>
-      </ConnectionProperties>
-      <rd:DataSourceID>fd86bc46-7e4f-4212-ad8b-916f8d74f238</rd:DataSourceID>
+      <rd:DataSourceID>7b6f4fd8-e0a8-4a6f-a4ec-36b46d247637</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Locador">
+    <DataSet Name="Empresa">
       <Query>
         <DataSourceName>SiCoFaEntidades</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -114,17 +106,21 @@
           <DataField>Email</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Estado">
+          <DataField>Estado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaAlta">
+          <DataField>FechaAlta</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="IB">
           <DataField>IB</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IdLocador">
-          <DataField>IdLocador</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="InicioActividad">
-          <DataField>InicioActividad</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="IVA">
           <DataField>IVA</DataField>
@@ -132,10 +128,6 @@
         </Field>
         <Field Name="Localidad">
           <DataField>Localidad</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Movil">
-          <DataField>Movil</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Nombre">
@@ -153,16 +145,62 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>Locador</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Locador, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:TableName>Empresa</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Empresa, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="Cliente">
+    <DataSet Name="IVAEmpresa">
       <Query>
         <DataSourceName>SiCoFaEntidades1</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
+        <Field Name="CodIVA">
+          <DataField>CodIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoIVA">
+          <DataField>TipoIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>IVA</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.IVA, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DocumentoEmpresa">
+      <Query>
+        <DataSourceName>SiCoFaEntidades2</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Numero">
+          <DataField>Numero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDoc">
+          <DataField>TipoDoc</DataField>
+          <rd:TypeName>SiCoFa.Entidades.TipoDocumento</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>Documento</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Documento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="Cliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades3</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CuentaCorriente">
+          <DataField>CuentaCorriente</DataField>
+          <rd:TypeName>SiCoFa.Entidades.CuentaCorriente</rd:TypeName>
+        </Field>
         <Field Name="Documento">
           <DataField>Documento</DataField>
           <rd:TypeName>SiCoFa.Entidades.Documento</rd:TypeName>
@@ -175,9 +213,17 @@
           <DataField>Email</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IdCliente">
-          <DataField>IdCliente</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
+        <Field Name="Estado">
+          <DataField>Estado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaAlta">
+          <DataField>FechaAlta</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="IVA">
           <DataField>IVA</DataField>
@@ -185,10 +231,6 @@
         </Field>
         <Field Name="Localidad">
           <DataField>Localidad</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Movil">
-          <DataField>Movil</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Nombre">
@@ -210,9 +252,51 @@
         <rd:ObjectDataSourceType>SiCoFa.Entidades.Cliente, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="DocumentoCliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades4</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Numero">
+          <DataField>Numero</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDoc">
+          <DataField>TipoDoc</DataField>
+          <rd:TypeName>SiCoFa.Entidades.TipoDocumento</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>Documento</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.Documento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="IVACliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades5</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CodIVA">
+          <DataField>CodIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoIVA">
+          <DataField>TipoIVA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>IVA</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.IVA, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
     <DataSet Name="Encabezado">
       <Query>
-        <DataSourceName>SiCoFaEntidades2</DataSourceName>
+        <DataSourceName>SiCoFaEntidades6</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -228,6 +312,10 @@
           <DataField>CompAsoc</DataField>
           <rd:TypeName>SiCoFa.Entidades.Comprobante</rd:TypeName>
         </Field>
+        <Field Name="Empresa">
+          <DataField>Empresa</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Empresa</rd:TypeName>
+        </Field>
         <Field Name="FechaComp">
           <DataField>FechaComp</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
@@ -240,6 +328,10 @@
           <DataField>IdOperacion</DataField>
           <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
+        <Field Name="IdOperAsoc">
+          <DataField>IdOperAsoc</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
         <Field Name="ImpBto">
           <DataField>ImpBto</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -250,6 +342,10 @@
         </Field>
         <Field Name="ImpCC">
           <DataField>ImpCC</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ImpDes">
+          <DataField>ImpDes</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="ImpEf">
@@ -284,13 +380,9 @@
           <DataField>ImpNeto2</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="ImpTar">
-          <DataField>ImpTar</DataField>
+        <Field Name="ImpPE">
+          <DataField>ImpPE</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Locador">
-          <DataField>Locador</DataField>
-          <rd:TypeName>SiCoFa.Entidades.Locador</rd:TypeName>
         </Field>
         <Field Name="NumComp">
           <DataField>NumComp</DataField>
@@ -319,87 +411,9 @@
         <rd:ObjectDataSourceType>SiCoFa.Entidades.Comprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="Detalle">
-      <Query>
-        <DataSourceName>SiCoFaEntidades3</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="AlicIVA">
-          <DataField>AlicIVA</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Cantidad">
-          <DataField>Cantidad</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DUnit">
-          <DataField>DUnit</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Importe">
-          <DataField>Importe</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ImporteConDescuento">
-          <DataField>ImporteConDescuento</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ImporteDescuento">
-          <DataField>ImporteDescuento</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="OtraDescripcion">
-          <DataField>OtraDescripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PDes">
-          <DataField>PDes</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="PUnit">
-          <DataField>PUnit</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>ItemComprobante</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.ItemComprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="CAE">
-      <Query>
-        <DataSourceName>SiCoFaEntidades4</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="NumCAE">
-          <DataField>NumCAE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="NumComp">
-          <DataField>NumComp</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="VtoCAE">
-          <DataField>VtoCAE</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>CAE</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.CAE, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="TipoComprobante">
       <Query>
-        <DataSourceName>SiCoFaEntidades5</DataSourceName>
+        <DataSourceName>SiCoFaEntidades7</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -426,9 +440,55 @@
         <rd:ObjectDataSourceType>SiCoFa.Entidades.TipoComprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
+    <DataSet Name="TipoDocumentoCliente">
+      <Query>
+        <DataSourceName>SiCoFaEntidades8</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CodiTDoc">
+          <DataField>CodiTDoc</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoDocumento">
+          <DataField>TipoDocumento</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>TipoDocumento</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.TipoDocumento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="CAE">
+      <Query>
+        <DataSourceName>SiCoFaEntidades9</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumCAE">
+          <DataField>NumCAE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumComp">
+          <DataField>NumComp</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="VtoCAE">
+          <DataField>VtoCAE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>CAE</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.CAE, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
     <DataSet Name="QR">
       <Query>
-        <DataSourceName>SiCoFaEntidades6</DataSourceName>
+        <DataSourceName>SiCoFaEntidades10</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -495,162 +555,65 @@
         <rd:ObjectDataSourceType>SiCoFa.Entidades.QRCompE, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="Operacion">
-      <Query>
-        <DataSourceName>SiCoFaEntidades7</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="CodiAE">
-          <DataField>CodiAE</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CodiTO">
-          <DataField>CodiTO</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DesError">
-          <DataField>DesError</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="EstadoOperacion">
-          <DataField>EstadoOperacion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Fecha">
-          <DataField>Fecha</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="IdOperacion">
-          <DataField>IdOperacion</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="IdUsuario">
-          <DataField>IdUsuario</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="Observaciones">
-          <DataField>Observaciones</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoOperacion">
-          <DataField>TipoOperacion</DataField>
-          <rd:TypeName>SiCoFa.Entidades.TipoOperacion</rd:TypeName>
-        </Field>
-        <Field Name="Usuario">
-          <DataField>Usuario</DataField>
-          <rd:TypeName>SiCoFa.Entidades.Usuario</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>Operacion</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Operacion, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DocumentoLocador">
-      <Query>
-        <DataSourceName>SiCoFaEntidades8</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Numero">
-          <DataField>Numero</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoDoc">
-          <DataField>TipoDoc</DataField>
-          <rd:TypeName>SiCoFa.Entidades.TipoDocumento</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>Documento</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Documento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="IVALocador">
-      <Query>
-        <DataSourceName>SiCoFaEntidades9</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="CodIVA">
-          <DataField>CodIVA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoIVA">
-          <DataField>TipoIVA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>IVA</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.IVA, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="DocumentoCliente">
-      <Query>
-        <DataSourceName>SiCoFaEntidades10</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Numero">
-          <DataField>Numero</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoDoc">
-          <DataField>TipoDoc</DataField>
-          <rd:TypeName>SiCoFa.Entidades.TipoDocumento</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>Documento</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.Documento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="IVACliente">
+    <DataSet Name="Detalle">
       <Query>
         <DataSourceName>SiCoFaEntidades11</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="CodIVA">
-          <DataField>CodIVA</DataField>
+        <Field Name="AlicIVA">
+          <DataField>AlicIVA</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Articulo">
+          <DataField>Articulo</DataField>
+          <rd:TypeName>SiCoFa.Entidades.Articulo</rd:TypeName>
+        </Field>
+        <Field Name="Cantidad">
+          <DataField>Cantidad</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="CodBarras">
+          <DataField>CodBarras</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TipoIVA">
-          <DataField>TipoIVA</DataField>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DescuentoUnitario">
+          <DataField>DescuentoUnitario</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="IdItem">
+          <DataField>IdItem</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="ImporteConDescuento">
+          <DataField>ImporteConDescuento</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ImporteDescuento">
+          <DataField>ImporteDescuento</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ImporteSinDescuento">
+          <DataField>ImporteSinDescuento</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PorcentajeDescuento">
+          <DataField>PorcentajeDescuento</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PrecioUnitario">
+          <DataField>PrecioUnitario</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>IVA</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.IVA, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
-    <DataSet Name="TipoDocumentoCliente">
-      <Query>
-        <DataSourceName>SiCoFaEntidades12</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="CodiTDoc">
-          <DataField>CodiTDoc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoDocumento">
-          <DataField>TipoDocumento</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>TipoDocumento</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.TipoDocumento, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:TableName>ItemComprobante</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.ItemComprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -662,19 +625,22 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>10.10485cm</Width>
+                  <Width>8.88197cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.99822cm</Width>
+                  <Width>1.58696cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.51794cm</Width>
+                  <Width>2.58696cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.67899cm</Width>
+                  <Width>1.68696cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.7006cm</Width>
+                  <Width>1.67017cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.58696cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -724,13 +690,15 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Cantidad</Value>
+                                  <Value>Cant.</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox27</rd:DefaultName>
@@ -782,6 +750,40 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox15">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>% Desc</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox15</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox17">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -789,7 +791,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>%Desc</Value>
+                                  <Value>%IVA</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
                                   </Style>
@@ -896,7 +898,7 @@
                                 <TextRun>
                                   <Value>=Fields!Cantidad.Value</Value>
                                   <Style>
-                                    <Format>0;(0)</Format>
+                                    <Format>0.000;(0.000)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -921,14 +923,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PUnit">
+                        <Textbox Name="PrecioUnitario">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PUnit.Value</Value>
+                                  <Value>=Fields!PrecioUnitario.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
@@ -939,7 +941,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PUnit</rd:DefaultName>
+                          <rd:DefaultName>PrecioUnitario</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -955,14 +957,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="PDes">
+                        <Textbox Name="PorcentajeDescuento">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!PDes.Value</Value>
+                                  <Value>=Fields!PorcentajeDescuento.Value</Value>
                                   <Style>
                                     <Format>0.00;(0.00)</Format>
                                   </Style>
@@ -973,7 +975,41 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>PDes</rd:DefaultName>
+                          <rd:DefaultName>PorcentajeDescuento</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="AlicIVA">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!AlicIVA.Value</Value>
+                                  <Style>
+                                    <Format>0.00;(0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>AlicIVA</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1032,6 +1068,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1045,86 +1082,31 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Detalle</DataSetName>
-            <Top>0.05cm</Top>
+            <Top>0cm</Top>
             <Left>1cm</Left>
             <Height>1.2cm</Height>
-            <Width>19.0006cm</Width>
+            <Width>18.99998cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
-          <Textbox Name="txtObservaciones2">
-            <CanGrow>true</CanGrow>
+          <Rectangle Name="Rectangle4">
             <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!Observaciones.Value, "Operacion")</Value>
-                    <Style>
-                      <Format>0.00;(0.00)</Format>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <Top>1.5cm</Top>
+            <Top>0.04111cm</Top>
             <Left>1cm</Left>
-            <Height>1.34cm</Height>
+            <Height>15.2825cm</Height>
             <Width>19cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
-              </Border>
-              <VerticalAlign>Middle</VerticalAlign>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox15">
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value xml:space="preserve">                </Value>
-                    <Style>
-                      <FontFamily>Arial Black</FontFamily>
-                      <FontSize>8pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <Top>0.05cm</Top>
-            <Left>1cm</Left>
-            <Height>15.23826cm</Height>
-            <Width>19cm</Width>
-            <ZIndex>2</ZIndex>
-            <Style>
-              <Border>
                 <Style>Solid</Style>
               </Border>
-              <VerticalAlign>Middle</VerticalAlign>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
             </Style>
-          </Textbox>
+          </Rectangle>
         </ReportItems>
-        <Height>15.32354cm</Height>
+        <Height>15.35cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>
@@ -1136,15 +1118,18 @@
           <ReportItems>
             <Rectangle Name="Rectangle1">
               <ReportItems>
-                <Textbox Name="txtCopia">
+                <Textbox Name="txtEmpRSoc">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=Parameters!Copia.Value</Value>
+                          <Value>=First(Fields!Nombre.Value, "Empresa")</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
+                            <FontSize>18pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
@@ -1153,10 +1138,10 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.2cm</Top>
-                  <Left>8cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3cm</Width>
+                  <Top>1.03708cm</Top>
+                  <Left>0.25573cm</Left>
+                  <Height>1.03542cm</Height>
+                  <Width>8.27744cm</Width>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1168,26 +1153,27 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtTipoComprobante">
+                <Textbox Name="Textbox1">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!TipoComprobante.Value, "TipoComprobante")</Value>
+                          <Value>Domicilio:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
-                            <FontSize>12pt</FontSize>
                           </Style>
                         </TextRun>
                       </TextRuns>
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1cm</Top>
-                  <Left>10.42639cm</Left>
-                  <Height>0.78521cm</Height>
-                  <Width>8.31271cm</Width>
+                  <Top>2.14305cm</Top>
+                  <Left>0.25573cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.2cm</Width>
                   <ZIndex>1</ZIndex>
                   <Style>
                     <Border>
@@ -1199,13 +1185,45 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtNumComp">
+                <Textbox Name="txtEmpDomic">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!NumComp.Value, "Encabezado")</Value>
+                          <Value>=First(Fields!Domicilio.Value, "Empresa")</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.14305cm</Top>
+                  <Left>2.52628cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>6.00689cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox2">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Localidad:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -1214,11 +1232,101 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.78521cm</Top>
-                  <Left>16.47723cm</Left>
+                  <Top>2.84889cm</Top>
+                  <Left>0.25573cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>2.26187cm</Width>
-                  <ZIndex>2</ZIndex>
+                  <Width>2.3cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtEmpLocalidad">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!Localidad.Value, "Empresa") &amp; "-" &amp; First(Fields!Provincia.Value, "Empresa")</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.84889cm</Top>
+                  <Left>2.67038cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>5.83633cm</Width>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox3">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>IVA:</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.55472cm</Top>
+                  <Left>0.22927cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>1.08875cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtEmpIVA">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!TipoIVA.Value, "IVAEmpresa")</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>3.55472cm</Top>
+                  <Left>1.4944cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>7.04758cm</Width>
+                  <ZIndex>6</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1246,11 +1354,11 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1cm</Top>
-                  <Left>8.75cm</Left>
+                  <Top>1.03708cm</Top>
+                  <Left>8.6831cm</Left>
                   <Height>1.5cm</Height>
                   <Width>1.5cm</Width>
-                  <ZIndex>3</ZIndex>
+                  <ZIndex>7</ZIndex>
                   <Style>
                     <Border>
                       <Style>Solid</Style>
@@ -1262,58 +1370,27 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="Textbox5">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
+                <Textbox Name="txtTipoComprobante">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Comp.Nro:</Value>
-                          <Style />
+                          <Value>=First(Fields!TipoComprobante.Value, "TipoComprobante")</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                            <FontSize>12pt</FontSize>
+                          </Style>
                         </TextRun>
                       </TextRuns>
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.78521cm</Top>
-                  <Left>14.4cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>1.9cm</Width>
-                  <ZIndex>4</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtPVenta">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!PVenta.Value, "Encabezado")</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.78521cm</Top>
-                  <Left>12.4cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>1.5cm</Width>
-                  <ZIndex>5</ZIndex>
+                  <Top>1.03708cm</Top>
+                  <Left>10.35949cm</Left>
+                  <Height>0.78521cm</Height>
+                  <Width>8.31271cm</Width>
+                  <ZIndex>8</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1339,11 +1416,131 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.78521cm</Top>
-                  <Left>10.42639cm</Left>
+                  <Top>1.82229cm</Top>
+                  <Left>10.35949cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.8cm</Width>
-                  <ZIndex>6</ZIndex>
+                  <ZIndex>9</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtPVenta">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!PVenta.Value, "Encabezado")</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.82229cm</Top>
+                  <Left>12.3331cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>1.5cm</Width>
+                  <ZIndex>10</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox5">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Comp.Nro:</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.82229cm</Top>
+                  <Left>14.3331cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>1.79417cm</Width>
+                  <ZIndex>11</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtNumComp">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!NumComp.Value, "Encabezado")</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.82229cm</Top>
+                  <Left>16.30366cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>2.36854cm</Width>
+                  <ZIndex>12</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox6">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Fecha de Emisión:</Value>
+                          <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style />
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.45757cm</Top>
+                  <Left>10.35949cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.192cm</Width>
+                  <ZIndex>13</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1372,71 +1569,11 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.42049cm</Top>
-                  <Left>13.79694cm</Left>
+                  <Top>2.45757cm</Top>
+                  <Left>13.73004cm</Left>
                   <Height>0.6cm</Height>
                   <Width>4.94216cm</Width>
-                  <ZIndex>7</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox6">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Fecha de Emisión:</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.42049cm</Top>
-                  <Left>10.42639cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.192cm</Width>
-                  <ZIndex>8</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtLocadorCUIT">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Numero.Value, "DocumentoLocador")</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.03528cm</Top>
-                  <Left>11.8675cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>6.8716cm</Width>
-                  <ZIndex>9</ZIndex>
+                  <ZIndex>14</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1464,11 +1601,11 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.03528cm</Top>
-                  <Left>10.42639cm</Left>
+                  <Top>3.07236cm</Top>
+                  <Left>10.35949cm</Left>
                   <Height>0.6cm</Height>
                   <Width>1.3cm</Width>
-                  <ZIndex>10</ZIndex>
+                  <ZIndex>15</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1479,13 +1616,13 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtLocadorIB">
+                <Textbox Name="txtEmpCUIT">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!IB.Value, "Locador")</Value>
+                          <Value>=First(Fields!Numero.Value, "DocumentoEmpresa")</Value>
                           <Style />
                         </TextRun>
                       </TextRuns>
@@ -1494,11 +1631,11 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.63528cm</Top>
-                  <Left>14.06152cm</Left>
+                  <Top>3.07236cm</Top>
+                  <Left>11.9722cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>4.67757cm</Width>
-                  <ZIndex>11</ZIndex>
+                  <Width>6.7cm</Width>
+                  <ZIndex>16</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1526,11 +1663,11 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.63528cm</Top>
-                  <Left>10.42639cm</Left>
+                  <Top>3.67236cm</Top>
+                  <Left>10.35949cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.45874cm</Width>
-                  <ZIndex>12</ZIndex>
+                  <ZIndex>17</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1541,16 +1678,14 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtLocadorInicioActividad">
+                <Textbox Name="txtEmpIB">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!InicioActividad.Value, "Locador")</Value>
-                          <Style>
-                            <Format>d</Format>
-                          </Style>
+                          <Value>=First(Fields!IB.Value, "Empresa")</Value>
+                          <Style />
                         </TextRun>
                       </TextRuns>
                       <Style>
@@ -1558,11 +1693,11 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.24528cm</Top>
-                  <Left>15.20896cm</Left>
+                  <Top>3.67236cm</Top>
+                  <Left>13.99462cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>3.53013cm</Width>
-                  <ZIndex>13</ZIndex>
+                  <Width>4.67757cm</Width>
+                  <ZIndex>18</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1590,147 +1725,10 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.24528cm</Top>
-                  <Left>10.42639cm</Left>
+                  <Top>4.28236cm</Top>
+                  <Left>10.35949cm</Left>
                   <Height>0.6cm</Height>
                   <Width>4.60618cm</Width>
-                  <ZIndex>14</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Line Name="Line1">
-                  <Top>1cm</Top>
-                  <Height>0cm</Height>
-                  <Width>19cm</Width>
-                  <ZIndex>15</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>Solid</Style>
-                    </Border>
-                  </Style>
-                </Line>
-                <Textbox Name="txtLocadorNombre">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Nombre.Value, "Locador")</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>18pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1cm</Top>
-                  <Left>0.33145cm</Left>
-                  <Height>1.5cm</Height>
-                  <Width>8.27744cm</Width>
-                  <ZIndex>16</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtLocadorDomicilio">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Domicilio.Value, "Locador")</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.72778cm</Top>
-                  <Left>2.602cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>7.648cm</Width>
-                  <ZIndex>17</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox1">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Domicilio:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>2.72778cm</Top>
-                  <Left>0.33145cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>2.2cm</Width>
-                  <ZIndex>18</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox2">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Localidad:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.46889cm</Top>
-                  <Left>0.33145cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>2.3cm</Width>
                   <ZIndex>19</ZIndex>
                   <Style>
                     <Border>
@@ -1742,23 +1740,27 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtLocadorLocalidad">
+                <Textbox Name="txtEmpIniAc">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!Localidad.Value, "Locador") &amp; "-" &amp; First(Fields!Provincia.Value, "Locador")</Value>
-                          <Style />
+                          <Value>=First(Fields!FechaAlta.Value, "Empresa")</Value>
+                          <Style>
+                            <Format>d</Format>
+                          </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style />
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                      </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.46889cm</Top>
-                  <Left>2.7461cm</Left>
+                  <Top>4.28236cm</Top>
+                  <Left>15.1156cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>7.5039cm</Width>
+                  <Width>3.5566cm</Width>
                   <ZIndex>20</ZIndex>
                   <Style>
                     <Border>
@@ -1770,62 +1772,45 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtLocadorIVA">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!TipoIVA.Value, "IVALocador")</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>4.24528cm</Top>
-                  <Left>1.57013cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>8.67987cm</Width>
+                <Line Name="Line1">
+                  <Top>0.97849cm</Top>
+                  <Left>0.0287cm</Left>
+                  <Height>0cm</Height>
+                  <Width>18.9713cm</Width>
                   <ZIndex>21</ZIndex>
                   <Style>
                     <Border>
-                      <Style>None</Style>
+                      <Style>Solid</Style>
                     </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
                   </Style>
-                </Textbox>
-                <Textbox Name="Textbox3">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
+                </Line>
+                <Textbox Name="txtCopia">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>IVA:</Value>
+                          <Value>=Parameters!Copia.Value</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style />
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.24528cm</Top>
-                  <Left>0.30499cm</Left>
+                  <Top>0.2021cm</Top>
+                  <Left>8cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>1.08875cm</Width>
+                  <Width>3cm</Width>
                   <ZIndex>22</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -1844,265 +1829,8 @@
                 </Border>
               </Style>
             </Rectangle>
-            <Rectangle Name="Rectangle7">
+            <Rectangle Name="Rectangle2">
               <ReportItems>
-                <Textbox Name="txtClienteNumDoc">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Numero.Value, "DocumentoCliente")</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.35cm</Top>
-                  <Left>11.07651cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>7.62348cm</Width>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtClienteTipoDoc">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!TipoDocumento.Value, "TipoDocumentoCliente") &amp; ": "</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.35cm</Top>
-                  <Left>9.32874cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>1.57138cm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox10">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Cond.Fiscal:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.35cm</Top>
-                  <Left>0.2609cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>2.23527cm</Width>
-                  <ZIndex>2</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtClienteIVA">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!TipoIVA.Value, "IVACliente")</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.35cm</Top>
-                  <Left>2.56673cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>6.6209cm</Width>
-                  <ZIndex>3</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtClienteNombre">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Nombre.Value, "Cliente")</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.07639cm</Top>
-                  <Left>1.82345cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>16.91564cm</Width>
-                  <ZIndex>4</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textobox11">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Cliente:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.07639cm</Top>
-                  <Left>0.26088cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>1.38618cm</Width>
-                  <ZIndex>5</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtClienteDomicilio">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!Domicilio.Value, "Cliente") &amp; "-" &amp; First(Fields!Localidad.Value, "Cliente") &amp; "-" &amp; First(Fields!Provincia.Value, "Cliente")</Value>
-                          <Style>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Left</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.75cm</Top>
-                  <Left>2.2468cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>16.49229cm</Width>
-                  <ZIndex>6</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="Textbox11">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Domicilio:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                            <FontSize>8pt</FontSize>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.7175cm</Top>
-                  <Left>0.2609cm</Left>
-                  <Height>0.5cm</Height>
-                  <Width>1.80951cm</Width>
-                  <ZIndex>7</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
                 <Textbox Name="txtCompAsoc">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
@@ -2120,11 +1848,10 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.97361cm</Top>
-                  <Left>9.38863cm</Left>
+                  <Top>1.9cm</Top>
+                  <Left>9.3cm</Left>
                   <Height>0.5cm</Height>
-                  <Width>9.35047cm</Width>
-                  <ZIndex>8</ZIndex>
+                  <Width>9.43909cm</Width>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2138,7 +1865,7 @@
                 </Textbox>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>5.6cm</Top>
+              <Top>5.55cm</Top>
               <Left>1cm</Left>
               <Height>2.6cm</Height>
               <Width>19cm</Width>
@@ -2147,28 +1874,266 @@
                 <Border>
                   <Style>Solid</Style>
                 </Border>
-                <TopBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </TopBorder>
-                <BottomBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </BottomBorder>
-                <LeftBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </LeftBorder>
-                <RightBorder>
-                  <Color>Black</Color>
-                  <Style>Solid</Style>
-                  <Width>1pt</Width>
-                </RightBorder>
               </Style>
             </Rectangle>
+            <Textbox Name="Textobox11">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Cliente:</Value>
+                      <Style>
+                        <FontFamily>Arial Black</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>5.65cm</Top>
+              <Left>1.2cm</Left>
+              <Height>0.5cm</Height>
+              <Width>1.4cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtCliRSoc">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!Nombre.Value, "Cliente")</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>5.65cm</Top>
+              <Left>2.9cm</Left>
+              <Height>0.5cm</Height>
+              <Width>16.82744cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox11">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Domicilio:</Value>
+                      <Style>
+                        <FontFamily>Arial Black</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>6.3cm</Top>
+              <Left>1.2cm</Left>
+              <Height>0.5cm</Height>
+              <Width>1.87922cm</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtCliDomic">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!Domicilio.Value, "Cliente")</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>6.3cm</Top>
+              <Left>3.25561cm</Left>
+              <Height>0.5cm</Height>
+              <Width>16.48348cm</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox10">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Cond.Fiscal:</Value>
+                      <Style>
+                        <FontFamily>Arial Black</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>6.9cm</Top>
+              <Left>1.2cm</Left>
+              <Height>0.5cm</Height>
+              <Width>2.18874cm</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtCliIVA">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!TipoIVA.Value, "IVACliente")</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>6.9cm</Top>
+              <Left>3.6cm</Left>
+              <Height>0.5cm</Height>
+              <Width>6.5616cm</Width>
+              <ZIndex>7</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtCliTDoc">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!TipoDocumento.Value, "TipoDocumentoCliente") &amp; ": "</Value>
+                      <Style>
+                        <FontFamily>Arial Black</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>6.9cm</Top>
+              <Left>10.3cm</Left>
+              <Height>0.5cm</Height>
+              <Width>1.57138cm</Width>
+              <ZIndex>8</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtCliNumDoc">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!Numero.Value, "DocumentoCliente")</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>6.9cm</Top>
+              <Left>12cm</Left>
+              <Height>0.5cm</Height>
+              <Width>7.73909cm</Width>
+              <ZIndex>9</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -2183,32 +2148,31 @@
           <ReportItems>
             <Rectangle Name="Rectangle3">
               <ReportItems>
-                <Textbox Name="txtImporte3">
+                <Textbox Name="txtDesImporte1">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Value>Subtotal:</Value>
                           <Style>
-                            <Format>0.00;(0.00)</Format>
+                            <FontFamily>Arial Black</FontFamily>
                           </Style>
                         </TextRun>
                       </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
+                      <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.00583cm</Top>
-                  <Left>15.09999cm</Left>
+                  <Top>0.66204cm</Top>
+                  <Left>11.60807cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>3.6cm</Width>
+                  <Width>3.4cm</Width>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -2232,8 +2196,8 @@
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>0.40583cm</Top>
-                  <Left>15.09999cm</Left>
+                  <Top>0.66204cm</Top>
+                  <Left>15.10807cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.6cm</Width>
                   <ZIndex>1</ZIndex>
@@ -2242,71 +2206,6 @@
                       <Style>None</Style>
                     </Border>
                     <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtImporte2">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>0,00</Value>
-                          <Style>
-                            <Format>0.00;(0.00)</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Right</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>1.20583cm</Top>
-                  <Left>15.09999cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.6cm</Width>
-                  <ZIndex>2</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <VerticalAlign>Middle</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtDesImporte1">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Subtotal:</Value>
-                          <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.40583cm</Top>
-                  <Left>11.49999cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>3.4cm</Width>
-                  <ZIndex>3</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -2330,15 +2229,48 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>1.20583cm</Top>
-                  <Left>11.49999cm</Left>
+                  <Top>1.36204cm</Top>
+                  <Left>11.60807cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.4cm</Width>
-                  <ZIndex>4</ZIndex>
+                  <ZIndex>2</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
                     </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtImporte2">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>0,00</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.36204cm</Top>
+                  <Left>15.10807cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
                     <PaddingLeft>2pt</PaddingLeft>
                     <PaddingRight>2pt</PaddingRight>
                     <PaddingTop>2pt</PaddingTop>
@@ -2362,11 +2294,11 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.00583cm</Top>
-                  <Left>11.49999cm</Left>
+                  <Top>2.16204cm</Top>
+                  <Left>11.60807cm</Left>
                   <Height>0.6cm</Height>
                   <Width>3.4cm</Width>
-                  <ZIndex>5</ZIndex>
+                  <ZIndex>4</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2377,39 +2309,93 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Image Name="QR">
-                  <Source>Database</Source>
-                  <Value>=First(Fields!QR.Value, "QR")</Value>
-                  <MIMEType>image/jpeg</MIMEType>
-                  <Sizing>FitProportional</Sizing>
-                  <Top>0.40583cm</Top>
-                  <Left>0.19999cm</Left>
-                  <Height>4cm</Height>
-                  <Width>4cm</Width>
-                  <ZIndex>6</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                  </Style>
-                </Image>
-                <Textbox Name="txtPagina">
+                <Textbox Name="txtImporte3">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>="Pág." &amp; Globals!PageNumber &amp; "/" &amp; Globals!TotalPages</Value>
+                          <Value>=First(Fields!ImpBto.Value, "Encabezado")</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.16204cm</Top>
+                  <Left>15.10807cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>3.6cm</Width>
+                  <ZIndex>5</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox18">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Régimen de transparencia Fiscal (Ley 27.743)</Value>
                           <Style />
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>0.76204cm</Top>
+                  <Left>0.2458cm</Left>
+                  <Height>0.5cm</Height>
+                  <Width>10.8cm</Width>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Top</VerticalAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="txtDesImporte4">
+                  <CanGrow>true</CanGrow>
+                  <CanShrink>true</CanShrink>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>I.V.A. Contenido:</Value>
+                          <Style>
+                            <FontFamily>Arial Black</FontFamily>
+                          </Style>
                         </TextRun>
                       </TextRuns>
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>4.40583cm</Top>
-                  <Left>7.99999cm</Left>
+                  <Top>1.46204cm</Top>
+                  <Left>0.2458cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>3cm</Width>
+                  <Width>6.96273cm</Width>
                   <ZIndex>7</ZIndex>
                   <Style>
                     <Border>
@@ -2421,7 +2407,7 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="Textbox13">
+                <Textbox Name="txtDesImporte5">
                   <CanGrow>true</CanGrow>
                   <CanShrink>true</CanShrink>
                   <KeepTogether>true</KeepTogether>
@@ -2429,7 +2415,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>C.A.E.</Value>
+                          <Value>Otros Impuestos Nacionales:</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                           </Style>
@@ -2438,10 +2424,10 @@
                       <Style />
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.60583cm</Top>
-                  <Left>4.99999cm</Left>
+                  <Top>2.26204cm</Top>
+                  <Left>0.2458cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>1.53812cm</Width>
+                  <Width>6.96273cm</Width>
                   <ZIndex>8</ZIndex>
                   <Style>
                     <Border>
@@ -2453,25 +2439,27 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="txtCAE">
+                <Textbox Name="txtImporte4">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!NumCAE.Value, "CAE")</Value>
-                          <Style />
+                          <Value>=First(Fields!ImpIVA1.Value, "Encabezado")+First(Fields!ImpIVA2.Value, "Encabezado")</Value>
+                          <Style>
+                            <Format>0.00;(0.00)</Format>
+                          </Style>
                         </TextRun>
                       </TextRuns>
                       <Style>
-                        <TextAlign>Left</TextAlign>
+                        <TextAlign>Right</TextAlign>
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>2.60583cm</Top>
-                  <Left>6.69999cm</Left>
+                  <Top>1.46204cm</Top>
+                  <Left>7.4958cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>3.79569cm</Width>
+                  <Width>3.6cm</Width>
                   <ZIndex>9</ZIndex>
                   <Style>
                     <Border>
@@ -2484,60 +2472,28 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="Textbox14">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
+                <Textbox Name="txtImporte5">
                   <KeepTogether>true</KeepTogether>
                   <Paragraphs>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Vto.</Value>
+                          <Value>0,00</Value>
                           <Style>
-                            <FontFamily>Arial Black</FontFamily>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style />
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>3.20583cm</Top>
-                  <Left>4.99999cm</Left>
-                  <Height>0.6cm</Height>
-                  <Width>1.53813cm</Width>
-                  <ZIndex>10</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Textbox Name="txtVtoCAE">
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>=First(Fields!VtoCAE.Value, "CAE")</Value>
-                          <Style>
-                            <Format>d</Format>
+                            <Format>0.00;(0.00)</Format>
                           </Style>
                         </TextRun>
                       </TextRuns>
                       <Style>
-                        <TextAlign>Left</TextAlign>
+                        <TextAlign>Right</TextAlign>
                       </Style>
                     </Paragraph>
                   </Paragraphs>
-                  <Top>3.20583cm</Top>
-                  <Left>6.69999cm</Left>
+                  <Top>2.26204cm</Top>
+                  <Left>7.4958cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>3.79569cm</Width>
-                  <ZIndex>11</ZIndex>
+                  <Width>3.6cm</Width>
+                  <ZIndex>10</ZIndex>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -2549,55 +2505,21 @@
                     <PaddingBottom>2pt</PaddingBottom>
                   </Style>
                 </Textbox>
-                <Textbox Name="Textbox12">
-                  <CanGrow>true</CanGrow>
-                  <CanShrink>true</CanShrink>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Dirección de comercio interior</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Teléfono 0800-444-03346</Value>
-                          <Style />
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <Top>0.40583cm</Top>
-                  <Left>4.99999cm</Left>
-                  <Height>1cm</Height>
-                  <Width>5cm</Width>
-                  <ZIndex>12</ZIndex>
+                <Line Name="Line4">
+                  <Left>11.2958cm</Left>
+                  <Height>3.3cm</Height>
+                  <Width>0cm</Width>
+                  <ZIndex>11</ZIndex>
                   <Style>
                     <Border>
-                      <Style>None</Style>
+                      <Style>Solid</Style>
                     </Border>
-                    <VerticalAlign>Top</VerticalAlign>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
                   </Style>
-                </Textbox>
+                </Line>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Top>0.03528cm</Top>
               <Left>1cm</Left>
-              <Height>5.11472cm</Height>
+              <Height>3.35cm</Height>
               <Width>19cm</Width>
               <Style>
                 <Border>
@@ -2605,6 +2527,183 @@
                 </Border>
               </Style>
             </Rectangle>
+            <Image Name="QR">
+              <Source>Database</Source>
+              <Value>=First(Fields!QR.Value, "QR")</Value>
+              <MIMEType>image/jpeg</MIMEType>
+              <Sizing>FitProportional</Sizing>
+              <Top>3.5cm</Top>
+              <Left>1.2cm</Left>
+              <Height>2cm</Height>
+              <Width>2cm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox13">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>C.A.E.</Value>
+                      <Style>
+                        <FontFamily>Arial Black</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>4.3cm</Top>
+              <Left>3.3cm</Left>
+              <Height>0.6cm</Height>
+              <Width>1.5cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox14">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Vto.</Value>
+                      <Style>
+                        <FontFamily>Arial Black</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <Top>4.9cm</Top>
+              <Left>3.3cm</Left>
+              <Height>0.6cm</Height>
+              <Width>1.5cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtCAE">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!NumCAE.Value, "CAE")</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>4.3cm</Top>
+              <Left>4.9cm</Left>
+              <Height>0.6cm</Height>
+              <Width>3.79569cm</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="txtVtoCAE">
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=First(Fields!VtoCAE.Value, "CAE")</Value>
+                      <Style>
+                        <Format>d</Format>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>4.9cm</Top>
+              <Left>4.9cm</Left>
+              <Height>0.6cm</Height>
+              <Width>3.79569cm</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Middle</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox12">
+              <CanGrow>true</CanGrow>
+              <CanShrink>true</CanShrink>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Dirección de comercio interior Teléfono 0800-444-03346</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <Top>3.56787cm</Top>
+              <Left>4.9cm</Left>
+              <Height>0.60313cm</Height>
+              <Width>11.41582cm</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <VerticalAlign>Top</VerticalAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -2614,10 +2713,10 @@
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
-        <LeftMargin>0cm</LeftMargin>
-        <RightMargin>0cm</RightMargin>
-        <TopMargin>0cm</TopMargin>
-        <BottomMargin>0cm</BottomMargin>
+        <LeftMargin>2cm</LeftMargin>
+        <RightMargin>2cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
@@ -2626,10 +2725,13 @@
   <ReportParameters>
     <ReportParameter Name="Copia">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="CompAsoc">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -2652,7 +2754,6 @@
       </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
-  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>5b305152-54ac-49aa-b6fe-fb669631c420</rd:ReportID>
+  <rd:ReportID>b4fc4871-748c-40a2-b5ca-7d99f6b1a008</rd:ReportID>
 </Report>

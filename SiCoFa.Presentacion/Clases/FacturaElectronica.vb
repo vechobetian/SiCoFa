@@ -100,7 +100,7 @@ Public Class FacturaElectronica
                     .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
                     .Encabezado.Add(argComprobante)
                     .TipoComprobante.Add(argComprobante.TipoComprobante)
-                    '.Detalle = argComprobante.Detalle
+                    .Detalle = argComprobante.Detalle
                     .CAE.Add(argComprobante.CAE)
                     .QR.Add(argComprobante.QR)
                     '.Copia = Copia
@@ -139,18 +139,18 @@ Public Class FacturaElectronica
                     .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
                     .Encabezado.Add(argComprobante)
                     .TipoComprobante.Add(argComprobante.TipoComprobante)
-                    '.Detalle = argComprobante.Detalle
+                    .Detalle = argComprobante.Detalle
                     .CAE.Add(argComprobante.CAE)
                     .QR.Add(argComprobante.QR)
-                    '.Copia = Copia
+                    .Copia = Copia
                     '.PathReporte = mobjPater.PathServer
                     '.Impresora = mobjPater.Impresora
 
-                    'If argComprobante.CompAsoc IsNot Nothing Then
-                    '.CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
-                    'Else
-                    '.CompAsoc = ""
-                    'End If
+                    If argComprobante.CompAsoc IsNot Nothing Then
+                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                    Else
+                        .CompAsoc = ""
+                    End If
                 End With
 
                 objRC.Run()
