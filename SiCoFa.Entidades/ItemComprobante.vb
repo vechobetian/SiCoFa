@@ -4,8 +4,10 @@
     Private m_CodBarras As String
     Private m_Descripcion As String
     Private m_Cantidad As Decimal = 0
+    Private m_PrecioNeto As Decimal = 0
     Private m_PrecioUnitario As Decimal = 0
     Private m_AlicIVA As Decimal = 0
+    Private m_DescuentoNeto As Decimal = 0
     Private m_DescuentoUnitario As Decimal = 0
     Private m_PorcentajeDescuento As Decimal = 0
     Private m_ImporteSinDescuento As Decimal = 0
@@ -69,6 +71,8 @@
         Set(value As Decimal)
             m_PrecioUnitario = value
             ' Actualizar propiedades dependientes
+            m_PrecioNeto = Math.Round(m_PrecioUnitario * (1 + AlicIVA / 100), 2, MidpointRounding.ToEven)
+            m_DescuentoNeto = Math.Round(m_PrecioNeto)
             m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)
             m_ImporteSinDescuento = Math.Round(m_Cantidad * m_PrecioUnitario, 2, MidpointRounding.ToEven)
             m_ImporteDescuento = Math.Round(m_Cantidad * m_DescuentoUnitario, 2, MidpointRounding.ToEven)
@@ -84,6 +88,13 @@
             m_AlicIVA = value
         End Set
     End Property
+
+    Public ReadOnly Property DescuentoNeto() As Decimal
+        Get
+            Return Math.Round(m_PrecioUnitario / (1 + m_AlicIVA / 100), 2, MidpointRounding.ToEven)
+        End Get
+    End Property
+
 
     ' DescuentoUnitario ahora se calcula en los Setters y es ReadOnly
     Public ReadOnly Property DescuentoUnitario() As Decimal
