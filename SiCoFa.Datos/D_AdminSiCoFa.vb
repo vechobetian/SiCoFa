@@ -2508,7 +2508,14 @@ Public Class D_AdminSiCoFa
                     .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
                     .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
-                    .AddWithValue("p_Fiscal", "E")
+
+                    If argComprobante.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
+                        .AddWithValue("p_Fiscal", "0")
+
+                    Else
+                        .AddWithValue("p_Fiscal", "E")
+
+                    End If
                 End With
 
                 cmd.Parameters.Add("p_PVenta", MySqlDbType.VarChar)

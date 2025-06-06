@@ -6,6 +6,7 @@ Public Class FrmPagos
     Property FrmOrigen As FrmVentas
     Property Operacion As Operacion
     Property Cliente As Cliente
+    Property TeclaPresionada As Keys
     Property MedioPE As MedioPE
     Property ItemsComprobante As List(Of ItemComprobante)
     Property ImporteAPagar As Decimal
@@ -58,7 +59,13 @@ Public Class FrmPagos
     Private Sub FrmPagos_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
-        Me.mobj_TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+
+        If TeclaPresionada = Keys.F10 Then
+            Me.mobj_TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+        ElseIf TeclaPresionada = Keys.F9 Then
+            Me.mobj_TipoComprobante = New TipoComprobante("RTO")
+        End If
+
         Me.txtTipoComprobante.Text = $"{mobj_TipoComprobante.TipoComprobante} {mobj_TipoComprobante.Letra}"
         Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")
         Me.txtImporteCuentaCorriente.DataBindings.Add("Text", Me.MediosDePago, "ImporteCuentaCorriente", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
@@ -295,7 +302,12 @@ Public Class FrmPagos
 
         Dim Finalizado As Boolean = mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
 
-        If Finalizado Then
+        If Finalizado And objCb.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
+
+            MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
+            mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
+
+        Else
             Dim objFE As New FacturaElectronica
             Dim Autorizado As Boolean = objFE.GenerarFacturaElectronica(objCb)
 

@@ -158,6 +158,7 @@ Public Class FrmVentas
                         .FrmOrigen = Me
                         .Operacion = mobj_Operacion
                         .Cliente = mobj_Cliente
+                        .TeclaPresionada = argTecla
                         .ImporteAPagar = mdec_ImporteConDescuentos
                         .ImporteDescuento = mdec_ImporteDescuentos
                         .ImporteGravado1 = mdec_ImporteGravado1
@@ -497,7 +498,7 @@ Public Class FrmVentas
             Case Keys.F10
                 Me.GuardarCambios(Keys.F10)
             Case Keys.F9
-
+                Me.GuardarCambios(Keys.F9)
             Case Keys.F8
 
             Case Else
@@ -714,6 +715,10 @@ Public Class FrmVentas
 
     Private Sub FacturarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarToolStripMenuItem.Click
         Me.GuardarCambios(Keys.F10)
+    End Sub
+
+    Private Sub RemitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemitoToolStripMenuItem.Click
+        Me.GuardarCambios(Keys.F9)
     End Sub
 
     Private Sub CopiarToolStripButton_Click(sender As Object, e As EventArgs) Handles CopiarToolStripButton.Click

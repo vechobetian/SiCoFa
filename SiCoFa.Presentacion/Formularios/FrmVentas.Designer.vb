@@ -64,6 +64,7 @@ Partial Class FrmVentas
         Me.CopiarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.PegarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ClienteToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.DesRecToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.AyudaToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.SalirToolStripButton = New System.Windows.Forms.ToolStripButton()
@@ -82,7 +83,6 @@ Partial Class FrmVentas
         Me.FacturarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PresupuestoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DesRecToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -467,6 +467,15 @@ Partial Class FrmVentas
         Me.ClienteToolStripButton.Size = New System.Drawing.Size(23, 35)
         Me.ClienteToolStripButton.Text = "&Cliente"
         '
+        'DesRecToolStripButton1
+        '
+        Me.DesRecToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.DesRecToolStripButton1.Image = CType(resources.GetObject("DesRecToolStripButton1.Image"), System.Drawing.Image)
+        Me.DesRecToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.DesRecToolStripButton1.Name = "DesRecToolStripButton1"
+        Me.DesRecToolStripButton1.Size = New System.Drawing.Size(23, 35)
+        Me.DesRecToolStripButton1.Text = "ToolStripButton1"
+        '
         'AyudaToolStripButton
         '
         Me.AyudaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -580,31 +589,22 @@ Partial Class FrmVentas
         '
         Me.FacturarToolStripMenuItem.Name = "FacturarToolStripMenuItem"
         Me.FacturarToolStripMenuItem.ShortcutKeyDisplayString = "F10"
-        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FacturarToolStripMenuItem.Text = "&Facturar"
         '
         'RemitoToolStripMenuItem
         '
         Me.RemitoToolStripMenuItem.Name = "RemitoToolStripMenuItem"
         Me.RemitoToolStripMenuItem.ShortcutKeyDisplayString = "F9"
-        Me.RemitoToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.RemitoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.RemitoToolStripMenuItem.Text = "&Remito"
         '
         'PresupuestoToolStripMenuItem
         '
         Me.PresupuestoToolStripMenuItem.Name = "PresupuestoToolStripMenuItem"
         Me.PresupuestoToolStripMenuItem.ShortcutKeyDisplayString = "F8"
-        Me.PresupuestoToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.PresupuestoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PresupuestoToolStripMenuItem.Text = "&Presupuesto"
-        '
-        'DesRecToolStripButton1
-        '
-        Me.DesRecToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.DesRecToolStripButton1.Image = CType(resources.GetObject("DesRecToolStripButton1.Image"), System.Drawing.Image)
-        Me.DesRecToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.DesRecToolStripButton1.Name = "DesRecToolStripButton1"
-        Me.DesRecToolStripButton1.Size = New System.Drawing.Size(23, 35)
-        Me.DesRecToolStripButton1.Text = "ToolStripButton1"
         '
         'FrmVentas
         '

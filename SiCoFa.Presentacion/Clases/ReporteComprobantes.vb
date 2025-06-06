@@ -113,12 +113,17 @@ Public Class ReporteComprobantes
             Select Case Me.TipoComprobante(0).Letra
                 Case "A", "M"
                     report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
+
                 Case "B"
                     report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
+
                 Case "C"
-                    report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
+                    'report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
+                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompCA4.rdlc"
+
                 Case "R"
-                    report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
+                    'report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
+                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompRA4.rdlc"
             End Select
 
             'report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
