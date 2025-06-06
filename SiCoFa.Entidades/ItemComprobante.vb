@@ -126,7 +126,6 @@
         End Get
     End Property
 
-
     Public Sub New(
                     ByVal argArticulo As Articulo,
                     ByVal argCodBarras As String,
@@ -140,8 +139,8 @@
         m_CodBarras = argCodBarras
         m_Descripcion = argDescripcion
         m_Cantidad = argCantidad
-        m_PrecioUnitario = argPrecioUnitario
         m_AlicIVA = argAlicIVA
+        m_PrecioUnitario = argPrecioUnitario
         m_PorcentajeDescuento = argPorcentajeDescuento
         ' Calcular las propiedades dependientes al inicializar el objeto
         m_DescuentoUnitario = Math.Round(m_PrecioUnitario * m_PorcentajeDescuento / 100, 2, MidpointRounding.ToEven)

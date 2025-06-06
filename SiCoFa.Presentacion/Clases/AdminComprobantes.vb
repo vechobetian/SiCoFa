@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 
-Public Class FacturaElectronica
+Public Class AdminComprobantes
 
     Public mobj_AdminSicofa As New N_AdminSiCoFa
 
@@ -11,7 +11,6 @@ Public Class FacturaElectronica
             If SolicitarCAE(argComprobante) = True Then
                 GenerarQR(argComprobante)
                 Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarCAE(argComprobante)
-                Call ImprimirA4(argComprobante, 1)
                 Return True
 
             Else
@@ -64,6 +63,18 @@ Public Class FacturaElectronica
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "GenerarQR", ex.Message))
         End Try
+    End Sub
+
+    Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante)
+
+        Select Case g_ParametrosTerminal.Papel
+            Case "A4"
+                Call ImprimirA4(argComprobante, 1)
+
+            Case "TK"
+
+        End Select
+
     End Sub
 
     Private Sub pdfA4(ByVal argPath As String, ByVal argComprobante As Comprobante)

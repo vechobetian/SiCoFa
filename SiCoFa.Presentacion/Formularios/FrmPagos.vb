@@ -301,22 +301,25 @@ Public Class FrmPagos
                                 )
 
         Dim Finalizado As Boolean = mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
+        Dim objAC As New AdminComprobantes
 
         If Finalizado And objCb.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
 
-            MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
+            MsgBox($"NumComp: {objCb.NumComp}")
             mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
 
         Else
-            Dim objFE As New FacturaElectronica
-            Dim Autorizado As Boolean = objFE.GenerarFacturaElectronica(objCb)
+            Dim Autorizado As Boolean = objAC.GenerarFacturaElectronica(objCb)
 
             If Autorizado Then
                 MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
                 mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
+
             End If
 
         End If
+
+        objAC.ImprimirComprobante(objCb)
 
         Dim nuevaVentanaVentas As New FrmVentas()
         nuevaVentanaVentas.Usuario = Me.Operacion.Usuario

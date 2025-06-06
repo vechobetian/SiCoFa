@@ -121,7 +121,7 @@ Public Class ReporteComprobantes
                     'report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
                     report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompCA4.rdlc"
 
-                Case "R"
+                Case "X"
                     'report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
                     report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompRA4.rdlc"
             End Select
