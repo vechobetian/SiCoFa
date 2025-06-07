@@ -2047,15 +2047,17 @@ Public Class D_AdminSiCoFa
                 End Using
 
                 For Each iac As ItemAsientoContable In argAsiento.DetalleCuentas
-                    Using cmd1 As New MySqlCommand("InsertarDetCuenta", cn) With {.CommandType = CommandType.StoredProcedure}
-                        With cmd1.Parameters
-                            .AddWithValue("_NumAs", NumAsiento)
-                            .AddWithValue("_IdAf", iac.IdAf)
-                            .AddWithValue("_CodiCta", iac.CodiCta)
-                            .AddWithValue("_Importe", iac.Importe)
-                        End With
-                        cmd1.ExecuteNonQuery()
-                    End Using
+                    If iac.Importe <> 0 Then
+                        Using cmd1 As New MySqlCommand("InsertarDetCuenta", cn) With {.CommandType = CommandType.StoredProcedure}
+                            With cmd1.Parameters
+                                .AddWithValue("_NumAs", NumAsiento)
+                                .AddWithValue("_IdAf", iac.IdAf)
+                                .AddWithValue("_CodiCta", iac.CodiCta)
+                                .AddWithValue("_Importe", iac.Importe)
+                            End With
+                            cmd1.ExecuteNonQuery()
+                        End Using
+                    End If
                 Next
             End Using
         Catch Ex As Exception

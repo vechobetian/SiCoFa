@@ -252,6 +252,7 @@ Public Class FrmPagos
         Dim objCC As OperacionCC = Nothing
         Dim objPE As OperacionPE = Nothing
         Dim objCb As Comprobante = Nothing
+        Dim objAC As AsientoContable = Nothing
 
         If Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text) > 0 Then
 
@@ -300,8 +301,16 @@ Public Class FrmPagos
                                 argDetalle:=ItemsComprobante
                                 )
 
+        objAC = New AsientoContable
+        With objAC
+            .InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
+            .InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
+            .InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
+            .InsertarItem("4.01.01.001", ImporteAPagar)
+        End With
+
         Dim Finalizado As Boolean = mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
-        Dim objAC As New AdminComprobantes
+        Dim objAdminCtes As New AdminComprobantes
 
         If Finalizado And objCb.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
 
@@ -309,7 +318,7 @@ Public Class FrmPagos
             mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
 
         Else
-            Dim Autorizado As Boolean = objAC.GenerarFacturaElectronica(objCb)
+            Dim Autorizado As Boolean = objAdminCtes.GenerarFacturaElectronica(objCb)
 
             If Autorizado Then
                 MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
@@ -319,7 +328,7 @@ Public Class FrmPagos
 
         End If
 
-        objAC.ImprimirComprobante(objCb)
+        objAdminCtes.ImprimirComprobante(objCb)
 
         Dim nuevaVentanaVentas As New FrmVentas()
         nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
