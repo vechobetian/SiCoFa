@@ -112,7 +112,7 @@ Public Class ReporteComprobantes
 
             Select Case Me.TipoComprobante(0).Letra
                 Case "A", "M"
-                    report.ReportPath = Application.StartupPath & "\rptCompAA4.rdlc"
+                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompAA4.rdlc"
 
                 Case "B"
                     report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"

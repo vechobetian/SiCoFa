@@ -2485,6 +2485,13 @@ Public Class D_AdminSiCoFa
             Dim ImpNeto2 As Decimal = Math.Round(argComprobante.ImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
             Dim ImpIVA2 As Decimal = Math.Round(ImpNeto2 * 21 / 100, 2, MidpointRounding.ToEven)
 
+            With argComprobante
+                .ImpNeto1 = ImpNeto1
+                .ImpIVA1 = ImpIVA1
+                .ImpNeto2 = ImpNeto2
+                .ImpIVA2 = ImpIVA2
+            End With
+
             Using cmd As New MySqlCommand("ComprobanteInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters

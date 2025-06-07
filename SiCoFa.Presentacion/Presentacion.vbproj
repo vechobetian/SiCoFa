@@ -358,6 +358,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\rptCompAA4 - copia.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompAA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompBA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompCA4.rdlc" />
