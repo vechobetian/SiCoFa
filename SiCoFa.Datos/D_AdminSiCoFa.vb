@@ -1614,20 +1614,26 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function RegistrarError(ByVal argIdOpera As Long, argDescripcionError As String) As Integer
+    Public Function RegistrarError(ByVal argIdOpera As Long, ByVal argDescripcionError As String) As Integer
         Dim objConexionDB As New D_Conexion
-        Dim RegAfectados As Integer
+        Dim RegAfectados As Integer = 0 ' Inicializar a 0
+
         Try
-            Dim sql As String = "UPDATE TblOpera SET EstadoOpera='Error',DesError='" & argDescripcionError & "' WHERE IdOperacion=" & argIdOpera
+            ' **CRÍTICO: Usar parámetros SQL para evitar la inyección SQL**
+            Dim sql As String = "UPDATE TblOpera SET EstadoOpera='Error', DesError=@descripcionError WHERE IdOperacion=@idOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open() ' Abrir la conexión antes de ejecutar el comando
                 Using cmd As New MySqlCommand(sql, cn)
+                    ' Agregar los parámetros
+                    cmd.Parameters.AddWithValue("@descripcionError", argDescripcionError)
+                    cmd.Parameters.AddWithValue("@idOperacion", argIdOpera)
+
                     RegAfectados = cmd.ExecuteNonQuery
                 End Using
             End Using
         Catch Ex As Exception
-            MsgBox(Vecho.MensajeError(Me.ToString, "RegistrarError", Ex.Message))
-            Return 0
+            Return 0 ' Indica que no se pudo registrar el error en la BD.
         End Try
         Return RegAfectados
     End Function
@@ -1959,7 +1965,7 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function FinalizarOperacionConTransaccion(ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante) As Boolean
+    Public Function FinalizarOperacionConTransaccion(ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -1977,12 +1983,16 @@ Public Class D_AdminSiCoFa
                     End If
 
                     Me.InsertarComprobante(argComprobante, cn, tx)
+
+                    Me.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
+
                     tx.Commit()
                     Return True
 
                 Catch ex As Exception
                     tx.Rollback()
-                    Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+                    Me.RegistrarError(argOperacion.IdOperacion, ex.StackTrace)
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message), ex)
 
                 End Try
 
@@ -2032,39 +2042,52 @@ Public Class D_AdminSiCoFa
 #End Region
 
 #Region "Administracion Asientos Contables"
-    Public Sub EfectuarAsientoContable(ByVal argOperacion As Operacion, ByVal argAsiento As AsientoContable)
-        Dim objConexionDB As New D_Conexion
+
+    Public Function EfectuarAsientoContable(ByVal argOperacion As Operacion, ByVal argAsiento As AsientoContable) As Boolean
+        Try
+            Dim objConexionDB As New D_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return EfectuarAsientoContable(argOperacion, argAsiento, cn, Nothing)
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EfectuarAsientoContable", Ex.Message))
+        End Try
+    End Function
+
+    Friend Function EfectuarAsientoContable(ByVal argOperacion As Operacion, ByVal argAsiento As AsientoContable, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
         Dim NumAsiento As Long
 
         Try
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Using cmd As New MySqlCommand("InsertarAsientoContable", cn) With {.CommandType = CommandType.StoredProcedure}
-                    cmd.Parameters.AddWithValue("_IdOpera", argOperacion.IdOperacion)
-                    cmd.Parameters.Add("_NumAs", MySqlDbType.Int64)
-                    cmd.Parameters("_NumAs").Direction = ParameterDirection.Output
-                    cmd.ExecuteNonQuery()
-                    NumAsiento = cmd.Parameters("_NumAs").Value
-                End Using
-
-                For Each iac As ItemAsientoContable In argAsiento.DetalleCuentas
-                    If iac.Importe <> 0 Then
-                        Using cmd1 As New MySqlCommand("InsertarDetCuenta", cn) With {.CommandType = CommandType.StoredProcedure}
-                            With cmd1.Parameters
-                                .AddWithValue("_NumAs", NumAsiento)
-                                .AddWithValue("_IdAf", iac.IdAf)
-                                .AddWithValue("_CodiCta", iac.CodiCta)
-                                .AddWithValue("_Importe", iac.Importe)
-                            End With
-                            cmd1.ExecuteNonQuery()
-                        End Using
-                    End If
-                Next
+            Using cmd As New MySqlCommand("AsientoContableInsertarAsiento", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+                cmd.Parameters.AddWithValue("p_IdOperacion", argOperacion.IdOperacion)
+                cmd.Parameters.Add("p_NumAsiento", MySqlDbType.Int64)
+                cmd.Parameters("p_NumAsiento").Direction = ParameterDirection.Output
+                cmd.ExecuteNonQuery()
+                NumAsiento = cmd.Parameters("p_NumAsiento").Value
             End Using
+
+            For Each iac As ItemAsientoContable In argAsiento.DetalleCuentas
+                    If iac.Importe <> 0 Then
+                    Using cmd1 As New MySqlCommand("AsientoContableInsertarCuenta", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+                        With cmd1.Parameters
+                            .AddWithValue("p_NumAsiento", NumAsiento)
+                            .AddWithValue("p_IdAf", iac.IdAf)
+                            .AddWithValue("p_CodiCta", iac.CodiCta)
+                            .AddWithValue("p_Importe", iac.Importe)
+                        End With
+                        cmd1.ExecuteNonQuery()
+                    End Using
+                End If
+                Next
+
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "EfectuarAsientoContable", Ex.Message))
 
         End Try
-    End Sub
+    End Function
 
 #End Region
 

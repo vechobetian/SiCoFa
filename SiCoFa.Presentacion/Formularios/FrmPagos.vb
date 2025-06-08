@@ -249,30 +249,34 @@ Public Class FrmPagos
 
     Private Sub FinalizarOperacion()
 
-        Dim objCC As OperacionCC = Nothing
-        Dim objPE As OperacionPE = Nothing
-        Dim objCb As Comprobante = Nothing
-        Dim objAC As AsientoContable = Nothing
+        Try
 
-        If Convert.ToDecimal(Me.txtImporteCuentaCorriente.Text) > 0 Then
+            Dim objCC As OperacionCC = Nothing
+            Dim objPE As OperacionPE = Nothing
+            Dim objCb As Comprobante = Nothing
+            Dim objAC As AsientoContable = Nothing
 
-            If Me.Cliente.CuentaCorriente Is Nothing Then
-                MsgBox("El cliente seleccionado no tiene Cuenta Corriente", vbCritical, "SiCoFa")
-                Me.txtImporteCuentaCorriente.Text = "0,00"
-                Me.txtImportePagoElectronico.Select()
-                Me.txtImportePagoElectronico.SelectAll()
-                Me.txtImporteCuentaCorriente.Enabled = False
-                Exit Sub
+            Dim importeCC As Decimal = 0
+            If Decimal.TryParse(Me.txtImporteCuentaCorriente.Text, importeCC) AndAlso importeCC > 0 Then
+
+                If Me.Cliente.CuentaCorriente Is Nothing Then
+                    MsgBox("El cliente seleccionado no tiene Cuenta Corriente", vbCritical, "SiCoFa")
+                    Me.txtImporteCuentaCorriente.Text = "0,00"
+                    Me.txtImportePagoElectronico.Select()
+                    Me.txtImportePagoElectronico.SelectAll()
+                    Me.txtImporteCuentaCorriente.Enabled = False
+                    Exit Sub
+                End If
+
+                objCC = New OperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, "", importeCC, "NO CANCELADO", 0)
             End If
 
-            objCC = New OperacionCC(Me.Operacion.IdOperacion, Me.Cliente.CuentaCorriente.IdCC, "", Me.MediosDePago.ImporteCuentaCorriente, "NO CANCELADO", 0)
-        End If
+            Dim importePE As Decimal = 0
+            If MedioPE IsNot Nothing AndAlso Decimal.TryParse(Me.txtImportePagoElectronico.Text, importePE) AndAlso importePE > 0 Then
+                objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
+            End If
 
-        If MedioPE IsNot Nothing AndAlso Convert.ToDecimal(Me.txtImportePagoElectronico.Text) > 0 Then
-            objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, Me.MediosDePago.ImportePagoElectronico, "EN CAJA")
-        End If
-
-        objCb = New Comprobante(
+            objCb = New Comprobante(
                                 argIdOperacion:=Me.Operacion.IdOperacion,
                                 argOperacion:=Me.Operacion,
                                 argCodiTC_SiCoFa:=Me.mobj_TipoComprobante.CodiTC_SiCoFa,
@@ -301,41 +305,47 @@ Public Class FrmPagos
                                 argDetalle:=ItemsComprobante
                                 )
 
-        objAC = New AsientoContable
-        With objAC
-            .InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
-            .InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
-            .InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
-            .InsertarItem("4.01.01.001", ImporteAPagar)
-        End With
+            objAC = New AsientoContable
+            With objAC
+                .InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
+                .InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
+                .InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
+                .InsertarItem("4.01.01.001", ImporteAPagar)
+            End With
 
-        Dim Finalizado As Boolean = mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb)
-        Dim objAdminCtes As New AdminComprobantes
+            mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb, objAC)
+            Dim objAdminCtes As New AdminComprobantes
 
-        If Finalizado And objCb.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
+            If objCb.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
 
-            MsgBox($"NumComp: {objCb.NumComp}")
-            mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
-
-        Else
-            Dim Autorizado As Boolean = objAdminCtes.GenerarFacturaElectronica(objCb)
-
-            If Autorizado Then
-                MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
+                MsgBox($"NumComp: {objCb.NumComp}")
                 mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
+
+            Else
+                Dim Autorizado As Boolean = objAdminCtes.GenerarFacturaElectronica(objCb)
+
+                If Autorizado Then
+                    MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
+                    mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
+                Else
+                    'aca tengo que ver como proceso si no se autoriza el comprobante
+
+                End If
 
             End If
 
-        End If
+            objAdminCtes.ImprimirComprobante(objCb)
 
-        objAdminCtes.ImprimirComprobante(objCb)
+            Dim nuevaVentanaVentas As New FrmVentas()
+            nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
+            nuevaVentanaVentas.Show()
 
-        Dim nuevaVentanaVentas As New FrmVentas()
-        nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
-        nuevaVentanaVentas.Show()
+            Me.FrmOrigen.Close()
+            Me.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
-        Me.FrmOrigen.Close()
-        Me.Close()
+        End Try
 
     End Sub
 

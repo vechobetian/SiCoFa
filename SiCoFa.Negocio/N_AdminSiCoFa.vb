@@ -869,8 +869,8 @@ Public Class N_AdminSiCoFa
 
     End Function
 
-    Public Function FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante) As Boolean
-        Dim Finalizado As Boolean = mobj_D_AdminSiCoFa.FinalizarOperacionConTransaccion(argOperacion, argOperacionCC, argOperacionPE, argComprobante)
+    Public Function FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+        Dim Finalizado As Boolean = mobj_D_AdminSiCoFa.FinalizarOperacionConTransaccion(argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento)
 
         Return Finalizado
 
