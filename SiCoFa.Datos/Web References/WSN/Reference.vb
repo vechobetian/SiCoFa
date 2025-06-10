@@ -2911,8 +2911,6 @@ Namespace WSN
         
         Private condicionIVAReceptorIdField As Integer
         
-        Private condicionIVAReceptorIdFieldSpecified As Boolean
-        
         Private cbtesAsocField() As CbteAsoc
         
         Private tributosField() As Tributo
@@ -3125,17 +3123,6 @@ Namespace WSN
             End Get
             Set
                 Me.condicionIVAReceptorIdField = value
-            End Set
-        End Property
-        
-        '''<remarks/>
-        <System.Xml.Serialization.XmlIgnoreAttribute()>  _
-        Public Property CondicionIVAReceptorIdSpecified() As Boolean
-            Get
-                Return Me.condicionIVAReceptorIdFieldSpecified
-            End Get
-            Set
-                Me.condicionIVAReceptorIdFieldSpecified = value
             End Set
         End Property
         

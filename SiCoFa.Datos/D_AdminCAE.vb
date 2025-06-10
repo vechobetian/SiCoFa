@@ -1,7 +1,9 @@
 ﻿Imports System.Globalization
 Imports SiCoFa.Entidades
 Imports SiCoFa.Datos.WSN
-Public Class N_AdminCAE
+Imports System.IO
+Imports System.Reflection
+Public Class D_AdminCAE
     Property Observaciones As String
     Property Errores As String
     Property Eventos As String
@@ -10,12 +12,13 @@ Public Class N_AdminCAE
     Private mvarAuthRequest As FEAuthRequest
     Private mstrEstadoCab As String
     Private mstrEstadoDet As String
+
     Public Function ObtenerCAE(ByVal argComprobante As Comprobante) As CAE
 
         URLWsn = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL" 'URL WSN Homologacion
         'URLWsn = "https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL" 'URL WSN Produccion
 
-        Dim objN_AdminLT As New N_AdminLoginTicket
+        Dim objN_AdminLT As New D_AdminLoginTicket
         Dim objCAE As CAE = Nothing
         Dim NroCbteAutorizado As Long
         Me.Observaciones = ""
@@ -192,7 +195,7 @@ Public Class N_AdminCAE
                 Return 4
             Case "CF"
                 Return 5
-            Case "SI" 'sin identificar
+            Case "S/I" 'sin identificar
                 Return 15
         End Select
     End Function

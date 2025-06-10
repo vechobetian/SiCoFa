@@ -6,8 +6,8 @@ Public Class FrmPagos
     Property FrmOrigen As FrmVentas
     Property Operacion As Operacion
     Property Cliente As Cliente
-    Property TeclaPresionada As Keys
     Property MedioPE As MedioPE
+    Property TipoComprobante As TipoComprobante
     Property ItemsComprobante As List(Of ItemComprobante)
     Property ImporteAPagar As Decimal
     Property ImporteDescuento As Decimal
@@ -15,7 +15,6 @@ Public Class FrmPagos
     Property ImporteGravado2 As Decimal
 
     Private mobj_AdminSiCoFa As New N_AdminSiCoFa
-    Private mobj_TipoComprobante As TipoComprobante
     Private MediosDePago As MediosPagoBinding
 
     Private Sub ActualizarClienteMostrado()
@@ -60,13 +59,11 @@ Public Class FrmPagos
 
         Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
 
-        If TeclaPresionada = Keys.F10 Then
-            Me.mobj_TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
-        ElseIf TeclaPresionada = Keys.F9 Then
-            Me.mobj_TipoComprobante = New TipoComprobante("RTO")
+        If Me.TipoComprobante Is Nothing Then
+            Me.TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
         End If
 
-        Me.txtTipoComprobante.Text = $"{mobj_TipoComprobante.TipoComprobante} {mobj_TipoComprobante.Letra}"
+        Me.txtTipoComprobante.Text = $"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
         Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")
         Me.txtImporteCuentaCorriente.DataBindings.Add("Text", Me.MediosDePago, "ImporteCuentaCorriente", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
         Me.txtImportePagoElectronico.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoElectronico", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
@@ -132,6 +129,7 @@ Public Class FrmPagos
             Me.Cliente = c
             FrmOrigen.Cliente = c
             Me.ActualizarClienteMostrado()
+            Me.TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
             Me.txtImporteCuentaCorriente.Enabled = True
             Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
             Me.txtImporteCuentaCorriente.Select()
@@ -279,19 +277,15 @@ Public Class FrmPagos
             objCb = New Comprobante(
                                 argIdOperacion:=Me.Operacion.IdOperacion,
                                 argOperacion:=Me.Operacion,
-                                argCodiTC_SiCoFa:=Me.mobj_TipoComprobante.CodiTC_SiCoFa,
-                                argPVenta:="",
+                                argCodiTC_SiCoFa:=Me.TipoComprobante.CodiTC_SiCoFa,
+                                argPVenta:=g_ParametrosTerminal.PVenta,
                                 argNumComp:="",
-                                argFechaComp:=Date.MinValue,
+                                argFechaComp:=Now.Date,
                                 argImpBto:=Me.ImporteAPagar,
                                 argImpDes:=0,
                                 argImpEx:=0,
                                 argImpGrav1:=Me.ImporteGravado1,
-                                argImpNeto1:=0,
-                                argImpIVA1:=0,
                                 argImpGrav2:=Me.ImporteGravado2,
-                                argImpNeto2:=0,
-                                argImpIVA2:=0,
                                 argImpCB:=0,
                                 argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
                                 argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
@@ -313,26 +307,9 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(Me.Operacion, objCC, objPE, objCb, objAC)
+            mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
+
             Dim objAdminCtes As New AdminComprobantes
-
-            If objCb.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
-
-                MsgBox($"NumComp: {objCb.NumComp}")
-                mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
-
-            Else
-                Dim Autorizado As Boolean = objAdminCtes.GenerarFacturaElectronica(objCb)
-
-                If Autorizado Then
-                    MsgBox($"NumComp: {objCb.NumComp} CAE:{objCb.CAE.NumCAE}")
-                    mobj_AdminSiCoFa.FinalizarOperacion(g_ParametrosTerminal.MacAddress, Me.Operacion)
-                Else
-                    'aca tengo que ver como proceso si no se autoriza el comprobante
-
-                End If
-
-            End If
 
             objAdminCtes.ImprimirComprobante(objCb)
 

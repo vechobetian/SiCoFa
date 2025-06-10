@@ -7,7 +7,7 @@ Imports System.Text
 Imports System.Xml
 Imports SiCoFa.Datos.WSAA
 Imports SiCoFa.Entidades
-Public Class N_AdminLoginTicket
+Public Class D_AdminLoginTicket
     Property CertFirmante As X509Certificate2
     Property TicketAcceso As LoginTicket
 

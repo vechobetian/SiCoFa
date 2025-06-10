@@ -158,7 +158,14 @@ Public Class FrmVentas
                         .FrmOrigen = Me
                         .Operacion = mobj_Operacion
                         .Cliente = mobj_Cliente
-                        .TeclaPresionada = argTecla
+
+                        If argTecla = Keys.F9 Then
+                            .TipoComprobante = New TipoComprobante("RTOX")
+                        ElseIf argTecla = Keys.F10 Then
+                            .TipoComprobante = Nothing
+
+                        End If
+
                         .ImporteAPagar = mdec_ImporteConDescuentos
                         .ImporteDescuento = mdec_ImporteDescuentos
                         .ImporteGravado1 = mdec_ImporteGravado1

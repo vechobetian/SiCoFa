@@ -869,8 +869,8 @@ Public Class N_AdminSiCoFa
 
     End Function
 
-    Public Function FinalizarOperacionConTransaccion(ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
-        Dim Finalizado As Boolean = mobj_D_AdminSiCoFa.FinalizarOperacionConTransaccion(argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento)
+    Public Function FinalizarOperacionConTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+        Dim Finalizado As Boolean = mobj_D_AdminSiCoFa.FinalizarOperacionConTransaccion(argMacAddress, argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento)
 
         Return Finalizado
 
@@ -1044,21 +1044,6 @@ Public Class N_AdminSiCoFa
         End Try
 
     End Function
-
-    Public Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
-
-        Try
-            Dim Actualizado As Boolean = mobj_D_AdminSiCoFa.ActualizarCAE(argComprobante)
-
-            Return Actualizado
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
-
-        End Try
-
-    End Function
-
 
 #End Region
 

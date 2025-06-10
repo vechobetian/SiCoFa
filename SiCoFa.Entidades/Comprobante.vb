@@ -38,11 +38,7 @@
                   ByVal argImpDes As Decimal,
                   ByVal argImpEx As Decimal,
                   ByVal argImpGrav1 As Decimal,
-                  ByVal argImpNeto1 As Decimal,
-                  ByVal argImpIVA1 As Decimal,
                   ByVal argImpGrav2 As Decimal,
-                  ByVal argImpNeto2 As Decimal,
-                  ByVal argImpIVA2 As Decimal,
                   ByVal argImpCB As Decimal,
                   ByVal argImpEf As Decimal,
                   ByVal argImpCC As Decimal,
@@ -55,6 +51,12 @@
                   ByVal argEmpresa As Empresa,
                   ByVal argDetalle As List(Of ItemComprobante)
                   )
+
+        Dim ImpNeto1 As Decimal = Math.Round(argImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
+        Dim ImpIVA1 As Decimal = Math.Round(ImpNeto1 * 10.5 / 100, 2, MidpointRounding.ToEven)
+        Dim ImpNeto2 As Decimal = Math.Round(argImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
+        Dim ImpIVA2 As Decimal = Math.Round(ImpNeto2 * 21 / 100, 2, MidpointRounding.ToEven)
+
         Me.IdOperacion = argIdOperacion
         Me.Operacion = argOperacion
         Me.TipoComprobante = New TipoComprobante(argCodiTC_SiCoFa)
@@ -65,11 +67,11 @@
         Me.ImpDes = Math.Round(argImpDes, 2)
         Me.ImpEx = Math.Round(argImpEx, 2)
         Me.ImpGrav1 = Math.Round(argImpGrav1, 2)
-        Me.ImpNeto1 = Math.Round(argImpNeto1, 2)
-        Me.ImpIVA1 = Math.Round(argImpIVA1, 2)
+        Me.ImpNeto1 = ImpNeto1
+        Me.ImpIVA1 = ImpIVA1
         Me.ImpGrav2 = Math.Round(argImpGrav2, 2)
-        Me.ImpNeto2 = Math.Round(argImpNeto2, 2)
-        Me.ImpIVA2 = Math.Round(argImpIVA2, 2)
+        Me.ImpNeto2 = ImpNeto2
+        Me.ImpIVA2 = ImpIVA2
         Me.ImpCB = Math.Round(argImpCB, 2)
         Me.ImpEf = Math.Round(argImpEf, 2)
         Me.ImpCC = Math.Round(argImpCC, 2)

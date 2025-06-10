@@ -1721,30 +1721,39 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion) As Integer
+    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion) As Boolean
         Try
-
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return FinalizarOperacion(argMacAddress, argOperacion, cn, Nothing)
+            End Using
 
-                Using cmd As New MySqlCommand("OperacionFinalizar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
-                        .Add("p_Observaciones", MySqlDbType.VarChar).Value = argOperacion.Observaciones
-                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argOperacion.IdOperacion
-                    End With
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", Ex.Message))
+        End Try
 
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+    End Function
 
-                End Using
+    Friend Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+        Try
+
+            Using cmd As New MySqlCommand("OperacionFinalizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                With cmd.Parameters
+                    .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
+                    .Add("p_Observaciones", MySqlDbType.VarChar).Value = argOperacion.Observaciones
+                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argOperacion.IdOperacion
+                End With
+
+                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
             End Using
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", Ex.Message))
-            Return False
+
         End Try
     End Function
 
@@ -1965,7 +1974,7 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function FinalizarOperacionConTransaccion(ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+    Public Function FinalizarOperacionConTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -1974,6 +1983,17 @@ Public Class D_AdminSiCoFa
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
                 Try
+
+                    If argComprobante.TipoComprobante.CodiTC_SiCoFa = "FAA" OrElse
+                        argComprobante.TipoComprobante.CodiTC_SiCoFa = "FAB" OrElse
+                        argComprobante.TipoComprobante.CodiTC_SiCoFa = "FAC" Then
+                        Dim Autorizado As Boolean = Me.GenerarFacturaElectronica(argComprobante)
+
+                        If Autorizado = False Then
+                            Throw New Exception("No se pudo obtener el CAE")
+                        End If
+                    End If
+
                     If argOperacionCC IsNot Nothing Then
                         Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
                     End If
@@ -1985,6 +2005,10 @@ Public Class D_AdminSiCoFa
                     Me.InsertarComprobante(argComprobante, cn, tx)
 
                     Me.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
+
+                    Me.ActualizarStock(argOperacion.IdOperacion, -1, cn, tx)
+
+                    Me.FinalizarOperacion(argMacAddress, argOperacion, cn, tx)
 
                     tx.Commit()
                     Return True
@@ -2483,6 +2507,29 @@ Public Class D_AdminSiCoFa
 
     End Function
 
+    Friend Function ActualizarStock(ByVal argIdOperacion As Long, ByVal argEfectoInventario As Int16, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+
+
+        Try
+
+            Using cmd As New MySqlCommand("ActualizarStock", cn) With {.CommandType = CommandType.StoredProcedure}
+                With cmd.Parameters
+                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                    .Add("p_EfInv", MySqlDbType.Int16).Value = argEfectoInventario
+                End With
+
+                Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
+                Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarStock", Ex.Message))
+
+        End Try
+
+    End Function
+
 #End Region
 
 #Region "Administracion Comprobantes"
@@ -2505,33 +2552,24 @@ Public Class D_AdminSiCoFa
 
         Try
 
-            Dim ImpNeto1 As Decimal = Math.Round(argComprobante.ImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
-            Dim ImpIVA1 As Decimal = Math.Round(ImpNeto1 * 10.5 / 100, 2, MidpointRounding.ToEven)
-            Dim ImpNeto2 As Decimal = Math.Round(argComprobante.ImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
-            Dim ImpIVA2 As Decimal = Math.Round(ImpNeto2 * 21 / 100, 2, MidpointRounding.ToEven)
-
-            With argComprobante
-                .ImpNeto1 = ImpNeto1
-                .ImpIVA1 = ImpIVA1
-                .ImpNeto2 = ImpNeto2
-                .ImpIVA2 = ImpIVA2
-            End With
-
             Using cmd As New MySqlCommand("ComprobanteInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
                     .AddWithValue("p_CodiTC", argComprobante.TipoComprobante.CodiTC_SiCoFa)
+                    .AddWithValue("p_FechaCompIN", argComprobante.FechaComp)
+                    .AddWithValue("p_PVentaIN", argComprobante.PVenta)
+                    .AddWithValue("p_NumCompIN", argComprobante.NumComp)
                     .AddWithValue("p_IdCliente", argComprobante.Cliente.Id)
                     .AddWithValue("p_ImpBto", argComprobante.ImpBto)
                     .AddWithValue("p_ImpDes", argComprobante.ImpDes)
                     .AddWithValue("p_ImpEx", argComprobante.ImpEx)
                     .AddWithValue("p_ImpGrav1", argComprobante.ImpGrav1)
-                    .AddWithValue("p_ImpNeto1", ImpNeto1)
-                    .AddWithValue("p_ImpIVA1", ImpIVA1)
+                    .AddWithValue("p_ImpNeto1", argComprobante.ImpNeto1)
+                    .AddWithValue("p_ImpIVA1", argComprobante.ImpIVA1)
                     .AddWithValue("p_ImpGrav2", argComprobante.ImpGrav2)
-                    .AddWithValue("p_ImpNeto2", ImpNeto2)
-                    .AddWithValue("p_ImpIVA2", ImpIVA2)
+                    .AddWithValue("p_ImpNeto2", argComprobante.ImpNeto2)
+                    .AddWithValue("p_ImpIVA2", argComprobante.ImpIVA2)
                     .AddWithValue("p_ImpCB", argComprobante.ImpCB)
                     .AddWithValue("p_ImpEf", argComprobante.ImpEf)
                     .AddWithValue("p_ImpCC", argComprobante.ImpCC)
@@ -2541,28 +2579,29 @@ Public Class D_AdminSiCoFa
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
                     .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
 
-                    If argComprobante.TipoComprobante.CodiTC_SiCoFa = "RTO" Then
-                        .AddWithValue("p_Fiscal", "0")
-
+                    If argComprobante.CAE IsNot Nothing Then
+                        .AddWithValue("p_CAE", argComprobante.CAE.NumCAE)
+                        .AddWithValue("p_VtoCAE", argComprobante.CAE.VtoCAE)
                     Else
-                        .AddWithValue("p_Fiscal", "E")
-
+                        .AddWithValue("p_CAE", "")
+                        .AddWithValue("p_VtoCAE", Date.MinValue)
                     End If
+
+                    cmd.Parameters.Add("p_PVentaOUT", MySqlDbType.VarChar)
+                    cmd.Parameters("p_PVentaOUT").Direction = ParameterDirection.Output
+                    cmd.Parameters.Add("p_NumCompOUT", MySqlDbType.VarChar)
+                    cmd.Parameters("p_NumCompOUT").Direction = ParameterDirection.Output
+                    cmd.Parameters.Add("p_FechaCompOUT", MySqlDbType.VarChar)
+                    cmd.Parameters("p_FechaCompOUT").Direction = ParameterDirection.Output
+
+                    Dim Insertado As Boolean = cmd.ExecuteNonQuery()
+
+
+                    argComprobante.PVenta = cmd.Parameters("p_PVentaOUT").Value
+                    argComprobante.NumComp = cmd.Parameters("p_NumCompOUT").Value
+                    argComprobante.FechaComp = cmd.Parameters("p_FechaCompOUT").Value
+                    Return Insertado
                 End With
-
-                cmd.Parameters.Add("p_PVenta", MySqlDbType.VarChar)
-                cmd.Parameters("p_PVenta").Direction = ParameterDirection.Output
-                cmd.Parameters.Add("p_NumComp", MySqlDbType.VarChar)
-                cmd.Parameters("p_NumComp").Direction = ParameterDirection.Output
-                cmd.Parameters.Add("p_FechaComp", MySqlDbType.VarChar)
-                cmd.Parameters("p_FechaComp").Direction = ParameterDirection.Output
-                Dim Insertado As Boolean = cmd.ExecuteNonQuery()
-
-                argComprobante.PVenta = cmd.Parameters("p_PVenta").Value
-                argComprobante.NumComp = cmd.Parameters("p_NumComp").Value
-                argComprobante.FechaComp = cmd.Parameters("p_FechaComp").Value
-
-                Return Insertado
 
             End Using
 
@@ -2573,7 +2612,7 @@ Public Class D_AdminSiCoFa
 
     End Function
 
-    Public Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
+    Private Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
 
         Try
             Dim objConexionDB As New D_Conexion
@@ -2599,6 +2638,66 @@ Public Class D_AdminSiCoFa
         End Try
 
     End Function
+
+    Private Function GenerarFacturaElectronica(ByRef argComprobante As Comprobante) As Boolean
+
+        Try
+            If SolicitarCAE(argComprobante) = True Then
+                GenerarQR(argComprobante)
+                Dim Actualizado As Boolean = Me.ActualizarCAE(argComprobante)
+                Return True
+
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "GenerarFacturaElectronica", ex.Message))
+            Return False
+        End Try
+
+    End Function
+
+    Private Function SolicitarCAE(ByRef argComprobante As Comprobante) As Boolean
+
+        Try
+
+            Dim objN_AdminCAE As New D_AdminCAE
+            argComprobante.CAE = objN_AdminCAE.ObtenerCAE(argComprobante)
+
+            If argComprobante.CAE Is Nothing Then
+                Return False
+                Exit Function
+            End If
+
+            argComprobante.NumComp = Format(argComprobante.CAE.NumComp, "00000000")
+
+            Return True
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "SolicitarCAE", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+    Private Sub GenerarQR(ByRef argComprobante As Comprobante)
+
+        Try
+            If argComprobante.CAE IsNot Nothing Then
+                Dim CUIT As Long = CLng(argComprobante.Empresa.Documento.Numero)
+                Dim PVta As Integer = CInt(argComprobante.PVenta)
+                Dim NumComp As Long = CLng(argComprobante.NumComp)
+
+                argComprobante.QR = New QRCompE(argComprobante.FechaComp, CUIT, PVta, argComprobante.TipoComprobante.CodiTC_AFIP, NumComp, argComprobante.ImpBto, argComprobante.Cliente.Documento.TipoDoc.CodiTDoc, argComprobante.Cliente.Documento.Numero, argComprobante.CAE.NumCAE)
+
+            End If
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "GenerarQR", ex.Message))
+        End Try
+    End Sub
 
 #End Region
 

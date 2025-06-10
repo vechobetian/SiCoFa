@@ -66,6 +66,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="D_AdminCAE.vb" />
+    <Compile Include="D_AdminLoginTicket.vb" />
     <Compile Include="Web References\WSAA\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

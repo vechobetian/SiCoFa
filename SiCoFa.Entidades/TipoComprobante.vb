@@ -3,6 +3,7 @@
     Property CodiTC_AFIP As String
     Property TipoComprobante As String
     Property Letra As String
+
     Public Sub New(ByVal argCodiTC_SiCoFa As String)
         Me.CodiTC_SiCoFa = argCodiTC_SiCoFa
         Me.CodiTC_AFIP = Me.ObtenerCodiTC_AFIP
@@ -39,7 +40,7 @@
             Case "REC"
                 Return "RECIBO"
 
-            Case "RTO"
+            Case "RTOX"
                 Return "REMITO"
 
             Case "DI"
@@ -52,7 +53,7 @@
     End Function
     Private Function ObtenerLetra(ByVal argCodiTC_SiCoFa As String) As String
         Select Case argCodiTC_SiCoFa
-            Case "REC", "MCC", "RTO"
+            Case "REC", "MCC", "RTOX"
                 Return "X"
             Case Else
                 Return Right(argCodiTC_SiCoFa, 1)
