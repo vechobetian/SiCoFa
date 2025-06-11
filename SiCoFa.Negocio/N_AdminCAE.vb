@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 Imports SiCoFa.Datos.WSN
 Imports System.IO
 Imports System.Reflection
-Public Class D_AdminCAE
+Public Class N_AdminCAE
     Property Observaciones As String
     Property Errores As String
     Property Eventos As String
@@ -18,7 +18,7 @@ Public Class D_AdminCAE
         URLWsn = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL" 'URL WSN Homologacion
         'URLWsn = "https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL" 'URL WSN Produccion
 
-        Dim objN_AdminLT As New D_AdminLoginTicket
+        Dim objN_AdminLT As New N_AdminLoginTicket
         Dim objCAE As CAE = Nothing
         Dim NroCbteAutorizado As Long
         Me.Observaciones = ""

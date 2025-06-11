@@ -275,29 +275,29 @@ Public Class FrmPagos
             End If
 
             objCb = New Comprobante(
-                                argIdOperacion:=Me.Operacion.IdOperacion,
-                                argOperacion:=Me.Operacion,
-                                argCodiTC_SiCoFa:=Me.TipoComprobante.CodiTC_SiCoFa,
-                                argPVenta:=g_ParametrosTerminal.PVenta,
-                                argNumComp:="",
-                                argFechaComp:=Now.Date,
-                                argImpBto:=Me.ImporteAPagar,
-                                argImpDes:=0,
-                                argImpEx:=0,
-                                argImpGrav1:=Me.ImporteGravado1,
-                                argImpGrav2:=Me.ImporteGravado2,
-                                argImpCB:=0,
-                                argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
-                                argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
-                                argImpPE:=Me.MediosDePago.ImportePagoElectronico,
-                                argCAE:=Nothing,
-                                argIdCliente:=Me.Cliente.Id,
-                                argCliente:=Me.Cliente,
-                                argIdOperAsoc:=0,
-                                argCompAsoc:=Nothing,
-                                argEmpresa:=g_ParametrosTerminal.Empresa,
-                                argDetalle:=ItemsComprobante
-                                )
+                                    argIdOperacion:=Me.Operacion.IdOperacion,
+                                    argOperacion:=Me.Operacion,
+                                    argCodiTC_SiCoFa:=Me.TipoComprobante.CodiTC_SiCoFa,
+                                    argPVenta:=g_ParametrosTerminal.PVenta,
+                                    argNumComp:="",
+                                    argFechaComp:=Now.Date,
+                                    argImpBto:=Me.ImporteAPagar,
+                                    argImpDes:=0,
+                                    argImpEx:=0,
+                                    argImpGrav1:=Me.ImporteGravado1,
+                                    argImpGrav2:=Me.ImporteGravado2,
+                                    argImpCB:=0,
+                                    argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
+                                    argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
+                                    argImpPE:=Me.MediosDePago.ImportePagoElectronico,
+                                    argCAE:=Nothing,
+                                    argIdCliente:=Me.Cliente.Id,
+                                    argCliente:=Me.Cliente,
+                                    argIdOperAsoc:=0,
+                                    argCompAsoc:=Nothing,
+                                    argEmpresa:=g_ParametrosTerminal.Empresa,
+                                    argDetalle:=ItemsComprobante
+                                    )
 
             objAC = New AsientoContable
             With objAC
@@ -309,9 +309,17 @@ Public Class FrmPagos
 
             mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
 
-            Dim objAdminCtes As New AdminComprobantes
+            If objCb.TipoComprobante.CodiTC_AFIP <> "00" Then
+                Dim obj_N_AdminComprobants As New N_AdminComprobantes
+                If obj_N_AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
+                    'aca hay que cambiar el estado de la operacion y salir
+                End If
 
-            objAdminCtes.ImprimirComprobante(objCb)
+            End If
+
+
+            Dim objAdminReporteComprobantes As New AdminReporteComprobantes
+            objAdminReporteComprobantes.ImprimirComprobante(objCb)
 
             Dim nuevaVentanaVentas As New FrmVentas()
             nuevaVentanaVentas.Usuario = Me.Operacion.Usuario

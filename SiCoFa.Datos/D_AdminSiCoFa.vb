@@ -1620,7 +1620,7 @@ Public Class D_AdminSiCoFa
 
         Try
             ' **CRÍTICO: Usar parámetros SQL para evitar la inyección SQL**
-            Dim sql As String = "UPDATE TblOpera SET EstadoOpera='Error', DesError=@descripcionError WHERE IdOperacion=@idOperacion"
+            Dim sql As String = "UPDATE TblOperaciones SET EstadoOperacion='Error', DesError=@descripcionError WHERE IdOperacion=@idOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 cn.Open() ' Abrir la conexión antes de ejecutar el comando
@@ -1984,16 +1984,6 @@ Public Class D_AdminSiCoFa
 
                 Try
 
-                    If argComprobante.TipoComprobante.CodiTC_SiCoFa = "FAA" OrElse
-                        argComprobante.TipoComprobante.CodiTC_SiCoFa = "FAB" OrElse
-                        argComprobante.TipoComprobante.CodiTC_SiCoFa = "FAC" Then
-                        Dim Autorizado As Boolean = Me.GenerarFacturaElectronica(argComprobante)
-
-                        If Autorizado = False Then
-                            Throw New Exception("No se pudo obtener el CAE")
-                        End If
-                    End If
-
                     If argOperacionCC IsNot Nothing Then
                         Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
                     End If
@@ -2002,7 +1992,8 @@ Public Class D_AdminSiCoFa
                         Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
-                    Me.InsertarComprobante(argComprobante, cn, tx)
+                    Dim AdminComprobantes As New D_AdminComprobantes
+                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
 
                     Me.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
 
@@ -2015,7 +2006,6 @@ Public Class D_AdminSiCoFa
 
                 Catch ex As Exception
                     tx.Rollback()
-                    Me.RegistrarError(argOperacion.IdOperacion, ex.StackTrace)
                     Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message), ex)
 
                 End Try
@@ -2534,170 +2524,7 @@ Public Class D_AdminSiCoFa
 
 #Region "Administracion Comprobantes"
 
-    Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
-        Try
-            Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                cn.Open()
-                Return InsertarComprobante(argComprobante, cn, Nothing)
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
-        End Try
-    End Function
-
-    Friend Function InsertarComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
-
-        Try
-
-            Using cmd As New MySqlCommand("ComprobanteInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
-
-                With cmd.Parameters
-                    .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
-                    .AddWithValue("p_CodiTC", argComprobante.TipoComprobante.CodiTC_SiCoFa)
-                    .AddWithValue("p_FechaCompIN", argComprobante.FechaComp)
-                    .AddWithValue("p_PVentaIN", argComprobante.PVenta)
-                    .AddWithValue("p_NumCompIN", argComprobante.NumComp)
-                    .AddWithValue("p_IdCliente", argComprobante.Cliente.Id)
-                    .AddWithValue("p_ImpBto", argComprobante.ImpBto)
-                    .AddWithValue("p_ImpDes", argComprobante.ImpDes)
-                    .AddWithValue("p_ImpEx", argComprobante.ImpEx)
-                    .AddWithValue("p_ImpGrav1", argComprobante.ImpGrav1)
-                    .AddWithValue("p_ImpNeto1", argComprobante.ImpNeto1)
-                    .AddWithValue("p_ImpIVA1", argComprobante.ImpIVA1)
-                    .AddWithValue("p_ImpGrav2", argComprobante.ImpGrav2)
-                    .AddWithValue("p_ImpNeto2", argComprobante.ImpNeto2)
-                    .AddWithValue("p_ImpIVA2", argComprobante.ImpIVA2)
-                    .AddWithValue("p_ImpCB", argComprobante.ImpCB)
-                    .AddWithValue("p_ImpEf", argComprobante.ImpEf)
-                    .AddWithValue("p_ImpCC", argComprobante.ImpCC)
-                    .AddWithValue("p_ImpPE", argComprobante.ImpPE)
-                    .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
-                    .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
-                    .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
-                    .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
-
-                    If argComprobante.CAE IsNot Nothing Then
-                        .AddWithValue("p_CAE", argComprobante.CAE.NumCAE)
-                        .AddWithValue("p_VtoCAE", argComprobante.CAE.VtoCAE)
-                    Else
-                        .AddWithValue("p_CAE", "")
-                        .AddWithValue("p_VtoCAE", Date.MinValue)
-                    End If
-
-                    cmd.Parameters.Add("p_PVentaOUT", MySqlDbType.VarChar)
-                    cmd.Parameters("p_PVentaOUT").Direction = ParameterDirection.Output
-                    cmd.Parameters.Add("p_NumCompOUT", MySqlDbType.VarChar)
-                    cmd.Parameters("p_NumCompOUT").Direction = ParameterDirection.Output
-                    cmd.Parameters.Add("p_FechaCompOUT", MySqlDbType.VarChar)
-                    cmd.Parameters("p_FechaCompOUT").Direction = ParameterDirection.Output
-
-                    Dim Insertado As Boolean = cmd.ExecuteNonQuery()
-
-
-                    argComprobante.PVenta = cmd.Parameters("p_PVentaOUT").Value
-                    argComprobante.NumComp = cmd.Parameters("p_NumCompOUT").Value
-                    argComprobante.FechaComp = cmd.Parameters("p_FechaCompOUT").Value
-                    Return Insertado
-                End With
-
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", Ex.Message))
-            Return Nothing
-        End Try
-
-    End Function
-
-    Private Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
-
-        Try
-            Dim objConexionDB As New D_Conexion
-
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-
-                Using cmd As New MySqlCommand("CAEActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    cmd.CommandType = CommandType.StoredProcedure
-                    cmd.Parameters.AddWithValue("p_IdOperacion", argComprobante.Operacion.IdOperacion)
-                    cmd.Parameters.AddWithValue("p_NumComp", argComprobante.NumComp)
-                    cmd.Parameters.AddWithValue("p_CAE", argComprobante.CAE.NumCAE)
-                    cmd.Parameters.AddWithValue("p_VtoCAE", argComprobante.CAE.VtoCAE)
-
-                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
-
-                End Using
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
-
-        End Try
-
-    End Function
-
-    Private Function GenerarFacturaElectronica(ByRef argComprobante As Comprobante) As Boolean
-
-        Try
-            If SolicitarCAE(argComprobante) = True Then
-                GenerarQR(argComprobante)
-                Dim Actualizado As Boolean = Me.ActualizarCAE(argComprobante)
-                Return True
-
-            Else
-                Return False
-            End If
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "GenerarFacturaElectronica", ex.Message))
-            Return False
-        End Try
-
-    End Function
-
-    Private Function SolicitarCAE(ByRef argComprobante As Comprobante) As Boolean
-
-        Try
-
-            Dim objN_AdminCAE As New D_AdminCAE
-            argComprobante.CAE = objN_AdminCAE.ObtenerCAE(argComprobante)
-
-            If argComprobante.CAE Is Nothing Then
-                Return False
-                Exit Function
-            End If
-
-            argComprobante.NumComp = Format(argComprobante.CAE.NumComp, "00000000")
-
-            Return True
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "SolicitarCAE", ex.Message))
-            Return False
-
-        End Try
-
-    End Function
-
-    Private Sub GenerarQR(ByRef argComprobante As Comprobante)
-
-        Try
-            If argComprobante.CAE IsNot Nothing Then
-                Dim CUIT As Long = CLng(argComprobante.Empresa.Documento.Numero)
-                Dim PVta As Integer = CInt(argComprobante.PVenta)
-                Dim NumComp As Long = CLng(argComprobante.NumComp)
-
-                argComprobante.QR = New QRCompE(argComprobante.FechaComp, CUIT, PVta, argComprobante.TipoComprobante.CodiTC_AFIP, NumComp, argComprobante.ImpBto, argComprobante.Cliente.Documento.TipoDoc.CodiTDoc, argComprobante.Cliente.Documento.Numero, argComprobante.CAE.NumCAE)
-
-            End If
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "GenerarQR", ex.Message))
-        End Try
-    End Sub
 
 #End Region
 

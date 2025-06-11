@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 
-Public Class AdminComprobantes
+Public Class AdminReporteComprobantes
 
     Public mobj_AdminSicofa As New N_AdminSiCoFa
 

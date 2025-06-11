@@ -55,6 +55,7 @@
     <Import Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="D_AdminComprobantes.vb" />
     <Compile Include="D_Conexion.vb" />
     <Compile Include="D_AdminDB.vb" />
     <Compile Include="D_AdminFTP.vb" />
@@ -66,8 +67,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="D_AdminCAE.vb" />
-    <Compile Include="D_AdminLoginTicket.vb" />
     <Compile Include="Web References\WSAA\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

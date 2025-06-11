@@ -1,5 +1,4 @@
-﻿Imports m
-Imports SiCoFa.Datos
+﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class N_AdminSiCoFa
 
@@ -1022,24 +1021,6 @@ Public Class N_AdminSiCoFa
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", ex.Message))
             Return False
-
-        End Try
-
-    End Function
-
-#End Region
-
-#Region "Administracion de Comprobantes"
-    Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
-
-        Try
-            Dim Insertado As Boolean = mobj_D_AdminSiCoFa.InsertarComprobante(argComprobante)
-
-            Return Insertado
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", ex.Message))
-            Return Nothing
 
         End Try
 

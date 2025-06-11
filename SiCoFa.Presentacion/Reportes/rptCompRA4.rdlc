@@ -1404,9 +1404,9 @@
                     </Paragraph>
                   </Paragraphs>
                   <Top>1.82229cm</Top>
-                  <Left>14.3331cm</Left>
+                  <Left>14.25cm</Left>
                   <Height>0.6cm</Height>
-                  <Width>1.79417cm</Width>
+                  <Width>1.87cm</Width>
                   <ZIndex>11</ZIndex>
                   <Style>
                     <Border>
@@ -2282,6 +2282,7 @@
                 </Line>
               </ReportItems>
               <KeepTogether>true</KeepTogether>
+              <Top>0cm</Top>
               <Left>1cm</Left>
               <Height>3.35cm</Height>
               <Width>19cm</Width>

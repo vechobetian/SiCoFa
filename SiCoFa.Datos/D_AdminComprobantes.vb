@@ -1,0 +1,99 @@
+﻿Imports MySql.Data.MySqlClient
+Imports SiCoFa.Entidades
+
+Public Class D_AdminComprobantes
+    Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
+        Try
+            Dim objConexionDB As New D_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return InsertarComprobante(argComprobante, cn, Nothing)
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+        End Try
+    End Function
+
+    Friend Function InsertarComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+
+        Try
+
+            Using cmd As New MySqlCommand("ComprobanteInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+
+                With cmd.Parameters
+                    .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
+                    .AddWithValue("p_CodiTC", argComprobante.TipoComprobante.CodiTC_SiCoFa)
+                    .AddWithValue("p_IdCliente", argComprobante.Cliente.Id)
+                    .AddWithValue("p_ImpBto", argComprobante.ImpBto)
+                    .AddWithValue("p_ImpDes", argComprobante.ImpDes)
+                    .AddWithValue("p_ImpEx", argComprobante.ImpEx)
+                    .AddWithValue("p_ImpGrav1", argComprobante.ImpGrav1)
+                    .AddWithValue("p_ImpNeto1", argComprobante.ImpNeto1)
+                    .AddWithValue("p_ImpIVA1", argComprobante.ImpIVA1)
+                    .AddWithValue("p_ImpGrav2", argComprobante.ImpGrav2)
+                    .AddWithValue("p_ImpNeto2", argComprobante.ImpNeto2)
+                    .AddWithValue("p_ImpIVA2", argComprobante.ImpIVA2)
+                    .AddWithValue("p_ImpCB", argComprobante.ImpCB)
+                    .AddWithValue("p_ImpEf", argComprobante.ImpEf)
+                    .AddWithValue("p_ImpCC", argComprobante.ImpCC)
+                    .AddWithValue("p_ImpPE", argComprobante.ImpPE)
+                    .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
+                    .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
+                    .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
+                    .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
+
+
+                    cmd.Parameters.Add("p_PVenta", MySqlDbType.VarChar)
+                    cmd.Parameters("p_PVenta").Direction = ParameterDirection.Output
+                    cmd.Parameters.Add("p_NumComp", MySqlDbType.VarChar)
+                    cmd.Parameters("p_NumComp").Direction = ParameterDirection.Output
+                    cmd.Parameters.Add("p_FechaComp", MySqlDbType.VarChar)
+                    cmd.Parameters("p_FechaComp").Direction = ParameterDirection.Output
+
+                    Dim Insertado As Boolean = cmd.ExecuteNonQuery()
+
+                    argComprobante.PVenta = cmd.Parameters("p_PVenta").Value
+                    argComprobante.NumComp = cmd.Parameters("p_NumComp").Value
+                    argComprobante.FechaComp = cmd.Parameters("p_FechaComp").Value
+                    Return Insertado
+                End With
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", Ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+
+    Public Function ActualizarCAE(ByVal argComprobante As Comprobante) As Boolean
+
+        Try
+            Dim objConexionDB As New D_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("CAEActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                    cmd.CommandType = CommandType.StoredProcedure
+                    cmd.Parameters.AddWithValue("p_IdOperacion", argComprobante.Operacion.IdOperacion)
+                    cmd.Parameters.AddWithValue("p_NumComp", argComprobante.NumComp)
+                    cmd.Parameters.AddWithValue("p_CAE", argComprobante.CAE.NumCAE)
+                    cmd.Parameters.AddWithValue("p_VtoCAE", argComprobante.CAE.VtoCAE)
+
+                    Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+                End Using
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
+
+        End Try
+
+    End Function
+
+End Class

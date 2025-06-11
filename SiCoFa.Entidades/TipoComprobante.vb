@@ -10,6 +10,7 @@
         Me.TipoComprobante = Me.ObtenerTipoComprobante
         Me.Letra = Me.ObtenerLetra(argCodiTC_SiCoFa)
     End Sub
+
     Private Function ObtenerCodiTC_AFIP() As String
         Select Case Me.CodiTC_SiCoFa
             Case "FAA"
@@ -25,10 +26,11 @@
             Case "NCC"
                 Return "13"
             Case Else
-                Return 0
+                Return "00"
         End Select
 
     End Function
+
     Private Function ObtenerTipoComprobante() As String
         Select Case Me.CodiTC_SiCoFa
             Case "FAA", "FAB", "FAC"
@@ -51,6 +53,7 @@
         End Select
 
     End Function
+
     Private Function ObtenerLetra(ByVal argCodiTC_SiCoFa As String) As String
         Select Case argCodiTC_SiCoFa
             Case "REC", "MCC", "RTOX"
