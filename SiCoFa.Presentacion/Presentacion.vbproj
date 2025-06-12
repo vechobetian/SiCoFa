@@ -128,8 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\AdminReporteComprobantes.vb" />
-    <Compile Include="Clases\clsTicket.vb" />
-    <Compile Include="Clases\clsTicket58.vb" />
+    <Compile Include="Clases\Ticket80.vb" />
     <Compile Include="Clases\GenerarPDF.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
     <Compile Include="Clases\PortapapelesVenta.vb" />

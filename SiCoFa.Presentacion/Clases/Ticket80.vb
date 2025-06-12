@@ -1,6 +1,6 @@
 ﻿Imports System.Drawing.Printing
 Imports SiCoFa.Entidades
-Public Class clsTicket
+Public Class Ticket80
     Property Impresora As String
     Property Comprobante As Comprobante
     Property Copia As String
@@ -49,13 +49,13 @@ Public Class clsTicket
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Telefono: " & Comprobante.Empresa.Telefono, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Tipo Iva: " & Comprobante.Empresa.IVADescripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Tipo Iva: " & Comprobante.Empresa.IVA.TipoIVA, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("CUIT: " & Comprobante.Empresa.CUIT, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("CUIT: " & Comprobante.Empresa.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Ing.Btos: " & Comprobante.Empresa.IB, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Inicio Actividades: " & Comprobante.Empresa.InicioActividad, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Inicio Actividades: " & Comprobante.Empresa.FechaAlta, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreLinea
         e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
@@ -71,7 +71,7 @@ Public Class clsTicket
         e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_AFIP, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 42)
         e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobante, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("P.Vta:" & Comprobante.PuntoVta & "           Nro:" & Comprobante.NumComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
+        e.Graphics.DrawString("P.Vta:" & Comprobante.PVenta & "           Nro:" & Comprobante.NumComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Fecha:" & Comprobante.FechaComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
 
@@ -93,11 +93,11 @@ Public Class clsTicket
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Domicilio:" & Comprobante.Cliente.Localidad & "-" & Comprobante.Cliente.Provincia, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("IVA:" & Comprobante.Cliente.IVADescripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("IVA:" & Comprobante.Cliente.IVA.TipoIVA, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.TipoDoc, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.Documento.TipoDoc.TipoDocumento, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Num.Doc:" & Comprobante.Cliente.NumDoc, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Num.Doc:" & Comprobante.Cliente.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreLinea
         e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
         'Fin del Encabezado
@@ -112,7 +112,7 @@ Public Class clsTicket
 
         For Each Item As ItemComprobante In Comprobante.Detalle
             Dim strAlicIVA As String
-            strCantPUnit = Format(Item.Cantidad, "##0.000") & "/" & Format(Item.PUnit, "Fixed")
+            strCantPUnit = Format(Item.Cantidad, "##0.000") & "/" & Format(Item.PrecioUnitario, "Fixed")
             If Item.AlicIVA = 0 Then
                 strAlicIVA = "( 0,00)"
             Else
@@ -129,26 +129,26 @@ Public Class clsTicket
             e.Graphics.DrawString(LTrim(strDescripcion), printFont, Brushes.Black, MargenIzquierdo, yPos)
 
 
-            If Item.ImporteDescuento > 0 Then
+            'If Item.ImporteDescuento > 0 Then
 
-                strImpItem = Format(Item.ImporteConDescuento, "Fixed")
-                strImpDesItem = Format(Item.ImporteDescuento, "Fixed")
-                strLinea2Item = strCantPUnit & Tab & strAlicIVA & StrDup(8 - Len(strImpDesItem), " ") & strImpDesItem & StrDup(11 - Len(strImpItem), " ") & strImpItem
+            strImpItem = Format(Item.ImporteConDescuento, "Fixed")
+            strImpDesItem = Format(Item.ImporteDescuento, "Fixed")
+            strLinea2Item = strCantPUnit & Tab & strAlicIVA & StrDup(8 - Len(strImpDesItem), " ") & strImpDesItem & StrDup(11 - Len(strImpItem), " ") & strImpItem
 
-                yPos += IncrementoYPreTexto
-                e.Graphics.DrawString(strLinea2Item, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            yPos += IncrementoYPreTexto
+            e.Graphics.DrawString(strLinea2Item, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-                yPos += IncrementoYPreTexto
-                e.Graphics.DrawString(Item.OtraDescripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            'yPos += IncrementoYPreTexto
+            'e.Graphics.DrawString(Item.OtraDescripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            Else
-                strImpItem = Format(Item.Importe, "Fixed")
-                strImpDesItem = Format(0, "Fixed")
-                strLinea2Item = strCantPUnit & Tab & strAlicIVA & StrDup(8 - Len(strImpDesItem), " ") & strImpDesItem & StrDup(11 - Len(strImpItem), " ") & strImpItem
+            'Else
+            'strImpItem = Format(Item.Importe, "Fixed")
+            'strImpDesItem = Format(0, "Fixed")
+            'strLinea2Item = strCantPUnit & Tab & strAlicIVA & StrDup(8 - Len(strImpDesItem), " ") & strImpDesItem & StrDup(11 - Len(strImpItem), " ") & strImpItem
 
-                yPos += IncrementoYPreTexto
-                e.Graphics.DrawString(strLinea2Item, printFont, Brushes.Black, MargenIzquierdo, yPos)
-            End If
+            'yPos += IncrementoYPreTexto
+            'e.Graphics.DrawString(strLinea2Item, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            'End If
 
         Next
 
@@ -168,7 +168,7 @@ Public Class clsTicket
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("Imp.Neto 21%: " & StrDup(28 - Len(strImpNeto1), " ") & strImpNeto1, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strIVA1 = Format(Comprobante.IVA1, "Standard")
+            strIVA1 = Format(Comprobante.ImpIVA1, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("I.V.A 21%: " & StrDup(31 - Len(strIVA1), " ") & strIVA1, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
@@ -176,7 +176,7 @@ Public Class clsTicket
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("Imp.Neto 10,5%: " & StrDup(26 - Len(strImpNeto2), " ") & strImpNeto2, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strIVA2 = Format(Comprobante.IVA2, "Standard")
+            strIVA2 = Format(Comprobante.ImpIVA2, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("I.V.A 10,5%: " & StrDup(29 - Len(strIVA2), " ") & strIVA2, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
@@ -196,7 +196,7 @@ Public Class clsTicket
             e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("Régimen de Transparencia Fiscal(Ley 27743)", printFont, Brushes.Black, MargenIzquierdo, yPos)
-            strIVA = Format(Comprobante.IVA1 + Comprobante.IVA2, "Standard")
+            strIVA = Format(Comprobante.ImpIVA1 + Comprobante.ImpIVA2, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("IVA Contenido: " & StrDup(26 - Len(strIVA), " ") & strIVA, printFont, Brushes.Black, MargenIzquierdo, yPos)
             yPos += IncrementoYPreTexto
@@ -216,8 +216,8 @@ Public Class clsTicket
             e.Graphics.DrawString("Obra Social: " & StrDup(29 - Len(strOS), " ") & strOS, printFont, Brushes.Black, MargenIzquierdo, yPos)
         End If
 
-        If Comprobante.ImpTar > 0 Then
-            strTar = Format(Comprobante.ImpTar, "Standard")
+        If Comprobante.ImpPE > 0 Then
+            strTar = Format(Comprobante.ImpPE, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("Tarjeta/s: " & StrDup(31 - Len(strTar), " ") & strTar, printFont, Brushes.Black, MargenIzquierdo, yPos)
         End If
@@ -309,13 +309,13 @@ Public Class clsTicket
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Telefono: " & Comprobante.Empresa.Telefono, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Tipo Iva: " & Comprobante.Empresa.IVADescripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Tipo Iva: " & Comprobante.Empresa.IVA.TipoIVA, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("CUIT: " & Comprobante.Empresa.CUIT, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("CUIT: " & Comprobante.Empresa.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Ing.Btos: " & Comprobante.Empresa.IB, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Inicio Actividades: " & Comprobante.Empresa.InicioActividad, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Inicio Actividades: " & Comprobante.Empresa.FechaAlta, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreLinea
         e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
@@ -331,7 +331,7 @@ Public Class clsTicket
         e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_AFIP, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 42)
         e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobante, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("P.Vta:" & Comprobante.PuntoVta & "           Nro:" & Comprobante.NumComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
+        e.Graphics.DrawString("P.Vta:" & Comprobante.PVenta & "           Nro:" & Comprobante.NumComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Fecha:" & Comprobante.FechaComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
 
@@ -353,11 +353,11 @@ Public Class clsTicket
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Domicilio:" & Comprobante.Cliente.Localidad & "-" & Comprobante.Cliente.Provincia, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("IVA:" & Comprobante.Cliente.IVADescripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("IVA:" & Comprobante.Cliente.IVA.TipoIVA, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.TipoDoc, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.Documento.TipoDoc.TipoDocumento, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Num.Doc:" & Comprobante.Cliente.NumDoc, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Num.Doc:" & Comprobante.Cliente.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreLinea
         e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
         'Fin del Encabezado
@@ -409,9 +409,9 @@ Public Class clsTicket
         yPos += 2 * IncrementoYPreTexto
         e.Graphics.DrawString("RECIBI(MOS)", printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-        If Comprobante.ImpTar > 0 Then
+        If Comprobante.ImpPE > 0 Then
             yPos += IncrementoYPreTexto
-            strTar = "$" & Format(Comprobante.ImpTar, "Fixed")
+            strTar = "$" & Format(Comprobante.ImpPE, "Fixed")
             e.Graphics.DrawString("Tarjeta/s: " & StrDup(31 - Len(strTar), " ") & strTar, printFont, Brushes.Black, MargenIzquierdo, yPos)
         End If
 

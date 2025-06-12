@@ -11,7 +11,8 @@ Public Class AdminReporteComprobantes
             Case "A4"
                 Call ImprimirA4(argComprobante, 1)
 
-            Case "TK"
+            Case "TK80"
+                Me.ImprimirTK80(argComprobante, 1)
 
         End Select
 
@@ -116,9 +117,39 @@ Public Class AdminReporteComprobantes
 
     End Sub
 
-    Private Sub ImprimirTK(ByVal argNumCopias As Integer)
+    Private Sub ImprimirTK80(ByVal argComprobante As Comprobante, ByVal argNumCopias As Integer)
 
         Try
+            Dim objTkt80 As New Ticket80
+            Dim Copia As String = ""
+            objTkt80.Comprobante = argComprobante
+            'objTkt80.Impresora = mobjPater.Impresora
+
+            If argNumCopias < 0 Then
+                Select Case Math.Abs(argNumCopias)
+                    Case 1
+                        Copia = "                ORIGINAL                 "
+                    Case 2
+                        Copia = "               DUPLICADO                 "
+                    Case 3
+                        Copia = "               TRIPLICADO                "
+                End Select
+
+                objTkt80.Imprimir(Copia)
+            End If
+
+            For x = 1 To argNumCopias
+                Select Case x
+                    Case 1
+                        Copia = "                ORIGINAL                 "
+                    Case 2
+                        Copia = "               DUPLICADO                 "
+                    Case 3
+                        Copia = "               TRIPLICADO                "
+                End Select
+
+                objTkt80.Imprimir(Copia)
+            Next
 
         Catch ex As Exception
             MsgBox(ex.Message)

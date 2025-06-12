@@ -317,7 +317,6 @@ Public Class FrmPagos
 
             End If
 
-
             Dim objAdminReporteComprobantes As New AdminReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb)
 
