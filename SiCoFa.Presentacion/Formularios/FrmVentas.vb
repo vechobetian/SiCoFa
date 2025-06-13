@@ -482,21 +482,30 @@ Public Class FrmVentas
 
     Private Sub FrmVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
-        Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
-        Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
+        Try
 
-        If operacionCambio OrElse clienteCambio OrElse itemsCambio Then
-            Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea salir sin guardar?", "Confirmar", MessageBoxButtons.YesNoCancel)
+            Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
+            Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
+            Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
 
-            If resultado = DialogResult.Cancel Then
-                e.Cancel = True
-            ElseIf resultado = DialogResult.Yes Then
-                Me.GuardarCambios(Keys.Escape)
-            ElseIf resultado = DialogResult.No Then
-                ' Salir sin guardar
+            If operacionCambio OrElse clienteCambio OrElse itemsCambio Then
+                Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea guardar los cambios?", "Confirmar", MessageBoxButtons.YesNoCancel)
+
+                If resultado = DialogResult.Cancel Then
+                    e.Cancel = True
+
+                ElseIf resultado = DialogResult.Yes Then
+                    Me.GuardarCambios(Keys.Escape)
+
+                ElseIf resultado = DialogResult.No Then
+                    ' Salir sin guardar
+
+                End If
             End If
-        End If
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
 
     End Sub
 
@@ -685,13 +694,13 @@ Public Class FrmVentas
     End Sub
 
     Private Sub NuevoToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevoToolStripButton.Click
-        mobj_Operacion = Nothing
-        mobj_OperacionOriginal = Nothing
-        mobj_Items = Nothing
-        mobj_ItemsOriginal = Nothing
-        mobj_Cliente = Nothing
-        mobj_ClienteOriginal = Nothing
-        Me.DataGridView1.Rows.Clear()
+
+        Dim nuevaVentanaVentas As New FrmVentas()
+        nuevaVentanaVentas.Usuario = Me.Usuario
+        nuevaVentanaVentas.Show()
+
+        Me.Close()
+
     End Sub
 
     Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click

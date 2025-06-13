@@ -92,6 +92,7 @@
     <Compile Include="Operacion.vb" />
     <Compile Include="OperacionCC.vb" />
     <Compile Include="OperacionPE.vb" />
+    <Compile Include="ParametrosSistema.vb" />
     <Compile Include="ParametrosTerminal.vb" />
     <Compile Include="Persona.vb" />
     <Compile Include="Proveedor.vb" />
