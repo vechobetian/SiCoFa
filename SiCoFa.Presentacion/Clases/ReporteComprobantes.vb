@@ -1,169 +1,225 @@
-﻿Imports System.Drawing.Imaging
-Imports System.Drawing.Printing
-Imports System.IO
-Imports System.Text
-Imports Microsoft.Reporting.WinForms
+﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 
 Public Class ReporteComprobantes
-    Implements IDisposable
-    Property Operacion As New List(Of Operacion)
-    Property Empresa As New List(Of Empresa)
-    Property DocumentoEmpresa As New List(Of Documento)
-    Property IVAEmpresa As New List(Of IVA)
-    Property Cliente As New List(Of Cliente)
-    Property DocumentoCliente As New List(Of Documento)
-    Property IVACliente As New List(Of IVA)
-    Property TipoDocumentoCliente As New List(Of TipoDocumento)
-    Property Encabezado As New List(Of Comprobante)
-    Property TipoComprobante As New List(Of TipoComprobante)
-    Property Detalle As New List(Of ItemComprobante)
-    Property CAE As New List(Of CAE)
-    Property QR As New List(Of QRCompE)
-    Property Impresora As String
-    Property Copia As String
-    Property CompAsoc As String
 
-    Private m_currentPageIndex As Integer
+    Public mobj_AdminSicofa As New N_AdminSiCoFa
 
-    Private m_streams As IList(Of Stream)
+    Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante)
 
-    'Rutina para proporcionar al procesador de informes, a fin de guardar una imagen para cada página del informe
-    Private Function CreateStream(ByVal name As String, ByVal fileNameExtension As String, ByVal encoding As Encoding, ByVal mimeType As String, ByVal willSeek As Boolean) As Stream
-        Dim stream As Stream = New MemoryStream()
-        m_streams.Add(stream)
-        Return stream
-    End Function
+        Select Case g_ParametrosTerminal.Papel
+            Case "A4"
+                Call ImprimirA4(argComprobante, 1)
 
-    'Exportar el informe dado como un archivo EMF (metarchivo mejorado).
-    Public Sub Export(ByVal report As LocalReport)
-        Dim deviceInfo As String =
-      "<DeviceInfo>" +
-      "  <OutputFormat>EMF</OutputFormat>" +
-      "  <PageWidth>21cm</PageWidth>" +
-      "  <PageHeight>29.7cm</PageHeight>" +
-      "  <MarginTop>0cm</MarginTop>" +
-      "  <MarginLeft>0cm</MarginLeft>" +
-      "  <MarginRight>0cm</MarginRight>" +
-      "  <MarginBottom>0cm</MarginBottom>" +
-      "</DeviceInfo>"
-        Dim warnings() As Warning = Nothing
-        m_streams = New List(Of Stream)()
+            Case "TK80"
+                Me.ImprimirTK80(argComprobante, 1)
 
-        report.Render("Image", deviceInfo, AddressOf CreateStream, warnings)
+            Case "TK58"
+                Me.ImprimirTK58(argComprobante, 1)
 
-        For Each stream As Stream In m_streams
-            stream.Position = 0
-        Next
-    End Sub
 
-    'Controlador para PrintPageEvents
-    Private Sub PrintPage(ByVal sender As Object, ByVal ev As PrintPageEventArgs)
-        Dim pageImage As New Metafile(m_streams(m_currentPageIndex))
-
-        'Ajustar el area rectangular con los margenes de la impresora
-        Dim adjustedRect As New Rectangle(ev.PageBounds.Left - CInt(ev.PageSettings.HardMarginX),
-                                          ev.PageBounds.Top - CInt(ev.PageSettings.HardMarginY),
-                                          ev.PageBounds.Width,
-                                          ev.PageBounds.Height)
-
-        'Dibujar un fondo blanco para el informe
-        ev.Graphics.DrawImage(pageImage, adjustedRect)
-
-        'Extraer el contenido del informe
-        ev.Graphics.DrawImage(pageImage, adjustedRect)
-
-        'Prepararse para la siguiente página. Nos aseguramos de que no hemos alcanzado el final.
-        m_currentPageIndex += 1
-        ev.HasMorePages = (m_currentPageIndex < m_streams.Count)
+        End Select
 
     End Sub
 
-    Public Sub Print()
-        If m_streams Is Nothing OrElse m_streams.Count = 0 Then
-            Throw New Exception("Error: no hay ningún flujo de impresión.")
-            Exit Sub
-        End If
+    Private Sub pdfA4(ByVal argPath As String, ByVal argComprobante As Comprobante)
 
-        Dim printDoc As New PrintDocument()
-
-        'If Me.Impresora <> "" Then
-        'printDoc.PrinterSettings.PrinterName = Me.Impresora
-        'End If
-
-        If Not printDoc.PrinterSettings.IsValid Then
-            Throw New Exception("Error: No se puede encontrar la impresora predeterminada.")
-            Exit Sub
-        End If
-
-        AddHandler printDoc.PrintPage, AddressOf PrintPage
-        m_currentPageIndex = 0
-        printDoc.Print()
-
-    End Sub
-
-    'Crear un informe local para Report.rdlc, cargar los datos, exportar el informe a un archivo .emf e imprimirlo.
-    Public Sub Run()
         Try
-            Dim report As New LocalReport()
-            Dim param As New List(Of ReportParameter)
-            param.Add(New ReportParameter("Copia", Me.Copia))
-            param.Add(New ReportParameter("CompAsoc", Me.CompAsoc))
-
-            Select Case Me.TipoComprobante(0).Letra
-                Case "A", "M"
-                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompAA4.rdlc"
-
-                Case "B"
-                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompBA4.rdlc"
-
-                Case "C"
-                    'report.ReportPath = Application.StartupPath & "\rptCompCA4.rdlc"
-                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompCA4.rdlc"
-
-                Case "X"
-                    'report.ReportPath = Application.StartupPath & "\rptCompRA4.rdlc"
-                    report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompRA4.rdlc"
-            End Select
-
-            'report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
-            report.DataSources.Add(New ReportDataSource("Empresa", Empresa))
-            report.DataSources.Add(New ReportDataSource("DocumentoEmpresa", DocumentoEmpresa))
-            report.DataSources.Add(New ReportDataSource("IVAEmpresa", IVAEmpresa))
-            report.DataSources.Add(New ReportDataSource("Cliente", Cliente))
-            report.DataSources.Add(New ReportDataSource("DocumentoCliente", DocumentoCliente))
-            report.DataSources.Add(New ReportDataSource("IVACliente", IVACliente))
-            report.DataSources.Add(New ReportDataSource("TipoDocumentoCliente", TipoDocumentoCliente))
-            report.DataSources.Add(New ReportDataSource("Encabezado", Encabezado))
-            report.DataSources.Add(New ReportDataSource("TipoComprobante", TipoComprobante))
-            report.DataSources.Add(New ReportDataSource("Detalle", Detalle))
-            report.DataSources.Add(New ReportDataSource("CAE", CAE))
-            report.DataSources.Add(New ReportDataSource("QR", QR))
-            report.SetParameters(param)
-
-            Export(report)
-            Print()
         Catch ex As Exception
-            ' Registra la excepción para un análisis detallado.
-            ' Para depuración, puedes usar un MsgBox para retroalimentación inmediata,
-            ' pero para producción, el registro en un archivo o visor de eventos es mejor.
-            MsgBox("Se produjo un error al generar o imprimir el informe: " & ex.Message & vbCrLf & "StackTrace: " & ex.StackTrace, MsgBoxStyle.Critical, "Error de Informe")
-            ' Podrías querer relanzar la excepción o manejarla de manera más elegante
-            ' dependiendo de la estrategia general de manejo de errores de la aplicación.
-            ' Throw ex
-        Finally
-            ' Asegúrate de que el objeto report se libere si es necesario, aunque es una variable local.
-            ' Si el informe tuviera recursos no administrados que necesitaran una limpieza explícita más allá del GC estándar.
+            Throw ex
         End Try
     End Sub
 
-    Public Sub Dispose() Implements IDisposable.Dispose
-        If m_streams IsNot Nothing Then
-            For Each stream As Stream In m_streams
-                stream.Close()
+    Private Sub ImprimirA4(ByVal argComprobante As Comprobante, ByVal argNumCopias As Integer)
+        Dim objRC As New ComprobantesRdlc
+        Dim Copia As String = ""
+
+        Try
+            If argNumCopias < 0 Then
+                Select Case Math.Abs(argNumCopias)
+                    Case 1
+                        Copia = "ORIGINAL"
+                    Case 2
+                        Copia = "DUPLICADO"
+                    Case 3
+                        Copia = "TRIPLICADO"
+                End Select
+
+                With objRC
+                    .Operacion.Add(argComprobante.Operacion)
+                    .Empresa.Add(argComprobante.Empresa)
+                    .DocumentoEmpresa.Add(argComprobante.Empresa.Documento)
+                    .IVAEmpresa.Add(argComprobante.Empresa.IVA)
+                    .Cliente.Add(argComprobante.Cliente)
+                    .DocumentoCliente.Add(argComprobante.Cliente.Documento)
+                    .IVACliente.Add(argComprobante.Cliente.IVA)
+                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
+                    .Encabezado.Add(argComprobante)
+                    .TipoComprobante.Add(argComprobante.TipoComprobante)
+                    .Detalle = argComprobante.Detalle
+                    .CAE.Add(argComprobante.CAE)
+                    .QR.Add(argComprobante.QR)
+                    '.Copia = Copia
+                    '.PathReporte = mobjPater.PathServer
+                    '.Impresora = mobjPater.Impresora
+
+                    'If argComprobante.CompAsoc IsNot Nothing Then
+                    '.CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                    'Else
+                    '.CompAsoc = ""
+                    'End If
+                End With
+
+                objRC.Run()
+                argNumCopias = 0
+            End If
+
+            For x = 1 To argNumCopias
+                Select Case x
+                    Case 1
+                        Copia = "ORIGINAL"
+                    Case 2
+                        Copia = "DUPLICADO"
+                    Case 3
+                        Copia = "TRIPLICADO"
+                End Select
+
+                With objRC
+                    '.Operacion.Add(argComprobante.Operacion)
+                    .Empresa.Add(argComprobante.Empresa)
+                    .DocumentoEmpresa.Add(argComprobante.Empresa.Documento)
+                    .IVAEmpresa.Add(argComprobante.Empresa.IVA)
+                    .Cliente.Add(argComprobante.Cliente)
+                    .DocumentoCliente.Add(argComprobante.Cliente.Documento)
+                    .IVACliente.Add(argComprobante.Cliente.IVA)
+                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
+                    .Encabezado.Add(argComprobante)
+                    .TipoComprobante.Add(argComprobante.TipoComprobante)
+                    .Detalle = argComprobante.Detalle
+                    .CAE.Add(argComprobante.CAE)
+                    .QR.Add(argComprobante.QR)
+                    .Copia = Copia
+                    '.PathReporte = mobjPater.PathServer
+                    '.Impresora = mobjPater.Impresora
+
+                    If argComprobante.CompAsoc IsNot Nothing Then
+                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                    Else
+                        .CompAsoc = ""
+                    End If
+                End With
+
+                objRC.Run()
             Next
-            m_streams = Nothing
-        End If
+            objRC.Dispose()
+
+        Catch ex As Exception
+            Throw ex
+        End Try
+
+        objRC.Dispose()
+
+    End Sub
+
+    Private Sub ImprimirTK80(ByVal argComprobante As Comprobante, ByVal argNumCopias As Integer)
+
+        Try
+            Dim objTkt80 As New Ticket80
+            Dim Copia As String = ""
+            objTkt80.Comprobante = argComprobante
+            'objTkt80.Impresora = mobjPater.Impresora
+
+            If argNumCopias < 0 Then
+                Select Case Math.Abs(argNumCopias)
+                    Case 1
+                        Copia = "                ORIGINAL                 "
+                    Case 2
+                        Copia = "               DUPLICADO                 "
+                    Case 3
+                        Copia = "               TRIPLICADO                "
+                End Select
+
+                objTkt80.Imprimir(Copia)
+            End If
+
+            For x = 1 To argNumCopias
+                Select Case x
+                    Case 1
+                        Copia = "                ORIGINAL                 "
+                    Case 2
+                        Copia = "               DUPLICADO                 "
+                    Case 3
+                        Copia = "               TRIPLICADO                "
+                End Select
+
+                objTkt80.Imprimir(Copia)
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ImprimirTK58(ByVal argComprobante As Comprobante, ByVal argNumCopias As Integer)
+
+        Try
+            Dim objTkt58 As New Ticket58
+            Dim Copia As String = ""
+            objTkt58.Comprobante = argComprobante
+            'objTkt80.Impresora = mobjPater.Impresora
+
+            If argNumCopias < 0 Then
+                Select Case Math.Abs(argNumCopias)
+                    Case 1
+                        Copia = "                ORIGINAL                 "
+                    Case 2
+                        Copia = "               DUPLICADO                 "
+                    Case 3
+                        Copia = "               TRIPLICADO                "
+                End Select
+
+                objTkt58.Imprimir(Copia)
+            End If
+
+            For x = 1 To argNumCopias
+                Select Case x
+                    Case 1
+                        Copia = "                ORIGINAL                 "
+                    Case 2
+                        Copia = "               DUPLICADO                 "
+                    Case 3
+                        Copia = "               TRIPLICADO                "
+                End Select
+
+                objTkt58.Imprimir(Copia)
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub EnviarMail()
+
+
+        Try
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message) 'no hago Throw ex porque me registra error en la base de datos
+
+        End Try
+
+    End Sub
+
+    Private Sub GuardarComo()
+
+        Try
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
     End Sub
 
 End Class

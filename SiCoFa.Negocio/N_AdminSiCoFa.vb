@@ -877,12 +877,6 @@ Public Class N_AdminSiCoFa
 
 #End Region
 
-#Region "Administracion Asientos Contables"
-    Public Sub EfectuarAsientoContable(ByVal argOperacion As Operacion, ByVal argAsiento As AsientoContable)
-        mobj_D_AdminSiCoFa.EfectuarAsientoContable(argOperacion, argAsiento)
-    End Sub
-#End Region
-
 #Region "Administracion de Secciones"
     Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Int32) As Seccion
         Dim objSec As Seccion

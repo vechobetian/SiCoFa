@@ -55,7 +55,9 @@
     <Import Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="D_AdminAsientosContable.vb" />
     <Compile Include="D_AdminComprobantes.vb" />
+    <Compile Include="D_AdminCuentasEmail.vb" />
     <Compile Include="D_Conexion.vb" />
     <Compile Include="D_AdminDB.vb" />
     <Compile Include="D_AdminFTP.vb" />

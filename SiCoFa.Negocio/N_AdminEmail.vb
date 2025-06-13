@@ -2,10 +2,10 @@
 Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 Public Class N_AdminEmail
-    Private mobj_D_AdminEmail As New D_AdminSiCoFa
     Public Function EnviarMail(ByVal argNombreMostrado As String, ByVal argMail As String, ByVal argAsunto As String, ByVal argMensaje As String, Optional ByVal argPathAdjunto As String = "") As Boolean
 
-        Dim CtaE As CuentaEmail = mobj_D_AdminEmail.ObtenerCuentaEmail
+        Dim obj_D_AdminCuentaEmail As New D_AdminCuentasEmail
+        Dim CtaE As CuentaEmail = obj_D_AdminCuentaEmail.ObtenerCuentaEmail
 
         If CtaE Is Nothing Then
             Return False
@@ -48,7 +48,7 @@ Public Class N_AdminEmail
             Return True
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "EnviarMail", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EnviarMail", ex.Message))
 
         End Try
 
