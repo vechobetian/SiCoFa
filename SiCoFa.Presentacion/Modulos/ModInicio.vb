@@ -3,7 +3,10 @@ Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.Net
 Module ModInicio
+
+    Public g_Usuario As Usuario = Nothing
     Public g_ParametrosTerminal As ParametrosTerminal
+    Public g_ParametrosSistema As N_ParametrosSistema
 
     Sub Main()
         Try
@@ -17,6 +20,10 @@ Module ModInicio
                 MsgBox("Terminal no habilitada", vbCritical, "SiCoFa")
                 Exit Sub
             End If
+
+            g_ParametrosSistema = New N_ParametrosSistema
+
+            VerificarUsuarios()
 
             Application.EnableVisualStyles()
             Application.SetCompatibleTextRenderingDefault(False)
@@ -100,4 +107,22 @@ Module ModInicio
         End Try
 
     End Function
+
+    Private Sub VerificarUsuarios()
+        Try
+
+            Dim objAdminSiCoFa As New N_AdminSiCoFa
+            Dim lu As List(Of Usuario) = objAdminSiCoFa.ListarUsuarios("*")
+
+            If lu.Count = 1 Then
+                g_Usuario = lu.First
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
 End Module

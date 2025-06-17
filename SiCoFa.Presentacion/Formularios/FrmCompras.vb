@@ -3,7 +3,7 @@ Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
-Public Class FrmVentas
+Public Class FrmCompras
     Property Usuario As Usuario
 
     Public Property Cliente As Cliente
@@ -155,7 +155,7 @@ Public Class FrmVentas
                 Using FPagos As New FrmPagos
 
                     With FPagos
-                        .FrmOrigen = Me
+                        '.FrmOrigen = Me
                         .Operacion = mobj_Operacion
                         .Cliente = mobj_Cliente
 
@@ -696,7 +696,7 @@ Public Class FrmVentas
 
     Private Sub NuevoToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevoToolStripButton.Click
 
-        Dim nuevaVentanaVentas As New FrmVentas()
+        Dim nuevaVentanaVentas As New FrmCompras()
         nuevaVentanaVentas.Usuario = Me.Usuario
         nuevaVentanaVentas.Show()
 

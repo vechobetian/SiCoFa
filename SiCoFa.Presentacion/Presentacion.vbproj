@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Sub Main</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmCajas</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -135,6 +135,18 @@
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
+    <Compile Include="Formularios\FrmCajas.Designer.vb">
+      <DependentUpon>FrmCajas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmCajas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmCajas1.Designer.vb">
+      <DependentUpon>FrmCajas1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmCajas1.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmBuscaVentasIniciadas.Designer.vb">
       <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
     </Compile>
@@ -169,6 +181,12 @@
       <DependentUpon>FrmInicio.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmInicio.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmCompras.Designer.vb">
+      <DependentUpon>FrmCompras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmCompras.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmVentas.Designer.vb">
@@ -291,6 +309,12 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmCajas.resx">
+      <DependentUpon>FrmCajas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmCajas1.resx">
+      <DependentUpon>FrmCajas1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaVentasIniciadas.resx">
       <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
     </EmbeddedResource>
@@ -308,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPagos.resx">
       <DependentUpon>FrmPagos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmCompras.resx">
+      <DependentUpon>FrmCompras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmVentas.resx">
       <DependentUpon>FrmVentas.vb</DependentUpon>

@@ -457,7 +457,7 @@ Public Class Ticket80
 
         Copia = argCopia
         Select Case Comprobante.TipoComprobante.CodiTC_SiCoFa
-            Case "FAA", "FAB", "FAC", "NCA", "NCB", "NCC", "NCX", "RECR", "PRESU", "RTO", "DI"
+            Case "FAA", "FAB", "FAC", "NCA", "NCB", "NCC", "NCX", "RECR", "PRESU", "RTOX", "DI"
                 AddHandler printDoc.PrintPage, AddressOf FACTURA
             Case "REC"
                 AddHandler printDoc.PrintPage, AddressOf RECIBO

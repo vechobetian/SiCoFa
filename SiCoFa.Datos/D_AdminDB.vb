@@ -2,6 +2,7 @@
 Imports System.Linq
 Imports MySql.Data.MySqlClient
 Public Class D_AdminDB
+
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
 
         Try
@@ -19,12 +20,13 @@ Public Class D_AdminDB
             Return tbl
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "ObtenerTabla", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerTabla", ex.Message))
             Return Nothing
 
         End Try
 
     End Function
+
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
 
         Try
@@ -49,6 +51,7 @@ Public Class D_AdminDB
         End Try
 
     End Sub
+
     Public Function ObtenerValor(ByVal argSql As String) As Object
 
         Try
@@ -75,6 +78,7 @@ Public Class D_AdminDB
         End Try
 
     End Function
+
     Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
 
         Try
@@ -120,6 +124,7 @@ Public Class D_AdminDB
         End Try
 
     End Function
+
     Public Sub InsertarRegistro(ByVal argSql As String, ByVal valoresColumnas As Dictionary(Of String, Object))
 
         Try

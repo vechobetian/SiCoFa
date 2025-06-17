@@ -1,5 +1,5 @@
-﻿Imports System.Data.SqlClient
-Imports SiCoFa.Datos
+﻿Imports SiCoFa.Datos
+
 Public Class N_AdminDB
 
     Dim mobj_D_AdminDB As New D_AdminDB

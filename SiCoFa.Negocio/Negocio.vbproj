@@ -69,6 +69,7 @@
     <Compile Include="N_AdminLoginTicket.vb" />
     <Compile Include="N_AdminComprobantes.vb" />
     <Compile Include="N_AdminDB.vb" />
+    <Compile Include="N_ParametrosSistema.vb" />
     <Compile Include="N_AdminSiCoFa.vb" />
     <Compile Include="N_AdminEmail.vb" />
     <Compile Include="N_AdminFTP.vb" />

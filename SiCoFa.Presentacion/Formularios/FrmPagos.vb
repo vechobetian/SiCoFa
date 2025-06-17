@@ -314,7 +314,6 @@ Public Class FrmPagos
                 If obj_N_AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
                     'aca hay que cambiar el estado de la operacion y salir
                 End If
-
             End If
 
             Dim objAdminReporteComprobantes As New ReporteComprobantes

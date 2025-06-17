@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmInicio
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmInicio
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.OperacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -33,6 +33,13 @@ Partial Class FrmInicio
         Me.HerramientasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SistemaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EmpleadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SeccionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CuentasBancoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MediosDePagoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -55,7 +62,7 @@ Partial Class FrmInicio
         'FacturacionToolStripMenuItem
         '
         Me.FacturacionToolStripMenuItem.Name = "FacturacionToolStripMenuItem"
-        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.FacturacionToolStripMenuItem.Text = "Facturacion"
         '
         'CajaToolStripMenuItem
@@ -78,7 +85,7 @@ Partial Class FrmInicio
         '
         'EdiciónToolStripMenuItem
         '
-        Me.EdiciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArticulToolStripMenuItem})
+        Me.EdiciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArticulToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.EmpleadosToolStripMenuItem, Me.UsuariosToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.SeccionesToolStripMenuItem, Me.CuentasBancoToolStripMenuItem, Me.MediosDePagoToolStripMenuItem})
         Me.EdiciónToolStripMenuItem.Name = "EdiciónToolStripMenuItem"
         Me.EdiciónToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.EdiciónToolStripMenuItem.Text = "&Edición"
@@ -86,8 +93,8 @@ Partial Class FrmInicio
         'ArticulToolStripMenuItem
         '
         Me.ArticulToolStripMenuItem.Name = "ArticulToolStripMenuItem"
-        Me.ArticulToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
-        Me.ArticulToolStripMenuItem.Text = "Articul"
+        Me.ArticulToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ArticulToolStripMenuItem.Text = "Artículos"
         '
         'HerramientasToolStripMenuItem
         '
@@ -106,6 +113,48 @@ Partial Class FrmInicio
         Me.AyudaToolStripMenuItem.Name = "AyudaToolStripMenuItem"
         Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
         Me.AyudaToolStripMenuItem.Text = "Ay&uda"
+        '
+        'ClientesToolStripMenuItem
+        '
+        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
+        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ClientesToolStripMenuItem.Text = "Clientes"
+        '
+        'EmpleadosToolStripMenuItem
+        '
+        Me.EmpleadosToolStripMenuItem.Name = "EmpleadosToolStripMenuItem"
+        Me.EmpleadosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.EmpleadosToolStripMenuItem.Text = "Empleados"
+        '
+        'UsuariosToolStripMenuItem
+        '
+        Me.UsuariosToolStripMenuItem.Name = "UsuariosToolStripMenuItem"
+        Me.UsuariosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.UsuariosToolStripMenuItem.Text = "Usuarios"
+        '
+        'ProveedoresToolStripMenuItem
+        '
+        Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
+        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ProveedoresToolStripMenuItem.Text = "Proveedores"
+        '
+        'SeccionesToolStripMenuItem
+        '
+        Me.SeccionesToolStripMenuItem.Name = "SeccionesToolStripMenuItem"
+        Me.SeccionesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SeccionesToolStripMenuItem.Text = "Secciones"
+        '
+        'CuentasBancoToolStripMenuItem
+        '
+        Me.CuentasBancoToolStripMenuItem.Name = "CuentasBancoToolStripMenuItem"
+        Me.CuentasBancoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CuentasBancoToolStripMenuItem.Text = "Cuentas Banco"
+        '
+        'MediosDePagoToolStripMenuItem
+        '
+        Me.MediosDePagoToolStripMenuItem.Name = "MediosDePagoToolStripMenuItem"
+        Me.MediosDePagoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.MediosDePagoToolStripMenuItem.Text = "Medios de Pago"
         '
         'FrmInicio
         '
@@ -136,4 +185,11 @@ Partial Class FrmInicio
     Friend WithEvents AyudaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FacturacionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ArticulToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClientesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EmpleadosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents UsuariosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ProveedoresToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SeccionesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CuentasBancoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MediosDePagoToolStripMenuItem As ToolStripMenuItem
 End Class
