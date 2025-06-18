@@ -3,6 +3,7 @@
 Public Class N_AdminDB
 
     Dim mobj_D_AdminDB As New D_AdminDB
+
     Public Function ObtenerTabla(ByVal argSql As String) As DataTable
         Try
 
@@ -14,6 +15,7 @@ Public Class N_AdminDB
         End Try
 
     End Function
+
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
         Try
 
@@ -24,6 +26,7 @@ Public Class N_AdminDB
         End Try
 
     End Sub
+
     Public Function ObtenerValor(ByVal argSql As String) As Object
 
         Try
@@ -49,6 +52,7 @@ Public Class N_AdminDB
         End Try
 
     End Function
+
     Public Sub InsertarRegistro(ByVal argSql As String, ByVal argValoresColumnas As Dictionary(Of String, Object))
 
         Try

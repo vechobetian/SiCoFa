@@ -11,42 +11,42 @@ Public Class FrmCajas
                 Dim totalAncho As Integer = DataGridView2.Width - 45
                 Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
 
-                For i As Integer = 0 To 2 ' Itera a través de las 9 columnas
+                For i As Integer = 0 To 2
                     DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
                 Me.DataGridView2.Columns("ImporteEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
                 Me.DataGridView2.Columns("CantOperacionesEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
             Else
-                MessageBox.Show("El DataGridView no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridEfectivo no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If DataGridView3.ColumnCount = 3 Then
+            If DataGridView3.ColumnCount = 4 Then
                 Dim totalAncho As Integer = DataGridView3.Width - 45
-                Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
+                Dim proporciones As Double() = {0.5R, 0.1R, 0.2R, 0.2R}
 
-                For i As Integer = 0 To 2 ' Itera a través de las 9 columnas
+                For i As Integer = 0 To 3
                     DataGridView3.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
                 Me.DataGridView3.Columns("ImportePE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
                 Me.DataGridView3.Columns("CantOperacionesPE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
             Else
-                MessageBox.Show("El DataGridView no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridOperacionesPE no tiene 4 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
             If DataGridView4.ColumnCount = 3 Then
                 Dim totalAncho As Integer = DataGridView4.Width - 45
                 Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
 
-                For i As Integer = 0 To 2 ' Itera a través de las 9 columnas
+                For i As Integer = 0 To 2
                     DataGridView4.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
                 Me.DataGridView4.Columns("ImporteCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
                 Me.DataGridView4.Columns("CantOperacionesCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
             Else
-                MessageBox.Show("El DataGridView no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridOperacoinesCC no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception
@@ -88,20 +88,27 @@ Public Class FrmCajas
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
-        Dim sql As String = "SELECT MedioPE, CantOperaciones, Importe FROM ConMoviCajaPE WHERE IdCaja = " & idCaja
+        Dim sql As String = "SELECT MedioPE, CantOperaciones, Importe,EstadoTransaccion FROM ConMoviCajaPE WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
         Me.DataGridView3.DataSource = dt
 
         Me.DataGridView3.ClearSelection()
         Dim totalImporte As Decimal = 0D
+        Dim totalImporteAnulados As Decimal = 0D
         For Each row As DataRow In dt.Rows
-            If Not IsDBNull(row("Importe")) Then
+            If Not IsDBNull(row("Importe")) And row("EstadoTransaccion") <> "ANULADO" Then
                 totalImporte += Convert.ToDecimal(row("Importe"))
+
+            ElseIf Not IsDBNull(row("Importe")) And row("EstadoTransaccion") = "ANULADO" Then
+                totalImporteAnulados += Convert.ToDecimal(row("Importe"))
+
             End If
         Next
 
-        Me.lblImportePE.Text = "Total Pagos Electronicos: $" & totalImporte.ToString("N2")
+        Me.lblImportePE.Text = "Total Pagos Electronicos Anulados: $" & totalImporteAnulados.ToString("N2") &
+                               "  |  " &
+                               "Total Pagos Electronicos No Anulados: $" & totalImporte.ToString("N2")
     End Sub
 
     Private Sub ActualizarOperacionesCC()
@@ -158,7 +165,7 @@ Public Class FrmCajas
 
     End Sub
 
-    Private Sub dgvOperacionesIniciadas_SelectionChanged(sender As Object, e As EventArgs)
+    Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
 
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then
@@ -177,4 +184,44 @@ Public Class FrmCajas
 
     End Sub
 
+    Private Sub DetalleOperacionesEfectivoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetalleOperacionesEfectivoToolStripMenuItem.Click
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+
+        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+        Dim idCaja As Integer = CInt(valor)
+        FrmMoviCajaEfectivoDetalle.IdCaja = idCaja
+        FrmMoviCajaEfectivoDetalle.Show()
+
+    End Sub
+
+    Private Sub DetallePagoElectronicoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetallePagoElectronicoToolStripMenuItem.Click
+
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+
+        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+        Dim idCaja As Integer = CInt(valor)
+        FrmMoviCajaPEDetalle.IdCaja = idCaja
+        FrmMoviCajaPEDetalle.Show()
+
+    End Sub
+
+    Private Sub DetalleCuentaCorrienteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetalleCuentaCorrienteToolStripMenuItem.Click
+
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+
+        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+        Dim idCaja As Integer = CInt(valor)
+        FrmMoviCajaCCDetalle.IdCaja = idCaja
+        FrmMoviCajaCCDetalle.Show()
+
+    End Sub
 End Class

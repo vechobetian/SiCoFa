@@ -135,16 +135,28 @@
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
+    <Compile Include="Formularios\FrmMoviCajaPEDetalle.Designer.vb">
+      <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaPEDetalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaCCDetalle.Designer.vb">
+      <DependentUpon>FrmMoviCajaCCDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaCCDetalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaEfectivoDetalle.Designer.vb">
+      <DependentUpon>FrmMoviCajaEfectivoDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaEfectivoDetalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmCajas.Designer.vb">
       <DependentUpon>FrmCajas.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmCajas.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmCajas1.Designer.vb">
-      <DependentUpon>FrmCajas1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmCajas1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmBuscaVentasIniciadas.Designer.vb">
@@ -309,11 +321,17 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmMoviCajaPEDetalle.resx">
+      <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmMoviCajaCCDetalle.resx">
+      <DependentUpon>FrmMoviCajaCCDetalle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmMoviCajaEfectivoDetalle.resx">
+      <DependentUpon>FrmMoviCajaEfectivoDetalle.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmCajas.resx">
       <DependentUpon>FrmCajas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmCajas1.resx">
-      <DependentUpon>FrmCajas1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaVentasIniciadas.resx">
       <DependentUpon>FrmBuscaVentasIniciadas.vb</DependentUpon>
