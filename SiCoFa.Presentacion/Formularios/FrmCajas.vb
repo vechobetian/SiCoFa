@@ -1,8 +1,21 @@
-﻿Imports SiCoFa.Negocio
+﻿Imports SiCoFa.Entidades
+Imports SiCoFa.Negocio
 
 Public Class FrmCajas
 
+    Property Usuario As Usuario = 1
+
+    Private mdecImporteEf As Decimal
+    Private mdecImportePE As Decimal
+    Private mdecImporteCC As Decimal
     Private mAdminDB As New N_AdminDB
+
+    Private Sub CierreCajaAbierta()
+        Dim objAdminSiCoFa As New N_AdminSiCoFa
+        Dim objTipoOperacion As TipoOperacion = objAdminSiCoFa.ObtenerTipoOperacionPorCodiTO("CIECA")
+        Dim objOperacion As Operacion = objAdminSiCoFa.IniciarOperacion(g_ParametrosTerminal.Empresa, Me.Usuario, objTipoOperacion, "", "INICIADO")
+
+    End Sub
 
     Private Sub AjustarAnchoColumnasProporcional()
         Try
@@ -77,6 +90,7 @@ Public Class FrmCajas
             End If
         Next
 
+        Me.mdecImporteEf = totalImporte
         Me.lblImporteEfectivo.Text = "Total Efectivo: $" & totalImporte.ToString("N2")
     End Sub
 
@@ -106,6 +120,7 @@ Public Class FrmCajas
             End If
         Next
 
+        Me.mdecImportePE = totalImporte
         Me.lblImportePE.Text = "Total Pagos Electronicos Anulados: $" & totalImporteAnulados.ToString("N2") &
                                "  |  " &
                                "Total Pagos Electronicos No Anulados: $" & totalImporte.ToString("N2")
@@ -132,6 +147,7 @@ Public Class FrmCajas
             End If
         Next
 
+        Me.mdecImporteCC = totalImporte
         Me.lblImporteCC.Text = "Total Cuenta Corriente: $" & totalImporte.ToString("N2")
     End Sub
 
