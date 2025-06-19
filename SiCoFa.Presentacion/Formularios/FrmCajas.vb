@@ -3,7 +3,7 @@ Imports SiCoFa.Negocio
 
 Public Class FrmCajas
 
-    Property Usuario As Usuario = 1
+    Property Usuario As Usuario
 
     Private mdecImporteEf As Decimal
     Private mdecImportePE As Decimal
@@ -14,6 +14,16 @@ Public Class FrmCajas
         Dim objAdminSiCoFa As New N_AdminSiCoFa
         Dim objTipoOperacion As TipoOperacion = objAdminSiCoFa.ObtenerTipoOperacionPorCodiTO("CIECA")
         Dim objOperacion As Operacion = objAdminSiCoFa.IniciarOperacion(g_ParametrosTerminal.Empresa, Me.Usuario, objTipoOperacion, "", "INICIADO")
+        Dim objComprobante As New Comprobante(
+                                              objOperacion.IdOperacion,
+                                              objOperacion,
+                                              "DI",
+                                              "",
+                                              "",
+                                              Nothing,
+                                              mdecImporteEf + mdecImportePE + mdecImporteCC,
+                                              0, 0, 0, 0, 0, mdecImporteEf, mdecImporteCC, mdecImportePE, Nothing, 0, Nothing, 0,
+                                              Nothing, Nothing, Nothing)
 
     End Sub
 

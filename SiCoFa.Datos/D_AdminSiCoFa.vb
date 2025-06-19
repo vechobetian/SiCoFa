@@ -1641,30 +1641,43 @@ Public Class D_AdminSiCoFa
     Public Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String, ByVal argEstadoOperacion As String) As Operacion
 
         Try
-
             Dim objConexionDB As New D_Conexion
-            Dim objOperacion As Operacion = Nothing
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                Dim objOperacion As Operacion = IniciarOperacion(argEmpresa, argUsuario, argTipoOperacion, argObservaciones, argEstadoOperacion, cn, Nothing)
+                Return objOperacion
+            End Using
 
-                Using cmd As New MySqlCommand("OperacionIniciar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_IdEmpresa", MySqlDbType.Int32).Value = argEmpresa.Id
-                        .Add("p_IdUsuario", MySqlDbType.Int32).Value = argUsuario.Id
-                        .Add("p_CodiTO", MySqlDbType.VarChar).Value = argTipoOperacion.CodiTO
-                        .Add("p_Observaciones", MySqlDbType.Text).Value = argObservaciones
-                        .Add("p_EstadoOperacion", MySqlDbType.VarChar, 15).Value = argEstadoOperacion
-                        .Add("p_IdOperacion", MySqlDbType.Int64)
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", Ex.Message))
+        End Try
 
-                    End With
+    End Function
 
-                    cmd.Parameters("p_IdOperacion").Direction = ParameterDirection.Output
-                    cmd.ExecuteNonQuery()
+    Friend Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String, ByVal argEstadoOperacion As String, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Operacion
 
-                    Dim IdOperacion As Long = CLng(cmd.Parameters("p_IdOperacion").Value)
+        Try
 
-                    If IdOperacion > 0 Then
-                        objOperacion = New Operacion(
+            Dim objOperacion As Operacion = Nothing
+
+            Using cmd As New MySqlCommand("OperacionIniciar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+                With cmd.Parameters
+                    .Add("p_IdEmpresa", MySqlDbType.Int32).Value = argEmpresa.Id
+                    .Add("p_IdUsuario", MySqlDbType.Int32).Value = argUsuario.Id
+                    .Add("p_CodiTO", MySqlDbType.VarChar).Value = argTipoOperacion.CodiTO
+                    .Add("p_Observaciones", MySqlDbType.Text).Value = argObservaciones
+                    .Add("p_EstadoOperacion", MySqlDbType.VarChar, 15).Value = argEstadoOperacion
+                    .Add("p_IdOperacion", MySqlDbType.Int64)
+
+                End With
+
+                cmd.Parameters("p_IdOperacion").Direction = ParameterDirection.Output
+                cmd.ExecuteNonQuery()
+
+                Dim IdOperacion As Long = CLng(cmd.Parameters("p_IdOperacion").Value)
+
+                If IdOperacion > 0 Then
+                    objOperacion = New Operacion(
                                                      argIdOperacion:=IdOperacion,
                                                      argInicio:=Now,
                                                      argFin:=Now,
@@ -1678,9 +1691,7 @@ Public Class D_AdminSiCoFa
                                                      argDesError:=""
                                                      )
 
-                    End If
-
-                End Using
+                End If
 
             End Using
 
@@ -1739,7 +1750,7 @@ Public Class D_AdminSiCoFa
     Friend Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
         Try
 
-            Using cmd As New MySqlCommand("OperacionFinalizar", cn) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("OperacionFinalizar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
                     .Add("p_Observaciones", MySqlDbType.VarChar).Value = argOperacion.Observaciones
@@ -1984,6 +1995,7 @@ Public Class D_AdminSiCoFa
 
                 Try
 
+
                     If argOperacionCC IsNot Nothing Then
                         Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
                     End If
@@ -2008,6 +2020,50 @@ Public Class D_AdminSiCoFa
                 Catch ex As Exception
                     tx.Rollback()
                     Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message), ex)
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
+    Public Function CierreCaja(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+
+                    Dim objOperacion As Operacion = Me.IniciarOperacion(argEmpresa, argUsuario, argTipoOperacion, "", "INICIADO")
+
+
+                    'If argOperacionCC IsNot Nothing Then
+                    'Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
+                    'End If
+
+                    'If argOperacionPE IsNot Nothing Then
+                    'Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
+                    'End If
+
+                    Dim AdminComprobantes As New D_AdminComprobantes
+                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+
+                    Dim AdminAsientoContable As New D_AdminAsientosContable
+                    AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
+
+                    Me.FinalizarOperacion(argMacAddress, objOperacion, cn, tx)
+
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "CierreCaja", ex.Message), ex)
 
                 End Try
 

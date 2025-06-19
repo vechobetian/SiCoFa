@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="D_AdminAsientosContable.vb" />
+    <Compile Include="D_AdminCajas.vb" />
     <Compile Include="D_AdminComprobantes.vb" />
     <Compile Include="D_AdminCuentasEmail.vb" />
     <Compile Include="D_Conexion.vb" />

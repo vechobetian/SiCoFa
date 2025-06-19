@@ -73,6 +73,7 @@
     <Compile Include="Articulo.vb" />
     <Compile Include="AsientoConbable.vb" />
     <Compile Include="CAE.vb" />
+    <Compile Include="Caja.vb" />
     <Compile Include="Cliente.vb" />
     <Compile Include="Comprobante.vb" />
     <Compile Include="CuentaBancaria.vb" />
