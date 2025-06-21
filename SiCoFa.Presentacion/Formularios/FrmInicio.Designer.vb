@@ -23,138 +23,146 @@ Partial Class FrmInicio
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.OperacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FacturacionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CajaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FiscalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AuditoríaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EdiciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ArticulToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HerramientasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SistemaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EmpleadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SeccionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CuentasBancoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MediosDePagoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesFacturacion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCaja = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCajaMovimientos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuFiscal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoria = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicion = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionArticulos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionClientes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionEmpleados = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionUsuarios = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionProveedores = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionSecciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionCuentasBancarias = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionMedioPE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuHerramientas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OperacionesToolStripMenuItem, Me.CajaToolStripMenuItem, Me.FiscalToolStripMenuItem, Me.AuditoríaToolStripMenuItem, Me.EdiciónToolStripMenuItem, Me.HerramientasToolStripMenuItem, Me.SistemaToolStripMenuItem, Me.AyudaToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuAuditoria, Me.mnuEdicion, Me.mnuHerramientas, Me.mnuSistema, Me.mnuAyuda})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'OperacionesToolStripMenuItem
+        'mnuOperaciones
         '
-        Me.OperacionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FacturacionToolStripMenuItem})
-        Me.OperacionesToolStripMenuItem.Name = "OperacionesToolStripMenuItem"
-        Me.OperacionesToolStripMenuItem.Size = New System.Drawing.Size(85, 20)
-        Me.OperacionesToolStripMenuItem.Text = "&Operaciones"
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion})
+        Me.mnuOperaciones.Name = "mnuOperaciones"
+        Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
+        Me.mnuOperaciones.Text = "&Operaciones"
         '
-        'FacturacionToolStripMenuItem
+        'mnuOperacionesFacturacion
         '
-        Me.FacturacionToolStripMenuItem.Name = "FacturacionToolStripMenuItem"
-        Me.FacturacionToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
-        Me.FacturacionToolStripMenuItem.Text = "Facturacion"
+        Me.mnuOperacionesFacturacion.Name = "mnuOperacionesFacturacion"
+        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesFacturacion.Text = "Facturacion"
         '
-        'CajaToolStripMenuItem
+        'mnuCaja
         '
-        Me.CajaToolStripMenuItem.Name = "CajaToolStripMenuItem"
-        Me.CajaToolStripMenuItem.Size = New System.Drawing.Size(42, 20)
-        Me.CajaToolStripMenuItem.Text = "&Caja"
+        Me.mnuCaja.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCajaMovimientos})
+        Me.mnuCaja.Name = "mnuCaja"
+        Me.mnuCaja.Size = New System.Drawing.Size(42, 20)
+        Me.mnuCaja.Text = "&Caja"
         '
-        'FiscalToolStripMenuItem
+        'mnuCajaMovimientos
         '
-        Me.FiscalToolStripMenuItem.Name = "FiscalToolStripMenuItem"
-        Me.FiscalToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
-        Me.FiscalToolStripMenuItem.Text = "&Fiscal"
+        Me.mnuCajaMovimientos.Name = "mnuCajaMovimientos"
+        Me.mnuCajaMovimientos.Size = New System.Drawing.Size(186, 22)
+        Me.mnuCajaMovimientos.Text = "&Movimientos de Caja"
         '
-        'AuditoríaToolStripMenuItem
+        'mnuFiscal
         '
-        Me.AuditoríaToolStripMenuItem.Name = "AuditoríaToolStripMenuItem"
-        Me.AuditoríaToolStripMenuItem.Size = New System.Drawing.Size(68, 20)
-        Me.AuditoríaToolStripMenuItem.Text = "&Auditoría"
+        Me.mnuFiscal.Name = "mnuFiscal"
+        Me.mnuFiscal.Size = New System.Drawing.Size(48, 20)
+        Me.mnuFiscal.Text = "&Fiscal"
         '
-        'EdiciónToolStripMenuItem
+        'mnuAuditoria
         '
-        Me.EdiciónToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArticulToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.EmpleadosToolStripMenuItem, Me.UsuariosToolStripMenuItem, Me.ProveedoresToolStripMenuItem, Me.SeccionesToolStripMenuItem, Me.CuentasBancoToolStripMenuItem, Me.MediosDePagoToolStripMenuItem})
-        Me.EdiciónToolStripMenuItem.Name = "EdiciónToolStripMenuItem"
-        Me.EdiciónToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
-        Me.EdiciónToolStripMenuItem.Text = "&Edición"
+        Me.mnuAuditoria.Name = "mnuAuditoria"
+        Me.mnuAuditoria.Size = New System.Drawing.Size(68, 20)
+        Me.mnuAuditoria.Text = "&Auditoría"
         '
-        'ArticulToolStripMenuItem
+        'mnuEdicion
         '
-        Me.ArticulToolStripMenuItem.Name = "ArticulToolStripMenuItem"
-        Me.ArticulToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ArticulToolStripMenuItem.Text = "Artículos"
+        Me.mnuEdicion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdicionArticulos, Me.mnuEdicionClientes, Me.mnuEdicionEmpleados, Me.mnuEdicionUsuarios, Me.mnuEdicionProveedores, Me.mnuEdicionSecciones, Me.mnuEdicionCuentasBancarias, Me.mnuEdicionMedioPE})
+        Me.mnuEdicion.Name = "mnuEdicion"
+        Me.mnuEdicion.Size = New System.Drawing.Size(58, 20)
+        Me.mnuEdicion.Text = "&Edición"
         '
-        'HerramientasToolStripMenuItem
+        'mnuEdicionArticulos
         '
-        Me.HerramientasToolStripMenuItem.Name = "HerramientasToolStripMenuItem"
-        Me.HerramientasToolStripMenuItem.Size = New System.Drawing.Size(90, 20)
-        Me.HerramientasToolStripMenuItem.Text = "&Herramientas"
+        Me.mnuEdicionArticulos.Name = "mnuEdicionArticulos"
+        Me.mnuEdicionArticulos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionArticulos.Text = "Artículos"
         '
-        'SistemaToolStripMenuItem
+        'mnuEdicionClientes
         '
-        Me.SistemaToolStripMenuItem.Name = "SistemaToolStripMenuItem"
-        Me.SistemaToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.SistemaToolStripMenuItem.Text = "&Sistema"
+        Me.mnuEdicionClientes.Name = "mnuEdicionClientes"
+        Me.mnuEdicionClientes.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionClientes.Text = "Clientes"
         '
-        'AyudaToolStripMenuItem
+        'mnuEdicionEmpleados
         '
-        Me.AyudaToolStripMenuItem.Name = "AyudaToolStripMenuItem"
-        Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(53, 20)
-        Me.AyudaToolStripMenuItem.Text = "Ay&uda"
+        Me.mnuEdicionEmpleados.Name = "mnuEdicionEmpleados"
+        Me.mnuEdicionEmpleados.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionEmpleados.Text = "Empleados"
         '
-        'ClientesToolStripMenuItem
+        'mnuEdicionUsuarios
         '
-        Me.ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        Me.ClientesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ClientesToolStripMenuItem.Text = "Clientes"
+        Me.mnuEdicionUsuarios.Name = "mnuEdicionUsuarios"
+        Me.mnuEdicionUsuarios.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionUsuarios.Text = "Usuarios"
         '
-        'EmpleadosToolStripMenuItem
+        'mnuEdicionProveedores
         '
-        Me.EmpleadosToolStripMenuItem.Name = "EmpleadosToolStripMenuItem"
-        Me.EmpleadosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.EmpleadosToolStripMenuItem.Text = "Empleados"
+        Me.mnuEdicionProveedores.Name = "mnuEdicionProveedores"
+        Me.mnuEdicionProveedores.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionProveedores.Text = "Proveedores"
         '
-        'UsuariosToolStripMenuItem
+        'mnuEdicionSecciones
         '
-        Me.UsuariosToolStripMenuItem.Name = "UsuariosToolStripMenuItem"
-        Me.UsuariosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.UsuariosToolStripMenuItem.Text = "Usuarios"
+        Me.mnuEdicionSecciones.Name = "mnuEdicionSecciones"
+        Me.mnuEdicionSecciones.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionSecciones.Text = "Secciones"
         '
-        'ProveedoresToolStripMenuItem
+        'mnuEdicionCuentasBancarias
         '
-        Me.ProveedoresToolStripMenuItem.Name = "ProveedoresToolStripMenuItem"
-        Me.ProveedoresToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ProveedoresToolStripMenuItem.Text = "Proveedores"
+        Me.mnuEdicionCuentasBancarias.Name = "mnuEdicionCuentasBancarias"
+        Me.mnuEdicionCuentasBancarias.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionCuentasBancarias.Text = "Cuentas Banco"
         '
-        'SeccionesToolStripMenuItem
+        'mnuEdicionMedioPE
         '
-        Me.SeccionesToolStripMenuItem.Name = "SeccionesToolStripMenuItem"
-        Me.SeccionesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.SeccionesToolStripMenuItem.Text = "Secciones"
+        Me.mnuEdicionMedioPE.Name = "mnuEdicionMedioPE"
+        Me.mnuEdicionMedioPE.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionMedioPE.Text = "Medios de Pago"
         '
-        'CuentasBancoToolStripMenuItem
+        'mnuHerramientas
         '
-        Me.CuentasBancoToolStripMenuItem.Name = "CuentasBancoToolStripMenuItem"
-        Me.CuentasBancoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.CuentasBancoToolStripMenuItem.Text = "Cuentas Banco"
+        Me.mnuHerramientas.Name = "mnuHerramientas"
+        Me.mnuHerramientas.Size = New System.Drawing.Size(90, 20)
+        Me.mnuHerramientas.Text = "&Herramientas"
         '
-        'MediosDePagoToolStripMenuItem
+        'mnuSistema
         '
-        Me.MediosDePagoToolStripMenuItem.Name = "MediosDePagoToolStripMenuItem"
-        Me.MediosDePagoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.MediosDePagoToolStripMenuItem.Text = "Medios de Pago"
+        Me.mnuSistema.Name = "mnuSistema"
+        Me.mnuSistema.Size = New System.Drawing.Size(60, 20)
+        Me.mnuSistema.Text = "&Sistema"
+        '
+        'mnuAyuda
+        '
+        Me.mnuAyuda.Name = "mnuAyuda"
+        Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
+        Me.mnuAyuda.Text = "Ay&uda"
         '
         'FrmInicio
         '
@@ -175,21 +183,22 @@ Partial Class FrmInicio
     End Sub
 
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents OperacionesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CajaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents FiscalToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AuditoríaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EdiciónToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents HerramientasToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SistemaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AyudaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents FacturacionToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ArticulToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ClientesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EmpleadosToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents UsuariosToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ProveedoresToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SeccionesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CuentasBancoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MediosDePagoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuOperaciones As ToolStripMenuItem
+    Friend WithEvents mnuCaja As ToolStripMenuItem
+    Friend WithEvents mnuFiscal As ToolStripMenuItem
+    Friend WithEvents mnuAuditoria As ToolStripMenuItem
+    Friend WithEvents mnuEdicion As ToolStripMenuItem
+    Friend WithEvents mnuHerramientas As ToolStripMenuItem
+    Friend WithEvents mnuSistema As ToolStripMenuItem
+    Friend WithEvents mnuAyuda As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesFacturacion As ToolStripMenuItem
+    Friend WithEvents mnuEdicionArticulos As ToolStripMenuItem
+    Friend WithEvents mnuEdicionClientes As ToolStripMenuItem
+    Friend WithEvents mnuEdicionEmpleados As ToolStripMenuItem
+    Friend WithEvents mnuEdicionUsuarios As ToolStripMenuItem
+    Friend WithEvents mnuEdicionProveedores As ToolStripMenuItem
+    Friend WithEvents mnuEdicionSecciones As ToolStripMenuItem
+    Friend WithEvents mnuEdicionCuentasBancarias As ToolStripMenuItem
+    Friend WithEvents mnuEdicionMedioPE As ToolStripMenuItem
+    Friend WithEvents mnuCajaMovimientos As ToolStripMenuItem
 End Class

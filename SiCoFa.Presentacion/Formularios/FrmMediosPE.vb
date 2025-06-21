@@ -6,7 +6,7 @@ Public Class FrmMediosPE
 
     Private TextoBuscar As String
     Private NuevoMedioPE As Boolean
-    Private mobj_AdminSicofa As New N_AdminSiCoFa
+    Private mAdminMediosPE As New N_AdminMediosPE
 
     Private ControlesNoValidar As New List(Of String) From {"IdMPETextBox"}
 
@@ -27,8 +27,9 @@ Public Class FrmMediosPE
     Private Sub ObtenerCuentasBancarias()
 
         Try
+            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
             With Me.CuentaBancariaComboBox
-                .DataSource = mobj_AdminSicofa.ListarCuentasBancarias("*")
+                .DataSource = AdminCuentasBancarias.ListarCuentasBancarias("*")
                 .ValueMember = "IdCB"
                 .DisplayMember = "Descripcion"
                 .SelectedIndex = -1
@@ -65,7 +66,7 @@ Public Class FrmMediosPE
 
         Try
 
-            Dim lmpe As List(Of MedioPE) = mobj_AdminSicofa.ListarMedioPE(argTextoBuscado)
+            Dim lmpe As List(Of MedioPE) = mAdminMediosPE.ListarMedioPE(argTextoBuscado)
             Dim mpe As MedioPE = Nothing
 
             If lmpe Is Nothing Then
@@ -142,7 +143,7 @@ Public Class FrmMediosPE
             End If
 
             If Me.NuevoMedioPE = True Then
-                Dim IdMPE As String = mobj_AdminSicofa.InsertarMedioPE(Me.DescripcionTextBox.Text, Me.CuentaBancariaComboBox.SelectedValue)
+                Dim IdMPE As String = mAdminMediosPE.InsertarMedioPE(Me.DescripcionTextBox.Text, Me.CuentaBancariaComboBox.SelectedValue)
                 If IdMPE <> "" Then
                     Me.IdMPETextBox.Text = IdMPE
                     Me.DescripcionTextBox.Text = UCase(Me.DescripcionTextBox.Text)
@@ -160,7 +161,7 @@ Public Class FrmMediosPE
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarMedioPE(Me.IdMPETextBox.Text, Me.CuentaBancariaComboBox.SelectedValue, BajaComboBox.SelectedValue)
+                Dim Actualizado As Boolean = mAdminMediosPE.ActualizarMedioPE(Me.IdMPETextBox.Text, Me.CuentaBancariaComboBox.SelectedValue, BajaComboBox.SelectedValue)
 
                 If Actualizado = True Then
                     MsgBox(Me.DescripcionTextBox.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

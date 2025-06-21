@@ -1,7 +1,9 @@
-﻿Imports System.ComponentModel
+﻿Imports SiCoFa.Negocio
+Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmEmpresas
 
+    Private mAdminEmpresas As New N_AdminEmpresas
     Private ControlesReadOnly As New List(Of String) From {"Id", "TipoDoc"}
     Private Sub ObtenerTiposIVA()
 
@@ -39,7 +41,7 @@ Public Class FrmEmpresas
     Private Sub BuscarEmpresa(ByVal argTextoBuscado As String)
 
         Try
-            Dim le As List(Of Empresa) = mobj_AdminSicofa.ListarEmpresas(argTextoBuscado)
+            Dim le As List(Of Empresa) = mAdminEmpresas.ListarEmpresas(argTextoBuscado)
             Dim e As Empresa = Nothing
 
             If le Is Nothing Then
@@ -116,7 +118,7 @@ Public Class FrmEmpresas
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mobj_AdminSicofa.InsertarEmpresa(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.IB.Text)
+                Dim Id As Integer = mAdminEmpresas.InsertarEmpresa(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.IB.Text)
                 If Id > 0 Then
                     Me.Id.Text = Id
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -133,7 +135,7 @@ Public Class FrmEmpresas
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarEmpresa(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.Estado.Text, Me.IB.Text)
+                Dim Actualizado As Boolean = mAdminEmpresas.ActualizarEmpresa(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.Estado.Text, Me.IB.Text)
 
                 If Actualizado = True Then
                     MsgBox("La Empresa " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")

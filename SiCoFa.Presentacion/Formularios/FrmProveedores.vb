@@ -1,13 +1,16 @@
-﻿Imports System.ComponentModel
+﻿Imports SiCoFa.Negocio
+Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmProveedores
 
+    Private mAdminProveedores As New N_AdminProveedores
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
     Private Sub BuscarProveedor(ByVal argTextoBuscado As String)
 
         Try
-            Dim lp As List(Of Proveedor) = mobj_AdminSicofa.ListarProveedores(argTextoBuscado)
+
+            Dim lp As List(Of Proveedor) = mAdminProveedores.ListarProveedores(argTextoBuscado)
             Dim pv As Proveedor = Nothing
 
             If lp Is Nothing Then
@@ -83,7 +86,7 @@ Public Class FrmProveedores
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mobj_AdminSicofa.InsertarProveedor(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+                Dim Id As Integer = mAdminProveedores.InsertarProveedor(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
                 If Id > 0 Then
                     Me.Id.Text = Id
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -100,7 +103,7 @@ Public Class FrmProveedores
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarProveedor(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, "", Me.Estado.SelectedValue)
+                Dim Actualizado As Boolean = mAdminProveedores.ActualizarProveedor(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, "", Me.Estado.SelectedValue)
 
                 If Actualizado = True Then
                     MsgBox("El Proveedor " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

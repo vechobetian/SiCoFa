@@ -65,10 +65,22 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="N_AdminArticulos.vb" />
     <Compile Include="N_AdminCAE.vb" />
+    <Compile Include="N_AdminCajas.vb" />
+    <Compile Include="N_AdminClientes.vb" />
+    <Compile Include="N_AdminCuentasBancarias.vb" />
+    <Compile Include="N_AdminEmpleados.vb" />
+    <Compile Include="N_AdminEmpresas.vb" />
+    <Compile Include="N_AdminItemsComprobante.vb" />
     <Compile Include="N_AdminLoginTicket.vb" />
     <Compile Include="N_AdminComprobantes.vb" />
     <Compile Include="N_AdminDB.vb" />
+    <Compile Include="N_AdminMediosPE.vb" />
+    <Compile Include="N_AdminOperaciones.vb" />
+    <Compile Include="N_AdminProveedores.vb" />
+    <Compile Include="N_AdminSecciones.vb" />
+    <Compile Include="N_AdminUsuarios.vb" />
     <Compile Include="N_ParametrosSistema.vb" />
     <Compile Include="N_AdminSiCoFa.vb" />
     <Compile Include="N_AdminEmail.vb" />

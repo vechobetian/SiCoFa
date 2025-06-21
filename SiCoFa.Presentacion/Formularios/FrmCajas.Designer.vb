@@ -22,12 +22,12 @@ Partial Class FrmCajas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -323,8 +323,8 @@ Partial Class FrmCajas
         'CantOperacionesEf
         '
         Me.CantOperacionesEf.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesEf.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesEf.DefaultCellStyle = DataGridViewCellStyle1
         Me.CantOperacionesEf.HeaderText = "Operaciones"
         Me.CantOperacionesEf.Name = "CantOperacionesEf"
         Me.CantOperacionesEf.ReadOnly = True
@@ -332,10 +332,10 @@ Partial Class FrmCajas
         'ImporteEf
         '
         Me.ImporteEf.DataPropertyName = "Importe"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImporteEf.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.ImporteEf.DefaultCellStyle = DataGridViewCellStyle2
         Me.ImporteEf.HeaderText = "Importe"
         Me.ImporteEf.Name = "ImporteEf"
         Me.ImporteEf.ReadOnly = True
@@ -368,8 +368,8 @@ Partial Class FrmCajas
         'CantOperacionesCC
         '
         Me.CantOperacionesCC.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesCC.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesCC.DefaultCellStyle = DataGridViewCellStyle3
         Me.CantOperacionesCC.HeaderText = "Operaciones"
         Me.CantOperacionesCC.Name = "CantOperacionesCC"
         Me.CantOperacionesCC.ReadOnly = True
@@ -377,10 +377,10 @@ Partial Class FrmCajas
         'ImporteCC
         '
         Me.ImporteCC.DataPropertyName = "Importe"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.ImporteCC.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.ImporteCC.DefaultCellStyle = DataGridViewCellStyle4
         Me.ImporteCC.HeaderText = "Importe"
         Me.ImporteCC.Name = "ImporteCC"
         Me.ImporteCC.ReadOnly = True
@@ -413,8 +413,8 @@ Partial Class FrmCajas
         'CantOperacionesPE
         '
         Me.CantOperacionesPE.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesPE.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesPE.DefaultCellStyle = DataGridViewCellStyle5
         Me.CantOperacionesPE.HeaderText = "Operaciones"
         Me.CantOperacionesPE.Name = "CantOperacionesPE"
         Me.CantOperacionesPE.ReadOnly = True
@@ -422,10 +422,10 @@ Partial Class FrmCajas
         'ImportePE
         '
         Me.ImportePE.DataPropertyName = "Importe"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "N2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.ImportePE.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.ImportePE.DefaultCellStyle = DataGridViewCellStyle6
         Me.ImportePE.HeaderText = "Importe"
         Me.ImportePE.Name = "ImportePE"
         Me.ImportePE.ReadOnly = True

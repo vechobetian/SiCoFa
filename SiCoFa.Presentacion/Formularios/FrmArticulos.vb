@@ -4,14 +4,15 @@ Imports SiCoFa.Negocio
 Public Class FrmArticulos
     Private TextoBuscar As String
     Private NuevoArticulo As Boolean
-    Private mobj_AdminSicofa As New N_AdminSiCoFa
+    Private mobj_AdminArticulos As New N_AdminArticulos
     Private ControlesReadOnly As New List(Of String)
 
     Private Sub ObtenerAlicuotasIVA()
 
         Try
+            Dim AdminSiCoFa As New N_AdminSiCoFa
             With Me.AlicuotaIVA
-                .DataSource = mobj_AdminSicofa.AlicuotasIVA
+                .DataSource = AdminSiCoFa.AlicuotasIVA
                 .ValueMember = "AlicIVA"
                 .DisplayMember = "AlicuotaIVA"
                 .SelectedIndex = -1
@@ -27,8 +28,9 @@ Public Class FrmArticulos
     Private Sub ObtenerSecciones()
 
         Try
+            Dim AdminSecciones As New N_AdminSecciones
             With Me.Seccion
-                .DataSource = mobj_AdminSicofa.ListarSecciones("*")
+                .DataSource = AdminSecciones.ListarSecciones("*")
                 .ValueMember = "IdSeccion"
                 .DisplayMember = "Seccion"
                 .SelectedIndex = -1
@@ -45,7 +47,8 @@ Public Class FrmArticulos
 
         Try
 
-            Dim la As List(Of Articulo) = mobj_AdminSicofa.ListarArticulos(argTextoBuscado)
+
+            Dim la As List(Of Articulo) = mobj_AdminArticulos.ListarArticulos(argTextoBuscado)
             Dim a As Articulo = Nothing
 
             If la Is Nothing Then
@@ -129,7 +132,7 @@ Public Class FrmArticulos
             End If
 
             If Me.NuevoArticulo = True Then
-                Dim IdArticulo As String = mobj_AdminSicofa.InsertarArticulo(Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, Me.Seccion.SelectedValue)
+                Dim IdArticulo As String = mobj_AdminArticulos.InsertarArticulo(Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, Me.Seccion.SelectedValue)
                 If IdArticulo <> "" Then
                     Me.IdArticulo.Text = IdArticulo
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -148,7 +151,7 @@ Public Class FrmArticulos
                 End If
 
                 Dim baja As Boolean = If(Me.Baja.SelectedItem.ToString() = "SI", True, False)
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarArticulo(Me.IdArticulo.Text, Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, baja, Me.Seccion.SelectedValue)
+                Dim Actualizado As Boolean = mobj_AdminArticulos.ActualizarArticulo(Me.IdArticulo.Text, Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, baja, Me.Seccion.SelectedValue)
 
                 If Actualizado = True Then
                     MsgBox("El Articulo " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

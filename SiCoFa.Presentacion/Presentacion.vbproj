@@ -195,12 +195,6 @@
     <Compile Include="Formularios\FrmInicio.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmCompras.Designer.vb">
-      <DependentUpon>FrmCompras.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmCompras.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmVentas.Designer.vb">
       <DependentUpon>FrmVentas.vb</DependentUpon>
     </Compile>
@@ -350,9 +344,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmPagos.resx">
       <DependentUpon>FrmPagos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmCompras.resx">
-      <DependentUpon>FrmCompras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmVentas.resx">
       <DependentUpon>FrmVentas.vb</DependentUpon>

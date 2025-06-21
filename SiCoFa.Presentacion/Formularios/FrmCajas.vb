@@ -10,23 +10,6 @@ Public Class FrmCajas
     Private mdecImporteCC As Decimal
     Private mAdminDB As New N_AdminDB
 
-    Private Sub CierreCajaAbierta()
-        Dim objAdminSiCoFa As New N_AdminSiCoFa
-        Dim objTipoOperacion As TipoOperacion = objAdminSiCoFa.ObtenerTipoOperacionPorCodiTO("CIECA")
-        Dim objOperacion As Operacion = objAdminSiCoFa.IniciarOperacion(g_ParametrosTerminal.Empresa, Me.Usuario, objTipoOperacion, "", "INICIADO")
-        Dim objComprobante As New Comprobante(
-                                              objOperacion.IdOperacion,
-                                              objOperacion,
-                                              "DI",
-                                              "",
-                                              "",
-                                              Nothing,
-                                              mdecImporteEf + mdecImportePE + mdecImporteCC,
-                                              0, 0, 0, 0, 0, mdecImporteEf, mdecImporteCC, mdecImportePE, Nothing, 0, Nothing, 0,
-                                              Nothing, Nothing, Nothing)
-
-    End Sub
-
     Private Sub AjustarAnchoColumnasProporcional()
         Try
 
@@ -121,7 +104,7 @@ Public Class FrmCajas
         Dim totalImporte As Decimal = 0D
         Dim totalImporteAnulados As Decimal = 0D
         For Each row As DataRow In dt.Rows
-            If Not IsDBNull(row("Importe")) And row("EstadoTransaccion") <> "ANULADO" Then
+            If Not IsDBNull(row("Importe")) And row("EstadoTransaccion") = "EN CAJA" Then
                 totalImporte += Convert.ToDecimal(row("Importe"))
 
             ElseIf Not IsDBNull(row("Importe")) And row("EstadoTransaccion") = "ANULADO" Then
@@ -248,6 +231,56 @@ Public Class FrmCajas
         Dim idCaja As Integer = CInt(valor)
         FrmMoviCajaCCDetalle.IdCaja = idCaja
         FrmMoviCajaCCDetalle.Show()
+
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        Try
+
+            If Me.DataGridView1.CurrentRow.Cells("Estado").Value = "CERRADA" Then
+                MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
+                Exit Sub
+            End If
+
+            Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
+            Dim objComprobante As New Comprobante(
+                                              0,
+                                              Nothing,
+                                              "DI",
+                                              "",
+                                              "",
+                                              Nothing,
+                                              mdecImporteEf + mdecImportePE + mdecImporteCC,
+                                              0, 0, 0, 0, 0, mdecImporteEf, mdecImporteCC, mdecImportePE, Nothing, 0, objCliente, 0,
+                                              Nothing, Nothing, Nothing)
+
+
+            Dim IdCaja As Long = Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim Apertura As Date = Me.DataGridView1.CurrentRow.Cells(1).Value
+            Dim Cierre As Date = Date.MinValue
+            Dim Estado As String = Me.DataGridView1.CurrentRow.Cells(3).Value
+            Dim NCaja As String = Me.DataGridView1.CurrentRow.Cells(4).Value
+            Dim objCaja As New Caja(IdCaja, Apertura, Cierre, Estado, NCaja)
+            Dim AdminCajas As New N_AdminCajas
+            AdminCajas.CierreCajaTransaccion(g_ParametrosTerminal.MacAddress, objCaja, g_ParametrosTerminal.Empresa, Me.Usuario, objComprobante)
+
+            Dim sql As String = "SELECT * FROM TblCajas ORDER BY IdCaja"
+            Dim TblCajas As DataTable = mAdminDB.ObtenerTabla(sql)
+            Me.DataGridView1.DataSource = TblCajas
+
+            ' Opcional: Seleccionar la última caja (la recién abierta)
+            If Me.DataGridView1.Rows.Count > 0 Then
+                Dim lastRowIndex As Integer = Me.DataGridView1.Rows.Count - 1
+                Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(lastRowIndex).Cells(0)
+                Me.DataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex
+            End If
+
+            Me.ActualizarOperacionesEfectivo()
+            MsgBox("Caja cerrada y nueva caja abierta exitosamente.", vbInformation, "SiCoFa")
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
     End Sub
 End Class

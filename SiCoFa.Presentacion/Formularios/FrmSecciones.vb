@@ -5,7 +5,7 @@ Imports System.ComponentModel
 Public Class FrmSecciones
     Private TextoBuscar As String
     Private NuevaSeccion As Boolean
-    Private mobj_AdminSicofa As New N_AdminSiCoFa
+    Private mAdminSecciones As New N_AdminSecciones
     Private ControlesReadOnly As New List(Of String)
 
     Private Function SeleccionarSeccionListado(ByVal IdSeccion As String, ByVal ListaSecciones As List(Of Seccion)) As Seccion
@@ -32,7 +32,7 @@ Public Class FrmSecciones
 
         Try
 
-            Dim ls As List(Of Seccion) = mobj_AdminSicofa.ListarSecciones(argTextoBuscado)
+            Dim ls As List(Of Seccion) = mAdminSecciones.ListarSecciones(argTextoBuscado)
             Dim s As Seccion = Nothing
 
             If ls Is Nothing Then
@@ -107,7 +107,7 @@ Public Class FrmSecciones
 
             If Me.NuevaSeccion = True Then
                 Dim establecer_precio As Boolean = If(Me.EstablecerPrecio.SelectedItem.ToString() = "SI", True, False)
-                Dim IdSeccion As String = mobj_AdminSicofa.InsertarSecciones(Me.Seccion.Text, establecer_precio)
+                Dim IdSeccion As String = mAdminSecciones.InsertarSecciones(Me.Seccion.Text, establecer_precio)
                 If IdSeccion <> "" Then
                     Me.IdSeccion.Text = IdSeccion
                     Me.Seccion.Text = UCase(Me.Seccion.Text)
@@ -126,7 +126,7 @@ Public Class FrmSecciones
                 End If
 
                 Dim establecer_precio As Boolean = If(Me.EstablecerPrecio.SelectedItem.ToString() = "SI", True, False)
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarSeccion(Me.IdSeccion.Text, Me.Seccion.Text, establecer_precio)
+                Dim Actualizado As Boolean = mAdminSecciones.ActualizarSeccion(Me.IdSeccion.Text, Me.Seccion.Text, establecer_precio)
 
                 If Actualizado = True Then
                     MsgBox("La seccion " & Me.Seccion.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

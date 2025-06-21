@@ -14,7 +14,7 @@ Public Class FrmPagos
     Property ImporteGravado1 As Decimal
     Property ImporteGravado2 As Decimal
 
-    Private mobj_AdminSiCoFa As New N_AdminSiCoFa
+    Private mobj_AdminOperacion As New N_AdminOperaciones
     Private MediosDePago As MediosPagoBinding
 
     Private Sub ActualizarClienteMostrado()
@@ -59,8 +59,10 @@ Public Class FrmPagos
 
         Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
 
+
         If Me.TipoComprobante Is Nothing Then
-            Me.TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+            Dim AdminSiCoFa As New N_AdminSiCoFa
+            Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
         End If
 
         Me.txtTipoComprobante.Text = $"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
@@ -84,7 +86,8 @@ Public Class FrmPagos
                 Exit Sub
             End If
 
-            Dim lc As List(Of Cliente) = mobj_AdminSiCoFa.ListarClientes(str)
+            Dim AdminClientes As New N_AdminClientes
+            Dim lc As List(Of Cliente) = AdminClientes.ListarClientes(str)
             Dim c As Cliente = Nothing
 
             If lc Is Nothing Then
@@ -129,7 +132,8 @@ Public Class FrmPagos
             Me.Cliente = c
             FrmOrigen.Cliente = c
             Me.ActualizarClienteMostrado()
-            Me.TipoComprobante = mobj_AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+            Dim AdminSiCoFa As New N_AdminSiCoFa
+            Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
             Me.txtImporteCuentaCorriente.Enabled = True
             Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
             Me.txtImporteCuentaCorriente.Select()
@@ -144,11 +148,12 @@ Public Class FrmPagos
     Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
 
         Try
+            Dim AdminClientes As New N_AdminClientes
             Dim ClienteSeleccionado As Cliente = Nothing
 
             For Each c As Cliente In ListaClientes
                 If c.Id = Id Then
-                    Dim objCC As CuentaCorriente = mobj_AdminSiCoFa.ObtenerCuentaCorrientePorIdCliente(c.Id)
+                    Dim objCC As CuentaCorriente = AdminClientes.ObtenerCuentaCorrientePorIdCliente(c.Id)
                     If objCC IsNot Nothing Then
                         c.CuentaCorriente = objCC
                     End If
@@ -181,7 +186,8 @@ Public Class FrmPagos
                 Exit Sub
             End If
 
-            Dim lmpe As List(Of MedioPE) = mobj_AdminSiCoFa.ListarMedioPE(str)
+            Dim AdminMediosPE As New N_AdminMediosPE
+            Dim lmpe As List(Of MedioPE) = AdminMediosPE.ListarMedioPE(str)
             Dim mpe As MedioPE = Nothing
 
             If lmpe Is Nothing Then
@@ -307,7 +313,7 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            mobj_AdminSiCoFa.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
+            mobj_AdminOperacion.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
 
             If objCb.TipoComprobante.CodiTC_AFIP <> "00" Then
                 Dim obj_N_AdminComprobants As New N_AdminComprobantes

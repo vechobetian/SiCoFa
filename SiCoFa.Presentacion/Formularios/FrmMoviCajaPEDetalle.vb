@@ -3,7 +3,7 @@ Public Class FrmMoviCajaPEDetalle
     Property IdCaja As Long
 
     Private Sub FrmMoviCajaEfectivoDetalle_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim sql As String = $"SELECT MedioPE,NumTransaccion,Fin,IdUsuario,TipoOperacion,TipoComprobante,NumComp,Importe,EstadoTransaccion FROM ConMoviCajaPEDetalle WHERE{Me.IdCaja}"
+        Dim sql As String = $"SELECT MedioPE,NumTransaccion,Fin,IdUsuario,TipoOperacion,TipoComprobante,NumComp,Importe,EstadoTransaccion FROM ConMoviCajaPEDetalle WHERE IdCaja={Me.IdCaja}"
         Dim dTable As DataTable = Nothing
         Dim obj_ADminDB As New N_AdminDB
 

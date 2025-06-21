@@ -6,7 +6,7 @@ Public Class FrmCtasBancarias
 
     Private TextoBuscar As String
     Private NuevaCB As Boolean
-    Private mobj_AdminSicofa As New N_AdminSiCoFa
+    Private mAdminCuentasBancarias As New N_AdminCuentasBancarias
     Private mobj_CuentaBancaria As CuentaBancaria
 
     Private ControlesNoValidar As New List(Of String) From {"IdCBTextBox", "FechaAltaTextBox"}
@@ -73,7 +73,7 @@ Public Class FrmCtasBancarias
 
         Try
 
-            Dim lcb As List(Of CuentaBancaria) = mobj_AdminSicofa.ListarCuentasBancarias(argTextoBuscado)
+            Dim lcb As List(Of CuentaBancaria) = mAdminCuentasBancarias.ListarCuentasBancarias(argTextoBuscado)
             Dim cb As CuentaBancaria = Nothing
 
             If lcb Is Nothing Then
@@ -148,7 +148,7 @@ Public Class FrmCtasBancarias
 
                 EstablecerValoresPorDefecto(Me, valoresDefecto)
 
-                Dim Idcb As Int32 = mobj_AdminSicofa.InsertarCuentaBancaria(mobj_CuentaBancaria.Descripcion, mobj_CuentaBancaria.NumCuenta)
+                Dim Idcb As Int32 = mAdminCuentasBancarias.InsertarCuentaBancaria(mobj_CuentaBancaria.Descripcion, mobj_CuentaBancaria.NumCuenta)
 
                 If Idcb > 0 Then
                     Me.IdCBTextBox.Text = Idcb
@@ -171,7 +171,7 @@ Public Class FrmCtasBancarias
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarCuentaBancaria(mobj_CuentaBancaria.IdCB, mobj_CuentaBancaria.Baja)
+                Dim Actualizado As Boolean = mAdminCuentasBancarias.ActualizarCuentaBancaria(mobj_CuentaBancaria.IdCB, mobj_CuentaBancaria.Baja)
 
                 If Actualizado = True Then
                     MsgBox("La cuenta " & Me.DescripcionTextBox.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

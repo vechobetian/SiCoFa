@@ -1,13 +1,15 @@
-﻿Imports System.ComponentModel
+﻿Imports SiCoFa.Negocio
+Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmUsuarios
 
+    Private mAdminUsuarios As New N_AdminUsuarios
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
     Private Sub BuscarUsuario(ByVal argTextoBuscado As String)
 
         Try
-            Dim lu As List(Of Usuario) = mobj_AdminSicofa.ListarUsuarios(argTextoBuscado)
+            Dim lu As List(Of Usuario) = mAdminUsuarios.ListarUsuarios(argTextoBuscado)
             Dim u As Usuario = Nothing
 
             If lu Is Nothing Then
@@ -83,7 +85,7 @@ Public Class FrmUsuarios
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mobj_AdminSicofa.InsertarUsuario(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+                Dim Id As Integer = mAdminUsuarios.InsertarUsuario(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
                 If Id > 0 Then
                     Me.Id.Text = Id
                     Me.Nombre.Text = UCase(Me.Nombre.Text)
@@ -100,7 +102,7 @@ Public Class FrmUsuarios
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarEmpleado(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.SelectedValue)
+                Dim Actualizado As Boolean = mAdminUsuarios.ActualizarUsuario(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.SelectedValue)
 
                 If Actualizado = True Then
                     MsgBox("El Usuario " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

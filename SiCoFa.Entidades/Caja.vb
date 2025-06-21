@@ -9,7 +9,8 @@
         Me.IdCaja = argIdCaja
         Me.Apertura = argApertura
         Me.Cierre = argCierre
-
+        Me.Estado = argEstado
+        Me.NCaja = argNCaja
     End Sub
 
 End Class

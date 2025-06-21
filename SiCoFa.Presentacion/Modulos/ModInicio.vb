@@ -111,8 +111,9 @@ Module ModInicio
     Private Sub VerificarUsuarios()
         Try
 
+            Dim AdminUsuarios As New N_AdminUsuarios
             Dim objAdminSiCoFa As New N_AdminSiCoFa
-            Dim lu As List(Of Usuario) = objAdminSiCoFa.ListarUsuarios("*")
+            Dim lu As List(Of Usuario) = AdminUsuarios.ListarUsuarios("*")
 
             If lu.Count = 1 Then
                 g_Usuario = lu.First

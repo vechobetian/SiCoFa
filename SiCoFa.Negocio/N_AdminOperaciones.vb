@@ -1,0 +1,199 @@
+﻿Imports SiCoFa.Datos
+Imports SiCoFa.Entidades
+
+Public Class N_AdminOperaciones
+    Public Function ObtenerTipoOperacionPorCodiTO(ByVal argCodiTO As String) As TipoOperacion
+
+        Dim objTO As TipoOperacion = Nothing
+
+        Try
+            Dim AdminOperaciones As New D_AdminOperaciones
+            objTO = AdminOperaciones.ObtenerTipoOperacionPorCodiTO(argCodiTO)
+            Return objTO
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerEmpresaPorId", ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function RegistrarError(ByVal argIdOperacion As Long, argDescripcionError As String) As Integer
+
+        Dim AdminOperaciones As New D_AdminOperaciones
+        Dim RegAfectados As Integer
+
+        Try
+            RegAfectados = AdminOperaciones.RegistrarError(argIdOperacion, argDescripcionError)
+            Return RegAfectados
+        Catch ex As Exception
+            MsgBox(Vecho.MensajeError(Me.ToString, "RegistrarError", ex.Message))
+            Return 0
+        End Try
+    End Function
+
+    Public Function IniciarOperacion(ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTipoOperacion As TipoOperacion, ByVal argObservaciones As String, ByVal argEstadoOperacion As String) As Operacion
+
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim objOperacion = AdminOperaciones.IniciarOperacion(
+                                                                  argEmpresa:=argEmpresa,
+                                                                  argUsuario:=argUsuario,
+                                                                  argTipoOperacion:=argTipoOperacion,
+                                                                  argObservaciones,
+                                                                  argEstadoOperacion
+                                                                  )
+            Return objOperacion
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "IniciarOperacion", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+
+    Public Function ActualizarOperacion(ByVal argOperacion As Operacion) As Boolean
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Actualizado As Boolean = AdminOperaciones.ActualizarOperacion(argOperacion)
+
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacion", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion) As Boolean
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Actualizado As Boolean = AdminOperaciones.FinalizarOperacion(
+                                                                               argMacAddress:=argMacAddress,
+                                                                               argOperacion:=argOperacion
+                                                                               )
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacion", ex.Message))
+            Return False
+        End Try
+
+    End Function
+
+    Public Function ObtenerOperacion(ByVal argIdOpera As Long) As Operacion
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim objOpera As Operacion = AdminOperaciones.ObtenerOperacion(argIdOpera)
+            Return objOpera
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacion", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+
+    Public Function ObtenerOperacionCL(ByVal argIdOpera As Long) As Cliente
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim objCliente As Cliente = AdminOperaciones.ObtenerOperacionCL(argIdOpera)
+            Return objCliente
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerOperacionCL", ex.Message))
+            Return Nothing
+        End Try
+
+    End Function
+
+    Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCL(argIdOperacion, argIdCliente)
+
+            Return Insertado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+    Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Actualizado As Boolean = AdminOperaciones.ActualizarOperacionCL(argIdOperacion, argIdCliente)
+
+            Return Actualizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacionCL", ex.Message))
+            Return False
+
+        End Try
+
+    End Function
+
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCC(argIdOperacion, argIdCC, argImporte)
+
+            Return Insertado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdMPE As Int32, ByVal argImporte As Decimal) As Boolean
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionPE(argIdOperacion, argIdMPE, argImporte)
+
+            Return Insertado
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionPE", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function FinalizarOperacionConTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Finalizado As Boolean = AdminOperaciones.FinalizarOperacionConTransaccion(argMacAddress, argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento)
+            Return Finalizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+
+        End Try
+
+    End Function
+End Class

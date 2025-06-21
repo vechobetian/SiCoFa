@@ -55,15 +55,25 @@
     <Import Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="D_AdminArticulos.vb" />
     <Compile Include="D_AdminAsientosContable.vb" />
     <Compile Include="D_AdminCajas.vb" />
+    <Compile Include="D_AdminClientes.vb" />
     <Compile Include="D_AdminComprobantes.vb" />
+    <Compile Include="D_AdminCuentasBancarias.vb" />
     <Compile Include="D_AdminCuentasEmail.vb" />
+    <Compile Include="D_AdminEmpleados.vb" />
+    <Compile Include="D_AdminEmpresas.vb" />
+    <Compile Include="D_AdminItemsComprobante.vb" />
+    <Compile Include="D_AdminOperaciones.vb" />
+    <Compile Include="D_AdminProveedores.vb" />
+    <Compile Include="D_AdminUsuarios.vb" />
+    <Compile Include="D_AdminMediosPE.vb" />
+    <Compile Include="D_AdminSecciones.vb" />
     <Compile Include="D_Conexion.vb" />
     <Compile Include="D_AdminDB.vb" />
     <Compile Include="D_AdminFTP.vb" />
     <Compile Include="D_AdminPlanCuentas.vb" />
-    <Compile Include="D_AdminSiCoFa.vb" />
     <Compile Include="D_ParametrosSistema.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Settings.Designer.vb">

@@ -5,11 +5,11 @@ Public Class FrmLoginUser
     Property IdProceso As Integer
     Property Usuario As Usuario
 
-    Private mobj_AdminSicofa As New N_AdminSiCoFa
+    Private mAdminUsuarios As New N_AdminUsuarios
     Private Function VerificarAutorizacionProceso(ByVal argIdUsusario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
 
         Try
-            Dim Autorizacion As String = mobj_AdminSicofa.VerificarAutorizacionProceso(argIdUsusario, argPassword, argIdProceso)
+            Dim Autorizacion As String = mAdminUsuarios.VerificarAutorizacionProceso(argIdUsusario, argPassword, argIdProceso)
             Return Autorizacion
 
         Catch ex As Exception
@@ -39,7 +39,7 @@ Public Class FrmLoginUser
 
         Select Case Autorizacion
             Case "AUTORIZADO"
-                Me.Usuario = mobj_AdminSicofa.ObtenerUsuarioPorId(Convert.ToInt32(Me.IdUsuario.Text))
+                Me.Usuario = mAdminUsuarios.ObtenerUsuarioPorId(Convert.ToInt32(Me.IdUsuario.Text))
                 Me.DialogResult = DialogResult.OK
                 Me.Hide()
 

@@ -15,12 +15,12 @@ Public Class FrmVentas
         Set(value As Cliente)
             mobj_Cliente = value
             Me.ActualizarDatosOperacion()
-            mobj_AdminSicofa.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+            mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
             mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
         End Set
     End Property
 
-    Private mobj_AdminSicofa As New N_AdminSiCoFa
+    Private mobj_AdminOperacion As New N_AdminOperaciones
     Private mobj_Operacion As Operacion
     Private mobj_OperacionOriginal As Operacion
     Private mobj_TipoOperacion As TipoOperacion
@@ -49,7 +49,8 @@ Public Class FrmVentas
 
             For Each c As Cliente In ListaClientes
                 If c.Id = Id Then
-                    Dim objCC As CuentaCorriente = mobj_AdminSicofa.ObtenerCuentaCorrientePorIdCliente(c.Id)
+                    Dim AdminClientes As New N_AdminClientes
+                    Dim objCC As CuentaCorriente = AdminClientes.ObtenerCuentaCorrientePorIdCliente(c.Id)
                     If objCC IsNot Nothing Then
                         c.CuentaCorriente = objCC
                     End If
@@ -80,20 +81,22 @@ Public Class FrmVentas
             End If
 
             If frm.IdOperacionSeleccionado > 0 Then
-                mobj_Operacion = mobj_AdminSicofa.ObtenerOperacion(frm.IdOperacionSeleccionado)
+                mobj_Operacion = mobj_AdminOperacion.ObtenerOperacion(frm.IdOperacionSeleccionado)
                 mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
                 mobj_Operacion.Usuario = Me.Usuario
                 mobj_Operacion.TipoOperacion = mobj_TipoOperacion
                 mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                mobj_Cliente = mobj_AdminSicofa.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
+                mobj_Cliente = mobj_AdminOperacion.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
 
                 If mobj_Cliente Is Nothing Then
-                    mobj_Cliente = mobj_AdminSicofa.ObtenerClientePorId(1)
+                    Dim AdminClientes As New N_AdminClientes
+                    mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
                 End If
 
                 mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
 
-                Dim objItems As List(Of ItemComprobante) = mobj_AdminSicofa.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
+                Dim AdminItems As New N_AdminItemsComprobante
+                Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
                 mobj_Items = New BindingList(Of ItemComprobante)(objItems)
                 mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
                 Me.ActualizarTotales()
@@ -119,7 +122,7 @@ Public Class FrmVentas
             End If
 
             If mobj_Operacion Is Nothing Then
-                mobj_Operacion = mobj_AdminSicofa.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
+                mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
                 If mobj_Operacion IsNot Nothing Then
                     mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
                 End If
@@ -127,7 +130,7 @@ Public Class FrmVentas
                 mobj_Operacion.Inicio = Now
                 mobj_Operacion.Observaciones = ""
                 mobj_Operacion.EstadoOperacion = "GUARDADO"
-                Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarOperacion(mobj_Operacion)
+                Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
 
                 If Actualizado = True Then
                     mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
@@ -136,15 +139,16 @@ Public Class FrmVentas
             End If
 
             If mobj_Cliente Is Nothing Then
-                mobj_Cliente = mobj_AdminSicofa.ObtenerClientePorId(1)
+                Dim AdminClientes As New N_AdminClientes
+                mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
                 mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
-                mobj_AdminSicofa.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+                mobj_AdminOperacion.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
             End If
 
             Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
 
             If clienteCambio Then
-                mobj_AdminSicofa.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+                mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
                 mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
             End If
 
@@ -185,11 +189,12 @@ Public Class FrmVentas
 
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
         Try
+            Dim AdminItems As New N_AdminItemsComprobante
             For Each i As ItemComprobante In mobj_Items
                 If i.IdItem = 0 Then
-                    i.IdItem = mobj_AdminSicofa.InsertarItemComprobante(argIdOperacion, i)
+                    i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
                 Else
-                    Dim Actualizado As Boolean = mobj_AdminSicofa.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
+                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
                 End If
             Next
 
@@ -214,13 +219,14 @@ Public Class FrmVentas
             End If
 
             If MessageBox.Show("¿Seguro que desea eliminar los ítems seleccionados?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                Dim AdminItems As New N_AdminItemsComprobante
                 Dim indicesAEliminar As New List(Of Integer)
 
                 For i As Integer = DataGridView1.SelectedRows.Count - 1 To 0 Step -1
                     Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(i).Index
                     If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
                         If mobj_Items.Item(indiceFilaSeleccionada).IdItem > 0 Then
-                            Dim Eliminado As Boolean = mobj_AdminSicofa.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
+                            Dim Eliminado As Boolean = AdminItems.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
                         End If
 
                         mobj_Items.RemoveAt(indiceFilaSeleccionada)
@@ -312,7 +318,8 @@ Public Class FrmVentas
                     la.Add(a)
 
                 Case Else
-                    la = mobj_AdminSicofa.ListarArticulos(argTextoBuscado)
+                    Dim AdminArticulos As New N_AdminArticulos
+                    la = AdminArticulos.ListarArticulos(argTextoBuscado)
 
             End Select
 
@@ -441,7 +448,7 @@ Public Class FrmVentas
     Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            mobj_TipoOperacion = mobj_AdminSicofa.ObtenerTipoOperacionPorCodiTO("VTAM")
+            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
             mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
             mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
             mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
@@ -772,7 +779,8 @@ Public Class FrmVentas
                 Exit Sub
             End If
 
-            Dim lc As List(Of Cliente) = mobj_AdminSicofa.ListarClientes(str)
+            Dim AdminClientes As New N_AdminClientes
+            Dim lc As List(Of Cliente) = AdminClientes.ListarClientes(str)
             Dim c As Cliente = Nothing
 
             If lc Is Nothing Then
