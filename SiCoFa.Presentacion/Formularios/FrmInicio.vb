@@ -2,16 +2,55 @@
 Imports SiCoFa.Entidades
 Public Class FrmInicio
 
-    Private Sub GuardarItemYSubitems(item As ToolStripMenuItem, writer As StreamWriter, nivel As Integer)
-        Dim indentacion As String = New String(" "c, nivel * 2)
-        writer.WriteLine($"{indentacion}Name: {item.Name}, Text: {item.Text}")
+    Public Class MenuRegistro
+        Public Property NombreMenu As String
+        Public Property NombreSubMenu As String
+        Public Property TextoMenu As String
+        Public Property TextoSubMenu As String
+    End Class
 
-        For Each subItem As ToolStripItem In item.DropDownItems
-            If TypeOf subItem Is ToolStripMenuItem Then
-                GuardarItemYSubitems(DirectCast(subItem, ToolStripMenuItem), writer, nivel + 1)
+    Private Function ObtenerMenuYSubmenu(menu As MenuStrip) As List(Of MenuRegistro)
+        Dim lista As New List(Of MenuRegistro)
+
+        For Each item As ToolStripMenuItem In menu.Items
+            Dim nombreMenu As String = item.Name
+            Dim textoMenu As String = item.Text.Replace("&", "")
+
+            If item.DropDownItems.Count = 0 Then
+                lista.Add(New MenuRegistro With {
+                .NombreMenu = nombreMenu,
+                .NombreSubMenu = Nothing,
+                .TextoMenu = textoMenu,
+                .TextoSubMenu = Nothing
+            })
+            Else
+                For Each subItem As ToolStripItem In item.DropDownItems
+                    If TypeOf subItem Is ToolStripMenuItem Then
+                        Dim subMenu = DirectCast(subItem, ToolStripMenuItem)
+                        lista.Add(New MenuRegistro With {
+                        .NombreMenu = nombreMenu,
+                        .NombreSubMenu = subMenu.Name,
+                        .TextoMenu = textoMenu,
+                        .TextoSubMenu = subMenu.Text.Replace("&", "")
+                    })
+                    End If
+                Next
             End If
         Next
+
+        Return lista
+    End Function
+
+    Private Sub ExportarMenuATxt(menu As MenuStrip, rutaArchivo As String)
+        Dim lista = ObtenerMenuYSubmenu(menu)
+        Using writer As New StreamWriter(rutaArchivo, False)
+            writer.WriteLine("NombreMenu;NombreSubmenu;TextoMenu;TextoSubmenu") ' encabezado
+            For Each item In lista
+                writer.WriteLine($"{item.NombreMenu};{item.NombreSubMenu};{item.TextoMenu};{item.TextoSubMenu}")
+            Next
+        End Using
     End Sub
+
     Private Function ValidarUsuario() As Usuario
         Try
 
@@ -62,4 +101,8 @@ Public Class FrmInicio
         FrmPanelClientes.Show()
     End Sub
 
+    Private Sub mnuAyuda_Click(sender As Object, e As EventArgs) Handles mnuAyuda.Click
+        Me.ExportarMenuATxt(Me.MenuStrip1, "C:\SiCoFaCom\Menu.txt")
+
+    End Sub
 End Class

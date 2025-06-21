@@ -63,7 +63,7 @@ Partial Class FrmInicio
         'mnuOperacionesFacturacion
         '
         Me.mnuOperacionesFacturacion.Name = "mnuOperacionesFacturacion"
-        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(136, 22)
         Me.mnuOperacionesFacturacion.Text = "Facturacion"
         '
         'mnuCaja
@@ -101,49 +101,49 @@ Partial Class FrmInicio
         'mnuEdicionArticulos
         '
         Me.mnuEdicionArticulos.Name = "mnuEdicionArticulos"
-        Me.mnuEdicionArticulos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionArticulos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionArticulos.Text = "Artículos"
         '
         'mnuEdicionClientes
         '
         Me.mnuEdicionClientes.Name = "mnuEdicionClientes"
-        Me.mnuEdicionClientes.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionClientes.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionClientes.Text = "Clientes"
         '
         'mnuEdicionEmpleados
         '
         Me.mnuEdicionEmpleados.Name = "mnuEdicionEmpleados"
-        Me.mnuEdicionEmpleados.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionEmpleados.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionEmpleados.Text = "Empleados"
         '
         'mnuEdicionUsuarios
         '
         Me.mnuEdicionUsuarios.Name = "mnuEdicionUsuarios"
-        Me.mnuEdicionUsuarios.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionUsuarios.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionUsuarios.Text = "Usuarios"
         '
         'mnuEdicionProveedores
         '
         Me.mnuEdicionProveedores.Name = "mnuEdicionProveedores"
-        Me.mnuEdicionProveedores.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionProveedores.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionProveedores.Text = "Proveedores"
         '
         'mnuEdicionSecciones
         '
         Me.mnuEdicionSecciones.Name = "mnuEdicionSecciones"
-        Me.mnuEdicionSecciones.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionSecciones.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionSecciones.Text = "Secciones"
         '
         'mnuEdicionCuentasBancarias
         '
         Me.mnuEdicionCuentasBancarias.Name = "mnuEdicionCuentasBancarias"
-        Me.mnuEdicionCuentasBancarias.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionCuentasBancarias.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionCuentasBancarias.Text = "Cuentas Banco"
         '
         'mnuEdicionMedioPE
         '
         Me.mnuEdicionMedioPE.Name = "mnuEdicionMedioPE"
-        Me.mnuEdicionMedioPE.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionMedioPE.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionMedioPE.Text = "Medios de Pago"
         '
         'mnuHerramientas

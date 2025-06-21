@@ -1,0 +1,16 @@
+NombreMenu;NombreSubmenu;TextoMenu;TextoSubmenu
+mnuOperaciones;mnuOperacionesFacturacion;Operaciones;Facturacion
+mnuCaja;mnuCajaMovimientos;Caja;Movimientos de Caja
+mnuFiscal;;Fiscal;
+mnuAuditoria;;Auditoría;
+mnuEdicion;mnuEdicionArticulos;Edición;Artículos
+mnuEdicion;mnuEdicionClientes;Edición;Clientes
+mnuEdicion;mnuEdicionEmpleados;Edición;Empleados
+mnuEdicion;mnuEdicionUsuarios;Edición;Usuarios
+mnuEdicion;mnuEdicionProveedores;Edición;Proveedores
+mnuEdicion;mnuEdicionSecciones;Edición;Secciones
+mnuEdicion;mnuEdicionCuentasBancarias;Edición;Cuentas Banco
+mnuEdicion;mnuEdicionMedioPE;Edición;Medios de Pago
+mnuHerramientas;;Herramientas;
+mnuSistema;;Sistema;
+mnuAyuda;;Ayuda;
