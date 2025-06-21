@@ -105,4 +105,11 @@ Public Class FrmInicio
         Me.ExportarMenuATxt(Me.MenuStrip1, "C:\SiCoFaCom\Menu.txt")
 
     End Sub
+
+    Private Sub PermisosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PermisosToolStripMenuItem.Click
+        Dim frm As New FrmPermisos()
+        frm.Usuario = Me.ValidarUsuario
+        frm.MenuPrincipal = Me.MenuStrip1
+        frm.ShowDialog()
+    End Sub
 End Class

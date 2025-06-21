@@ -1,8 +1,28 @@
 NombreMenu;NombreSubmenu;TextoMenu;TextoSubmenu
 mnuOperaciones;mnuOperacionesFacturacion;Operaciones;Facturacion
+mnuOperaciones;mnuOperacionesCancelaCC;Operaciones;Cancelacion Cuentas Corriente
+mnuOperaciones;mnuOperacionesNC;Operaciones;Notas de Credito
+mnuOperaciones;mnuOperacionesCompras;Operaciones;Compras
 mnuCaja;mnuCajaMovimientos;Caja;Movimientos de Caja
-mnuFiscal;;Fiscal;
-mnuAuditoria;;Auditoría;
+mnuCaja;mnuCajaAsientoGastos;Caja;Asiendo de Gastos
+mnuCaja;mnuCajaRetiroEfCA;Caja;Retiro Efectivo Caja Abierta
+mnuCaja;mnuCajaRetiroEfCB;Caja;Retiro Efectivo Cuenta Bancaria
+mnuFiscal;mnuFiscalLibroIVA;Fiscal;Libro IVA
+mnuFiscal;mnuFiscalIVADigital;Fiscal;Libro IVA Digital
+mnuFiscal;mnuFiscalIVAExcel;Fiscal;Libro IVA Excel
+mnuContabilidad;ResultadosMensualesToolStripMenuItem;Contabilidad;Resultados Mensuales
+mnuContabilidad;SaldoCuentaPatrimonialesToolStripMenuItem;Contabilidad;Saldo Cuenta Patrimoniales
+mnuContabilidad;AsientoContableToolStripMenuItem;Contabilidad;Asiento Contable
+mnuContabilidad;CancelarCuentasIncobraToolStripMenuItem;Contabilidad;Cancelar Cuentas Incobrables
+mnuContabilidad;CierreEjercicioAbiertoToolStripMenuItem;Contabilidad;Cierre Ejercicio Abierto
+mnuAuditoria;CuentasCorrientesToolStripMenuItem;Auditoría;Cuentas Corrientes
+mnuAuditoria;ComprobantesToolStripMenuItem;Auditoría;Comprobantes
+mnuAuditoria;ReporteDeVentasToolStripMenuItem;Auditoría;Reporte de Ventas
+mnuAuditoria;CuentaProveedoresToolStripMenuItem;Auditoría;Cuenta Proveedores
+mnuAuditoria;CuentasBancariaToolStripMenuItem;Auditoría;Cuentas Bancarias
+mnuAuditoria;CuentaEmpleadosToolStripMenuItem;Auditoría;Cuenta Empleados
+mnuAuditoria;MovimientoDeProductosToolStripMenuItem;Auditoría;Movimiento de Articulos
+mnuAuditoria;RankingDeVentaToolStripMenuItem;Auditoría;Ranking de Venta
 mnuEdicion;mnuEdicionArticulos;Edición;Artículos
 mnuEdicion;mnuEdicionClientes;Edición;Clientes
 mnuEdicion;mnuEdicionEmpleados;Edición;Empleados
@@ -12,5 +32,6 @@ mnuEdicion;mnuEdicionSecciones;Edición;Secciones
 mnuEdicion;mnuEdicionCuentasBancarias;Edición;Cuentas Banco
 mnuEdicion;mnuEdicionMedioPE;Edición;Medios de Pago
 mnuHerramientas;;Herramientas;
-mnuSistema;;Sistema;
+mnuSistema;mnuSistemaPTerminal;Sistema;Parametros Terminal
+mnuSistema;mnuSistemaPSistema;Sistema;Parametros de Sistema
 mnuAyuda;;Ayuda;
