@@ -2,11 +2,12 @@ Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
 Public Class FrmLoginUser
-    Property IdProceso As Integer
+    Property IdProceso As String
     Property Usuario As Usuario
 
     Private mAdminUsuarios As New N_AdminUsuarios
-    Private Function VerificarAutorizacionProceso(ByVal argIdUsusario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
+
+    Private Function VerificarAutorizacionProceso(ByVal argIdUsusario As Integer, ByVal argPassword As String, ByVal argIdProceso As String) As String
 
         Try
             Dim Autorizacion As String = mAdminUsuarios.VerificarAutorizacionProceso(argIdUsusario, argPassword, argIdProceso)
@@ -18,6 +19,7 @@ Public Class FrmLoginUser
         End Try
 
     End Function
+
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
 
         Select Case keyData
@@ -29,13 +31,14 @@ Public Class FrmLoginUser
         End Select
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
     End Function
+
     Private Sub Password_Validating(sender As Object, e As CancelEventArgs) Handles Password.Validating
         Me.ValidarCampos(Me, New List(Of String))
         If Me.ValidacionOK = False Then
             Exit Sub
         End If
 
-        Dim Autorizacion As String = Me.VerificarAutorizacionProceso(Convert.ToInt32(Me.IdUsuario.Text), Me.Password.Text.ToString, Convert.ToInt32(Me.IdProceso))
+        Dim Autorizacion As String = Me.VerificarAutorizacionProceso(Convert.ToInt32(Me.IdUsuario.Text), Me.Password.Text.ToString, Me.IdProceso.ToString)
 
         Select Case Autorizacion
             Case "AUTORIZADO"

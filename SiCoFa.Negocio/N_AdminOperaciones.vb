@@ -2,6 +2,7 @@
 Imports SiCoFa.Entidades
 
 Public Class N_AdminOperaciones
+
     Public Function ObtenerTipoOperacionPorCodiTO(ByVal argCodiTO As String) As TipoOperacion
 
         Dim objTO As TipoOperacion = Nothing
@@ -70,15 +71,17 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion) As Boolean
+    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argCajaAbierta As Boolean) As Boolean
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
             Dim Actualizado As Boolean = AdminOperaciones.FinalizarOperacion(
-                                                                               argMacAddress:=argMacAddress,
-                                                                               argOperacion:=argOperacion
-                                                                               )
+                                                                             argMacAddress:=argMacAddress,
+                                                                             argOperacion:=argOperacion,
+                                                                             argCajaAbierta:=argCajaAbierta
+                                                                             )
+
             Return Actualizado
 
         Catch ex As Exception

@@ -194,6 +194,7 @@ Public Class FrmCajas
     End Sub
 
     Private Sub DetalleOperacionesEfectivoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetalleOperacionesEfectivoToolStripMenuItem.Click
+
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
         Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
@@ -201,8 +202,8 @@ Public Class FrmCajas
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
-        FrmMoviCajaEfectivoDetalle.IdCaja = idCaja
-        FrmMoviCajaEfectivoDetalle.Show()
+        FrmMoviCajaEFDetalle.IdCaja = idCaja
+        FrmMoviCajaEFDetalle.Show()
 
     End Sub
 

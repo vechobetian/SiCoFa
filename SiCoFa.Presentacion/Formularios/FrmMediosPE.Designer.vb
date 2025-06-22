@@ -33,10 +33,10 @@ Partial Class FrmMediosPE
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
-        Me.IdMPETextBox = New System.Windows.Forms.TextBox()
-        Me.BajaComboBox = New System.Windows.Forms.ComboBox()
-        Me.DescripcionTextBox = New System.Windows.Forms.TextBox()
-        Me.CuentaBancariaComboBox = New System.Windows.Forms.ComboBox()
+        Me.txtIdMPE = New System.Windows.Forms.TextBox()
+        Me.cmbBaja = New System.Windows.Forms.ComboBox()
+        Me.txtDescripcion = New System.Windows.Forms.TextBox()
+        Me.cmbCuentaBancaria = New System.Windows.Forms.ComboBox()
         IdMPELabel = New System.Windows.Forms.Label()
         BajaLabel = New System.Windows.Forms.Label()
         DescripcionLabel = New System.Windows.Forms.Label()
@@ -125,41 +125,41 @@ Partial Class FrmMediosPE
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
-        'IdMPETextBox
+        'txtIdMPE
         '
-        Me.IdMPETextBox.Location = New System.Drawing.Point(95, 28)
-        Me.IdMPETextBox.Name = "IdMPETextBox"
-        Me.IdMPETextBox.ReadOnly = True
-        Me.IdMPETextBox.Size = New System.Drawing.Size(265, 20)
-        Me.IdMPETextBox.TabIndex = 0
-        Me.IdMPETextBox.TabStop = False
+        Me.txtIdMPE.Location = New System.Drawing.Point(95, 28)
+        Me.txtIdMPE.Name = "txtIdMPE"
+        Me.txtIdMPE.ReadOnly = True
+        Me.txtIdMPE.Size = New System.Drawing.Size(265, 20)
+        Me.txtIdMPE.TabIndex = 0
+        Me.txtIdMPE.TabStop = False
         '
-        'BajaComboBox
+        'cmbBaja
         '
-        Me.BajaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.BajaComboBox.FormattingEnabled = True
-        Me.BajaComboBox.Items.AddRange(New Object() {"NO", "SI"})
-        Me.BajaComboBox.Location = New System.Drawing.Point(95, 107)
-        Me.BajaComboBox.Name = "BajaComboBox"
-        Me.BajaComboBox.Size = New System.Drawing.Size(265, 21)
-        Me.BajaComboBox.TabIndex = 3
+        Me.cmbBaja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbBaja.FormattingEnabled = True
+        Me.cmbBaja.Items.AddRange(New Object() {"NO", "SI"})
+        Me.cmbBaja.Location = New System.Drawing.Point(95, 107)
+        Me.cmbBaja.Name = "cmbBaja"
+        Me.cmbBaja.Size = New System.Drawing.Size(265, 21)
+        Me.cmbBaja.TabIndex = 3
         '
-        'DescripcionTextBox
+        'txtDescripcion
         '
-        Me.DescripcionTextBox.Location = New System.Drawing.Point(95, 54)
-        Me.DescripcionTextBox.Name = "DescripcionTextBox"
-        Me.DescripcionTextBox.Size = New System.Drawing.Size(265, 20)
-        Me.DescripcionTextBox.TabIndex = 1
+        Me.txtDescripcion.Location = New System.Drawing.Point(95, 54)
+        Me.txtDescripcion.Name = "txtDescripcion"
+        Me.txtDescripcion.Size = New System.Drawing.Size(265, 20)
+        Me.txtDescripcion.TabIndex = 1
         '
-        'CuentaBancariaComboBox
+        'cmbCuentaBancaria
         '
-        Me.CuentaBancariaComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CuentaBancariaComboBox.FormattingEnabled = True
-        Me.CuentaBancariaComboBox.ItemHeight = 13
-        Me.CuentaBancariaComboBox.Location = New System.Drawing.Point(95, 80)
-        Me.CuentaBancariaComboBox.Name = "CuentaBancariaComboBox"
-        Me.CuentaBancariaComboBox.Size = New System.Drawing.Size(265, 21)
-        Me.CuentaBancariaComboBox.TabIndex = 2
+        Me.cmbCuentaBancaria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCuentaBancaria.FormattingEnabled = True
+        Me.cmbCuentaBancaria.ItemHeight = 13
+        Me.cmbCuentaBancaria.Location = New System.Drawing.Point(95, 80)
+        Me.cmbCuentaBancaria.Name = "cmbCuentaBancaria"
+        Me.cmbCuentaBancaria.Size = New System.Drawing.Size(265, 21)
+        Me.cmbCuentaBancaria.TabIndex = 2
         '
         'FrmMediosPE
         '
@@ -167,13 +167,13 @@ Partial Class FrmMediosPE
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(384, 153)
         Me.Controls.Add(CuentaBancariaLabel)
-        Me.Controls.Add(Me.CuentaBancariaComboBox)
-        Me.Controls.Add(Me.BajaComboBox)
+        Me.Controls.Add(Me.cmbCuentaBancaria)
+        Me.Controls.Add(Me.cmbBaja)
         Me.Controls.Add(BajaLabel)
         Me.Controls.Add(DescripcionLabel)
-        Me.Controls.Add(Me.DescripcionTextBox)
+        Me.Controls.Add(Me.txtDescripcion)
         Me.Controls.Add(IdMPELabel)
-        Me.Controls.Add(Me.IdMPETextBox)
+        Me.Controls.Add(Me.txtIdMPE)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "FrmMediosPE"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -190,8 +190,8 @@ Partial Class FrmMediosPE
     Friend WithEvents Nuevo As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
-    Friend WithEvents IdMPETextBox As TextBox
-    Friend WithEvents BajaComboBox As ComboBox
-    Friend WithEvents DescripcionTextBox As TextBox
-    Friend WithEvents CuentaBancariaComboBox As ComboBox
+    Friend WithEvents txtIdMPE As TextBox
+    Friend WithEvents cmbBaja As ComboBox
+    Friend WithEvents txtDescripcion As TextBox
+    Friend WithEvents cmbCuentaBancaria As ComboBox
 End Class

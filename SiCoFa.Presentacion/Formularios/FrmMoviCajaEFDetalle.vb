@@ -1,5 +1,5 @@
 ﻿Imports SiCoFa.Negocio
-Public Class FrmMoviCajaEfectivoDetalle
+Public Class FrmMoviCajaEFDetalle
     Property IdCaja As Long
 
     Private Sub FrmMoviCajaEfectivoDetalle_Load(sender As Object, e As EventArgs) Handles Me.Load

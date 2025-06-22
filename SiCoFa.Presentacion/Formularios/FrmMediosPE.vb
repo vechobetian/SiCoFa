@@ -17,10 +17,10 @@ Public Class FrmMediosPE
             New OpcionBoolean("Sí", True)
         }
 
-        BajaComboBox.DataSource = listaBooleanos
-        BajaComboBox.DisplayMember = "Texto"
-        BajaComboBox.ValueMember = "Valor"
-        BajaComboBox.SelectedIndex = -1
+        cmbBaja.DataSource = listaBooleanos
+        cmbBaja.DisplayMember = "Texto"
+        cmbBaja.ValueMember = "Valor"
+        cmbBaja.SelectedIndex = -1
 
     End Sub
 
@@ -28,7 +28,7 @@ Public Class FrmMediosPE
 
         Try
             Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
-            With Me.CuentaBancariaComboBox
+            With Me.cmbCuentaBancaria
                 .DataSource = AdminCuentasBancarias.ListarCuentasBancarias("*")
                 .ValueMember = "IdCB"
                 .DisplayMember = "Descripcion"
@@ -77,8 +77,8 @@ Public Class FrmMediosPE
             Select Case lmpe.Count
                 Case 0
                     MsgBox("Medio de pago no Encontrado", vbInformation, "SiCoFa")
-                    Me.DescripcionTextBox.Text = ""
-                    Me.DescripcionTextBox.Select()
+                    Me.txtDescripcion.Text = ""
+                    Me.txtDescripcion.Select()
                     Exit Sub
 
                 Case 1
@@ -101,8 +101,8 @@ Public Class FrmMediosPE
             With Me
                 .LimpiarFormulario()
                 .MostrarMedioPE(mpe)
-                .DescripcionTextBox.Select()
-                .DescripcionTextBox.SelectAll()
+                .txtDescripcion.Select()
+                .txtDescripcion.SelectAll()
             End With
 
         Catch ex As Exception
@@ -120,10 +120,10 @@ Public Class FrmMediosPE
             End If
 
             With Me
-                .IdMPETextBox.Text = argMedioPE.IdMPE
-                .DescripcionTextBox.Text = argMedioPE.Descripcion
-                .CuentaBancariaComboBox.Text = argMedioPE.CuentaBancaria.Descripcion
-                .BajaComboBox.SelectedIndex = argMedioPE.Baja
+                .txtIdMPE.Text = argMedioPE.IdMPE
+                .txtDescripcion.Text = argMedioPE.Descripcion
+                .cmbCuentaBancaria.Text = argMedioPE.CuentaBancaria.Descripcion
+                .cmbBaja.SelectedIndex = argMedioPE.Baja
             End With
 
         Catch ex As Exception
@@ -143,11 +143,11 @@ Public Class FrmMediosPE
             End If
 
             If Me.NuevoMedioPE = True Then
-                Dim IdMPE As String = mAdminMediosPE.InsertarMedioPE(Me.DescripcionTextBox.Text, Me.CuentaBancariaComboBox.SelectedValue)
+                Dim IdMPE As String = mAdminMediosPE.InsertarMedioPE(Me.txtDescripcion.Text, Me.cmbCuentaBancaria.SelectedValue)
                 If IdMPE <> "" Then
-                    Me.IdMPETextBox.Text = IdMPE
-                    Me.DescripcionTextBox.Text = UCase(Me.DescripcionTextBox.Text)
-                    MsgBox("Se dio de alta " & Me.DescripcionTextBox.Text, vbInformation, "SiCoFa")
+                    Me.txtIdMPE.Text = IdMPE
+                    Me.txtDescripcion.Text = UCase(Me.txtDescripcion.Text)
+                    MsgBox("Se dio de alta " & Me.txtDescripcion.Text, vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
@@ -156,15 +156,15 @@ Public Class FrmMediosPE
                 Me.Nuevo.Checked = False
 
             Else
-                If Me.IdMPETextBox.Text = "" Then
-                    MsgBox(Me.DescripcionTextBox.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
+                If Me.txtIdMPE.Text = "" Then
+                    MsgBox(Me.txtDescripcion.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminMediosPE.ActualizarMedioPE(Me.IdMPETextBox.Text, Me.CuentaBancariaComboBox.SelectedValue, BajaComboBox.SelectedValue)
+                Dim Actualizado As Boolean = mAdminMediosPE.ActualizarMedioPE(Me.txtIdMPE.Text, Me.cmbCuentaBancaria.SelectedValue, cmbBaja.SelectedValue)
 
                 If Actualizado = True Then
-                    MsgBox(Me.DescripcionTextBox.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
+                    MsgBox(Me.txtDescripcion.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
@@ -172,7 +172,7 @@ Public Class FrmMediosPE
             End If
 
             Me.LimpiarFormulario()
-            Me.DescripcionTextBox.Select()
+            Me.txtDescripcion.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -188,7 +188,7 @@ Public Class FrmMediosPE
 
             Me.NuevoMedioPE = True
             Me.Nuevo.Checked = True
-            Me.DescripcionTextBox.Select()
+            Me.txtDescripcion.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -208,7 +208,7 @@ Public Class FrmMediosPE
             Me.TextoBuscar = ""
 
             If str = "" Then
-                Me.DescripcionTextBox.Select()
+                Me.txtDescripcion.Select()
                 Exit Sub
             Else
                 Me.TextoBuscar = str
@@ -234,7 +234,7 @@ Public Class FrmMediosPE
             Me.LimpiarFormulario()
             Me.NuevoMedioPE = False
             Me.Nuevo.Checked = False
-            Me.DescripcionTextBox.Select()
+            Me.txtDescripcion.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -243,13 +243,13 @@ Public Class FrmMediosPE
 
     End Sub
 
-    Private Sub DescripcionTextBox_Validating(sender As Object, e As CancelEventArgs) Handles DescripcionTextBox.Validating
+    Private Sub txtDescripcion_Validating(sender As Object, e As CancelEventArgs) Handles txtDescripcion.Validating
         Try
-            If Me.DescripcionTextBox.Text = "" Or Me.NuevoMedioPE = True Or Me.IdMPETextBox.Text <> "" Then
+            If Me.txtDescripcion.Text = "" Or Me.NuevoMedioPE = True Or Me.txtIdMPE.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarMedioPE(Me.DescripcionTextBox.Text)
+            Me.BuscarMedioPE(Me.txtDescripcion.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -263,8 +263,8 @@ Public Class FrmMediosPE
         Me.ObtenerOpcionesBoolean()
     End Sub
 
-    Private Sub CuentaBancariaComboBox_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles CuentaBancariaComboBox.Validating
-        If CuentaBancariaComboBox.SelectedIndex = -1 Then
+    Private Sub cmbCuentaBancaria_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbCuentaBancaria.Validating
+        If cmbCuentaBancaria.SelectedIndex = -1 Then
             MessageBox.Show("Debe seleccionar un elemento de la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             e.Cancel = True ' Cancela el cambio de foco
         End If

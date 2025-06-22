@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmPermisos
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,30 +20,32 @@ Partial Class FrmPermisos
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.tvPermisos = New System.Windows.Forms.TreeView()
+        Me.flpPermisos = New System.Windows.Forms.FlowLayoutPanel()
         Me.SuspendLayout()
         '
-        'tvPermisos
+        'flpPermisos
         '
-        Me.tvPermisos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tvPermisos.Location = New System.Drawing.Point(0, 0)
-        Me.tvPermisos.Name = "tvPermisos"
-        Me.tvPermisos.Size = New System.Drawing.Size(800, 504)
-        Me.tvPermisos.TabIndex = 0
+        Me.flpPermisos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flpPermisos.Location = New System.Drawing.Point(0, 0)
+        Me.flpPermisos.Name = "flpPermisos"
+        Me.flpPermisos.Size = New System.Drawing.Size(800, 822)
+        Me.flpPermisos.TabIndex = 0
         '
         'FrmPermisos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 504)
-        Me.Controls.Add(Me.tvPermisos)
+        Me.ClientSize = New System.Drawing.Size(800, 822)
+        Me.Controls.Add(Me.flpPermisos)
         Me.Name = "FrmPermisos"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmPermisos"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents tvPermisos As TreeView
+    Friend WithEvents flpPermisos As FlowLayoutPanel
 End Class

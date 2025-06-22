@@ -43,7 +43,7 @@ Public Class D_AdminCajas
 
                     Me.CerrarMediosPE(cn, tx)
 
-                    AdminOperaciones.FinalizarOperacion(argMacAddress, objOperacion, cn, tx)
+                    AdminOperaciones.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 
                     Me.CierreCaja(argCaja.NCaja, cn, tx)
 
@@ -59,7 +59,7 @@ Public Class D_AdminCajas
                     End With
 
                     AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
-                    AdminOperaciones.FinalizarOperacion(argMacAddress, objOperacion, cn, tx)
+                    AdminOperaciones.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 
                     tx.Commit()
                     Return True

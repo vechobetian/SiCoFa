@@ -15,6 +15,7 @@ Public Class N_AdminUsuarios
 
         End Try
     End Function
+
     Public Function ListarUsuarios(ByVal argTextoBuscado As String) As List(Of Usuario)
         Dim AdminUsuarios As New D_AdminUsuarios
         Dim lu As List(Of Usuario) = Nothing
@@ -28,6 +29,7 @@ Public Class N_AdminUsuarios
 
         End Try
     End Function
+
     Public Function InsertarUsuario(
                                     ByVal argNombre As String,
                                     ByVal argDomicilio As String,
@@ -58,6 +60,7 @@ Public Class N_AdminUsuarios
         End Try
 
     End Function
+
     Public Function ActualizarUsuario(
                                       ByVal argIdEmpleado As Int32,
                                       ByVal argDomicilio As String,
@@ -93,7 +96,7 @@ Public Class N_AdminUsuarios
 
     End Function
 
-    Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
+    Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As String) As String
 
         Try
 
@@ -107,4 +110,5 @@ Public Class N_AdminUsuarios
         End Try
 
     End Function
+
 End Class

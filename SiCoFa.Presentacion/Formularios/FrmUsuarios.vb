@@ -6,6 +6,7 @@ Public Class FrmUsuarios
     Private mAdminUsuarios As New N_AdminUsuarios
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
+
     Private Sub BuscarUsuario(ByVal argTextoBuscado As String)
 
         Try
@@ -52,6 +53,7 @@ Public Class FrmUsuarios
         End Try
 
     End Sub
+
     Private Sub MostrarUsuario(ByVal argUsuario As Usuario)
 
         Try
@@ -75,6 +77,7 @@ Public Class FrmUsuarios
         End Try
 
     End Sub
+
     Public Overrides Sub Guardar_Click(sender As Object, e As EventArgs)
 
         Try
@@ -121,6 +124,7 @@ Public Class FrmUsuarios
         End Try
 
     End Sub
+
     Public Overrides Sub Nuevo_Click(sender As Object, e As EventArgs)
 
         Try
@@ -139,6 +143,7 @@ Public Class FrmUsuarios
         End Try
 
     End Sub
+
     Public Overrides Sub Buscar_Click(sender As Object, e As EventArgs)
 
         Try
@@ -156,6 +161,7 @@ Public Class FrmUsuarios
         End Try
 
     End Sub
+
     Public Overrides Sub Nombre_Validating(sender As Object, e As CancelEventArgs)
 
         Try

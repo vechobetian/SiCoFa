@@ -50,6 +50,7 @@ Public Class D_AdminUsuarios
         End Try
 
     End Function
+
     Public Function ListarUsuarios(ByVal argTextoBuscado As String) As List(Of Usuario)
         Dim objConexionDB As New D_Conexion
         Dim lu As New List(Of Usuario)
@@ -97,7 +98,7 @@ Public Class D_AdminUsuarios
                             Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
                             Dim NumDocResult As String = datos.GetString(numDocOrdinal)
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
-                            Dim EstadoResult As String = datos.ToString(estadoOrdinal)
+                            Dim EstadoResult As String = datos.GetString(estadoOrdinal)
 
                             u = New Usuario(IdUsuarioResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
                             lu.Add(u)
@@ -117,6 +118,7 @@ Public Class D_AdminUsuarios
         End Try
 
     End Function
+
     Public Function InsertarUsuario(
                                     ByVal argNombre As String,
                                     ByVal argDomicilio As String,
@@ -160,6 +162,7 @@ Public Class D_AdminUsuarios
         End Try
 
     End Function
+
     Public Function ActualizarUsuario(
                                     ByVal argIdUsuario As Integer,
                                     ByVal argDomicilio As String,
@@ -205,7 +208,7 @@ Public Class D_AdminUsuarios
 
     End Function
 
-    Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As Integer) As String
+    Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As String) As String
         Try
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -214,7 +217,7 @@ Public Class D_AdminUsuarios
                     With cmd.Parameters
                         .Add("p_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
                         .Add("p_Password", MySqlDbType.VarChar).Value = argPassword
-                        .Add("p_IdProceso", MySqlDbType.Int32).Value = argIdProceso
+                        .Add("p_IdProceso", MySqlDbType.VarChar).Value = argIdProceso
                         .Add("p_Autorizacion", MySqlDbType.VarChar)
                     End With
 

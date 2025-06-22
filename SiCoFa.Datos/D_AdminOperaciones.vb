@@ -204,13 +204,13 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion) As Boolean
+    Public Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argCajaAbierta As Boolean) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 cn.Open()
-                Return FinalizarOperacion(argMacAddress, argOperacion, cn, Nothing)
+                Return FinalizarOperacion(argMacAddress, argOperacion, argCajaAbierta, cn, Nothing)
             End Using
 
         Catch Ex As Exception
@@ -219,7 +219,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Friend Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argCajaAbierta As Boolean, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
         Try
 
             Using cmd As New MySqlCommand("OperacionFinalizar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
@@ -227,6 +227,7 @@ Public Class D_AdminOperaciones
                     .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
                     .Add("p_Observaciones", MySqlDbType.VarChar).Value = argOperacion.Observaciones
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argOperacion.IdOperacion
+                    .Add("p_CajaAbierta", MySqlDbType.Bit).Value = argCajaAbierta
                 End With
 
                 Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
@@ -507,7 +508,6 @@ Public Class D_AdminOperaciones
 
                 Try
 
-
                     If argOperacionCC IsNot Nothing Then
                         Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
                     End If
@@ -525,7 +525,7 @@ Public Class D_AdminOperaciones
                     Dim AdminArticulos As New D_AdminArticulos
                     AdminArticulos.ActualizarStock(argOperacion.IdOperacion, -1, cn, tx)
 
-                    Me.FinalizarOperacion(argMacAddress, argOperacion, cn, tx)
+                    Me.FinalizarOperacion(argMacAddress, argOperacion, True, cn, tx)
 
                     tx.Commit()
                     Return True
