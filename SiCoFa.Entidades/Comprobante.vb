@@ -30,7 +30,7 @@
     Public Sub New(
                   ByVal argIdOperacion As Long,
                   ByVal argOperacion As Operacion,
-                  ByVal argCodiTC_SiCoFa As String,
+                  ByVal argTipoComprobante As TipoComprobante,
                   ByVal argPVenta As String,
                   ByVal argNumComp As String,
                   ByVal argFechaComp As Date,
@@ -59,7 +59,7 @@
 
         Me.IdOperacion = argIdOperacion
         Me.Operacion = argOperacion
-        Me.TipoComprobante = New TipoComprobante(argCodiTC_SiCoFa)
+        Me.TipoComprobante = argTipoComprobante
         Me.PVenta = argPVenta
         Me.NumComp = argNumComp
         Me.FechaComp = argFechaComp

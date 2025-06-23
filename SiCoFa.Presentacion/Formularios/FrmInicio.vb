@@ -46,6 +46,11 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuCajaAsientoGastos_Click(sender As Object, e As EventArgs) Handles mnuCajaAsientoGastos.Click
+        FrmAsientoGastos.Usuario = Me.ValidarUsuario(Me.mnuCajaAsientoGastos.Name)
+        FrmAsientoGastos.ShowDialog()
+    End Sub
+
     Private Sub mnuEdicionArticulos_Click(sender As Object, e As EventArgs) Handles mnuEdicionArticulos.Click
         FrmArticulos.Show()
     End Sub
@@ -56,6 +61,14 @@ Public Class FrmInicio
 
     Private Sub mnuEdicionEmpleados_Click(sender As Object, e As EventArgs) Handles mnuEdicionEmpleados.Click
 
+    End Sub
+
+    Private Sub mnuEdicionMedioPE_Click(sender As Object, e As EventArgs) Handles mnuEdicionMedioPE.Click
+        Dim user As Usuario = Me.ValidarUsuario(Me.mnuEdicionMedioPE.Name)
+        If user Is Nothing Then
+            Exit Sub
+        End If
+        FrmMediosPE.ShowDialog()
     End Sub
 
     Private Sub mnuEdicionUsuarios_Click(sender As Object, e As EventArgs) Handles mnuEdicionUsuarios.Click
@@ -76,9 +89,20 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuEdicionProveedores_Click(sender As Object, e As EventArgs) Handles mnuEdicionProveedores.Click
+        Try
+            Dim User As Usuario = Me.ValidarUsuario(Me.mnuEdicionProveedores.Name)
+            If User Is Nothing Then
+                Exit Sub
+            End If
 
-    Private Sub mnuAyuda_Click(sender As Object, e As EventArgs) Handles mnuAyuda.Click
+            Dim frm As New FrmProveedores()
+            frm.ShowDialog()
 
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
     End Sub
 
     Private Sub mnuEdicionPermisos_Click(sender As Object, e As EventArgs) Handles mnuEdicionPermisos.Click

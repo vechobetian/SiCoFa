@@ -56,6 +56,7 @@ Public Class D_AdminClientes
         End Try
 
     End Function
+
     Public Function ListarClientes(ByVal argTextoBuscado As String) As List(Of Cliente)
         Dim objConexionDB As New D_Conexion
         Dim lc As New List(Of Cliente)

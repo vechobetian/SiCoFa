@@ -1,7 +1,93 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
+Imports System.Collections.Generic
 
 Public Class D_AdminComprobantes
+    Public Function ObtenerTipoComprobantePorCodiTC(ByVal argCodiTC As String) As TipoComprobante
+        Dim objConexionDB As New D_Conexion
+        Dim objTC As TipoComprobante = Nothing
+
+        Try
+            Dim Sql As String = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes WHERE CodiTC = @CodiTC"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = Sql
+                    cmd.Parameters.AddWithValue("@CodiTC", argCodiTC)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read Then
+                            Dim CodiTC As String = datos("CodiTC")
+                            Dim TipoComprobanteCLetra As String = datos("TipoComprobanteCLetra")
+                            Dim Letra As String = datos("Letra")
+                            Dim TipoComprobanteSLetra = datos("TipoComprobanteSLetra")
+                            Dim CodiTCARCA As String = datos("CodiTCARCA")
+                            objTC = New TipoComprobante(CodiTC, TipoComprobanteCLetra, Letra, TipoComprobanteSLetra, CodiTCARCA)
+                            Return objTC
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerTipoComprobantePorCodiTC", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
+    Public Function ListarTipoComprobantes(ByVal argTextoBuscado As String) As List(Of TipoComprobante)
+
+        Dim objConexionDB As New D_Conexion
+        Dim ltc As New List(Of TipoComprobante)
+        Dim tc As TipoComprobante
+
+        Try
+            Dim sql As String
+            If argTextoBuscado = "*" Then
+                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes ORDER BY TipoComprobante"
+            Else
+                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes WHERE TipoComprobante LIKE @TipoComprobante ORDER BY TipoComprobante"
+            End If
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@TipoComprobante", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read
+                            tc = New TipoComprobante(datos("CodiTC"), datos("TipoComprobanteCLetra"), datos("Letra"), datos("TipoComprobanteSLetra"), datos("CodiTCARCA"))
+                            ltc.Add(tc)
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return ltc
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarTipoComprobantes", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
     Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
@@ -13,7 +99,9 @@ Public Class D_AdminComprobantes
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+
         End Try
+
     End Function
 
     Friend Function InsertarComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean

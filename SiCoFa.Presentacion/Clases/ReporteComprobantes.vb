@@ -103,7 +103,7 @@ Public Class ReporteComprobantes
                     '.Impresora = mobjPater.Impresora
 
                     If argComprobante.CompAsoc IsNot Nothing Then
-                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobanteCLetra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
                     Else
                         .CompAsoc = ""
                     End If

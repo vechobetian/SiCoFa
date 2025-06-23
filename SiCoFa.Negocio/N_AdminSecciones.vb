@@ -2,7 +2,7 @@
 Imports SiCoFa.Entidades
 
 Public Class N_AdminSecciones
-#Region "Administracion de Secciones"
+
     Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Int32) As Seccion
 
         Dim AdminSecciones As New D_AdminSecciones
@@ -17,6 +17,7 @@ Public Class N_AdminSecciones
 
         End Try
     End Function
+
     Public Function ListarSecciones(ByVal argTextoBuscado As String) As List(Of Seccion)
         Dim AdminSecciones As New D_AdminSecciones
         Dim ls As List(Of Seccion)
@@ -31,6 +32,7 @@ Public Class N_AdminSecciones
 
         End Try
     End Function
+
     Public Function InsertarSecciones(
                                     ByVal argSeccion As String,
                                     ByVal argEstablecerPrecio As Boolean
@@ -50,6 +52,7 @@ Public Class N_AdminSecciones
         End Try
 
     End Function
+
     Public Function ActualizarSeccion(
                                       ByVal argIdSeccion As String,
                                       ByVal argSeccion As String,
@@ -72,6 +75,5 @@ Public Class N_AdminSecciones
         End Try
 
     End Function
-#End Region
 
 End Class

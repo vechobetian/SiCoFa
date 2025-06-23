@@ -44,6 +44,7 @@ Public Class D_AdminSecciones
         End Try
 
     End Function
+
     Public Function ListarSecciones(ByVal argTextoBuscado As String) As List(Of Seccion)
         Dim objConexionDB As New D_Conexion
         Dim ls As New List(Of Seccion)

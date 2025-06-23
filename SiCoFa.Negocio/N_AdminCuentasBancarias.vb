@@ -6,7 +6,7 @@ Public Class N_AdminCuentasBancarias
     Public Function ObtenerCuentaBancariaPorId(ByVal argIdCB As Long) As CuentaBancaria
 
         Try
-            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
+            Dim AdminCuentasBancarias As New D_AdminCuentasBancarias
             Dim objCB As CuentaBancaria = AdminCuentasBancarias.ObtenerCuentaBancariaPorId(argIdCB)
             Return objCB
 
@@ -20,7 +20,7 @@ Public Class N_AdminCuentasBancarias
     Public Function ListarCuentasBancarias(ByVal argTextoBuscado As String) As List(Of CuentaBancaria)
 
         Try
-            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
+            Dim AdminCuentasBancarias As New D_AdminCuentasBancarias
             Dim lcb As List(Of CuentaBancaria) = AdminCuentasBancarias.ListarCuentasBancarias(argTextoBuscado)
             Return lcb
 
@@ -35,7 +35,7 @@ Public Class N_AdminCuentasBancarias
 
         Try
 
-            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
+            Dim AdminCuentasBancarias As New D_AdminCuentasBancarias
             Dim IdCB As Int32 = AdminCuentasBancarias.InsertarCuentaBancaria(argDescripcion, argNumCuenta)
             Return IdCB
 
@@ -49,7 +49,7 @@ Public Class N_AdminCuentasBancarias
 
         Try
 
-            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
+            Dim AdminCuentasBancarias As New D_AdminCuentasBancarias
             Dim Actualizado As Boolean = AdminCuentasBancarias.ActualizarCuentaBancaria(argIdCB, argBaja)
             Return Actualizado
 

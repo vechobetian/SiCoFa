@@ -2,6 +2,40 @@
 Imports SiCoFa.Entidades
 
 Public Class N_AdminComprobantes
+
+    Public Function ObtenerTipoComprobantePorCodiTC(ByVal argCodiTC As String) As TipoComprobante
+
+        Dim AdminComprobantes As New D_AdminComprobantes
+        Dim tc As TipoComprobante
+
+        Try
+
+            tc = AdminComprobantes.ObtenerTipoComprobantePorCodiTC(argCodiTC)
+            Return tc
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerTipoComprobantePorCodiTC", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+
+    Public Function ListarTipoComprobantes(ByVal argTextoBuscado As String) As List(Of TipoComprobante)
+        Dim AdminComprobantes As New D_AdminComprobantes
+        Dim ltc As List(Of TipoComprobante)
+
+        Try
+            ltc = AdminComprobantes.ListarTipoComprobantes(argTextoBuscado)
+            Return ltc
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarTipoComprobantes", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
     Public Function GenerarFacturaElectronica(ByRef argComprobante As Comprobante) As Boolean
 
         Try
@@ -54,7 +88,7 @@ Public Class N_AdminComprobantes
                 Dim PVta As Integer = CInt(argComprobante.PVenta)
                 Dim NumComp As Long = CLng(argComprobante.NumComp)
 
-                argComprobante.QR = New QRCompE(argComprobante.FechaComp, CUIT, PVta, argComprobante.TipoComprobante.CodiTC_AFIP, NumComp, argComprobante.ImpBto, argComprobante.Cliente.Documento.TipoDoc.CodiTDoc, argComprobante.Cliente.Documento.Numero, argComprobante.CAE.NumCAE)
+                argComprobante.QR = New QRCompE(argComprobante.FechaComp, CUIT, PVta, argComprobante.TipoComprobante.CodiTC_ARCA, NumComp, argComprobante.ImpBto, argComprobante.Cliente.Documento.TipoDoc.CodiTDoc, argComprobante.Cliente.Documento.Numero, argComprobante.CAE.NumCAE)
 
             End If
 

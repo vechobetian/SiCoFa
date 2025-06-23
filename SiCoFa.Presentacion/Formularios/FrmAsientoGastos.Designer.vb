@@ -23,8 +23,8 @@ Partial Class FrmAsientoGastos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.txtFPago = New System.Windows.Forms.ComboBox()
-        Me.cmbCajaAbierta = New System.Windows.Forms.ComboBox()
+        Me.cmbFPago = New System.Windows.Forms.ComboBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.txtProveedor = New System.Windows.Forms.TextBox()
         Me.txtTipoComprobante = New System.Windows.Forms.TextBox()
         Me.mtxtNumComprobante = New System.Windows.Forms.MaskedTextBox()
@@ -33,7 +33,7 @@ Partial Class FrmAsientoGastos
         Me.txtCuentaImputable = New System.Windows.Forms.TextBox()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblComboBox1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -43,24 +43,26 @@ Partial Class FrmAsientoGastos
         Me.Label9 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
-        'txtFPago
+        'cmbFPago
         '
-        Me.txtFPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFPago.FormattingEnabled = True
-        Me.txtFPago.Items.AddRange(New Object() {"CONTADO", "CREDITO", "T. ELECTONICA"})
-        Me.txtFPago.Location = New System.Drawing.Point(256, 12)
-        Me.txtFPago.Name = "txtFPago"
-        Me.txtFPago.Size = New System.Drawing.Size(377, 37)
-        Me.txtFPago.TabIndex = 0
+        Me.cmbFPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbFPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbFPago.FormattingEnabled = True
+        Me.cmbFPago.Items.AddRange(New Object() {"CONTADO", "CREDITO", "TRANSFERENCIA"})
+        Me.cmbFPago.Location = New System.Drawing.Point(256, 12)
+        Me.cmbFPago.Name = "cmbFPago"
+        Me.cmbFPago.Size = New System.Drawing.Size(377, 37)
+        Me.cmbFPago.TabIndex = 0
         '
-        'cmbCajaAbierta
+        'ComboBox1
         '
-        Me.cmbCajaAbierta.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbCajaAbierta.FormattingEnabled = True
-        Me.cmbCajaAbierta.Location = New System.Drawing.Point(256, 55)
-        Me.cmbCajaAbierta.Name = "cmbCajaAbierta"
-        Me.cmbCajaAbierta.Size = New System.Drawing.Size(377, 37)
-        Me.cmbCajaAbierta.TabIndex = 1
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(256, 55)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(377, 37)
+        Me.ComboBox1.TabIndex = 1
         '
         'txtProveedor
         '
@@ -129,15 +131,15 @@ Partial Class FrmAsientoGastos
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Forma de Pago:"
         '
-        'Label2
+        'lblComboBox1
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(12, 58)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(150, 29)
-        Me.Label2.TabIndex = 10
-        Me.Label2.Text = "Caja Abierta:"
+        Me.lblComboBox1.AutoSize = True
+        Me.lblComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblComboBox1.Location = New System.Drawing.Point(12, 58)
+        Me.lblComboBox1.Name = "lblComboBox1"
+        Me.lblComboBox1.Size = New System.Drawing.Size(150, 29)
+        Me.lblComboBox1.TabIndex = 10
+        Me.lblComboBox1.Text = "Caja Abierta:"
         '
         'Label3
         '
@@ -221,7 +223,7 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblComboBox1)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.txtCuentaImputable)
@@ -230,8 +232,8 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.mtxtNumComprobante)
         Me.Controls.Add(Me.txtTipoComprobante)
         Me.Controls.Add(Me.txtProveedor)
-        Me.Controls.Add(Me.cmbCajaAbierta)
-        Me.Controls.Add(Me.txtFPago)
+        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.cmbFPago)
         Me.Name = "FrmAsientoGastos"
         Me.Text = "FrmAsientoGastos"
         Me.ResumeLayout(False)
@@ -239,8 +241,8 @@ Partial Class FrmAsientoGastos
 
     End Sub
 
-    Friend WithEvents txtFPago As ComboBox
-    Friend WithEvents cmbCajaAbierta As ComboBox
+    Friend WithEvents cmbFPago As ComboBox
+    Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents txtProveedor As TextBox
     Friend WithEvents txtTipoComprobante As TextBox
     Friend WithEvents mtxtNumComprobante As MaskedTextBox
@@ -249,7 +251,7 @@ Partial Class FrmAsientoGastos
     Friend WithEvents txtCuentaImputable As TextBox
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblComboBox1 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label

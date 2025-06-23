@@ -47,7 +47,7 @@ Public Class N_AdminCAE
 
             cab.CantReg = 1
             cab.PtoVta = argComprobante.PVenta
-            cab.CbteTipo = argComprobante.TipoComprobante.CodiTC_AFIP
+            cab.CbteTipo = argComprobante.TipoComprobante.CodiTC_ARCA
 
             req.FeCabReq = cab
 
@@ -59,7 +59,7 @@ Public Class N_AdminCAE
                 .DocTipo = argComprobante.Cliente.Documento.TipoDoc.CodiTDoc
                 .DocNro = argComprobante.Cliente.Documento.Numero
 
-                Dim lastRes As FERecuperaLastCbteResponse = service.FECompUltimoAutorizado(mvarAuthRequest, CInt(argComprobante.PVenta), argComprobante.TipoComprobante.CodiTC_AFIP)
+                Dim lastRes As FERecuperaLastCbteResponse = service.FECompUltimoAutorizado(mvarAuthRequest, CInt(argComprobante.PVenta), argComprobante.TipoComprobante.CodiTC_ARCA)
                 Dim last As Integer = lastRes.CbteNro
 
                 NroCbteAutorizado = last + 1
@@ -68,10 +68,10 @@ Public Class N_AdminCAE
                 .CbteHasta = last + 1
                 .CbteFch = Now.ToString("yyyyMMdd")
 
-                If argComprobante.TipoComprobante.TipoComprobante = "NOTA DE CREDITO" Then
+                If argComprobante.TipoComprobante.TipoComprobanteSLetra = "NOTA DE CREDITO" Then
                     Dim cbteAsoc As New CbteAsoc
                     With cbteAsoc
-                        .Tipo = argComprobante.CompAsoc.TipoComprobante.CodiTC_AFIP
+                        .Tipo = argComprobante.CompAsoc.TipoComprobante.CodiTC_ARCA
                         .PtoVta = argComprobante.CompAsoc.PVenta
                         .Nro = argComprobante.CompAsoc.NumComp
                         '.Cuit = Replace(cbteOrigen.Empresa.CUIT, "-", "") por ahora no requerido
@@ -80,7 +80,7 @@ Public Class N_AdminCAE
                     .CbtesAsoc = {cbteAsoc}
                 End If
 
-                If argComprobante.TipoComprobante.CodiTC_AFIP = 11 Or argComprobante.TipoComprobante.CodiTC_AFIP = 13 Then
+                If argComprobante.TipoComprobante.CodiTC_ARCA = 11 Or argComprobante.TipoComprobante.CodiTC_ARCA = 13 Then
                     .ImpTotConc = 0
                     .ImpNeto = argComprobante.ImpEx + argComprobante.ImpGrav1 + argComprobante.ImpGrav2
                     .ImpIVA = 0

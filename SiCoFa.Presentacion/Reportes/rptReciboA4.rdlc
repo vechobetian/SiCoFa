@@ -376,9 +376,9 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="CodiTC_AFIP">
-          <DataField>CodiTC_AFIP</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="CodiTC_ARCA">
+          <DataField>CodiTC_ARCA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CodiTC_SiCoFa">
           <DataField>CodiTC_SiCoFa</DataField>
@@ -388,8 +388,12 @@
           <DataField>Letra</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TipoComprobante">
-          <DataField>TipoComprobante</DataField>
+        <Field Name="TipoComprobanteCLetra">
+          <DataField>TipoComprobanteCLetra</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoComprobanteSLetra">
+          <DataField>TipoComprobanteSLetra</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -750,7 +754,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!TipoComprobante.Value, "TipoComprobante")</Value>
+                          <Value>=First(Fields!TipoComprobante.Value, "TipoComprobanteSLetra")</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                             <FontSize>12pt</FontSize>

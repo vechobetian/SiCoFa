@@ -68,8 +68,8 @@ Public Class Ticket58
 
         e.Graphics.DrawString(Comprobante.TipoComprobante.Letra, fuenteGigante, Brushes.Black, rectF1, stringFormat)
         e.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(rectF1))
-        e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_AFIP, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 50)
-        e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobante, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
+        e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_ARCA, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 50)
+        e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobanteSLetra, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("P.Vta:" & Comprobante.PVenta, printFont, Brushes.Black, MargenIzquierdo + 58, yPos)
         yPos += IncrementoYPreTexto
@@ -305,8 +305,8 @@ Public Class Ticket58
 
         e.Graphics.DrawString(Comprobante.TipoComprobante.Letra, fuenteGigante, Brushes.Black, rectF1, stringFormat)
         e.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(rectF1))
-        e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_AFIP, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 50)
-        e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobante, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
+        e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_ARCA, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 50)
+        e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobanteSLetra, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("P.Vta:" & Comprobante.PVenta, printFont, Brushes.Black, MargenIzquierdo + 58, yPos)
         yPos += IncrementoYPreTexto

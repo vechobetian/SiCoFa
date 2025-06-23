@@ -21,7 +21,7 @@ Public Class QRCompE
                   ByVal argFecha As Date,
                   ByVal argCuit As Long,
                   ByVal argPtoVta As Integer,
-                  ByVal argCodiTC_AFIP As Integer,
+                  ByVal argCodiTC_ARCA As Integer,
                   ByVal argNroComp As Long,
                   ByVal argImporte As Decimal,
                   ByVal argCliTipoDoc As Integer,
@@ -31,7 +31,7 @@ Public Class QRCompE
         Me.fecha = argFecha.ToString("yyyy-MM-dd")
         Me.cuit = argCuit
         Me.ptoVta = argPtoVta
-        Me.tipoCmp = argCodiTC_AFIP
+        Me.tipoCmp = argCodiTC_ARCA
         Me.nroCmp = argNroComp
         Me.importe = argImporte
         Me.tipoDocRec = argCliTipoDoc

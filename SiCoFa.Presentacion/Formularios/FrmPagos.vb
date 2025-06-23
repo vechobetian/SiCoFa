@@ -59,13 +59,12 @@ Public Class FrmPagos
 
         Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
 
-
         If Me.TipoComprobante Is Nothing Then
             Dim AdminSiCoFa As New N_AdminSiCoFa
             Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
         End If
 
-        Me.txtTipoComprobante.Text = $"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
+        Me.txtTipoComprobante.Text = Me.TipoComprobante.TipoComprobanteCLetra '$"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
         Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")
         Me.txtImporteCuentaCorriente.DataBindings.Add("Text", Me.MediosDePago, "ImporteCuentaCorriente", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
         Me.txtImportePagoElectronico.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoElectronico", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
@@ -283,7 +282,7 @@ Public Class FrmPagos
             objCb = New Comprobante(
                                     argIdOperacion:=Me.Operacion.IdOperacion,
                                     argOperacion:=Me.Operacion,
-                                    argCodiTC_SiCoFa:=Me.TipoComprobante.CodiTC_SiCoFa,
+                                    argTipoComprobante:=Me.TipoComprobante,
                                     argPVenta:=g_ParametrosTerminal.PVenta,
                                     argNumComp:="",
                                     argFechaComp:=Now.Date,
@@ -315,7 +314,7 @@ Public Class FrmPagos
 
             mobj_AdminOperacion.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
 
-            If objCb.TipoComprobante.CodiTC_AFIP <> "00" Then
+            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
                 Dim obj_N_AdminComprobants As New N_AdminComprobantes
                 If obj_N_AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
                     'aca hay que cambiar el estado de la operacion y salir

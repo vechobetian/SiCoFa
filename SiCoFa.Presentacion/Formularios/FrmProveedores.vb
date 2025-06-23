@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Negocio
+﻿
+Imports SiCoFa.Negocio
 Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Public Class FrmProveedores
@@ -6,6 +7,7 @@ Public Class FrmProveedores
     Private mAdminProveedores As New N_AdminProveedores
     Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
     Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
+
     Private Sub BuscarProveedor(ByVal argTextoBuscado As String)
 
         Try

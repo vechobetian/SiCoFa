@@ -157,18 +157,20 @@ Public Class FrmVentas
             If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
 
                 Using FPagos As New FrmPagos
-
+                    Dim AdminComprobantes As New N_AdminComprobantes
                     With FPagos
                         .FrmOrigen = Me
                         .Operacion = mobj_Operacion
                         .Cliente = mobj_Cliente
 
                         If argTecla = Keys.F9 Then
-                            .TipoComprobante = New TipoComprobante("RTOX")
+                            Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
+                            .TipoComprobante = tc
                         ElseIf argTecla = Keys.F10 AndAlso g_ParametrosSistema.GetValor("SFISCAL") = "FE" Then
                             .TipoComprobante = Nothing
                         Else
-                            .TipoComprobante = New TipoComprobante("RTOX")
+                            Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
+                            .TipoComprobante = tc
                         End If
 
                         .ImporteAPagar = mdec_ImporteConDescuentos
