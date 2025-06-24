@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="N_AdminArticulos.vb" />
+    <Compile Include="N_AdminAsientosContable.vb" />
     <Compile Include="N_AdminCAE.vb" />
     <Compile Include="N_AdminCajas.vb" />
     <Compile Include="N_AdminClientes.vb" />

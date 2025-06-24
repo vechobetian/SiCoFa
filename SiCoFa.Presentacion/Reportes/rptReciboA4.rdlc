@@ -754,7 +754,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!TipoComprobante.Value, "TipoComprobanteSLetra")</Value>
+                          <Value>=First(Fields!TipoComprobanteSLetra.Value, "TipoComprobante")</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                             <FontSize>12pt</FontSize>

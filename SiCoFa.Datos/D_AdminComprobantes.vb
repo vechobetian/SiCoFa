@@ -26,7 +26,6 @@ Public Class D_AdminComprobantes
                             Dim TipoComprobanteSLetra = datos("TipoComprobanteSLetra")
                             Dim CodiTCARCA As String = datos("CodiTCARCA")
                             objTC = New TipoComprobante(CodiTC, TipoComprobanteCLetra, Letra, TipoComprobanteSLetra, CodiTCARCA)
-                            Return objTC
                         End If
 
                     End Using
@@ -35,11 +34,14 @@ Public Class D_AdminComprobantes
 
             End Using
 
+            Return objTC
+
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerTipoComprobantePorCodiTC", ex.Message))
             Return Nothing
 
         End Try
+
     End Function
 
     Public Function ListarTipoComprobantes(ByVal argTextoBuscado As String) As List(Of TipoComprobante)
@@ -51,9 +53,9 @@ Public Class D_AdminComprobantes
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes ORDER BY TipoComprobante"
+                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes ORDER BY TipoComprobanteCLetra"
             Else
-                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes WHERE TipoComprobante LIKE @TipoComprobante ORDER BY TipoComprobante"
+                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes WHERE TipoComprobanteCLetra LIKE @TipoComprobante ORDER BY TipoComprobanteCLetra"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

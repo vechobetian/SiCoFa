@@ -131,6 +131,11 @@ Public Class FrmAsientoGastos
                         If f.DialogResult = DialogResult.OK Then
                             Dim p As Persona = f.PersonaSeleccionado
                             pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                        Else
+                            Me.txtProveedor.Tag = ""
+                            Me.txtProveedor.Text = ""
+                            Me.txtProveedor.Select()
+                            Exit Sub
                         End If
                         f.Close()
                     End Using
@@ -206,11 +211,18 @@ Public Class FrmAsientoGastos
                     Using f As New FrmSelectorUniversal
                         f.Text = "Tipos de Comprobante"
                         f.Objetos = ltc
-                        f.NombrePropiedadId = "CodiTC"
-                        f.NombrePropiedadDescripcion = "TipoComprobante"
+                        f.NombrePropiedadId = "CodiTC_SiCoFa"
+                        f.NombrePropiedadDescripcion = "TipoComprobanteCLetra"
                         f.HeaderPropiedadDescripcion = "Comprobante"
+
                         If f.ShowDialog() = DialogResult.OK Then
                             tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado, ltc)
+                        Else
+                            Me.txtTipoComprobante.Tag = ""
+                            Me.txtTipoComprobante.Text = ""
+                            Me.txtTipoComprobante.Select()
+                            Exit Sub
+
                         End If
                         f.Close()
                     End Using ' <- aquí se libera completamente
@@ -235,6 +247,82 @@ Public Class FrmAsientoGastos
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+    End Sub
+
+    Private Sub BuscarCuentaImputable(ByVal argTextoBuscado As String)
+        Try
+
+            Dim AdminDB As New N_AdminDB
+            Dim sql As String = "SELECT * FROM TblCtasImputables WHERE (LEFT(CodiCta,4)='6.02' OR LEFT(CodiCta,4)='6.04' OR LEFT(CodiCta,4)='6.05')  AND NombreCta LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+            Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
+
+            Select Case dt.Rows.Count
+                Case 0
+                    MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
+                    Me.txtCuentaImputable.Text = ""
+                    Me.txtCuentaImputable.Select()
+                    Exit Sub
+
+                Case 1
+                    Dim AdminAsientosContables As New N_AdminAsientosContable
+                    Dim fila As DataRow = dt.Rows(0)
+                    Dim codiCta As String = fila("CodiCta").ToString
+                    Dim ci As CuentaImputable = AdminAsientosContables.ObtenerCuentaImputablePorCodiCta(codiCta)
+                    Me.txtCuentaImputable.Tag = ci.CodiCta
+                    Me.txtCuentaImputable.Text = ci.NombreCta
+                    Exit Sub
+
+                Case > 1
+
+                    Using f As New FrmSelectorUniversal
+                        f.Text = "Cuentas de Gasto"
+                        f.Objetos = dt.DefaultView
+                        f.NombrePropiedadId = "CodiCta"
+                        f.NombrePropiedadDescripcion = "NombreCta"
+                        f.HeaderPropiedadDescripcion = "Cuenta"
+
+                        If f.ShowDialog() = DialogResult.OK Then
+                            Dim AdminAsientosContables As New N_AdminAsientosContable
+                            Dim codiCta As String = f.Valor1Seleccionado.ToString
+                            Dim ci As CuentaImputable = AdminAsientosContables.ObtenerCuentaImputablePorCodiCta(codiCta)
+                            Me.txtCuentaImputable.Tag = ci.CodiCta
+                            Me.txtCuentaImputable.Text = ci.NombreCta
+                            Exit Sub
+                        Else
+                            Me.txtCuentaImputable.Tag = ""
+                            Me.txtCuentaImputable.Text = ""
+                            Me.txtCuentaImputable.Select()
+                        End If
+                        f.Close()
+
+                    End Using
+
+            End Select
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub txtCuentaImputable_Validating(sender As Object, e As CancelEventArgs) Handles txtCuentaImputable.Validating
+        Try
+
+            Me.BuscarCuentaImputable(Me.txtCuentaImputable.Text)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub txtImporte_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtImporte.KeyPress
+        ' Verifica si se presionó el punto
+        If e.KeyChar = "."c Then
+            ' Reemplaza por coma
+            e.KeyChar = ","c
+        End If
     End Sub
 
 

@@ -86,6 +86,13 @@
       </ConnectionProperties>
       <rd:DataSourceID>7b6f4fd8-e0a8-4a6f-a4ec-36b46d247637</rd:DataSourceID>
     </DataSource>
+    <DataSource Name="SiCoFaEntidades12">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>7c74d236-970c-48b9-9637-5922af8aac3e</rd:DataSourceID>
+    </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="Empresa">
@@ -411,39 +418,6 @@
         <rd:ObjectDataSourceType>SiCoFa.Entidades.Comprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
-    <DataSet Name="TipoComprobante">
-      <Query>
-        <DataSourceName>SiCoFaEntidades7</DataSourceName>
-        <CommandText>/* Local Query */</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="CodiTC_ARCA">
-          <DataField>CodiTC_ARCA</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CodiTC_SiCoFa">
-          <DataField>CodiTC_SiCoFa</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Letra">
-          <DataField>Letra</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoComprobanteCLetra">
-          <DataField>TipoComprobanteCLetra</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoComprobanteSLetra">
-          <DataField>TipoComprobanteSLetra</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-      <rd:DataSetInfo>
-        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
-        <rd:TableName>TipoComprobante</rd:TableName>
-        <rd:ObjectDataSourceType>SiCoFa.Entidades.TipoComprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
-      </rd:DataSetInfo>
-    </DataSet>
     <DataSet Name="TipoDocumentoCliente">
       <Query>
         <DataSourceName>SiCoFaEntidades8</DataSourceName>
@@ -618,6 +592,39 @@
         <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
         <rd:TableName>ItemComprobante</rd:TableName>
         <rd:ObjectDataSourceType>SiCoFa.Entidades.ItemComprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="TipoComprobante">
+      <Query>
+        <DataSourceName>SiCoFaEntidades12</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CodiTC_ARCA">
+          <DataField>CodiTC_ARCA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CodiTC_SiCoFa">
+          <DataField>CodiTC_SiCoFa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Letra">
+          <DataField>Letra</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoComprobanteCLetra">
+          <DataField>TipoComprobanteCLetra</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoComprobanteSLetra">
+          <DataField>TipoComprobanteSLetra</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>SiCoFa.Entidades</rd:DataSetName>
+        <rd:TableName>TipoComprobante</rd:TableName>
+        <rd:ObjectDataSourceType>SiCoFa.Entidades.TipoComprobante, SiCoFa.Entidades, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -1379,7 +1386,7 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>=First(Fields!TipoComprobante.Value, "TipoComprobanteSLetra")</Value>
+                          <Value>=First(Fields!TipoComprobanteSLetra.Value, "TipoComprobante")</Value>
                           <Style>
                             <FontFamily>Arial Black</FontFamily>
                             <FontSize>12pt</FontSize>

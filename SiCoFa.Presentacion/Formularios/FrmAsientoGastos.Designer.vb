@@ -51,7 +51,7 @@ Partial Class FrmAsientoGastos
         Me.cmbFPago.Items.AddRange(New Object() {"CONTADO", "CREDITO", "TRANSFERENCIA"})
         Me.cmbFPago.Location = New System.Drawing.Point(256, 12)
         Me.cmbFPago.Name = "cmbFPago"
-        Me.cmbFPago.Size = New System.Drawing.Size(377, 37)
+        Me.cmbFPago.Size = New System.Drawing.Size(519, 37)
         Me.cmbFPago.TabIndex = 0
         '
         'ComboBox1
@@ -61,7 +61,7 @@ Partial Class FrmAsientoGastos
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(256, 55)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(377, 37)
+        Me.ComboBox1.Size = New System.Drawing.Size(519, 37)
         Me.ComboBox1.TabIndex = 1
         '
         'txtProveedor
@@ -69,7 +69,7 @@ Partial Class FrmAsientoGastos
         Me.txtProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtProveedor.Location = New System.Drawing.Point(256, 98)
         Me.txtProveedor.Name = "txtProveedor"
-        Me.txtProveedor.Size = New System.Drawing.Size(377, 35)
+        Me.txtProveedor.Size = New System.Drawing.Size(519, 35)
         Me.txtProveedor.TabIndex = 2
         '
         'txtTipoComprobante
@@ -77,23 +77,25 @@ Partial Class FrmAsientoGastos
         Me.txtTipoComprobante.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTipoComprobante.Location = New System.Drawing.Point(256, 139)
         Me.txtTipoComprobante.Name = "txtTipoComprobante"
-        Me.txtTipoComprobante.Size = New System.Drawing.Size(377, 35)
+        Me.txtTipoComprobante.Size = New System.Drawing.Size(519, 35)
         Me.txtTipoComprobante.TabIndex = 3
         '
         'mtxtNumComprobante
         '
         Me.mtxtNumComprobante.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.mtxtNumComprobante.Location = New System.Drawing.Point(256, 180)
+        Me.mtxtNumComprobante.Mask = "0000-00000000"
         Me.mtxtNumComprobante.Name = "mtxtNumComprobante"
-        Me.mtxtNumComprobante.Size = New System.Drawing.Size(377, 35)
+        Me.mtxtNumComprobante.Size = New System.Drawing.Size(519, 35)
         Me.mtxtNumComprobante.TabIndex = 4
         '
         'mtxtFechaComprobante
         '
         Me.mtxtFechaComprobante.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.mtxtFechaComprobante.Location = New System.Drawing.Point(256, 221)
+        Me.mtxtFechaComprobante.Mask = "00/00/0000"
         Me.mtxtFechaComprobante.Name = "mtxtFechaComprobante"
-        Me.mtxtFechaComprobante.Size = New System.Drawing.Size(377, 35)
+        Me.mtxtFechaComprobante.Size = New System.Drawing.Size(519, 35)
         Me.mtxtFechaComprobante.TabIndex = 5
         '
         'txtImporte
@@ -101,7 +103,7 @@ Partial Class FrmAsientoGastos
         Me.txtImporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImporte.Location = New System.Drawing.Point(256, 262)
         Me.txtImporte.Name = "txtImporte"
-        Me.txtImporte.Size = New System.Drawing.Size(377, 35)
+        Me.txtImporte.Size = New System.Drawing.Size(519, 35)
         Me.txtImporte.TabIndex = 6
         '
         'txtCuentaImputable
@@ -109,7 +111,7 @@ Partial Class FrmAsientoGastos
         Me.txtCuentaImputable.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCuentaImputable.Location = New System.Drawing.Point(256, 303)
         Me.txtCuentaImputable.Name = "txtCuentaImputable"
-        Me.txtCuentaImputable.Size = New System.Drawing.Size(377, 35)
+        Me.txtCuentaImputable.Size = New System.Drawing.Size(519, 35)
         Me.txtCuentaImputable.TabIndex = 7
         '
         'TextBox5
@@ -118,7 +120,7 @@ Partial Class FrmAsientoGastos
         Me.TextBox5.Location = New System.Drawing.Point(17, 376)
         Me.TextBox5.Multiline = True
         Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(616, 110)
+        Me.TextBox5.Size = New System.Drawing.Size(758, 110)
         Me.TextBox5.TabIndex = 8
         '
         'Label1
@@ -215,7 +217,7 @@ Partial Class FrmAsientoGastos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(652, 504)
+        Me.ClientSize = New System.Drawing.Size(787, 504)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
@@ -235,6 +237,7 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.cmbFPago)
         Me.Name = "FrmAsientoGastos"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmAsientoGastos"
         Me.ResumeLayout(False)
         Me.PerformLayout()
