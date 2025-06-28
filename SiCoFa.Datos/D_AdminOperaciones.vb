@@ -460,6 +460,30 @@ Public Class D_AdminOperaciones
 
     End Function
 
+    Friend Function InsertarOperacionCP(ByVal argIdOperacion As Long, ByVal argIdProveedor As Int32, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+
+        Try
+
+            Using cmd As New MySqlCommand("OperacionCCInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+
+                With cmd.Parameters
+                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                    .Add("p_IdProveedor", MySqlDbType.Int32).Value = argIdProveedor
+                    .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                End With
+
+                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCP", Ex.Message))
+
+        End Try
+
+    End Function
+
 
     Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
         Try
@@ -541,4 +565,49 @@ Public Class D_AdminOperaciones
         End Using
 
     End Function
+
+    Public Function AsientoGastoTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+                    Dim AdminOperaciones As New D_AdminOperaciones
+                    Dim objTipoOperacion As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO("ASGAS")
+                    Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, objTipoOperacion, "", "INICIADO", cn, tx)
+
+                    If argOperacionCP IsNot Nothing Then
+                        Me.InsertarOperacionCP(objOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, cn, tx)
+                    End If
+
+                    If argOperacionCB IsNot Nothing Then
+                        Me.InsertarOperacionCB(objOperacion.IdOperacion, argOperacionCB.IdCB, argOperacionCB.Importe, cn, tx)
+                    End If
+
+                    Dim AdminComprobantes As New D_AdminComprobantes
+                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+
+                    Dim AdminAsientoContable As New D_AdminAsientosContable
+                    AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
+
+                    Me.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
+
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message), ex)
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
 End Class

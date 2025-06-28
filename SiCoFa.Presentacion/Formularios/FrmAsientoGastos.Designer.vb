@@ -24,7 +24,7 @@ Partial Class FrmAsientoGastos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.cmbFPago = New System.Windows.Forms.ComboBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cmbCajaAbierta = New System.Windows.Forms.ComboBox()
         Me.txtProveedor = New System.Windows.Forms.TextBox()
         Me.txtTipoComprobante = New System.Windows.Forms.TextBox()
         Me.mtxtNumComprobante = New System.Windows.Forms.MaskedTextBox()
@@ -33,7 +33,7 @@ Partial Class FrmAsientoGastos
         Me.txtCuentaImputable = New System.Windows.Forms.TextBox()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.lblComboBox1 = New System.Windows.Forms.Label()
+        Me.lblVariable = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -41,10 +41,13 @@ Partial Class FrmAsientoGastos
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
+        Me.brnFinalizar = New System.Windows.Forms.Button()
+        Me.txtCuentaBancaria = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'cmbFPago
         '
+        Me.cmbFPago.BackColor = System.Drawing.Color.White
         Me.cmbFPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbFPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbFPago.FormattingEnabled = True
@@ -54,15 +57,16 @@ Partial Class FrmAsientoGastos
         Me.cmbFPago.Size = New System.Drawing.Size(519, 37)
         Me.cmbFPago.TabIndex = 0
         '
-        'ComboBox1
+        'cmbCajaAbierta
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(256, 55)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(519, 37)
-        Me.ComboBox1.TabIndex = 1
+        Me.cmbCajaAbierta.BackColor = System.Drawing.Color.White
+        Me.cmbCajaAbierta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbCajaAbierta.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmbCajaAbierta.FormattingEnabled = True
+        Me.cmbCajaAbierta.Location = New System.Drawing.Point(256, 55)
+        Me.cmbCajaAbierta.Name = "cmbCajaAbierta"
+        Me.cmbCajaAbierta.Size = New System.Drawing.Size(519, 37)
+        Me.cmbCajaAbierta.TabIndex = 1
         '
         'txtProveedor
         '
@@ -133,15 +137,15 @@ Partial Class FrmAsientoGastos
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Forma de Pago:"
         '
-        'lblComboBox1
+        'lblVariable
         '
-        Me.lblComboBox1.AutoSize = True
-        Me.lblComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblComboBox1.Location = New System.Drawing.Point(12, 58)
-        Me.lblComboBox1.Name = "lblComboBox1"
-        Me.lblComboBox1.Size = New System.Drawing.Size(150, 29)
-        Me.lblComboBox1.TabIndex = 10
-        Me.lblComboBox1.Text = "Caja Abierta:"
+        Me.lblVariable.AutoSize = True
+        Me.lblVariable.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblVariable.Location = New System.Drawing.Point(12, 58)
+        Me.lblVariable.Name = "lblVariable"
+        Me.lblVariable.Size = New System.Drawing.Size(150, 29)
+        Me.lblVariable.TabIndex = 10
+        Me.lblVariable.Text = "Caja Abierta:"
         '
         'Label3
         '
@@ -213,11 +217,29 @@ Partial Class FrmAsientoGastos
         Me.Label9.TabIndex = 17
         Me.Label9.Text = "Descripción:"
         '
+        'brnFinalizar
+        '
+        Me.brnFinalizar.Location = New System.Drawing.Point(674, 498)
+        Me.brnFinalizar.Name = "brnFinalizar"
+        Me.brnFinalizar.Size = New System.Drawing.Size(101, 23)
+        Me.brnFinalizar.TabIndex = 18
+        Me.brnFinalizar.Text = "Finalizar"
+        Me.brnFinalizar.UseVisualStyleBackColor = True
+        '
+        'txtCuentaBancaria
+        '
+        Me.txtCuentaBancaria.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCuentaBancaria.Location = New System.Drawing.Point(256, 57)
+        Me.txtCuentaBancaria.Name = "txtCuentaBancaria"
+        Me.txtCuentaBancaria.Size = New System.Drawing.Size(519, 35)
+        Me.txtCuentaBancaria.TabIndex = 1
+        '
         'FrmAsientoGastos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(787, 504)
+        Me.ClientSize = New System.Drawing.Size(787, 533)
+        Me.Controls.Add(Me.brnFinalizar)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
@@ -225,7 +247,7 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.lblComboBox1)
+        Me.Controls.Add(Me.lblVariable)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.txtCuentaImputable)
@@ -234,8 +256,9 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.mtxtNumComprobante)
         Me.Controls.Add(Me.txtTipoComprobante)
         Me.Controls.Add(Me.txtProveedor)
-        Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.cmbFPago)
+        Me.Controls.Add(Me.txtCuentaBancaria)
+        Me.Controls.Add(Me.cmbCajaAbierta)
         Me.Name = "FrmAsientoGastos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmAsientoGastos"
@@ -245,7 +268,7 @@ Partial Class FrmAsientoGastos
     End Sub
 
     Friend WithEvents cmbFPago As ComboBox
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cmbCajaAbierta As ComboBox
     Friend WithEvents txtProveedor As TextBox
     Friend WithEvents txtTipoComprobante As TextBox
     Friend WithEvents mtxtNumComprobante As MaskedTextBox
@@ -254,7 +277,7 @@ Partial Class FrmAsientoGastos
     Friend WithEvents txtCuentaImputable As TextBox
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents lblComboBox1 As Label
+    Friend WithEvents lblVariable As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
@@ -262,4 +285,6 @@ Partial Class FrmAsientoGastos
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
+    Friend WithEvents brnFinalizar As Button
+    Friend WithEvents txtCuentaBancaria As TextBox
 End Class

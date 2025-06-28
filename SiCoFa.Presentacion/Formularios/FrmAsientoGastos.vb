@@ -5,39 +5,17 @@ Public Class FrmAsientoGastos
     Property Usuario As Usuario
 
     Private Sub ObtenerOpcionesBoolean()
+
         Dim listaBooleanos As New List(Of OpcionBoolean) From {
             New OpcionBoolean("No", False),
             New OpcionBoolean("Sí", True)
         }
 
-        CargarCombo(ComboBox1, listaBooleanos, "Texto", "Valor", "Caja Abierta")
-    End Sub
+        cmbCajaAbierta.DataSource = listaBooleanos
+        cmbCajaAbierta.DisplayMember = "Texto"
+        cmbCajaAbierta.ValueMember = "Valor"
+        cmbCajaAbierta.SelectedIndex = -1
 
-    Private Sub ObtenerCuentasBancarias()
-        Try
-            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
-            Dim lista = AdminCuentasBancarias.ListarCuentasBancarias("*")
-            CargarCombo(ComboBox1, lista, "Descripcion", "IdCB", "Cuenta Bancaria")
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-    End Sub
-
-    Private Sub CargarCombo(cmb As ComboBox, dataSource As Object, display As String, value As String, etiqueta As String)
-        With cmb
-            .DataSource = Nothing
-            .DisplayMember = display
-            .ValueMember = value
-            .DataSource = dataSource
-            .SelectedIndex = -1
-        End With
-        lblComboBox1.Text = etiqueta
-        cmb.Enabled = True
-
-        ' Desplegar luego de asignación
-        BeginInvoke(New MethodInvoker(Sub()
-                                          cmb.DroppedDown = True
-                                      End Sub))
     End Sub
 
     Private Sub cmbFPago_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFPago.Validating
@@ -52,53 +30,135 @@ Public Class FrmAsientoGastos
             Select Case cmbFPago.Text
                 Case "CONTADO"
                     ObtenerOpcionesBoolean()
+                    Me.txtCuentaBancaria.Text = ""
+                    Me.txtCuentaBancaria.Tag = ""
+                    Me.txtCuentaBancaria.Visible = False
+                    Me.lblVariable.Text = "Caja Abierta"
+                    Me.cmbCajaAbierta.Visible = True
+                    Me.cmbCajaAbierta.Focus() ' <- Aquí pongo el foco luego de cargar
 
                 Case "CREDITO"
-                    ComboBox1.DataSource = Nothing
-                    ComboBox1.Enabled = False
-                    lblComboBox1.Text = ""
+                    Me.cmbCajaAbierta.SelectedItem = -1
+                    Me.cmbCajaAbierta.Visible = True
+                    Me.txtCuentaBancaria.Text = ""
+                    Me.txtCuentaBancaria.Tag = ""
+                    Me.txtCuentaBancaria.Visible = False
+                    lblVariable.Text = ""
 
                 Case "TRANSFERENCIA"
-                    ObtenerCuentasBancarias()
+                    Me.cmbCajaAbierta.SelectedItem = -1
+                    Me.cmbCajaAbierta.Visible = False
+                    Me.txtCuentaBancaria.Visible = True
+                    lblVariable.Text = "Cuenta Bancaria"
+
             End Select
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
         End Try
     End Sub
 
-    Private Sub ComboBox1_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ComboBox1.Validating
-        If ComboBox1.Enabled AndAlso ComboBox1.SelectedIndex = -1 Then
+    Private Sub cmbCajaAbierta_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbCajaAbierta.Validating
+        If Not cmbCajaAbierta.Visible OrElse Not cmbCajaAbierta.Enabled Then Exit Sub
+
+        If cmbCajaAbierta.SelectedIndex = -1 Then
             MessageBox.Show("Debe seleccionar un elemento de la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             e.Cancel = True
         End If
     End Sub
 
-    Private Sub ComboBox1_PreviewKeyDown(sender As Object, e As PreviewKeyDownEventArgs) Handles ComboBox1.PreviewKeyDown
-        If e.KeyCode = Keys.Up OrElse e.KeyCode = Keys.Down Then
-            e.IsInputKey = True
-        End If
+    Private Sub cmbCajaAbierta_Enter(sender As Object, e As EventArgs) Handles cmbCajaAbierta.Enter
+        cmbCajaAbierta.FlatStyle = FlatStyle.Popup ' Muestra un borde más marcado
     End Sub
 
-    Private Sub ComboBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles ComboBox1.KeyDown
-        Dim cmb As ComboBox = CType(sender, ComboBox)
+    Private Sub cmbCajaAbierta_Leave(sender As Object, e As EventArgs) Handles cmbCajaAbierta.Leave
+        cmbCajaAbierta.FlatStyle = FlatStyle.Standard ' Vuelve al borde estándar
+    End Sub
 
-        If cmb.Items.Count = 0 Then Exit Sub
+    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As String, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
 
-        Select Case e.KeyCode
-            Case Keys.Down
-                If Not cmb.DroppedDown Then
-                    cmb.DroppedDown = True
-                ElseIf cmb.SelectedIndex < cmb.Items.Count - 1 Then
-                    cmb.SelectedIndex += 1
+        Try
+            Dim CBSeleccionada As CuentaBancaria = Nothing
+
+            For Each cb As CuentaBancaria In argLista
+                If cb.IdCB = argIdCB Then
+                    CBSeleccionada = cb
+                    Exit For ' Opcional: detener la búsqueda una vez encontrado el cliente
                 End If
-                e.Handled = True
+            Next
 
-            Case Keys.Up
-                If cmb.SelectedIndex > 0 Then
-                    cmb.SelectedIndex -= 1
-                    e.Handled = True
-                End If
-        End Select
+            Return CBSeleccionada
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+            Return Nothing
+        End Try
+
+    End Function
+
+    Private Sub BuscarCuentaBancaria(ByVal argTextoBuscado As String)
+        Try
+
+            Dim AdminCuentasBancarias As New N_AdminCuentasBancarias
+            Dim lcb As List(Of CuentaBancaria) = AdminCuentasBancarias.ListarCuentasBancarias(argTextoBuscado)
+            Dim cb As CuentaBancaria = Nothing
+
+            If lcb Is Nothing Then
+                MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
+                Me.txtCuentaBancaria.Text = ""
+                Me.txtCuentaBancaria.Select()
+                Exit Sub
+            End If
+
+            Select Case lcb.Count
+                Case 0
+                    MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
+                    Me.txtTipoComprobante.Text = ""
+                    Me.txtTipoComprobante.Select()
+                    Exit Sub
+
+                Case 1
+                    cb = lcb.First
+
+                Case > 1
+                    Using f As New FrmSelectorUniversal
+                        f.Text = "Cuentas Bancarias"
+                        f.Objetos = lcb
+                        f.NombrePropiedadId = "IdCB"
+                        f.NombrePropiedadDescripcion = "Descripcion"
+                        f.HeaderPropiedadDescripcion = "Cuenta Bancaria"
+
+                        If f.ShowDialog() = DialogResult.OK Then
+                            cb = Me.SeleccionarCuentaBancariaListado(f.Valor1Seleccionado, lcb)
+                        Else
+                            Me.txtCuentaBancaria.Tag = ""
+                            Me.txtCuentaBancaria.Text = ""
+                            Me.txtCuentaBancaria.Select()
+                            Exit Sub
+
+                        End If
+                        f.Close()
+                    End Using ' <- aquí se libera completamente
+            End Select
+
+            Me.txtCuentaBancaria.Tag = cb.IdCB
+            Me.txtCuentaBancaria.Text = cb.Descripcion
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub txtCuenaBancaria_Validating(sender As Object, e As CancelEventArgs) Handles txtCuentaBancaria.Validating
+        Try
+
+            Me.BuscarCuentaBancaria(Me.txtCuentaBancaria.Text)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
     End Sub
 
     Private Sub BuscarProveedor(ByVal argTextoBuscado As String)
@@ -249,6 +309,32 @@ Public Class FrmAsientoGastos
         End Try
     End Sub
 
+    Private Sub mtxtFechaComprobante_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles mtxtFechaComprobante.MaskInputRejected
+        Try
+            Dim fecha As Date
+
+            ' Si está vacío o incompleto
+            If Not mtxtFechaComprobante.MaskCompleted Then
+                MsgBox("Debe ingresar una fecha completa.", vbExclamation, "Validación")
+                mtxtFechaComprobante.SelectAll()
+                mtxtFechaComprobante.Focus()
+                Exit Sub
+            End If
+
+            ' Validación de fecha válida
+            If Date.TryParseExact(mtxtFechaComprobante.Text, "dd/MM/yyyy", Nothing, Globalization.DateTimeStyles.None, fecha) Then
+                mtxtFechaComprobante.Text = fecha.ToString("dd/MM/yyyy") ' Normaliza la fecha
+            Else
+                MsgBox("La fecha ingresada no es válida.", vbExclamation, "Validación")
+                mtxtFechaComprobante.SelectAll()
+                mtxtFechaComprobante.Focus()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+    End Sub
+
     Private Sub BuscarCuentaImputable(ByVal argTextoBuscado As String)
         Try
 
@@ -325,5 +411,98 @@ Public Class FrmAsientoGastos
         End If
     End Sub
 
+    Private Sub txtImporte_Validated(sender As Object, e As EventArgs) Handles txtImporte.Validated
 
+        Try
+            Dim importe As Decimal
+
+            If Decimal.TryParse(txtImporte.Text, importe) Then
+                txtImporte.Text = importe.ToString("N2") ' Formato con 2 decimales, con separador de miles
+            Else
+                MsgBox("Debe ingresar un valor numérico válido.", vbExclamation, "Validación")
+                txtImporte.SelectAll()
+                txtImporte.Focus()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub FinalizarOperacion()
+        Try
+
+            Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC(Me.txtTipoComprobante.Tag.ToString)
+            Dim AfectaCajaAbierta As Boolean = False
+            Dim objOperacionCB As OperacionCB = Nothing
+            Dim objOperacionCP As OperacionCP = Nothing
+            Dim objAsCon As New AsientoContable
+            Dim impCB As Decimal = 0
+            Dim impEF As Decimal = 0
+
+            objAsCon.InsertarItem(Me.txtCuentaImputable.Tag, Convert.ToDecimal(Me.txtImporte.Text))
+
+            If Me.cmbFPago.Text = "TRANSFERENCIA" Then
+                impCB = Convert.ToDecimal(Me.txtImporte.Text)
+                objOperacionCB = New OperacionCB(0, Me.cmbCajaAbierta.SelectedValue, "", impCB, "INICIADO")
+                objAsCon.InsertarItem("1.01.03.001", -impCB)
+            End If
+
+            If Me.cmbFPago.Text = "CONTADO" Then
+                AfectaCajaAbierta = Me.cmbCajaAbierta.SelectedValue
+                impEF = Convert.ToDecimal(Me.txtImporte.Text)
+                objAsCon.InsertarItem("1.01.01.001", -impEF)
+            End If
+
+            If Me.cmbFPago.Text = "CREDITO" Then
+                objOperacionCP = New OperacionCP(0, Me.txtProveedor.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "INICIADO", 0)
+                objAsCon.InsertarItem("2.01.01.001", Convert.ToDecimal(Me.txtImporte.Text))
+            End If
+
+            Dim objComprobante As New Comprobante(
+                                                  argIdOperacion:=0,
+                                                  argOperacion:=Nothing,
+                                                  argTipoComprobante:=objTC,
+                                                  argPVenta:=Strings.Left(mtxtNumComprobante.Text, 4),
+                                                  argNumComp:=Strings.Right(mtxtNumComprobante.Text, 8),
+                                                  argFechaComp:=Convert.ToDateTime(Me.mtxtFechaComprobante.Text),
+                                                  argImpBto:=Convert.ToDecimal(Me.txtImporte.Text),
+                                                  argImpDes:=0,
+                                                  argImpEx:=0,
+                                                  argImpGrav1:=0,
+                                                  argImpGrav2:=0,
+                                                  argImpCB:=impCB,
+                                                  argImpEf:=impEF,
+                                                  argImpCC:=0,
+                                                  argImpPE:=0,
+                                                  argCAE:=Nothing,
+                                                  argIdCliente:=objCliente.Id,
+                                                  argCliente:=objCliente,
+                                                  argIdOperAsoc:=0,
+                                                  argCompAsoc:=Nothing,
+                                                  argEmpresa:=g_ParametrosTerminal.Empresa,
+                                                  argDetalle:=Nothing
+                                                  )
+
+
+
+
+
+            Dim AdminOperacion As New N_AdminOperaciones
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub brnFinalizar_Click(sender As Object, e As EventArgs) Handles brnFinalizar.Click
+        Me.FinalizarOperacion()
+    End Sub
 End Class

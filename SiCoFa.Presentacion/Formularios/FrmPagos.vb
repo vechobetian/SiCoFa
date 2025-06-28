@@ -226,7 +226,7 @@ Public Class FrmPagos
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
-            End Try
+        End Try
 
     End Sub
 
@@ -358,6 +358,7 @@ Public Class FrmPagos
     End Sub
 
     Private Sub txtImporteCuentaCorriente_Validating(sender As Object, e As CancelEventArgs) Handles txtImporteCuentaCorriente.Validating
+
         If Convert.ToDecimal(Me.txtImporteEfectivo.Text) < 0 Then
             MsgBox("El importe ingresado es mayor que el Importe a Pagar", vbCritical, "SiCoFa")
             Me.txtImporteCuentaCorriente.Text = Me.ImporteAPagar - Me.MediosDePago.ImportePagoElectronico
@@ -366,10 +367,10 @@ Public Class FrmPagos
             e.Cancel = True
         End If
 
-
     End Sub
 
     Private Sub txtImportePagoElectronico_Validating(sender As Object, e As CancelEventArgs) Handles txtImportePagoElectronico.Validating
+
         If Convert.ToDecimal(Me.txtImporteEfectivo.Text) < 0 Then
             MsgBox("El importe ingresado es mayor que el Importe a Pagar", vbCritical, "SiCoFa")
             Me.txtImportePagoElectronico.Text = Me.ImporteAPagar - Me.MediosDePago.ImporteCuentaCorriente
@@ -386,6 +387,7 @@ Public Class FrmPagos
             Me.txtImporteEfectivo.SelectAll()
 
         End If
+
     End Sub
 
 End Class

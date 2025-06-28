@@ -2,6 +2,7 @@
 Imports SiCoFa.Entidades
 
 Public Class D_AdminCajas
+
     Public Function CierreCajaTransaccion(ByVal argMacAddress As String, ByVal argCaja As Caja, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argComprobante As Comprobante) As Boolean
 
         Dim objConexionDB As New D_Conexion
