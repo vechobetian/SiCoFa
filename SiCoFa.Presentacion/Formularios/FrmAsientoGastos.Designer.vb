@@ -31,7 +31,7 @@ Partial Class FrmAsientoGastos
         Me.mtxtFechaComprobante = New System.Windows.Forms.MaskedTextBox()
         Me.txtImporte = New System.Windows.Forms.TextBox()
         Me.txtCuentaImputable = New System.Windows.Forms.TextBox()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.txtObservaciones = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblVariable = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -118,14 +118,14 @@ Partial Class FrmAsientoGastos
         Me.txtCuentaImputable.Size = New System.Drawing.Size(519, 35)
         Me.txtCuentaImputable.TabIndex = 7
         '
-        'TextBox5
+        'txtObservaciones
         '
-        Me.TextBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox5.Location = New System.Drawing.Point(17, 376)
-        Me.TextBox5.Multiline = True
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(758, 110)
-        Me.TextBox5.TabIndex = 8
+        Me.txtObservaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtObservaciones.Location = New System.Drawing.Point(17, 376)
+        Me.txtObservaciones.Multiline = True
+        Me.txtObservaciones.Name = "txtObservaciones"
+        Me.txtObservaciones.Size = New System.Drawing.Size(758, 110)
+        Me.txtObservaciones.TabIndex = 8
         '
         'Label1
         '
@@ -249,7 +249,7 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.lblVariable)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TextBox5)
+        Me.Controls.Add(Me.txtObservaciones)
         Me.Controls.Add(Me.txtCuentaImputable)
         Me.Controls.Add(Me.txtImporte)
         Me.Controls.Add(Me.mtxtFechaComprobante)
@@ -275,7 +275,7 @@ Partial Class FrmAsientoGastos
     Friend WithEvents mtxtFechaComprobante As MaskedTextBox
     Friend WithEvents txtImporte As TextBox
     Friend WithEvents txtCuentaImputable As TextBox
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents txtObservaciones As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents lblVariable As Label
     Friend WithEvents Label3 As Label

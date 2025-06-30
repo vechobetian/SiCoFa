@@ -6,6 +6,7 @@ Public Class FrmEdicionPersonas
     Property NuevaPersona As Boolean
 
     Public mobj_AdminSicofa As New N_AdminSiCoFa
+
     Private Sub ObtenerProvincias()
         Try
             With Me.Provincia
@@ -20,6 +21,7 @@ Public Class FrmEdicionPersonas
         End Try
 
     End Sub
+
     Private Sub ObtenerTiposDocumento()
 
         Try
@@ -36,6 +38,7 @@ Public Class FrmEdicionPersonas
         End Try
 
     End Sub
+
     Private Sub FrmEdicionPersonas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.ObtenerProvincias()
         Me.ObtenerTiposDocumento()
@@ -49,6 +52,7 @@ Public Class FrmEdicionPersonas
         Me.Nombre.Select()
         Me.Nuevo.Checked = True
     End Sub
+
     Public Overridable Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar.Click
         If NuevaPersona = True Then
             Exit Sub
@@ -64,6 +68,7 @@ Public Class FrmEdicionPersonas
         End If
 
     End Sub
+
     Private Sub Limpiar_Click(sender As Object, e As EventArgs) Handles Limpiar.Click
         Me.LimpiarFormulario()
         Me.NuevaPersona = False

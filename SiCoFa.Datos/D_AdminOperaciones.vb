@@ -588,6 +588,7 @@ Public Class D_AdminOperaciones
                     End If
 
                     Dim AdminComprobantes As New D_AdminComprobantes
+                    argComprobante.Operacion = objOperacion
                     AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable

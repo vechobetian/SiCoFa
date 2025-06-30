@@ -47,8 +47,11 @@ Public Class FrmInicio
     End Sub
 
     Private Sub mnuCajaAsientoGastos_Click(sender As Object, e As EventArgs) Handles mnuCajaAsientoGastos.Click
-        FrmAsientoGastos.Usuario = Me.ValidarUsuario(Me.mnuCajaAsientoGastos.Name)
-        FrmAsientoGastos.ShowDialog()
+
+        Dim nuevoAsientoGastos As New FrmAsientoGastos
+        nuevoAsientoGastos.Usuario = Me.ValidarUsuario(Me.mnuOperacionesFacturacion.Name)
+        nuevoAsientoGastos.Show()
+
     End Sub
 
     Private Sub mnuEdicionArticulos_Click(sender As Object, e As EventArgs) Handles mnuEdicionArticulos.Click

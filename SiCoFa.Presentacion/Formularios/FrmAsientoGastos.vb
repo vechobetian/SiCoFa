@@ -3,6 +3,7 @@ Imports SiCoFa.Entidades
 Imports System.ComponentModel
 Public Class FrmAsientoGastos
     Property Usuario As Usuario
+    Private DatosOpcionales As New List(Of String)
 
     Private Sub ObtenerOpcionesBoolean()
 
@@ -29,24 +30,34 @@ Public Class FrmAsientoGastos
         Try
             Select Case cmbFPago.Text
                 Case "CONTADO"
-                    ObtenerOpcionesBoolean()
+                    Me.DatosOpcionales.Clear()
+                    Me.DatosOpcionales.Add("txtObservaciones")
+                    Me.DatosOpcionales.Add("txtCuentaBancaria")
                     Me.txtCuentaBancaria.Text = ""
                     Me.txtCuentaBancaria.Tag = ""
                     Me.txtCuentaBancaria.Visible = False
                     Me.lblVariable.Text = "Caja Abierta"
                     Me.cmbCajaAbierta.Visible = True
+                    Me.cmbCajaAbierta.Enabled = True
                     Me.cmbCajaAbierta.Focus() ' <- Aquí pongo el foco luego de cargar
 
                 Case "CREDITO"
-                    Me.cmbCajaAbierta.SelectedItem = -1
+                    Me.DatosOpcionales.Clear()
+                    Me.DatosOpcionales.Add("txtObservaciones")
+                    Me.DatosOpcionales.Add("cmbCajaAbierta")
+                    Me.cmbCajaAbierta.SelectedIndex = -1
                     Me.cmbCajaAbierta.Visible = True
+                    Me.cmbCajaAbierta.Enabled = False
                     Me.txtCuentaBancaria.Text = ""
                     Me.txtCuentaBancaria.Tag = ""
                     Me.txtCuentaBancaria.Visible = False
-                    lblVariable.Text = ""
+                    lblVariable.Text = "Caja Abierta"
 
                 Case "TRANSFERENCIA"
-                    Me.cmbCajaAbierta.SelectedItem = -1
+                    Me.DatosOpcionales.Clear()
+                    Me.DatosOpcionales.Add("txtObservaciones")
+                    Me.DatosOpcionales.Add("cmbCajaAbierta")
+                    Me.cmbCajaAbierta.SelectedIndex = -1
                     Me.cmbCajaAbierta.Visible = False
                     Me.txtCuentaBancaria.Visible = True
                     lblVariable.Text = "Cuenta Bancaria"
@@ -433,6 +444,34 @@ Public Class FrmAsientoGastos
 
     Private Sub FinalizarOperacion()
         Try
+            Dim str As String = Strings.Replace(Me.mtxtNumComprobante.Text, "-", "").Trim
+
+            If str = "" Then
+                MsgBox("Num.Comprobante es un dato requerido", vbCritical, "SiCoFa")
+                Me.mtxtNumComprobante.Focus()
+                Exit Sub
+            End If
+
+            If Len(str) <> 12 Then
+                MsgBox("Formato invalido para el tipo de comprobante", vbCritical, "SiCoFa")
+                mtxtNumComprobante.Text = "-"
+                Me.mtxtNumComprobante.Focus()
+                Exit Sub
+            End If
+
+            str = Strings.Replace(Me.mtxtFechaComprobante.Text, "/", "").Trim
+
+            If str = "" Then
+                MsgBox("Fecha Comprobante es un dato requerido", vbCritical, "SiCoFa")
+                Me.mtxtFechaComprobante.Focus()
+                Exit Sub
+            End If
+
+            Me.ValidarCampos(Me, Me.DatosOpcionales)
+
+            If Me.ValidacionOK = False Then
+                Exit Sub
+            End If
 
             Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
@@ -493,7 +532,13 @@ Public Class FrmAsientoGastos
 
 
             Dim AdminOperacion As New N_AdminOperaciones
+            AdminOperacion.AsientoGastoTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon)
 
+            Dim nuevoAsientoGastos As New FrmAsientoGastos
+            nuevoAsientoGastos.Usuario = Me.Usuario
+            nuevoAsientoGastos.Show()
+
+            Me.Close()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -504,5 +549,9 @@ Public Class FrmAsientoGastos
 
     Private Sub brnFinalizar_Click(sender As Object, e As EventArgs) Handles brnFinalizar.Click
         Me.FinalizarOperacion()
+    End Sub
+
+    Private Sub FrmAsientoGastos_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ObtenerOpcionesBoolean()
     End Sub
 End Class
