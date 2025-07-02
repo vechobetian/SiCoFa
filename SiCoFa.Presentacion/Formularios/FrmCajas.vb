@@ -193,7 +193,7 @@ Public Class FrmCajas
 
     End Sub
 
-    Private Sub DetalleOperacionesEfectivoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetalleOperacionesEfectivoToolStripMenuItem.Click
+    Private Sub DetalleEF_Click(sender As Object, e As EventArgs) Handles mnuDetalleEF.Click
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
@@ -207,7 +207,7 @@ Public Class FrmCajas
 
     End Sub
 
-    Private Sub DetallePagoElectronicoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetallePagoElectronicoToolStripMenuItem.Click
+    Private Sub DetallePE_Click(sender As Object, e As EventArgs) Handles mnuDetallePE.Click
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
@@ -221,7 +221,7 @@ Public Class FrmCajas
 
     End Sub
 
-    Private Sub DetalleCuentaCorrienteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DetalleCuentaCorrienteToolStripMenuItem.Click
+    Private Sub DetalleCC_Click(sender As Object, e As EventArgs) Handles mnuDetalleCC.Click
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
@@ -235,8 +235,13 @@ Public Class FrmCajas
 
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+    Private Sub mnuCierreCaja_Click(sender As Object, e As EventArgs) Handles mnuCierreCaja.Click
         Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario("CIERRE_CAJA")
+            If User Is Nothing Then
+                Exit Sub
+            End If
 
             If Me.DataGridView1.CurrentRow.Cells("Estado").Value = "CERRADA" Then
                 MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
@@ -285,6 +290,14 @@ Public Class FrmCajas
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+
+    End Sub
+
+    Private Sub mnuRetiroEfectivo_Click(sender As Object, e As EventArgs) Handles mnuRetiroEfectivo.Click
+        Dim User As Usuario = ModSeguridad.ValidarUsuario("RETIRO_EF_CAJA")
+        If User Is Nothing Then
+            Exit Sub
+        End If
 
     End Sub
 End Class

@@ -22,12 +22,12 @@ Partial Class FrmCajas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -37,11 +37,11 @@ Partial Class FrmCajas
         Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NCaja = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DetalleOperacionesEfectivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DetallePagoElectronicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DetalleCuentaCorrienteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuVer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDetalleEF = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDetallePE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDetalleCC = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblImporteCC = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -62,6 +62,8 @@ Partial Class FrmCajas
         Me.ImportePE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EstadoTransaccion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.mnuCierreCaja = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuRetiroEfectivo = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -167,43 +169,44 @@ Partial Class FrmCajas
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.VerToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuVer})
         Me.MenuStrip1.Location = New System.Drawing.Point(3, 3)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(623, 24)
         Me.MenuStrip1.TabIndex = 5
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'ToolStripMenuItem1
+        'mnuOperaciones
         '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(92, 20)
-        Me.ToolStripMenuItem1.Text = "&Cierre de Caja"
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCierreCaja, Me.mnuRetiroEfectivo})
+        Me.mnuOperaciones.Name = "mnuOperaciones"
+        Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
+        Me.mnuOperaciones.Text = "&Operaciones"
         '
-        'VerToolStripMenuItem
+        'mnuVer
         '
-        Me.VerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DetalleOperacionesEfectivoToolStripMenuItem, Me.DetallePagoElectronicoToolStripMenuItem, Me.DetalleCuentaCorrienteToolStripMenuItem})
-        Me.VerToolStripMenuItem.Name = "VerToolStripMenuItem"
-        Me.VerToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
-        Me.VerToolStripMenuItem.Text = "Ver"
+        Me.mnuVer.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuDetalleEF, Me.mnuDetallePE, Me.mnuDetalleCC})
+        Me.mnuVer.Name = "mnuVer"
+        Me.mnuVer.Size = New System.Drawing.Size(35, 20)
+        Me.mnuVer.Text = "Ver"
         '
-        'DetalleOperacionesEfectivoToolStripMenuItem
+        'mnuDetalleEF
         '
-        Me.DetalleOperacionesEfectivoToolStripMenuItem.Name = "DetalleOperacionesEfectivoToolStripMenuItem"
-        Me.DetalleOperacionesEfectivoToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
-        Me.DetalleOperacionesEfectivoToolStripMenuItem.Text = "Detalle Operaciones Efectivo"
+        Me.mnuDetalleEF.Name = "mnuDetalleEF"
+        Me.mnuDetalleEF.Size = New System.Drawing.Size(224, 22)
+        Me.mnuDetalleEF.Text = "Detalle Operaciones Efectivo"
         '
-        'DetallePagoElectronicoToolStripMenuItem
+        'mnuDetallePE
         '
-        Me.DetallePagoElectronicoToolStripMenuItem.Name = "DetallePagoElectronicoToolStripMenuItem"
-        Me.DetallePagoElectronicoToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
-        Me.DetallePagoElectronicoToolStripMenuItem.Text = "Detalle Pago Electronico"
+        Me.mnuDetallePE.Name = "mnuDetallePE"
+        Me.mnuDetallePE.Size = New System.Drawing.Size(224, 22)
+        Me.mnuDetallePE.Text = "Detalle Pago Electronico"
         '
-        'DetalleCuentaCorrienteToolStripMenuItem
+        'mnuDetalleCC
         '
-        Me.DetalleCuentaCorrienteToolStripMenuItem.Name = "DetalleCuentaCorrienteToolStripMenuItem"
-        Me.DetalleCuentaCorrienteToolStripMenuItem.Size = New System.Drawing.Size(224, 22)
-        Me.DetalleCuentaCorrienteToolStripMenuItem.Text = "Detalle Cuenta Corriente"
+        Me.mnuDetalleCC.Name = "mnuDetalleCC"
+        Me.mnuDetalleCC.Size = New System.Drawing.Size(224, 22)
+        Me.mnuDetalleCC.Text = "Detalle Cuenta Corriente"
         '
         'TableLayoutPanel1
         '
@@ -323,8 +326,8 @@ Partial Class FrmCajas
         'CantOperacionesEf
         '
         Me.CantOperacionesEf.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesEf.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesEf.DefaultCellStyle = DataGridViewCellStyle7
         Me.CantOperacionesEf.HeaderText = "Operaciones"
         Me.CantOperacionesEf.Name = "CantOperacionesEf"
         Me.CantOperacionesEf.ReadOnly = True
@@ -332,10 +335,10 @@ Partial Class FrmCajas
         'ImporteEf
         '
         Me.ImporteEf.DataPropertyName = "Importe"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.ImporteEf.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "N2"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.ImporteEf.DefaultCellStyle = DataGridViewCellStyle8
         Me.ImporteEf.HeaderText = "Importe"
         Me.ImporteEf.Name = "ImporteEf"
         Me.ImporteEf.ReadOnly = True
@@ -368,8 +371,8 @@ Partial Class FrmCajas
         'CantOperacionesCC
         '
         Me.CantOperacionesCC.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesCC.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesCC.DefaultCellStyle = DataGridViewCellStyle9
         Me.CantOperacionesCC.HeaderText = "Operaciones"
         Me.CantOperacionesCC.Name = "CantOperacionesCC"
         Me.CantOperacionesCC.ReadOnly = True
@@ -377,10 +380,10 @@ Partial Class FrmCajas
         'ImporteCC
         '
         Me.ImporteCC.DataPropertyName = "Importe"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.ImporteCC.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle10.Format = "N2"
+        DataGridViewCellStyle10.NullValue = Nothing
+        Me.ImporteCC.DefaultCellStyle = DataGridViewCellStyle10
         Me.ImporteCC.HeaderText = "Importe"
         Me.ImporteCC.Name = "ImporteCC"
         Me.ImporteCC.ReadOnly = True
@@ -413,8 +416,8 @@ Partial Class FrmCajas
         'CantOperacionesPE
         '
         Me.CantOperacionesPE.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesPE.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesPE.DefaultCellStyle = DataGridViewCellStyle11
         Me.CantOperacionesPE.HeaderText = "Operaciones"
         Me.CantOperacionesPE.Name = "CantOperacionesPE"
         Me.CantOperacionesPE.ReadOnly = True
@@ -422,10 +425,10 @@ Partial Class FrmCajas
         'ImportePE
         '
         Me.ImportePE.DataPropertyName = "Importe"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.ImportePE.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.ImportePE.DefaultCellStyle = DataGridViewCellStyle12
         Me.ImportePE.HeaderText = "Importe"
         Me.ImportePE.Name = "ImportePE"
         Me.ImportePE.ReadOnly = True
@@ -448,6 +451,18 @@ Partial Class FrmCajas
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Operaciones en Efectivo"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'mnuCierreCaja
+        '
+        Me.mnuCierreCaja.Name = "mnuCierreCaja"
+        Me.mnuCierreCaja.Size = New System.Drawing.Size(180, 22)
+        Me.mnuCierreCaja.Text = "&Cierre de Caja"
+        '
+        'mnuRetiroEfectivo
+        '
+        Me.mnuRetiroEfectivo.Name = "mnuRetiroEfectivo"
+        Me.mnuRetiroEfectivo.Size = New System.Drawing.Size(180, 22)
+        Me.mnuRetiroEfectivo.Text = "&Retiro Efectivo"
         '
         'FrmCajas
         '
@@ -505,9 +520,11 @@ Partial Class FrmCajas
     Friend WithEvents ImportePE As DataGridViewTextBoxColumn
     Friend WithEvents EstadoTransaccion As DataGridViewTextBoxColumn
     Friend WithEvents MenuStrip1 As MenuStrip
-    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents VerToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DetalleOperacionesEfectivoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DetallePagoElectronicoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents DetalleCuentaCorrienteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuVer As ToolStripMenuItem
+    Friend WithEvents mnuDetalleEF As ToolStripMenuItem
+    Friend WithEvents mnuDetallePE As ToolStripMenuItem
+    Friend WithEvents mnuDetalleCC As ToolStripMenuItem
+    Friend WithEvents mnuOperaciones As ToolStripMenuItem
+    Friend WithEvents mnuCierreCaja As ToolStripMenuItem
+    Friend WithEvents mnuRetiroEfectivo As ToolStripMenuItem
 End Class
