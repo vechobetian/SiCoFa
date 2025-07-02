@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports System.Globalization
+Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
 Public Class FrmCajas
@@ -248,7 +249,6 @@ Public Class FrmCajas
                 Exit Sub
             End If
 
-
             Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")
@@ -294,10 +294,98 @@ Public Class FrmCajas
     End Sub
 
     Private Sub mnuRetiroEfectivo_Click(sender As Object, e As EventArgs) Handles mnuRetiroEfectivo.Click
-        Dim User As Usuario = ModSeguridad.ValidarUsuario("RETIRO_EF_CAJA")
-        If User Is Nothing Then
-            Exit Sub
-        End If
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario("RETIRO_EF_CAJA")
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            If Me.DataGridView1.CurrentRow.Cells("Estado").Value = "CERRADA" Then
+                MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
+                Exit Sub
+            End If
+
+            Dim strImporte As String = ""
+            Dim Importe As Decimal = 0
+
+            Do
+                strImporte = InputBox("Saldo Caja Abierta: $" & Format(mdecImporteEf, "Standard") & vbCrLf & vbCrLf & "Ingrese el Importe a Retirar", "SiCoFa").Trim()
+
+                ' Cancelado o vacío
+                If strImporte = "" Then
+                    MsgBox("Operación cancelada.", vbInformation, "SiCoFa")
+                    Exit Sub
+                End If
+
+                ' Convertir punto decimal a coma si corresponde
+                If CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator = "," Then
+                    strImporte = strImporte.Replace(".", ",")
+                End If
+
+                ' Intentar convertir usando configuración local
+                If Not Decimal.TryParse(strImporte, NumberStyles.Number, CultureInfo.CurrentCulture, Importe) Then
+                    MsgBox("Ingrese un importe numérico válido.", vbCritical, "SiCoFa")
+                    Continue Do
+                End If
+
+                If Importe <= 0 Then
+                    MsgBox("El importe debe ser mayor que cero.", vbCritical, "SiCoFa")
+                    Continue Do
+                End If
+
+                If Importe > mdecImporteEf Then
+                    MsgBox("El importe ingresado es mayor que el saldo en caja.", vbCritical, "SiCoFa")
+                    Continue Do
+                End If
+
+                Exit Do
+            Loop
+
+            If MsgBox("Se registrará un Retiro de Efectivo por un importe de $" & Format(Importe, "Standard"), vbOKCancel + vbDefaultButton2 + vbQuestion, "SiCoFa") = vbCancel Then
+                MsgBox("Operación cancelada", vbInformation, "SiCoFa")
+                Exit Sub
+            End If
+
+            Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")
+
+            Dim objComprobante As New Comprobante(
+                                                  argIdOperacion:=0,
+                                                  argOperacion:=Nothing,
+                                                  argTipoComprobante:=objTC,
+                                                  argPVenta:="",
+                                                  argNumComp:="",
+                                                  argFechaComp:=Nothing,
+                                                  argImpBto:=Convert.ToDecimal(strImporte),
+                                                  argImpDes:=0,
+                                                  argImpEx:=0,
+                                                  argImpGrav1:=0,
+                                                  argImpGrav2:=0,
+                                                  argImpCB:=0,
+                                                  argImpEf:=Convert.ToDecimal(strImporte),
+                                                  argImpCC:=0,
+                                                  argImpPE:=0,
+                                                  argCAE:=Nothing,
+                                                  argIdCliente:=objCliente.Id,
+                                                  argCliente:=objCliente,
+                                                  argIdOperAsoc:=0,
+                                                  argCompAsoc:=Nothing,
+                                                  argEmpresa:=g_ParametrosTerminal.Empresa,
+                                                  argDetalle:=Nothing
+                                                  )
+
+
+            Dim AdminCajas As New N_AdminCajas
+            AdminCajas.RetiroEfectivoCajaAbiertaTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objComprobante)
+            Me.ActualizarOperacionesEfectivo()
+            MsgBox("Retiro de efectivo registrado correctamente.", vbInformation, "SiCoFa")
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
     End Sub
+
 End Class

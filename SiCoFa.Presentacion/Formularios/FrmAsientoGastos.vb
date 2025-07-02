@@ -527,10 +527,6 @@ Public Class FrmAsientoGastos
                                                   argDetalle:=Nothing
                                                   )
 
-
-
-
-
             Dim AdminOperacion As New N_AdminOperaciones
             AdminOperacion.AsientoGastoTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon)
 
