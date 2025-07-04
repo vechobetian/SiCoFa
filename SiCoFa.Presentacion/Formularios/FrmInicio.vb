@@ -4,7 +4,7 @@ Public Class FrmInicio
 
     Private Sub mnuOperacionesFacturacion_Click(sender As Object, e As EventArgs) Handles mnuOperacionesFacturacion.Click
 
-        Dim nuevaVentanaVentas As New FrmVentas()
+        Dim nuevaVentanaVentas As New FrmVentas1()
         nuevaVentanaVentas.Usuario = ModSeguridad.ValidarUsuario(Me.mnuOperacionesFacturacion.Name)
         nuevaVentanaVentas.Show()
 
@@ -12,22 +12,42 @@ Public Class FrmInicio
 
     Private Sub mnuCajaMovimientos_Click(sender As Object, e As EventArgs) Handles mnuCajaMovimientos.Click
 
+        If ModSeguridad.ValidarUsuario(Me.mnuCajaMovimientos.Name) Is Nothing Then
+            Exit Sub
+        End If
+
         FrmCajas.Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaMovimientos.Name)
         FrmCajas.Show()
 
     End Sub
 
     Private Sub mnuCajaAsientoGastos_Click(sender As Object, e As EventArgs) Handles mnuCajaAsientoGastos.Click
-        FrmAsientoGastos.Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaAsientoGastos.Name)
-        FrmAsientoGastos.ShowDialog()
+
+        Dim nuevoAsientoGastos As New FrmAsientoGastos()
+        nuevoAsientoGastos.Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaAsientoGastos.Name)
+        nuevoAsientoGastos.Show()
+
     End Sub
 
     Private Sub mnuEdicionArticulos_Click(sender As Object, e As EventArgs) Handles mnuEdicionArticulos.Click
-        FrmArticulos.Show()
+
+        If ModSeguridad.ValidarUsuario(Me.mnuEdicionArticulos.Name) Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim f As New FrmArticulos()
+        f.Show()
+
     End Sub
 
     Private Sub mnuEdicionClientes_Click(sender As Object, e As EventArgs) Handles mnuEdicionClientes.Click
+
+        If ModSeguridad.ValidarUsuario(Me.mnuEdicionClientes.Name) Is Nothing Then
+            Exit Sub
+        End If
+
         FrmPanelClientes.Show()
+
     End Sub
 
     Private Sub mnuEdicionEmpleados_Click(sender As Object, e As EventArgs) Handles mnuEdicionEmpleados.Click
@@ -35,18 +55,20 @@ Public Class FrmInicio
     End Sub
 
     Private Sub mnuEdicionMedioPE_Click(sender As Object, e As EventArgs) Handles mnuEdicionMedioPE.Click
-        Dim user As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEdicionMedioPE.Name)
-        If user Is Nothing Then
+
+        If ModSeguridad.ValidarUsuario(Me.mnuEdicionMedioPE.Name) Is Nothing Then
             Exit Sub
         End If
-        FrmMediosPE.ShowDialog()
+
+        Dim f As New FrmMediosPE
+        f.Show()
+
     End Sub
 
     Private Sub mnuEdicionUsuarios_Click(sender As Object, e As EventArgs) Handles mnuEdicionUsuarios.Click
         Try
 
-            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEdicionUsuarios.Name)
-            If User Is Nothing Then
+            If ModSeguridad.ValidarUsuario(Me.mnuEdicionUsuarios.Name) Is Nothing Then
                 Exit Sub
             End If
 
@@ -63,6 +85,7 @@ Public Class FrmInicio
     Private Sub mnuEdicionProveedores_Click(sender As Object, e As EventArgs) Handles mnuEdicionProveedores.Click
         Try
             Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEdicionProveedores.Name)
+
             If User Is Nothing Then
                 Exit Sub
             End If
@@ -81,6 +104,7 @@ Public Class FrmInicio
         Try
 
             Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEdicionPermisos.Name)
+
             If User Is Nothing Then
                 Exit Sub
             End If
@@ -88,7 +112,6 @@ Public Class FrmInicio
             Dim frm As New FrmPermisos()
             frm.Usuario = User
             frm.MenuPrincipal = Me.MenuStrip1
-            'frm.MenuCaja = FrmCajas.MenuStrip1
             frm.ShowDialog()
 
         Catch ex As Exception

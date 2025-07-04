@@ -31,8 +31,6 @@ Partial Class FrmInicio
         Me.mnuCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCajaMovimientos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCajaAsientoGastos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuCajaRetiroEfCA = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuCajaRetiroEfCB = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFiscal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFiscalLibroIVA = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFiscalIVADigital = New System.Windows.Forms.ToolStripMenuItem()
@@ -89,30 +87,30 @@ Partial Class FrmInicio
         'mnuOperacionesFacturacion
         '
         Me.mnuOperacionesFacturacion.Name = "mnuOperacionesFacturacion"
-        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(237, 22)
+        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(232, 22)
         Me.mnuOperacionesFacturacion.Text = "&Facturacion"
         '
         'mnuOperacionesCancelaCC
         '
         Me.mnuOperacionesCancelaCC.Name = "mnuOperacionesCancelaCC"
-        Me.mnuOperacionesCancelaCC.Size = New System.Drawing.Size(237, 22)
-        Me.mnuOperacionesCancelaCC.Text = "&Cancelacion Cuentas Corriente"
+        Me.mnuOperacionesCancelaCC.Size = New System.Drawing.Size(232, 22)
+        Me.mnuOperacionesCancelaCC.Text = "&Cancelacion Cuenta Corriente"
         '
         'mnuOperacionesNC
         '
         Me.mnuOperacionesNC.Name = "mnuOperacionesNC"
-        Me.mnuOperacionesNC.Size = New System.Drawing.Size(237, 22)
+        Me.mnuOperacionesNC.Size = New System.Drawing.Size(232, 22)
         Me.mnuOperacionesNC.Text = "&Notas de Credito"
         '
         'mnuOperacionesCompras
         '
         Me.mnuOperacionesCompras.Name = "mnuOperacionesCompras"
-        Me.mnuOperacionesCompras.Size = New System.Drawing.Size(237, 22)
+        Me.mnuOperacionesCompras.Size = New System.Drawing.Size(232, 22)
         Me.mnuOperacionesCompras.Text = "Com&pras"
         '
         'mnuCaja
         '
-        Me.mnuCaja.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCajaMovimientos, Me.mnuCajaAsientoGastos, Me.mnuCajaRetiroEfCA, Me.mnuCajaRetiroEfCB})
+        Me.mnuCaja.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCajaMovimientos, Me.mnuCajaAsientoGastos})
         Me.mnuCaja.Name = "mnuCaja"
         Me.mnuCaja.Size = New System.Drawing.Size(42, 20)
         Me.mnuCaja.Text = "&Caja"
@@ -120,26 +118,14 @@ Partial Class FrmInicio
         'mnuCajaMovimientos
         '
         Me.mnuCajaMovimientos.Name = "mnuCajaMovimientos"
-        Me.mnuCajaMovimientos.Size = New System.Drawing.Size(239, 22)
+        Me.mnuCajaMovimientos.Size = New System.Drawing.Size(186, 22)
         Me.mnuCajaMovimientos.Text = "&Movimientos de Caja"
         '
         'mnuCajaAsientoGastos
         '
         Me.mnuCajaAsientoGastos.Name = "mnuCajaAsientoGastos"
-        Me.mnuCajaAsientoGastos.Size = New System.Drawing.Size(239, 22)
+        Me.mnuCajaAsientoGastos.Size = New System.Drawing.Size(186, 22)
         Me.mnuCajaAsientoGastos.Text = "&Asiendo de Gastos"
-        '
-        'mnuCajaRetiroEfCA
-        '
-        Me.mnuCajaRetiroEfCA.Name = "mnuCajaRetiroEfCA"
-        Me.mnuCajaRetiroEfCA.Size = New System.Drawing.Size(239, 22)
-        Me.mnuCajaRetiroEfCA.Text = "&Retiro Efectivo Caja Abierta"
-        '
-        'mnuCajaRetiroEfCB
-        '
-        Me.mnuCajaRetiroEfCB.Name = "mnuCajaRetiroEfCB"
-        Me.mnuCajaRetiroEfCB.Size = New System.Drawing.Size(239, 22)
-        Me.mnuCajaRetiroEfCB.Text = "Retiro Efectivo Cuenta &Bancaria"
         '
         'mnuFiscal
         '
@@ -151,19 +137,19 @@ Partial Class FrmInicio
         'mnuFiscalLibroIVA
         '
         Me.mnuFiscalLibroIVA.Name = "mnuFiscalLibroIVA"
-        Me.mnuFiscalLibroIVA.Size = New System.Drawing.Size(158, 22)
+        Me.mnuFiscalLibroIVA.Size = New System.Drawing.Size(180, 22)
         Me.mnuFiscalLibroIVA.Text = "&Libro IVA"
         '
         'mnuFiscalIVADigital
         '
         Me.mnuFiscalIVADigital.Name = "mnuFiscalIVADigital"
-        Me.mnuFiscalIVADigital.Size = New System.Drawing.Size(158, 22)
+        Me.mnuFiscalIVADigital.Size = New System.Drawing.Size(180, 22)
         Me.mnuFiscalIVADigital.Text = "Libro IVA &Digital"
         '
         'mnuFiscalIVAExcel
         '
         Me.mnuFiscalIVAExcel.Name = "mnuFiscalIVAExcel"
-        Me.mnuFiscalIVAExcel.Size = New System.Drawing.Size(158, 22)
+        Me.mnuFiscalIVAExcel.Size = New System.Drawing.Size(180, 22)
         Me.mnuFiscalIVAExcel.Text = "Libro IVA &Excel"
         '
         'mnuContabilidad
@@ -268,55 +254,55 @@ Partial Class FrmInicio
         'mnuEdicionArticulos
         '
         Me.mnuEdicionArticulos.Name = "mnuEdicionArticulos"
-        Me.mnuEdicionArticulos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionArticulos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionArticulos.Text = "Artículos"
         '
         'mnuEdicionClientes
         '
         Me.mnuEdicionClientes.Name = "mnuEdicionClientes"
-        Me.mnuEdicionClientes.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionClientes.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionClientes.Text = "Clientes"
         '
         'mnuEdicionEmpleados
         '
         Me.mnuEdicionEmpleados.Name = "mnuEdicionEmpleados"
-        Me.mnuEdicionEmpleados.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionEmpleados.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionEmpleados.Text = "Empleados"
         '
         'mnuEdicionUsuarios
         '
         Me.mnuEdicionUsuarios.Name = "mnuEdicionUsuarios"
-        Me.mnuEdicionUsuarios.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionUsuarios.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionUsuarios.Text = "Usuarios"
         '
         'mnuEdicionProveedores
         '
         Me.mnuEdicionProveedores.Name = "mnuEdicionProveedores"
-        Me.mnuEdicionProveedores.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionProveedores.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionProveedores.Text = "Proveedores"
         '
         'mnuEdicionSecciones
         '
         Me.mnuEdicionSecciones.Name = "mnuEdicionSecciones"
-        Me.mnuEdicionSecciones.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionSecciones.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionSecciones.Text = "Secciones"
         '
         'mnuEdicionCuentasBancarias
         '
         Me.mnuEdicionCuentasBancarias.Name = "mnuEdicionCuentasBancarias"
-        Me.mnuEdicionCuentasBancarias.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionCuentasBancarias.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionCuentasBancarias.Text = "Cuentas Banco"
         '
         'mnuEdicionMedioPE
         '
         Me.mnuEdicionMedioPE.Name = "mnuEdicionMedioPE"
-        Me.mnuEdicionMedioPE.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionMedioPE.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionMedioPE.Text = "Medios de Pago"
         '
         'mnuEdicionPermisos
         '
         Me.mnuEdicionPermisos.Name = "mnuEdicionPermisos"
-        Me.mnuEdicionPermisos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEdicionPermisos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEdicionPermisos.Text = "Permisos"
         '
         'mnuHerramientas
@@ -391,8 +377,6 @@ Partial Class FrmInicio
     Friend WithEvents mnuOperacionesNC As ToolStripMenuItem
     Friend WithEvents mnuOperacionesCompras As ToolStripMenuItem
     Friend WithEvents mnuCajaAsientoGastos As ToolStripMenuItem
-    Friend WithEvents mnuCajaRetiroEfCA As ToolStripMenuItem
-    Friend WithEvents mnuCajaRetiroEfCB As ToolStripMenuItem
     Friend WithEvents mnuFiscalLibroIVA As ToolStripMenuItem
     Friend WithEvents mnuFiscalIVADigital As ToolStripMenuItem
     Friend WithEvents mnuFiscalIVAExcel As ToolStripMenuItem

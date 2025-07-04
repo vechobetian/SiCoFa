@@ -4,6 +4,16 @@ Imports System.ComponentModel
 Public Class FrmAsientoGastos
     Property Usuario As Usuario
     Private DatosOpcionales As New List(Of String)
+    Private Const WM_SYSCOMMAND As Integer = &H112
+    Private Const SC_CLOSE As Integer = &HF060
+
+    Protected Overrides Sub WndProc(ByRef m As Message)
+        If m.Msg = WM_SYSCOMMAND AndAlso (m.WParam.ToInt32() And &HFFF0) = SC_CLOSE Then
+            ' El usuario hizo clic en la X → desactivamos validación
+            Me.AutoValidate = AutoValidate.Disable
+        End If
+        MyBase.WndProc(m)
+    End Sub
 
     Private Sub ObtenerOpcionesBoolean()
 
@@ -20,6 +30,7 @@ Public Class FrmAsientoGastos
     End Sub
 
     Private Sub cmbFPago_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbFPago.Validating
+
         If cmbFPago.SelectedIndex = -1 Then
             MessageBox.Show("Debe seleccionar un elemento de la lista.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             e.Cancel = True
@@ -69,6 +80,7 @@ Public Class FrmAsientoGastos
     End Sub
 
     Private Sub cmbCajaAbierta_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmbCajaAbierta.Validating
+
         If Not cmbCajaAbierta.Visible OrElse Not cmbCajaAbierta.Enabled Then Exit Sub
 
         If cmbCajaAbierta.SelectedIndex = -1 Then
@@ -473,7 +485,6 @@ Public Class FrmAsientoGastos
                 Exit Sub
             End If
 
-            Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC(Me.txtTipoComprobante.Tag.ToString)
             Dim AfectaCajaAbierta As Boolean = False
@@ -519,8 +530,8 @@ Public Class FrmAsientoGastos
                                                   argImpCC:=0,
                                                   argImpPE:=0,
                                                   argCAE:=Nothing,
-                                                  argIdCliente:=objCliente.Id,
-                                                  argCliente:=objCliente,
+                                                  argIdCliente:=Nothing,
+                                                  argCliente:=Nothing,
                                                   argIdOperAsoc:=0,
                                                   argCompAsoc:=Nothing,
                                                   argEmpresa:=g_ParametrosTerminal.Empresa,
@@ -528,7 +539,7 @@ Public Class FrmAsientoGastos
                                                   )
 
             Dim AdminOperacion As New N_AdminOperaciones
-            AdminOperacion.AsientoGastoTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon)
+            AdminOperacion.AsientoGastoTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
             Dim nuevoAsientoGastos As New FrmAsientoGastos
             nuevoAsientoGastos.Usuario = Me.Usuario
@@ -550,4 +561,9 @@ Public Class FrmAsientoGastos
     Private Sub FrmAsientoGastos_Load(sender As Object, e As EventArgs) Handles Me.Load
         ObtenerOpcionesBoolean()
     End Sub
+
+    Private Sub FrmAsientoGastos_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Me.AutoValidate = AutoValidate.Disable
+    End Sub
+
 End Class

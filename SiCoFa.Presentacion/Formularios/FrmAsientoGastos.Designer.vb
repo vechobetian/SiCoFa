@@ -121,10 +121,10 @@ Partial Class FrmAsientoGastos
         'txtObservaciones
         '
         Me.txtObservaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtObservaciones.Location = New System.Drawing.Point(17, 376)
+        Me.txtObservaciones.Location = New System.Drawing.Point(256, 347)
         Me.txtObservaciones.Multiline = True
         Me.txtObservaciones.Name = "txtObservaciones"
-        Me.txtObservaciones.Size = New System.Drawing.Size(758, 110)
+        Me.txtObservaciones.Size = New System.Drawing.Size(519, 110)
         Me.txtObservaciones.TabIndex = 8
         '
         'Label1
@@ -219,11 +219,12 @@ Partial Class FrmAsientoGastos
         '
         'brnFinalizar
         '
-        Me.brnFinalizar.Location = New System.Drawing.Point(674, 498)
+        Me.brnFinalizar.Location = New System.Drawing.Point(674, 463)
         Me.brnFinalizar.Name = "brnFinalizar"
         Me.brnFinalizar.Size = New System.Drawing.Size(101, 23)
         Me.brnFinalizar.TabIndex = 18
-        Me.brnFinalizar.Text = "Finalizar"
+        Me.brnFinalizar.TabStop = False
+        Me.brnFinalizar.Text = "&Finalizar"
         Me.brnFinalizar.UseVisualStyleBackColor = True
         '
         'txtCuentaBancaria
@@ -238,7 +239,7 @@ Partial Class FrmAsientoGastos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(787, 533)
+        Me.ClientSize = New System.Drawing.Size(787, 500)
         Me.Controls.Add(Me.brnFinalizar)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)

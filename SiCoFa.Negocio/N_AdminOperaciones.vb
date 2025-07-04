@@ -200,12 +200,12 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function AsientoGastoTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+    Public Function AsientoGastoTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Finalizado As Boolean = AdminOperaciones.AsientoGastoTransaccion(argMacAddress, argEmpresa, argUsuario, argOperacionCP, argOperacionCB, argComprobante, argAsiento)
+            Dim Finalizado As Boolean = AdminOperaciones.AsientoGastoTransaccion(argCajaAbierta, argMacAddress, argEmpresa, argUsuario, argOperacionCP, argOperacionCB, argComprobante, argAsiento, argObservacion)
             Return Finalizado
 
         Catch ex As Exception

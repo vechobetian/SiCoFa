@@ -541,7 +541,7 @@ Public Class D_AdminOperaciones
                     End If
 
                     Dim AdminComprobantes As New D_AdminComprobantes
-                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+                    AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     AdminAsientoContable.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
@@ -566,7 +566,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function AsientoGastoTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+    Public Function AsientoGastoTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -577,7 +577,7 @@ Public Class D_AdminOperaciones
                 Try
                     Dim AdminOperaciones As New D_AdminOperaciones
                     Dim objTipoOperacion As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO("ASGAS")
-                    Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, objTipoOperacion, "", "INICIADO", cn, tx)
+                    Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, objTipoOperacion, argObservacion, "INICIADO", cn, tx)
 
                     If argOperacionCP IsNot Nothing Then
                         Me.InsertarOperacionCP(objOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, cn, tx)
@@ -589,12 +589,12 @@ Public Class D_AdminOperaciones
 
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.Operacion = objOperacion
-                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+                    AdminComprobantes.RecibirComprobante(argComprobante, cn, tx)
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
 
-                    Me.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
+                    Me.FinalizarOperacion(argMacAddress, objOperacion, argCajaAbierta, cn, tx)
 
                     tx.Commit()
                     Return True

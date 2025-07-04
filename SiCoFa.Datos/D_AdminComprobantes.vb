@@ -90,13 +90,13 @@ Public Class D_AdminComprobantes
         End Try
     End Function
 
-    Public Function InsertarComprobante(ByRef argComprobante As Comprobante) As Boolean
+    Public Function EmitirComprobante(ByRef argComprobante As Comprobante) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 cn.Open()
-                Return InsertarComprobante(argComprobante, cn, Nothing)
+                Return EmitirComprobante(argComprobante, cn, Nothing)
             End Using
 
         Catch Ex As Exception
@@ -106,11 +106,11 @@ Public Class D_AdminComprobantes
 
     End Function
 
-    Friend Function InsertarComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function EmitirComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
-            Using cmd As New MySqlCommand("ComprobanteInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("ComprobanteEmitir", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
@@ -182,6 +182,62 @@ Public Class D_AdminComprobantes
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCAE", Ex.Message))
 
+        End Try
+
+    End Function
+
+    Public Function RecibirComprobante(ByRef argComprobante As Comprobante) As Boolean
+        Try
+            Dim objConexionDB As New D_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                cn.Open()
+                Return RecibirComprobante(argComprobante, cn, Nothing)
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "RecibirOperacionCC", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Friend Function RecibirComprobante(ByRef argComprobante As Comprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+
+        Try
+
+            Using cmd As New MySqlCommand("ComprobanteRecibir", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+
+                With cmd.Parameters
+                    .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
+                    .AddWithValue("p_CodiTC", argComprobante.TipoComprobante.CodiTC_SiCoFa)
+                    .AddWithValue("p_FechaComp", argComprobante.FechaComp)
+                    .AddWithValue("p_PVenta", argComprobante.PVenta)
+                    .AddWithValue("p_NumComp", argComprobante.NumComp)
+                    .AddWithValue("p_ImpBto", argComprobante.ImpBto)
+                    .AddWithValue("p_ImpDes", argComprobante.ImpDes)
+                    .AddWithValue("p_ImpEx", argComprobante.ImpEx)
+                    .AddWithValue("p_ImpGrav1", argComprobante.ImpGrav1)
+                    .AddWithValue("p_ImpNeto1", argComprobante.ImpNeto1)
+                    .AddWithValue("p_ImpIVA1", argComprobante.ImpIVA1)
+                    .AddWithValue("p_ImpGrav2", argComprobante.ImpGrav2)
+                    .AddWithValue("p_ImpNeto2", argComprobante.ImpNeto2)
+                    .AddWithValue("p_ImpIVA2", argComprobante.ImpIVA2)
+                    .AddWithValue("p_ImpCB", argComprobante.ImpCB)
+                    .AddWithValue("p_ImpEf", argComprobante.ImpEf)
+                    .AddWithValue("p_ImpCC", argComprobante.ImpCC)
+                    .AddWithValue("p_ImpPE", argComprobante.ImpPE)
+
+                    Dim Insertado As Boolean = cmd.ExecuteNonQuery()
+
+                    Return Insertado
+                End With
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "RecibirComprobante", Ex.Message))
+            Return Nothing
         End Try
 
     End Function

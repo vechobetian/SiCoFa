@@ -30,7 +30,7 @@ Public Class D_AdminCajas
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion
                     argComprobante.Operacion = objOperacion
-                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+                    AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     Dim objAsientoContable As New AsientoContable
@@ -59,7 +59,7 @@ Public Class D_AdminCajas
                         .ImpCC = 0
                     End With
 
-                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+                    AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
                     AdminOperaciones.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 
                     tx.Commit()
@@ -136,7 +136,7 @@ Public Class D_AdminCajas
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion
                     argComprobante.Operacion = objOperacion
-                    AdminComprobantes.InsertarComprobante(argComprobante, cn, tx)
+                    AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
                     AdminOperaciones.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 
                     tx.Commit()
