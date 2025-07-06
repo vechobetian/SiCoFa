@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmAsientoGastos
+Partial Class FrmCierreCompra
     'Inherits System.Windows.Forms.Form
     Inherits clsFrmBase
 
@@ -30,7 +30,6 @@ Partial Class FrmAsientoGastos
         Me.mtxtNumComprobante = New System.Windows.Forms.MaskedTextBox()
         Me.mtxtFechaComprobante = New System.Windows.Forms.MaskedTextBox()
         Me.txtImporte = New System.Windows.Forms.TextBox()
-        Me.txtCuentaImputable = New System.Windows.Forms.TextBox()
         Me.txtObservaciones = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblVariable = New System.Windows.Forms.Label()
@@ -39,7 +38,6 @@ Partial Class FrmAsientoGastos
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.brnFinalizar = New System.Windows.Forms.Button()
         Me.txtCuentaBancaria = New System.Windows.Forms.TextBox()
@@ -110,18 +108,10 @@ Partial Class FrmAsientoGastos
         Me.txtImporte.Size = New System.Drawing.Size(519, 35)
         Me.txtImporte.TabIndex = 6
         '
-        'txtCuentaImputable
-        '
-        Me.txtCuentaImputable.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCuentaImputable.Location = New System.Drawing.Point(256, 303)
-        Me.txtCuentaImputable.Name = "txtCuentaImputable"
-        Me.txtCuentaImputable.Size = New System.Drawing.Size(519, 35)
-        Me.txtCuentaImputable.TabIndex = 7
-        '
         'txtObservaciones
         '
         Me.txtObservaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtObservaciones.Location = New System.Drawing.Point(256, 347)
+        Me.txtObservaciones.Location = New System.Drawing.Point(256, 303)
         Me.txtObservaciones.Multiline = True
         Me.txtObservaciones.Name = "txtObservaciones"
         Me.txtObservaciones.Size = New System.Drawing.Size(519, 110)
@@ -197,29 +187,19 @@ Partial Class FrmAsientoGastos
         Me.Label7.TabIndex = 15
         Me.Label7.Text = "Importe:"
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(12, 306)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(200, 29)
-        Me.Label8.TabIndex = 16
-        Me.Label8.Text = "Cuenta Imputada:"
-        '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(12, 347)
+        Me.Label9.Location = New System.Drawing.Point(12, 306)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(147, 29)
+        Me.Label9.Size = New System.Drawing.Size(181, 29)
         Me.Label9.TabIndex = 17
-        Me.Label9.Text = "Descripción:"
+        Me.Label9.Text = "Observaciones:"
         '
         'brnFinalizar
         '
-        Me.brnFinalizar.Location = New System.Drawing.Point(674, 463)
+        Me.brnFinalizar.Location = New System.Drawing.Point(674, 419)
         Me.brnFinalizar.Name = "brnFinalizar"
         Me.brnFinalizar.Size = New System.Drawing.Size(101, 23)
         Me.brnFinalizar.TabIndex = 18
@@ -235,14 +215,13 @@ Partial Class FrmAsientoGastos
         Me.txtCuentaBancaria.Size = New System.Drawing.Size(519, 35)
         Me.txtCuentaBancaria.TabIndex = 1
         '
-        'FrmAsientoGastos
+        'FrmCierreCompra
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(787, 500)
+        Me.ClientSize = New System.Drawing.Size(787, 453)
         Me.Controls.Add(Me.brnFinalizar)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
@@ -251,7 +230,6 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.lblVariable)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtObservaciones)
-        Me.Controls.Add(Me.txtCuentaImputable)
         Me.Controls.Add(Me.txtImporte)
         Me.Controls.Add(Me.mtxtFechaComprobante)
         Me.Controls.Add(Me.mtxtNumComprobante)
@@ -260,7 +238,7 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.cmbFPago)
         Me.Controls.Add(Me.txtCuentaBancaria)
         Me.Controls.Add(Me.cmbCajaAbierta)
-        Me.Name = "FrmAsientoGastos"
+        Me.Name = "FrmCierreCompra"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmAsientoGastos"
         Me.ResumeLayout(False)
@@ -275,7 +253,6 @@ Partial Class FrmAsientoGastos
     Friend WithEvents mtxtNumComprobante As MaskedTextBox
     Friend WithEvents mtxtFechaComprobante As MaskedTextBox
     Friend WithEvents txtImporte As TextBox
-    Friend WithEvents txtCuentaImputable As TextBox
     Friend WithEvents txtObservaciones As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents lblVariable As Label
@@ -284,7 +261,6 @@ Partial Class FrmAsientoGastos
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents brnFinalizar As Button
     Friend WithEvents txtCuentaBancaria As TextBox

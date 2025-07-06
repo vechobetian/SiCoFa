@@ -135,10 +135,16 @@
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
-    <Compile Include="Formularios\FrmAsientoGastos.Designer.vb">
-      <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
+    <Compile Include="Formularios\FrmCierreCompra.Designer.vb">
+      <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmAsientoGastos.vb">
+    <Compile Include="Formularios\FrmCierreCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmAsientoGastos1.Designer.vb">
+      <DependentUpon>FrmAsientoGastos1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmAsientoGastos1.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmMoviCajaPEDetalle.Designer.vb">
@@ -334,8 +340,11 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmAsientoGastos.resx">
-      <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmCierreCompra.resx">
+      <DependentUpon>FrmCierreCompra.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmAsientoGastos1.resx">
+      <DependentUpon>FrmAsientoGastos1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMoviCajaPEDetalle.resx">
       <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>

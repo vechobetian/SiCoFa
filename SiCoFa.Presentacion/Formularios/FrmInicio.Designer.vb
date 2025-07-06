@@ -137,19 +137,19 @@ Partial Class FrmInicio
         'mnuFiscalLibroIVA
         '
         Me.mnuFiscalLibroIVA.Name = "mnuFiscalLibroIVA"
-        Me.mnuFiscalLibroIVA.Size = New System.Drawing.Size(180, 22)
+        Me.mnuFiscalLibroIVA.Size = New System.Drawing.Size(158, 22)
         Me.mnuFiscalLibroIVA.Text = "&Libro IVA"
         '
         'mnuFiscalIVADigital
         '
         Me.mnuFiscalIVADigital.Name = "mnuFiscalIVADigital"
-        Me.mnuFiscalIVADigital.Size = New System.Drawing.Size(180, 22)
+        Me.mnuFiscalIVADigital.Size = New System.Drawing.Size(158, 22)
         Me.mnuFiscalIVADigital.Text = "Libro IVA &Digital"
         '
         'mnuFiscalIVAExcel
         '
         Me.mnuFiscalIVAExcel.Name = "mnuFiscalIVAExcel"
-        Me.mnuFiscalIVAExcel.Size = New System.Drawing.Size(180, 22)
+        Me.mnuFiscalIVAExcel.Size = New System.Drawing.Size(158, 22)
         Me.mnuFiscalIVAExcel.Text = "Libro IVA &Excel"
         '
         'mnuContabilidad

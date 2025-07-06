@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
-Public Class FrmAsientoGastos
+Public Class FrmCierreCompra
     Property Usuario As Usuario
     Private DatosOpcionales As New List(Of String)
     Private Const WM_SYSCOMMAND As Integer = &H112
@@ -358,74 +358,6 @@ Public Class FrmAsientoGastos
         End Try
     End Sub
 
-    Private Sub BuscarCuentaImputable(ByVal argTextoBuscado As String)
-        Try
-
-            Dim AdminDB As New N_AdminDB
-            Dim sql As String = "SELECT * FROM TblCtasImputables WHERE (LEFT(CodiCta,4)='6.02' OR LEFT(CodiCta,4)='6.04' OR LEFT(CodiCta,4)='6.05')  AND NombreCta LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
-            Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
-
-            Select Case dt.Rows.Count
-                Case 0
-                    MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
-                    Me.txtCuentaImputable.Text = ""
-                    Me.txtCuentaImputable.Select()
-                    Exit Sub
-
-                Case 1
-                    Dim AdminAsientosContables As New N_AdminAsientosContable
-                    Dim fila As DataRow = dt.Rows(0)
-                    Dim codiCta As String = fila("CodiCta").ToString
-                    Dim ci As CuentaImputable = AdminAsientosContables.ObtenerCuentaImputablePorCodiCta(codiCta)
-                    Me.txtCuentaImputable.Tag = ci.CodiCta
-                    Me.txtCuentaImputable.Text = ci.NombreCta
-                    Exit Sub
-
-                Case > 1
-
-                    Using f As New FrmSelectorUniversal
-                        f.Text = "Cuentas de Gasto"
-                        f.Objetos = dt.DefaultView
-                        f.NombrePropiedadId = "CodiCta"
-                        f.NombrePropiedadDescripcion = "NombreCta"
-                        f.HeaderPropiedadDescripcion = "Cuenta"
-
-                        If f.ShowDialog() = DialogResult.OK Then
-                            Dim AdminAsientosContables As New N_AdminAsientosContable
-                            Dim codiCta As String = f.Valor1Seleccionado.ToString
-                            Dim ci As CuentaImputable = AdminAsientosContables.ObtenerCuentaImputablePorCodiCta(codiCta)
-                            Me.txtCuentaImputable.Tag = ci.CodiCta
-                            Me.txtCuentaImputable.Text = ci.NombreCta
-                            Exit Sub
-                        Else
-                            Me.txtCuentaImputable.Tag = ""
-                            Me.txtCuentaImputable.Text = ""
-                            Me.txtCuentaImputable.Select()
-                        End If
-                        f.Close()
-
-                    End Using
-
-            End Select
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub txtCuentaImputable_Validating(sender As Object, e As CancelEventArgs) Handles txtCuentaImputable.Validating
-        Try
-
-            Me.BuscarCuentaImputable(Me.txtCuentaImputable.Text)
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
     Private Sub txtImporte_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtImporte.KeyPress
         ' Verifica si se presionó el punto
         If e.KeyChar = "."c Then
@@ -494,7 +426,7 @@ Public Class FrmAsientoGastos
             Dim impCB As Decimal = 0
             Dim impEF As Decimal = 0
 
-            objAsCon.InsertarItem(Me.txtCuentaImputable.Tag, Convert.ToDecimal(Me.txtImporte.Text))
+            objAsCon.InsertarItem("6.01.02.001", Convert.ToDecimal(Me.txtImporte.Text))
 
             If Me.cmbFPago.Text = "TRANSFERENCIA" Then
                 impCB = Convert.ToDecimal(Me.txtImporte.Text)
@@ -541,7 +473,7 @@ Public Class FrmAsientoGastos
             Dim AdminOperacion As New N_AdminOperaciones
             AdminOperacion.AsientoGastoTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
-            Dim nuevoAsientoGastos As New FrmAsientoGastos
+            Dim nuevoAsientoGastos As New FrmCierreCompra
             nuevoAsientoGastos.Usuario = Me.Usuario
             nuevoAsientoGastos.Show()
 

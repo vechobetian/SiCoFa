@@ -4,9 +4,17 @@ Public Class FrmInicio
 
     Private Sub mnuOperacionesFacturacion_Click(sender As Object, e As EventArgs) Handles mnuOperacionesFacturacion.Click
 
-        Dim nuevaVentanaVentas As New FrmVentas1()
+        Dim nuevaVentanaVentas As New FrmVentas()
         nuevaVentanaVentas.Usuario = ModSeguridad.ValidarUsuario(Me.mnuOperacionesFacturacion.Name)
         nuevaVentanaVentas.Show()
+
+    End Sub
+
+    Private Sub mnuOperacionesCompras_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCompras.Click
+
+        Dim nuevaVentanaCompras As New FrmCompras()
+        nuevaVentanaCompras.Usuario = ModSeguridad.ValidarUsuario(Me.mnuOperacionesCompras.Name)
+        nuevaVentanaCompras.Show()
 
     End Sub
 
@@ -23,7 +31,7 @@ Public Class FrmInicio
 
     Private Sub mnuCajaAsientoGastos_Click(sender As Object, e As EventArgs) Handles mnuCajaAsientoGastos.Click
 
-        Dim nuevoAsientoGastos As New FrmAsientoGastos()
+        Dim nuevoAsientoGastos As New FrmAsientoGastos1()
         nuevoAsientoGastos.Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaAsientoGastos.Name)
         nuevoAsientoGastos.Show()
 
