@@ -2,7 +2,7 @@
     Property CodiLP As String
     Property ListaPrecios As String
     Property PrecioReferencia As String
-    Property PorcentajeAplicadp As Decimal?
+    Property PorcentajeAplicado As Decimal
     Property NumeroActualizacion As Long?
     Property Baja As Boolean?
 
@@ -15,7 +15,7 @@
         Me.CodiLP = argCodiLP
         Me.ListaPrecios = argListaPrecios
         Me.PrecioReferencia = argPrecioReferencia
-        Me.PorcentajeAplicadp = argPorcentajeAplicado
+        Me.PorcentajeAplicado = argPorcentajeAplicado
         Me.NumeroActualizacion = argNumeroActualizacion
         Me.Baja = argBaja
     End Sub
@@ -23,7 +23,7 @@
         Me.CodiLP = argCodiLP
         Me.ListaPrecios = argListaPrecios
         Me.PrecioReferencia = Nothing
-        Me.PorcentajeAplicadp = Nothing
+        Me.PorcentajeAplicado = Nothing
         Me.NumeroActualizacion = Nothing
         Me.Baja = Nothing
     End Sub

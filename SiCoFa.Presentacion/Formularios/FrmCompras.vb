@@ -11,8 +11,8 @@ Public Class FrmCompras
     Private mobj_Operacion As Operacion
     Private mobj_OperacionOriginal As Operacion
     Private mobj_TipoOperacion As TipoOperacion
-    Private mobj_Items As New BindingList(Of ItemComprobante)
-    Private mobj_ItemsOriginal As BindingList(Of ItemComprobante)
+    Private mobj_Items As New BindingList(Of ItemComprobanteCompra)
+    Private mobj_ItemsOriginal As BindingList(Of ItemComprobanteCompra)
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
@@ -46,8 +46,8 @@ Public Class FrmCompras
                 mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
 
                 Dim AdminItems As New N_AdminItemsComprobante
-                Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
-                mobj_Items = New BindingList(Of ItemComprobante)(objItems)
+                Dim objItems As List(Of ItemComprobanteCompra) = AdminItems.ListarItemsCompraPorIdOperacion(mobj_Operacion.IdOperacion)
+                mobj_Items = New BindingList(Of ItemComprobanteCompra)(objItems)
                 mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
                 Me.ActualizarTotales()
                 Me.ActualizarDatosOperacion()
@@ -101,7 +101,7 @@ Public Class FrmCompras
                         .ImporteDescuento = mdec_ImporteDescuentos
                         .ImporteGravado1 = mdec_ImporteGravado1
                         .ImporteGravado2 = mdec_ImporteGravado2
-                        .ItemsComprobante = mobj_Items.ToList
+                        '.ItemsComprobante = mobj_Items.ToList
                         .ShowDialog()
                     End With
                 End Using
@@ -116,11 +116,11 @@ Public Class FrmCompras
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
         Try
             Dim AdminItems As New N_AdminItemsComprobante
-            For Each i As ItemComprobante In mobj_Items
+            For Each i As ItemComprobanteCompra In mobj_Items
                 If i.IdItem = 0 Then
-                    i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
+                    i.IdItem = AdminItems.InsertarItemComprobanteCompra(argIdOperacion, i)
                 Else
-                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
+                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobanteCompra(i.IdItem, i.Cantidad, i.PrecioCosto, i.PrecioVenta)
                 End If
             Next
 
@@ -276,7 +276,7 @@ Public Class FrmCompras
 
             With Me
                 If a IsNot Nothing Then
-                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicuotaIVA.AlicIVA, 0)
+                    Dim i As New ItemComprobanteCompra(a, 1, a.PrecioCosto)
                     mobj_Items.Add(i)
                     Me.DataGridView1.ClearSelection()
 
@@ -313,19 +313,19 @@ Public Class FrmCompras
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
 
-            For Each i As ItemComprobante In Me.mobj_Items
+            For Each i As ItemComprobanteCompra In Me.mobj_Items
                 mint_CantidadItems += 1
                 mdec_ImporteCosto += (i.Articulo.PrecioCosto * i.Cantidad)
-                mdec_ImporteSinDescuentos += i.ImporteSinDescuento
-                mdec_ImporteDescuentos += i.ImporteDescuento
-                mdec_ImporteConDescuentos += i.ImporteConDescuento
+                'mdec_ImporteSinDescuentos += i.ImporteSinDescuento
+                'mdec_ImporteDescuentos += i.ImporteDescuento
+                'mdec_ImporteConDescuentos += i.ImporteConDescuento
 
-                Select Case i.AlicIVA
-                    Case 10.5
-                        mdec_ImporteGravado1 += i.ImporteConDescuento
-                    Case 21
-                        mdec_ImporteGravado2 += i.ImporteConDescuento
-                End Select
+                'Select Case i.AlicIVA
+                'Case 10.5
+                'mdec_ImporteGravado1 += i.ImporteConDescuento
+                'Case 21
+                'mdec_ImporteGravado2 += i.ImporteConDescuento
+                'End Select
             Next
 
             If mdec_ImporteSinDescuentos > 0 Then
@@ -527,7 +527,7 @@ Public Class FrmCompras
 
                 If nombreColumnaEditada.Equals(nombreColumnaCantidad, StringComparison.OrdinalIgnoreCase) Then
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        Dim itemComprobante As ItemComprobante = mobj_Items(e.RowIndex)
+                        Dim itemComprobante As ItemComprobanteCompra = mobj_Items(e.RowIndex)
 
                         If itemComprobante.Articulo?.Seccion?.EstablecerPrecio Then ' Usando el operador ?. para evitar NullReferenceException
                             Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioUnitario)
