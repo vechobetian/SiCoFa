@@ -59,7 +59,8 @@ Public Class D_AdminArticulos
 
                             Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
-                            Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
+                            Dim AdminListaPrecios As New D_AdminListaPrecios
+                            Dim objListaPreciosResult As ListaPrecios = AdminListaPrecios.ObtenerListaPreciosPorCodiLP(CodiLPResult)
 
                             objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
                         End If
@@ -140,7 +141,8 @@ Public Class D_AdminArticulos
                             ' Crear objetos anidados
                             Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
-                            Dim objListaPreciosResult As ListaPrecios = New ListaPrecios(CodiLPResult, ListaPreciosResult)
+                            Dim AdminListaPrecios As New D_AdminListaPrecios
+                            Dim objListaPreciosResult As ListaPrecios = AdminListaPrecios.ObtenerListaPreciosPorCodiLP(CodiLPResult)
 
                             Dim objArt = New Articulo(IdArticuloResult, CodigoResult, CodBarrasResult, NombreResult, objAlicuotaIVAResult, FechaPrecioResult, PrecioCostoResult, PrecioVentaResult, BajaResult, objSeccionResult, ActualizarPrecioResult, StockResult, objListaPreciosResult, FabricanteResult)
                             objLA.Add(objArt)

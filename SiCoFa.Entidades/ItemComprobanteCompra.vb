@@ -112,6 +112,23 @@
         Get
             Return Me.Importe + Me.ImporteIVA
         End Get
+
+    End Property
+
+    Public ReadOnly Property ListaPrecios() As String
+
+        Get
+            Return Me.Articulo.ListaPrecios.ListaPrecios
+        End Get
+
+    End Property
+
+    Public ReadOnly Property PorcentajeAplicado() As Decimal
+
+        Get
+            Return Me.Articulo.ListaPrecios.PorcentajeAplicado
+        End Get
+
     End Property
 
 End Class

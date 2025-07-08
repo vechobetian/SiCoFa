@@ -205,7 +205,7 @@ Public Class FrmCompras
 
             If DataGridView1.ColumnCount = 10 Then
                 Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.08R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
+                Dim proporciones As Double() = {0.0R, 0.05R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.08R, 0.08R, 0.03R}
 
                 For i As Integer = 0 To 9 ' Itera a través de las 9 columnas
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
@@ -523,31 +523,18 @@ Public Class FrmCompras
             If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
                 Dim nombreColumnaEditada As String = DataGridView1.Columns(e.ColumnIndex).Name
                 Dim nombreColumnaCantidad As String = "Cantidad"
-                Dim nombreColumnaPrecioUnitario As String = "PrecioUnitario"
+                Dim nombreColumnaPrecioUnitario As String = "PrecioCosto"
+                Dim nombreColumnaPrecioVenta As String = "PrecioVenta"
 
                 If nombreColumnaEditada.Equals(nombreColumnaCantidad, StringComparison.OrdinalIgnoreCase) Then
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
                         Dim itemComprobante As ItemComprobanteCompra = mobj_Items(e.RowIndex)
 
-                        If itemComprobante.Articulo?.Seccion?.EstablecerPrecio Then ' Usando el operador ?. para evitar NullReferenceException
-                            Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioUnitario)
-                            Me.DataGridView1.CurrentCell.ReadOnly = False
-                            Me.DataGridView1.BeginEdit(True)
-                        Else
-                            For Each item As ToolStripItem In ToolStrip1.Items
-                                If TypeOf item Is ToolStripTextBox Then
-                                    CType(item, ToolStripTextBox).Focus()
-                                    CType(item, ToolStripTextBox).SelectAll()
-                                    Exit For
-                                End If
-                            Next
-                            Me.DataGridView1.ClearSelection()
-                            ' Intenta establecer CurrentCell a Nothing
-                            Me.DataGridView1.CurrentCell = Nothing
-                        End If
+                        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioUnitario)
+                        Me.DataGridView1.CurrentCell.ReadOnly = False
+                        Me.DataGridView1.BeginEdit(True)
                         Me.DataGridView1.Refresh()
                         Me.ActualizarTotales()
-
                     End If
                 End If
 
