@@ -6,7 +6,6 @@ Imports SiCoFa.Negocio
 Public Class FrmCompras
     Property Usuario As Usuario
 
-
     Private mobj_AdminOperacion As New N_AdminOperaciones
     Private mobj_Operacion As Operacion
     Private mobj_OperacionOriginal As Operacion
@@ -14,71 +13,128 @@ Public Class FrmCompras
     Private mobj_Items As New BindingList(Of ItemComprobanteCompra)
     Private mobj_ItemsOriginal As BindingList(Of ItemComprobanteCompra)
     Private mint_CantidadItems As Integer = 0
-    Private mdec_ImporteCosto As Decimal = 0
-    Private mdec_ImporteSinDescuentos As Decimal = 0
-    Private mdec_ImporteDescuentos As Decimal = 0
-    Private mdec_ImporteConDescuentos As Decimal = 0
-    Private mdec_PorcentaDescuentos As Decimal = 0
-    Private mdec_ImporteGravado1 As Decimal = 0
-    Private mdec_ImporteGravado2 As Decimal = 0
+    Private mdec_ImporteNeto As Decimal = 0
+    Private mdec_ImporteIva As Decimal = 0
+    Private mdec_ImporteTotal As Decimal = 0
 
     Private Function ClonarObjeto(Of T)(obj As T) As T
         Dim json As String = JsonConvert.SerializeObject(obj)
         Return JsonConvert.DeserializeObject(Of T)(json)
     End Function
 
-    Private Sub AbrirOperacion()
+    Private Sub BuscarCompraIniciada()
+
         Try
-            Dim frm As New FrmBuscaVentasIniciadas()
 
-            If frm.CargarVentasIniciadas(g_ParametrosTerminal.Empresa.Id, Me.Usuario.Id) Then
-                frm.ShowDialog()
-            Else
-                MsgBox("El Usuario " & Me.Usuario.Id & " no tiene Ventas Iniciadas", vbInformation, "SiCoFa")
-                frm.Dispose()
-            End If
+            Dim AdminDB As New N_AdminDB
+            Dim sql As String = $"SELECT IdOperacion, CONCAT(DATE_FORMAT(Inicio, '%d/%m/%Y %H:%i:%s'),' | ',IFNULL(Observaciones, '')) As Descripcion FROM TblOperaciones WHERE IdUsuario = {Me.Usuario.Id} And CodiTO = 'COMPM' And EstadoOperacion = 'GUARDADO'"
+            Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
 
-            If frm.IdOperacionSeleccionado > 0 Then
-                mobj_Operacion = mobj_AdminOperacion.ObtenerOperacion(frm.IdOperacionSeleccionado)
-                mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
-                mobj_Operacion.Usuario = Me.Usuario
-                mobj_Operacion.TipoOperacion = mobj_TipoOperacion
-                mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+            Select Case dt.Rows.Count
+                Case 0
+                    MsgBox($"No existen Compras Iniciadas por el Usuario {Me.Usuario.Nombre}", vbInformation, "SiCoFa")
+                    Exit Sub
 
-                Dim AdminItems As New N_AdminItemsComprobante
-                Dim objItems As List(Of ItemComprobanteCompra) = AdminItems.ListarItemsCompraPorIdOperacion(mobj_Operacion.IdOperacion)
-                mobj_Items = New BindingList(Of ItemComprobanteCompra)(objItems)
-                mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
-                Me.ActualizarTotales()
-                Me.ActualizarDatosOperacion()
+                Case 1
+                    Dim fila As DataRow = dt.Rows(0)
+                    Dim idOperacion As Long = Convert.ToInt64(fila("IdOperacion"))
+                    Me.AbrirCompra(idOperacion)
+                    Exit Sub
 
-                Me.DataGridView1.AutoGenerateColumns = False
-                Me.DataGridView1.DataSource = Me.mobj_Items
-                Me.DataGridView1.ClearSelection()
+                Case > 1
 
-            End If
+                    Using f As New FrmSelectorUniversal
+                        f.Text = "Compras Iniciadas"
+                        f.Objetos = dt.DefaultView
+                        f.NombrePropiedadId = "IdOperacion"
+                        f.NombrePropiedadDescripcion = "Descripcion"
+                        f.HeaderPropiedadDescripcion = "Fecha | Descripcion"
 
+                        If f.ShowDialog() = DialogResult.OK Then
+                            Dim idOperacion As Long = Convert.ToInt64(f.Valor1Seleccionado)
+                            Me.AbrirCompra(idOperacion)
+                            f.Close()
+                        End If
+
+                    End Using
+
+            End Select
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub AbrirCompra(ByVal argIdOperaciones As Long)
+        Try
+            mobj_Operacion = mobj_AdminOperacion.ObtenerOperacion(argIdOperaciones)
+            mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
+            mobj_Operacion.Usuario = Me.Usuario
+            mobj_Operacion.TipoOperacion = mobj_TipoOperacion
+            mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+
+            Dim AdminItems As New N_AdminItemsComprobante
+            Dim objItems As List(Of ItemComprobanteCompra) = AdminItems.ListarItemsCompraPorIdOperacion(mobj_Operacion.IdOperacion)
+            mobj_Items = New BindingList(Of ItemComprobanteCompra)(objItems)
+            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+            Me.Serializar()
+            Me.ActualizarTotales()
+            Me.ActualizarDatosOperacion()
+            Me.DataGridView1.AutoGenerateColumns = False
+            Me.DataGridView1.DataSource = Me.mobj_Items
+            Me.DataGridView1.ClearSelection()
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
     End Sub
 
-    Private Sub GuardarCambios(ByVal argTecla As Keys)
+    Private Sub Serializar()
+        Dim json1 = JsonConvert.SerializeObject(mobj_Items, Formatting.Indented)
+        Dim json2 = JsonConvert.SerializeObject(mobj_ItemsOriginal, Formatting.Indented)
+
+        ' Guardalos en archivo o mostralos en consola para comparar:
+        Debug.WriteLine(json1)
+        Debug.WriteLine("-----")
+        Debug.WriteLine(json2)
+    End Sub
+
+    Private Sub GuardarCambios(ByVal argTecla As Keys, ByVal argDescripcion As String)
         Try
 
-            If Me.mdec_ImporteSinDescuentos = 0 Then
+            If Me.mdec_ImporteNeto = 0 Then
                 Exit Sub
             End If
 
             If mobj_Operacion Is Nothing Then
-                mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
+
+                Dim descripcion As String
+                If mobj_Operacion IsNot Nothing Then
+                    descripcion = mobj_Operacion.Observaciones
+                Else
+                    descripcion = "COMPRA SIN DESCRIPCION"
+                End If
+
+                Dim str = InputBox("Ingrese una descripcion", "SiCoFa", descripcion)
+
+                mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, descripcion, "GUARDADO")
+
                 If mobj_Operacion IsNot Nothing Then
                     mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
                 End If
+
             Else
+
                 mobj_Operacion.Inicio = Now
-                mobj_Operacion.Observaciones = ""
+
+                If argDescripcion = "" Then
+                    mobj_Operacion.Observaciones = mobj_Operacion.Observaciones
+                Else
+                    mobj_Operacion.Observaciones = argDescripcion
+                End If
+
                 mobj_Operacion.EstadoOperacion = "GUARDADO"
                 Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
 
@@ -96,11 +152,11 @@ Public Class FrmCompras
                     Dim AdminComprobantes As New N_AdminComprobantes
                     With FPagos
                         '.FrmOrigen = Me
-                        .Operacion = mobj_Operacion
-                        .ImporteAPagar = mdec_ImporteConDescuentos
-                        .ImporteDescuento = mdec_ImporteDescuentos
-                        .ImporteGravado1 = mdec_ImporteGravado1
-                        .ImporteGravado2 = mdec_ImporteGravado2
+                        '.Operacion = mobj_Operacion
+                        '.ImporteAPagar = mdec_ImporteConDescuentos
+                        '.ImporteDescuento = mdec_ImporteDescuentos
+                        '.ImporteGravado1 = mdec_ImporteGravado1
+                        '.ImporteGravado2 = mdec_ImporteGravado2
                         '.ItemsComprobante = mobj_Items.ToList
                         .ShowDialog()
                     End With
@@ -203,15 +259,15 @@ Public Class FrmCompras
     Private Sub AjustarAnchoColumnasProporcional()
         Try
 
-            If DataGridView1.ColumnCount = 10 Then
+            If DataGridView1.ColumnCount = 11 Then
                 Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.05R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.08R, 0.08R, 0.03R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.08R, 0.08R, 0.03R}
 
-                For i As Integer = 0 To 9 ' Itera a través de las 9 columnas
+                For i As Integer = 0 To 10 ' Itera a través de las 11 columnas
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
             Else
-                MessageBox.Show("El DataGridView no tiene 9 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridView no tiene 11 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception
@@ -276,7 +332,15 @@ Public Class FrmCompras
 
             With Me
                 If a IsNot Nothing Then
-                    Dim i As New ItemComprobanteCompra(a, 1, a.PrecioCosto)
+                    Dim i As ItemComprobanteCompra
+                    Dim precioCosto As Decimal
+                    If Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked Then
+                        i = New ItemComprobanteCompra(a, 1, a.PrecioCosto, a.PrecioVenta, a.ListaPrecios.PorcentajeAplicado, True)
+                    Else
+                        precioCosto = a.PrecioCosto / (1 + a.AlicuotaIVA.AlicIVA / 100)
+                        i = New ItemComprobanteCompra(a, 1, precioCosto, a.PrecioVenta, a.ListaPrecios.PorcentajeAplicado, False)
+                    End If
+
                     mobj_Items.Add(i)
                     Me.DataGridView1.ClearSelection()
 
@@ -284,8 +348,11 @@ Public Class FrmCompras
                     Dim nombreColumnaCantidad As String = "Cantidad" ' Reemplaza con el nombre real
 
                     If Me.DataGridView1.Columns.Contains(nombreColumnaCantidad) AndAlso nuevoIndiceFila >= 0 Then
-                        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(nuevoIndiceFila).Cells(nombreColumnaCantidad)
-                        Me.DataGridView1.BeginEdit(True) ' Iniciar la edición de la celda
+                        ' Aplazar la configuración de CurrentCell y BeginEdit
+                        Me.BeginInvoke(New Action(Sub()
+                                                      Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(nuevoIndiceFila).Cells(nombreColumnaCantidad)
+                                                      Me.DataGridView1.BeginEdit(True) ' Iniciar la edición de la celda
+                                                  End Sub))
                     End If
                 End If
 
@@ -305,40 +372,22 @@ Public Class FrmCompras
 
         Try
             mint_CantidadItems = 0
-            mdec_ImporteCosto = 0
-            mdec_ImporteSinDescuentos = 0
-            mdec_ImporteDescuentos = 0
-            mdec_ImporteConDescuentos = 0
-            mdec_PorcentaDescuentos = 0
-            mdec_ImporteGravado1 = 0
-            mdec_ImporteGravado2 = 0
+            mdec_ImporteNeto = 0
+            mdec_ImporteIva = 0
+            mdec_ImporteTotal = 0
+
 
             For Each i As ItemComprobanteCompra In Me.mobj_Items
                 mint_CantidadItems += 1
-                mdec_ImporteCosto += (i.Articulo.PrecioCosto * i.Cantidad)
-                'mdec_ImporteSinDescuentos += i.ImporteSinDescuento
-                'mdec_ImporteDescuentos += i.ImporteDescuento
-                'mdec_ImporteConDescuentos += i.ImporteConDescuento
-
-                'Select Case i.AlicIVA
-                'Case 10.5
-                'mdec_ImporteGravado1 += i.ImporteConDescuento
-                'Case 21
-                'mdec_ImporteGravado2 += i.ImporteConDescuento
-                'End Select
+                mdec_ImporteNeto += i.ImporteNeto
+                mdec_ImporteIva += i.ImporteIVA
+                mdec_ImporteTotal += i.ImporteTotal
             Next
 
-            If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
-            Else
-                mdec_PorcentaDescuentos = 0
-            End If
-
             Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
-            Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
-            Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
-            Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+            Me.lblImporteNeto.Text = "$ " & Format(mdec_ImporteNeto, "#,##0.00")
+            Me.lblImporteIVA.Text = "$ " & Format(mdec_ImporteIva, "#,##0.00")
+            Me.lblImporteTotal.Text = "$ " & Format(mdec_ImporteTotal, "#,##0.00")
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -360,7 +409,7 @@ Public Class FrmCompras
         End If
 
         Dim Datos As String = UltimaActualizacion & vbCrLf &
-                              "- Usuario: " & Me.Usuario.Nombre
+                                     "- Usuario: " & Me.Usuario.Nombre
 
         Me.lblDatosOperacion.Text = Datos
     End Sub
@@ -368,7 +417,7 @@ Public Class FrmCompras
     Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
+            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("COMPM")
             mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
             mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
@@ -421,7 +470,7 @@ Public Class FrmCompras
                     e.Cancel = True
 
                 ElseIf resultado = DialogResult.Yes Then
-                    Me.GuardarCambios(Keys.Escape)
+                    Me.GuardarCambios(Keys.Escape, "")
 
                 ElseIf resultado = DialogResult.No Then
                     ' Salir sin guardar
@@ -436,17 +485,17 @@ Public Class FrmCompras
     End Sub
 
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
+
         Select Case keyData
             Case Keys.F10
-                Me.GuardarCambios(Keys.F10)
-            Case Keys.F9
-                Me.GuardarCambios(Keys.F9)
-            Case Keys.F8
+                Me.GuardarCambios(Keys.F10, "")
 
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)
         End Select
+
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
+
     End Function
 
     Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -500,7 +549,8 @@ Public Class FrmCompras
                     MsgBox("Cantidad debe ser un valor mayor que cero", vbCritical, "SiCoFa")
                     e.Cancel = True
 
-                    DataGridView1.BeginEdit(True)
+                    ' No llames a BeginEdit aquí, es problemático dentro de CellValidating.
+                    ' El DataGridView volverá automáticamente al modo de edición si e.Cancel es verdadero.
 
                     Dim editingControl = TryCast(DataGridView1.EditingControl, TextBox)
 
@@ -523,34 +573,51 @@ Public Class FrmCompras
             If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
                 Dim nombreColumnaEditada As String = DataGridView1.Columns(e.ColumnIndex).Name
                 Dim nombreColumnaCantidad As String = "Cantidad"
-                Dim nombreColumnaPrecioUnitario As String = "PrecioCosto"
+                Dim nombreColumnaPrecioCosto As String = "PrecioCosto"
                 Dim nombreColumnaPrecioVenta As String = "PrecioVenta"
 
                 If nombreColumnaEditada.Equals(nombreColumnaCantidad, StringComparison.OrdinalIgnoreCase) Then
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        Dim itemComprobante As ItemComprobanteCompra = mobj_Items(e.RowIndex)
-
-                        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioUnitario)
-                        Me.DataGridView1.CurrentCell.ReadOnly = False
-                        Me.DataGridView1.BeginEdit(True)
-                        Me.DataGridView1.Refresh()
-                        Me.ActualizarTotales()
+                        ' Usa BeginInvoke para aplazar la operación de la interfaz de usuario
+                        Me.BeginInvoke(New Action(Sub()
+                                                      Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioCosto)
+                                                      Me.DataGridView1.CurrentCell.ReadOnly = False
+                                                      Me.DataGridView1.BeginEdit(True)
+                                                      Me.DataGridView1.Refresh()
+                                                      Me.ActualizarTotales()
+                                                  End Sub))
                     End If
                 End If
 
-                If nombreColumnaEditada.Equals(nombreColumnaPrecioUnitario, StringComparison.OrdinalIgnoreCase) Then
+                If nombreColumnaEditada.Equals(nombreColumnaPrecioCosto, StringComparison.OrdinalIgnoreCase) Then
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        For Each item As ToolStripItem In ToolStrip1.Items
-                            If TypeOf item Is ToolStripTextBox Then
-                                CType(item, ToolStripTextBox).Focus()
-                                CType(item, ToolStripTextBox).SelectAll()
-                                Exit For
-                            End If
-                        Next
-                        Me.DataGridView1.ClearSelection()
-                        Me.DataGridView1.CurrentCell = Nothing ' Intenta establecer CurrentCell a Nothing también aquí
-                        Me.DataGridView1.Refresh()
-                        Me.ActualizarTotales()
+                        ' Usa BeginInvoke para aplazar la operación de la interfaz de usuario
+                        Me.BeginInvoke(New Action(Sub()
+                                                      Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioVenta)
+                                                      Me.DataGridView1.CurrentCell.ReadOnly = False
+                                                      Me.DataGridView1.BeginEdit(True)
+                                                      Me.DataGridView1.Refresh()
+                                                      Me.ActualizarTotales()
+                                                  End Sub))
+                    End If
+                End If
+
+                If nombreColumnaEditada.Equals(nombreColumnaPrecioVenta, StringComparison.OrdinalIgnoreCase) Then
+                    If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
+                        ' Usa BeginInvoke para aplazar la operación de la interfaz de usuario
+                        Me.BeginInvoke(New Action(Sub()
+                                                      For Each item As ToolStripItem In ToolStrip1.Items
+                                                          If TypeOf item Is ToolStripTextBox Then
+                                                              CType(item, ToolStripTextBox).Focus()
+                                                              CType(item, ToolStripTextBox).SelectAll()
+                                                              Exit For
+                                                          End If
+                                                      Next
+                                                      Me.DataGridView1.ClearSelection()
+                                                      Me.DataGridView1.CurrentCell = Nothing ' Intenta establecer CurrentCell a Nothing también aquí
+                                                      Me.DataGridView1.Refresh()
+                                                      Me.ActualizarTotales()
+                                                  End Sub))
                     End If
                 End If
             End If
@@ -562,7 +629,7 @@ Public Class FrmCompras
 
     End Sub
 
-    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ElimininarItemSeleccionadoToolStripMenuItem.Click
+    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionEliminarItem.Click
         Me.EliminarItemSeleccionado()
     End Sub
 
@@ -576,21 +643,36 @@ Public Class FrmCompras
 
     End Sub
 
-    Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click
-        Me.AbrirOperacion()
+    Private Sub mnuArchivoAbrir_Click(sender As Object, e As EventArgs) Handles mnuArchivoAbrir.Click
+        Me.BuscarCompraIniciada()
     End Sub
 
     Private Sub AbrirToolStripButton_Click(sender As Object, e As EventArgs) Handles AbrirToolStripButton.Click
-        Me.AbrirOperacion()
+        Me.BuscarCompraIniciada()
     End Sub
 
-    Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click
-        Me.GuardarCambios(Keys.Escape)
+    Private Sub mnuArchivoGuardar_Click(sender As Object, e As EventArgs) Handles mnuArchivoGuardar.Click
+        Me.GuardarCambios(Keys.Escape, "")
         MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
 
+    Private Sub mnuArchivoGuardarComo_Click(sender As Object, e As EventArgs) Handles mnuArchivoGuardarComo.Click
+
+        Dim descripcion As String
+        If mobj_Operacion IsNot Nothing Then
+            descripcion = mobj_Operacion.Observaciones
+        Else
+            descripcion = "COMPRA SIN DESCRIPCION"
+        End If
+
+        Dim str = InputBox("Ingrese una descripcion", "SiCoFa", descripcion)
+
+        Me.GuardarCambios(Keys.Escape, str)
+
+    End Sub
+
     Private Sub GuardarToolStripButton_Click(sender As Object, e As EventArgs) Handles GuardarToolStripButton.Click
-        Me.GuardarCambios(Keys.Escape)
+        Me.GuardarCambios(Keys.Escape, "")
         MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
 
@@ -598,8 +680,29 @@ Public Class FrmCompras
         Me.Close()
     End Sub
 
-    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
+    Private Sub mnuArchivoSalir_Click(sender As Object, e As EventArgs) Handles mnuArchivoSalir.Click
         Me.Close()
+    End Sub
+
+    Private Sub mnuOpcionesIVAIncluidoEnPrecioCosto_Click(sender As Object, e As EventArgs) Handles mnuOpcionesIVAIncluidoEnPrecioCosto.Click
+        Dim IVA As Boolean = Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked
+
+        For Each i As ItemComprobanteCompra In Me.mobj_Items
+
+            If Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked Then
+                i.PrecioCosto = i.PrecioCosto * (1 + i.AlicIVA / 100)
+                Me.lblIVAIncluido.Text = "-Precio Costo con IVA Incluido"
+            Else
+                Dim precioCosto As Decimal = i.PrecioCosto / (1 + i.AlicIVA / 100)
+                i.PrecioCosto = precioCosto
+                Me.lblIVAIncluido.Text = "-Precio Costo sin IVA"
+            End If
+
+            i.IVAIncluido = IVA
+        Next
+        Me.DataGridView1.Refresh()
+        Me.ActualizarTotales()
+
     End Sub
 
 End Class

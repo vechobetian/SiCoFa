@@ -215,11 +215,10 @@ Public Class D_AdminItemsComprobante
                             Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
 
                             ' Crear objetos anidados
-                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
-                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
-                            Dim objArticuloResult As Articulo = New Articulo(IdArticuloResult, 0, CodBarrasResult, DescripcionResult, objAlicuotaIVAResult, Now.Date, PrecioCostoResult, PrecioVentaResult, 0, objSeccionResult, 0, 0, Nothing, "")
+                            Dim AdminArticulos As New D_AdminArticulos
+                            Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
 
-                            Dim objIC As New ItemComprobanteCompra(objArticuloResult, CantidadResult, PrecioCostoResult)
+                            Dim objIC As New ItemComprobanteCompra(objArticulo, CantidadResult, PrecioCostoResult, PrecioUnitarioResult, objArticulo.ListaPrecios.PorcentajeAplicado, True)
                             objIC.IdItem = IdItemResult
                             objLI.Add(objIC)
                         End While

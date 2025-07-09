@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmAsientoGastos1
+Partial Class FrmAsientoGastos
     'Inherits System.Windows.Forms.Form
     Inherits clsFrmBase
 
@@ -235,7 +235,7 @@ Partial Class FrmAsientoGastos1
         Me.txtCuentaBancaria.Size = New System.Drawing.Size(519, 35)
         Me.txtCuentaBancaria.TabIndex = 1
         '
-        'FrmAsientoGastos
+        'FrmAsientoGastos1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -260,7 +260,7 @@ Partial Class FrmAsientoGastos1
         Me.Controls.Add(Me.cmbFPago)
         Me.Controls.Add(Me.txtCuentaBancaria)
         Me.Controls.Add(Me.cmbCajaAbierta)
-        Me.Name = "FrmAsientoGastos"
+        Me.Name = "FrmAsientoGastos1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmAsientoGastos"
         Me.ResumeLayout(False)

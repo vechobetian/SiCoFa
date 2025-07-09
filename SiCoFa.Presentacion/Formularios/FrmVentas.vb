@@ -776,7 +776,6 @@ Public Class FrmVentas
         Try
             Dim str = InputBox("Ingrese la Persona", "SiCoFa")
 
-
             If str = "" Then
                 Exit Sub
             End If

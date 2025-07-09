@@ -141,10 +141,10 @@
     <Compile Include="Formularios\FrmCierreCompra.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmAsientoGastos1.Designer.vb">
-      <DependentUpon>FrmAsientoGastos1.vb</DependentUpon>
+    <Compile Include="Formularios\FrmAsientoGastos.Designer.vb">
+      <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmAsientoGastos1.vb">
+    <Compile Include="Formularios\FrmAsientoGastos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmMoviCajaPEDetalle.Designer.vb">
@@ -343,8 +343,8 @@
     <EmbeddedResource Include="Formularios\FrmCierreCompra.resx">
       <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmAsientoGastos1.resx">
-      <DependentUpon>FrmAsientoGastos1.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmAsientoGastos.resx">
+      <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMoviCajaPEDetalle.resx">
       <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>

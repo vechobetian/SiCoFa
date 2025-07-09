@@ -31,7 +31,7 @@ Public Class FrmInicio
 
     Private Sub mnuCajaAsientoGastos_Click(sender As Object, e As EventArgs) Handles mnuCajaAsientoGastos.Click
 
-        Dim nuevoAsientoGastos As New FrmAsientoGastos1()
+        Dim nuevoAsientoGastos As New FrmAsientoGastos()
         nuevoAsientoGastos.Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaAsientoGastos.Name)
         nuevoAsientoGastos.Show()
 

@@ -1,9 +1,12 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports SiCoFa.Negocio
+Imports SiCoFa.Entidades
 
 Public Class FrmBuscaArticulos
     Property Articulos As IEnumerable(Of Articulo)
     Property ArticuloSeleccionado As Articulo
     Private Sub SeleccionarArticulo()
+        Dim AdminListaPrecios As New N_AdminListaPrecios
+        Dim listaPrecios As ListaPrecios = AdminListaPrecios.ObtenerListaPreciosPorCodiLP(Me.DataGridView1.CurrentRow.Cells("CodiLP").Value)
 
         Dim a As New Articulo(
                               Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value,
@@ -18,7 +21,7 @@ Public Class FrmBuscaArticulos
                               New Seccion(Me.DataGridView1.CurrentRow.Cells("IdSeccion").Value, Me.DataGridView1.CurrentRow.Cells("Seccion").Value, Me.DataGridView1.CurrentRow.Cells("EstablecerPrecio").Value),
                               Me.DataGridView1.CurrentRow.Cells("ActualizarPrecio").Value,
                               Me.DataGridView1.CurrentRow.Cells("Stock").Value,
-                              New ListaPrecios(Me.DataGridView1.CurrentRow.Cells("CodiLP").Value, Me.DataGridView1.CurrentRow.Cells("ListaPrecios").Value),
+                              listaPrecios,
                               Me.DataGridView1.CurrentRow.Cells("Fabricante").Value
                              )
         Me.ArticuloSeleccionado = a

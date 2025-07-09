@@ -74,6 +74,7 @@
     <Compile Include="N_AdminEmpleados.vb" />
     <Compile Include="N_AdminEmpresas.vb" />
     <Compile Include="N_AdminItemsComprobante.vb" />
+    <Compile Include="N_AdminListaPrecios.vb" />
     <Compile Include="N_AdminLoginTicket.vb" />
     <Compile Include="N_AdminComprobantes.vb" />
     <Compile Include="N_AdminDB.vb" />

@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
-Public Class FrmAsientoGastos1
+Public Class FrmAsientoGastos
     Property Usuario As Usuario
     Private DatosOpcionales As New List(Of String)
     Private Const WM_SYSCOMMAND As Integer = &H112
@@ -541,7 +541,7 @@ Public Class FrmAsientoGastos1
             Dim AdminOperacion As New N_AdminOperaciones
             AdminOperacion.AsientoGastoTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
-            Dim nuevoAsientoGastos As New FrmAsientoGastos1
+            Dim nuevoAsientoGastos As New FrmAsientoGastos
             nuevoAsientoGastos.Usuario = Me.Usuario
             nuevoAsientoGastos.Show()
 

@@ -30,7 +30,6 @@ Partial Class FrmCierreCompra
         Me.mtxtNumComprobante = New System.Windows.Forms.MaskedTextBox()
         Me.mtxtFechaComprobante = New System.Windows.Forms.MaskedTextBox()
         Me.txtImporte = New System.Windows.Forms.TextBox()
-        Me.txtObservaciones = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblVariable = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -38,9 +37,10 @@ Partial Class FrmCierreCompra
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.brnFinalizar = New System.Windows.Forms.Button()
         Me.txtCuentaBancaria = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtObservaciones = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'cmbFPago
@@ -107,15 +107,6 @@ Partial Class FrmCierreCompra
         Me.txtImporte.Name = "txtImporte"
         Me.txtImporte.Size = New System.Drawing.Size(519, 35)
         Me.txtImporte.TabIndex = 6
-        '
-        'txtObservaciones
-        '
-        Me.txtObservaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtObservaciones.Location = New System.Drawing.Point(256, 303)
-        Me.txtObservaciones.Multiline = True
-        Me.txtObservaciones.Name = "txtObservaciones"
-        Me.txtObservaciones.Size = New System.Drawing.Size(519, 110)
-        Me.txtObservaciones.TabIndex = 8
         '
         'Label1
         '
@@ -187,16 +178,6 @@ Partial Class FrmCierreCompra
         Me.Label7.TabIndex = 15
         Me.Label7.Text = "Importe:"
         '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(12, 306)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(181, 29)
-        Me.Label9.TabIndex = 17
-        Me.Label9.Text = "Observaciones:"
-        '
         'brnFinalizar
         '
         Me.brnFinalizar.Location = New System.Drawing.Point(674, 419)
@@ -214,6 +195,25 @@ Partial Class FrmCierreCompra
         Me.txtCuentaBancaria.Name = "txtCuentaBancaria"
         Me.txtCuentaBancaria.Size = New System.Drawing.Size(519, 35)
         Me.txtCuentaBancaria.TabIndex = 1
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(12, 306)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(181, 29)
+        Me.Label9.TabIndex = 17
+        Me.Label9.Text = "Observaciones:"
+        '
+        'txtObservaciones
+        '
+        Me.txtObservaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtObservaciones.Location = New System.Drawing.Point(256, 303)
+        Me.txtObservaciones.Multiline = True
+        Me.txtObservaciones.Name = "txtObservaciones"
+        Me.txtObservaciones.Size = New System.Drawing.Size(519, 110)
+        Me.txtObservaciones.TabIndex = 8
         '
         'FrmCierreCompra
         '
@@ -253,7 +253,6 @@ Partial Class FrmCierreCompra
     Friend WithEvents mtxtNumComprobante As MaskedTextBox
     Friend WithEvents mtxtFechaComprobante As MaskedTextBox
     Friend WithEvents txtImporte As TextBox
-    Friend WithEvents txtObservaciones As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents lblVariable As Label
     Friend WithEvents Label3 As Label
@@ -261,7 +260,8 @@ Partial Class FrmCierreCompra
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents brnFinalizar As Button
     Friend WithEvents txtCuentaBancaria As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents txtObservaciones As TextBox
 End Class
