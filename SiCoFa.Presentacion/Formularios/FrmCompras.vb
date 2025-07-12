@@ -27,7 +27,7 @@ Public Class FrmCompras
         Try
 
             Dim AdminDB As New N_AdminDB
-            Dim sql As String = $"SELECT IdOperacion, CONCAT(DATE_FORMAT(Inicio, '%d/%m/%Y %H:%i:%s'),' | ',IFNULL(Observaciones, '')) As Descripcion FROM TblOperaciones WHERE IdUsuario = {Me.Usuario.Id} And CodiTO = 'COMPM' And EstadoOperacion = 'GUARDADO'"
+            Dim sql As String = $"SELECT IdOperacion, CONCAT(DATE_FORMAT(Inicio, '%d/%m/%Y %H:%i:%s'),'   |   ',IFNULL(Observaciones, '')) As Descripcion FROM TblOperaciones WHERE IdUsuario = {Me.Usuario.Id} And CodiTO = 'COMPM' And EstadoOperacion = 'GUARDADO'"
             Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
 
             Select Case dt.Rows.Count
@@ -48,7 +48,7 @@ Public Class FrmCompras
                         f.Objetos = dt.DefaultView
                         f.NombrePropiedadId = "IdOperacion"
                         f.NombrePropiedadDescripcion = "Descripcion"
-                        f.HeaderPropiedadDescripcion = "Fecha | Descripcion"
+                        f.HeaderPropiedadDescripcion = "            Fecha              |            Descripcion"
 
                         If f.ShowDialog() = DialogResult.OK Then
                             Dim idOperacion As Long = Convert.ToInt64(f.Valor1Seleccionado)
@@ -79,7 +79,6 @@ Public Class FrmCompras
             Dim objItems As List(Of ItemComprobanteCompra) = AdminItems.ListarItemsCompraPorIdOperacion(mobj_Operacion.IdOperacion)
             mobj_Items = New BindingList(Of ItemComprobanteCompra)(objItems)
             mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
-            Me.Serializar()
             Me.ActualizarTotales()
             Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False

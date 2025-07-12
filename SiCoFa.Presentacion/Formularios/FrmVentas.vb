@@ -196,7 +196,7 @@ Public Class FrmVentas
                 If i.IdItem = 0 Then
                     i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
                 Else
-                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioUnitario, i.DescuentoUnitario)
+                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.Articulo.PrecioCosto, i.PrecioUnitario, i.DescuentoUnitario)
                 End If
             Next
 

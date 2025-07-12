@@ -112,6 +112,7 @@ Public Class D_AdminItemsComprobante
     Public Function ActualizarItemComprobante(
                                             ByVal argIdItem As Long,
                                             ByVal argCantidad As Decimal,
+                                            ByVal argPrecioCosto As Decimal,
                                             ByVal argPrecioUnitario As Decimal,
                                             ByVal argDescuento As Decimal
                                             ) As Boolean
@@ -126,6 +127,7 @@ Public Class D_AdminItemsComprobante
                     With cmd.Parameters
                         .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
                         .Add("p_Cantidad", MySqlDbType.Decimal).Value = argCantidad
+                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argPrecioCosto
                         .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argPrecioUnitario
                         .Add("p_Descuento", MySqlDbType.Decimal).Value = argDescuento
                     End With
@@ -271,42 +273,5 @@ Public Class D_AdminItemsComprobante
         End Try
 
     End Function
-
-    Public Function ActualizarItemComprobanteCompra(
-                                                    ByVal argIdItem As Long,
-                                                    ByVal argCantidad As Decimal,
-                                                    ByVal argPrecioCosto As Decimal,
-                                                    ByVal argPrecioVenta As Decimal
-                                                    ) As Boolean
-
-
-        Try
-            Dim objConexionDB As New D_Conexion
-
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-
-                Using cmd As New MySqlCommand("ItemComprobanteActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
-                        .Add("p_Cantidad", MySqlDbType.Decimal).Value = argCantidad
-                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argPrecioCosto
-                        .Add("p_PrecioVenta", MySqlDbType.Decimal).Value = argPrecioVenta
-                    End With
-
-                    Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
-                    Return (FilasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
-
-                End Using
-
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", Ex.Message))
-
-        End Try
-
-    End Function
-
-
 
 End Class

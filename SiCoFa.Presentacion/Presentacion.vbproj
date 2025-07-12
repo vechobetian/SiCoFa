@@ -66,6 +66,10 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=4.79.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CompareNETObjects.4.79.0\lib\net472\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1449.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -339,12 +343,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmCierreCompra.resx">
       <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmAsientoGastos.resx">
       <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMoviCajaPEDetalle.resx">
       <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>
@@ -387,12 +393,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmArticulos.resx">
       <DependentUpon>FrmArticulos.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaPersonas.resx">
       <DependentUpon>FrmBuscaPersonas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaArticulos.resx">
       <DependentUpon>FrmBuscaArticulos.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmEmpresas.resx">
       <DependentUpon>FrmEmpresas.vb</DependentUpon>

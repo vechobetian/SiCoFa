@@ -215,4 +215,18 @@ Public Class N_AdminOperaciones
 
     End Function
 
+    Public Function FinalizarCompraTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Finalizado As Boolean = AdminOperaciones.FinalizarCompraTransaccion(argCajaAbierta, argMacAddress, argOperacion, argOperacionCP, argOperacionCB, argComprobante, argAsiento, argObservacion)
+            Return Finalizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+
+        End Try
+
+    End Function
+
 End Class

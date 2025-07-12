@@ -34,6 +34,7 @@ Public Class N_AdminItemsComprobante
     Public Function ActualizarItemComprobante(
                                             ByVal argIdItem As Long,
                                             ByVal argCantidad As Decimal,
+                                            ByVal argPrecioCosto As Decimal,
                                             ByVal argPrecioUnitario As Decimal,
                                             ByVal argDescuento As Decimal
                                             ) As Boolean
@@ -44,6 +45,7 @@ Public Class N_AdminItemsComprobante
             Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(
                                                                               argIdItem,
                                                                               argCantidad,
+                                                                              argPrecioCosto,
                                                                               argPrecioUnitario,
                                                                               argDescuento
                                                                               )
@@ -112,12 +114,13 @@ Public Class N_AdminItemsComprobante
         Try
 
             Dim AdminItems As New D_AdminItemsComprobante
-            Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobanteCompra(
-                                                                                    argIdItem,
-                                                                                    argCantidad,
-                                                                                    argPrecioCosto,
-                                                                                    argPrecioVenta
-                                                                                    )
+            Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(
+                                                                              argIdItem,
+                                                                              argCantidad,
+                                                                              argPrecioCosto,
+                                                                              argPrecioVenta,
+                                                                              0
+                                                                              )
             Return Actualizado
 
         Catch ex As Exception

@@ -611,4 +611,46 @@ Public Class D_AdminOperaciones
 
     End Function
 
+    Public Function FinalizarCompraTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+
+                    If argOperacionCP IsNot Nothing Then
+                        Me.InsertarOperacionCP(argOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, cn, tx)
+                    End If
+
+                    If argOperacionCB IsNot Nothing Then
+                        Me.InsertarOperacionCB(argOperacion.IdOperacion, argOperacionCB.IdCB, argOperacionCB.Importe, cn, tx)
+                    End If
+
+                    Dim AdminComprobantes As New D_AdminComprobantes
+                    argComprobante.Operacion = argOperacion
+                    AdminComprobantes.RecibirComprobante(argComprobante, cn, tx)
+
+                    Dim AdminAsientoContable As New D_AdminAsientosContable
+                    AdminAsientoContable.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
+
+                    Me.FinalizarOperacion(argMacAddress, argOperacion, argCajaAbierta, cn, tx)
+
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message), ex)
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
 End Class

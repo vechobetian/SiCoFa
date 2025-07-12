@@ -2,7 +2,10 @@
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
 Public Class FrmCierreCompra
-    Property Usuario As Usuario
+    Property FrmOrigen As FrmVentas
+    Property Operacion As Operacion
+    Property Importe As Decimal
+
     Private DatosOpcionales As New List(Of String)
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_CLOSE As Integer = &HF060
@@ -471,12 +474,13 @@ Public Class FrmCierreCompra
                                                   )
 
             Dim AdminOperacion As New N_AdminOperaciones
-            AdminOperacion.AsientoGastoTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
+            AdminOperacion.FinalizarCompraTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, Me.Operacion, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
-            Dim nuevoAsientoGastos As New FrmCierreCompra
-            nuevoAsientoGastos.Usuario = Me.Usuario
-            nuevoAsientoGastos.Show()
+            Dim nuevaVentanaCompras As New FrmCompras()
+            nuevaVentanaCompras.Usuario = Me.Operacion.Usuario
+            nuevaVentanaCompras.Show()
 
+            Me.FrmOrigen.Close()
             Me.Close()
 
         Catch ex As Exception
