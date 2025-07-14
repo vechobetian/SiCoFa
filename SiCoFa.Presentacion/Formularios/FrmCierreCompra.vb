@@ -2,7 +2,7 @@
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
 Public Class FrmCierreCompra
-    Property FrmOrigen As FrmVentas
+    Property FrmOrigen As FrmCompras
     Property Operacion As Operacion
     Property Importe As Decimal
 

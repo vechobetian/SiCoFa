@@ -147,16 +147,12 @@ Public Class FrmCompras
 
             If argTecla = Keys.F10 Then
 
-                Using FPagos As New FrmPagos
+                Using FCierre As New FrmCierreCompra
                     Dim AdminComprobantes As New N_AdminComprobantes
-                    With FPagos
-                        '.FrmOrigen = Me
-                        '.Operacion = mobj_Operacion
-                        '.ImporteAPagar = mdec_ImporteConDescuentos
-                        '.ImporteDescuento = mdec_ImporteDescuentos
-                        '.ImporteGravado1 = mdec_ImporteGravado1
-                        '.ImporteGravado2 = mdec_ImporteGravado2
-                        '.ItemsComprobante = mobj_Items.ToList
+                    With FCierre
+                        .FrmOrigen = Me
+                        .Operacion = mobj_Operacion
+                        .Importe = mdec_ImporteTotal
                         .ShowDialog()
                     End With
                 End Using

@@ -636,6 +636,9 @@ Public Class D_AdminOperaciones
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     AdminAsientoContable.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
 
+                    Dim AdminArticulos As New D_AdminArticulos
+                    AdminArticulos.ActualizarStock(argOperacion.IdOperacion, 1, cn, tx)
+
                     Me.FinalizarOperacion(argMacAddress, argOperacion, argCajaAbierta, cn, tx)
 
                     tx.Commit()
