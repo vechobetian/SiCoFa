@@ -139,6 +139,12 @@
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
+    <Compile Include="Formularios\FrmBuscaComprobantesEmitidos.Designer.vb">
+      <DependentUpon>FrmBuscaComprobantesEmitidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmBuscaComprobantesEmitidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmCierreCompra.Designer.vb">
       <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </Compile>
@@ -149,6 +155,12 @@
       <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmAsientoGastos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmComprobantesEmitidos.Designer.vb">
+      <DependentUpon>FrmComprobantesEmitidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmComprobantesEmitidos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmMoviCajaPEDetalle.Designer.vb">
@@ -345,12 +357,18 @@
       <DependentUpon>clsFrmBase.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmBuscaComprobantesEmitidos.resx">
+      <DependentUpon>FrmBuscaComprobantesEmitidos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmCierreCompra.resx">
       <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmAsientoGastos.resx">
       <DependentUpon>FrmAsientoGastos.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmComprobantesEmitidos.resx">
+      <DependentUpon>FrmComprobantesEmitidos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMoviCajaPEDetalle.resx">
       <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>

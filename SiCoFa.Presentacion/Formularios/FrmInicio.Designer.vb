@@ -43,7 +43,9 @@ Partial Class FrmInicio
         Me.CierreEjercicioAbiertoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoria = New System.Windows.Forms.ToolStripMenuItem()
         Me.CuentasCorrientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ComprobantesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaComprobantes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaComprobantesEmitidos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaComprobantesRecibidos = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReporteDeVentasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CuentaProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CuentasBancariaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -191,7 +193,7 @@ Partial Class FrmInicio
         '
         'mnuAuditoria
         '
-        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CuentasCorrientesToolStripMenuItem, Me.ComprobantesToolStripMenuItem, Me.ReporteDeVentasToolStripMenuItem, Me.CuentaProveedoresToolStripMenuItem, Me.CuentasBancariaToolStripMenuItem, Me.CuentaEmpleadosToolStripMenuItem, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
+        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CuentasCorrientesToolStripMenuItem, Me.mnuAuditoriaComprobantes, Me.ReporteDeVentasToolStripMenuItem, Me.CuentaProveedoresToolStripMenuItem, Me.CuentasBancariaToolStripMenuItem, Me.CuentaEmpleadosToolStripMenuItem, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
         Me.mnuAuditoria.Name = "mnuAuditoria"
         Me.mnuAuditoria.Size = New System.Drawing.Size(68, 20)
         Me.mnuAuditoria.Text = "&Auditoría"
@@ -202,11 +204,24 @@ Partial Class FrmInicio
         Me.CuentasCorrientesToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
         Me.CuentasCorrientesToolStripMenuItem.Text = "&Cuentas Corrientes"
         '
-        'ComprobantesToolStripMenuItem
+        'mnuAuditoriaComprobantes
         '
-        Me.ComprobantesToolStripMenuItem.Name = "ComprobantesToolStripMenuItem"
-        Me.ComprobantesToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.ComprobantesToolStripMenuItem.Text = "Com&probantes"
+        Me.mnuAuditoriaComprobantes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAuditoriaComprobantesEmitidos, Me.mnuAuditoriaComprobantesRecibidos})
+        Me.mnuAuditoriaComprobantes.Name = "mnuAuditoriaComprobantes"
+        Me.mnuAuditoriaComprobantes.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaComprobantes.Text = "Com&probantes"
+        '
+        'mnuAuditoriaComprobantesEmitidos
+        '
+        Me.mnuAuditoriaComprobantesEmitidos.Name = "mnuAuditoriaComprobantesEmitidos"
+        Me.mnuAuditoriaComprobantesEmitidos.Size = New System.Drawing.Size(207, 22)
+        Me.mnuAuditoriaComprobantesEmitidos.Text = "Comprobantes &Emitidos"
+        '
+        'mnuAuditoriaComprobantesRecibidos
+        '
+        Me.mnuAuditoriaComprobantesRecibidos.Name = "mnuAuditoriaComprobantesRecibidos"
+        Me.mnuAuditoriaComprobantesRecibidos.Size = New System.Drawing.Size(207, 22)
+        Me.mnuAuditoriaComprobantesRecibidos.Text = "Comprobantes &Recibidos"
         '
         'ReporteDeVentasToolStripMenuItem
         '
@@ -387,7 +402,7 @@ Partial Class FrmInicio
     Friend WithEvents CancelarCuentasIncobraToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CierreEjercicioAbiertoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CuentasCorrientesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ComprobantesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaComprobantes As ToolStripMenuItem
     Friend WithEvents ReporteDeVentasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CuentaProveedoresToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CuentasBancariaToolStripMenuItem As ToolStripMenuItem
@@ -397,4 +412,6 @@ Partial Class FrmInicio
     Friend WithEvents mnuSistemaPTerminal As ToolStripMenuItem
     Friend WithEvents mnuSistemaPSistema As ToolStripMenuItem
     Friend WithEvents mnuEdicionPermisos As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaComprobantesEmitidos As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaComprobantesRecibidos As ToolStripMenuItem
 End Class

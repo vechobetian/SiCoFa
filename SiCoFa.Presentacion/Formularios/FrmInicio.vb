@@ -129,4 +129,23 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuAuditoriaComprobantesEmitidos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaComprobantesEmitidos.Click
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaComprobantesEmitidos.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmBuscaComprobantesEmitidos()
+            frm.ShowDialog()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+
+    End Sub
 End Class
