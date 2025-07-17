@@ -90,6 +90,104 @@ Public Class D_AdminComprobantes
         End Try
     End Function
 
+    Public Function ObtenerComprobantePorIdOperacion(ByVal argIdOperacion As Long, ByVal argEmpresa As Empresa, Optional ByVal visitados As HashSet(Of Long) = Nothing) As Comprobante
+        Dim objC As Comprobante = Nothing
+
+        Try
+            If visitados Is Nothing Then
+                visitados = New HashSet(Of Long)
+            End If
+
+            If visitados.Contains(argIdOperacion) Then
+                Return Nothing
+            End If
+            visitados.Add(argIdOperacion)
+
+            Dim objConexionDB As New D_Conexion
+            Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
+                        ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, TipoDoc, NumDoc, Cliente, ComprobanteAsociado
+                        FROM ConComprobantes
+                        WHERE IdOperacion=@IdOperacion"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        If datos.Read() Then
+                            Dim AdminOperaciones As New D_AdminOperaciones
+                            Dim objO As Operacion = AdminOperaciones.ObtenerOperacion(argIdOperacion)
+
+                            Dim objTC As TipoComprobante = Me.ObtenerTipoComprobantePorCodiTC(Convert.ToString(datos("CodiTC")))
+
+                            ' Manejo del CAE
+                            Dim objCAE As CAE = Nothing
+                            If Not IsDBNull(datos("CAE")) AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(datos("CAE"))) Then
+                                objCAE = New CAE(
+                                Convert.ToInt64(datos("NumComp")),
+                                Convert.ToString(datos("CAE")),
+                                Convert.ToDateTime(datos("VtoCAE"))
+                            )
+                            End If
+
+                            Dim AdminClientes As New D_AdminClientes
+                            Dim objCliente As Cliente = AdminClientes.ObtenerClientePorId(Convert.ToInt32(datos("IdCliente")))
+
+                            Dim AdminItems As New D_AdminItemsComprobante
+                            Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(argIdOperacion)
+
+                            ' Comprobante asociado
+                            Dim idOperAsoc As Long = If(IsDBNull(datos("IdOperAsoc")), 0, Convert.ToInt64(datos("IdOperAsoc")))
+                            Dim objCompAsoc As Comprobante = Nothing
+                            If idOperAsoc > 0 Then
+                                objCompAsoc = ObtenerComprobantePorIdOperacion(idOperAsoc, argEmpresa, visitados)
+                            End If
+
+                            ' Construcción final del comprobante
+                            objC = New Comprobante(
+                            argIdOperacion:=argIdOperacion,
+                            argOperacion:=objO,
+                            argTipoComprobante:=objTC,
+                            argPVenta:=Convert.ToString(datos("PVenta")),
+                            argNumComp:=Convert.ToString(datos("NumComp")),
+                            argFechaComp:=Convert.ToDateTime(datos("FechaComp")),
+                            argImpBto:=Convert.ToDecimal(datos("ImpBto")),
+                            argImpDes:=Convert.ToDecimal(datos("ImpDes")),
+                            argImpEx:=Convert.ToDecimal(datos("ImpEx")),
+                            argImpGrav1:=Convert.ToDecimal(datos("ImpGrav1")),
+                            argImpNeto1:=Convert.ToDecimal(datos("ImpNeto1")),
+                            argImpIVA1:=Convert.ToDecimal(datos("ImpIVA1")),
+                            argImpGrav2:=Convert.ToDecimal(datos("ImpGrav2")),
+                            argImpNeto2:=Convert.ToDecimal(datos("ImpNeto2")),
+                            argImpIVA2:=Convert.ToDecimal(datos("ImpIVA2")),
+                            argImpCB:=Convert.ToDecimal(datos("ImpCB")),
+                            argImpEf:=Convert.ToDecimal(datos("ImpEf")),
+                            argImpCC:=Convert.ToDecimal(datos("ImpCC")),
+                            argImpPE:=Convert.ToDecimal(datos("ImpPE")),
+                            argCAE:=objCAE,
+                            argIdCliente:=Convert.ToInt32(datos("IdCliente")),
+                            argCliente:=objCliente,
+                            argIdOperAsoc:=idOperAsoc,
+                            argCompAsoc:=objCompAsoc,
+                            argEmpresa:=argEmpresa,
+                            argDetalle:=objItems
+                        )
+                        End If
+                    End Using
+                End Using
+            End Using
+
+            Return objC
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerComprobantePorIdOperacion", ex.Message))
+
+        End Try
+
+    End Function
+
     Public Function EmitirComprobante(ByRef argComprobante As Comprobante) As Boolean
         Try
             Dim objConexionDB As New D_Conexion

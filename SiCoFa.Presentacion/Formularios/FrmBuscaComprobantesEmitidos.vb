@@ -84,7 +84,6 @@ Public Class FrmBuscaComprobantesEmitidos
                 .txtCliente.Tag = c.Id
                 .txtCliente.Text = c.Nombre
             End With
-
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -214,7 +213,7 @@ Public Class FrmBuscaComprobantesEmitidos
         End Try
     End Sub
 
-    Private Sub mtxtFechaComprobante_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles mtxtFechaDesde.MaskInputRejected
+    Private Sub mtxtFechaDesde_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles mtxtFechaDesde.MaskInputRejected
         Try
             Dim fecha As Date
 
@@ -240,7 +239,57 @@ Public Class FrmBuscaComprobantesEmitidos
         End Try
     End Sub
 
+    Private Sub mtxtFechaHasta_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles mtxtFechaHasta.MaskInputRejected
+        Try
+            Dim fecha As Date
+
+            ' Si está vacío o incompleto
+            If Not mtxtFechaDesde.MaskCompleted Then
+                MsgBox("Debe ingresar una fecha completa.", vbExclamation, "Validación")
+                mtxtFechaHasta.SelectAll()
+                mtxtFechaHasta.Focus()
+                Exit Sub
+            End If
+
+            ' Validación de fecha válida
+            If Date.TryParseExact(mtxtFechaHasta.Text, "dd/MM/yyyy", Nothing, Globalization.DateTimeStyles.None, fecha) Then
+                mtxtFechaHasta.Text = fecha.ToString("dd/MM/yyyy") ' Normaliza la fecha
+            Else
+                MsgBox("La fecha ingresada no es válida.", vbExclamation, "Validación")
+                mtxtFechaHasta.SelectAll()
+                mtxtFechaHasta.Focus()
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+    End Sub
+
     Private Sub btnMostrarComprobantes_Click(sender As Object, e As EventArgs) Handles btnMostrarComprobantes.Click
+        Dim str As String
+
+        str = Strings.Replace(Me.mtxtFechaDesde.Text, "/", "").Trim
+
+        If str = "" Then
+            MsgBox("Fecha Desde es un dato requerido", vbCritical, "SiCoFa")
+            Me.mtxtFechaDesde.Focus()
+            Exit Sub
+        End If
+
+        str = Strings.Replace(Me.mtxtFechaHasta.Text, "/", "").Trim
+
+        If str = "" Then
+            MsgBox("Fecha Hasta es un dato requerido", vbCritical, "SiCoFa")
+            Me.mtxtFechaHasta.Focus()
+            Exit Sub
+        End If
+
+        Me.ValidarCampos(Me, Me.DatosOpcionales)
+
+        If Me.ValidacionOK = False Then
+            Exit Sub
+        End If
+
         Dim sql As String
 
         Dim desdeTexto As String = Me.mtxtFechaDesde.Text.Trim()
@@ -254,22 +303,25 @@ Public Class FrmBuscaComprobantesEmitidos
         Dim desdeSql As String = desdeFecha.ToString("yyyy-MM-dd")
         Dim hastaSql As String = hastaFecha.ToString("yyyy-MM-dd")
 
-        If Me.txtCliente.Tag = "" And Me.txtTipoComprobante.Tag = "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+        If Me.txtCliente.Tag.ToString = "" And Me.txtTipoComprobante.Tag.ToString = "" Then
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
-        ElseIf Me.txtCliente.Tag <> "" And Me.txtTipoComprobante.Tag = "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+        ElseIf Me.txtCliente.Tag.ToString <> "" And Me.txtTipoComprobante.Tag.ToString = "" Then
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
-        ElseIf Me.txtCliente.Tag = "" And Me.txtTipoComprobante.Tag <> "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+        ElseIf Me.txtCliente.Tag.ToString = "" And Me.txtTipoComprobante.Tag.ToString <> "" Then
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
-        ElseIf Me.txtCliente.Tag <> "" And Me.txtTipoComprobante.Tag <> "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+        ElseIf Me.txtCliente.Tag.ToString <> "" And Me.txtTipoComprobante.Tag.ToString <> "" Then
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpEf,ImpCC,ImpPE,ComprobanteAsociado FROM ConComprobantes WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
         End If
 
         FrmComprobantesEmitidos.SQL = sql
+        Me.Close()
         FrmComprobantesEmitidos.Show()
+        FrmComprobantesEmitidos.BringToFront()
+
     End Sub
 
 End Class

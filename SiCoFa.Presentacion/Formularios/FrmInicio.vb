@@ -139,7 +139,7 @@ Public Class FrmInicio
             End If
 
             Dim frm As New FrmBuscaComprobantesEmitidos()
-            frm.ShowDialog()
+            frm.Show()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

@@ -94,8 +94,7 @@ Partial Class FrmBuscaComprobantesEmitidos
         Me.btnMostrarComprobantes.Location = New System.Drawing.Point(644, 176)
         Me.btnMostrarComprobantes.Name = "btnMostrarComprobantes"
         Me.btnMostrarComprobantes.Size = New System.Drawing.Size(131, 23)
-        Me.btnMostrarComprobantes.TabIndex = 18
-        Me.btnMostrarComprobantes.TabStop = False
+        Me.btnMostrarComprobantes.TabIndex = 5
         Me.btnMostrarComprobantes.Text = "&Mostrar Comprobantes"
         Me.btnMostrarComprobantes.UseVisualStyleBackColor = True
         '
@@ -134,7 +133,7 @@ Partial Class FrmBuscaComprobantesEmitidos
         Me.Controls.Add(Me.txtCliente)
         Me.Name = "FrmBuscaComprobantesEmitidos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "FrmAsientoGastos"
+        Me.Text = "Comprobantes Emitidos"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

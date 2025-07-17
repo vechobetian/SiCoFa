@@ -27,63 +27,136 @@
     Property Detalle As List(Of ItemComprobante)
     Property QR As QRCompE
 
+    ' Constructor para comprobantes nuevos (hace cálculos)
     Public Sub New(
-                  ByVal argIdOperacion As Long,
-                  ByVal argOperacion As Operacion,
-                  ByVal argTipoComprobante As TipoComprobante,
-                  ByVal argPVenta As String,
-                  ByVal argNumComp As String,
-                  ByVal argFechaComp As Date,
-                  ByVal argImpBto As Decimal,
-                  ByVal argImpDes As Decimal,
-                  ByVal argImpEx As Decimal,
-                  ByVal argImpGrav1 As Decimal,
-                  ByVal argImpGrav2 As Decimal,
-                  ByVal argImpCB As Decimal,
-                  ByVal argImpEf As Decimal,
-                  ByVal argImpCC As Decimal,
-                  ByVal argImpPE As Decimal,
-                  ByVal argCAE As CAE,
-                  ByVal argIdCliente As Long,
-                  ByVal argCliente As Cliente,
-                  ByVal argIdOperAsoc As Long,
-                  ByVal argCompAsoc As Comprobante,
-                  ByVal argEmpresa As Empresa,
-                  ByVal argDetalle As List(Of ItemComprobante)
-                  )
+        ByVal argIdOperacion As Long,
+        ByVal argOperacion As Operacion,
+        ByVal argTipoComprobante As TipoComprobante,
+        ByVal argPVenta As String,
+        ByVal argNumComp As String,
+        ByVal argFechaComp As Date,
+        ByVal argImpBto As Decimal,
+        ByVal argImpDes As Decimal,
+        ByVal argImpEx As Decimal,
+        ByVal argImpGrav1 As Decimal,
+        ByVal argImpGrav2 As Decimal,
+        ByVal argImpCB As Decimal,
+        ByVal argImpEf As Decimal,
+        ByVal argImpCC As Decimal,
+        ByVal argImpPE As Decimal,
+        ByVal argCAE As CAE,
+        ByVal argIdCliente As Long,
+        ByVal argCliente As Cliente,
+        ByVal argIdOperAsoc As Long,
+        ByVal argCompAsoc As Comprobante,
+        ByVal argEmpresa As Empresa,
+        ByVal argDetalle As List(Of ItemComprobante)
+    )
 
-        Dim ImpNeto1 As Decimal = Math.Round(argImpGrav1 / 1.105, 2, MidpointRounding.ToEven)
-        Dim ImpIVA1 As Decimal = Math.Round(ImpNeto1 * 10.5 / 100, 2, MidpointRounding.ToEven)
-        Dim ImpNeto2 As Decimal = Math.Round(argImpGrav2 / 1.21, 2, MidpointRounding.ToEven)
-        Dim ImpIVA2 As Decimal = Math.Round(ImpNeto2 * 21 / 100, 2, MidpointRounding.ToEven)
+        Dim neto1 As Decimal = Math.Round(argImpGrav1 / 1.105D, 2, MidpointRounding.ToEven)
+        Dim iva1 As Decimal = Math.Round(neto1 * 10.5D / 100D, 2, MidpointRounding.ToEven)
+        Dim neto2 As Decimal = Math.Round(argImpGrav2 / 1.21D, 2, MidpointRounding.ToEven)
+        Dim iva2 As Decimal = Math.Round(neto2 * 21D / 100D, 2, MidpointRounding.ToEven)
 
-        Me.IdOperacion = argIdOperacion
-        Me.Operacion = argOperacion
-        Me.TipoComprobante = argTipoComprobante
-        Me.PVenta = argPVenta
-        Me.NumComp = argNumComp
-        Me.FechaComp = argFechaComp
-        Me.ImpBto = Math.Round(argImpBto, 2)
-        Me.ImpDes = Math.Round(argImpDes, 2)
-        Me.ImpEx = Math.Round(argImpEx, 2)
-        Me.ImpGrav1 = Math.Round(argImpGrav1, 2)
-        Me.ImpNeto1 = ImpNeto1
-        Me.ImpIVA1 = ImpIVA1
-        Me.ImpGrav2 = Math.Round(argImpGrav2, 2)
-        Me.ImpNeto2 = ImpNeto2
-        Me.ImpIVA2 = ImpIVA2
-        Me.ImpCB = Math.Round(argImpCB, 2)
-        Me.ImpEf = Math.Round(argImpEf, 2)
-        Me.ImpCC = Math.Round(argImpCC, 2)
-        Me.ImpPE = Math.Round(argImpPE, 2)
-        Me.CAE = argCAE
-        Me.IdCliente = argIdCliente
-        Me.Cliente = argCliente
-        Me.IdOperAsoc = argIdOperAsoc
-        Me.CompAsoc = argCompAsoc
-        Me.Empresa = argEmpresa
-        Me.Detalle = argDetalle
-
+        Inicializar(argIdOperacion, argOperacion, argTipoComprobante, argPVenta, argNumComp, argFechaComp,
+                    argImpBto, argImpDes, argImpEx, argImpGrav1, neto1, iva1,
+                    argImpGrav2, neto2, iva2, argImpCB, argImpEf, argImpCC, argImpPE,
+                    argCAE, argIdCliente, argCliente, argIdOperAsoc, argCompAsoc, argEmpresa, argDetalle)
     End Sub
 
+    ' Constructor para comprobantes cargados desde base de datos
+    Public Sub New(
+        ByVal argIdOperacion As Long,
+        ByVal argOperacion As Operacion,
+        ByVal argTipoComprobante As TipoComprobante,
+        ByVal argPVenta As String,
+        ByVal argNumComp As String,
+        ByVal argFechaComp As Date,
+        ByVal argImpBto As Decimal,
+        ByVal argImpDes As Decimal,
+        ByVal argImpEx As Decimal,
+        ByVal argImpGrav1 As Decimal,
+        ByVal argImpNeto1 As Decimal,
+        ByVal argImpIVA1 As Decimal,
+        ByVal argImpGrav2 As Decimal,
+        ByVal argImpNeto2 As Decimal,
+        ByVal argImpIVA2 As Decimal,
+        ByVal argImpCB As Decimal,
+        ByVal argImpEf As Decimal,
+        ByVal argImpCC As Decimal,
+        ByVal argImpPE As Decimal,
+        ByVal argCAE As CAE,
+        ByVal argIdCliente As Long,
+        ByVal argCliente As Cliente,
+        ByVal argIdOperAsoc As Long,
+        ByVal argCompAsoc As Comprobante,
+        ByVal argEmpresa As Empresa,
+        ByVal argDetalle As List(Of ItemComprobante)
+    )
+
+        Inicializar(argIdOperacion, argOperacion, argTipoComprobante, argPVenta, argNumComp, argFechaComp,
+                    argImpBto, argImpDes, argImpEx, argImpGrav1, argImpNeto1, argImpIVA1,
+                    argImpGrav2, argImpNeto2, argImpIVA2, argImpCB, argImpEf, argImpCC, argImpPE,
+                    argCAE, argIdCliente, argCliente, argIdOperAsoc, argCompAsoc, argEmpresa, argDetalle)
+    End Sub
+
+    ' Método privado común para evitar duplicar código
+    Private Sub Inicializar(
+        ByVal idOperacion As Long,
+        ByVal operacion As Operacion,
+        ByVal tipoComprobante As TipoComprobante,
+        ByVal pVenta As String,
+        ByVal numComp As String,
+        ByVal fechaComp As Date,
+        ByVal impBto As Decimal,
+        ByVal impDes As Decimal,
+        ByVal impEx As Decimal,
+        ByVal impGrav1 As Decimal,
+        ByVal impNeto1 As Decimal,
+        ByVal impIVA1 As Decimal,
+        ByVal impGrav2 As Decimal,
+        ByVal impNeto2 As Decimal,
+        ByVal impIVA2 As Decimal,
+        ByVal impCB As Decimal,
+        ByVal impEf As Decimal,
+        ByVal impCC As Decimal,
+        ByVal impPE As Decimal,
+        ByVal cae As CAE,
+        ByVal idCliente As Long,
+        ByVal cliente As Cliente,
+        ByVal idOperAsoc As Long,
+        ByVal compAsoc As Comprobante,
+        ByVal empresa As Empresa,
+        ByVal detalle As List(Of ItemComprobante)
+    )
+
+        Me.IdOperacion = idOperacion
+        Me.Operacion = operacion
+        Me.TipoComprobante = tipoComprobante
+        Me.PVenta = pVenta
+        Me.NumComp = numComp
+        Me.FechaComp = fechaComp
+        Me.ImpBto = Math.Round(impBto, 2)
+        Me.ImpDes = Math.Round(impDes, 2)
+        Me.ImpEx = Math.Round(impEx, 2)
+        Me.ImpGrav1 = Math.Round(impGrav1, 2)
+        Me.ImpNeto1 = Math.Round(impNeto1, 2)
+        Me.ImpIVA1 = Math.Round(impIVA1, 2)
+        Me.ImpGrav2 = Math.Round(impGrav2, 2)
+        Me.ImpNeto2 = Math.Round(impNeto2, 2)
+        Me.ImpIVA2 = Math.Round(impIVA2, 2)
+        Me.ImpCB = Math.Round(impCB, 2)
+        Me.ImpEf = Math.Round(impEf, 2)
+        Me.ImpCC = Math.Round(impCC, 2)
+        Me.ImpPE = Math.Round(impPE, 2)
+        Me.CAE = cae
+        Me.IdCliente = idCliente
+        Me.Cliente = cliente
+        Me.IdOperAsoc = idOperAsoc
+        Me.CompAsoc = compAsoc
+        Me.Empresa = empresa
+        Me.Detalle = detalle
+
+    End Sub
 End Class
+

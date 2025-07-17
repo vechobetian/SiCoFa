@@ -36,6 +36,25 @@ Public Class N_AdminComprobantes
         End Try
     End Function
 
+    Public Function ObtenerComprobantePorIdOperacion(ByVal argIdOperacion As Long, ByVal argEmpresa As Empresa, Optional ByVal visitados As HashSet(Of Long) = Nothing) As Comprobante
+        Dim AdminComprobantes As New D_AdminComprobantes
+
+        Try
+            Dim objC As Comprobante = AdminComprobantes.ObtenerComprobantePorIdOperacion(argIdOperacion, argEmpresa)
+
+            If objC.CAE IsNot Nothing Then
+                Me.GenerarQR(objC)
+            End If
+
+            Return objC
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarTipoComprobantes", ex.Message))
+
+        End Try
+
+    End Function
+
     Public Function GenerarFacturaElectronica(ByRef argComprobante As Comprobante) As Boolean
 
         Try
