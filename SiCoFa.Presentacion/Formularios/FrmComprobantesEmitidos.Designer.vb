@@ -40,11 +40,14 @@ Partial Class FrmComprobantesEmitidos
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoImprimir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuArchivoImprimirOriginal = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuArchivoImprimirDuplicado = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoEmail = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoGuardarComo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesNC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RecuperarComprobanteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOpciones = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOpcionesIVAIncluidoEnPrecioCosto = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
@@ -73,7 +76,6 @@ Partial Class FrmComprobantesEmitidos
         Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ComprobanteAsociado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.RecuperarComprobanteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,10 +118,23 @@ Partial Class FrmComprobantesEmitidos
         '
         'mnuArchivoImprimir
         '
+        Me.mnuArchivoImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivoImprimirOriginal, Me.mnuArchivoImprimirDuplicado})
         Me.mnuArchivoImprimir.Image = CType(resources.GetObject("mnuArchivoImprimir.Image"), System.Drawing.Image)
         Me.mnuArchivoImprimir.Name = "mnuArchivoImprimir"
         Me.mnuArchivoImprimir.Size = New System.Drawing.Size(180, 22)
         Me.mnuArchivoImprimir.Text = "&Imprimir"
+        '
+        'mnuArchivoImprimirOriginal
+        '
+        Me.mnuArchivoImprimirOriginal.Name = "mnuArchivoImprimirOriginal"
+        Me.mnuArchivoImprimirOriginal.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoImprimirOriginal.Text = "&Original"
+        '
+        'mnuArchivoImprimirDuplicado
+        '
+        Me.mnuArchivoImprimirDuplicado.Name = "mnuArchivoImprimirDuplicado"
+        Me.mnuArchivoImprimirDuplicado.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoImprimirDuplicado.Text = "&Duplicado"
         '
         'mnuArchivoEmail
         '
@@ -155,6 +170,12 @@ Partial Class FrmComprobantesEmitidos
         Me.mnuOperacionesNC.Name = "mnuOperacionesNC"
         Me.mnuOperacionesNC.Size = New System.Drawing.Size(204, 22)
         Me.mnuOperacionesNC.Text = "&Nota de Crédito"
+        '
+        'RecuperarComprobanteToolStripMenuItem
+        '
+        Me.RecuperarComprobanteToolStripMenuItem.Name = "RecuperarComprobanteToolStripMenuItem"
+        Me.RecuperarComprobanteToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
+        Me.RecuperarComprobanteToolStripMenuItem.Text = "&Recuperar Comprobante"
         '
         'mnuOpciones
         '
@@ -443,12 +464,6 @@ Partial Class FrmComprobantesEmitidos
         Me.ComprobanteAsociado.ReadOnly = True
         Me.ComprobanteAsociado.Width = 150
         '
-        'RecuperarComprobanteToolStripMenuItem
-        '
-        Me.RecuperarComprobanteToolStripMenuItem.Name = "RecuperarComprobanteToolStripMenuItem"
-        Me.RecuperarComprobanteToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
-        Me.RecuperarComprobanteToolStripMenuItem.Text = "&Recuperar Comprobante"
-        '
         'FrmComprobantesEmitidos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -506,4 +521,6 @@ Partial Class FrmComprobantesEmitidos
     Friend WithEvents mnuOpciones As ToolStripMenuItem
     Friend WithEvents mnuOpcionesIVAIncluidoEnPrecioCosto As ToolStripMenuItem
     Friend WithEvents RecuperarComprobanteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuArchivoImprimirOriginal As ToolStripMenuItem
+    Friend WithEvents mnuArchivoImprimirDuplicado As ToolStripMenuItem
 End Class

@@ -322,7 +322,7 @@ Public Class FrmPagos
             End If
 
             Dim objAdminReporteComprobantes As New ReporteComprobantes
-            objAdminReporteComprobantes.ImprimirComprobante(objCb)
+            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
             Dim nuevaVentanaVentas As New FrmVentas()
             nuevaVentanaVentas.Usuario = Me.Operacion.Usuario

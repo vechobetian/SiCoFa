@@ -110,7 +110,7 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub mnuArchivoImprimir_Click(sender As Object, e As EventArgs) Handles mnuArchivoImprimir.Click
+    Private Sub ImprimirComprobante(ByVal argNumCopias As Integer)
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
             Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
@@ -121,11 +121,19 @@ Public Class FrmComprobantesEmitidos
             Dim objComprobante As Comprobante = AdminComprobantes.ObtenerComprobantePorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
 
             Dim ReporteComprobantes As New ReporteComprobantes
-            ReporteComprobantes.ImprimirComprobante(objComprobante)
+            ReporteComprobantes.ImprimirComprobante(objComprobante, argNumCopias)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
         End Try
+    End Sub
+
+    Private Sub OriginalToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuArchivoImprimirOriginal.Click
+        Me.ImprimirComprobante(-1)
+    End Sub
+
+    Private Sub mnuArchivoImprimirDuplicado_Click(sender As Object, e As EventArgs) Handles mnuArchivoImprimirDuplicado.Click
+        Me.ImprimirComprobante(-2)
     End Sub
 
 End Class

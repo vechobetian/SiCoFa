@@ -5,17 +5,17 @@ Public Class ReporteComprobantes
 
     Public mobj_AdminSicofa As New N_AdminSiCoFa
 
-    Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante)
+    Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante, ByVal argNumCopias As Int16)
 
         Select Case g_ParametrosTerminal.Papel
             Case "A4"
-                Call ImprimirA4(argComprobante, 1)
+                Call ImprimirA4(argComprobante, argNumCopias)
 
             Case "TK80"
-                Me.ImprimirTK80(argComprobante, 1)
+                Me.ImprimirTK80(argComprobante, argNumCopias)
 
             Case "TK58"
-                Me.ImprimirTK58(argComprobante, 1)
+                Me.ImprimirTK58(argComprobante, argNumCopias)
 
 
         End Select
@@ -59,18 +59,19 @@ Public Class ReporteComprobantes
                     .Detalle = argComprobante.Detalle
                     .CAE.Add(argComprobante.CAE)
                     .QR.Add(argComprobante.QR)
-                    '.Copia = Copia
+                    .Copia = Copia
                     '.PathReporte = mobjPater.PathServer
                     '.Impresora = mobjPater.Impresora
 
-                    'If argComprobante.CompAsoc IsNot Nothing Then
-                    '.CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobante & " " & argComprobante.CompAsoc.TipoComprobante.Letra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
-                    'Else
-                    '.CompAsoc = ""
-                    'End If
+                    If argComprobante.CompAsoc IsNot Nothing Then
+                        .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobanteCLetra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                    Else
+                        .CompAsoc = ""
+                    End If
+
                 End With
 
-                objRC.Run()
+                objRC.Run("IMPA4")
                 argNumCopias = 0
             End If
 
@@ -109,7 +110,7 @@ Public Class ReporteComprobantes
                     End If
                 End With
 
-                objRC.Run()
+                objRC.Run("IMPA4")
             Next
             objRC.Dispose()
 

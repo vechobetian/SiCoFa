@@ -23,6 +23,7 @@ Public Class ComprobantesRdlc
     Property Impresora As String
     Property Copia As String
     Property CompAsoc As String
+    Property PathArchivo As String
 
     Private m_currentPageIndex As Integer
 
@@ -35,8 +36,19 @@ Public Class ComprobantesRdlc
         Return stream
     End Function
 
+    Public Sub ExportPdfA4(ByVal report As LocalReport)
+
+        Dim pdfContent As Byte() = report.Render("PDF")
+        'pdfPath = Application.StartupPath & "\Temp\" & NombreArchivo & ".pdf"
+
+        Dim pdfFile As New System.IO.FileStream(PathArchivo, System.IO.FileMode.Create)
+        pdfFile.Write(pdfContent, 0, pdfContent.Length)
+        pdfFile.Close()
+
+    End Sub
+
     'Exportar el informe dado como un archivo EMF (metarchivo mejorado).
-    Public Sub Export(ByVal report As LocalReport)
+    Public Sub ExportImpresoraA4(ByVal report As LocalReport)
         Dim deviceInfo As String =
       "<DeviceInfo>" +
       "  <OutputFormat>EMF</OutputFormat>" +
@@ -103,7 +115,7 @@ Public Class ComprobantesRdlc
     End Sub
 
     'Crear un informe local para Report.rdlc, cargar los datos, exportar el informe a un archivo .emf e imprimirlo.
-    Public Sub Run()
+    Public Sub Run(ByVal argTipoReporte As String)
         Try
             Dim report As New LocalReport()
             Dim param As New List(Of ReportParameter)
@@ -141,8 +153,15 @@ Public Class ComprobantesRdlc
             report.DataSources.Add(New ReportDataSource("QR", QR))
             report.SetParameters(param)
 
-            Export(report)
-            Print()
+            Select Case argTipoReporte
+                Case "PDFA4"
+                    ExportPdfA4(report)
+
+                Case "IMPA4"
+                    ExportImpresoraA4(report)
+                    Me.Print()
+            End Select
+
         Catch ex As Exception
             ' Registra la excepción para un análisis detallado.
             ' Para depuración, puedes usar un MsgBox para retroalimentación inmediata,
