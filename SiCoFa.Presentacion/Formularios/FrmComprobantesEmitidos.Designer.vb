@@ -127,13 +127,13 @@ Partial Class FrmComprobantesEmitidos
         'mnuArchivoImprimirOriginal
         '
         Me.mnuArchivoImprimirOriginal.Name = "mnuArchivoImprimirOriginal"
-        Me.mnuArchivoImprimirOriginal.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoImprimirOriginal.Size = New System.Drawing.Size(128, 22)
         Me.mnuArchivoImprimirOriginal.Text = "&Original"
         '
         'mnuArchivoImprimirDuplicado
         '
         Me.mnuArchivoImprimirDuplicado.Name = "mnuArchivoImprimirDuplicado"
-        Me.mnuArchivoImprimirDuplicado.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoImprimirDuplicado.Size = New System.Drawing.Size(128, 22)
         Me.mnuArchivoImprimirDuplicado.Text = "&Duplicado"
         '
         'mnuArchivoEmail

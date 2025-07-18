@@ -136,4 +136,35 @@ Public Class FrmComprobantesEmitidos
         Me.ImprimirComprobante(-2)
     End Sub
 
+    Private Sub mnuArchivoGuardarComo_Click(sender As Object, e As EventArgs) Handles mnuArchivoGuardarComo.Click
+        Try
+
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+            Dim idOperacion As Long = Convert.ToInt64(valor)
+
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Dim objComprobante As Comprobante = AdminComprobantes.ObtenerComprobantePorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
+
+            Dim saveFileDialog1 As New SaveFileDialog()
+            With saveFileDialog1
+                .Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+                .FilterIndex = 2
+                .FileName = objComprobante.TipoComprobante.CodiTC_SiCoFa & "-" & objComprobante.PVenta & "-" & objComprobante.NumComp
+                .DefaultExt = ".pdf"
+                .RestoreDirectory = True
+            End With
+
+            If saveFileDialog1.ShowDialog() = DialogResult.OK Then
+                Dim ReporteComprobantes As New ReporteComprobantes
+                ReporteComprobantes.PdfA4(saveFileDialog1.FileName, objComprobante)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
 End Class

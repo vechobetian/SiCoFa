@@ -7,7 +7,6 @@ Imports SiCoFa.Entidades
 
 Public Class ComprobantesRdlc
     Implements IDisposable
-    Property Operacion As New List(Of Operacion)
     Property Empresa As New List(Of Empresa)
     Property DocumentoEmpresa As New List(Of Documento)
     Property IVAEmpresa As New List(Of IVA)
@@ -37,8 +36,18 @@ Public Class ComprobantesRdlc
     End Function
 
     Public Sub ExportPdfA4(ByVal report As LocalReport)
+        Dim deviceInfo As String =
+      "<DeviceInfo>" +
+      "  <OutputFormat>EMF</OutputFormat>" +
+      "  <PageWidth>21cm</PageWidth>" +
+      "  <PageHeight>29.7cm</PageHeight>" +
+      "  <MarginTop>0cm</MarginTop>" +
+      "  <MarginLeft>0cm</MarginLeft>" +
+      "  <MarginRight>0cm</MarginRight>" +
+      "  <MarginBottom>0cm</MarginBottom>" +
+      "</DeviceInfo>"
 
-        Dim pdfContent As Byte() = report.Render("PDF")
+        Dim pdfContent As Byte() = report.Render("PDF", deviceInfo)
         'pdfPath = Application.StartupPath & "\Temp\" & NombreArchivo & ".pdf"
 
         Dim pdfFile As New System.IO.FileStream(PathArchivo, System.IO.FileMode.Create)
@@ -138,7 +147,6 @@ Public Class ComprobantesRdlc
                     report.ReportPath = "C:\SiCoFaCom\SiCoFa.Presentacion\Reportes\rptCompRA4.rdlc"
             End Select
 
-            'report.DataSources.Add(New ReportDataSource("Operacion", Operacion))
             report.DataSources.Add(New ReportDataSource("Empresa", Empresa))
             report.DataSources.Add(New ReportDataSource("DocumentoEmpresa", DocumentoEmpresa))
             report.DataSources.Add(New ReportDataSource("IVAEmpresa", IVAEmpresa))

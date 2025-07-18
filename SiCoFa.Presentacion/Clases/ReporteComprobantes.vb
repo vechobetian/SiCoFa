@@ -22,9 +22,38 @@ Public Class ReporteComprobantes
 
     End Sub
 
-    Private Sub pdfA4(ByVal argPath As String, ByVal argComprobante As Comprobante)
+    Public Sub PdfA4(ByVal argPath As String, ByVal argComprobante As Comprobante)
+
+        Dim objRC As New ComprobantesRdlc
 
         Try
+
+            With objRC
+                .Empresa.Add(argComprobante.Empresa)
+                .DocumentoEmpresa.Add(argComprobante.Empresa.Documento)
+                .IVAEmpresa.Add(argComprobante.Empresa.IVA)
+                .Cliente.Add(argComprobante.Cliente)
+                .DocumentoCliente.Add(argComprobante.Cliente.Documento)
+                .IVACliente.Add(argComprobante.Cliente.IVA)
+                .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
+                .Encabezado.Add(argComprobante)
+                .TipoComprobante.Add(argComprobante.TipoComprobante)
+                .Detalle = argComprobante.Detalle
+                .CAE.Add(argComprobante.CAE)
+                .QR.Add(argComprobante.QR)
+                .Copia = "ORIGINAL"
+                .PathArchivo = argPath
+
+                If argComprobante.CompAsoc IsNot Nothing Then
+                    .CompAsoc = "Comprobante Asociado: " & argComprobante.CompAsoc.TipoComprobante.TipoComprobanteCLetra & " " & argComprobante.CompAsoc.PVenta & "-" & argComprobante.CompAsoc.NumComp
+                Else
+                    .CompAsoc = ""
+                End If
+
+            End With
+
+            objRC.Run("PDFA4")
+
         Catch ex As Exception
             Throw ex
         End Try
@@ -46,7 +75,6 @@ Public Class ReporteComprobantes
                 End Select
 
                 With objRC
-                    .Operacion.Add(argComprobante.Operacion)
                     .Empresa.Add(argComprobante.Empresa)
                     .DocumentoEmpresa.Add(argComprobante.Empresa.Documento)
                     .IVAEmpresa.Add(argComprobante.Empresa.IVA)

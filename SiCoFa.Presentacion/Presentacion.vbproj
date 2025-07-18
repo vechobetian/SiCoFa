@@ -134,7 +134,6 @@
     <Compile Include="Clases\ReporteComprobantes.vb" />
     <Compile Include="Clases\Ticket58.vb" />
     <Compile Include="Clases\Ticket80.vb" />
-    <Compile Include="Clases\GenerarPDF.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
