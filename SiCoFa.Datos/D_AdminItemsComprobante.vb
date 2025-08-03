@@ -274,4 +274,97 @@ Public Class D_AdminItemsComprobante
 
     End Function
 
+    Public Function ListarItemsNCPorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobanteNC)
+        Dim objConexionDB As New D_Conexion
+        Dim objLI As New List(Of ItemComprobanteNC)
+
+        Try
+            Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion, CantidadF, CantidadA, AlicIVA, PrecioCosto, PrecioUnitario, Descuento, CodBarras FROM ConItemsNotaCredito WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
+                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("Idarticulo")
+                        Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
+                        Dim cantidadFOrdinal As Integer = datos.GetOrdinal("CantidadF")
+                        Dim cantidadAOrdinal As Integer = datos.GetOrdinal("CantidadA")
+                        Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
+                        Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
+                        Dim precioUnitarioOrdinal As Integer = datos.GetOrdinal("PrecioUnitario")
+                        Dim descuentoOrdinal As Integer = datos.GetOrdinal("Descuento")
+                        Dim codBarrasOrdinal As Integer = datos.GetOrdinal("CodBarras")
+
+                        While datos.Read
+                            ' Manejo explícito de DBNull y conversión a tipos de datos .NET
+                            Dim IdItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
+                            Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
+                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim CantidadFResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadFOrdinal))
+                            Dim CantidadAResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadAOrdinal))
+                            Dim AlicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
+                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
+                            Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
+                            Dim DescuentoResult As Decimal = If(datos.IsDBNull(descuentoOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoOrdinal)))
+                            Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
+
+
+                            Dim objINC As New ItemComprobanteNC(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, CantidadFResult, CantidadAResult, PrecioCostoResult, PrecioUnitarioResult, AlicIVAResult, DescuentoResult)
+                            objLI.Add(objINC)
+                        End While
+                    End Using
+                End Using
+            End Using
+
+            Return objLI
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarItemsNCPorIdOperacion", ex.Message))
+            Return New List(Of ItemComprobanteNC)
+
+        End Try
+    End Function
+
+    Public Function InsertarItemComprobanteNC(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobanteNC) As Long
+
+        Try
+            Dim objConexionDB As New D_Conexion
+            Dim IdItem As Long
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As New MySqlCommand("ItemComprobanteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                    With cmd.Parameters
+                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                        .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.IdArticulo
+                        .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
+                        .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.CantidadF
+                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
+                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.PrecioCosto
+                        .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
+                        .Add("p_Descuento", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
+                        .Add("p_IdItem", MySqlDbType.Int64)
+                    End With
+
+                    cmd.Parameters("p_IdItem").Direction = ParameterDirection.Output
+                    cmd.ExecuteNonQuery()
+                    IdItem = CLng(cmd.Parameters("p_IdItem").Value)
+                    Return IdItem
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobante", Ex.Message))
+            Return 0
+
+        End Try
+
+    End Function
 End Class

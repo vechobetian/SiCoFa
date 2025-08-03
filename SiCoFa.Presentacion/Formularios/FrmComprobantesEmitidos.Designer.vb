@@ -121,7 +121,7 @@ Partial Class FrmComprobantesEmitidos
         Me.mnuArchivoImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivoImprimirOriginal, Me.mnuArchivoImprimirDuplicado})
         Me.mnuArchivoImprimir.Image = CType(resources.GetObject("mnuArchivoImprimir.Image"), System.Drawing.Image)
         Me.mnuArchivoImprimir.Name = "mnuArchivoImprimir"
-        Me.mnuArchivoImprimir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoImprimir.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoImprimir.Text = "&Imprimir"
         '
         'mnuArchivoImprimirOriginal
@@ -140,21 +140,21 @@ Partial Class FrmComprobantesEmitidos
         '
         Me.mnuArchivoEmail.Image = CType(resources.GetObject("mnuArchivoEmail.Image"), System.Drawing.Image)
         Me.mnuArchivoEmail.Name = "mnuArchivoEmail"
-        Me.mnuArchivoEmail.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoEmail.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoEmail.Text = "&Enviar Mail"
         '
         'mnuArchivoGuardarComo
         '
         Me.mnuArchivoGuardarComo.Image = CType(resources.GetObject("mnuArchivoGuardarComo.Image"), System.Drawing.Image)
         Me.mnuArchivoGuardarComo.Name = "mnuArchivoGuardarComo"
-        Me.mnuArchivoGuardarComo.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoGuardarComo.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoGuardarComo.Text = "Guardar Como..."
         '
         'mnuArchivoSalir
         '
         Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
         Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
-        Me.mnuArchivoSalir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoSalir.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoSalir.Text = "&Salir"
         '
         'mnuOperaciones

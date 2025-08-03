@@ -14,7 +14,8 @@ Public Class FrmPermisos
         {"MODIFICAR_STOCK", "Modificar stock"},
         {"ANULAR_COMPROBANTE", "Anular comprobante"},
         {"CIERRE_CAJA", "Realizar cierre de caja"},
-        {"RETIRO_EF_CAJA", "Retiro Efectivo Caja Abierta"}
+        {"RETIRO_EF_CAJA", "Retiro Efectivo Caja Abierta"},
+        {"NOTA_CREDITO", "Hacer Notas de Crédito"}
     }
 
     Private Sub FrmPermisos_Load(sender As Object, e As EventArgs) Handles MyBase.Load

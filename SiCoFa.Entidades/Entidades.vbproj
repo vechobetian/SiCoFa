@@ -85,6 +85,7 @@
     <Compile Include="Empleado.vb" />
     <Compile Include="Empresa.vb" />
     <Compile Include="ItemAsientoContable.vb" />
+    <Compile Include="ItemComprobanteNC.vb" />
     <Compile Include="ItemComprobante.vb" />
     <Compile Include="ItemComprobanteCompra.vb" />
     <Compile Include="IVA.vb" />

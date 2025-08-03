@@ -256,11 +256,7 @@ Public Class D_AdminOperaciones
                     cmd.CommandText = sql
                     cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
 
-
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
-                        'Dim objEmpresa As Empresa = Me.ObtenerEmpresaPorId(datos.GetInt32("IdEmpresa"))
-                        'Dim objUsuario As Usuario = Me.ObtenerUsuarioPorId(datos.GetInt32("IdUsuario"))
-                        'Dim objTOp As TipoOperacion = Me.ObtenerTipoOperacionPorCodiTO(datos.ToString("CodiTO"))
 
                         If datos.Read() Then
                             ' Obtener valores manejando posibles DBNull
@@ -269,12 +265,17 @@ Public Class D_AdminOperaciones
                             Dim fin As DateTime = If(datos.IsDBNull(datos.GetOrdinal("Fin")), Now, datos.GetDateTime("Fin"))
                             Dim idPC As String = datos.GetString("IdPC")
                             Dim idCaja As Integer = datos.GetInt32("IdCaja")
+                            Dim codiTO As String = datos.GetString("CodiTO")
                             Dim estado As String = datos.GetString("EstadoOperacion")
                             Dim observaciones As String = datos.GetString("Observaciones")
                             Dim desError As String = If(datos.IsDBNull(datos.GetOrdinal("DesError")), "", datos.GetString("DesError"))
 
+                            'Dim objEmpresa As Empresa = Me.ObtenerEmpresaPorId(datos.GetInt32("IdEmpresa"))
+                            'Dim objUsuario As Usuario = Me.ObtenerUsuarioPorId(datos.GetInt32("IdUsuario"))
+                            Dim objTOp As TipoOperacion = Me.ObtenerTipoOperacionPorCodiTO(codiTO)
+
                             ' Si luego vas a completar Empresa, Usuario, TipoOperacion, lo dejás en Nothing o los instanciás aparte.
-                            objOpera = New Operacion(idOperacion, inicio, fin, Nothing, idPC, idCaja, Nothing, Nothing, estado, observaciones, desError)
+                            objOpera = New Operacion(idOperacion, inicio, fin, Nothing, idPC, idCaja, Nothing, objTOp, estado, observaciones, desError)
                         End If
 
                     End Using
@@ -647,6 +648,51 @@ Public Class D_AdminOperaciones
                 Catch ex As Exception
                     tx.Rollback()
                     Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message), ex)
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
+    Public Function FinalizarNCTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+
+                    If argOperacionCC IsNot Nothing Then
+                        Me.InsertarOperacionCC(argOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
+                    End If
+
+                    If argOperacionPE IsNot Nothing Then
+                        Me.InsertarOperacionPE(argOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
+                    End If
+
+                    Dim AdminComprobantes As New D_AdminComprobantes
+                    argComprobante.Operacion = argOperacion
+                    AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
+
+                    Dim AdminAsientoContable As New D_AdminAsientosContable
+                    AdminAsientoContable.EfectuarAsientoContable(argOperacion, argAsiento, cn, tx)
+
+                    Dim AdminArticulos As New D_AdminArticulos
+                    AdminArticulos.ActualizarStock(argOperacion.IdOperacion, 1, cn, tx)
+
+                    Me.FinalizarOperacion(argMacAddress, argOperacion, True, cn, tx)
+
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarNCTransaccion", ex.Message), ex)
 
                 End Try
 

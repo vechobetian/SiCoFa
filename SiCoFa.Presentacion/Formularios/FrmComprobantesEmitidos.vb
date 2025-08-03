@@ -38,7 +38,7 @@ Public Class FrmComprobantesEmitidos
                 Next
 
             Else
-                MessageBox.Show("El DataGridEfectivo no tiene 13 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridView1 no tiene 13 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception
@@ -59,7 +59,7 @@ Public Class FrmComprobantesEmitidos
                     DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
             Else
-                MessageBox.Show("El DataGridView no tiene 9 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridView2 no tiene 9 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception
@@ -159,6 +159,30 @@ Public Class FrmComprobantesEmitidos
             If saveFileDialog1.ShowDialog() = DialogResult.OK Then
                 Dim ReporteComprobantes As New ReporteComprobantes
                 ReporteComprobantes.PdfA4(saveFileDialog1.FileName, objComprobante)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuOperacionesNC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesNC.Click
+        Try
+
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+            Dim idOperacion As Long = Convert.ToInt64(valor)
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario("NOTA_CREDITO")
+
+            If u IsNot Nothing Then
+                Dim f As New FrmNotaCredito()
+                f.Usuario = u
+                f.ObtenerComprobanteOrigen(idOperacion)
+                f.Show()
             End If
 
         Catch ex As Exception
