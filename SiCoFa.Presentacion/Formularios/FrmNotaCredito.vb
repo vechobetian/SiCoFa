@@ -43,8 +43,12 @@ Public Class FrmNotaCredito
 
             If mobj_ComprobanteOrigen.ImpPE > 0 OrElse (mobj_ComprobanteOrigen.ImpCC > 0 AndAlso mobj_ComprobanteOrigen.ImpEf > 0) Then
                 Me.AcreditacionCompleta()
+                Me.chkAcreditarTodo.Checked = True
+                Me.chkAcreditarTodo.Enabled = False
                 Me.DataGridView1.ReadOnly = True
             Else
+                Me.chkAcreditarTodo.Checked = False
+                Me.chkAcreditarTodo.Enabled = True
                 Me.DataGridView1.ReadOnly = False
             End If
 
@@ -74,7 +78,7 @@ Public Class FrmNotaCredito
 
             For Each i As ItemComprobanteNC In Me.mobj_Items
                 mint_CantidadItems += 1
-                i.CantidadNC = i.CantidadF
+                i.CantidadNC = i.CantidadF - i.CantidadA
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
@@ -99,6 +103,7 @@ Public Class FrmNotaCredito
             Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+            Me.DataGridView1.Refresh()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -143,6 +148,7 @@ Public Class FrmNotaCredito
             Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+            Me.DataGridView1.Refresh()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -180,7 +186,6 @@ Public Class FrmNotaCredito
             If mobj_ComprobanteOrigen.ImpCC > 0 Then
                 'objCC = New OperacionCC(mobj_Operacion.IdOperacion, mobj_Cliente.CuentaCorriente.IdCC, "", m, "NO CANCELADO", 0)
             End If
-
 
             If mobj_ComprobanteOrigen.ImpPE > 0 Then
                 'objPE = New OperacionPE(mobj_Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
@@ -492,6 +497,7 @@ Public Class FrmNotaCredito
     End Sub
 
     Private Sub chkAcreditarTodo_CheckedChanged(sender As Object, e As EventArgs) Handles chkAcreditarTodo.CheckedChanged
+
         If chkAcreditarTodo.Checked Then
             Me.AcreditacionCompleta()
         Else
