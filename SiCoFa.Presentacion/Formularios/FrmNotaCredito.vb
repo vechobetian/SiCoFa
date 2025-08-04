@@ -443,7 +443,8 @@ Public Class FrmNotaCredito
         End Try
     End Sub
 
-    Private Sub FinalizarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinalizarToolStripMenuItem.Click
+    Private Sub FinalizarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuFinalizar.Click
 
     End Sub
+
 End Class
