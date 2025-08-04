@@ -105,6 +105,50 @@ Public Class FrmNotaCredito
         End Try
     End Sub
 
+    Private Sub PonerEnCeroCantNC()
+        Try
+            mint_CantidadItems = 0
+            mdec_ImporteCosto = 0
+            mdec_ImporteSinDescuentos = 0
+            mdec_ImporteDescuentos = 0
+            mdec_ImporteConDescuentos = 0
+            mdec_PorcentaDescuentos = 0
+            mdec_ImporteGravado1 = 0
+            mdec_ImporteGravado2 = 0
+
+            For Each i As ItemComprobanteNC In Me.mobj_Items
+                mint_CantidadItems += 1
+                i.CantidadNC = 0
+                mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
+                mdec_ImporteSinDescuentos += i.ImporteSinDescuento
+                mdec_ImporteDescuentos += i.ImporteDescuento
+                mdec_ImporteConDescuentos += i.ImporteConDescuento
+
+                Select Case i.AlicIVA
+                    Case 10.5
+                        mdec_ImporteGravado1 += i.ImporteConDescuento
+                    Case 21
+                        mdec_ImporteGravado2 += i.ImporteConDescuento
+                End Select
+            Next
+
+            If mdec_ImporteSinDescuentos > 0 Then
+                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+            Else
+                mdec_PorcentaDescuentos = 0
+            End If
+
+            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
+            Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
+            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
+            Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+    End Sub
+
     Private Sub Guardar()
         Try
 
@@ -445,6 +489,14 @@ Public Class FrmNotaCredito
 
     Private Sub FinalizarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuFinalizar.Click
 
+    End Sub
+
+    Private Sub chkAcreditarTodo_CheckedChanged(sender As Object, e As EventArgs) Handles chkAcreditarTodo.CheckedChanged
+        If chkAcreditarTodo.Checked Then
+            Me.AcreditacionCompleta()
+        Else
+            Me.PonerEnCeroCantNC()
+        End If
     End Sub
 
 End Class
