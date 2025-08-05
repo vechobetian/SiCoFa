@@ -523,6 +523,28 @@ Public Class D_AdminOperaciones
 
     End Function
 
+    Friend Function AnularOperacionPE(ByVal argIdOperacion As Long, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+
+        Try
+
+            Dim sql As String = "UPDATE TblOperacionesPE SET EstadoTransaccion = 'ANULADO' WHERE IdOperacion = @IdOperacion"
+
+            Using cmd As New MySqlCommand(sql, cn, tx)
+                cmd.CommandType = CommandType.Text
+                cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+
+                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+            End Using
+
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionPE", Ex.Message))
+
+        End Try
+
+    End Function
+
     Public Function FinalizarOperacionConTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
 
         Dim objConexionDB As New D_Conexion

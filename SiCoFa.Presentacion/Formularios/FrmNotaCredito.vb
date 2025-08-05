@@ -6,12 +6,9 @@ Imports SiCoFa.Negocio
 Public Class FrmNotaCredito
     Property Usuario As Usuario
 
-    'Private mobj_Operacion As Operacion
-    'Private mobj_TipoOperacion As TipoOperacion
     Private mobj_ComprobanteOrigen As Comprobante
-    'Private mobj_TipoComprobante As TipoComprobante
-    'Private mobj_Cliente As Cliente
-    Private mobj_Items As New BindingList(Of ItemComprobanteNC)
+    Private mobj_ItemsComprobanteOrigen As New BindingList(Of ItemComprobanteNC)
+    Private mobj_ItemsNC As List(Of ItemComprobante) = Nothing
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
@@ -24,22 +21,17 @@ Public Class FrmNotaCredito
     Public Sub ObtenerComprobanteOrigen(ByVal argIdOperacion As Long)
         Try
 
-            'mobj_Operacion = mobj_AdminOperacion.ObtenerOperacion(ArgIdOperacion)
-            'mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
-            'mobj_Operacion.Usuario = Me.Usuario
-            'mobj_Operacion.TipoOperacion = mobj_TipoOperacion
-            'mobj_Cliente = mobj_AdminOperacion.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
-
-            'If mobj_Cliente Is Nothing Then
-            'Dim AdminClientes As New N_AdminClientes
-            'mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
-
             Dim AdminComprobantes As New N_AdminComprobantes
             mobj_ComprobanteOrigen = AdminComprobantes.ObtenerComprobantePorIdOperacion(argIdOperacion, g_ParametrosTerminal.Empresa)
 
             Dim AdminItems As New N_AdminItemsComprobante
             Dim objItems As List(Of ItemComprobanteNC) = AdminItems.ListarItemsNCPorIdOperacion(argIdOperacion)
-            mobj_Items = New BindingList(Of ItemComprobanteNC)(objItems)
+            mobj_ItemsComprobanteOrigen = New BindingList(Of ItemComprobanteNC)(objItems)
+
+            If mobj_ComprobanteOrigen.IdOperAsoc > 0 Then
+                Me.chkAcreditarTodo.Checked = False
+                Me.chkAcreditarTodo.Enabled = False
+            End If
 
             If mobj_ComprobanteOrigen.ImpPE > 0 OrElse (mobj_ComprobanteOrigen.ImpCC > 0 AndAlso mobj_ComprobanteOrigen.ImpEf > 0) Then
                 Me.AcreditacionCompleta()
@@ -56,7 +48,7 @@ Public Class FrmNotaCredito
             Me.ActualizarDatosOperacion()
 
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = Me.mobj_Items
+            Me.DataGridView1.DataSource = Me.mobj_ItemsComprobanteOrigen
             Me.DataGridView1.ClearSelection()
 
         Catch ex As Exception
@@ -76,7 +68,7 @@ Public Class FrmNotaCredito
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
 
-            For Each i As ItemComprobanteNC In Me.mobj_Items
+            For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
                 mint_CantidadItems += 1
                 i.CantidadNC = i.CantidadF - i.CantidadA
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
@@ -121,7 +113,7 @@ Public Class FrmNotaCredito
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
 
-            For Each i As ItemComprobanteNC In Me.mobj_Items
+            For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
                 mint_CantidadItems += 1
                 i.CantidadNC = 0
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
@@ -166,6 +158,9 @@ Public Class FrmNotaCredito
             Dim objPE As OperacionPE = Nothing
             Dim objCb As Comprobante = Nothing
             Dim objAC As AsientoContable = Nothing
+            Dim impEf As Decimal
+            Dim impCC As Decimal
+            Dim impPE As Decimal
 
             Dim AdminOperacion As New N_AdminOperaciones
             Dim objTipoOperacion As TipoOperacion = Nothing
@@ -183,12 +178,26 @@ Public Class FrmNotaCredito
 
             Me.InsertarItems(objOperacion.IdOperacion)
 
-            If mobj_ComprobanteOrigen.ImpCC > 0 Then
-                'objCC = New OperacionCC(mobj_Operacion.IdOperacion, mobj_Cliente.CuentaCorriente.IdCC, "", m, "NO CANCELADO", 0)
+            If Me.chkAcreditarTodo.Checked Then
+                impEf = mobj_ComprobanteOrigen.ImpEf
+                impCC = mobj_ComprobanteOrigen.ImpCC
+                impPE = mobj_ComprobanteOrigen.ImpPE
             End If
 
-            If mobj_ComprobanteOrigen.ImpPE > 0 Then
-                'objPE = New OperacionPE(mobj_Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
+            If mobj_ComprobanteOrigen.ImpEf > 0 And Me.chkAcreditarTodo.Checked = False Then 'Esta situación deberia darse solamente cuando la unica forma de pago es Efectivo
+                impEf = mdec_ImporteConDescuentos
+            End If
+
+            If mobj_ComprobanteOrigen.ImpCC > 0 And Me.chkAcreditarTodo.Checked = False Then 'Esta situación deberia darse solamente cuando la unica forma de pago es Cuenta Corriente
+                impCC = mdec_ImporteConDescuentos
+            End If
+
+            If impCC > 0 Then
+                objCC = New OperacionCC(objOperacion.IdOperacion, mobj_ComprobanteOrigen.Cliente.CuentaCorriente.IdCC, "", -impCC, "NO CANCELADO", 0)
+            End If
+
+            If impPE > 0 Then
+                objPE = New OperacionPE(objOperacion.IdOperacion, 0, 1, 0, 0, "ANULADO")
             End If
 
             Dim CodiTC As String = ""
@@ -207,37 +216,37 @@ Public Class FrmNotaCredito
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTipoComprobante As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC(CodiTC)
 
-            'objCb = New Comprobante(
-            'argIdOperacion:=objOperacion.IdOperacion,
-            'argOperacion:=objOperacion,
-            'argTipoComprobante:=objTipoComprobante,
-            'argPVenta:=g_ParametrosTerminal.PVenta,
-            'argNumComp:="",
-            'argFechaComp:=Now.Date,
-            'argImpBto:=Me.mdec_ImporteConDescuentos,
-            'argImpDes:=0,
-            'argImpEx:=0,
-            'argImpGrav1:=Me.mdec_ImporteGravado1,
-            'argImpGrav2:=Me.mdec_ImporteGravado2,
-            'argImpCB:=0,
-            'argImpEf:=Me.Mde.ImportePagoEfectivo,
-            'argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
-            'argImpPE:=Me.MediosDePago.ImportePagoElectronico,
-            'argCAE:=Nothing,
-            'argIdCliente:=mobj_ComprobanteOrigen.Cliente.Id,
-            'argCliente:=mobj_ComprobanteOrigen.Cliente,
-            'argIdOperAsoc:=0,
-            'argCompAsoc:=Nothing,
-            'argEmpresa:=g_ParametrosTerminal.Empresa,
-            'argDetalle:=ItemsComprobante
-            ')
+            objCb = New Comprobante(
+            argIdOperacion:=objOperacion.IdOperacion,
+            argOperacion:=objOperacion,
+            argTipoComprobante:=objTipoComprobante,
+            argPVenta:=g_ParametrosTerminal.PVenta,
+            argNumComp:="",
+            argFechaComp:=Now.Date,
+            argImpBto:=Me.mdec_ImporteConDescuentos,
+            argImpDes:=0,
+            argImpEx:=0,
+            argImpGrav1:=Me.mdec_ImporteGravado1,
+            argImpGrav2:=Me.mdec_ImporteGravado2,
+            argImpCB:=0,
+            argImpEf:=impEf,
+            argImpCC:=impCC,
+            argImpPE:=impPE,
+            argCAE:=Nothing,
+            argIdCliente:=mobj_ComprobanteOrigen.Cliente.Id,
+            argCliente:=mobj_ComprobanteOrigen.Cliente,
+            argIdOperAsoc:=mobj_ComprobanteOrigen.IdOperacion,
+            argCompAsoc:=Nothing,
+            argEmpresa:=g_ParametrosTerminal.Empresa,
+            argDetalle:=mobj_ItemsNC
+            )
 
             objAC = New AsientoContable
             With objAC
-                '.InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
-                '.InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
-                '.InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
-                '.InsertarItem("4.01.01.001", ImporteAPagar)
+                .InsertarItem("4.01.01.001", -mdec_ImporteConDescuentos)
+                .InsertarItem("1.01.01.001", -impEf)
+                .InsertarItem("1.03.01.001", -impCC)
+                .InsertarItem("1.03.02.001", -impPE)
             End With
 
             AdminOperacion.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, objOperacion, objCC, objPE, objCb, objAC)
@@ -291,8 +300,12 @@ Public Class FrmNotaCredito
         Try
             Dim AdminItems As New N_AdminItemsComprobante
 
-            For Each i As ItemComprobanteNC In mobj_Items
-                AdminItems.InsertarItemComprobanteNC(argIdOperacion, i)
+            For Each i As ItemComprobanteNC In mobj_ItemsComprobanteOrigen
+                If i.CantidadNC > 0 Then
+                    AdminItems.InsertarItemComprobanteNC(argIdOperacion, i)
+                    Dim inc As New ItemComprobante(Nothing, "", i.Descripcion, i.CantidadNC, i.PrecioUnitario, i.AlicIVA, i.PorcentajeDescuento)
+                    mobj_ItemsNC.Add(inc)
+                End If
             Next
 
         Catch ex As Exception
@@ -334,7 +347,7 @@ Public Class FrmNotaCredito
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
 
-            For Each i As ItemComprobanteNC In Me.mobj_Items
+            For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
                 mint_CantidadItems += 1
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
@@ -382,7 +395,7 @@ Public Class FrmNotaCredito
         Try
             Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = Me.mobj_Items
+            Me.DataGridView1.DataSource = Me.mobj_ItemsComprobanteOrigen
             Me.DataGridView1.ClearSelection()
 
         Catch ex As Exception
@@ -480,7 +493,7 @@ Public Class FrmNotaCredito
 
                     ' Actualizar totales
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        Dim itemComprobante As ItemComprobanteNC = mobj_Items(e.RowIndex)
+                        Dim itemComprobante As ItemComprobanteNC = mobj_ItemsComprobanteOrigen(e.RowIndex)
                         Me.DataGridView1.Refresh()
                         Me.ActualizarTotales()
                     End If
