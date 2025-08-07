@@ -8,7 +8,7 @@ Public Class FrmNotaCredito
 
     Private mobj_ComprobanteOrigen As Comprobante
     Private mobj_ItemsComprobanteOrigen As New BindingList(Of ItemComprobanteNC)
-    Private mobj_ItemsNC As List(Of ItemComprobante) = Nothing
+    Private mobj_ItemsComprobante As New List(Of ItemComprobante) 'Esta lista es para el objeto comprobante
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
@@ -173,10 +173,10 @@ Public Class FrmNotaCredito
                     objTipoOperacion = AdminOperacion.ObtenerTipoOperacionPorCodiTO("N_C")
             End Select
 
-            Dim objOperacion As Operacion = AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, objTipoOperacion, "", "INICIADO")
-            AdminOperacion.InsertarOperacionCL(objOperacion.IdOperacion, mobj_ComprobanteOrigen.Cliente.Id)
+            'Dim objOperacion As Operacion = AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, objTipoOperacion, "", "INICIADO")
+            'AdminOperacion.InsertarOperacionCL(objOperacion.IdOperacion, mobj_ComprobanteOrigen.Cliente.Id)
 
-            Me.InsertarItems(objOperacion.IdOperacion)
+            Me.InsertarItems()
 
             If Me.chkAcreditarTodo.Checked Then
                 impEf = mobj_ComprobanteOrigen.ImpEf
@@ -193,11 +193,11 @@ Public Class FrmNotaCredito
             End If
 
             If impCC > 0 Then
-                objCC = New OperacionCC(objOperacion.IdOperacion, mobj_ComprobanteOrigen.Cliente.CuentaCorriente.IdCC, "", -impCC, "NO CANCELADO", 0)
+                objCC = New OperacionCC(0, mobj_ComprobanteOrigen.Cliente.CuentaCorriente.IdCC, "", -impCC, "NO CANCELADO", 0)
             End If
 
             If impPE > 0 Then
-                objPE = New OperacionPE(objOperacion.IdOperacion, 0, 1, 0, 0, "ANULADO")
+                objPE = New OperacionPE(0, 0, 1, 0, 0, "ANULADO")
             End If
 
             Dim CodiTC As String = ""
@@ -217,8 +217,8 @@ Public Class FrmNotaCredito
             Dim objTipoComprobante As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC(CodiTC)
 
             objCb = New Comprobante(
-            argIdOperacion:=objOperacion.IdOperacion,
-            argOperacion:=objOperacion,
+            argIdOperacion:=0,
+            argOperacion:=Nothing,
             argTipoComprobante:=objTipoComprobante,
             argPVenta:=g_ParametrosTerminal.PVenta,
             argNumComp:="",
@@ -238,7 +238,7 @@ Public Class FrmNotaCredito
             argIdOperAsoc:=mobj_ComprobanteOrigen.IdOperacion,
             argCompAsoc:=Nothing,
             argEmpresa:=g_ParametrosTerminal.Empresa,
-            argDetalle:=mobj_ItemsNC
+            argDetalle:=mobj_ItemsComprobante
             )
 
             objAC = New AsientoContable
@@ -249,11 +249,11 @@ Public Class FrmNotaCredito
                 .InsertarItem("1.03.02.001", -impPE)
             End With
 
-            AdminOperacion.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, objOperacion, objCC, objPE, objCb, objAC)
+            AdminOperacion.FinalizarNCTransaccion(objTipoOperacion, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objCC, objPE, objCb, objAC, "")
 
             If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
-                Dim obj_N_AdminComprobants As New N_AdminComprobantes
-                If obj_N_AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
+                Dim AdminComprobants As New N_AdminComprobantes
+                If AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
                     'aca hay que cambiar el estado de la operacion y salir
                 End If
             End If
@@ -296,15 +296,17 @@ Public Class FrmNotaCredito
         End Try
     End Sub
 
-    Private Sub InsertarItems(ByVal argIdOperacion As Long)
+    Private Sub InsertarItems()
         Try
-            Dim AdminItems As New N_AdminItemsComprobante
+            Dim AdminArticulos As New N_AdminArticulos
 
             For Each i As ItemComprobanteNC In mobj_ItemsComprobanteOrigen
                 If i.CantidadNC > 0 Then
-                    AdminItems.InsertarItemComprobanteNC(argIdOperacion, i)
-                    Dim inc As New ItemComprobante(Nothing, "", i.Descripcion, i.CantidadNC, i.PrecioUnitario, i.AlicIVA, i.PorcentajeDescuento)
-                    mobj_ItemsNC.Add(inc)
+                    Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(i.IdArticulo)
+                    Dim objItemComprobante As New ItemComprobante(objArticulo, objArticulo.CodBarras, i.Descripcion, i.CantidadNC, i.PrecioUnitario, i.AlicIVA, i.PorcentajeDescuento)
+                    objItemComprobante.IdItem = i.IdItem
+                    objItemComprobante.Articulo.PrecioCosto = i.PrecioCosto
+                    mobj_ItemsComprobante.Add(objItemComprobante)
                 End If
             Next
 
@@ -390,7 +392,7 @@ Public Class FrmNotaCredito
 
     End Sub
 
-    Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmNotaCredito_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             Me.ActualizarDatosOperacion()
@@ -405,7 +407,7 @@ Public Class FrmNotaCredito
 
     End Sub
 
-    Private Sub FrmVentas_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmNotaCredito_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Try
             Me.AjustarAnchoColumnasProporcional()
@@ -433,7 +435,7 @@ Public Class FrmNotaCredito
 
     End Function
 
-    Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+    Private Sub FrmNotaCredito_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.AjustarAnchoColumnasProporcional()
     End Sub
 

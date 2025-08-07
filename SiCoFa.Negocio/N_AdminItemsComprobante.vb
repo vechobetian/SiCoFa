@@ -143,18 +143,4 @@ Public Class N_AdminItemsComprobante
         End Try
     End Function
 
-    Public Function InsertarItemComprobanteNC(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobanteNC) As Long
-        Try
-            Dim AdminItems As New D_AdminItemsComprobante
-            Dim IdItem As Long = AdminItems.InsertarItemComprobanteNC(argIdOperacion, argItemComprobante)
-
-            Return IdItem
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobanteNC", ex.Message))
-            Return 0
-        End Try
-
-    End Function
-
 End Class

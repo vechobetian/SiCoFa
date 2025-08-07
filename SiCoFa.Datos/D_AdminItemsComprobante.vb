@@ -331,37 +331,31 @@ Public Class D_AdminItemsComprobante
         End Try
     End Function
 
-    Public Function InsertarItemComprobanteNC(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobanteNC) As Long
+    Friend Function InsertarItemComprobanteNC(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
             Dim objConexionDB As New D_Conexion
-            Dim IdItem As Long
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cmd As New MySqlCommand("ItemComprobanteNCInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+                With cmd.Parameters
+                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
+                    .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
+                    .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
+                    .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad
+                    .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
+                    .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto
+                    .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
+                    .Add("p_Descuento", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
+                    .Add("p_IdItemOrigen", MySqlDbType.Int64).Value = argItemComprobante.IdItem
+                End With
 
-                Using cmd As New MySqlCommand("ItemComprobanteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                        .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.IdArticulo
-                        .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
-                        .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.CantidadF
-                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
-                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.PrecioCosto
-                        .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
-                        .Add("p_Descuento", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
-                        .Add("p_IdItem", MySqlDbType.Int64)
-                    End With
-
-                    cmd.Parameters("p_IdItem").Direction = ParameterDirection.Output
-                    cmd.ExecuteNonQuery()
-                    IdItem = CLng(cmd.Parameters("p_IdItem").Value)
-                    Return IdItem
-                End Using
+                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
 
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobante", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobanteNC", Ex.Message))
             Return 0
 
         End Try
