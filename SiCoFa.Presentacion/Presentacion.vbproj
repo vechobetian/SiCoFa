@@ -144,6 +144,12 @@
     <Compile Include="Formularios\FrmBuscaComprobantesEmitidos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmBuscaComprobantesRecibidos.Designer.vb">
+      <DependentUpon>FrmBuscaComprobantesRecibidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmBuscaComprobantesRecibidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmCierreCompra.Designer.vb">
       <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </Compile>
@@ -160,6 +166,12 @@
       <DependentUpon>FrmComprobantesEmitidos.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmComprobantesEmitidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmComprobantesRecibidos.Designer.vb">
+      <DependentUpon>FrmComprobantesRecibidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmComprobantesRecibidos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmMoviCajaPEDetalle.Designer.vb">
@@ -365,6 +377,9 @@
     <EmbeddedResource Include="Formularios\FrmBuscaComprobantesEmitidos.resx">
       <DependentUpon>FrmBuscaComprobantesEmitidos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmBuscaComprobantesRecibidos.resx">
+      <DependentUpon>FrmBuscaComprobantesRecibidos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmCierreCompra.resx">
       <DependentUpon>FrmCierreCompra.vb</DependentUpon>
     </EmbeddedResource>
@@ -374,6 +389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmComprobantesEmitidos.resx">
       <DependentUpon>FrmComprobantesEmitidos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmComprobantesRecibidos.resx">
+      <DependentUpon>FrmComprobantesRecibidos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMoviCajaPEDetalle.resx">
       <DependentUpon>FrmMoviCajaPEDetalle.vb</DependentUpon>

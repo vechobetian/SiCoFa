@@ -10,6 +10,8 @@ Public Class FrmNotaCredito
     Private mobj_ItemsComprobanteOrigen As New BindingList(Of ItemComprobanteNC)
     Private mobj_ItemsComprobante As New List(Of ItemComprobante) 'Esta lista es para el objeto comprobante
     Private mint_CantidadItems As Integer = 0
+    Private mdec_CantidadFacturado As Decimal = 0
+    Private mdec_CantidadAcreditado As Decimal = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
     Private mdec_ImporteDescuentos As Decimal = 0
@@ -69,8 +71,12 @@ Public Class FrmNotaCredito
             mdec_ImporteGravado2 = 0
 
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
-                mint_CantidadItems += 1
                 i.CantidadNC = i.CantidadF - i.CantidadA
+
+                If i.CantidadNC > 0 Then
+                    mint_CantidadItems += 1
+                End If
+
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
@@ -90,7 +96,7 @@ Public Class FrmNotaCredito
                 mdec_PorcentaDescuentos = 0
             End If
 
-            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
+            Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
             Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
@@ -114,7 +120,7 @@ Public Class FrmNotaCredito
             mdec_ImporteGravado2 = 0
 
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
-                mint_CantidadItems += 1
+                mint_CantidadItems = 0
                 i.CantidadNC = 0
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
@@ -135,7 +141,7 @@ Public Class FrmNotaCredito
                 mdec_PorcentaDescuentos = 0
             End If
 
-            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
+            Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
             Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
@@ -172,9 +178,6 @@ Public Class FrmNotaCredito
                 Case "F_R"
                     objTipoOperacion = AdminOperacion.ObtenerTipoOperacionPorCodiTO("N_C")
             End Select
-
-            'Dim objOperacion As Operacion = AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, objTipoOperacion, "", "INICIADO")
-            'AdminOperacion.InsertarOperacionCL(objOperacion.IdOperacion, mobj_ComprobanteOrigen.Cliente.Id)
 
             Me.InsertarItems()
 
@@ -236,7 +239,7 @@ Public Class FrmNotaCredito
             argIdCliente:=mobj_ComprobanteOrigen.Cliente.Id,
             argCliente:=mobj_ComprobanteOrigen.Cliente,
             argIdOperAsoc:=mobj_ComprobanteOrigen.IdOperacion,
-            argCompAsoc:=Nothing,
+            argCompAsoc:=mobj_ComprobanteOrigen,
             argEmpresa:=g_ParametrosTerminal.Empresa,
             argDetalle:=mobj_ItemsComprobante
             )
@@ -260,36 +263,6 @@ Public Class FrmNotaCredito
 
             Dim objAdminReporteComprobantes As New ReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
-
-            'If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
-
-            'Using FPagos As New FrmPagos
-            'Dim AdminComprobantes As New N_AdminComprobantes
-            'With FPagos
-            '.FrmOrigen = Me
-            '.Operacion = mobj_Operacion
-            '.Cliente = mobj_Cliente
-
-            'Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
-            '.TipoComprobante = tc
-
-            'If g_ParametrosSistema.GetValor("SFISCAL") = "FE" Then
-            '.TipoComprobante = Nothing
-            'Else
-            'Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
-            '.TipoComprobante = tc
-            'End If
-
-            '.ImporteAPagar = mdec_ImporteConDescuentos
-            '.ImporteDescuento = mdec_ImporteDescuentos
-            '.ImporteGravado1 = mdec_ImporteGravado1
-            '.ImporteGravado2 = mdec_ImporteGravado2
-            '.ItemsComprobante = mobj_Items.ToList
-            '.ShowDialog()
-            'End With
-            'End Using
-
-            'End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -350,7 +323,13 @@ Public Class FrmNotaCredito
             mdec_ImporteGravado2 = 0
 
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
-                mint_CantidadItems += 1
+
+                If i.CantidadNC > 0 Then
+                    mint_CantidadItems += 1
+                End If
+
+                mdec_CantidadAcreditado += i.CantidadA
+                mdec_CantidadFacturado += i.CantidadF
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
@@ -370,11 +349,16 @@ Public Class FrmNotaCredito
                 mdec_PorcentaDescuentos = 0
             End If
 
-            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
+            Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
             Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+
+            If mdec_CantidadFacturado - mdec_CantidadAcreditado = 0 Then
+                Me.chkAcreditarTodo.Checked = False
+                Me.chkAcreditarTodo.Enabled = False
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -509,6 +493,8 @@ Public Class FrmNotaCredito
 
     Private Sub FinalizarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuFinalizar.Click
 
+        Me.Guardar()
+
     End Sub
 
     Private Sub chkAcreditarTodo_CheckedChanged(sender As Object, e As EventArgs) Handles chkAcreditarTodo.CheckedChanged
@@ -520,4 +506,7 @@ Public Class FrmNotaCredito
         End If
     End Sub
 
+    Private Sub mnuSalir_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
+        Me.Close()
+    End Sub
 End Class

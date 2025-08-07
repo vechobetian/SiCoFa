@@ -146,7 +146,7 @@ Public Class FrmInicio
                 Exit Sub
             End If
 
-            Dim frm As New FrmBuscaComprobantesEmitidos()
+            Dim frm As New FrmBuscaComprobantesRecibidos()
             frm.Show()
 
         Catch ex As Exception
@@ -156,4 +156,5 @@ Public Class FrmInicio
 
 
     End Sub
+
 End Class
