@@ -24,18 +24,17 @@ Partial Class FrmComprobantesRecibidos
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmComprobantesRecibidos))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
@@ -72,10 +71,9 @@ Partial Class FrmComprobantesRecibidos
         Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrecioUnitario = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteSinDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PorcentajeDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteConDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteNeto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -209,7 +207,7 @@ Partial Class FrmComprobantesRecibidos
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento})
+        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteNeto, Me.ImporteIVA, Me.Importe})
         Me.DataGridView2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView2.Location = New System.Drawing.Point(5, 552)
         Me.DataGridView2.Name = "DataGridView2"
@@ -298,10 +296,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpBto
         '
         Me.ImpBto.DataPropertyName = "ImpBto"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "N2"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle8
         Me.ImpBto.HeaderText = "Importe"
         Me.ImpBto.Name = "ImpBto"
         Me.ImpBto.ReadOnly = True
@@ -309,10 +307,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpDes
         '
         Me.ImpDes.DataPropertyName = "ImpDes"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.ImpDes.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "N2"
+        DataGridViewCellStyle9.NullValue = Nothing
+        Me.ImpDes.DefaultCellStyle = DataGridViewCellStyle9
         Me.ImpDes.HeaderText = "Descuento"
         Me.ImpDes.Name = "ImpDes"
         Me.ImpDes.ReadOnly = True
@@ -320,10 +318,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpEf
         '
         Me.ImpEf.DataPropertyName = "ImpEf"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle11.Format = "N2"
-        DataGridViewCellStyle11.NullValue = Nothing
-        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle10.Format = "N2"
+        DataGridViewCellStyle10.NullValue = Nothing
+        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle10
         Me.ImpEf.HeaderText = "Efectivo"
         Me.ImpEf.Name = "ImpEf"
         Me.ImpEf.ReadOnly = True
@@ -331,10 +329,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpCC
         '
         Me.ImpCC.DataPropertyName = "ImpCC"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "N2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle11.Format = "N2"
+        DataGridViewCellStyle11.NullValue = Nothing
+        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle11
         Me.ImpCC.HeaderText = "Cta. Cte."
         Me.ImpCC.Name = "ImpCC"
         Me.ImpCC.ReadOnly = True
@@ -342,10 +340,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpPE
         '
         Me.ImpPE.DataPropertyName = "ImpPE"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle13.Format = "N2"
-        DataGridViewCellStyle13.NullValue = Nothing
-        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle12
         Me.ImpPE.HeaderText = "Pago Electronico"
         Me.ImpPE.Name = "ImpPE"
         Me.ImpPE.ReadOnly = True
@@ -412,57 +410,45 @@ Partial Class FrmComprobantesRecibidos
         DataGridViewCellStyle4.NullValue = Nothing
         Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle4
         Me.PrecioUnitario.FillWeight = 68.81715!
-        Me.PrecioUnitario.HeaderText = "Precio Unitario"
+        Me.PrecioUnitario.HeaderText = "Precio Costo + IVA"
         Me.PrecioUnitario.Name = "PrecioUnitario"
         Me.PrecioUnitario.ReadOnly = True
         '
-        'ImporteSinDescuento
+        'ImporteNeto
         '
-        Me.ImporteSinDescuento.DataPropertyName = "ImporteSinDescuento"
+        Me.ImporteNeto.DataPropertyName = "ImporteNeto"
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle5.Format = "N2"
         DataGridViewCellStyle5.NullValue = Nothing
-        Me.ImporteSinDescuento.DefaultCellStyle = DataGridViewCellStyle5
-        Me.ImporteSinDescuento.FillWeight = 59.96484!
-        Me.ImporteSinDescuento.HeaderText = "Importe"
-        Me.ImporteSinDescuento.Name = "ImporteSinDescuento"
-        Me.ImporteSinDescuento.ReadOnly = True
+        Me.ImporteNeto.DefaultCellStyle = DataGridViewCellStyle5
+        Me.ImporteNeto.FillWeight = 59.96484!
+        Me.ImporteNeto.HeaderText = "Importe Neto"
+        Me.ImporteNeto.Name = "ImporteNeto"
+        Me.ImporteNeto.ReadOnly = True
         '
-        'PorcentajeDescuento
+        'ImporteIVA
         '
-        Me.PorcentajeDescuento.DataPropertyName = "PorcentajeDescuento"
+        Me.ImporteIVA.DataPropertyName = "ImporteIVA"
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle6.Format = "N2"
         DataGridViewCellStyle6.NullValue = Nothing
-        Me.PorcentajeDescuento.DefaultCellStyle = DataGridViewCellStyle6
-        Me.PorcentajeDescuento.FillWeight = 57.10529!
-        Me.PorcentajeDescuento.HeaderText = "%Descuento"
-        Me.PorcentajeDescuento.Name = "PorcentajeDescuento"
-        Me.PorcentajeDescuento.ReadOnly = True
+        Me.ImporteIVA.DefaultCellStyle = DataGridViewCellStyle6
+        Me.ImporteIVA.FillWeight = 57.10529!
+        Me.ImporteIVA.HeaderText = "Importe IVA"
+        Me.ImporteIVA.Name = "ImporteIVA"
+        Me.ImporteIVA.ReadOnly = True
         '
-        'ImporteDescuento
+        'Importe
         '
-        Me.ImporteDescuento.DataPropertyName = "ImporteDescuento"
+        Me.Importe.DataPropertyName = "Importe"
         DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle7.Format = "N2"
         DataGridViewCellStyle7.NullValue = Nothing
-        Me.ImporteDescuento.DefaultCellStyle = DataGridViewCellStyle7
-        Me.ImporteDescuento.FillWeight = 54.31535!
-        Me.ImporteDescuento.HeaderText = "Imp.Descuento"
-        Me.ImporteDescuento.Name = "ImporteDescuento"
-        Me.ImporteDescuento.ReadOnly = True
-        '
-        'ImporteConDescuento
-        '
-        Me.ImporteConDescuento.DataPropertyName = "ImporteConDescuento"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImporteConDescuento.DefaultCellStyle = DataGridViewCellStyle8
-        Me.ImporteConDescuento.FillWeight = 40.10151!
-        Me.ImporteConDescuento.HeaderText = "Imp.Cliente"
-        Me.ImporteConDescuento.Name = "ImporteConDescuento"
-        Me.ImporteConDescuento.ReadOnly = True
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle7
+        Me.Importe.FillWeight = 54.31535!
+        Me.Importe.HeaderText = "Importe"
+        Me.Importe.Name = "Importe"
+        Me.Importe.ReadOnly = True
         '
         'FrmComprobantesRecibidos
         '
@@ -519,8 +505,7 @@ Partial Class FrmComprobantesRecibidos
     Friend WithEvents Cantidad As DataGridViewTextBoxColumn
     Friend WithEvents AlicIVA As DataGridViewTextBoxColumn
     Friend WithEvents PrecioUnitario As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteSinDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents PorcentajeDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteConDescuento As DataGridViewTextBoxColumn
+    Friend WithEvents ImporteNeto As DataGridViewTextBoxColumn
+    Friend WithEvents ImporteIVA As DataGridViewTextBoxColumn
+    Friend WithEvents Importe As DataGridViewTextBoxColumn
 End Class
