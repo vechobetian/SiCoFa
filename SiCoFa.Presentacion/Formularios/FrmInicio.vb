@@ -146,6 +146,25 @@ Public Class FrmInicio
                 Exit Sub
             End If
 
+            Dim frm As New FrmBuscaComprobantesEmitidos()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuAuditoriaComprobantesRecibidos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaComprobantesRecibidos.Click
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaComprobantesEmitidos.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
             Dim frm As New FrmBuscaComprobantesRecibidos()
             frm.Show()
 
@@ -154,7 +173,5 @@ Public Class FrmInicio
 
         End Try
 
-
     End Sub
-
 End Class

@@ -444,8 +444,10 @@ Public Class FrmCierreCompra
             End If
 
             If Me.cmbFPago.Text = "CREDITO" Then
-                objOperacionCP = New OperacionCP(0, Me.txtProveedor.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "INICIADO", 0)
+                objOperacionCP = New OperacionCP(0, Me.txtProveedor.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "NO CANCELADO", 0)
                 objAsCon.InsertarItem("2.01.01.001", Convert.ToDecimal(Me.txtImporte.Text))
+            Else
+                objOperacionCP = New OperacionCP(0, Me.txtProveedor.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "CANCELADO", 0)
             End If
 
             Dim objComprobante As New Comprobante(

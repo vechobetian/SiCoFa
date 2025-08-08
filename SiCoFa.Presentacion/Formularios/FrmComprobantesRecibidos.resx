@@ -124,7 +124,7 @@
   <data name="mnuArchivoImprimir.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAfJJREFUOE+NksuPmWEUxv1vYmtshB1NJVYWIrEwIkoJHSxcYiEus2CBaF07NW7V
+        vAAADrwBlbxySQAAAfJJREFUOE+NksuPmWEUxv1vYmtshB1NJVYWIrEwIkoJHSxcYiEus2CBaF07NW7V
         mUxk5JMIHVLNsPjqEhSbprp46n1DJ1+mM+NJnnybc37nOef9eAfd9X7gKe9LntenIoPlLzxy8PzDcQCi
         j1/uMViA4/znb3C73cdBzhO3uGXB8dX331AqNUeuUe3iYoB/zn4F3neAV691sFqtL0MuL69wvWu4aQPM
         3R90Bz9xP2IxHo9hsVieh+TzeTQaDcznc2QyGRSLRaRSKRQKBZTLZepsNvt/CGnudruo1+uIx+OIRqNo
@@ -138,7 +138,7 @@
   <data name="mnuArchivoEmail.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAURJREFUWEfNkAGywyAIRHP0HC03a/tUDDVohNg//80wKza7UrYBr4UV4rUCcnKc
+        vAAADrwBlbxySQAAAURJREFUWEfNkAGywyAIRHP0HC03a/tUDDVohNg//80wKza7UrYBr4UV4rUCcnKc
         nxJRQ9ylvCF0QDp70P5930NDfIUcx/E50JS6QXvDAwic0wAOxI9GBkhmgZ4BCLorQTwo94TOkkxtRTYQ
         HgAwt+WBHDxoaAALWfOoBHKWD+CBnMgAybACcrwDVKMga/WUQA690i5fj+rzE8iRDagyST8K+vwEcpoN
         UCbVoBUweksgp90Av3/0Ap9XU+6fQ055kK721hDZoYYYwb+aUXJy1pk7GEAePT+2mH0cbXPppzbQDjHz
@@ -223,7 +223,7 @@
   <metadata name="NumComp.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Cliente.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Proveedor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="ImpBto.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

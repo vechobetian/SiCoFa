@@ -24,7 +24,7 @@ Public Class FrmNotaCredito
         Try
 
             Dim AdminComprobantes As New N_AdminComprobantes
-            mobj_ComprobanteOrigen = AdminComprobantes.ObtenerComprobantePorIdOperacion(argIdOperacion, g_ParametrosTerminal.Empresa)
+            mobj_ComprobanteOrigen = AdminComprobantes.ObtenerComprobanteEmitidoPorIdOperacion(argIdOperacion, g_ParametrosTerminal.Empresa)
 
             Dim AdminItems As New N_AdminItemsComprobante
             Dim objItems As List(Of ItemComprobanteNC) = AdminItems.ListarItemsNCPorIdOperacion(argIdOperacion)

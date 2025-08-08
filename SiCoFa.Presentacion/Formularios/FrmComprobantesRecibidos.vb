@@ -14,7 +14,7 @@ Public Class FrmComprobantesRecibidos
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
             Dim AdminItems As New N_AdminItemsComprobante
-            Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(idOperacion)
+            Dim objItems As List(Of ItemComprobanteCompra) = AdminItems.ListarItemsCompraPorIdOperacion(idOperacion)
 
             Me.DataGridView2.AutoGenerateColumns = False
             Me.DataGridView2.DataSource = objItems
@@ -118,7 +118,7 @@ Public Class FrmComprobantesRecibidos
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
             Dim AdminComprobantes As New N_AdminComprobantes
-            Dim objComprobante As Comprobante = AdminComprobantes.ObtenerComprobantePorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
+            Dim objComprobante As Comprobante = AdminComprobantes.ObtenerComprobanteEmitidoPorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
 
             Dim ReporteComprobantes As New ReporteComprobantes
             ReporteComprobantes.ImprimirComprobante(objComprobante, argNumCopias)
@@ -145,7 +145,7 @@ Public Class FrmComprobantesRecibidos
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
             Dim AdminComprobantes As New N_AdminComprobantes
-            Dim objComprobante As Comprobante = AdminComprobantes.ObtenerComprobantePorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
+            Dim objComprobante As Comprobante = AdminComprobantes.ObtenerComprobanteEmitidoPorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
 
             Dim saveFileDialog1 As New SaveFileDialog()
             With saveFileDialog1

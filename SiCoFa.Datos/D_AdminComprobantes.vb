@@ -90,7 +90,7 @@ Public Class D_AdminComprobantes
         End Try
     End Function
 
-    Public Function ObtenerComprobantePorIdOperacion(ByVal argIdOperacion As Long, ByVal argEmpresa As Empresa, Optional ByVal visitados As HashSet(Of Long) = Nothing) As Comprobante
+    Public Function ObtenerComprobanteEmitidoPorIdOperacion(ByVal argIdOperacion As Long, ByVal argEmpresa As Empresa, Optional ByVal visitados As HashSet(Of Long) = Nothing) As Comprobante
         Dim objC As Comprobante = Nothing
 
         Try
@@ -106,7 +106,7 @@ Public Class D_AdminComprobantes
             Dim objConexionDB As New D_Conexion
             Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
                         ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, TipoDoc, NumDoc, Cliente, ComprobanteAsociado
-                        FROM ConComprobantes
+                        FROM ConComprobantesEmitidos
                         WHERE IdOperacion=@IdOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -142,7 +142,7 @@ Public Class D_AdminComprobantes
                             Dim idOperAsoc As Long = If(IsDBNull(datos("IdOperAsoc")), 0, Convert.ToInt64(datos("IdOperAsoc")))
                             Dim objCompAsoc As Comprobante = Nothing
                             If idOperAsoc > 0 Then
-                                objCompAsoc = ObtenerComprobantePorIdOperacion(idOperAsoc, argEmpresa, visitados)
+                                objCompAsoc = ObtenerComprobanteEmitidoPorIdOperacion(idOperAsoc, argEmpresa, visitados)
                             End If
 
                             ' Construcción final del comprobante

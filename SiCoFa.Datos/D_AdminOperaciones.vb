@@ -337,7 +337,6 @@ Public Class D_AdminOperaciones
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                cn.Open()
                 Return InsertarOperacionCB(argIdOperacion, argIdCB, argImporte, cn, Nothing)
             End Using
 
@@ -375,7 +374,6 @@ Public Class D_AdminOperaciones
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                cn.Open()
                 Return InsertarOperacionCL(argIdOperacion, argIdCliente, cn, Nothing)
             End Using
 
@@ -383,6 +381,7 @@ Public Class D_AdminOperaciones
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", Ex.Message))
         End Try
     End Function
+
     Friend Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
@@ -409,6 +408,7 @@ Public Class D_AdminOperaciones
     Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
+
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("OperacionCLActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
@@ -437,7 +437,6 @@ Public Class D_AdminOperaciones
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                cn.Open()
                 Return InsertarOperacionCC(argIdOperacion, argIdCC, argImporte, cn, Nothing)
             End Using
 
@@ -470,16 +469,17 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Friend Function InsertarOperacionCP(ByVal argIdOperacion As Long, ByVal argIdProveedor As Int32, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function InsertarOperacionCP(ByVal argIdOperacion As Long, ByVal argIdProveedor As Int32, ByVal argImporte As Decimal, ByVal argEstado As String, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
-            Using cmd As New MySqlCommand("OperacionCCInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("OperacionCPInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_IdProveedor", MySqlDbType.Int32).Value = argIdProveedor
                     .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                    .Add("p_EstadoOperacionCP", MySqlDbType.VarChar).Value = argEstado
                 End With
 
                 Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
@@ -494,13 +494,11 @@ Public Class D_AdminOperaciones
 
     End Function
 
-
     Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                cn.Open()
                 Return InsertarOperacionPE(argIdOperacion, argIdCC, argImporte, cn, Nothing)
             End Using
 
@@ -611,9 +609,7 @@ Public Class D_AdminOperaciones
                     Dim objTipoOperacion As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO("ASGAS")
                     Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, objTipoOperacion, argObservacion, "INICIADO", cn, tx)
 
-                    If argOperacionCP IsNot Nothing Then
-                        Me.InsertarOperacionCP(objOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, cn, tx)
-                    End If
+                    Me.InsertarOperacionCP(objOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, argOperacionCP.EstadoOperacionCP, cn, tx)
 
                     If argOperacionCB IsNot Nothing Then
                         Me.InsertarOperacionCB(objOperacion.IdOperacion, argOperacionCB.IdCB, argOperacionCB.Importe, cn, tx)
@@ -653,9 +649,7 @@ Public Class D_AdminOperaciones
 
                 Try
 
-                    If argOperacionCP IsNot Nothing Then
-                        Me.InsertarOperacionCP(argOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, cn, tx)
-                    End If
+                    Me.InsertarOperacionCP(argOperacion.IdOperacion, argOperacionCP.IdProveedor, argOperacionCP.Importe, argOperacionCP.EstadoOperacionCP, cn, tx)
 
                     If argOperacionCB IsNot Nothing Then
                         Me.InsertarOperacionCB(argOperacion.IdOperacion, argOperacionCB.IdCB, argOperacionCB.Importe, cn, tx)

@@ -36,11 +36,11 @@ Public Class N_AdminComprobantes
         End Try
     End Function
 
-    Public Function ObtenerComprobantePorIdOperacion(ByVal argIdOperacion As Long, ByVal argEmpresa As Empresa, Optional ByVal visitados As HashSet(Of Long) = Nothing) As Comprobante
+    Public Function ObtenerComprobanteEmitidoPorIdOperacion(ByVal argIdOperacion As Long, ByVal argEmpresa As Empresa, Optional ByVal visitados As HashSet(Of Long) = Nothing) As Comprobante
         Dim AdminComprobantes As New D_AdminComprobantes
 
         Try
-            Dim objC As Comprobante = AdminComprobantes.ObtenerComprobantePorIdOperacion(argIdOperacion, argEmpresa)
+            Dim objC As Comprobante = AdminComprobantes.ObtenerComprobanteEmitidoPorIdOperacion(argIdOperacion, argEmpresa)
 
             If objC.CAE IsNot Nothing Then
                 Me.GenerarQR(objC)

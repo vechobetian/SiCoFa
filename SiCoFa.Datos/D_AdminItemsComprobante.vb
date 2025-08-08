@@ -291,7 +291,7 @@ Public Class D_AdminItemsComprobante
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
                         Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
-                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("Idarticulo")
+                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
                         Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
                         Dim cantidadFOrdinal As Integer = datos.GetOrdinal("CantidadF")
                         Dim cantidadAOrdinal As Integer = datos.GetOrdinal("CantidadA")
