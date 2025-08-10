@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmComprobantesEmitidos
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FrmComprobantesEmitidos
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmComprobantesEmitidos))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -36,6 +36,7 @@ Partial Class FrmComprobantesEmitidos
         Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
@@ -47,9 +48,11 @@ Partial Class FrmComprobantesEmitidos
         Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesNC = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RecuperarComprobanteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOpciones = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesRecuperarComprobante = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesFacturarRemito = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesFacturarPresupuesto = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FacturaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
         Me.IdItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -62,9 +65,9 @@ Partial Class FrmComprobantesEmitidos
         Me.ImporteDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImporteConDescuento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodiTC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperAsoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TipoComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -72,10 +75,14 @@ Partial Class FrmComprobantesEmitidos
         Me.Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpBto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpDes = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpNeto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ComprobanteAsociado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EstadoOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Observaciones = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DescripcionError = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -97,15 +104,15 @@ Partial Class FrmComprobantesEmitidos
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 73.68421!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.31579!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1359, 737)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1554, 737)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones, Me.mnuOpciones})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1355, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1550, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -159,7 +166,7 @@ Partial Class FrmComprobantesEmitidos
         '
         'mnuOperaciones
         '
-        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesNC, Me.RecuperarComprobanteToolStripMenuItem})
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesNC, Me.mnuOperacionesRecuperarComprobante, Me.mnuOperacionesFacturarRemito, Me.mnuOperacionesFacturarPresupuesto})
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
@@ -171,27 +178,36 @@ Partial Class FrmComprobantesEmitidos
         Me.mnuOperacionesNC.Size = New System.Drawing.Size(204, 22)
         Me.mnuOperacionesNC.Text = "&Nota de Crédito"
         '
-        'RecuperarComprobanteToolStripMenuItem
+        'mnuOperacionesRecuperarComprobante
         '
-        Me.RecuperarComprobanteToolStripMenuItem.Name = "RecuperarComprobanteToolStripMenuItem"
-        Me.RecuperarComprobanteToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
-        Me.RecuperarComprobanteToolStripMenuItem.Text = "&Recuperar Comprobante"
+        Me.mnuOperacionesRecuperarComprobante.Name = "mnuOperacionesRecuperarComprobante"
+        Me.mnuOperacionesRecuperarComprobante.Size = New System.Drawing.Size(204, 22)
+        Me.mnuOperacionesRecuperarComprobante.Text = "&Recuperar Comprobante"
         '
-        'mnuOpciones
+        'mnuOperacionesFacturarRemito
         '
-        Me.mnuOpciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOpcionesIVAIncluidoEnPrecioCosto})
-        Me.mnuOpciones.Name = "mnuOpciones"
-        Me.mnuOpciones.Size = New System.Drawing.Size(69, 20)
-        Me.mnuOpciones.Text = "&Opciones"
+        Me.mnuOperacionesFacturarRemito.Name = "mnuOperacionesFacturarRemito"
+        Me.mnuOperacionesFacturarRemito.Size = New System.Drawing.Size(204, 22)
+        Me.mnuOperacionesFacturarRemito.Text = "&Facturar Remito"
         '
-        'mnuOpcionesIVAIncluidoEnPrecioCosto
+        'mnuOperacionesFacturarPresupuesto
         '
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked = True
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto.CheckOnClick = True
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Name = "mnuOpcionesIVAIncluidoEnPrecioCosto"
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Size = New System.Drawing.Size(223, 22)
-        Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Text = "IVA incluido en Precio Costo"
+        Me.mnuOperacionesFacturarPresupuesto.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RemitoToolStripMenuItem, Me.FacturaToolStripMenuItem})
+        Me.mnuOperacionesFacturarPresupuesto.Name = "mnuOperacionesFacturarPresupuesto"
+        Me.mnuOperacionesFacturarPresupuesto.Size = New System.Drawing.Size(204, 22)
+        Me.mnuOperacionesFacturarPresupuesto.Text = "Facturar &Presupuesto"
+        '
+        'RemitoToolStripMenuItem
+        '
+        Me.RemitoToolStripMenuItem.Name = "RemitoToolStripMenuItem"
+        Me.RemitoToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.RemitoToolStripMenuItem.Text = "&Factura"
+        '
+        'FacturaToolStripMenuItem
+        '
+        Me.FacturaToolStripMenuItem.Name = "FacturaToolStripMenuItem"
+        Me.FacturaToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.FacturaToolStripMenuItem.Text = "&Remito"
         '
         'DataGridView2
         '
@@ -215,7 +231,7 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView2.Name = "DataGridView2"
         Me.DataGridView2.RowHeadersWidth = 20
         Me.DataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DataGridView2.Size = New System.Drawing.Size(1349, 180)
+        Me.DataGridView2.Size = New System.Drawing.Size(1544, 180)
         Me.DataGridView2.TabIndex = 8
         '
         'IdItem
@@ -331,23 +347,15 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.CodiTC, Me.IdOperAsoc, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Cliente, Me.ImpBto, Me.ImpDes, Me.ImpEf, Me.ImpCC, Me.ImpPE, Me.ComprobanteAsociado})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTC, Me.IdOperAsoc, Me.IdOperacion, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Cliente, Me.ImpBto, Me.ImpDes, Me.ImpNeto, Me.ImpEf, Me.ImpCC, Me.ImpPE, Me.ComprobanteAsociado, Me.EstadoOperacion, Me.Observaciones, Me.DescripcionError})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1349, 512)
+        Me.DataGridView1.Size = New System.Drawing.Size(1544, 512)
         Me.DataGridView1.TabIndex = 1
-        '
-        'IdOperacion
-        '
-        Me.IdOperacion.DataPropertyName = "IdOperacion"
-        Me.IdOperacion.HeaderText = "IdOperacion"
-        Me.IdOperacion.Name = "IdOperacion"
-        Me.IdOperacion.ReadOnly = True
-        Me.IdOperacion.Visible = False
         '
         'CodiTC
         '
@@ -364,6 +372,13 @@ Partial Class FrmComprobantesEmitidos
         Me.IdOperAsoc.Name = "IdOperAsoc"
         Me.IdOperAsoc.ReadOnly = True
         Me.IdOperAsoc.Visible = False
+        '
+        'IdOperacion
+        '
+        Me.IdOperacion.DataPropertyName = "IdOperacion"
+        Me.IdOperacion.HeaderText = "IdOperacion"
+        Me.IdOperacion.Name = "IdOperacion"
+        Me.IdOperacion.ReadOnly = True
         '
         'TipoComprobante
         '
@@ -407,7 +422,7 @@ Partial Class FrmComprobantesEmitidos
         DataGridViewCellStyle9.Format = "N2"
         DataGridViewCellStyle9.NullValue = Nothing
         Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle9
-        Me.ImpBto.HeaderText = "Importe"
+        Me.ImpBto.HeaderText = "Importe Bruto"
         Me.ImpBto.Name = "ImpBto"
         Me.ImpBto.ReadOnly = True
         '
@@ -422,13 +437,24 @@ Partial Class FrmComprobantesEmitidos
         Me.ImpDes.Name = "ImpDes"
         Me.ImpDes.ReadOnly = True
         '
-        'ImpEf
+        'ImpNeto
         '
-        Me.ImpEf.DataPropertyName = "ImpEf"
+        Me.ImpNeto.DataPropertyName = "ImpNeto"
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
         DataGridViewCellStyle11.Format = "N2"
         DataGridViewCellStyle11.NullValue = Nothing
-        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle11
+        Me.ImpNeto.DefaultCellStyle = DataGridViewCellStyle11
+        Me.ImpNeto.HeaderText = "Importe Neto"
+        Me.ImpNeto.Name = "ImpNeto"
+        Me.ImpNeto.ReadOnly = True
+        '
+        'ImpEf
+        '
+        Me.ImpEf.DataPropertyName = "ImpEf"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle12
         Me.ImpEf.HeaderText = "Efectivo"
         Me.ImpEf.Name = "ImpEf"
         Me.ImpEf.ReadOnly = True
@@ -436,10 +462,10 @@ Partial Class FrmComprobantesEmitidos
         'ImpCC
         '
         Me.ImpCC.DataPropertyName = "ImpCC"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "N2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "N2"
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle13
         Me.ImpCC.HeaderText = "Cta. Cte."
         Me.ImpCC.Name = "ImpCC"
         Me.ImpCC.ReadOnly = True
@@ -447,11 +473,11 @@ Partial Class FrmComprobantesEmitidos
         'ImpPE
         '
         Me.ImpPE.DataPropertyName = "ImpPE"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle13.Format = "N2"
-        DataGridViewCellStyle13.NullValue = Nothing
-        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle13
-        Me.ImpPE.HeaderText = "Pago Electronico"
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle14.Format = "N2"
+        DataGridViewCellStyle14.NullValue = Nothing
+        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle14
+        Me.ImpPE.HeaderText = "Pago Elec."
         Me.ImpPE.Name = "ImpPE"
         Me.ImpPE.ReadOnly = True
         Me.ImpPE.Width = 120
@@ -464,11 +490,33 @@ Partial Class FrmComprobantesEmitidos
         Me.ComprobanteAsociado.ReadOnly = True
         Me.ComprobanteAsociado.Width = 150
         '
+        'EstadoOperacion
+        '
+        Me.EstadoOperacion.DataPropertyName = "EstadoOperacion"
+        Me.EstadoOperacion.HeaderText = "Estado"
+        Me.EstadoOperacion.Name = "EstadoOperacion"
+        Me.EstadoOperacion.ReadOnly = True
+        '
+        'Observaciones
+        '
+        Me.Observaciones.DataPropertyName = "Observaciones"
+        Me.Observaciones.HeaderText = "Observaciones"
+        Me.Observaciones.Name = "Observaciones"
+        Me.Observaciones.ReadOnly = True
+        '
+        'DescripcionError
+        '
+        Me.DescripcionError.DataPropertyName = "DescripcionError"
+        Me.DescripcionError.HeaderText = "DescripcionError"
+        Me.DescripcionError.Name = "DescripcionError"
+        Me.DescripcionError.ReadOnly = True
+        Me.DescripcionError.Visible = False
+        '
         'FrmComprobantesEmitidos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1359, 737)
+        Me.ClientSize = New System.Drawing.Size(1554, 737)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmComprobantesEmitidos"
         Me.Text = "FrmComprobantes"
@@ -485,20 +533,6 @@ Partial Class FrmComprobantesEmitidos
 
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
-    Friend WithEvents CodiTC As DataGridViewTextBoxColumn
-    Friend WithEvents IdOperAsoc As DataGridViewTextBoxColumn
-    Friend WithEvents TipoComprobante As DataGridViewTextBoxColumn
-    Friend WithEvents FechaComp As DataGridViewTextBoxColumn
-    Friend WithEvents PVenta As DataGridViewTextBoxColumn
-    Friend WithEvents NumComp As DataGridViewTextBoxColumn
-    Friend WithEvents Cliente As DataGridViewTextBoxColumn
-    Friend WithEvents ImpBto As DataGridViewTextBoxColumn
-    Friend WithEvents ImpDes As DataGridViewTextBoxColumn
-    Friend WithEvents ImpEf As DataGridViewTextBoxColumn
-    Friend WithEvents ImpCC As DataGridViewTextBoxColumn
-    Friend WithEvents ImpPE As DataGridViewTextBoxColumn
-    Friend WithEvents ComprobanteAsociado As DataGridViewTextBoxColumn
     Friend WithEvents DataGridView2 As DataGridView
     Friend WithEvents IdItem As DataGridViewTextBoxColumn
     Friend WithEvents CodBarras As DataGridViewTextBoxColumn
@@ -518,9 +552,29 @@ Partial Class FrmComprobantesEmitidos
     Friend WithEvents mnuArchivoSalir As ToolStripMenuItem
     Friend WithEvents mnuOperaciones As ToolStripMenuItem
     Friend WithEvents mnuOperacionesNC As ToolStripMenuItem
-    Friend WithEvents mnuOpciones As ToolStripMenuItem
-    Friend WithEvents mnuOpcionesIVAIncluidoEnPrecioCosto As ToolStripMenuItem
-    Friend WithEvents RecuperarComprobanteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesRecuperarComprobante As ToolStripMenuItem
     Friend WithEvents mnuArchivoImprimirOriginal As ToolStripMenuItem
     Friend WithEvents mnuArchivoImprimirDuplicado As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesFacturarRemito As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesFacturarPresupuesto As ToolStripMenuItem
+    Friend WithEvents RemitoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FacturaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CodiTC As DataGridViewTextBoxColumn
+    Friend WithEvents IdOperAsoc As DataGridViewTextBoxColumn
+    Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
+    Friend WithEvents TipoComprobante As DataGridViewTextBoxColumn
+    Friend WithEvents FechaComp As DataGridViewTextBoxColumn
+    Friend WithEvents PVenta As DataGridViewTextBoxColumn
+    Friend WithEvents NumComp As DataGridViewTextBoxColumn
+    Friend WithEvents Cliente As DataGridViewTextBoxColumn
+    Friend WithEvents ImpBto As DataGridViewTextBoxColumn
+    Friend WithEvents ImpDes As DataGridViewTextBoxColumn
+    Friend WithEvents ImpNeto As DataGridViewTextBoxColumn
+    Friend WithEvents ImpEf As DataGridViewTextBoxColumn
+    Friend WithEvents ImpCC As DataGridViewTextBoxColumn
+    Friend WithEvents ImpPE As DataGridViewTextBoxColumn
+    Friend WithEvents ComprobanteAsociado As DataGridViewTextBoxColumn
+    Friend WithEvents EstadoOperacion As DataGridViewTextBoxColumn
+    Friend WithEvents Observaciones As DataGridViewTextBoxColumn
+    Friend WithEvents DescripcionError As DataGridViewTextBoxColumn
 End Class

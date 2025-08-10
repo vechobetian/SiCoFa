@@ -185,16 +185,31 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarOperacionConTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
+    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Finalizado As Boolean = AdminOperaciones.FinalizarOperacionConTransaccion(argMacAddress, argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento)
+            Dim Finalizado As Boolean = AdminOperaciones.FinalizarVentaTransaccion(argMacAddress, argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento)
             Return Finalizado
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarVentaTransaccion", ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function FinalizarPresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante) As Boolean
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Finalizado As Boolean = AdminOperaciones.FinalizarPresupuestoTransaccion(argMacAddress, argOperacion, argComprobante)
+            Return Finalizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarPresupuestoTransaccion", ex.Message))
 
         End Try
 
@@ -234,6 +249,21 @@ Public Class N_AdminOperaciones
 
             Dim AdminOperaciones As New D_AdminOperaciones
             Dim Finalizado As Boolean = AdminOperaciones.FinalizarNCTransaccion(argTipoOperacion, argMacAddress, argEmpresa, argUsuario, argOperacionCC, argOperacionPE, argComprobante, argAsiento, argObservacion)
+            Return Finalizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "FinalizarOperacionConTransaccion", ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function FacturacionRemitoTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByRef argComprobante As Comprobante, ByVal argObservacion As String) As Boolean
+
+        Try
+
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Finalizado As Boolean = AdminOperaciones.FacturacionRemitoTransaccion(argMacAddress, argEmpresa, argUsuario, argComprobante, argObservacion)
             Return Finalizado
 
         Catch ex As Exception

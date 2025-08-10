@@ -104,7 +104,7 @@ Public Class D_AdminComprobantes
             visitados.Add(argIdOperacion)
 
             Dim objConexionDB As New D_Conexion
-            Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
+            Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes,ImpNeto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
                         ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, TipoDoc, NumDoc, Cliente, ComprobanteAsociado
                         FROM ConComprobantesEmitidos
                         WHERE IdOperacion=@IdOperacion"
@@ -155,6 +155,7 @@ Public Class D_AdminComprobantes
                             argFechaComp:=Convert.ToDateTime(datos("FechaComp")),
                             argImpBto:=Convert.ToDecimal(datos("ImpBto")),
                             argImpDes:=Convert.ToDecimal(datos("ImpDes")),
+                            argImpNeto:=Convert.ToDecimal(datos("ImpNeto")),
                             argImpEx:=Convert.ToDecimal(datos("ImpEx")),
                             argImpGrav1:=Convert.ToDecimal(datos("ImpGrav1")),
                             argImpNeto1:=Convert.ToDecimal(datos("ImpNeto1")),
@@ -216,6 +217,7 @@ Public Class D_AdminComprobantes
                     .AddWithValue("p_IdCliente", argComprobante.Cliente.Id)
                     .AddWithValue("p_ImpBto", argComprobante.ImpBto)
                     .AddWithValue("p_ImpDes", argComprobante.ImpDes)
+                    .AddWithValue("p_ImpNeto", argComprobante.ImpNeto)
                     .AddWithValue("p_ImpEx", argComprobante.ImpEx)
                     .AddWithValue("p_ImpGrav1", argComprobante.ImpGrav1)
                     .AddWithValue("p_ImpNeto1", argComprobante.ImpNeto1)
@@ -231,7 +233,6 @@ Public Class D_AdminComprobantes
                     .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
                     .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
-
 
                     cmd.Parameters.Add("p_PVenta", MySqlDbType.VarChar)
                     cmd.Parameters("p_PVenta").Direction = ParameterDirection.Output

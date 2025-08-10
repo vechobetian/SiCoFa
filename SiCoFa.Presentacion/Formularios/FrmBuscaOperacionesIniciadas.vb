@@ -1,11 +1,12 @@
 ﻿Imports SiCoFa.Negocio
-Public Class FrmBuscaVentasIniciadas
+Public Class FrmBuscaOperacionesIniciadas
     Property IdOperacionSeleccionado As Long
 
     Private mobj_AdminDB As New N_AdminDB
 
-    Public Function CargarVentasIniciadas(ByVal argIdEmpresa As Int32, ByVal argIdUsuario As Int32) As Boolean
+    Public Function CargarVentasIniciadas(ByVal argIdEmpresa As Int32, ByVal argIdUsuario As Int32, ByVal argCodiTO As String) As Boolean
         Try
+
             Dim sql As String = $"
             SELECT TblOperaciones.IdOperacion, TblOperaciones.Inicio,
                    IFNULL(TblClientes.Nombre, 'CONSUMIDOR FINAL NO IDENTIFICADO') AS Nombre
@@ -14,7 +15,7 @@ Public Class FrmBuscaVentasIniciadas
             LEFT JOIN TblClientes ON TblOperacionesCL.IdCliente = TblClientes.IdCliente
             WHERE TblOperaciones.IdEmpresa = {argIdEmpresa} AND 
                   TblOperaciones.IdUsuario = {argIdUsuario} AND
-                  TblOperaciones.CodiTO='VTAM' AND
+                  TblOperaciones.CodiTO='{argCodiTO}' AND
                   TblOperaciones.EstadoOperacion = 'GUARDADO'"
 
             Dim OperacionesIniciadas As DataTable = mobj_AdminDB.ObtenerTabla(sql)

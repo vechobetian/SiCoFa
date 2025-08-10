@@ -163,12 +163,12 @@ Public Class Ticket80
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("I.V.A 21%: " & StrDup(31 - Len(strIVA2), " ") & strIVA2, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strTotal = Format(Comprobante.ImpBto, "Standard")
+            strTotal = Format(Comprobante.ImpNeto, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("TOTAL: " & StrDup(15 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
 
         Else
-            strTotal = Format(Comprobante.ImpBto, "Standard")
+            strTotal = Format(Comprobante.ImpNeto, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("TOTAL: " & StrDup(15 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
 
@@ -193,11 +193,11 @@ Public Class Ticket80
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("RECIBI(MOS)", printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-        If Comprobante.ImpCB > 0 Then
-            strOS = Format(Comprobante.ImpCB, "Standard")
-            yPos += IncrementoYPreTexto
-            e.Graphics.DrawString("Obra Social: " & StrDup(29 - Len(strOS), " ") & strOS, printFont, Brushes.Black, MargenIzquierdo, yPos)
-        End If
+        'If Comprobante.ImpCB > 0 Then
+        'strOS = Format(Comprobante.ImpCB, "Standard")
+        'yPos += IncrementoYPreTexto
+        'e.Graphics.DrawString("Obra Social: " & StrDup(29 - Len(strOS), " ") & strOS, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        'End If
 
         If Comprobante.ImpPE > 0 Then
             strTar = Format(Comprobante.ImpPE, "Standard")
@@ -261,6 +261,7 @@ Public Class Ticket80
         e.Graphics.Dispose()
 
     End Sub
+
     Private Sub RECIBO(ByVal sender As Object, ByVal e As PrintPageEventArgs)
         Dim fuenteGrande As Font = New Font("consolas", 15)
         Dim printFont As Font = New Font("consolas", 8)

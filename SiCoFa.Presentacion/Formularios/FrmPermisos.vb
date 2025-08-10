@@ -10,12 +10,14 @@ Public Class FrmPermisos
     Private permisosUsuario As New HashSet(Of String)
 
     Private accionesCriticas As New Dictionary(Of String, String) From {
+        {"SUPERUSUARIO", "Usuario Administrador"},
         {"MODIFICAR_PRECIO", "Modificar precio de productos"},
         {"MODIFICAR_STOCK", "Modificar stock"},
         {"ANULAR_COMPROBANTE", "Anular comprobante"},
         {"CIERRE_CAJA", "Realizar cierre de caja"},
         {"RETIRO_EF_CAJA", "Retiro Efectivo Caja Abierta"},
-        {"NOTA_CREDITO", "Hacer Notas de Crédito"}
+        {"NOTA_CREDITO", "Hacer Notas de Crédito"},
+        {"FACTURACION_REMITOS", "Facturación Remitos"}
     }
 
     Private Sub FrmPermisos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -23,6 +25,12 @@ Public Class FrmPermisos
         If str = "" Then Exit Sub
 
         Me.BuscarUsuario(str)
+
+        If Usuario.Id = 1 Then
+            MsgBox(Usuario.Nombre & " tiene todos los permisos habilitados", vbInformation, "SiCoFa")
+            Me.Close()
+        End If
+
         permisosUsuario = ObtenerPermisosUsuario(Usuario.Id)
 
         flpPermisos.Controls.Clear()

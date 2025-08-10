@@ -252,16 +252,33 @@ Public Class FrmCajas
             Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")
-            Dim objComprobante As New Comprobante(
-                                              0,
-                                              Nothing,
-                                              objTC,
-                                              "",
-                                              "",
-                                              Nothing,
-                                              mdecImporteEf + mdecImportePE + mdecImporteCC,
-                                              0, 0, 0, 0, 0, mdecImporteEf, mdecImporteCC, mdecImportePE, Nothing, 0, objCliente, 0,
-                                              Nothing, Nothing, Nothing)
+            Dim objComprobante As New Comprobante(argIdOperacion:=0,
+                                                  argOperacion:=Nothing,
+                                                  argTipoComprobante:=objTC,
+                                                  argPVenta:="",
+                                                  argNumComp:="",
+                                                  argFechaComp:=Nothing,
+                                                  argImpBto:=mdecImporteEf + mdecImportePE + mdecImporteCC,
+                                                  argImpDes:=0,
+                                                  argImpNeto:=0,
+                                                  argImpEx:=0,
+                                                  argImpGrav1:=0,
+                                                  argImpNeto1:=0,
+                                                  argImpIVA1:=0,
+                                                  argImpGrav2:=0,
+                                                  argImpNeto2:=0,
+                                                  argImpIVA2:=0,
+                                                  argImpCB:=0,
+                                                  argImpEf:=mdecImporteEf,
+                                                  argImpCC:=mdecImporteCC,
+                                                  argImpPE:=mdecImportePE,
+                                                  argCAE:=Nothing,
+                                                  argIdCliente:=0,
+                                                  argCliente:=objCliente,
+                                                  argIdOperAsoc:=0,
+                                                  argCompAsoc:=Nothing,
+                                                  argEmpresa:=Nothing,
+                                                  argDetalle:=Nothing)
 
 
             Dim IdCaja As Long = Me.DataGridView1.CurrentRow.Cells(0).Value
@@ -360,6 +377,7 @@ Public Class FrmCajas
                                                   argFechaComp:=Nothing,
                                                   argImpBto:=Convert.ToDecimal(strImporte),
                                                   argImpDes:=0,
+                                                  argImpNeto:=Convert.ToDecimal(strImporte),
                                                   argImpEx:=0,
                                                   argImpGrav1:=0,
                                                   argImpGrav2:=0,

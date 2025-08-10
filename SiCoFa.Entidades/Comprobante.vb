@@ -7,6 +7,7 @@
     Property FechaComp As Date
     Property ImpBto As Decimal
     Property ImpDes As Decimal
+    Property ImpNeto As Decimal
     Property ImpEx As Decimal
     Property ImpGrav1 As Decimal
     Property ImpNeto1 As Decimal
@@ -37,6 +38,7 @@
         ByVal argFechaComp As Date,
         ByVal argImpBto As Decimal,
         ByVal argImpDes As Decimal,
+        ByVal argImpNeto As Decimal,
         ByVal argImpEx As Decimal,
         ByVal argImpGrav1 As Decimal,
         ByVal argImpGrav2 As Decimal,
@@ -59,7 +61,7 @@
         Dim iva2 As Decimal = Math.Round(neto2 * 21D / 100D, 2, MidpointRounding.ToEven)
 
         Inicializar(argIdOperacion, argOperacion, argTipoComprobante, argPVenta, argNumComp, argFechaComp,
-                    argImpBto, argImpDes, argImpEx, argImpGrav1, neto1, iva1,
+                    argImpBto, argImpDes, argImpNeto, argImpEx, argImpGrav1, neto1, iva1,
                     argImpGrav2, neto2, iva2, argImpCB, argImpEf, argImpCC, argImpPE,
                     argCAE, argIdCliente, argCliente, argIdOperAsoc, argCompAsoc, argEmpresa, argDetalle)
     End Sub
@@ -74,6 +76,7 @@
         ByVal argFechaComp As Date,
         ByVal argImpBto As Decimal,
         ByVal argImpDes As Decimal,
+        ByVal argImpNeto As Decimal,
         ByVal argImpEx As Decimal,
         ByVal argImpGrav1 As Decimal,
         ByVal argImpNeto1 As Decimal,
@@ -95,7 +98,7 @@
     )
 
         Inicializar(argIdOperacion, argOperacion, argTipoComprobante, argPVenta, argNumComp, argFechaComp,
-                    argImpBto, argImpDes, argImpEx, argImpGrav1, argImpNeto1, argImpIVA1,
+                    argImpBto, argImpDes, argImpNeto, argImpEx, argImpGrav1, argImpNeto1, argImpIVA1,
                     argImpGrav2, argImpNeto2, argImpIVA2, argImpCB, argImpEf, argImpCC, argImpPE,
                     argCAE, argIdCliente, argCliente, argIdOperAsoc, argCompAsoc, argEmpresa, argDetalle)
     End Sub
@@ -110,6 +113,7 @@
         ByVal fechaComp As Date,
         ByVal impBto As Decimal,
         ByVal impDes As Decimal,
+        ByVal impNeto As Decimal,
         ByVal impEx As Decimal,
         ByVal impGrav1 As Decimal,
         ByVal impNeto1 As Decimal,
@@ -138,6 +142,7 @@
         Me.FechaComp = fechaComp
         Me.ImpBto = Math.Round(impBto, 2)
         Me.ImpDes = Math.Round(impDes, 2)
+        Me.ImpNeto = Math.Round(impNeto, 2)
         Me.ImpEx = Math.Round(impEx, 2)
         Me.ImpGrav1 = Math.Round(impGrav1, 2)
         Me.ImpNeto1 = Math.Round(impNeto1, 2)

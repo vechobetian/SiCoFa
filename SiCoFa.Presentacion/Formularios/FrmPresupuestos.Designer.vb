@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FrmVentas
+Partial Class FrmPresupuestos
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -30,7 +30,7 @@ Partial Class FrmVentas
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmVentas))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPresupuestos))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -71,17 +71,15 @@ Partial Class FrmVentas
         Me.SelectorArticulos = New System.Windows.Forms.ToolStripTextBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AbrirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GuardarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuArchivoAbrir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuArchivoGuardar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEdicion = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ElimininarItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ModificarPrecioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionElimininarItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionAplicarDescuentoItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEdicionModificarPrecioItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuProcesos = New System.Windows.Forms.ToolStripMenuItem()
         Me.FacturarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PresupuestoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -127,7 +125,7 @@ Partial Class FrmVentas
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.43767!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.56233!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 270.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 278.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentosEtiqueta, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblPorcentajeAplicado, 0, 1)
@@ -151,9 +149,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(882, 58)
+        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(876, 58)
         Me.lblImporteDescuentosEtiqueta.Name = "lblImporteDescuentosEtiqueta"
-        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(193, 52)
+        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(191, 52)
         Me.lblImporteDescuentosEtiqueta.TabIndex = 8
         Me.lblImporteDescuentosEtiqueta.Text = "Importe Descuentos:"
         Me.lblImporteDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -162,9 +160,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(1084, 58)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(1076, 58)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(265, 52)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(273, 52)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -195,9 +193,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(1084, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(1076, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(265, 52)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(273, 52)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -206,9 +204,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(882, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(876, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
-        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(193, 52)
+        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(191, 52)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
         Me.lblImporteSinDescuentosEtiqueta.Text = "Total sin Descuentos:"
         Me.lblImporteSinDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -217,9 +215,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1084, 113)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1076, 113)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(265, 71)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(273, 71)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -228,9 +226,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(882, 113)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(876, 113)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
-        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(193, 71)
+        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(191, 71)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 9
         Me.lblImporteConDescuentosEtiqueta.Text = "Imp. a pagar:  "
         Me.lblImporteConDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -241,7 +239,7 @@ Partial Class FrmVentas
         Me.lblDatosOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 113)
         Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(867, 71)
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(861, 71)
         Me.lblDatosOperacion.TabIndex = 17
         '
         'DataGridView1
@@ -516,63 +514,63 @@ Partial Class FrmVentas
         '
         'mnuArchivo
         '
-        Me.mnuArchivo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AbrirToolStripMenuItem, Me.GuardarToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.mnuArchivo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivoAbrir, Me.mnuArchivoGuardar, Me.mnuArchivoSalir})
         Me.mnuArchivo.Name = "mnuArchivo"
         Me.mnuArchivo.Size = New System.Drawing.Size(60, 20)
         Me.mnuArchivo.Text = "&Archivo"
         '
-        'AbrirToolStripMenuItem
+        'mnuArchivoAbrir
         '
-        Me.AbrirToolStripMenuItem.Image = CType(resources.GetObject("AbrirToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.AbrirToolStripMenuItem.Name = "AbrirToolStripMenuItem"
-        Me.AbrirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.AbrirToolStripMenuItem.Text = "A&brir"
+        Me.mnuArchivoAbrir.Image = CType(resources.GetObject("mnuArchivoAbrir.Image"), System.Drawing.Image)
+        Me.mnuArchivoAbrir.Name = "mnuArchivoAbrir"
+        Me.mnuArchivoAbrir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoAbrir.Text = "A&brir"
         '
-        'GuardarToolStripMenuItem
+        'mnuArchivoGuardar
         '
-        Me.GuardarToolStripMenuItem.Image = CType(resources.GetObject("GuardarToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.GuardarToolStripMenuItem.Text = "&Guardar"
+        Me.mnuArchivoGuardar.Image = CType(resources.GetObject("mnuArchivoGuardar.Image"), System.Drawing.Image)
+        Me.mnuArchivoGuardar.Name = "mnuArchivoGuardar"
+        Me.mnuArchivoGuardar.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoGuardar.Text = "&Guardar"
         '
-        'SalirToolStripMenuItem
+        'mnuArchivoSalir
         '
-        Me.SalirToolStripMenuItem.Image = CType(resources.GetObject("SalirToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
-        Me.SalirToolStripMenuItem.Text = "&Salir"
+        Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
+        Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
+        Me.mnuArchivoSalir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoSalir.Text = "&Salir"
         '
         'mnuEdicion
         '
-        Me.mnuEdicion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ElimininarItemSeleccionadoToolStripMenuItem, Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem, Me.ModificarPrecioToolStripMenuItem})
+        Me.mnuEdicion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdicionElimininarItemSeleccionado, Me.mnuEdicionAplicarDescuentoItemSeleccionado, Me.mnuEdicionModificarPrecioItemSeleccionado})
         Me.mnuEdicion.Name = "mnuEdicion"
         Me.mnuEdicion.Size = New System.Drawing.Size(58, 20)
         Me.mnuEdicion.Text = "&Edicion"
         '
-        'ElimininarItemSeleccionadoToolStripMenuItem
+        'mnuEdicionElimininarItemSeleccionado
         '
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("ElimininarItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Name = "ElimininarItemSeleccionadoToolStripMenuItem"
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.ElimininarItemSeleccionadoToolStripMenuItem.Text = "&Elimininar Item seleccionado"
+        Me.mnuEdicionElimininarItemSeleccionado.Image = CType(resources.GetObject("mnuEdicionElimininarItemSeleccionado.Image"), System.Drawing.Image)
+        Me.mnuEdicionElimininarItemSeleccionado.Name = "mnuEdicionElimininarItemSeleccionado"
+        Me.mnuEdicionElimininarItemSeleccionado.Size = New System.Drawing.Size(269, 22)
+        Me.mnuEdicionElimininarItemSeleccionado.Text = "&Elimininar Item seleccionado"
         '
-        'AplicarDescuentoItemSeleccionadoToolStripMenuItem
+        'mnuEdicionAplicarDescuentoItemSeleccionado
         '
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image = CType(resources.GetObject("AplicarDescuentoItemSeleccionadoToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Name = "AplicarDescuentoItemSeleccionadoToolStripMenuItem"
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.AplicarDescuentoItemSeleccionadoToolStripMenuItem.Text = "Aplicar &Descuento Item seleccionado"
+        Me.mnuEdicionAplicarDescuentoItemSeleccionado.Image = CType(resources.GetObject("mnuEdicionAplicarDescuentoItemSeleccionado.Image"), System.Drawing.Image)
+        Me.mnuEdicionAplicarDescuentoItemSeleccionado.Name = "mnuEdicionAplicarDescuentoItemSeleccionado"
+        Me.mnuEdicionAplicarDescuentoItemSeleccionado.Size = New System.Drawing.Size(269, 22)
+        Me.mnuEdicionAplicarDescuentoItemSeleccionado.Text = "Aplicar &Descuento Item seleccionado"
         '
-        'ModificarPrecioToolStripMenuItem
+        'mnuEdicionModificarPrecioItemSeleccionado
         '
-        Me.ModificarPrecioToolStripMenuItem.Image = CType(resources.GetObject("ModificarPrecioToolStripMenuItem.Image"), System.Drawing.Image)
-        Me.ModificarPrecioToolStripMenuItem.Name = "ModificarPrecioToolStripMenuItem"
-        Me.ModificarPrecioToolStripMenuItem.Size = New System.Drawing.Size(269, 22)
-        Me.ModificarPrecioToolStripMenuItem.Text = "&Modificar precio Item seleccionado"
+        Me.mnuEdicionModificarPrecioItemSeleccionado.Image = CType(resources.GetObject("mnuEdicionModificarPrecioItemSeleccionado.Image"), System.Drawing.Image)
+        Me.mnuEdicionModificarPrecioItemSeleccionado.Name = "mnuEdicionModificarPrecioItemSeleccionado"
+        Me.mnuEdicionModificarPrecioItemSeleccionado.Size = New System.Drawing.Size(269, 22)
+        Me.mnuEdicionModificarPrecioItemSeleccionado.Text = "&Modificar precio Item seleccionado"
         '
         'mnuProcesos
         '
-        Me.mnuProcesos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FacturarToolStripMenuItem, Me.RemitoToolStripMenuItem, Me.PresupuestoToolStripMenuItem})
+        Me.mnuProcesos.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FacturarToolStripMenuItem})
         Me.mnuProcesos.Name = "mnuProcesos"
         Me.mnuProcesos.Size = New System.Drawing.Size(66, 20)
         Me.mnuProcesos.Text = "&Procesos"
@@ -581,24 +579,10 @@ Partial Class FrmVentas
         '
         Me.FacturarToolStripMenuItem.Name = "FacturarToolStripMenuItem"
         Me.FacturarToolStripMenuItem.ShortcutKeyDisplayString = "F10"
-        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.FacturarToolStripMenuItem.Text = "&Facturar"
         '
-        'RemitoToolStripMenuItem
-        '
-        Me.RemitoToolStripMenuItem.Name = "RemitoToolStripMenuItem"
-        Me.RemitoToolStripMenuItem.ShortcutKeyDisplayString = "F9"
-        Me.RemitoToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
-        Me.RemitoToolStripMenuItem.Text = "&Remito"
-        '
-        'PresupuestoToolStripMenuItem
-        '
-        Me.PresupuestoToolStripMenuItem.Name = "PresupuestoToolStripMenuItem"
-        Me.PresupuestoToolStripMenuItem.ShortcutKeyDisplayString = "F8"
-        Me.PresupuestoToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
-        Me.PresupuestoToolStripMenuItem.Text = "&Presupuesto"
-        '
-        'FrmVentas
+        'FrmPresupuestos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -606,7 +590,7 @@ Partial Class FrmVentas
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.Name = "FrmVentas"
+        Me.Name = "FrmPresupuestos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -643,12 +627,12 @@ Partial Class FrmVentas
     Friend WithEvents SelectorArticulos As ToolStripTextBox
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents lblImporteDescuentosEtiqueta As Label
-    Friend WithEvents ElimininarItemSeleccionadoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AplicarDescuentoItemSeleccionadoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AbrirToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GuardarToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SalirToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ModificarPrecioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuEdicionElimininarItemSeleccionado As ToolStripMenuItem
+    Friend WithEvents mnuEdicionAplicarDescuentoItemSeleccionado As ToolStripMenuItem
+    Friend WithEvents mnuArchivoAbrir As ToolStripMenuItem
+    Friend WithEvents mnuArchivoGuardar As ToolStripMenuItem
+    Friend WithEvents mnuArchivoSalir As ToolStripMenuItem
+    Friend WithEvents mnuEdicionModificarPrecioItemSeleccionado As ToolStripMenuItem
     Friend WithEvents lblImporteConDescuentosEtiqueta As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
@@ -661,8 +645,6 @@ Partial Class FrmVentas
     Friend WithEvents lblImporteSinDescuentos As Label
     Friend WithEvents mnuProcesos As ToolStripMenuItem
     Friend WithEvents FacturarToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RemitoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents PresupuestoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IdItem As DataGridViewTextBoxColumn
     Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn

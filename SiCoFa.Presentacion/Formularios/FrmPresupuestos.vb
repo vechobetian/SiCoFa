@@ -2,8 +2,9 @@
 Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
+Imports HasarArgentina
 
-Public Class FrmVentas
+Public Class FrmPresupuestos
     Property Usuario As Usuario
 
     Public Property Cliente As Cliente
@@ -73,10 +74,10 @@ Public Class FrmVentas
         Try
             Dim frm As New FrmBuscaOperacionesIniciadas()
 
-            If frm.CargarVentasIniciadas(g_ParametrosTerminal.Empresa.Id, Me.Usuario.Id, "VTAM") Then
+            If frm.CargarVentasIniciadas(g_ParametrosTerminal.Empresa.Id, Me.Usuario.Id, "PRESU") Then
                 frm.ShowDialog()
             Else
-                MsgBox("El Usuario " & Me.Usuario.Id & " no tiene Ventas Iniciadas", vbInformation, "SiCoFa")
+                MsgBox("El Usuario " & Me.Usuario.Id & " no tiene Presupuestos Iniciados", vbInformation, "SiCoFa")
                 frm.Dispose()
             End If
 
@@ -154,41 +155,65 @@ Public Class FrmVentas
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
-            If argTecla = Keys.F8 OrElse argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
-
-                Using FPagos As New FrmPagos
-                    Dim AdminComprobantes As New N_AdminComprobantes
-                    With FPagos
-                        .FrmOrigen = Me
-                        .Operacion = mobj_Operacion
-                        .Cliente = mobj_Cliente
-
-                        If argTecla = Keys.F9 Then
-                            Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
-                            .TipoComprobante = tc
-                        ElseIf argTecla = Keys.F10 AndAlso g_ParametrosSistema.GetValor("SFISCAL") = "FE" Then
-                            .TipoComprobante = Nothing
-                        Else
-                            Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
-                            .TipoComprobante = tc
-                        End If
-
-                        .ImporteBruto = mdec_ImporteSinDescuentos
-                        .ImporteDescuento = mdec_ImporteDescuentos
-                        .ImporteAPagar = mdec_ImporteConDescuentos
-                        .ImporteGravado1 = mdec_ImporteGravado1
-                        .ImporteGravado2 = mdec_ImporteGravado2
-                        .ItemsComprobante = mobj_Items.ToList
-                        .ShowDialog()
-                    End With
-                End Using
-
+            If argTecla = Keys.F10 Then
+                Me.FinalizarOperacion()
+                Dim nuevoVentanaPresupuestos As New FrmPresupuestos
+                nuevoVentanaPresupuestos.Usuario = Me.Usuario
+                nuevoVentanaPresupuestos.Show()
+                Me.Close()
             End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+    End Sub
+
+    Private Sub FinalizarOperacion()
+
+        Try
+
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Dim objTipoComprobante As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("PRESU")
+            Dim objCb As Comprobante = Nothing
+
+            objCb = New Comprobante(
+                                    argIdOperacion:=mobj_Operacion.IdOperacion,
+                                    argOperacion:=mobj_Operacion,
+                                    argTipoComprobante:=objTipoComprobante,
+                                    argPVenta:=g_ParametrosTerminal.PVenta,
+                                    argNumComp:="",
+                                    argFechaComp:=Now.Date,
+                                    argImpBto:=mdec_ImporteSinDescuentos,
+                                    argImpDes:=mdec_ImporteDescuentos,
+                                    argImpNeto:=mdec_ImporteConDescuentos,
+                                    argImpEx:=0,
+                                    argImpGrav1:=mdec_ImporteGravado1,
+                                    argImpGrav2:=mdec_ImporteGravado2,
+                                    argImpCB:=0,
+                                    argImpEf:=0,
+                                    argImpCC:=0,
+                                    argImpPE:=0,
+                                    argCAE:=Nothing,
+                                    argIdCliente:=Me.Cliente.Id,
+                                    argCliente:=Me.Cliente,
+                                    argIdOperAsoc:=0,
+                                    argCompAsoc:=Nothing,
+                                    argEmpresa:=g_ParametrosTerminal.Empresa,
+                                    argDetalle:=mobj_Items.ToList
+                                    )
+
+            mobj_AdminOperacion.FinalizarPresupuestoTransaccion(g_ParametrosTerminal.MacAddress, mobj_Operacion, objCb)
+
+            Dim objAdminReporteComprobantes As New ReporteComprobantes
+            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
+
+        Catch ex As Exception
+            mobj_AdminOperacion.RegistrarError(mobj_Operacion.IdOperacion, ex.ToString)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
 
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
@@ -436,10 +461,10 @@ Public Class FrmVentas
         Dim UltimaActualizacion As String
 
         If mobj_Operacion Is Nothing Then
-            Me.Text = "Nueva venta iniciada el " & Now & " por el usuario " & Me.Usuario.Nombre
+            Me.Text = "Nuevo Presupuesto iniciado el " & Now & " por el usuario " & Me.Usuario.Nombre
             UltimaActualizacion = "- Inicio Operación: " & Now
         Else
-            Me.Text = "Venta actualizada el " & mobj_Operacion.Inicio & " por el usuario " & Me.Usuario.Nombre
+            Me.Text = "Presupuesto actualizado el " & mobj_Operacion.Inicio & " por el usuario " & Me.Usuario.Nombre
             UltimaActualizacion = "- Ultima Actualizacion: " & mobj_Operacion.Inicio
         End If
 
@@ -449,10 +474,10 @@ Public Class FrmVentas
         Me.lblDatosOperacion.Text = Datos
     End Sub
 
-    Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmPresupuestos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
+            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("PRESU")
             mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
             mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
             mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
@@ -473,7 +498,7 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub FrmVentas_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmPresupuestos_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Try
             Me.AjustarAnchoColumnasProporcional()
@@ -522,17 +547,17 @@ Public Class FrmVentas
     End Sub
 
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
+
         Select Case keyData
             Case Keys.F10
                 Me.GuardarCambios(Keys.F10)
-            Case Keys.F9
-                Me.GuardarCambios(Keys.F9)
-            Case Keys.F8
 
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)
         End Select
+
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
+
     End Function
 
     Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -661,11 +686,11 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ElimininarItemSeleccionadoToolStripMenuItem.Click
+    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionElimininarItemSeleccionado.Click
         Me.EliminarItemSeleccionado()
     End Sub
 
-    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AplicarDescuentoItemSeleccionadoToolStripMenuItem.Click
+    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionAplicarDescuentoItemSeleccionado.Click
 
         Try
             If DataGridView1.SelectedRows.Count = 1 Then
@@ -707,7 +732,7 @@ Public Class FrmVentas
 
     Private Sub NuevoToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevoToolStripButton.Click
 
-        Dim nuevaVentanaVentas As New FrmVentas()
+        Dim nuevaVentanaVentas As New FrmPresupuestos()
         nuevaVentanaVentas.Usuario = Me.Usuario
         nuevaVentanaVentas.Show()
 
@@ -715,7 +740,7 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click
+    Private Sub mnuArchivoAbrir_Click(sender As Object, e As EventArgs) Handles mnuArchivoAbrir.Click
         Me.AbrirOperacion()
     End Sub
 
@@ -723,7 +748,7 @@ Public Class FrmVentas
         Me.AbrirOperacion()
     End Sub
 
-    Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click
+    Private Sub mnuArchivoGuardar_Click(sender As Object, e As EventArgs) Handles mnuArchivoGuardar.Click
         Me.GuardarCambios(Keys.Escape)
         MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
@@ -733,20 +758,16 @@ Public Class FrmVentas
         MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
 
-    Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
+    Private Sub mnuArchivoSalir_Click(sender As Object, e As EventArgs) Handles mnuArchivoSalir.Click
         Me.Close()
     End Sub
 
-    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
+    Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
         Me.Close()
     End Sub
 
     Private Sub FacturarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarToolStripMenuItem.Click
         Me.GuardarCambios(Keys.F10)
-    End Sub
-
-    Private Sub RemitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemitoToolStripMenuItem.Click
-        Me.GuardarCambios(Keys.F9)
     End Sub
 
     Private Sub CopiarToolStripButton_Click(sender As Object, e As EventArgs) Handles CopiarToolStripButton.Click

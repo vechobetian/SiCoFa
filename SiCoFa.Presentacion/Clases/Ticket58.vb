@@ -172,12 +172,12 @@ Public Class Ticket58
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("I.V.A 21%:" & StrDup(21 - Len(strIVA2), " ") & strIVA2, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strTotal = Format(Comprobante.ImpBto, "Fixed")
+            strTotal = Format(Comprobante.ImpNeto, "Fixed")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("TOTAL:" & StrDup(12 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
 
         Else
-            strTotal = Format(Comprobante.ImpBto, "Fixed")
+            strTotal = Format(Comprobante.ImpNeto, "Fixed")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("TOTAL:" & StrDup(12 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
 

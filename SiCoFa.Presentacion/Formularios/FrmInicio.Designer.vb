@@ -27,6 +27,7 @@ Partial Class FrmInicio
         Me.mnuOperacionesFacturacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesCancelaCC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesCompras = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesPresupuestos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCajaMovimientos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCajaAsientoGastos = New System.Windows.Forms.ToolStripMenuItem()
@@ -80,7 +81,7 @@ Partial Class FrmInicio
         '
         'mnuOperaciones
         '
-        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion, Me.mnuOperacionesCancelaCC, Me.mnuOperacionesCompras})
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion, Me.mnuOperacionesCancelaCC, Me.mnuOperacionesCompras, Me.mnuOperacionesPresupuestos})
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
@@ -102,6 +103,12 @@ Partial Class FrmInicio
         Me.mnuOperacionesCompras.Name = "mnuOperacionesCompras"
         Me.mnuOperacionesCompras.Size = New System.Drawing.Size(232, 22)
         Me.mnuOperacionesCompras.Text = "Com&pras"
+        '
+        'mnuOperacionesPresupuestos
+        '
+        Me.mnuOperacionesPresupuestos.Name = "mnuOperacionesPresupuestos"
+        Me.mnuOperacionesPresupuestos.Size = New System.Drawing.Size(232, 22)
+        Me.mnuOperacionesPresupuestos.Text = "Pre&supuestos"
         '
         'mnuCaja
         '
@@ -406,4 +413,5 @@ Partial Class FrmInicio
     Friend WithEvents mnuEdicionPermisos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesEmitidos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesRecibidos As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesPresupuestos As ToolStripMenuItem
 End Class

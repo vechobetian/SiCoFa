@@ -524,6 +524,7 @@ Public Class FrmAsientoGastos
                                                   argFechaComp:=Convert.ToDateTime(Me.mtxtFechaComprobante.Text),
                                                   argImpBto:=Convert.ToDecimal(Me.txtImporte.Text),
                                                   argImpDes:=0,
+                                                  argImpNeto:=Convert.ToDecimal(Me.txtImporte.Text),
                                                   argImpEx:=0,
                                                   argImpGrav1:=0,
                                                   argImpGrav2:=0,

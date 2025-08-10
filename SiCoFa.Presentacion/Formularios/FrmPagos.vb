@@ -1,16 +1,19 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
+Imports System.Threading.Tasks
 Public Class FrmPagos
 
     Property FrmOrigen As FrmVentas
+    Property ComprobanteOrigen As Comprobante
     Property Operacion As Operacion
     Property Cliente As Cliente
     Property MedioPE As MedioPE
     Property TipoComprobante As TipoComprobante
     Property ItemsComprobante As List(Of ItemComprobante)
-    Property ImporteAPagar As Decimal
+    Property ImporteBruto As Decimal
     Property ImporteDescuento As Decimal
+    Property ImporteAPagar As Decimal
     Property ImporteGravado1 As Decimal
     Property ImporteGravado2 As Decimal
 
@@ -286,8 +289,9 @@ Public Class FrmPagos
                                     argPVenta:=g_ParametrosTerminal.PVenta,
                                     argNumComp:="",
                                     argFechaComp:=Now.Date,
-                                    argImpBto:=Me.ImporteAPagar,
-                                    argImpDes:=0,
+                                    argImpBto:=Me.ImporteBruto,
+                                    argImpDes:=Me.ImporteDescuento,
+                                    argImpNeto:=Me.ImporteAPagar,
                                     argImpEx:=0,
                                     argImpGrav1:=Me.ImporteGravado1,
                                     argImpGrav2:=Me.ImporteGravado2,
@@ -298,8 +302,8 @@ Public Class FrmPagos
                                     argCAE:=Nothing,
                                     argIdCliente:=Me.Cliente.Id,
                                     argCliente:=Me.Cliente,
-                                    argIdOperAsoc:=0,
-                                    argCompAsoc:=Nothing,
+                                    argIdOperAsoc:=If(Me.ComprobanteOrigen?.IdOperacion, 0),
+                                    argCompAsoc:=Me.ComprobanteOrigen,
                                     argEmpresa:=g_ParametrosTerminal.Empresa,
                                     argDetalle:=ItemsComprobante
                                     )
@@ -312,26 +316,33 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            mobj_AdminOperacion.FinalizarOperacionConTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
+            mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
 
             If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
-                Dim obj_N_AdminComprobants As New N_AdminComprobantes
-                If obj_N_AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
-                    'aca hay que cambiar el estado de la operacion y salir
+                Dim obj_N_AdminComprobantes As New N_AdminComprobantes
+                If obj_N_AdminComprobantes.GenerarFacturaElectronica(objCb) = False Then
+                    Throw New Exception("Error al generar la factura electrónica.")
                 End If
             End If
 
             Dim objAdminReporteComprobantes As New ReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
-            Dim nuevaVentanaVentas As New FrmVentas()
-            nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
-            nuevaVentanaVentas.Show()
+            If FrmOrigen IsNot Nothing Then
+                Dim nuevaVentanaVentas As New FrmPresupuestos()
+                nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
+                nuevaVentanaVentas.Show()
 
+                Me.FrmOrigen.Close()
+            End If
+
+            Me.Close()
+
+        Catch ex As Exception
+            mobj_AdminOperacion.RegistrarError(Me.Operacion.IdOperacion, ex.ToString)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
             Me.FrmOrigen.Close()
             Me.Close()
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
 

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmBuscaVentasIniciadas
+Partial Class FrmBuscaOperacionesIniciadas
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -176,7 +176,7 @@ Partial Class FrmBuscaVentasIniciadas
         Me.Cliente.ReadOnly = True
         Me.Cliente.Width = 300
         '
-        'FrmBuscaVentasIniciadas
+        'FrmBuscaOperacionesIniciadas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -184,9 +184,9 @@ Partial Class FrmBuscaVentasIniciadas
         Me.ControlBox = False
         Me.Controls.Add(Me.dgvOperacionesIniciadas)
         Me.Controls.Add(Me.dgvItemsOperacion)
-        Me.Name = "FrmBuscaVentasIniciadas"
+        Me.Name = "FrmBuscaOperacionesIniciadas"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "FrmBuscaVentasIniciadas"
+        Me.Text = "Operaciones Iniciadas"
         CType(Me.dgvItemsOperacion, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvOperacionesIniciadas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
