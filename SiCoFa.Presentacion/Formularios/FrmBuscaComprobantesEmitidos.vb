@@ -290,7 +290,7 @@ Public Class FrmBuscaComprobantesEmitidos
             Exit Sub
         End If
 
-        Dim sql As String
+        Dim sql As String = ""
 
         Dim desdeTexto As String = Me.mtxtFechaDesde.Text.Trim()
         Dim hastaTexto As String = Me.mtxtFechaHasta.Text.Trim()

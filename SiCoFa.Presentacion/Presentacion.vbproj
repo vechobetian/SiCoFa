@@ -168,6 +168,12 @@
     <Compile Include="Formularios\FrmComprobantesEmitidos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmMovimientosCC.Designer.vb">
+      <DependentUpon>FrmMovimientosCC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmMovimientosCC.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmComprobantesRecibidos.Designer.vb">
       <DependentUpon>FrmComprobantesRecibidos.vb</DependentUpon>
     </Compile>
@@ -395,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmComprobantesEmitidos.resx">
       <DependentUpon>FrmComprobantesEmitidos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmMovimientosCC.resx">
+      <DependentUpon>FrmMovimientosCC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmComprobantesRecibidos.resx">
       <DependentUpon>FrmComprobantesRecibidos.vb</DependentUpon>

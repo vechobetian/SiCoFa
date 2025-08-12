@@ -186,4 +186,7 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub CuentasCorrientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CuentasCorrientesToolStripMenuItem.Click
+        FrmMovimientosCC.Show()
+    End Sub
 End Class
