@@ -36,7 +36,7 @@ Public Class FrmMovimientosCC
     Private Sub ActualizarDetalle()
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(3).Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -58,7 +58,7 @@ Public Class FrmMovimientosCC
 
             If DataGridView1.ColumnCount = 12 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.01R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.07R, 0.05R, 0.07R, 0.56R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.01R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.07R, 0.05R, 0.07R, 0.55R}
 
                 For i As Integer = 0 To 11
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
