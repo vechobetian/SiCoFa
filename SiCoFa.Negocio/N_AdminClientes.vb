@@ -15,6 +15,7 @@ Public Class N_AdminClientes
 
         End Try
     End Function
+
     Public Function ListarClientes(ByVal argTextoBuscado As String) As List(Of Cliente)
         Dim AdminClientes As New D_AdminClientes
         Dim lc As List(Of Cliente)
@@ -28,6 +29,7 @@ Public Class N_AdminClientes
 
         End Try
     End Function
+
     Public Function InsertarCliente(
                                     ByVal argNombre As String,
                                     ByVal argDomicilio As String,
@@ -62,6 +64,7 @@ Public Class N_AdminClientes
         End Try
 
     End Function
+
     Public Function ActualizarCliente(
                                       ByVal argIdCliente As Int32,
                                       ByVal argDomicilio As String,
@@ -111,6 +114,22 @@ Public Class N_AdminClientes
 
         End Try
     End Function
+
+    Public Function ListarCuentasCorriente(ByVal argTextoBuscado As String) As List(Of CuentaCorriente)
+        Dim AdminClientes As New D_AdminClientes
+        Dim lc As List(Of CuentaCorriente)
+
+        Try
+            lc = AdminClientes.ListarCuentasCorriente(argTextoBuscado)
+            Return lc
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarCuentasCorriente", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
     Public Function InsertarCuentaCorriente(
                                             ByVal argIdCliente As Int32,
                                             ByVal argDescripcion As String,

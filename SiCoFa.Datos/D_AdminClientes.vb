@@ -264,6 +264,69 @@ Public Class D_AdminClientes
         End Try
 
     End Function
+
+    Public Function ListarCuentasCorriente(ByVal argTextoBuscado As String) As List(Of CuentaCorriente)
+        Dim objConexionDB As New D_Conexion
+        Dim lc As New List(Of CuentaCorriente)
+        Dim c As CuentaCorriente
+
+        Try
+            Dim sql As String
+            If argTextoBuscado = "*" Then
+                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM ConCtasCorriente ORDER BY Descripcion"
+            Else
+                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM ConCtasCorriente WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
+            End If
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    If argTextoBuscado <> "*" Then
+                        cmd.Parameters.AddWithValue("@Descripcion", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    End If
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+                        Dim idCCOrdinal As Integer = datos.GetOrdinal("IdCC")
+                        Dim idClienteOrdinal As Integer = datos.GetOrdinal("IdCliente")
+                        Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
+                        Dim creditoOrdinal As Integer = datos.GetOrdinal("Credito")
+                        Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
+                        Dim observacionesOrdinal As Integer = datos.GetOrdinal("Observaciones")
+                        Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
+                        Dim saldoOrdinal As Integer = datos.GetOrdinal("Saldo")
+
+                        While datos.Read
+                            Dim IdCCResult As Int32 = Convert.ToInt32(datos(idCCOrdinal))
+                            Dim IdClienteResult As Int32 = Convert.ToInt32(datos(idClienteOrdinal))
+                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim CreditoResul As Decimal = Convert.ToDecimal(creditoOrdinal)
+                            Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
+                            Dim ObservacionesResult As String = datos.GetString(observacionesOrdinal)
+                            Dim EstadoResult As String = datos.GetString(estadoOrdinal)
+                            Dim SaldoResult As Decimal = Convert.ToDecimal(saldoOrdinal)
+                            c = New CuentaCorriente(IdCCResult, IdClienteResult, DescripcionResult, CreditoResul, FechaAltaResult, ObservacionesResult, EstadoResult, SaldoResult)
+                            lc.Add(c)
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return lc
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarCuentasCorriente", ex.Message))
+            Return Nothing
+
+        End Try
+
+    End Function
+
     Public Function InsertarCuentaCorriente(
                                             ByVal argIdCliente As Int32,
                                             ByVal argDescripcion As String,

@@ -42,7 +42,7 @@ Partial Class FrmInicio
         Me.CancelarCuentasIncobraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CierreEjercicioAbiertoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoria = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CuentasCorrientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaCuentasCorrientes = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaComprobantes = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaComprobantesEmitidos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaComprobantesRecibidos = New System.Windows.Forms.ToolStripMenuItem()
@@ -193,16 +193,16 @@ Partial Class FrmInicio
         '
         'mnuAuditoria
         '
-        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CuentasCorrientesToolStripMenuItem, Me.mnuAuditoriaComprobantes, Me.ReporteDeVentasToolStripMenuItem, Me.CuentaProveedoresToolStripMenuItem, Me.CuentasBancariaToolStripMenuItem, Me.CuentaEmpleadosToolStripMenuItem, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
+        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAuditoriaCuentasCorrientes, Me.mnuAuditoriaComprobantes, Me.ReporteDeVentasToolStripMenuItem, Me.CuentaProveedoresToolStripMenuItem, Me.CuentasBancariaToolStripMenuItem, Me.CuentaEmpleadosToolStripMenuItem, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
         Me.mnuAuditoria.Name = "mnuAuditoria"
         Me.mnuAuditoria.Size = New System.Drawing.Size(68, 20)
         Me.mnuAuditoria.Text = "&Auditoría"
         '
-        'CuentasCorrientesToolStripMenuItem
+        'mnuAuditoriaCuentasCorrientes
         '
-        Me.CuentasCorrientesToolStripMenuItem.Name = "CuentasCorrientesToolStripMenuItem"
-        Me.CuentasCorrientesToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.CuentasCorrientesToolStripMenuItem.Text = "&Cuentas Corrientes"
+        Me.mnuAuditoriaCuentasCorrientes.Name = "mnuAuditoriaCuentasCorrientes"
+        Me.mnuAuditoriaCuentasCorrientes.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaCuentasCorrientes.Text = "&Cuentas Corrientes"
         '
         'mnuAuditoriaComprobantes
         '
@@ -400,7 +400,7 @@ Partial Class FrmInicio
     Friend WithEvents AsientoContableToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CancelarCuentasIncobraToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CierreEjercicioAbiertoToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CuentasCorrientesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaCuentasCorrientes As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantes As ToolStripMenuItem
     Friend WithEvents ReporteDeVentasToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CuentaProveedoresToolStripMenuItem As ToolStripMenuItem

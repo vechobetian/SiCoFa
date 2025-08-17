@@ -233,7 +233,7 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub RecuperarComprobanteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuOperacionesRecuperarComprobante.Click
+    Private Sub mnuOperacionesRecuperarComprobante_Click(sender As Object, e As EventArgs) Handles mnuOperacionesRecuperarComprobante.Click
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
@@ -412,11 +412,11 @@ Public Class FrmComprobantesEmitidos
         End Try
     End Sub
 
-    Private Sub RemitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemitoToolStripMenuItem.Click
+    Private Sub mnuFacturarPresupuestoEmitirFactura_Click(sender As Object, e As EventArgs) Handles mnuFacturarPresupuestoEmitirFactura.Click
         Me.FacturarPresupuesto(Keys.F10)
     End Sub
 
-    Private Sub FacturaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturaToolStripMenuItem.Click
+    Private Sub mnuFacturarPresupuestoEmitirRemito_Click(sender As Object, e As EventArgs) Handles mnuFacturarPresupuestoEmitirRemito.Click
         Me.FacturarPresupuesto(Keys.F9)
     End Sub
 

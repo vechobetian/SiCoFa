@@ -2,8 +2,14 @@
 Imports SiCoFa.Entidades
 
 Public Class FrmMovimientosCC
-    Property SQL As String = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Importe,ComprobanteAsociado,EstadoOperacionCC,Observaciones FROM ConMovimientosCC"
 
+    Property IdCC As Int32 = 0
+
+    Property DescripcionCuentaCorriente As String = ""
+
+    Property ResuSeleccionado As String = ""
+
+    Property SQL As String = ""
 
     Private mAdminDB As New N_AdminDB
 
@@ -11,24 +17,10 @@ Public Class FrmMovimientosCC
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
-        Dim celda = DataGridView1.CurrentRow?.Cells("NumComp")
-
-        If celda Is Nothing OrElse celda.Value Is Nothing OrElse String.IsNullOrEmpty(celda.Value.ToString().Trim()) Then
-            Me.mnuOperacionesRecuperarComprobante.Visible = True
-        Else
-            Me.mnuOperacionesRecuperarComprobante.Visible = False
-        End If
-
         If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "RTOX" Then
             Me.mnuOperacionesFacturarRemito.Visible = True
         Else
             Me.mnuOperacionesFacturarRemito.Visible = False
-        End If
-
-        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "PRESU" Then
-            Me.mnuOperacionesFacturarPresupuesto.Visible = True
-        Else
-            Me.mnuOperacionesFacturarPresupuesto.Visible = False
         End If
 
     End Sub
@@ -56,11 +48,11 @@ Public Class FrmMovimientosCC
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
-            If DataGridView1.ColumnCount = 12 Then
+            If DataGridView1.ColumnCount = 13 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.01R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.07R, 0.05R, 0.07R, 0.55R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.01R, 0.05R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.07R, 0.5R, 0.05R, 0.07R}
 
-                For i As Integer = 0 To 11
+                For i As Integer = 0 To 12
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
 
@@ -108,6 +100,21 @@ Public Class FrmMovimientosCC
             Me.AjustarAnchoColumnasComprobantes()
             Me.AjustarAnchoColumnasDetalle()
 
+            Dim SaldoAdeudadoCuentaCorriente As Decimal = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={Me.IdCC}")
+            Dim SaldoAdeudadoItemsSeleccinados As Decimal = 0
+
+            If String.IsNullOrWhiteSpace(Me.ResuSeleccionado) Then
+                SaldoAdeudadoItemsSeleccinados = SaldoAdeudadoCuentaCorriente
+
+            Else
+                SaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={Me.IdCC} AND Resu='{Me.ResuSeleccionado}'")
+
+            End If
+
+            Me.lblDescripcionCuentaCorriente.Text = "Cuenta Corriente: " & Me.DescripcionCuentaCorriente
+            Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: " & SaldoAdeudadoCuentaCorriente.ToString("N2")
+            Me.lblImporteAdeudadoItemsSeleccionados.Text = "Importe Adeudado Items Seleccionados: " & SaldoAdeudadoItemsSeleccinados
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -143,7 +150,7 @@ Public Class FrmMovimientosCC
     Private Sub ImprimirComprobante(ByVal argNumCopias As Integer)
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(3).Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -170,7 +177,7 @@ Public Class FrmMovimientosCC
         Try
 
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(3).Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -202,7 +209,7 @@ Public Class FrmMovimientosCC
         Try
 
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(3).Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -212,57 +219,22 @@ Public Class FrmMovimientosCC
                 Dim f As New FrmNotaCredito()
                 f.Usuario = u
                 f.ObtenerComprobanteOrigen(idOperacion)
-                f.Show()
+                f.ShowDialog()
             End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub RecuperarComprobanteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuOperacionesRecuperarComprobante.Click
-
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-
-        Dim celda = DataGridView1.CurrentRow?.Cells("NumComp")
-
-        If celda IsNot Nothing AndAlso celda.Value IsNot Nothing AndAlso Not String.IsNullOrEmpty(celda.Value.ToString().Trim()) Then
-            ' La celda tiene valor (no es null ni cadena vacía)
-            Exit Sub
-        End If
-
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
-        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
-
-        Dim idOperacion As Long = Convert.ToInt64(valor)
-        Dim AdminOperaciones As New N_AdminOperaciones
-
-        Dim AdminComprobantes As New N_AdminComprobantes
-        Dim objCb As Comprobante = AdminComprobantes.ObtenerComprobanteEmitidoPorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
-
-        Try
-
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
-                Dim obj_N_AdminComprobantes As New N_AdminComprobantes
-                If obj_N_AdminComprobantes.GenerarFacturaElectronica(objCb) = False Then
-                    Throw New Exception("Error al generar la factura electrónica.")
-                End If
-            Else
-                Exit Sub
-            End If
-
-            Dim objAdminReporteComprobantes As New ReporteComprobantes
-            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
-
-            AdminOperaciones.FinalizarOperacion(g_ParametrosTerminal.MacAddress, objCb.Operacion, True)
 
             Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.DataSource = TblComprobantes
 
+            ' Opcional: Seleccionar la fila con el idOperacion actualizado
+            For Each row As DataGridViewRow In Me.DataGridView1.Rows
+                If Convert.ToInt64(row.Cells(2).Value) = idOperacion Then
+                    row.Selected = True
+                    Me.DataGridView1.CurrentCell = row.Cells(2)
+                    Exit For
+                End If
+            Next
+
         Catch ex As Exception
-            AdminOperaciones.RegistrarError(objCb.Operacion.IdOperacion, ex.ToString)
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
@@ -326,87 +298,6 @@ Public Class FrmMovimientosCC
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
-    End Sub
-
-    Private Sub FacturarPresupuesto(ByVal argTecla As Keys)
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-
-        Dim User As Usuario = ModSeguridad.ValidarUsuario("FACTURACION_REMITOS")
-        If User Is Nothing Then
-            Exit Sub
-        End If
-
-        Dim celda = DataGridView1.CurrentRow?.Cells("ComprobanteAsociado")
-
-        If celda IsNot Nothing AndAlso celda.Value IsNot Nothing AndAlso Not String.IsNullOrEmpty(celda.Value.ToString().Trim()) Then
-            MsgBox("El comprobante seleccionado tiene un comprobante asociado", vbCritical, "SiCoFa")
-            Exit Sub
-        End If
-
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
-        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
-
-        Dim idOperacion As Long = Convert.ToInt64(valor)
-        Dim AdminOperaciones As New N_AdminOperaciones
-        Dim objTipoOperacion As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO("VTAM")
-        Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(g_ParametrosTerminal.Empresa, User, objTipoOperacion, "INICIADA", "")
-
-        Try
-            Dim AdminComprobantes As New N_AdminComprobantes
-            Dim objCb As Comprobante = AdminComprobantes.ObtenerComprobanteEmitidoPorIdOperacion(idOperacion, g_ParametrosTerminal.Empresa)
-
-            Using FPagos As New FrmPagos
-                With FPagos
-                    '.FrmOrigen = Me
-                    .ComprobanteOrigen = objCb
-                    .Operacion = objOperacion
-                    .Cliente = objCb.Cliente
-
-                    If argTecla = Keys.F9 Then
-                        Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
-                        .TipoComprobante = tc
-                    ElseIf argTecla = Keys.F10 AndAlso g_ParametrosSistema.GetValor("SFISCAL") = "FE" Then
-                        .TipoComprobante = Nothing
-                    Else
-                        Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
-                        .TipoComprobante = tc
-                    End If
-
-                    .ImporteBruto = objCb.ImpBto
-                    .ImporteDescuento = objCb.ImpDes 'mdec_ImporteDescuentos
-                    .ImporteAPagar = objCb.ImpNeto 'mdec_ImporteConDescuentos
-                    .ImporteGravado1 = objCb.ImpGrav1 'mdec_ImporteGravado1
-                    .ImporteGravado2 = objCb.ImpGrav2 'mdec_ImporteGravado2
-                    .ItemsComprobante = objCb.Detalle 'mobj_Items.ToList
-                    .ShowDialog()
-                End With
-            End Using
-
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
-
-            ' Opcional: Seleccionar la fila con el idOperacion actualizado
-            For Each row As DataGridViewRow In Me.DataGridView1.Rows
-                If Convert.ToInt64(row.Cells(2).Value) = idOperacion Then
-                    row.Selected = True
-                    Me.DataGridView1.CurrentCell = row.Cells(2)
-                    Exit For
-                End If
-            Next
-
-        Catch ex As Exception
-            AdminOperaciones.RegistrarError(objOperacion.IdOperacion, ex.ToString)
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
-    Private Sub RemitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemitoToolStripMenuItem.Click
-        Me.FacturarPresupuesto(Keys.F10)
-    End Sub
-
-    Private Sub FacturaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturaToolStripMenuItem.Click
-        Me.FacturarPresupuesto(Keys.F9)
     End Sub
 
 End Class

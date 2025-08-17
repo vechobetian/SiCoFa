@@ -186,7 +186,24 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub CuentasCorrientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CuentasCorrientesToolStripMenuItem.Click
-        FrmMovimientosCC.Show()
+    Private Sub mnuAuditoriaCuentasCorrientes_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaCuentasCorrientes.Click
+
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaCuentasCorrientes.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmIngresoMomientosCC()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
+
 End Class

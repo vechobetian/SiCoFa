@@ -9,8 +9,6 @@
     Property Saldo As Decimal
     Property CreditoDisponible As Decimal
 
-
-
     Public Sub New(
                   ByVal argIdCC As Int32,
                   ByVal argIdCliente As Int32,
