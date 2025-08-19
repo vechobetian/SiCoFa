@@ -235,7 +235,7 @@ Partial Class FrmAsientoGastos
         Me.txtCuentaBancaria.Size = New System.Drawing.Size(519, 35)
         Me.txtCuentaBancaria.TabIndex = 1
         '
-        'FrmAsientoGastos1
+        'FrmAsientoGastos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -260,7 +260,7 @@ Partial Class FrmAsientoGastos
         Me.Controls.Add(Me.cmbFPago)
         Me.Controls.Add(Me.txtCuentaBancaria)
         Me.Controls.Add(Me.cmbCajaAbierta)
-        Me.Name = "FrmAsientoGastos1"
+        Me.Name = "FrmAsientoGastos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmAsientoGastos"
         Me.ResumeLayout(False)

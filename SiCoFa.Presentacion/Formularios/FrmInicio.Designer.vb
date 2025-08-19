@@ -25,7 +25,7 @@ Partial Class FrmInicio
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesFacturacion = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesCancelaCC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesCC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesCompras = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesPresupuestos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCaja = New System.Windows.Forms.ToolStripMenuItem()
@@ -81,7 +81,7 @@ Partial Class FrmInicio
         '
         'mnuOperaciones
         '
-        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion, Me.mnuOperacionesCancelaCC, Me.mnuOperacionesCompras, Me.mnuOperacionesPresupuestos})
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion, Me.mnuOperacionesCC, Me.mnuOperacionesCompras, Me.mnuOperacionesPresupuestos})
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
@@ -89,25 +89,25 @@ Partial Class FrmInicio
         'mnuOperacionesFacturacion
         '
         Me.mnuOperacionesFacturacion.Name = "mnuOperacionesFacturacion"
-        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(232, 22)
+        Me.mnuOperacionesFacturacion.Size = New System.Drawing.Size(233, 22)
         Me.mnuOperacionesFacturacion.Text = "&Facturacion"
         '
-        'mnuOperacionesCancelaCC
+        'mnuOperacionesCC
         '
-        Me.mnuOperacionesCancelaCC.Name = "mnuOperacionesCancelaCC"
-        Me.mnuOperacionesCancelaCC.Size = New System.Drawing.Size(232, 22)
-        Me.mnuOperacionesCancelaCC.Text = "&Cancelacion Cuenta Corriente"
+        Me.mnuOperacionesCC.Name = "mnuOperacionesCC"
+        Me.mnuOperacionesCC.Size = New System.Drawing.Size(233, 22)
+        Me.mnuOperacionesCC.Text = "&Operaciones Cuenta Corriente"
         '
         'mnuOperacionesCompras
         '
         Me.mnuOperacionesCompras.Name = "mnuOperacionesCompras"
-        Me.mnuOperacionesCompras.Size = New System.Drawing.Size(232, 22)
+        Me.mnuOperacionesCompras.Size = New System.Drawing.Size(233, 22)
         Me.mnuOperacionesCompras.Text = "Com&pras"
         '
         'mnuOperacionesPresupuestos
         '
         Me.mnuOperacionesPresupuestos.Name = "mnuOperacionesPresupuestos"
-        Me.mnuOperacionesPresupuestos.Size = New System.Drawing.Size(232, 22)
+        Me.mnuOperacionesPresupuestos.Size = New System.Drawing.Size(233, 22)
         Me.mnuOperacionesPresupuestos.Text = "Pre&supuestos"
         '
         'mnuCaja
@@ -388,7 +388,7 @@ Partial Class FrmInicio
     Friend WithEvents mnuEdicionCuentasBancarias As ToolStripMenuItem
     Friend WithEvents mnuEdicionMedioPE As ToolStripMenuItem
     Friend WithEvents mnuCajaMovimientos As ToolStripMenuItem
-    Friend WithEvents mnuOperacionesCancelaCC As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesCC As ToolStripMenuItem
     Friend WithEvents mnuOperacionesCompras As ToolStripMenuItem
     Friend WithEvents mnuCajaAsientoGastos As ToolStripMenuItem
     Friend WithEvents mnuFiscalLibroIVA As ToolStripMenuItem

@@ -96,9 +96,7 @@ Public Class FrmIngresoMomientosCC
             Exit Sub
         End If
 
-        Dim resu As String
-
-        resu = Strings.Replace(Me.mtxtResu.Text, "/", "").Trim
+        Dim resu As String = Strings.Replace(Me.mtxtResu.Text, "/", "").Trim
 
         Dim sql As String = ""
         Dim idCC As Int32 = 0

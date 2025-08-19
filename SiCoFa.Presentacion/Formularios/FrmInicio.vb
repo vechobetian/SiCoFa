@@ -14,6 +14,18 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuOperacionesCC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCC.Click
+
+        Dim u As Usuario = ModSeguridad.ValidarUsuario(mnuOperacionesCC.Name)
+
+        If u IsNot Nothing Then
+            Dim nuevaOperacionCC As New FrmOperacionesCC()
+            nuevaOperacionCC.Usuario = u
+            nuevaOperacionCC.Show()
+        End If
+
+    End Sub
+
     Private Sub mnuOperacionesCompras_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCompras.Click
 
         Dim u As Usuario = ModSeguridad.ValidarUsuario(Me.mnuOperacionesCompras.Name)
