@@ -5,8 +5,9 @@ Public Class FrmOperacionesCC
     Property Usuario As Usuario
 
     Private mAdminDB As New N_AdminDB
+    Private mAdminOperaciones As New N_AdminOperaciones
     Private mTOperacion As TipoOperacion
-    Private mIdCC As Int32 = 0
+    Private mCuentaCorriente As CuentaCorriente
     Private mSaldoCC As Decimal = 0
     Private mSaldoResumen As Decimal = 0
     Private DatosOpcionales As New List(Of String)
@@ -21,6 +22,30 @@ Public Class FrmOperacionesCC
         MyBase.WndProc(m)
     End Sub
 
+    Public Sub IniciarCancelacionCuentaCorriente()
+        If mCuentaCorriente Is Nothing Then
+            MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
+            Exit Sub
+        End If
+
+        mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CCC")
+        Me.txtOperacion.Tag = "CCC"
+        Me.txtOperacion.Text = mTOperacion.TipoOperacion
+        mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mCuentaCorriente.IdCC}")
+
+        If mSaldoCC = 0 Then
+            MsgBox("El Saldo de la Cuenta es $0,00")
+            Me.LimpiarFormulario()
+            Exit Sub
+        End If
+
+        Me.txtResumenImputado.Text = "0000"
+        Me.txtResumenImputado.Enabled = False
+        Me.txtImporte.Text = mSaldoCC.ToString("N2")
+        Me.txtImporte.Enabled = False
+
+    End Sub
+
     Private Sub BuscarOperacion(ByVal argTextoBuscado As String)
         Try
 
@@ -30,18 +55,14 @@ Public Class FrmOperacionesCC
             Select Case dt.Rows.Count
                 Case 0
                     MsgBox("Operación no Encontrada", vbInformation, "SiCoFa")
-                    Me.txtOperacion.Text = ""
-                    Me.txtOperacion.Select()
-                    Exit Sub
+                    mTOperacion = Nothing
+                    txtOperacion.Text = ""
+                    txtOperacion.Focus()
 
                 Case 1
-                    Dim AdminOperaciones As New N_AdminOperaciones
                     Dim fila As DataRow = dt.Rows(0)
                     Dim codiTO As String = fila("CodiTO").ToString
-                    Dim top As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
-                    Me.txtOperacion.Tag = top.CodiTO
-                    Me.txtOperacion.Text = top.TipoOperacion
-                    Exit Sub
+                    mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
 
                 Case > 1
 
@@ -53,23 +74,30 @@ Public Class FrmOperacionesCC
                         f.HeaderPropiedadDescripcion = "Operacion"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            Dim AdminOperaciones As New N_AdminOperaciones
                             Dim codiTO As String = f.Valor1Seleccionado.ToString
-                            Dim top As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
-                            Me.txtOperacion.Tag = top.CodiTO
-                            Me.txtOperacion.Text = top.TipoOperacion
-                            Exit Sub
+                            mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
+
                         Else
                             Me.txtOperacion.Tag = ""
                             Me.txtOperacion.Text = ""
                             Me.txtOperacion.Select()
+                            mTOperacion = Nothing
 
                         End If
+
                         f.Close()
 
                     End Using
 
             End Select
+
+            If mTOperacion IsNot Nothing Then
+                Me.txtOperacion.Tag = mTOperacion.CodiTO
+                Me.txtOperacion.Text = mTOperacion.TipoOperacion
+            Else
+                Me.txtOperacion.Tag = ""
+                Me.txtOperacion.Text = ""
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -100,13 +128,13 @@ Public Class FrmOperacionesCC
         Try
             Dim AdminClientes As New N_AdminClientes
             Dim lc As List(Of CuentaCorriente) = AdminClientes.ListarCuentasCorriente(argTextoBuscado)
-            Dim c As CuentaCorriente = Nothing
 
             If lc Is Nothing Then
                 MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
                 Me.txtCuentaCorriente.Tag = ""
                 Me.txtCuentaCorriente.Text = ""
                 Me.txtCuentaCorriente.Select()
+                mCuentaCorriente = Nothing
                 Exit Sub
             End If
 
@@ -116,10 +144,11 @@ Public Class FrmOperacionesCC
                     Me.txtCuentaCorriente.Tag = ""
                     Me.txtCuentaCorriente.Text = ""
                     Me.txtCuentaCorriente.Select()
+                    mCuentaCorriente = Nothing
                     Exit Sub
 
                 Case 1
-                    c = lc.First
+                    mCuentaCorriente = lc.First
 
                 Case > 1
                     Using f As New FrmBuscaCtasCorrriente
@@ -127,12 +156,13 @@ Public Class FrmOperacionesCC
                         f.ShowDialog()
 
                         If f.DialogResult = DialogResult.OK Then
-                            c = f.CuentaSeleccionada
+                            mCuentaCorriente = f.CuentaSeleccionada
 
                         Else
                             Me.txtCuentaCorriente.Tag = ""
                             Me.txtCuentaCorriente.Text = ""
                             Me.txtCuentaCorriente.Select()
+                            mCuentaCorriente = Nothing
                             Exit Sub
                         End If
                         f.Close()
@@ -141,10 +171,9 @@ Public Class FrmOperacionesCC
             End Select
 
             With Me
-                .txtCuentaCorriente.Tag = c.IdCC
-                .txtCuentaCorriente.Text = c.Descripcion
-                .mIdCC = c.IdCC
-                .mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={c.IdCC}")
+                .txtCuentaCorriente.Tag = mCuentaCorriente.IdCC
+                .txtCuentaCorriente.Text = mCuentaCorriente.Descripcion
+                .mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mCuentaCorriente.IdCC}")
             End With
 
         Catch ex As Exception
@@ -270,7 +299,7 @@ Public Class FrmOperacionesCC
 
             Me.BuscarResumen(Me.txtResumenImputado.Text)
 
-            msaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mIdCC} AND Resu='{Me.txtResumenImputado.Text}'")
+            mSaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mCuentaCorriente.IdCC} AND Resu='{Me.txtResumenImputado.Text}'")
 
             Select Case Me.txtOperacion.Tag
                 Case "CRC"
@@ -302,34 +331,48 @@ Public Class FrmOperacionesCC
 
         Try
 
-            If txtImporte.Enabled = False Then Exit Sub
+            If Me.txtImporte.Enabled = False Then Exit Sub
 
             Dim importe As Decimal = 0
 
             If Decimal.TryParse(txtImporte.Text, importe) Then
-                txtImporte.Text = importe.ToString("N2") ' Formato con 2 decimales, con separador de miles
+                Me.txtImporte.Text = importe.ToString("N2") ' Formato con 2 decimales, con separador de miles
+            End If
 
-            Else
+            If importe = 0 Then
                 MsgBox("Debe ingresar un valor numérico válido.", vbExclamation, "Validación")
-                txtImporte.SelectAll()
-                txtImporte.Focus()
+                Me.txtImporte.Text = ""
+                Me.txtImporte.Focus()
                 Exit Sub
             End If
 
             If importe > mSaldoCC Then
-                MsgBox("El importe ingresado es mayor que el Importe total adeudado", vbInformation, "SiCoFa")
-                Me.txtImporte.Text = ""
-                Me.txtImporte.Focus()
-                Exit Sub
+
+                If MsgBox("El importe ingresado es mayor que el Importe total adeudado" & vbCrLf & "¿Desea Realizar una Cancelacion Total?", vbYesNo, "SiCoFa") = vbYes Then
+                    Me.IniciarCancelacionCuentaCorriente()
+                    Exit Sub
+                Else
+                    Me.txtImporte.Text = ""
+                    Me.txtImporte.Focus()
+                    Exit Sub
+                End If
 
             ElseIf importe > mSaldoResumen Then
-                MsgBox("El importe ingresado es mayor que el importe del resumen " & Me.txtResumenImputado.Text, vbInformation, "SiCoFa")
-                Me.txtImporte.Text = ""
-                Me.txtImporte.Focus()
-                Exit Sub
 
-            ElseIf importe = mSaldoCC Then
-                Me.txtOperacion.Text = ""
+                If MsgBox("El importe ingresado es mayor que el Importe del Resumen" & vbCrLf & "¿Desea Cancelar el Resumen " & Me.txtResumenImputado.Text & "?", vbYesNo, "SiCoFa") = vbYes Then
+                    mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
+                    Me.txtOperacion.Tag = "CRC"
+                    Me.txtOperacion.Text = mTOperacion.TipoOperacion
+                    importe = mSaldoResumen
+                    Me.txtImporte.Text = importe.ToString("N2")
+                    Me.txtImporte.Enabled = False
+                    Exit Sub
+
+                Else
+                    Me.txtImporte.Text = ""
+                    Me.txtImporte.Focus()
+                    Exit Sub
+                End If
 
             End If
 
