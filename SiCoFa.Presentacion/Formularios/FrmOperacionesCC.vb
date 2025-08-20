@@ -5,6 +5,7 @@ Public Class FrmOperacionesCC
     Property Usuario As Usuario
 
     Private mAdminDB As New N_AdminDB
+    Private mTOperacion As TipoOperacion
     Private mIdCC As Int32 = 0
     Private mSaldoCC As Decimal = 0
     Private mSaldoResumen As Decimal = 0
@@ -62,6 +63,7 @@ Public Class FrmOperacionesCC
                             Me.txtOperacion.Tag = ""
                             Me.txtOperacion.Text = ""
                             Me.txtOperacion.Select()
+
                         End If
                         f.Close()
 
@@ -302,7 +304,7 @@ Public Class FrmOperacionesCC
 
             If txtImporte.Enabled = False Then Exit Sub
 
-            Dim importe As Decimal
+            Dim importe As Decimal = 0
 
             If Decimal.TryParse(txtImporte.Text, importe) Then
                 txtImporte.Text = importe.ToString("N2") ' Formato con 2 decimales, con separador de miles
@@ -311,6 +313,24 @@ Public Class FrmOperacionesCC
                 MsgBox("Debe ingresar un valor numérico válido.", vbExclamation, "Validación")
                 txtImporte.SelectAll()
                 txtImporte.Focus()
+                Exit Sub
+            End If
+
+            If importe > mSaldoCC Then
+                MsgBox("El importe ingresado es mayor que el Importe total adeudado", vbInformation, "SiCoFa")
+                Me.txtImporte.Text = ""
+                Me.txtImporte.Focus()
+                Exit Sub
+
+            ElseIf importe > mSaldoResumen Then
+                MsgBox("El importe ingresado es mayor que el importe del resumen " & Me.txtResumenImputado.Text, vbInformation, "SiCoFa")
+                Me.txtImporte.Text = ""
+                Me.txtImporte.Focus()
+                Exit Sub
+
+            ElseIf importe = mSaldoCC Then
+                Me.txtOperacion.Text = ""
+
             End If
 
         Catch ex As Exception
