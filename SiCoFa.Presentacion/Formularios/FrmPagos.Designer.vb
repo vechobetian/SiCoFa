@@ -375,7 +375,7 @@ Partial Class FrmPagos
     Friend WithEvents txtTipoComprobante As TextBox
     Friend WithEvents btnCuentaCorriente As Button
     Friend WithEvents btnPagoElectronico As Button
-    Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents btnFinalizar As Button
+    Friend WithEvents Button1 As Button
 End Class
