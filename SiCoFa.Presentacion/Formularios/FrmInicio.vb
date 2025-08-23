@@ -68,9 +68,9 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuEdicionArticulos_Click(sender As Object, e As EventArgs) Handles mnuEdicionArticulos.Click
+    Private Sub mnuEditarArticulos_Click(sender As Object, e As EventArgs) Handles mnuEditarArticulos.Click
 
-        If ModSeguridad.ValidarUsuario(Me.mnuEdicionArticulos.Name) Is Nothing Then
+        If ModSeguridad.ValidarUsuario(Me.mnuEditarArticulos.Name) Is Nothing Then
             Exit Sub
         End If
 
@@ -79,9 +79,9 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuEdicionClientes_Click(sender As Object, e As EventArgs) Handles mnuEdicionClientes.Click
+    Private Sub mnuEditarClientes_Click(sender As Object, e As EventArgs) Handles mnuEditarClientes.Click
 
-        If ModSeguridad.ValidarUsuario(Me.mnuEdicionClientes.Name) Is Nothing Then
+        If ModSeguridad.ValidarUsuario(Me.mnuEditarClientes.Name) Is Nothing Then
             Exit Sub
         End If
 
@@ -89,13 +89,13 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuEdicionEmpleados_Click(sender As Object, e As EventArgs) Handles mnuEdicionEmpleados.Click
+    Private Sub mnuEditarEmpleados_Click(sender As Object, e As EventArgs) Handles mnuEditarEmpleados.Click
 
     End Sub
 
-    Private Sub mnuEdicionMedioPE_Click(sender As Object, e As EventArgs) Handles mnuEdicionMedioPE.Click
+    Private Sub mnuEditarMedioPE_Click(sender As Object, e As EventArgs) Handles mnuEditarMedioPE.Click
 
-        If ModSeguridad.ValidarUsuario(Me.mnuEdicionMedioPE.Name) Is Nothing Then
+        If ModSeguridad.ValidarUsuario(Me.mnuEditarMedioPE.Name) Is Nothing Then
             Exit Sub
         End If
 
@@ -104,10 +104,10 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuEdicionUsuarios_Click(sender As Object, e As EventArgs) Handles mnuEdicionUsuarios.Click
+    Private Sub mnuEditarUsuarios_Click(sender As Object, e As EventArgs) Handles mnuEditarUsuarios.Click
         Try
 
-            If ModSeguridad.ValidarUsuario(Me.mnuEdicionUsuarios.Name) Is Nothing Then
+            If ModSeguridad.ValidarUsuario(Me.mnuEditarUsuarios.Name) Is Nothing Then
                 Exit Sub
             End If
 
@@ -121,9 +121,9 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuEdicionProveedores_Click(sender As Object, e As EventArgs) Handles mnuEdicionProveedores.Click
+    Private Sub mnuEditarProveedores_Click(sender As Object, e As EventArgs) Handles mnuEditarProveedores.Click
         Try
-            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEdicionProveedores.Name)
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEditarProveedores.Name)
 
             If User Is Nothing Then
                 Exit Sub
@@ -138,11 +138,11 @@ Public Class FrmInicio
         End Try
     End Sub
 
-    Private Sub mnuEdicionPermisos_Click(sender As Object, e As EventArgs) Handles mnuEdicionPermisos.Click
+    Private Sub mnuEditarPermisos_Click(sender As Object, e As EventArgs) Handles mnuEditarPermisos.Click
 
         Try
 
-            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEdicionPermisos.Name)
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuEditarPermisos.Name)
 
             If User Is Nothing Then
                 Exit Sub

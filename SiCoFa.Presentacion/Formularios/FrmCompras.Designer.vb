@@ -73,8 +73,8 @@ Partial Class FrmCompras
         Me.mnuArchivoGuardar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoGuardarComo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicion = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionEliminarItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarEliminarItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOpciones = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOpcionesIVAIncluidoEnPrecioCosto = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -122,7 +122,7 @@ Partial Class FrmCompras
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.43767!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.56233!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 334.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 338.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteIVAEtiqueta, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteIVA, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblIVAIncluido, 0, 1)
@@ -146,9 +146,9 @@ Partial Class FrmCompras
         '
         Me.lblImporteIVAEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteIVAEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteIVAEtiqueta.Location = New System.Drawing.Point(830, 58)
+        Me.lblImporteIVAEtiqueta.Location = New System.Drawing.Point(827, 58)
         Me.lblImporteIVAEtiqueta.Name = "lblImporteIVAEtiqueta"
-        Me.lblImporteIVAEtiqueta.Size = New System.Drawing.Size(181, 52)
+        Me.lblImporteIVAEtiqueta.Size = New System.Drawing.Size(180, 52)
         Me.lblImporteIVAEtiqueta.TabIndex = 8
         Me.lblImporteIVAEtiqueta.Text = "Importe I.V.A:"
         Me.lblImporteIVAEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -157,9 +157,9 @@ Partial Class FrmCompras
         '
         Me.lblImporteIVA.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteIVA.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteIVA.Location = New System.Drawing.Point(1020, 58)
+        Me.lblImporteIVA.Location = New System.Drawing.Point(1016, 58)
         Me.lblImporteIVA.Name = "lblImporteIVA"
-        Me.lblImporteIVA.Size = New System.Drawing.Size(329, 52)
+        Me.lblImporteIVA.Size = New System.Drawing.Size(333, 52)
         Me.lblImporteIVA.TabIndex = 13
         Me.lblImporteIVA.Text = "0,00"
         Me.lblImporteIVA.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -190,9 +190,9 @@ Partial Class FrmCompras
         '
         Me.lblImporteNeto.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteNeto.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteNeto.Location = New System.Drawing.Point(1020, 3)
+        Me.lblImporteNeto.Location = New System.Drawing.Point(1016, 3)
         Me.lblImporteNeto.Name = "lblImporteNeto"
-        Me.lblImporteNeto.Size = New System.Drawing.Size(329, 52)
+        Me.lblImporteNeto.Size = New System.Drawing.Size(333, 52)
         Me.lblImporteNeto.TabIndex = 11
         Me.lblImporteNeto.Text = "0,00"
         Me.lblImporteNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -201,9 +201,9 @@ Partial Class FrmCompras
         '
         Me.lblImporteNetoEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteNetoEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteNetoEtiqueta.Location = New System.Drawing.Point(830, 3)
+        Me.lblImporteNetoEtiqueta.Location = New System.Drawing.Point(827, 3)
         Me.lblImporteNetoEtiqueta.Name = "lblImporteNetoEtiqueta"
-        Me.lblImporteNetoEtiqueta.Size = New System.Drawing.Size(181, 52)
+        Me.lblImporteNetoEtiqueta.Size = New System.Drawing.Size(180, 52)
         Me.lblImporteNetoEtiqueta.TabIndex = 6
         Me.lblImporteNetoEtiqueta.Text = "Importe Neto:"
         Me.lblImporteNetoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -212,9 +212,9 @@ Partial Class FrmCompras
         '
         Me.lblImporteTotal.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteTotal.Location = New System.Drawing.Point(1020, 113)
+        Me.lblImporteTotal.Location = New System.Drawing.Point(1016, 113)
         Me.lblImporteTotal.Name = "lblImporteTotal"
-        Me.lblImporteTotal.Size = New System.Drawing.Size(329, 71)
+        Me.lblImporteTotal.Size = New System.Drawing.Size(333, 71)
         Me.lblImporteTotal.TabIndex = 14
         Me.lblImporteTotal.Text = "0,00"
         Me.lblImporteTotal.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -223,9 +223,9 @@ Partial Class FrmCompras
         '
         Me.lblImporteTotalEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteTotalEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteTotalEtiqueta.Location = New System.Drawing.Point(830, 113)
+        Me.lblImporteTotalEtiqueta.Location = New System.Drawing.Point(827, 113)
         Me.lblImporteTotalEtiqueta.Name = "lblImporteTotalEtiqueta"
-        Me.lblImporteTotalEtiqueta.Size = New System.Drawing.Size(181, 71)
+        Me.lblImporteTotalEtiqueta.Size = New System.Drawing.Size(180, 71)
         Me.lblImporteTotalEtiqueta.TabIndex = 9
         Me.lblImporteTotalEtiqueta.Text = "Importe Total:  "
         Me.lblImporteTotalEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -236,7 +236,7 @@ Partial Class FrmCompras
         Me.lblDatosOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 113)
         Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(815, 71)
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(812, 71)
         Me.lblDatosOperacion.TabIndex = 17
         '
         'DataGridView1
@@ -475,7 +475,7 @@ Partial Class FrmCompras
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuEdicion, Me.mnuOpciones})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuEditar, Me.mnuOpciones})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1357, 24)
@@ -493,43 +493,43 @@ Partial Class FrmCompras
         '
         Me.mnuArchivoAbrir.Image = CType(resources.GetObject("mnuArchivoAbrir.Image"), System.Drawing.Image)
         Me.mnuArchivoAbrir.Name = "mnuArchivoAbrir"
-        Me.mnuArchivoAbrir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoAbrir.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoAbrir.Text = "A&brir"
         '
         'mnuArchivoGuardar
         '
         Me.mnuArchivoGuardar.Image = CType(resources.GetObject("mnuArchivoGuardar.Image"), System.Drawing.Image)
         Me.mnuArchivoGuardar.Name = "mnuArchivoGuardar"
-        Me.mnuArchivoGuardar.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoGuardar.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoGuardar.Text = "&Guardar"
         '
         'mnuArchivoGuardarComo
         '
         Me.mnuArchivoGuardarComo.Image = CType(resources.GetObject("mnuArchivoGuardarComo.Image"), System.Drawing.Image)
         Me.mnuArchivoGuardarComo.Name = "mnuArchivoGuardarComo"
-        Me.mnuArchivoGuardarComo.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoGuardarComo.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoGuardarComo.Text = "Guardar Como..."
         '
         'mnuArchivoSalir
         '
         Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
         Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
-        Me.mnuArchivoSalir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoSalir.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoSalir.Text = "&Salir"
         '
-        'mnuEdicion
+        'mnuEditar
         '
-        Me.mnuEdicion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdicionEliminarItem})
-        Me.mnuEdicion.Name = "mnuEdicion"
-        Me.mnuEdicion.Size = New System.Drawing.Size(58, 20)
-        Me.mnuEdicion.Text = "&Edicion"
+        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditarEliminarItem})
+        Me.mnuEditar.Name = "mnuEditar"
+        Me.mnuEditar.Size = New System.Drawing.Size(49, 20)
+        Me.mnuEditar.Text = "&Editar"
         '
-        'mnuEdicionEliminarItem
+        'mnuEditarEliminarItem
         '
-        Me.mnuEdicionEliminarItem.Image = CType(resources.GetObject("mnuEdicionEliminarItem.Image"), System.Drawing.Image)
-        Me.mnuEdicionEliminarItem.Name = "mnuEdicionEliminarItem"
-        Me.mnuEdicionEliminarItem.Size = New System.Drawing.Size(226, 22)
-        Me.mnuEdicionEliminarItem.Text = "&Elimininar Item seleccionado"
+        Me.mnuEditarEliminarItem.Image = CType(resources.GetObject("mnuEditarEliminarItem.Image"), System.Drawing.Image)
+        Me.mnuEditarEliminarItem.Name = "mnuEditarEliminarItem"
+        Me.mnuEditarEliminarItem.Size = New System.Drawing.Size(226, 22)
+        Me.mnuEditarEliminarItem.Text = "&Elimininar Item seleccionado"
         '
         'mnuOpciones
         '
@@ -578,7 +578,7 @@ Partial Class FrmCompras
     Friend WithEvents Panel1 As Panel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents mnuArchivo As ToolStripMenuItem
-    Friend WithEvents mnuEdicion As ToolStripMenuItem
+    Friend WithEvents mnuEditar As ToolStripMenuItem
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents NuevoToolStripButton As ToolStripButton
     Friend WithEvents AbrirToolStripButton As ToolStripButton
@@ -590,7 +590,7 @@ Partial Class FrmCompras
     Friend WithEvents SelectorArticulos As ToolStripTextBox
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents lblImporteIVAEtiqueta As Label
-    Friend WithEvents mnuEdicionEliminarItem As ToolStripMenuItem
+    Friend WithEvents mnuEditarEliminarItem As ToolStripMenuItem
     Friend WithEvents mnuArchivoAbrir As ToolStripMenuItem
     Friend WithEvents mnuArchivoGuardar As ToolStripMenuItem
     Friend WithEvents mnuArchivoSalir As ToolStripMenuItem

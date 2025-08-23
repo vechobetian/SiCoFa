@@ -92,9 +92,9 @@ Public Class FrmMovimientosCC
 
         Try
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Dim TblOperacionesCC As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = TblComprobantes
+            Me.DataGridView1.DataSource = TblOperacionesCC
             Me.ActualizarDetalle()
             Me.ActualizarMenus()
             Me.AjustarAnchoColumnasComprobantes()
@@ -298,6 +298,35 @@ Public Class FrmMovimientosCC
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+    End Sub
+
+    Private Sub mnuEditarModificarResumen_Click(sender As Object, e As EventArgs) Handles mnuEditarModificarResumen.Click
+
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        Dim valor = Me.DataGridView1.CurrentRow.Cells(3).Value
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+        Dim idOperacion As Long = Convert.ToInt64(valor)
+        Dim resu = InputBox("Ingrese el nuevo Resumen", "SiCoFa")
+
+        If String.IsNullOrEmpty(resu) OrElse Strings.Len(resu) <> 4 Then
+            MsgBox("La longitud del Resumen debe ser de 4 caracteres", vbCritical, "SiCoFa")
+            Exit Sub
+        End If
+
+        Dim AdminDB As New N_AdminDB
+        AdminDB.ActualizarCampo("TblOperacionesCC", "Resu", resu, "IdOperacion=" & idOperacion)
+
+        Dim TblOperacionesCC As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+        Me.DataGridView1.DataSource = TblOperacionesCC
+
+        ' Opcional: Seleccionar la fila con el idOperacion actualizado
+        For Each row As DataGridViewRow In Me.DataGridView1.Rows
+            If Convert.ToInt64(row.Cells(2).Value) = idOperacion Then
+                row.Selected = True
+                Me.DataGridView1.CurrentCell = row.Cells(2)
+                Exit For
+            End If
+        Next
     End Sub
 
 End Class

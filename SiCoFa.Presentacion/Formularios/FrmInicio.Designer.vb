@@ -52,16 +52,16 @@ Partial Class FrmInicio
         Me.CuentaEmpleadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MovimientoDeProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RankingDeVentaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicion = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionArticulos = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionClientes = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionEmpleados = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionUsuarios = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionProveedores = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionSecciones = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionCuentasBancarias = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionMedioPE = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEdicionPermisos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarArticulos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarClientes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarEmpleados = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarUsuarios = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarProveedores = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarSecciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarCuentasBancarias = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarMedioPE = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarPermisos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHerramientas = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPTerminal = New System.Windows.Forms.ToolStripMenuItem()
@@ -72,7 +72,7 @@ Partial Class FrmInicio
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuContabilidad, Me.mnuAuditoria, Me.mnuEdicion, Me.mnuHerramientas, Me.mnuSistema, Me.mnuAyuda})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuContabilidad, Me.mnuAuditoria, Me.mnuEditar, Me.mnuHerramientas, Me.mnuSistema, Me.mnuAyuda})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -259,66 +259,66 @@ Partial Class FrmInicio
         Me.RankingDeVentaToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
         Me.RankingDeVentaToolStripMenuItem.Text = "Ranking de &Venta"
         '
-        'mnuEdicion
+        'mnuEditar
         '
-        Me.mnuEdicion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEdicionArticulos, Me.mnuEdicionClientes, Me.mnuEdicionEmpleados, Me.mnuEdicionUsuarios, Me.mnuEdicionProveedores, Me.mnuEdicionSecciones, Me.mnuEdicionCuentasBancarias, Me.mnuEdicionMedioPE, Me.mnuEdicionPermisos})
-        Me.mnuEdicion.Name = "mnuEdicion"
-        Me.mnuEdicion.Size = New System.Drawing.Size(58, 20)
-        Me.mnuEdicion.Text = "&Edición"
+        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditarArticulos, Me.mnuEditarClientes, Me.mnuEditarEmpleados, Me.mnuEditarUsuarios, Me.mnuEditarProveedores, Me.mnuEditarSecciones, Me.mnuEditarCuentasBancarias, Me.mnuEditarMedioPE, Me.mnuEditarPermisos})
+        Me.mnuEditar.Name = "mnuEditar"
+        Me.mnuEditar.Size = New System.Drawing.Size(49, 20)
+        Me.mnuEditar.Text = "&Editar"
         '
-        'mnuEdicionArticulos
+        'mnuEditarArticulos
         '
-        Me.mnuEdicionArticulos.Name = "mnuEdicionArticulos"
-        Me.mnuEdicionArticulos.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionArticulos.Text = "Artículos"
+        Me.mnuEditarArticulos.Name = "mnuEditarArticulos"
+        Me.mnuEditarArticulos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarArticulos.Text = "Artículos"
         '
-        'mnuEdicionClientes
+        'mnuEditarClientes
         '
-        Me.mnuEdicionClientes.Name = "mnuEdicionClientes"
-        Me.mnuEdicionClientes.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionClientes.Text = "Clientes"
+        Me.mnuEditarClientes.Name = "mnuEditarClientes"
+        Me.mnuEditarClientes.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarClientes.Text = "Clientes"
         '
-        'mnuEdicionEmpleados
+        'mnuEditarEmpleados
         '
-        Me.mnuEdicionEmpleados.Name = "mnuEdicionEmpleados"
-        Me.mnuEdicionEmpleados.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionEmpleados.Text = "Empleados"
+        Me.mnuEditarEmpleados.Name = "mnuEditarEmpleados"
+        Me.mnuEditarEmpleados.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarEmpleados.Text = "Empleados"
         '
-        'mnuEdicionUsuarios
+        'mnuEditarUsuarios
         '
-        Me.mnuEdicionUsuarios.Name = "mnuEdicionUsuarios"
-        Me.mnuEdicionUsuarios.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionUsuarios.Text = "Usuarios"
+        Me.mnuEditarUsuarios.Name = "mnuEditarUsuarios"
+        Me.mnuEditarUsuarios.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarUsuarios.Text = "Usuarios"
         '
-        'mnuEdicionProveedores
+        'mnuEditarProveedores
         '
-        Me.mnuEdicionProveedores.Name = "mnuEdicionProveedores"
-        Me.mnuEdicionProveedores.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionProveedores.Text = "Proveedores"
+        Me.mnuEditarProveedores.Name = "mnuEditarProveedores"
+        Me.mnuEditarProveedores.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarProveedores.Text = "Proveedores"
         '
-        'mnuEdicionSecciones
+        'mnuEditarSecciones
         '
-        Me.mnuEdicionSecciones.Name = "mnuEdicionSecciones"
-        Me.mnuEdicionSecciones.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionSecciones.Text = "Secciones"
+        Me.mnuEditarSecciones.Name = "mnuEditarSecciones"
+        Me.mnuEditarSecciones.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarSecciones.Text = "Secciones"
         '
-        'mnuEdicionCuentasBancarias
+        'mnuEditarCuentasBancarias
         '
-        Me.mnuEdicionCuentasBancarias.Name = "mnuEdicionCuentasBancarias"
-        Me.mnuEdicionCuentasBancarias.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionCuentasBancarias.Text = "Cuentas Banco"
+        Me.mnuEditarCuentasBancarias.Name = "mnuEditarCuentasBancarias"
+        Me.mnuEditarCuentasBancarias.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarCuentasBancarias.Text = "Cuentas Banco"
         '
-        'mnuEdicionMedioPE
+        'mnuEditarMedioPE
         '
-        Me.mnuEdicionMedioPE.Name = "mnuEdicionMedioPE"
-        Me.mnuEdicionMedioPE.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionMedioPE.Text = "Medios de Pago"
+        Me.mnuEditarMedioPE.Name = "mnuEditarMedioPE"
+        Me.mnuEditarMedioPE.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarMedioPE.Text = "Medios de Pago"
         '
-        'mnuEdicionPermisos
+        'mnuEditarPermisos
         '
-        Me.mnuEdicionPermisos.Name = "mnuEdicionPermisos"
-        Me.mnuEdicionPermisos.Size = New System.Drawing.Size(159, 22)
-        Me.mnuEdicionPermisos.Text = "Permisos"
+        Me.mnuEditarPermisos.Name = "mnuEditarPermisos"
+        Me.mnuEditarPermisos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarPermisos.Text = "Permisos"
         '
         'mnuHerramientas
         '
@@ -374,19 +374,19 @@ Partial Class FrmInicio
     Friend WithEvents mnuCaja As ToolStripMenuItem
     Friend WithEvents mnuFiscal As ToolStripMenuItem
     Friend WithEvents mnuAuditoria As ToolStripMenuItem
-    Friend WithEvents mnuEdicion As ToolStripMenuItem
+    Friend WithEvents mnuEditar As ToolStripMenuItem
     Friend WithEvents mnuHerramientas As ToolStripMenuItem
     Friend WithEvents mnuSistema As ToolStripMenuItem
     Friend WithEvents mnuAyuda As ToolStripMenuItem
     Friend WithEvents mnuOperacionesFacturacion As ToolStripMenuItem
-    Friend WithEvents mnuEdicionArticulos As ToolStripMenuItem
-    Friend WithEvents mnuEdicionClientes As ToolStripMenuItem
-    Friend WithEvents mnuEdicionEmpleados As ToolStripMenuItem
-    Friend WithEvents mnuEdicionUsuarios As ToolStripMenuItem
-    Friend WithEvents mnuEdicionProveedores As ToolStripMenuItem
-    Friend WithEvents mnuEdicionSecciones As ToolStripMenuItem
-    Friend WithEvents mnuEdicionCuentasBancarias As ToolStripMenuItem
-    Friend WithEvents mnuEdicionMedioPE As ToolStripMenuItem
+    Friend WithEvents mnuEditarArticulos As ToolStripMenuItem
+    Friend WithEvents mnuEditarClientes As ToolStripMenuItem
+    Friend WithEvents mnuEditarEmpleados As ToolStripMenuItem
+    Friend WithEvents mnuEditarUsuarios As ToolStripMenuItem
+    Friend WithEvents mnuEditarProveedores As ToolStripMenuItem
+    Friend WithEvents mnuEditarSecciones As ToolStripMenuItem
+    Friend WithEvents mnuEditarCuentasBancarias As ToolStripMenuItem
+    Friend WithEvents mnuEditarMedioPE As ToolStripMenuItem
     Friend WithEvents mnuCajaMovimientos As ToolStripMenuItem
     Friend WithEvents mnuOperacionesCC As ToolStripMenuItem
     Friend WithEvents mnuOperacionesCompras As ToolStripMenuItem
@@ -410,7 +410,7 @@ Partial Class FrmInicio
     Friend WithEvents RankingDeVentaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuSistemaPTerminal As ToolStripMenuItem
     Friend WithEvents mnuSistemaPSistema As ToolStripMenuItem
-    Friend WithEvents mnuEdicionPermisos As ToolStripMenuItem
+    Friend WithEvents mnuEditarPermisos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesEmitidos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesRecibidos As ToolStripMenuItem
     Friend WithEvents mnuOperacionesPresupuestos As ToolStripMenuItem

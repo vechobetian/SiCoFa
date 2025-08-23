@@ -42,8 +42,14 @@ Partial Class FrmMovimientosCC
         Me.mnuArchivoGuardarComo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesCancelarCuenta = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesCancelarResumen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesCancelarFactura = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesPagoACuenta = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesNC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesFacturarRemito = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarModificarResumen = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.CodiTC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperAsoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -74,10 +80,6 @@ Partial Class FrmMovimientosCC
         Me.lblDescripcionCuentaCorriente = New System.Windows.Forms.Label()
         Me.lblImporteAdeudadoItemsSeleccionados = New System.Windows.Forms.Label()
         Me.lblSaldoCuentaCorriente = New System.Windows.Forms.Label()
-        Me.mnuOperacionesCancelarFactura = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesPagoACuenta = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesCancelarResumen = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesCancelarCuenta = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -110,10 +112,10 @@ Partial Class FrmMovimientosCC
         'MenuStrip1
         '
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones, Me.mnuEditar})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(153, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(322, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -129,7 +131,7 @@ Partial Class FrmMovimientosCC
         Me.mnuArchivoImprimir.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivoImprimirOriginal, Me.mnuArchivoImprimirDuplicado})
         Me.mnuArchivoImprimir.Image = CType(resources.GetObject("mnuArchivoImprimir.Image"), System.Drawing.Image)
         Me.mnuArchivoImprimir.Name = "mnuArchivoImprimir"
-        Me.mnuArchivoImprimir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoImprimir.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoImprimir.Text = "&Imprimir"
         '
         'mnuArchivoImprimirOriginal
@@ -148,21 +150,21 @@ Partial Class FrmMovimientosCC
         '
         Me.mnuArchivoEmail.Image = CType(resources.GetObject("mnuArchivoEmail.Image"), System.Drawing.Image)
         Me.mnuArchivoEmail.Name = "mnuArchivoEmail"
-        Me.mnuArchivoEmail.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoEmail.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoEmail.Text = "&Enviar Mail"
         '
         'mnuArchivoGuardarComo
         '
         Me.mnuArchivoGuardarComo.Image = CType(resources.GetObject("mnuArchivoGuardarComo.Image"), System.Drawing.Image)
         Me.mnuArchivoGuardarComo.Name = "mnuArchivoGuardarComo"
-        Me.mnuArchivoGuardarComo.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoGuardarComo.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoGuardarComo.Text = "Guardar Como..."
         '
         'mnuArchivoSalir
         '
         Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
         Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
-        Me.mnuArchivoSalir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoSalir.Size = New System.Drawing.Size(161, 22)
         Me.mnuArchivoSalir.Text = "&Salir"
         '
         'mnuOperaciones
@@ -171,6 +173,30 @@ Partial Class FrmMovimientosCC
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
+        '
+        'mnuOperacionesCancelarCuenta
+        '
+        Me.mnuOperacionesCancelarCuenta.Name = "mnuOperacionesCancelarCuenta"
+        Me.mnuOperacionesCancelarCuenta.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesCancelarCuenta.Text = "Cancelar &Cuenta"
+        '
+        'mnuOperacionesCancelarResumen
+        '
+        Me.mnuOperacionesCancelarResumen.Name = "mnuOperacionesCancelarResumen"
+        Me.mnuOperacionesCancelarResumen.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesCancelarResumen.Text = "Cancelar &Resumen"
+        '
+        'mnuOperacionesCancelarFactura
+        '
+        Me.mnuOperacionesCancelarFactura.Name = "mnuOperacionesCancelarFactura"
+        Me.mnuOperacionesCancelarFactura.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesCancelarFactura.Text = "Cancelar &Factura"
+        '
+        'mnuOperacionesPagoACuenta
+        '
+        Me.mnuOperacionesPagoACuenta.Name = "mnuOperacionesPagoACuenta"
+        Me.mnuOperacionesPagoACuenta.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesPagoACuenta.Text = "&Pago a Cuenta"
         '
         'mnuOperacionesNC
         '
@@ -184,6 +210,19 @@ Partial Class FrmMovimientosCC
         Me.mnuOperacionesFacturarRemito.Name = "mnuOperacionesFacturarRemito"
         Me.mnuOperacionesFacturarRemito.Size = New System.Drawing.Size(180, 22)
         Me.mnuOperacionesFacturarRemito.Text = "Facturar &Remito"
+        '
+        'mnuEditar
+        '
+        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditarModificarResumen})
+        Me.mnuEditar.Name = "mnuEditar"
+        Me.mnuEditar.Size = New System.Drawing.Size(49, 20)
+        Me.mnuEditar.Text = "&Editar"
+        '
+        'mnuEditarModificarResumen
+        '
+        Me.mnuEditarModificarResumen.Name = "mnuEditarModificarResumen"
+        Me.mnuEditarModificarResumen.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarModificarResumen.Text = "&Modificar Resumen"
         '
         'DataGridView1
         '
@@ -443,7 +482,7 @@ Partial Class FrmMovimientosCC
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.87716!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.12284!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 448.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 460.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaCorriente, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblImporteAdeudadoItemsSeleccionados, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoCuentaCorriente, 1, 0)
@@ -484,36 +523,12 @@ Partial Class FrmMovimientosCC
         Me.lblSaldoCuentaCorriente.AutoSize = True
         Me.lblSaldoCuentaCorriente.Dock = System.Windows.Forms.DockStyle.Left
         Me.lblSaldoCuentaCorriente.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaldoCuentaCorriente.Location = New System.Drawing.Point(712, 3)
+        Me.lblSaldoCuentaCorriente.Location = New System.Drawing.Point(704, 3)
         Me.lblSaldoCuentaCorriente.Name = "lblSaldoCuentaCorriente"
         Me.lblSaldoCuentaCorriente.Size = New System.Drawing.Size(214, 21)
         Me.lblSaldoCuentaCorriente.TabIndex = 0
         Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: 0,00"
         Me.lblSaldoCuentaCorriente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'mnuOperacionesCancelarFactura
-        '
-        Me.mnuOperacionesCancelarFactura.Name = "mnuOperacionesCancelarFactura"
-        Me.mnuOperacionesCancelarFactura.Size = New System.Drawing.Size(180, 22)
-        Me.mnuOperacionesCancelarFactura.Text = "Cancelar &Factura"
-        '
-        'mnuOperacionesPagoACuenta
-        '
-        Me.mnuOperacionesPagoACuenta.Name = "mnuOperacionesPagoACuenta"
-        Me.mnuOperacionesPagoACuenta.Size = New System.Drawing.Size(180, 22)
-        Me.mnuOperacionesPagoACuenta.Text = "&Pago a Cuenta"
-        '
-        'mnuOperacionesCancelarResumen
-        '
-        Me.mnuOperacionesCancelarResumen.Name = "mnuOperacionesCancelarResumen"
-        Me.mnuOperacionesCancelarResumen.Size = New System.Drawing.Size(180, 22)
-        Me.mnuOperacionesCancelarResumen.Text = "Cancelar &Resumen"
-        '
-        'mnuOperacionesCancelarCuenta
-        '
-        Me.mnuOperacionesCancelarCuenta.Name = "mnuOperacionesCancelarCuenta"
-        Me.mnuOperacionesCancelarCuenta.Size = New System.Drawing.Size(180, 22)
-        Me.mnuOperacionesCancelarCuenta.Text = "Cancelar &Cuenta"
         '
         'FrmMovimientosCC
         '
@@ -583,4 +598,6 @@ Partial Class FrmMovimientosCC
     Friend WithEvents mnuOperacionesPagoACuenta As ToolStripMenuItem
     Friend WithEvents mnuOperacionesCancelarResumen As ToolStripMenuItem
     Friend WithEvents mnuOperacionesCancelarCuenta As ToolStripMenuItem
+    Friend WithEvents mnuEditar As ToolStripMenuItem
+    Friend WithEvents mnuEditarModificarResumen As ToolStripMenuItem
 End Class

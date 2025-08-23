@@ -3,6 +3,7 @@ Imports SiCoFa.Entidades
 Imports System.ComponentModel
 Public Class FrmOperacionesCC
     Property Usuario As Usuario
+    Property Resumen As String
 
     Private mAdminDB As New N_AdminDB
     Private mAdminOperaciones As New N_AdminOperaciones
@@ -20,6 +21,12 @@ Public Class FrmOperacionesCC
             Me.AutoValidate = AutoValidate.Disable
         End If
         MyBase.WndProc(m)
+    End Sub
+
+    Private Sub ReiniciarFormulario()
+        Me.txtResumenImputado.Enabled = True
+        Me.txtImporte.Enabled = True
+        Me.LimpiarFormulario()
     End Sub
 
     Public Sub IniciarCancelacionCuentaCorriente()
@@ -46,11 +53,44 @@ Public Class FrmOperacionesCC
 
     End Sub
 
+    Public Sub IniciarCancelacionResumen()
+
+        If mCuentaCorriente Is Nothing Then
+            MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
+            Exit Sub
+        End If
+
+        If Me.Resumen = "" Then
+            MsgBox("Resumen no establecido", vbCritical, "SiCoFa")
+            Exit Sub
+        End If
+
+        mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
+        Me.txtOperacion.Tag = "CRC"
+        Me.txtOperacion.Text = mTOperacion.TipoOperacion
+        mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mCuentaCorriente.IdCC}")
+        mSaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+
+        If Me.Resumen <> "" AndAlso mSaldoResumen <= 0 Then
+            MsgBox("El saldo del resumen ingresado es $" & mSaldoResumen, vbInformation, "SiCoFa")
+            Me.txtResumenImputado.Text = ""
+            Me.Resumen = ""
+            Me.txtResumenImputado.Focus()
+            Exit Sub
+        End If
+
+        Me.txtResumenImputado.Text = Me.Resumen
+        Me.txtImporte.Text = mSaldoResumen.ToString("N2")
+        Me.txtImporte.Enabled = False
+
+    End Sub
+
     Private Sub BuscarOperacion(ByVal argTextoBuscado As String)
         Try
 
             Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones WHERE (CodiTO='CCC' OR CodiTO='CRC' OR CodiTO='PCC') AND TipoOperacion LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
             Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
+            Me.ReiniciarFormulario()
 
             Select Case dt.Rows.Count
                 Case 0
@@ -95,8 +135,7 @@ Public Class FrmOperacionesCC
                 Me.txtOperacion.Tag = mTOperacion.CodiTO
                 Me.txtOperacion.Text = mTOperacion.TipoOperacion
             Else
-                Me.txtOperacion.Tag = ""
-                Me.txtOperacion.Text = ""
+                Me.ReiniciarFormulario()
             End If
 
         Catch ex As Exception
@@ -246,14 +285,14 @@ Public Class FrmOperacionesCC
                 Case 0
                     MsgBox("Resumen no Encontrada", vbInformation, "SiCoFa")
                     Me.txtResumenImputado.Text = ""
-                    Me.txtResumenImputado.Select()
+                    Me.txtResumenImputado.Focus()
+                    Me.Resumen = ""
                     Exit Sub
 
                 Case 1
                     Dim fila As DataRow = dt.Rows(0)
                     Dim resu As String = fila("Resu").ToString
-                    Me.txtResumenImputado.Text = resu
-                    Exit Sub
+                    Me.Resumen = resu
 
                 Case > 1
 
@@ -266,18 +305,22 @@ Public Class FrmOperacionesCC
 
                         If f.ShowDialog() = DialogResult.OK Then
                             Dim resu As String = f.Valor1Seleccionado.ToString
-                            Me.txtResumenImputado.Text = resu
+                            Me.Resumen = resu
 
-                            Exit Sub
                         Else
                             Me.txtResumenImputado.Text = ""
+                            Me.Resumen = ""
                             Me.txtResumenImputado.Select()
+                            Exit Sub
                         End If
                         f.Close()
-
                     End Using
 
             End Select
+
+            With Me
+                .txtResumenImputado.Text = Me.Resumen
+            End With
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -299,7 +342,15 @@ Public Class FrmOperacionesCC
 
             Me.BuscarResumen(Me.txtResumenImputado.Text)
 
-            mSaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mCuentaCorriente.IdCC} AND Resu='{Me.txtResumenImputado.Text}'")
+            mSaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mCuentaCorriente.IdCC} AND Resu='{Me.Resumen}'")
+
+            If Me.Resumen <> "" AndAlso mSaldoResumen <= 0 Then
+                MsgBox("El saldo del resumen ingresado es $" & mSaldoResumen, vbInformation, "SiCoFa")
+                Me.txtResumenImputado.Text = ""
+                Me.Resumen = ""
+                Me.txtResumenImputado.Focus()
+                Exit Sub
+            End If
 
             Select Case Me.txtOperacion.Tag
                 Case "CRC"
@@ -311,7 +362,6 @@ Public Class FrmOperacionesCC
                     Me.txtImporte.Text = ""
 
             End Select
-
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -346,9 +396,9 @@ Public Class FrmOperacionesCC
                 Exit Sub
             End If
 
-            If importe > mSaldoCC Then
+            If importe >= mSaldoCC Then
 
-                If MsgBox("El importe ingresado es mayor que el Importe total adeudado" & vbCrLf & "¿Desea Realizar una Cancelacion Total?", vbYesNo, "SiCoFa") = vbYes Then
+                If MsgBox("El Importe Total adeudado es $ " & mSaldoCC.ToString("N2") & vbCrLf & "¿Desea Realizar una Cancelacion Total de la Cuenta Corriente?", vbYesNo, "SiCoFa") = vbYes Then
                     Me.IniciarCancelacionCuentaCorriente()
                     Exit Sub
                 Else

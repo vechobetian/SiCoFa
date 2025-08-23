@@ -193,4 +193,24 @@ Public Class D_AdminDB
         End Try
     End Function
 
+    Public Function ActualizarCampo(ByVal argTabla As String, ByVal argCampo As String, ByVal argValor As Object, ByVal argCondicion As String) As Integer
+        Try
+            Dim objConexionDB As New D_Conexion
+            Dim filasAfectadas As Integer = 0
+            Dim sql As String = $"UPDATE {argTabla} SET {argCampo} = @valor WHERE {argCondicion}"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+                Using cmd As New MySqlCommand(sql, cn)
+                    cmd.Parameters.AddWithValue("@valor", argValor)
+                    filasAfectadas = cmd.ExecuteNonQuery()
+                End Using
+            End Using
+
+            Return filasAfectadas
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCampo", ex.Message))
+        End Try
+    End Function
+
 End Class

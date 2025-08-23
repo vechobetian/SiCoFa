@@ -90,4 +90,15 @@ Public Class N_AdminDB
         End Try
     End Function
 
+    Public Function ActualizarCampo(ByVal argTabla As String, ByVal argCampo As String, ByVal argValor As Object, ByVal argCondicion As String) As Integer
+        Try
+            Dim FilasAfectadas As Integer = mobj_D_AdminDB.ActualizarCampo(argTabla, argCampo, argValor, argCondicion)
+            Return FilasAfectadas
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCampo", ex.Message))
+        End Try
+
+    End Function
+
 End Class

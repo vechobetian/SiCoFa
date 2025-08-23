@@ -256,7 +256,7 @@
   <data name="mnuArchivoGuardarComo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAAGxJREFUOE/FjQEOwCAIA306T/Nn3YDB1MGii8kuaTSlhXKCCb0CojCY+Q/2LGjC
+        wAAADsABataJCQAAAGxJREFUOE/FjQEOwCAIA306T/Nn3YDB1MGii8kuaTSlhXKCCb0CojCY+Q/2LGjC
         ruUFkXiuMcc898Oiiecac0CX+K9GHxYlCwB0OWF5ARGN/l1MxEi51tp6S6TXZ/j3OmPFT2Vmumyh7N1N
         KQdEbKSD8i+NHQAAAABJRU5ErkJggg==
 </value>
@@ -269,7 +269,7 @@
         Q+k8Ty1uRwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="mnuEdicionEliminarItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="mnuEditarEliminarItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         vAAADrwBlbxySQAAAOtJREFUOE9joAp4KGD2/6GO738ol3TwQNbx/30Gzf+HNd3IN+SMuCXYkG1uUTgN

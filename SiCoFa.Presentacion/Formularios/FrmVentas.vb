@@ -661,11 +661,11 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ElimininarItemSeleccionadoToolStripMenuItem.Click
+    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarElimininarItemSeleccionado.Click
         Me.EliminarItemSeleccionado()
     End Sub
 
-    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AplicarDescuentoItemSeleccionadoToolStripMenuItem.Click
+    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarAplicarDescuentoItemSeleccionado.Click
 
         Try
             If DataGridView1.SelectedRows.Count = 1 Then

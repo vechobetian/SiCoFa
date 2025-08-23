@@ -624,7 +624,7 @@ Public Class FrmCompras
 
     End Sub
 
-    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionEliminarItem.Click
+    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarEliminarItem.Click
         Me.EliminarItemSeleccionado()
     End Sub
 
