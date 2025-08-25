@@ -41,7 +41,7 @@ Partial Class FrmOperacionesCC
         Me.txtCuentaCorriente.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtCuentaCorriente.Location = New System.Drawing.Point(256, 53)
         Me.txtCuentaCorriente.Name = "txtCuentaCorriente"
-        Me.txtCuentaCorriente.Size = New System.Drawing.Size(519, 35)
+        Me.txtCuentaCorriente.Size = New System.Drawing.Size(589, 35)
         Me.txtCuentaCorriente.TabIndex = 2
         '
         'txtResumenImputado
@@ -49,7 +49,7 @@ Partial Class FrmOperacionesCC
         Me.txtResumenImputado.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtResumenImputado.Location = New System.Drawing.Point(256, 94)
         Me.txtResumenImputado.Name = "txtResumenImputado"
-        Me.txtResumenImputado.Size = New System.Drawing.Size(519, 35)
+        Me.txtResumenImputado.Size = New System.Drawing.Size(589, 35)
         Me.txtResumenImputado.TabIndex = 3
         '
         'txtImporte
@@ -57,7 +57,7 @@ Partial Class FrmOperacionesCC
         Me.txtImporte.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtImporte.Location = New System.Drawing.Point(256, 135)
         Me.txtImporte.Name = "txtImporte"
-        Me.txtImporte.Size = New System.Drawing.Size(519, 35)
+        Me.txtImporte.Size = New System.Drawing.Size(589, 35)
         Me.txtImporte.TabIndex = 4
         '
         'txtObservaciones
@@ -66,7 +66,7 @@ Partial Class FrmOperacionesCC
         Me.txtObservaciones.Location = New System.Drawing.Point(256, 176)
         Me.txtObservaciones.Multiline = True
         Me.txtObservaciones.Name = "txtObservaciones"
-        Me.txtObservaciones.Size = New System.Drawing.Size(519, 110)
+        Me.txtObservaciones.Size = New System.Drawing.Size(589, 110)
         Me.txtObservaciones.TabIndex = 7
         '
         'lblOperacion
@@ -121,7 +121,7 @@ Partial Class FrmOperacionesCC
         '
         'brnFinalizar
         '
-        Me.brnFinalizar.Location = New System.Drawing.Point(665, 292)
+        Me.brnFinalizar.Location = New System.Drawing.Point(744, 292)
         Me.brnFinalizar.Name = "brnFinalizar"
         Me.brnFinalizar.Size = New System.Drawing.Size(101, 23)
         Me.brnFinalizar.TabIndex = 18
@@ -134,7 +134,7 @@ Partial Class FrmOperacionesCC
         Me.txtOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOperacion.Location = New System.Drawing.Point(256, 12)
         Me.txtOperacion.Name = "txtOperacion"
-        Me.txtOperacion.Size = New System.Drawing.Size(519, 35)
+        Me.txtOperacion.Size = New System.Drawing.Size(589, 35)
         Me.txtOperacion.TabIndex = 1
         '
         'FrmOperacionesCC
@@ -142,7 +142,7 @@ Partial Class FrmOperacionesCC
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(787, 328)
+        Me.ClientSize = New System.Drawing.Size(857, 330)
         Me.Controls.Add(Me.brnFinalizar)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label7)

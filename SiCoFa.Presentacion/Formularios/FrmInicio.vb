@@ -19,9 +19,8 @@ Public Class FrmInicio
         Dim u As Usuario = ModSeguridad.ValidarUsuario(mnuOperacionesCC.Name)
 
         If u IsNot Nothing Then
-            Dim nuevaOperacionCC As New FrmOperacionesCC()
-            nuevaOperacionCC.Usuario = u
-            nuevaOperacionCC.Show()
+            FrmOperacionesCC.Usuario = u
+            FrmOperacionesCC.ShowDialog()
         End If
 
     End Sub

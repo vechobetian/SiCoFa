@@ -21,7 +21,6 @@ Public Class Ticket80
         Dim strImpNeto2 As String
         Dim strIVA2 As String
         Dim strTotal As String
-        Dim strOS As String
         Dim strTar As String
         Dim strCC As String
         Dim strEf As String
@@ -380,12 +379,8 @@ Public Class Ticket80
         yPos += 2 * IncrementoYPreTexto
         e.Graphics.DrawString("EN CONCEPTO DE: ", printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-        For Each Item As ItemComprobante In Comprobante.Detalle
-
-            yPos += IncrementoYPreItem
-            e.Graphics.DrawString(Left(Item.Descripcion, 41), printFont, Brushes.Black, MargenIzquierdo, yPos)
-
-        Next
+        yPos += IncrementoYPreItem
+        e.Graphics.DrawString(Left(Me.Comprobante.Operacion.TipoOperacion.TipoOperacion, 41), printFont, Brushes.Black, MargenIzquierdo, yPos)
 
         yPos += IncrementoYPreTexto
         strTotal = "$" & Format(Comprobante.ImpBto, "Fixed")

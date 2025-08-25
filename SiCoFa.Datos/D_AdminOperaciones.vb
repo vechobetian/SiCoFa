@@ -433,12 +433,12 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal) As Boolean
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Return InsertarOperacionCC(argIdOperacion, argIdCC, argImporte, cn, Nothing)
+                Return InsertarOperacionCC(argIdOperacion, argIdCC, argImporte, argResu, cn, Nothing)
             End Using
 
         Catch Ex As Exception
@@ -446,7 +446,7 @@ Public Class D_AdminOperaciones
         End Try
     End Function
 
-    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal, ByVal argResu As String, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
@@ -564,7 +564,7 @@ Public Class D_AdminOperaciones
                 Try
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
+                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
@@ -734,7 +734,7 @@ Public Class D_AdminOperaciones
                     Me.InsertarOperacionCL(objOperacion.IdOperacion, argComprobante.IdCliente, cn, tx)
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Importe, cn, tx)
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
@@ -813,7 +813,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function OperacionCCTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacion As Operacion, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argObservacion As String) As Boolean
+    Public Function OperacionCCTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
         Dim objConexionDB As New D_Conexion
 
         Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
@@ -828,13 +828,16 @@ Public Class D_AdminOperaciones
                         Me.InsertarOperacionPE(objOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
-                    Me.InsertarOperacionCC(objOperacion.IdOperacion, argComprobante.Cliente.CuentaCorriente.IdCC, argComprobante.ImpBto, cn, tx)
+                    Me.InsertarOperacionCC(objOperacion.IdOperacion, argComprobante.Cliente.CuentaCorriente.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, cn, tx)
 
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion
                     argComprobante.Operacion = objOperacion
 
                     AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
+
+                    Dim AdminAsientoContable As New D_AdminAsientosContable
+                    AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
 
                     Me.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 

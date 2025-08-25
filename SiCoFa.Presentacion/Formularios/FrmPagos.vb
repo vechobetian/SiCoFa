@@ -7,6 +7,7 @@ Public Class FrmPagos
     Property FrmOrigen As FrmVentas
     Property ComprobanteOrigen As Comprobante
     Property Operacion As Operacion
+    Property OperacionCC As OperacionCC
     Property Cliente As Cliente
     Property MedioPE As MedioPE
     Property TipoComprobante As TipoComprobante
@@ -396,6 +397,7 @@ Public Class FrmPagos
 
         Try
 
+            Dim objCC As OperacionCC = Nothing
             Dim objPE As OperacionPE = Nothing
             Dim objCb As Comprobante = Nothing
             Dim objAC As AsientoContable = Nothing
@@ -405,6 +407,7 @@ Public Class FrmPagos
                 objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
             End If
 
+            'objCC = New OperacionCC(Me.Operacion.IdOperaci)
             objCb = New Comprobante(
                                     argIdOperacion:=Me.Operacion.IdOperacion,
                                     argOperacion:=Me.Operacion,
@@ -434,23 +437,14 @@ Public Class FrmPagos
             objAC = New AsientoContable
             With objAC
                 .InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
-                .InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
                 .InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
-                .InsertarItem("4.01.01.001", ImporteAPagar)
+                .InsertarItem("1.03.01.001", -ImporteAPagar)
             End With
 
-            mobj_AdminOperacion.OperacionCCTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Operacion.Usuario, Me.Operacion, objPE, objCb, "")
+            mobj_AdminOperacion.OperacionCCTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Operacion.Usuario, Me.Operacion, objCC, objPE, objCb, objAC, Me.Operacion.Observaciones)
 
-            'Dim objAdminReporteComprobantes As New ReporteComprobantes
-            'objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
-
-            'If FrmOrigen IsNot Nothing Then
-            'Dim nuevaVentanaVentas As New FrmPresupuestos()
-            'nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
-            'nuevaVentanaVentas.Show()
-
-            'Me.FrmOrigen.Close()
-            'End If
+            Dim objAdminReporteComprobantes As New ReporteComprobantes
+            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
             Me.Close()
 

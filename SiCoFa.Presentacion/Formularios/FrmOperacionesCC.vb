@@ -11,7 +11,7 @@ Public Class FrmOperacionesCC
     Private mobjCuentaCorriente As CuentaCorriente
     Private mdecSaldoCC As Decimal = 0
     Private mdecSaldoResumen As Decimal = 0
-    Private DatosOpcionales As New List(Of String)
+    Private DatosOpcionales As New List(Of String) From {"txtObservaciones"}
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_CLOSE As Integer = &HF060
 
@@ -27,6 +27,7 @@ Public Class FrmOperacionesCC
         Me.txtResumenImputado.Enabled = True
         Me.txtImporte.Enabled = True
         Me.LimpiarFormulario()
+        Me.txtOperacion.Focus()
     End Sub
 
     Public Sub IniciarCancelacionCuentaCorriente()
@@ -434,7 +435,6 @@ Public Class FrmOperacionesCC
     Private Sub FinalizarOperacion()
         Try
 
-
             Me.ValidarCampos(Me, Me.DatosOpcionales)
 
             If Me.ValidacionOK = False Then
@@ -444,7 +444,6 @@ Public Class FrmOperacionesCC
             Using FPagos As New FrmPagos
                 Dim AdminComprobantes As New N_AdminComprobantes
                 With FPagos
-                    '.FrmOrigen = Me
                     .Operacion = New Operacion(0, Now, Now, Nothing, "", 0, Me.Usuario, mobjTOperacion, "", Me.txtObservaciones.Text, "")
 
                     Dim AdminClientes As New N_AdminClientes
@@ -454,6 +453,8 @@ Public Class FrmOperacionesCC
                     .TipoComprobante = tc
 
                     Dim importe As Decimal = Convert.ToDecimal(Me.txtImporte.Text)
+
+                    '.OperacionCC = New OperacionCC(0,)
                     .ImporteBruto = Convert.ToDecimal(importe)
                     .ImporteDescuento = 0
                     .ImporteAPagar = importe
@@ -463,6 +464,8 @@ Public Class FrmOperacionesCC
                     .ShowDialog()
                 End With
             End Using
+
+            Me.ReiniciarFormulario()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
