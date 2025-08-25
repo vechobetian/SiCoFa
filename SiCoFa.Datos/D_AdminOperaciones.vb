@@ -813,7 +813,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function OperacionCCTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argTOperacion As TipoOperacion, ByRef argComprobante As Comprobante, ByVal argObservacion As String) As Boolean
+    Public Function OperacionCCTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacion As Operacion, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argObservacion As String) As Boolean
         Dim objConexionDB As New D_Conexion
 
         Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
@@ -822,7 +822,13 @@ Public Class D_AdminOperaciones
 
                 Try
                     Dim AdminOperaciones As New D_AdminOperaciones
-                    Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, argTOperacion, argObservacion, "INICIADO", cn, tx)
+                    Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, argOperacion.TipoOperacion, argObservacion, "INICIADO", cn, tx)
+
+                    If argOperacionPE IsNot Nothing Then
+                        Me.InsertarOperacionPE(objOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
+                    End If
+
+                    Me.InsertarOperacionCC(objOperacion.IdOperacion, argComprobante.Cliente.CuentaCorriente.IdCC, argComprobante.ImpBto, cn, tx)
 
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion

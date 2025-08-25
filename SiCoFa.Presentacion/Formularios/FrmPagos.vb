@@ -291,6 +291,7 @@ Public Class FrmPagos
                 Me.FinalizarVenta()
 
             Case "CCC", "CRC", "PCC"
+                Me.FinalizarPagoCuentaCorriente()
 
         End Select
 
@@ -395,7 +396,6 @@ Public Class FrmPagos
 
         Try
 
-            Dim objCC As OperacionCC = Nothing
             Dim objPE As OperacionPE = Nothing
             Dim objCb As Comprobante = Nothing
             Dim objAC As AsientoContable = Nothing
@@ -439,25 +439,18 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
+            mobj_AdminOperacion.OperacionCCTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Operacion.Usuario, Me.Operacion, objPE, objCb, "")
 
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
-                Dim obj_N_AdminComprobantes As New N_AdminComprobantes
-                If obj_N_AdminComprobantes.GenerarFacturaElectronica(objCb) = False Then
-                    Throw New Exception("Error al generar la factura electrónica.")
-                End If
-            End If
+            'Dim objAdminReporteComprobantes As New ReporteComprobantes
+            'objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
-            Dim objAdminReporteComprobantes As New ReporteComprobantes
-            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
+            'If FrmOrigen IsNot Nothing Then
+            'Dim nuevaVentanaVentas As New FrmPresupuestos()
+            'nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
+            'nuevaVentanaVentas.Show()
 
-            If FrmOrigen IsNot Nothing Then
-                Dim nuevaVentanaVentas As New FrmPresupuestos()
-                nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
-                nuevaVentanaVentas.Show()
-
-                Me.FrmOrigen.Close()
-            End If
+            'Me.FrmOrigen.Close()
+            'End If
 
             Me.Close()
 
