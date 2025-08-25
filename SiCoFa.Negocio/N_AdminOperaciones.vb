@@ -244,11 +244,11 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarNCTransaccion(ByVal argTipoOperacion As TipoOperacion, ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+    Public Function NotaCreditoTransaccion(ByVal argTipoOperacion As TipoOperacion, ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Finalizado As Boolean = AdminOperaciones.FinalizarNCTransaccion(argTipoOperacion, argMacAddress, argEmpresa, argUsuario, argOperacionCC, argOperacionPE, argComprobante, argAsiento, argObservacion)
+            Dim Finalizado As Boolean = AdminOperaciones.NotaCreditoTransaccion(argTipoOperacion, argMacAddress, argEmpresa, argUsuario, argOperacionCC, argOperacionPE, argComprobante, argAsiento, argObservacion)
             Return Finalizado
 
         Catch ex As Exception

@@ -253,7 +253,7 @@ Public Class FrmNotaCredito
                 .InsertarItem("1.03.02.001", -impPE)
             End With
 
-            AdminOperacion.FinalizarNCTransaccion(objTipoOperacion, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objCC, objPE, objCb, objAC, "")
+            AdminOperacion.NotaCreditoTransaccion(objTipoOperacion, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objCC, objPE, objCb, objAC, "")
 
             If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
                 Dim AdminComprobants As New N_AdminComprobantes

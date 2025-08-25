@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FrmOperacionesCC
     'Inherits System.Windows.Forms.Form
     Inherits clsFrmBase
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -21,9 +21,8 @@ Partial Class FrmOperacionesCC
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmOperacionesCC))
         Me.txtCuentaCorriente = New System.Windows.Forms.TextBox()
         Me.txtResumenImputado = New System.Windows.Forms.TextBox()
         Me.txtImporte = New System.Windows.Forms.TextBox()
@@ -35,13 +34,6 @@ Partial Class FrmOperacionesCC
         Me.Label9 = New System.Windows.Forms.Label()
         Me.brnFinalizar = New System.Windows.Forms.Button()
         Me.txtOperacion = New System.Windows.Forms.TextBox()
-        Me.txtImporteEfectivo = New System.Windows.Forms.TextBox()
-        Me.txtImportePagoElectronico = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.lblImportePagoElectronico = New System.Windows.Forms.Label()
-        Me.lblImporteEfectivo = New System.Windows.Forms.Label()
-        Me.btnPagoElectronico = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'txtCuentaCorriente
@@ -71,7 +63,7 @@ Partial Class FrmOperacionesCC
         'txtObservaciones
         '
         Me.txtObservaciones.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtObservaciones.Location = New System.Drawing.Point(256, 258)
+        Me.txtObservaciones.Location = New System.Drawing.Point(256, 176)
         Me.txtObservaciones.Multiline = True
         Me.txtObservaciones.Name = "txtObservaciones"
         Me.txtObservaciones.Size = New System.Drawing.Size(519, 110)
@@ -121,7 +113,7 @@ Partial Class FrmOperacionesCC
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(12, 261)
+        Me.Label9.Location = New System.Drawing.Point(12, 179)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(181, 29)
         Me.Label9.TabIndex = 17
@@ -129,7 +121,7 @@ Partial Class FrmOperacionesCC
         '
         'brnFinalizar
         '
-        Me.brnFinalizar.Location = New System.Drawing.Point(665, 374)
+        Me.brnFinalizar.Location = New System.Drawing.Point(665, 292)
         Me.brnFinalizar.Name = "brnFinalizar"
         Me.brnFinalizar.Size = New System.Drawing.Size(101, 23)
         Me.brnFinalizar.TabIndex = 18
@@ -145,96 +137,12 @@ Partial Class FrmOperacionesCC
         Me.txtOperacion.Size = New System.Drawing.Size(519, 35)
         Me.txtOperacion.TabIndex = 1
         '
-        'txtImporteEfectivo
-        '
-        Me.txtImporteEfectivo.BackColor = System.Drawing.Color.White
-        Me.txtImporteEfectivo.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtImporteEfectivo.Location = New System.Drawing.Point(256, 217)
-        Me.txtImporteEfectivo.Name = "txtImporteEfectivo"
-        Me.txtImporteEfectivo.ReadOnly = True
-        Me.txtImporteEfectivo.Size = New System.Drawing.Size(519, 35)
-        Me.txtImporteEfectivo.TabIndex = 6
-        Me.txtImporteEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtImportePagoElectronico
-        '
-        Me.txtImportePagoElectronico.Enabled = False
-        Me.txtImportePagoElectronico.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtImportePagoElectronico.Location = New System.Drawing.Point(256, 176)
-        Me.txtImportePagoElectronico.Name = "txtImportePagoElectronico"
-        Me.txtImportePagoElectronico.Size = New System.Drawing.Size(519, 35)
-        Me.txtImportePagoElectronico.TabIndex = 5
-        Me.txtImportePagoElectronico.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Button1
-        '
-        Me.Button1.BackColor = System.Drawing.Color.White
-        Me.Button1.Enabled = False
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.Color.White
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(259, 137)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(33, 30)
-        Me.Button1.TabIndex = 21
-        Me.Button1.Text = "$"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'lblImportePagoElectronico
-        '
-        Me.lblImportePagoElectronico.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImportePagoElectronico.Location = New System.Drawing.Point(12, 179)
-        Me.lblImportePagoElectronico.Name = "lblImportePagoElectronico"
-        Me.lblImportePagoElectronico.Size = New System.Drawing.Size(238, 30)
-        Me.lblImportePagoElectronico.TabIndex = 22
-        Me.lblImportePagoElectronico.Text = "Tarjeta / Pago Elec:"
-        '
-        'lblImporteEfectivo
-        '
-        Me.lblImporteEfectivo.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteEfectivo.Location = New System.Drawing.Point(12, 220)
-        Me.lblImporteEfectivo.Name = "lblImporteEfectivo"
-        Me.lblImporteEfectivo.Size = New System.Drawing.Size(238, 30)
-        Me.lblImporteEfectivo.TabIndex = 23
-        Me.lblImporteEfectivo.Text = "Importe Efectivo:"
-        '
-        'btnPagoElectronico
-        '
-        Me.btnPagoElectronico.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnPagoElectronico.Image = CType(resources.GetObject("btnPagoElectronico.Image"), System.Drawing.Image)
-        Me.btnPagoElectronico.Location = New System.Drawing.Point(259, 179)
-        Me.btnPagoElectronico.Name = "btnPagoElectronico"
-        Me.btnPagoElectronico.Size = New System.Drawing.Size(33, 30)
-        Me.btnPagoElectronico.TabIndex = 24
-        Me.btnPagoElectronico.TabStop = False
-        Me.btnPagoElectronico.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Enabled = False
-        Me.Button2.FlatAppearance.BorderColor = System.Drawing.Color.White
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
-        Me.Button2.Location = New System.Drawing.Point(259, 220)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(33, 30)
-        Me.Button2.TabIndex = 25
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'FrmOperacionesCC
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(787, 406)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.btnPagoElectronico)
-        Me.Controls.Add(Me.lblImporteEfectivo)
-        Me.Controls.Add(Me.lblImportePagoElectronico)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.txtImporteEfectivo)
-        Me.Controls.Add(Me.txtImportePagoElectronico)
+        Me.ClientSize = New System.Drawing.Size(787, 328)
         Me.Controls.Add(Me.brnFinalizar)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label7)
@@ -264,11 +172,4 @@ Partial Class FrmOperacionesCC
     Friend WithEvents Label9 As Label
     Friend WithEvents brnFinalizar As Button
     Friend WithEvents txtOperacion As TextBox
-    Friend WithEvents txtImporteEfectivo As TextBox
-    Friend WithEvents txtImportePagoElectronico As TextBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents lblImportePagoElectronico As Label
-    Friend WithEvents lblImporteEfectivo As Label
-    Friend WithEvents btnPagoElectronico As Button
-    Friend WithEvents Button2 As Button
 End Class

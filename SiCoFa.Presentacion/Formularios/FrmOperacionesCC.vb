@@ -5,12 +5,12 @@ Public Class FrmOperacionesCC
     Property Usuario As Usuario
     Property Resumen As String
 
-    Private mAdminDB As New N_AdminDB
-    Private mAdminOperaciones As New N_AdminOperaciones
-    Private mTOperacion As TipoOperacion
-    Private mCuentaCorriente As CuentaCorriente
-    Private mSaldoCC As Decimal = 0
-    Private mSaldoResumen As Decimal = 0
+    Private mobjAdminDB As New N_AdminDB
+    Private mobjAdminOperaciones As New N_AdminOperaciones
+    Private mobjTOperacion As TipoOperacion
+    Private mobjCuentaCorriente As CuentaCorriente
+    Private mdecSaldoCC As Decimal = 0
+    Private mdecSaldoResumen As Decimal = 0
     Private DatosOpcionales As New List(Of String)
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_CLOSE As Integer = &HF060
@@ -30,17 +30,17 @@ Public Class FrmOperacionesCC
     End Sub
 
     Public Sub IniciarCancelacionCuentaCorriente()
-        If mCuentaCorriente Is Nothing Then
+        If mobjCuentaCorriente Is Nothing Then
             MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
             Exit Sub
         End If
 
-        mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CCC")
+        mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CCC")
         Me.txtOperacion.Tag = "CCC"
-        Me.txtOperacion.Text = mTOperacion.TipoOperacion
-        mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mCuentaCorriente.IdCC}")
+        Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
+        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
 
-        If mSaldoCC = 0 Then
+        If mdecSaldoCC = 0 Then
             MsgBox("El Saldo de la Cuenta es $0,00")
             Me.LimpiarFormulario()
             Exit Sub
@@ -48,14 +48,14 @@ Public Class FrmOperacionesCC
 
         Me.txtResumenImputado.Text = "0000"
         Me.txtResumenImputado.Enabled = False
-        Me.txtImporte.Text = mSaldoCC.ToString("N2")
+        Me.txtImporte.Text = mdecSaldoCC.ToString("N2")
         Me.txtImporte.Enabled = False
 
     End Sub
 
     Public Sub IniciarCancelacionResumen()
 
-        If mCuentaCorriente Is Nothing Then
+        If mobjCuentaCorriente Is Nothing Then
             MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
             Exit Sub
         End If
@@ -65,14 +65,14 @@ Public Class FrmOperacionesCC
             Exit Sub
         End If
 
-        mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
+        mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
         Me.txtOperacion.Tag = "CRC"
-        Me.txtOperacion.Text = mTOperacion.TipoOperacion
-        mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mCuentaCorriente.IdCC}")
-        mSaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+        Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
+        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+        mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
 
-        If Me.Resumen <> "" AndAlso mSaldoResumen <= 0 Then
-            MsgBox("El saldo del resumen ingresado es $" & mSaldoResumen, vbInformation, "SiCoFa")
+        If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
+            MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
             Me.txtResumenImputado.Text = ""
             Me.Resumen = ""
             Me.txtResumenImputado.Focus()
@@ -80,7 +80,7 @@ Public Class FrmOperacionesCC
         End If
 
         Me.txtResumenImputado.Text = Me.Resumen
-        Me.txtImporte.Text = mSaldoResumen.ToString("N2")
+        Me.txtImporte.Text = mdecSaldoResumen.ToString("N2")
         Me.txtImporte.Enabled = False
 
     End Sub
@@ -89,20 +89,20 @@ Public Class FrmOperacionesCC
         Try
 
             Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones WHERE (CodiTO='CCC' OR CodiTO='CRC' OR CodiTO='PCC') AND TipoOperacion LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
-            Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
+            Dim dt As DataTable = mobjAdminDB.ObtenerTabla(sql)
             Me.ReiniciarFormulario()
 
             Select Case dt.Rows.Count
                 Case 0
                     MsgBox("Operación no Encontrada", vbInformation, "SiCoFa")
-                    mTOperacion = Nothing
+                    mobjTOperacion = Nothing
                     txtOperacion.Text = ""
                     txtOperacion.Focus()
 
                 Case 1
                     Dim fila As DataRow = dt.Rows(0)
                     Dim codiTO As String = fila("CodiTO").ToString
-                    mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
+                    mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
 
                 Case > 1
 
@@ -115,13 +115,13 @@ Public Class FrmOperacionesCC
 
                         If f.ShowDialog() = DialogResult.OK Then
                             Dim codiTO As String = f.Valor1Seleccionado.ToString
-                            mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
+                            mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO(codiTO)
 
                         Else
                             Me.txtOperacion.Tag = ""
                             Me.txtOperacion.Text = ""
                             Me.txtOperacion.Select()
-                            mTOperacion = Nothing
+                            mobjTOperacion = Nothing
 
                         End If
 
@@ -131,9 +131,9 @@ Public Class FrmOperacionesCC
 
             End Select
 
-            If mTOperacion IsNot Nothing Then
-                Me.txtOperacion.Tag = mTOperacion.CodiTO
-                Me.txtOperacion.Text = mTOperacion.TipoOperacion
+            If mobjTOperacion IsNot Nothing Then
+                Me.txtOperacion.Tag = mobjTOperacion.CodiTO
+                Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
             Else
                 Me.ReiniciarFormulario()
             End If
@@ -173,7 +173,7 @@ Public Class FrmOperacionesCC
                 Me.txtCuentaCorriente.Tag = ""
                 Me.txtCuentaCorriente.Text = ""
                 Me.txtCuentaCorriente.Select()
-                mCuentaCorriente = Nothing
+                mobjCuentaCorriente = Nothing
                 Exit Sub
             End If
 
@@ -183,11 +183,11 @@ Public Class FrmOperacionesCC
                     Me.txtCuentaCorriente.Tag = ""
                     Me.txtCuentaCorriente.Text = ""
                     Me.txtCuentaCorriente.Select()
-                    mCuentaCorriente = Nothing
+                    mobjCuentaCorriente = Nothing
                     Exit Sub
 
                 Case 1
-                    mCuentaCorriente = lc.First
+                    mobjCuentaCorriente = lc.First
 
                 Case > 1
                     Using f As New FrmBuscaCtasCorrriente
@@ -195,13 +195,13 @@ Public Class FrmOperacionesCC
                         f.ShowDialog()
 
                         If f.DialogResult = DialogResult.OK Then
-                            mCuentaCorriente = f.CuentaSeleccionada
+                            mobjCuentaCorriente = f.CuentaSeleccionada
 
                         Else
                             Me.txtCuentaCorriente.Tag = ""
                             Me.txtCuentaCorriente.Text = ""
                             Me.txtCuentaCorriente.Select()
-                            mCuentaCorriente = Nothing
+                            mobjCuentaCorriente = Nothing
                             Exit Sub
                         End If
                         f.Close()
@@ -210,9 +210,9 @@ Public Class FrmOperacionesCC
             End Select
 
             With Me
-                .txtCuentaCorriente.Tag = mCuentaCorriente.IdCC
-                .txtCuentaCorriente.Text = mCuentaCorriente.Descripcion
-                .mSaldoCC = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mCuentaCorriente.IdCC}")
+                .txtCuentaCorriente.Tag = mobjCuentaCorriente.IdCC
+                .txtCuentaCorriente.Text = mobjCuentaCorriente.Descripcion
+                .mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
             End With
 
         Catch ex As Exception
@@ -237,7 +237,7 @@ Public Class FrmOperacionesCC
                 Case "CCC"
                     Me.txtResumenImputado.Text = "0000"
                     Me.txtResumenImputado.Enabled = False
-                    Me.txtImporte.Text = Me.mSaldoCC.ToString("N2")
+                    Me.txtImporte.Text = mdecSaldoCC.ToString("N2")
                     Me.txtImporte.Enabled = False
 
                 Case Else
@@ -279,7 +279,7 @@ Public Class FrmOperacionesCC
 
             End If
 
-            Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
+            Dim dt As DataTable = mobjAdminDB.ObtenerTabla(sql)
 
             Select Case dt.Rows.Count
                 Case 0
@@ -342,10 +342,10 @@ Public Class FrmOperacionesCC
 
             Me.BuscarResumen(Me.txtResumenImputado.Text)
 
-            mSaldoResumen = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mCuentaCorriente.IdCC} AND Resu='{Me.Resumen}'")
+            mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} AND Resu='{Me.Resumen}'")
 
-            If Me.Resumen <> "" AndAlso mSaldoResumen <= 0 Then
-                MsgBox("El saldo del resumen ingresado es $" & mSaldoResumen, vbInformation, "SiCoFa")
+            If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
+                MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
                 Me.txtResumenImputado.Text = ""
                 Me.Resumen = ""
                 Me.txtResumenImputado.Focus()
@@ -354,7 +354,7 @@ Public Class FrmOperacionesCC
 
             Select Case Me.txtOperacion.Tag
                 Case "CRC"
-                    Me.txtImporte.Text = mSaldoResumen
+                    Me.txtImporte.Text = mdecSaldoResumen
                     Me.txtImporte.Enabled = False
 
                 Case "PCC"
@@ -377,11 +377,9 @@ Public Class FrmOperacionesCC
         End If
     End Sub
 
-    Private Sub txtImporte_Validated(sender As Object, e As EventArgs) Handles txtImporte.Validated
+    Private Sub txtImporte_Validating(sender As Object, e As CancelEventArgs) Handles txtImporte.Validating
 
         Try
-
-            If Me.txtImporte.Enabled = False Then Exit Sub
 
             Dim importe As Decimal = 0
 
@@ -396,9 +394,9 @@ Public Class FrmOperacionesCC
                 Exit Sub
             End If
 
-            If importe >= mSaldoCC Then
+            If importe >= mdecSaldoCC Then
 
-                If MsgBox("El Importe Total adeudado es $ " & mSaldoCC.ToString("N2") & vbCrLf & "¿Desea Realizar una Cancelacion Total de la Cuenta Corriente?", vbYesNo, "SiCoFa") = vbYes Then
+                If MsgBox("El Importe Total adeudado es $ " & mdecSaldoCC.ToString("N2") & vbCrLf & "¿Desea Realizar una Cancelacion Total de la Cuenta Corriente?", vbYesNo, "SiCoFa") = vbYes Then
                     Me.IniciarCancelacionCuentaCorriente()
                     Exit Sub
                 Else
@@ -407,13 +405,13 @@ Public Class FrmOperacionesCC
                     Exit Sub
                 End If
 
-            ElseIf importe > mSaldoResumen Then
+            ElseIf importe > mdecSaldoResumen Then
 
                 If MsgBox("El importe ingresado es mayor que el Importe del Resumen" & vbCrLf & "¿Desea Cancelar el Resumen " & Me.txtResumenImputado.Text & "?", vbYesNo, "SiCoFa") = vbYes Then
-                    mTOperacion = mAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
+                    mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
                     Me.txtOperacion.Tag = "CRC"
-                    Me.txtOperacion.Text = mTOperacion.TipoOperacion
-                    importe = mSaldoResumen
+                    Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
+                    importe = mdecSaldoResumen
                     Me.txtImporte.Text = importe.ToString("N2")
                     Me.txtImporte.Enabled = False
                     Exit Sub
@@ -443,70 +441,28 @@ Public Class FrmOperacionesCC
                 Exit Sub
             End If
 
-            Dim AdminComprobantes As New N_AdminComprobantes
-            Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC(Me.txtResumenImputado.Tag.ToString)
-            Dim AfectaCajaAbierta As Boolean = False
-            Dim objOperacionCB As OperacionCB = Nothing
-            Dim objOperacionCP As OperacionCP = Nothing
-            Dim objAsCon As New AsientoContable
-            Dim impCB As Decimal = 0
-            Dim impEF As Decimal = 0
+            Using FPagos As New FrmPagos
+                Dim AdminComprobantes As New N_AdminComprobantes
+                With FPagos
+                    '.FrmOrigen = Me
+                    .Operacion = New Operacion(0, Now, Now, Nothing, "", 0, Me.Usuario, mobjTOperacion, "", Me.txtObservaciones.Text, "")
 
-            'objAsCon.InsertarItem(Me.txtCuentaImputable.Tag, Convert.ToDecimal(Me.txtImporte.Text))
+                    Dim AdminClientes As New N_AdminClientes
+                    .Cliente = AdminClientes.ObtenerClientePorId(mobjCuentaCorriente.IdCliente)
 
-            'If Me.cmbFPago.Text = "TRANSFERENCIA" Then
-            'impCB = Convert.ToDecimal(Me.txtImporte.Text)
-            'objOperacionCB = New OperacionCB(0, Me.cmbCajaAbierta.SelectedValue, "", impCB, "INICIADO")
-            'objAsCon.InsertarItem("1.01.03.001", -impCB)
-            'End If
+                    Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("REC")
+                    .TipoComprobante = tc
 
-            'If Me.cmbFPago.Text = "CONTADO" Then
-            'AfectaCajaAbierta = Me.cmbCajaAbierta.SelectedValue
-            'impEF = Convert.ToDecimal(Me.txtImporte.Text)
-            'objAsCon.InsertarItem("1.01.01.001", -impEF)
-            'End If
-
-            'If Me.cmbFPago.Text = "CREDITO" Then
-            'objOperacionCP = New OperacionCP(0, Me.txtCuentaCorriente.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "NO CANCELADO", 0)
-            'objAsCon.InsertarItem("2.01.01.001", Convert.ToDecimal(Me.txtImporte.Text))
-            'Else
-            'objOperacionCP = New OperacionCP(0, Me.txtCuentaCorriente.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "CANCELADO", 0)
-            'End If
-
-            Dim objComprobante As New Comprobante(
-                                                  argIdOperacion:=0,
-                                                  argOperacion:=Nothing,
-                                                  argTipoComprobante:=objTC,
-                                                  argPVenta:="",
-                                                  argNumComp:="",
-                                                  argFechaComp:=Now.Date,
-                                                  argImpBto:=Convert.ToDecimal(Me.txtImporte.Text),
-                                                  argImpDes:=0,
-                                                  argImpNeto:=Convert.ToDecimal(Me.txtImporte.Text),
-                                                  argImpEx:=0,
-                                                  argImpGrav1:=0,
-                                                  argImpGrav2:=0,
-                                                  argImpCB:=impCB,
-                                                  argImpEf:=impEF,
-                                                  argImpCC:=0,
-                                                  argImpPE:=0,
-                                                  argCAE:=Nothing,
-                                                  argIdCliente:=Nothing,
-                                                  argCliente:=Nothing,
-                                                  argIdOperAsoc:=0,
-                                                  argCompAsoc:=Nothing,
-                                                  argEmpresa:=g_ParametrosTerminal.Empresa,
-                                                  argDetalle:=Nothing
-                                                  )
-
-            Dim AdminOperacion As New N_AdminOperaciones
-            'AdminOperacion.AsientoGastoTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
-
-            Dim nuevoAsientoGastos As New FrmOperacionesCC
-            nuevoAsientoGastos.Usuario = Me.Usuario
-            nuevoAsientoGastos.Show()
-
-            Me.Close()
+                    Dim importe As Decimal = Convert.ToDecimal(Me.txtImporte.Text)
+                    .ImporteBruto = Convert.ToDecimal(importe)
+                    .ImporteDescuento = 0
+                    .ImporteAPagar = importe
+                    .ImporteGravado1 = 0
+                    .ImporteGravado2 = 0
+                    .ItemsComprobante = Nothing
+                    .ShowDialog()
+                End With
+            End Using
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

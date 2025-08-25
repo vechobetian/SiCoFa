@@ -20,6 +20,42 @@ Public Class FrmPagos
     Private mobj_AdminOperacion As New N_AdminOperaciones
     Private MediosDePago As MediosPagoBinding
 
+    Private Sub InicializarPagoVenta()
+        Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
+
+        If Me.TipoComprobante Is Nothing Then
+            Dim AdminSiCoFa As New N_AdminSiCoFa
+            Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+        End If
+
+        Me.txtTipoComprobante.Text = Me.TipoComprobante.TipoComprobanteCLetra '$"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
+        Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")
+        Me.txtImporteCuentaCorriente.DataBindings.Add("Text", Me.MediosDePago, "ImporteCuentaCorriente", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
+        Me.txtImportePagoElectronico.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoElectronico", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
+        Me.txtImporteEfectivo.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoEfectivo", True, DataSourceUpdateMode.Never, 0, "N2")
+        AddHandler Me.txtImporteCuentaCorriente.TextChanged, AddressOf ActualizarImporteEfectivo
+        AddHandler Me.txtImportePagoElectronico.TextChanged, AddressOf ActualizarImporteEfectivo
+        Me.ActualizarClienteMostrado()
+        Me.ActualizarImporteEfectivo(Nothing, Nothing)
+
+    End Sub
+
+    Private Sub InicializarPagoCuentaCorriente()
+
+        Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
+
+        Me.txtTipoComprobante.Text = Me.TipoComprobante.TipoComprobanteCLetra '$"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
+        Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")
+        Me.txtImporteCuentaCorriente.DataBindings.Add("Text", Me.MediosDePago, "ImporteCuentaCorriente", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
+        Me.txtImportePagoElectronico.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoElectronico", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
+        Me.txtImporteEfectivo.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoEfectivo", True, DataSourceUpdateMode.Never, 0, "N2")
+        AddHandler Me.txtImporteCuentaCorriente.TextChanged, AddressOf ActualizarImporteEfectivo
+        AddHandler Me.txtImportePagoElectronico.TextChanged, AddressOf ActualizarImporteEfectivo
+        Me.ActualizarClienteMostrado()
+        Me.ActualizarImporteEfectivo(Nothing, Nothing)
+
+    End Sub
+
     Private Sub ActualizarClienteMostrado()
         Me.lblNombreCliente.Text = Me.Cliente.Nombre
         Me.lblTipoContribuyente.Text = Me.Cliente.IVA.TipoIVA
@@ -29,6 +65,11 @@ Public Class FrmPagos
 
         If Me.Cliente.CuentaCorriente Is Nothing Then
             Me.txtImporteCuentaCorriente.Enabled = False
+
+        ElseIf Me.TipoComprobante.CodiTC_SiCoFa = "REC" Then
+            Me.txtImporteCuentaCorriente.Enabled = False
+            Me.btnCuentaCorriente.Enabled = False
+
         Else
             With Me.txtImporteCuentaCorriente
                 .Enabled = True
@@ -59,23 +100,14 @@ Public Class FrmPagos
     End Function
 
     Private Sub FrmPagos_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        Select Case Me.Operacion.TipoOperacion.CodiTO
+            Case "VTAM"
+                Me.InicializarPagoVenta()
 
-        Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
+            Case "CCC", "CRC", "PCC"
+                Me.InicializarPagoCuentaCorriente()
 
-        If Me.TipoComprobante Is Nothing Then
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
-        End If
-
-        Me.txtTipoComprobante.Text = Me.TipoComprobante.TipoComprobanteCLetra '$"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
-        Me.txtImporteAPagar.Text = Me.ImporteAPagar.ToString("N2")
-        Me.txtImporteCuentaCorriente.DataBindings.Add("Text", Me.MediosDePago, "ImporteCuentaCorriente", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
-        Me.txtImportePagoElectronico.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoElectronico", True, DataSourceUpdateMode.OnPropertyChanged, 0, "N2")
-        Me.txtImporteEfectivo.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoEfectivo", True, DataSourceUpdateMode.Never, 0, "N2")
-        AddHandler Me.txtImporteCuentaCorriente.TextChanged, AddressOf ActualizarImporteEfectivo
-        AddHandler Me.txtImportePagoElectronico.TextChanged, AddressOf ActualizarImporteEfectivo
-        Me.ActualizarClienteMostrado()
-        Me.ActualizarImporteEfectivo(Nothing, Nothing)
+        End Select
 
     End Sub
 
@@ -254,6 +286,17 @@ Public Class FrmPagos
     End Function
 
     Private Sub FinalizarOperacion()
+        Select Case Me.Operacion.TipoOperacion.CodiTO
+            Case "VTAM"
+                Me.FinalizarVenta()
+
+            Case "CCC", "CRC", "PCC"
+
+        End Select
+
+    End Sub
+
+    Private Sub FinalizarVenta()
 
         Try
 
@@ -306,6 +349,86 @@ Public Class FrmPagos
                                     argCompAsoc:=Me.ComprobanteOrigen,
                                     argEmpresa:=g_ParametrosTerminal.Empresa,
                                     argDetalle:=ItemsComprobante
+                                    )
+
+            objAC = New AsientoContable
+            With objAC
+                .InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
+                .InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
+                .InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
+                .InsertarItem("4.01.01.001", ImporteAPagar)
+            End With
+
+            mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
+
+            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
+                Dim obj_N_AdminComprobantes As New N_AdminComprobantes
+                If obj_N_AdminComprobantes.GenerarFacturaElectronica(objCb) = False Then
+                    Throw New Exception("Error al generar la factura electrónica.")
+                End If
+            End If
+
+            Dim objAdminReporteComprobantes As New ReporteComprobantes
+            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
+
+            If FrmOrigen IsNot Nothing Then
+                Dim nuevaVentanaVentas As New FrmPresupuestos()
+                nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
+                nuevaVentanaVentas.Show()
+
+                Me.FrmOrigen.Close()
+            End If
+
+            Me.Close()
+
+        Catch ex As Exception
+            mobj_AdminOperacion.RegistrarError(Me.Operacion.IdOperacion, ex.ToString)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+            Me.FrmOrigen.Close()
+            Me.Close()
+
+        End Try
+
+    End Sub
+
+    Private Sub FinalizarPagoCuentaCorriente()
+
+        Try
+
+            Dim objCC As OperacionCC = Nothing
+            Dim objPE As OperacionPE = Nothing
+            Dim objCb As Comprobante = Nothing
+            Dim objAC As AsientoContable = Nothing
+
+            Dim importePE As Decimal = 0
+            If MedioPE IsNot Nothing AndAlso Decimal.TryParse(Me.txtImportePagoElectronico.Text, importePE) AndAlso importePE > 0 Then
+                objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
+            End If
+
+            objCb = New Comprobante(
+                                    argIdOperacion:=Me.Operacion.IdOperacion,
+                                    argOperacion:=Me.Operacion,
+                                    argTipoComprobante:=Me.TipoComprobante,
+                                    argPVenta:=g_ParametrosTerminal.PVenta,
+                                    argNumComp:="",
+                                    argFechaComp:=Now.Date,
+                                    argImpBto:=Me.ImporteBruto,
+                                    argImpDes:=0,
+                                    argImpNeto:=Me.ImporteAPagar,
+                                    argImpEx:=0,
+                                    argImpGrav1:=0,
+                                    argImpGrav2:=0,
+                                    argImpCB:=0,
+                                    argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
+                                    argImpCC:=0,
+                                    argImpPE:=Me.MediosDePago.ImportePagoElectronico,
+                                    argCAE:=Nothing,
+                                    argIdCliente:=Me.Cliente.Id,
+                                    argCliente:=Me.Cliente,
+                                    argIdOperAsoc:=0,
+                                    argCompAsoc:=Nothing,
+                                    argEmpresa:=g_ParametrosTerminal.Empresa,
+                                    argDetalle:=Nothing
                                     )
 
             objAC = New AsientoContable
