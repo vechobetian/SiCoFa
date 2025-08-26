@@ -7,7 +7,7 @@ Public Class FrmMovimientosCC
 
     Property DescripcionCuentaCorriente As String = ""
 
-    Property ResuSeleccionado As String = ""
+    Property ResumenSeleccionado As String = ""
 
     Property SQL As String = ""
 
@@ -105,11 +105,11 @@ Public Class FrmMovimientosCC
             mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={Me.CuentaCorriente.IdCC}")
             mSaldoAdeudadoItemsSeleccinados = 0
 
-            If String.IsNullOrWhiteSpace(Me.ResuSeleccionado) Then
+            If String.IsNullOrWhiteSpace(Me.ResumenSeleccionado) Then
                 mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
 
             Else
-                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResuSeleccionado}'")
+                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
 
             End If
 
@@ -226,10 +226,16 @@ Public Class FrmMovimientosCC
             Dim u As Usuario = ModSeguridad.ValidarUsuario(FrmInicio.mnuOperacionesCC.Name)
 
             If u IsNot Nothing Then
-                FrmOperacionesCC.Usuario = u
-                FrmOperacionesCC.Resumen = "0000"
-                FrmOperacionesCC.IniciarCancelacionCuentaCorriente(Me.CuentaCorriente)
-                FrmOperacionesCC.ShowDialog()
+                'FrmOperacionesCC.Usuario = u
+                'FrmOperacionesCC.Resumen = "0000"
+                'FrmOperacionesCC.IniciarCancelacionCuentaCorriente(Me.CuentaCorriente)
+                'FrmOperacionesCC.ShowDialog()
+
+                Dim nuevaVentanaOperacionesCC As New FrmOperacionesCC()
+                nuevaVentanaOperacionesCC.Usuario = u
+                nuevaVentanaOperacionesCC.Resumen = "0000"
+                nuevaVentanaOperacionesCC.IniciarCancelacionCuentaCorriente(Me.CuentaCorriente)
+                nuevaVentanaOperacionesCC.ShowDialog()
             End If
 
             Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
@@ -238,6 +244,10 @@ Public Class FrmMovimientosCC
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
         End Try
+    End Sub
+
+    Private Sub mnuOperacionesCancelarResumen_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCancelarResumen.Click
+
     End Sub
 
     Private Sub mnuOperacionesNC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesNC.Click

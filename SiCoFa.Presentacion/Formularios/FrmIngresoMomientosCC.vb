@@ -128,7 +128,7 @@ Public Class FrmIngresoMomientosCC
 
         With FrmMovimientosCC
             .SQL = sql
-            .ResuSeleccionado = resu
+            .ResumenSeleccionado = resu
             .CuentaCorriente = cc
             .DescripcionCuentaCorriente = Me.txtCuentaCorriente.Text
         End With
