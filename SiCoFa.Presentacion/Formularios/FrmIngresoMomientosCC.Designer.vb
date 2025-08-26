@@ -28,6 +28,7 @@ Partial Class FrmIngresoMomientosCC
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnMostrarComprobantes = New System.Windows.Forms.Button()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'txtCuentaCorriente
@@ -76,11 +77,22 @@ Partial Class FrmIngresoMomientosCC
         Me.btnMostrarComprobantes.Text = "&Mostrar Comprobantes"
         Me.btnMostrarComprobantes.UseVisualStyleBackColor = True
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(30, 108)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(183, 17)
+        Me.CheckBox1.TabIndex = 15
+        Me.CheckBox1.Text = "Mostrar Operaciones Canceladas"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'FrmIngresoMomientosCC
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(787, 143)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.btnMostrarComprobantes)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label3)
@@ -98,4 +110,5 @@ Partial Class FrmIngresoMomientosCC
     Friend WithEvents Label3 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents btnMostrarComprobantes As Button
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

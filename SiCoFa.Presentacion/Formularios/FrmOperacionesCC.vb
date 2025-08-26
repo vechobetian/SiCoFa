@@ -27,10 +27,17 @@ Public Class FrmOperacionesCC
         Me.txtResumenImputado.Enabled = True
         Me.txtImporte.Enabled = True
         Me.LimpiarFormulario()
-        Me.txtOperacion.Focus()
     End Sub
 
-    Public Sub IniciarCancelacionCuentaCorriente()
+    Public Sub IniciarCancelacionCuentaCorriente(Optional ByVal argCuentaCorriente As CuentaCorriente = Nothing)
+        If argCuentaCorriente IsNot Nothing Then
+            mobjCuentaCorriente = argCuentaCorriente
+            Me.txtCuentaCorriente.Tag = argCuentaCorriente.IdCC
+            Me.txtCuentaCorriente.Text = argCuentaCorriente.Descripcion
+            Me.txtOperacion.Enabled = False
+            Me.txtCuentaCorriente.Enabled = False
+        End If
+
         If mobjCuentaCorriente Is Nothing Then
             MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
             Exit Sub
@@ -454,7 +461,7 @@ Public Class FrmOperacionesCC
 
                     Dim importe As Decimal = Convert.ToDecimal(Me.txtImporte.Text)
 
-                    '.OperacionCC = New OperacionCC(0,)
+                    .OperacionCC = New OperacionCC(0, mobjCuentaCorriente.IdCC, Me.Resumen, importe, "", 0)
                     .ImporteBruto = Convert.ToDecimal(importe)
                     .ImporteDescuento = 0
                     .ImporteAPagar = importe

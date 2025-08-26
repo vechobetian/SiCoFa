@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 
 Public Class FrmMovimientosCC
 
-    Property IdCC As Int32 = 0
+    Property CuentaCorriente As CuentaCorriente = Nothing
 
     Property DescripcionCuentaCorriente As String = ""
 
@@ -12,6 +12,8 @@ Public Class FrmMovimientosCC
     Property SQL As String = ""
 
     Private mAdminDB As New N_AdminDB
+    Private mSaldoAdeudadoCuentaCorriente As Decimal = 0
+    Private mSaldoAdeudadoItemsSeleccinados As Decimal = 0
 
     Private Sub ActualizarMenus()
 
@@ -100,20 +102,20 @@ Public Class FrmMovimientosCC
             Me.AjustarAnchoColumnasComprobantes()
             Me.AjustarAnchoColumnasDetalle()
 
-            Dim SaldoAdeudadoCuentaCorriente As Decimal = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={Me.IdCC}")
-            Dim SaldoAdeudadoItemsSeleccinados As Decimal = 0
+            mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={Me.CuentaCorriente.IdCC}")
+            mSaldoAdeudadoItemsSeleccinados = 0
 
             If String.IsNullOrWhiteSpace(Me.ResuSeleccionado) Then
-                SaldoAdeudadoItemsSeleccinados = SaldoAdeudadoCuentaCorriente
+                mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
 
             Else
-                SaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={Me.IdCC} AND Resu='{Me.ResuSeleccionado}'")
+                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResuSeleccionado}'")
 
             End If
 
             Me.lblDescripcionCuentaCorriente.Text = "Cuenta Corriente: " & Me.DescripcionCuentaCorriente
-            Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: " & SaldoAdeudadoCuentaCorriente.ToString("N2")
-            Me.lblImporteAdeudadoItemsSeleccionados.Text = "Importe Adeudado Items Seleccionados: " & SaldoAdeudadoItemsSeleccinados
+            Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: " & mSaldoAdeudadoCuentaCorriente.ToString("N2")
+            Me.lblImporteAdeudadoItemsSeleccionados.Text = "Importe Adeudado Items Seleccionados: " & mSaldoAdeudadoItemsSeleccinados.ToString("N2")
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -203,6 +205,39 @@ Public Class FrmMovimientosCC
 
         End Try
 
+    End Sub
+
+    Private Sub mnuArchivoSalir_Click(sender As Object, e As EventArgs) Handles mnuArchivoSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub mnuOperacionesCancelarCuenta_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCancelarCuenta.Click
+        Try
+            If mSaldoAdeudadoCuentaCorriente <= 0 Then
+                MsgBox("El Saldo de la Cuenta Corriente es " & mSaldoAdeudadoCuentaCorriente.ToString, vbCritical, "SiCoFa")
+                Exit Sub
+            End If
+
+            If Me.CuentaCorriente Is Nothing Then
+                MsgBox("No se establecio ninguna cuenta corriente", vbCritical, "SiCoFa")
+                Exit Sub
+            End If
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario(FrmInicio.mnuOperacionesCC.Name)
+
+            If u IsNot Nothing Then
+                FrmOperacionesCC.Usuario = u
+                FrmOperacionesCC.Resumen = "0000"
+                FrmOperacionesCC.IniciarCancelacionCuentaCorriente(Me.CuentaCorriente)
+                FrmOperacionesCC.ShowDialog()
+            End If
+
+            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = TblComprobantes
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
     End Sub
 
     Private Sub mnuOperacionesNC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesNC.Click

@@ -397,7 +397,6 @@ Public Class FrmPagos
 
         Try
 
-            Dim objCC As OperacionCC = Nothing
             Dim objPE As OperacionPE = Nothing
             Dim objCb As Comprobante = Nothing
             Dim objAC As AsientoContable = Nothing
@@ -407,7 +406,6 @@ Public Class FrmPagos
                 objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
             End If
 
-            'objCC = New OperacionCC(Me.Operacion.IdOperaci)
             objCb = New Comprobante(
                                     argIdOperacion:=Me.Operacion.IdOperacion,
                                     argOperacion:=Me.Operacion,
@@ -441,7 +439,7 @@ Public Class FrmPagos
                 .InsertarItem("1.03.01.001", -ImporteAPagar)
             End With
 
-            mobj_AdminOperacion.OperacionCCTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Operacion.Usuario, Me.Operacion, objCC, objPE, objCb, objAC, Me.Operacion.Observaciones)
+            mobj_AdminOperacion.OperacionCCTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Operacion.Usuario, Me.Operacion, Me.OperacionCC, objPE, objCb, objAC, Me.Operacion.Observaciones)
 
             Dim objAdminReporteComprobantes As New ReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
@@ -451,7 +449,11 @@ Public Class FrmPagos
         Catch ex As Exception
             mobj_AdminOperacion.RegistrarError(Me.Operacion.IdOperacion, ex.ToString)
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Me.FrmOrigen.Close()
+
+            If FrmOrigen Is Nothing Then
+                Me.FrmOrigen.Close()
+            End If
+
             Me.Close()
 
         End Try

@@ -446,7 +446,7 @@ Public Class D_AdminOperaciones
         End Try
     End Function
 
-    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argImporte As Decimal, ByVal argResu As String, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
@@ -455,6 +455,7 @@ Public Class D_AdminOperaciones
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
+                    .Add("p_Resu", MySqlDbType.String).Value = argResu
                     .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
                 End With
 
@@ -465,6 +466,44 @@ Public Class D_AdminOperaciones
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
+
+        End Try
+
+    End Function
+
+    Friend Function CancelarOperacionesCC(ByVal argCodiTO As String, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argIdOperaCancel As Int64, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+
+        Try
+            Dim sql As String = ""
+
+            Select Case argCodiTO
+                Case "CCC"
+                    sql = "UPDATE TblOperacionesCC SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel WHERE IdCC=@IdCC AND EstadoOperacionCC='NO CANCELADO'"
+
+                Case "CRC"
+                    sql = "UPDATE TblOperacionesCC SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel WHERE IdCC=@IdCC AND Resu=@Resu AND EstadoOperacionCC='NO CANCELADO'"
+
+                Case "CFC"
+                    sql = "UPDATE TblOperacionesCC SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel WHERE IdCC=@IdCC AND IdOperaCancel=-1 AND EstadoOperacionCC='NO CANCELADO'"
+
+            End Select
+
+            Using cmd As New MySqlCommand(sql, cn, tx)
+                ' Agregar los parámetros
+                cmd.Parameters.AddWithValue("@IdOperaCancel", argIdOperaCancel)
+                cmd.Parameters.AddWithValue("@IdCC", argIdCC)
+
+                If argCodiTO = "CRC" Then
+                    cmd.Parameters.AddWithValue("@Resu", argResu)
+                End If
+
+                Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
+                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "CancelarOperacionesCC", ex.Message))
 
         End Try
 
@@ -828,7 +867,7 @@ Public Class D_AdminOperaciones
                         Me.InsertarOperacionPE(objOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
-                    Me.InsertarOperacionCC(objOperacion.IdOperacion, argComprobante.Cliente.CuentaCorriente.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, cn, tx)
+                    Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, cn, tx)
 
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion
@@ -838,6 +877,8 @@ Public Class D_AdminOperaciones
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
+
+                    Me.CancelarOperacionesCC(objOperacion.TipoOperacion.CodiTO, argOperacionCC.IdCC, argOperacionCC.Resu, objOperacion.IdOperacion, cn, tx)
 
                     Me.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 

@@ -23,7 +23,7 @@ Public Class FrmIngresoMomientosCC
 
             If lc Is Nothing Then
                 MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
-                Me.txtCuentaCorriente.Tag = ""
+                Me.txtCuentaCorriente.Tag = Nothing
                 Me.txtCuentaCorriente.Text = ""
                 Me.txtCuentaCorriente.Select()
                 Exit Sub
@@ -32,7 +32,7 @@ Public Class FrmIngresoMomientosCC
             Select Case lc.Count
                 Case 0
                     MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
-                    Me.txtCuentaCorriente.Tag = ""
+                    Me.txtCuentaCorriente.Tag = Nothing
                     Me.txtCuentaCorriente.Text = ""
                     Me.txtCuentaCorriente.Select()
                     Exit Sub
@@ -49,7 +49,7 @@ Public Class FrmIngresoMomientosCC
                             c = f.CuentaSeleccionada
 
                         Else
-                            Me.txtCuentaCorriente.Tag = ""
+                            Me.txtCuentaCorriente.Tag = Nothing
                             Me.txtCuentaCorriente.Text = ""
                             Me.txtCuentaCorriente.Select()
                             Exit Sub
@@ -61,7 +61,7 @@ Public Class FrmIngresoMomientosCC
 
             With Me
                 .LimpiarFormulario()
-                .txtCuentaCorriente.Tag = c.IdCC
+                .txtCuentaCorriente.Tag = c
                 .txtCuentaCorriente.Text = c.Descripcion
             End With
 
@@ -91,7 +91,7 @@ Public Class FrmIngresoMomientosCC
 
     Private Sub btnMostrarComprobantes_Click(sender As Object, e As EventArgs) Handles btnMostrarComprobantes.Click
 
-        If String.IsNullOrWhiteSpace(Me.txtCuentaCorriente.Tag) Then
+        If Me.txtCuentaCorriente.Tag Is Nothing Then
             MsgBox("No se estableció ninguna Cuenta Corriente válida", vbCritical, "SiCoFa")
             Exit Sub
         End If
@@ -99,24 +99,37 @@ Public Class FrmIngresoMomientosCC
         Dim resu As String = Strings.Replace(Me.mtxtResu.Text, "/", "").Trim
 
         Dim sql As String = ""
-        Dim idCC As Int32 = 0
+        Dim cc As CuentaCorriente = Nothing
 
-        If txtCuentaCorriente.Tag IsNot Nothing AndAlso IsNumeric(txtCuentaCorriente.Tag) Then
-            IdCC = Convert.ToInt32(txtCuentaCorriente.Tag)
+        If txtCuentaCorriente.Tag IsNot Nothing Then
+            cc = DirectCast(txtCuentaCorriente.Tag, CuentaCorriente)
+        Else
+            MsgBox("No se pudo establecer la cuenta corriente", vbCritical, "SiCoFa")
+            Me.txtCuentaCorriente.Text = ""
         End If
 
         If resu = "" Then
-            sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={idCC}"
+
+            If CheckBox1.Checked Then
+                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC}"
+            Else
+                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
+            End If
 
         Else
-            sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={idCC} AND Resu='{resu}'"
+
+            If CheckBox1.Checked Then
+                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
+            Else
+                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
+            End If
 
         End If
 
         With FrmMovimientosCC
             .SQL = sql
             .ResuSeleccionado = resu
-            .IdCC = idCC
+            .CuentaCorriente = cc
             .DescripcionCuentaCorriente = Me.txtCuentaCorriente.Text
         End With
 

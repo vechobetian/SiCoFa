@@ -20,7 +20,7 @@ Public Class FrmInicio
 
         If u IsNot Nothing Then
             FrmOperacionesCC.Usuario = u
-            FrmOperacionesCC.ShowDialog()
+            FrmOperacionesCC.Show()
         End If
 
     End Sub

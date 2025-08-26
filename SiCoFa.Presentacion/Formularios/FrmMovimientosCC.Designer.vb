@@ -221,7 +221,7 @@ Partial Class FrmMovimientosCC
         'mnuEditarModificarResumen
         '
         Me.mnuEditarModificarResumen.Name = "mnuEditarModificarResumen"
-        Me.mnuEditarModificarResumen.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarModificarResumen.Size = New System.Drawing.Size(177, 22)
         Me.mnuEditarModificarResumen.Text = "&Modificar Resumen"
         '
         'DataGridView1
@@ -482,7 +482,7 @@ Partial Class FrmMovimientosCC
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.87716!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.12284!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 460.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 476.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaCorriente, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblImporteAdeudadoItemsSeleccionados, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoCuentaCorriente, 1, 0)
@@ -523,7 +523,7 @@ Partial Class FrmMovimientosCC
         Me.lblSaldoCuentaCorriente.AutoSize = True
         Me.lblSaldoCuentaCorriente.Dock = System.Windows.Forms.DockStyle.Left
         Me.lblSaldoCuentaCorriente.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaldoCuentaCorriente.Location = New System.Drawing.Point(704, 3)
+        Me.lblSaldoCuentaCorriente.Location = New System.Drawing.Point(694, 3)
         Me.lblSaldoCuentaCorriente.Name = "lblSaldoCuentaCorriente"
         Me.lblSaldoCuentaCorriente.Size = New System.Drawing.Size(214, 21)
         Me.lblSaldoCuentaCorriente.TabIndex = 0

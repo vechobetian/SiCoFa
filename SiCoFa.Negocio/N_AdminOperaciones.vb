@@ -169,6 +169,23 @@ Public Class N_AdminOperaciones
 
     End Function
 
+    Public Function CancelarOperacionesCC(ByVal argCodiTO As String, ByVal argIdCC As Int32, ByVal argResu As String, argIdOperaCancel As Int64)
+
+        Try
+            Select Case argCodiTO
+                Case "CCC"
+
+                Case "CRC"
+
+                Case "CFC"
+
+            End Select
+        Catch ex As Exception
+
+        End Try
+
+    End Function
+
     Public Function InsertarOperacionPE(ByVal argIdOperacion As Long, ByVal argIdMPE As Int32, ByVal argImporte As Decimal) As Boolean
 
         Try
