@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmBuscaComprobantesRecibidos
+Partial Class FrmIngresoComprobantesRecibidos
     'Inherits System.Windows.Forms.Form
     Inherits clsFrmBase
 

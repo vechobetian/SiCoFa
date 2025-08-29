@@ -160,44 +160,6 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuAuditoriaComprobantesEmitidos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaComprobantesEmitidos.Click
-        Try
-
-            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaComprobantesEmitidos.Name)
-
-            If User Is Nothing Then
-                Exit Sub
-            End If
-
-            Dim frm As New FrmBuscaComprobantesEmitidos()
-            frm.Show()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub mnuAuditoriaComprobantesRecibidos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaComprobantesRecibidos.Click
-        Try
-
-            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaComprobantesEmitidos.Name)
-
-            If User Is Nothing Then
-                Exit Sub
-            End If
-
-            Dim frm As New FrmBuscaComprobantesRecibidos()
-            frm.Show()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
     Private Sub mnuAuditoriaCuentasCorrientes_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaCuentasCorrientes.Click
 
         Try
@@ -218,7 +180,62 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub ReporteDeVentasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReporteDeVentasToolStripMenuItem.Click
-        FrmAnalisisVentas.Show()
+    Private Sub mnuAuditoriaComprobantesEmitidos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaComprobantesEmitidos.Click
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaComprobantesEmitidos.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmIngresoComprobantesEmitidos()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
     End Sub
+
+    Private Sub mnuAuditoriaComprobantesRecibidos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaComprobantesRecibidos.Click
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaComprobantesEmitidos.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmIngresoComprobantesRecibidos()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuAuditoriaReporteVentas_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaReporteVentas.Click
+
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaReporteVentas.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmIngresoReporteVentas()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
 End Class

@@ -138,10 +138,16 @@
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
-    <Compile Include="Formularios\FrmAnalisisVentas.Designer.vb">
-      <DependentUpon>FrmAnalisisVentas.vb</DependentUpon>
+    <Compile Include="Formularios\FrmReporteVentas.Designer.vb">
+      <DependentUpon>FrmReporteVentas.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmAnalisisVentas.vb">
+    <Compile Include="Formularios\FrmReporteVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmIngresoReporteVentas.Designer.vb">
+      <DependentUpon>FrmIngresoReporteVentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmIngresoReporteVentas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmOperacionesCC.Designer.vb">
@@ -156,16 +162,16 @@
     <Compile Include="Formularios\FrmIngresoMomientosCC.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmBuscaComprobantesEmitidos.Designer.vb">
-      <DependentUpon>FrmBuscaComprobantesEmitidos.vb</DependentUpon>
+    <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.Designer.vb">
+      <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmBuscaComprobantesEmitidos.vb">
+    <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmBuscaComprobantesRecibidos.Designer.vb">
-      <DependentUpon>FrmBuscaComprobantesRecibidos.vb</DependentUpon>
+    <Compile Include="Formularios\FrmIngresoComprobantesRecibidos.Designer.vb">
+      <DependentUpon>FrmIngresoComprobantesRecibidos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmBuscaComprobantesRecibidos.vb">
+    <Compile Include="Formularios\FrmIngresoComprobantesRecibidos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmBuscaCtasCorrriente.Designer.vb">
@@ -410,8 +416,11 @@
       <DependentUpon>clsFrmBase.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmAnalisisVentas.resx">
-      <DependentUpon>FrmAnalisisVentas.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmReporteVentas.resx">
+      <DependentUpon>FrmReporteVentas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmIngresoReporteVentas.resx">
+      <DependentUpon>FrmIngresoReporteVentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmOperacionesCC.resx">
       <DependentUpon>FrmOperacionesCC.vb</DependentUpon>
@@ -419,11 +428,11 @@
     <EmbeddedResource Include="Formularios\FrmIngresoMomientosCC.resx">
       <DependentUpon>FrmIngresoMomientosCC.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmBuscaComprobantesEmitidos.resx">
-      <DependentUpon>FrmBuscaComprobantesEmitidos.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmIngresoComprobantesEmitidos.resx">
+      <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmBuscaComprobantesRecibidos.resx">
-      <DependentUpon>FrmBuscaComprobantesRecibidos.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmIngresoComprobantesRecibidos.resx">
+      <DependentUpon>FrmIngresoComprobantesRecibidos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmBuscaCtasCorrriente.resx">
       <DependentUpon>FrmBuscaCtasCorrriente.vb</DependentUpon>

@@ -1,7 +1,7 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
 Imports System.ComponentModel
-Public Class FrmBuscaComprobantesEmitidos
+Public Class FrmIngresoComprobantesEmitidos
 
     Private DatosOpcionales As New List(Of String)
     Private Const WM_SYSCOMMAND As Integer = &H112
