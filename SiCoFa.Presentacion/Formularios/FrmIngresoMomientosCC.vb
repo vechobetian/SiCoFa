@@ -89,6 +89,94 @@ Public Class FrmIngresoMomientosCC
         End Try
     End Sub
 
+    Private Sub BuscarResumen(ByVal argTextoBuscado As String)
+        Try
+
+            Dim AdminDB As New N_AdminDB
+            Dim cc As CuentaCorriente
+            Dim resu As String
+
+            If Me.txtCuentaCorriente.Tag Is Nothing Then
+                MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
+                Me.txtCuentaCorriente.Select()
+                Exit Sub
+
+            Else
+                cc = DirectCast(txtCuentaCorriente.Tag, CuentaCorriente)
+
+            End If
+
+            Dim sql As String = ""
+
+            If argTextoBuscado = "*" Then
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={cc.IdCC}"
+
+            Else
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={cc.IdCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+
+            End If
+
+            Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
+
+            Select Case dt.Rows.Count
+                Case 0
+                    MsgBox("Resumen no Encontrada", vbInformation, "SiCoFa")
+                    Me.txtResumen.Text = ""
+                    Me.txtResumen.Focus()
+                    Exit Sub
+
+                Case 1
+                    Dim fila As DataRow = dt.Rows(0)
+                    resu = fila("Resu").ToString
+
+                Case > 1
+
+                    Using f As New FrmSelectorUniversal
+                        f.Text = "Períodos con Saldo"
+                        f.Objetos = dt.DefaultView
+                        f.NombrePropiedadId = "Resu"
+                        f.NombrePropiedadDescripcion = "ResuImporte"
+                        f.HeaderPropiedadDescripcion = "Resumen   |                        Importe"
+
+                        If f.ShowDialog() = DialogResult.OK Then
+                            resu = f.Valor1Seleccionado.ToString
+
+                        Else
+                            Me.txtResumen.Text = ""
+                            Me.txtResumen.Select()
+                            Exit Sub
+                        End If
+                        f.Close()
+                    End Using
+
+            End Select
+
+            With Me
+                .txtResumen.Text = resu
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub txtResumen_Validating(sender As Object, e As CancelEventArgs) Handles txtResumen.Validating
+        Try
+
+            If String.IsNullOrEmpty(Me.txtResumen.Text) Then
+                Exit Sub
+            End If
+
+            Me.BuscarResumen(Me.txtResumen.Text)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
     Private Sub btnMostrarComprobantes_Click(sender As Object, e As EventArgs) Handles btnMostrarComprobantes.Click
 
         If Me.txtCuentaCorriente.Tag Is Nothing Then
@@ -96,7 +184,7 @@ Public Class FrmIngresoMomientosCC
             Exit Sub
         End If
 
-        Dim resu As String = Strings.Replace(Me.mtxtResu.Text, "/", "").Trim
+        Dim resu As String = Me.txtResumen.Text
 
         Dim sql As String = ""
         Dim cc As CuentaCorriente = Nothing
@@ -111,17 +199,17 @@ Public Class FrmIngresoMomientosCC
         If resu = "" Then
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC}"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC}"
             Else
-                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         Else
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
             Else
-                sql = $"SELECT IdOperacion, CodiTC, IdOperAsoc, Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         End If

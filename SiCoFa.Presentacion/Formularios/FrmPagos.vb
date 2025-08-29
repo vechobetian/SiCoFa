@@ -105,7 +105,7 @@ Public Class FrmPagos
             Case "VTAM"
                 Me.InicializarPagoVenta()
 
-            Case "CCC", "CRC", "PCC"
+            Case "CCC", "CRC", "PCC", "CFC"
                 Me.InicializarPagoCuentaCorriente()
 
         End Select
@@ -291,7 +291,7 @@ Public Class FrmPagos
             Case "VTAM"
                 Me.FinalizarVenta()
 
-            Case "CCC", "CRC", "PCC"
+            Case "CCC", "CRC", "PCC", "CFC"
                 Me.FinalizarPagoCuentaCorriente()
 
         End Select
@@ -450,7 +450,7 @@ Public Class FrmPagos
             mobj_AdminOperacion.RegistrarError(Me.Operacion.IdOperacion, ex.ToString)
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
-            If FrmOrigen Is Nothing Then
+            If FrmOrigen IsNot Nothing Then
                 Me.FrmOrigen.Close()
             End If
 

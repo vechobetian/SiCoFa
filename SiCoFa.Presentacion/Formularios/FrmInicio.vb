@@ -218,4 +218,7 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub ReporteDeVentasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReporteDeVentasToolStripMenuItem.Click
+        FrmAnalisisVentas.Show()
+    End Sub
 End Class

@@ -269,55 +269,55 @@ Partial Class FrmInicio
         'mnuEditarArticulos
         '
         Me.mnuEditarArticulos.Name = "mnuEditarArticulos"
-        Me.mnuEditarArticulos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarArticulos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarArticulos.Text = "Artículos"
         '
         'mnuEditarClientes
         '
         Me.mnuEditarClientes.Name = "mnuEditarClientes"
-        Me.mnuEditarClientes.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarClientes.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarClientes.Text = "Clientes"
         '
         'mnuEditarEmpleados
         '
         Me.mnuEditarEmpleados.Name = "mnuEditarEmpleados"
-        Me.mnuEditarEmpleados.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarEmpleados.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarEmpleados.Text = "Empleados"
         '
         'mnuEditarUsuarios
         '
         Me.mnuEditarUsuarios.Name = "mnuEditarUsuarios"
-        Me.mnuEditarUsuarios.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarUsuarios.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarUsuarios.Text = "Usuarios"
         '
         'mnuEditarProveedores
         '
         Me.mnuEditarProveedores.Name = "mnuEditarProveedores"
-        Me.mnuEditarProveedores.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarProveedores.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarProveedores.Text = "Proveedores"
         '
         'mnuEditarSecciones
         '
         Me.mnuEditarSecciones.Name = "mnuEditarSecciones"
-        Me.mnuEditarSecciones.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarSecciones.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarSecciones.Text = "Secciones"
         '
         'mnuEditarCuentasBancarias
         '
         Me.mnuEditarCuentasBancarias.Name = "mnuEditarCuentasBancarias"
-        Me.mnuEditarCuentasBancarias.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarCuentasBancarias.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarCuentasBancarias.Text = "Cuentas Banco"
         '
         'mnuEditarMedioPE
         '
         Me.mnuEditarMedioPE.Name = "mnuEditarMedioPE"
-        Me.mnuEditarMedioPE.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarMedioPE.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarMedioPE.Text = "Medios de Pago"
         '
         'mnuEditarPermisos
         '
         Me.mnuEditarPermisos.Name = "mnuEditarPermisos"
-        Me.mnuEditarPermisos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarPermisos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarPermisos.Text = "Permisos"
         '
         'mnuHerramientas

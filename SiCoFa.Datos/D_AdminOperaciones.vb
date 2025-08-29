@@ -433,12 +433,12 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal) As Boolean
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argIdOperaCancel As Int64) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Return InsertarOperacionCC(argIdOperacion, argIdCC, argImporte, argResu, cn, Nothing)
+                Return InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argIdOperaCancel, cn, Nothing)
             End Using
 
         Catch Ex As Exception
@@ -446,7 +446,7 @@ Public Class D_AdminOperaciones
         End Try
     End Function
 
-    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argIdOperaCancel As Int64, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
@@ -457,6 +457,7 @@ Public Class D_AdminOperaciones
                     .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
                     .Add("p_Resu", MySqlDbType.String).Value = argResu
                     .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                    .Add("p_IdOperaCancel", MySqlDbType.Int64).Value = argIdOperaCancel
                 End With
 
                 Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
@@ -603,7 +604,7 @@ Public Class D_AdminOperaciones
                 Try
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, cn, tx)
+                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, 0, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
@@ -773,7 +774,7 @@ Public Class D_AdminOperaciones
                     Me.InsertarOperacionCL(objOperacion.IdOperacion, argComprobante.IdCliente, cn, tx)
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, cn, tx)
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, 0, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
@@ -867,7 +868,11 @@ Public Class D_AdminOperaciones
                         Me.InsertarOperacionPE(objOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
-                    Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, cn, tx)
+                    If objOperacion.TipoOperacion.CodiTO = "CFC" Then
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, -1, cn, tx)
+                    Else
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, 0, cn, tx)
+                    End If
 
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion
@@ -878,7 +883,9 @@ Public Class D_AdminOperaciones
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
 
-                    Me.CancelarOperacionesCC(objOperacion.TipoOperacion.CodiTO, argOperacionCC.IdCC, argOperacionCC.Resu, objOperacion.IdOperacion, cn, tx)
+                    If objOperacion.TipoOperacion.CodiTO <> "PCC" Then
+                        Me.CancelarOperacionesCC(objOperacion.TipoOperacion.CodiTO, argOperacionCC.IdCC, argOperacionCC.Resu, objOperacion.IdOperacion, cn, tx)
+                    End If
 
                     Me.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
 

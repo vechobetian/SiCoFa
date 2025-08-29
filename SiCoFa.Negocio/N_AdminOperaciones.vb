@@ -153,34 +153,17 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal) As Boolean
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argIdOperaCancel As Int64) As Boolean
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte)
+            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argIdOperaCancel)
 
             Return Insertado
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCC", Ex.Message))
-
-        End Try
-
-    End Function
-
-    Public Function CancelarOperacionesCC(ByVal argCodiTO As String, ByVal argIdCC As Int32, ByVal argResu As String, argIdOperaCancel As Int64)
-
-        Try
-            Select Case argCodiTO
-                Case "CCC"
-
-                Case "CRC"
-
-                Case "CFC"
-
-            End Select
-        Catch ex As Exception
 
         End Try
 

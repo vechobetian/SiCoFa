@@ -61,21 +61,28 @@ Public Class FrmOperacionesCC
 
     End Sub
 
-    Public Sub IniciarCancelacionResumen()
+    Public Sub IniciarCancelacionResumen(Optional ByVal argCuentaCorriente As CuentaCorriente = Nothing)
+        If argCuentaCorriente IsNot Nothing Then
+            mobjCuentaCorriente = argCuentaCorriente
+            Me.txtCuentaCorriente.Tag = argCuentaCorriente.IdCC
+            Me.txtCuentaCorriente.Text = argCuentaCorriente.Descripcion
+            Me.txtOperacion.Enabled = False
+            Me.txtCuentaCorriente.Enabled = False
+        End If
 
         If mobjCuentaCorriente Is Nothing Then
             MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
             Exit Sub
         End If
 
-        If Me.Resumen = "" Then
-            MsgBox("Resumen no establecido", vbCritical, "SiCoFa")
-            Exit Sub
-        End If
-
         mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
         Me.txtOperacion.Tag = "CRC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
+
+        If Me.Resumen = "" Then
+            Exit Sub
+        End If
+
         mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
         mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
 
@@ -89,6 +96,67 @@ Public Class FrmOperacionesCC
 
         Me.txtResumenImputado.Text = Me.Resumen
         Me.txtImporte.Text = mdecSaldoResumen.ToString("N2")
+        Me.txtImporte.Enabled = False
+
+    End Sub
+
+    Public Sub IniciarPagoCuenta(Optional ByVal argCuentaCorriente As CuentaCorriente = Nothing)
+        If argCuentaCorriente IsNot Nothing Then
+            mobjCuentaCorriente = argCuentaCorriente
+            Me.txtCuentaCorriente.Tag = argCuentaCorriente.IdCC
+            Me.txtCuentaCorriente.Text = argCuentaCorriente.Descripcion
+            Me.txtOperacion.Enabled = False
+            Me.txtCuentaCorriente.Enabled = False
+        End If
+
+        If mobjCuentaCorriente Is Nothing Then
+            MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
+            Exit Sub
+        End If
+
+        mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("PCC")
+        Me.txtOperacion.Tag = "PCC"
+        Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
+
+        If Me.Resumen = "" Then
+            Exit Sub
+        End If
+
+        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+        mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+
+        If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
+            MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
+            Me.txtResumenImputado.Text = ""
+            Me.Resumen = ""
+            Me.txtResumenImputado.Focus()
+            Exit Sub
+        End If
+
+        Me.txtResumenImputado.Text = Me.Resumen
+
+    End Sub
+
+    Public Sub IniciarCancelacionFacturas(ByVal argCuentaCorriente As CuentaCorriente, ByVal argImporte As Decimal)
+        If argCuentaCorriente IsNot Nothing Then
+            mobjCuentaCorriente = argCuentaCorriente
+            Me.txtCuentaCorriente.Tag = argCuentaCorriente.IdCC
+            Me.txtCuentaCorriente.Text = argCuentaCorriente.Descripcion
+            Me.txtOperacion.Enabled = False
+            Me.txtCuentaCorriente.Enabled = False
+        End If
+
+        If mobjCuentaCorriente Is Nothing Then
+            MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
+            Exit Sub
+        End If
+
+        mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CFC")
+        Me.txtOperacion.Tag = "CFC"
+        Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
+        Me.txtResumenImputado.Text = "0000"
+        Me.txtResumenImputado.Enabled = False
+        Me.txtImporte.Text = argImporte.ToString("N2")
         Me.txtImporte.Enabled = False
 
     End Sub
@@ -280,10 +348,10 @@ Public Class FrmOperacionesCC
             Dim sql As String = ""
 
             If argTextoBuscado = "*" Then
-                sql = $"SELECT Resu, CONCAT(Resu, ' | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={idCC}"
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={idCC}"
 
             Else
-                sql = $"SELECT Resu, CONCAT(Resu, ' | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={idCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={idCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
 
             End If
 
@@ -309,7 +377,7 @@ Public Class FrmOperacionesCC
                         f.Objetos = dt.DefaultView
                         f.NombrePropiedadId = "Resu"
                         f.NombrePropiedadDescripcion = "ResuImporte"
-                        f.HeaderPropiedadDescripcion = "Resumen        Importe"
+                        f.HeaderPropiedadDescripcion = "Resumen   |                        Importe"
 
                         If f.ShowDialog() = DialogResult.OK Then
                             Dim resu As String = f.Valor1Seleccionado.ToString
@@ -341,12 +409,6 @@ Public Class FrmOperacionesCC
         Try
 
             If Me.txtResumenImputado.Enabled = False Then Exit Sub
-
-            If String.IsNullOrWhiteSpace(Me.txtResumenImputado.Text) Then
-                MsgBox("Resumen Imputado es una dato requerido", vbCritical, "SiCoFa")
-                e.Cancel = True
-                Exit Sub
-            End If
 
             Me.BuscarResumen(Me.txtResumenImputado.Text)
 
