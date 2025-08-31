@@ -36,8 +36,8 @@ Public Class FrmPagos
         Me.txtImporteEfectivo.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoEfectivo", True, DataSourceUpdateMode.Never, 0, "N2")
         AddHandler Me.txtImporteCuentaCorriente.TextChanged, AddressOf ActualizarImporteEfectivo
         AddHandler Me.txtImportePagoElectronico.TextChanged, AddressOf ActualizarImporteEfectivo
-        Me.ActualizarClienteMostrado()
         Me.ActualizarImporteEfectivo(Nothing, Nothing)
+        Me.ActualizarClienteMostrado()
 
     End Sub
 
@@ -52,8 +52,8 @@ Public Class FrmPagos
         Me.txtImporteEfectivo.DataBindings.Add("Text", Me.MediosDePago, "ImportePagoEfectivo", True, DataSourceUpdateMode.Never, 0, "N2")
         AddHandler Me.txtImporteCuentaCorriente.TextChanged, AddressOf ActualizarImporteEfectivo
         AddHandler Me.txtImportePagoElectronico.TextChanged, AddressOf ActualizarImporteEfectivo
-        Me.ActualizarClienteMostrado()
         Me.ActualizarImporteEfectivo(Nothing, Nothing)
+        Me.ActualizarClienteMostrado()
 
     End Sub
 
@@ -74,7 +74,8 @@ Public Class FrmPagos
         Else
             With Me.txtImporteCuentaCorriente
                 .Enabled = True
-                .Text = Convert.ToDecimal(Me.txtImporteAPagar.Text).ToString("N2")
+                '.Text = Convert.ToDecimal(Me.txtImporteAPagar.Text).ToString("N2")
+                .Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
                 .Select()
                 .SelectAll()
             End With
@@ -170,8 +171,8 @@ Public Class FrmPagos
             Dim AdminSiCoFa As New N_AdminSiCoFa
             Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
             Me.txtImporteCuentaCorriente.Enabled = True
-            Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
-            Me.txtImporteCuentaCorriente.Select()
+            'Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
+            Me.txtImporteCuentaCorriente.Focus()
             Me.txtImporteCuentaCorriente.SelectAll()
 
         Catch ex As Exception

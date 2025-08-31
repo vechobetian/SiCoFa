@@ -11,6 +11,8 @@ Public Class FrmOperacionesCC
     Private mobjCuentaCorriente As CuentaCorriente
     Private mdecSaldoCC As Decimal = 0
     Private mdecSaldoResumen As Decimal = 0
+    Private mlngUltimaOperacionNoCanceladaCC As Int64 = 0
+    Private mlngUltimaOperacionNoCanceladaResu As Int64 = 0
     Private DatosOpcionales As New List(Of String) From {"txtObservaciones"}
     Private Const WM_SYSCOMMAND As Integer = &H112
     Private Const SC_CLOSE As Integer = &HF060
@@ -46,7 +48,11 @@ Public Class FrmOperacionesCC
         mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CCC")
         Me.txtOperacion.Tag = "CCC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
-        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+
+        Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+
+        mdecSaldoCC = Convert.ToDecimal(registroSaldoIdCC("Saldo"))
+        mlngUltimaOperacionNoCanceladaCC = Convert.ToInt64(registroSaldoIdCC("UltimaOperacionNoCancelada"))
 
         If mdecSaldoCC = 0 Then
             MsgBox("El Saldo de la Cuenta es $0,00")
@@ -79,12 +85,19 @@ Public Class FrmOperacionesCC
         Me.txtOperacion.Tag = "CRC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
 
+        Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+
+        mdecSaldoCC = Convert.ToDecimal(registroSaldoIdCC("Saldo"))
+        mlngUltimaOperacionNoCanceladaCC = Convert.ToInt64(registroSaldoIdCC("UltimaOperacionNoCancelada"))
+
         If Me.Resumen = "" Then
             Exit Sub
         End If
 
-        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
-        mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+        Dim registroSaldoIdCCResu As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+
+        mdecSaldoResumen = Convert.ToDecimal(registroSaldoIdCCResu("Saldo"))
+        mlngUltimaOperacionNoCanceladaResu = Convert.ToInt64(registroSaldoIdCCResu("UltimaOperacionNoCancelada"))
 
         If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
             MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
@@ -118,11 +131,12 @@ Public Class FrmOperacionesCC
         Me.txtOperacion.Tag = "PCC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
 
+        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+
         If Me.Resumen = "" Then
             Exit Sub
         End If
 
-        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
         mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
 
         If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
@@ -285,10 +299,13 @@ Public Class FrmOperacionesCC
 
             End Select
 
+            Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+
             With Me
                 .txtCuentaCorriente.Tag = mobjCuentaCorriente.IdCC
                 .txtCuentaCorriente.Text = mobjCuentaCorriente.Descripcion
-                .mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+                .mdecSaldoCC = Convert.ToDecimal(registroSaldoIdCC("Saldo"))
+                .mlngUltimaOperacionNoCanceladaCC = Convert.ToInt64(registroSaldoIdCC("UltimaOperacionNoCancelada"))
             End With
 
         Catch ex As Exception
@@ -412,7 +429,16 @@ Public Class FrmOperacionesCC
 
             Me.BuscarResumen(Me.txtResumenImputado.Text)
 
-            mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} AND Resu='{Me.Resumen}'")
+            If String.IsNullOrEmpty(Me.Resumen) Then
+                Me.txtResumenImputado.Focus()
+                e.Cancel = True
+                Exit Sub
+            End If
+
+            Dim registroSaldoIdCCResu As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+
+            mdecSaldoResumen = Convert.ToDecimal(registroSaldoIdCCResu("Saldo"))
+            mlngUltimaOperacionNoCanceladaResu = Convert.ToInt64(registroSaldoIdCCResu("UltimaOperacionNoCancelada"))
 
             If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
                 MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
@@ -424,8 +450,9 @@ Public Class FrmOperacionesCC
 
             Select Case Me.txtOperacion.Tag
                 Case "CRC"
-                    Me.txtImporte.Text = mdecSaldoResumen
+                    Me.txtImporte.Text = mdecSaldoResumen.ToString("N2")
                     Me.txtImporte.Enabled = False
+                    Me.txtObservaciones.Focus()
 
                 Case "PCC"
                     Me.txtImporte.Enabled = True
@@ -464,7 +491,7 @@ Public Class FrmOperacionesCC
                 Exit Sub
             End If
 
-            If importe >= mdecSaldoCC Then
+            If importe >= mdecSaldoCC AndAlso mobjTOperacion.CodiTO <> "CCC" Then
 
                 If MsgBox("El Importe Total adeudado es $ " & mdecSaldoCC.ToString("N2") & vbCrLf & "¿Desea Realizar una Cancelacion Total de la Cuenta Corriente?", vbYesNo, "SiCoFa") = vbYes Then
                     Me.IniciarCancelacionCuentaCorriente()
@@ -475,15 +502,10 @@ Public Class FrmOperacionesCC
                     Exit Sub
                 End If
 
-            ElseIf importe > mdecSaldoResumen Then
+            ElseIf importe >= mdecSaldoResumen AndAlso mobjTOperacion.CodiTO <> "CRC" Then
 
-                If MsgBox("El importe ingresado es mayor que el Importe del Resumen" & vbCrLf & "¿Desea Cancelar el Resumen " & Me.txtResumenImputado.Text & "?", vbYesNo, "SiCoFa") = vbYes Then
-                    mobjTOperacion = mobjAdminOperaciones.ObtenerTipoOperacionPorCodiTO("CRC")
-                    Me.txtOperacion.Tag = "CRC"
-                    Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
-                    importe = mdecSaldoResumen
-                    Me.txtImporte.Text = importe.ToString("N2")
-                    Me.txtImporte.Enabled = False
+                If MsgBox("El importe del Resumen es $ " & mdecSaldoResumen.ToString("N2") & vbCrLf & "¿Desea Cancelar el Resumen " & Me.txtResumenImputado.Text & "?", vbYesNo, "SiCoFa") = vbYes Then
+                    Me.IniciarCancelacionResumen()
                     Exit Sub
 
                 Else
@@ -522,8 +544,20 @@ Public Class FrmOperacionesCC
                     .TipoComprobante = tc
 
                     Dim importe As Decimal = Convert.ToDecimal(Me.txtImporte.Text)
+                    Me.Resumen = Convert.ToString(Me.txtResumenImputado.Text)
 
-                    .OperacionCC = New OperacionCC(0, mobjCuentaCorriente.IdCC, Me.Resumen, importe, "", 0)
+                    Select Case mobjTOperacion.CodiTO
+                        Case "PCC", "CFC"
+                            .OperacionCC = New OperacionCC(0, mobjCuentaCorriente.IdCC, Me.Resumen, importe, "", 0)
+
+                        Case "CRC"
+                            .OperacionCC = New OperacionCC(mlngUltimaOperacionNoCanceladaResu, mobjCuentaCorriente.IdCC, Me.Resumen, importe, "", 0) 'En IdOperacion mando el Id de la ultima operacion no cancelada del Resumen para no crear un campo en la clase OperacionCC
+
+                        Case "CCC"
+                            .OperacionCC = New OperacionCC(mlngUltimaOperacionNoCanceladaCC, mobjCuentaCorriente.IdCC, Me.Resumen, importe, "", 0) 'En IdOperacion mando el Id de la ultima operacion no cancelada de la cuenta para no crear un campo en la clase OperacionCC
+
+                    End Select
+
                     .ImporteBruto = Convert.ToDecimal(importe)
                     .ImporteDescuento = 0
                     .ImporteAPagar = importe

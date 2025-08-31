@@ -153,12 +153,12 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argIdOperaCancel As Int64) As Boolean
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argEstadoOperacionCC As String, ByVal argIdOperaCancel As Int64) As Boolean
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argIdOperaCancel)
+            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argEstadoOperacionCC, argIdOperaCancel)
 
             Return Insertado
 

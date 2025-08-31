@@ -383,20 +383,20 @@ Public Class Ticket58
         Next
 
         yPos += IncrementoYPreTexto
-        strTotal = "$" & Format(Comprobante.ImpBto, "Fixed")
+        strTotal = "$" & Comprobante.ImpBto.ToString("N2")
         e.Graphics.DrawString("SON PESOS:" & StrDup(21 - Len(strTotal), " ") & strTotal, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += 2 * IncrementoYPreTexto
         e.Graphics.DrawString("RECIBI(MOS)", printFont, Brushes.Black, MargenIzquierdo, yPos)
 
         If Comprobante.ImpPE > 0 Then
             yPos += IncrementoYPreTexto
-            strTar = "$" & Format(Comprobante.ImpPE, "Fixed")
+            strTar = "$" & Comprobante.ImpPE.ToString("N2")
             e.Graphics.DrawString("Tarjeta/s: " & StrDup(21 - Len(strTar), " ") & strTar, printFont, Brushes.Black, MargenIzquierdo, yPos)
         End If
 
         If Comprobante.ImpEf > 0 Then
             yPos += IncrementoYPreTexto
-            strEf = "$" & Format(Comprobante.ImpEf, "Fixed")
+            strEf = "$" & Comprobante.ImpEf.ToString("N2")
             e.Graphics.DrawString("Efectivo: " & StrDup(22 - Len(strEf), " ") & strEf, printFont, Brushes.Black, MargenIzquierdo, yPos)
         End If
 

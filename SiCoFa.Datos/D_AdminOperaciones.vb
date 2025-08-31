@@ -433,12 +433,12 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argIdOperaCancel As Int64) As Boolean
+    Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argEstadoOperacionCC As String, ByVal argIdOperaCancel As Int64) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Return InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argIdOperaCancel, cn, Nothing)
+                Return InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argEstadoOperacionCC, argIdOperaCancel, cn, Nothing)
             End Using
 
         Catch Ex As Exception
@@ -446,7 +446,7 @@ Public Class D_AdminOperaciones
         End Try
     End Function
 
-    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argIdOperaCancel As Int64, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argEstadoOperacionCC As String, ByVal argIdOperaCancel As Int64, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try
 
@@ -457,6 +457,7 @@ Public Class D_AdminOperaciones
                     .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
                     .Add("p_Resu", MySqlDbType.String).Value = argResu
                     .Add("p_Importe", MySqlDbType.Decimal).Value = argImporte
+                    .Add("p_EstadoOperacionCC", MySqlDbType.String).Value = argEstadoOperacionCC
                     .Add("p_IdOperaCancel", MySqlDbType.Int64).Value = argIdOperaCancel
                 End With
 
@@ -472,40 +473,56 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Friend Function CancelarOperacionesCC(ByVal argCodiTO As String, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argIdOperaCancel As Int64, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Function CancelarOperacionesCC(ByVal argCodiTO As String,
+                                      ByVal argIdCC As Int32,
+                                      ByVal argResu As String,
+                                      ByVal argIdOperaCancel As Int64,
+                                      ByVal argUltimaOperacion As Int64,
+                                      ByVal cn As MySqlConnection,
+                                      ByVal tx As MySqlTransaction) As Boolean
 
         Try
             Dim sql As String = ""
 
             Select Case argCodiTO
                 Case "CCC"
-                    sql = "UPDATE TblOperacionesCC SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel WHERE IdCC=@IdCC AND EstadoOperacionCC='NO CANCELADO'"
+                    sql = "UPDATE TblOperacionesCC " &
+                      "SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel " &
+                      "WHERE IdCC=@IdCC AND EstadoOperacionCC='NO CANCELADO' " &
+                      "AND IdOperacion <= @UltimaOperacion"
 
                 Case "CRC"
-                    sql = "UPDATE TblOperacionesCC SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel WHERE IdCC=@IdCC AND Resu=@Resu AND EstadoOperacionCC='NO CANCELADO'"
+                    sql = "UPDATE TblOperacionesCC " &
+                      "SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel " &
+                      "WHERE IdCC=@IdCC AND Resu=@Resu " &
+                      "AND EstadoOperacionCC='NO CANCELADO' " &
+                      "AND IdOperacion <= @UltimaOperacion"
 
                 Case "CFC"
-                    sql = "UPDATE TblOperacionesCC SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel WHERE IdCC=@IdCC AND IdOperaCancel=-1 AND EstadoOperacionCC='NO CANCELADO'"
+                    sql = "UPDATE TblOperacionesCC " &
+                      "SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel " &
+                      "WHERE IdCC=@IdCC AND IdOperaCancel=-1 " &
+                      "AND EstadoOperacionCC='NO CANCELADO'"
 
             End Select
 
             Using cmd As New MySqlCommand(sql, cn, tx)
-                ' Agregar los parámetros
+                ' Parámetros
                 cmd.Parameters.AddWithValue("@IdOperaCancel", argIdOperaCancel)
                 cmd.Parameters.AddWithValue("@IdCC", argIdCC)
+                cmd.Parameters.AddWithValue("@UltimaOperacion", argUltimaOperacion)
 
                 If argCodiTO = "CRC" Then
                     cmd.Parameters.AddWithValue("@Resu", argResu)
                 End If
 
                 Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
-                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+                Return (filasAfectadas > 0)
 
             End Using
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "CancelarOperacionesCC", ex.Message))
-
         End Try
 
     End Function
@@ -604,7 +621,7 @@ Public Class D_AdminOperaciones
                 Try
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, 0, cn, tx)
+                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, "NO CANCELADO", 0, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
@@ -774,11 +791,11 @@ Public Class D_AdminOperaciones
                     Me.InsertarOperacionCL(objOperacion.IdOperacion, argComprobante.IdCliente, cn, tx)
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, 0, cn, tx)
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, "NO CANCELADO", 0, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
-                        Me.InsertarOperacionPE(objOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
+                        Me.AnularOperacionPE(argComprobante.IdOperAsoc, cn, tx)
                     End If
 
                     Dim AdminComprobantes As New D_AdminComprobantes
@@ -868,10 +885,10 @@ Public Class D_AdminOperaciones
                         Me.InsertarOperacionPE(objOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
-                    If objOperacion.TipoOperacion.CodiTO = "CFC" Then
-                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, -1, cn, tx)
+                    If objOperacion.TipoOperacion.CodiTO = "PCC" Then
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, "NO CANCELADO", 0, cn, tx)
                     Else
-                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, 0, cn, tx)
+                        Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, argOperacionCC.Resu, -argComprobante.ImpNeto, "CANCELADO", 0, cn, tx)
                     End If
 
                     Dim AdminComprobantes As New D_AdminComprobantes
@@ -884,7 +901,7 @@ Public Class D_AdminOperaciones
                     AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
 
                     If objOperacion.TipoOperacion.CodiTO <> "PCC" Then
-                        Me.CancelarOperacionesCC(objOperacion.TipoOperacion.CodiTO, argOperacionCC.IdCC, argOperacionCC.Resu, objOperacion.IdOperacion, cn, tx)
+                        Me.CancelarOperacionesCC(objOperacion.TipoOperacion.CodiTO, argOperacionCC.IdCC, argOperacionCC.Resu, objOperacion.IdOperacion, argOperacionCC.IdOperacion, cn, tx) 'argOperacionCC.IdOperacion es la ultima operacion cancelada lo utilizo asi para no crear otro campo
                     End If
 
                     Me.FinalizarOperacion(argMacAddress, objOperacion, True, cn, tx)
