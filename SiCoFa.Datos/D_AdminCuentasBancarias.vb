@@ -10,7 +10,7 @@ Public Class D_AdminCuentasBancarias
         Dim objCB As CuentaBancaria = Nothing
 
         Try
-            Dim sql As String = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM TblCtasBancarias WHERE IdCB=@IdCB"
+            Dim sql As String = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM cuentas_bancarias WHERE IdCB=@IdCB"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -61,9 +61,9 @@ Public Class D_AdminCuentasBancarias
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM TblCtasBancarias ORDER BY Descripcion"
+                sql = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM cuentas_bancarias ORDER BY Descripcion"
             Else
-                sql = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM TblCtasBancarias WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
+                sql = "SELECT IdCB,Descripcion,NumCuenta,FechaAlta,Baja FROM cuentas_bancarias WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

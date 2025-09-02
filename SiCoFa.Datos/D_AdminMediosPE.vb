@@ -10,7 +10,7 @@ Public Class D_AdminMediosPE
         Dim objMPE As MedioPE = Nothing
 
         Try
-            Dim sql As String = "SELECT IdMPE,Descripcion,IdCB,Baja FROM TblMediosPE WHERE IdMPE=@IdMPE"
+            Dim sql As String = "SELECT IdMPE,Descripcion,IdCB,Baja FROM medios_pe WHERE IdMPE=@IdMPE"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -58,9 +58,9 @@ Public Class D_AdminMediosPE
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdMPE,Descripcion,IdCB,Baja FROM TblMediosPE ORDER BY Descripcion"
+                sql = "SELECT IdMPE,Descripcion,IdCB,Baja FROM medios_pe ORDER BY Descripcion"
             Else
-                sql = "SELECT IdMPE,Descripcion,IdCB,Baja FROM TblMediosPE WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
+                sql = "SELECT IdMPE,Descripcion,IdCB,Baja FROM medios_pe WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
