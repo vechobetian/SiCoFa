@@ -27,7 +27,7 @@ Public Class FrmCompras
         Try
 
             Dim AdminDB As New N_AdminDB
-            Dim sql As String = $"SELECT IdOperacion, CONCAT(DATE_FORMAT(Inicio, '%d/%m/%Y %H:%i:%s'),'   |   ',IFNULL(Observaciones, '')) As Descripcion FROM TblOperaciones WHERE IdUsuario = {Me.Usuario.Id} And CodiTO = 'COMPM' And EstadoOperacion = 'GUARDADO'"
+            Dim sql As String = $"SELECT IdOperacion, CONCAT(DATE_FORMAT(Inicio, '%d/%m/%Y %H:%i:%s'),'   |   ',IFNULL(Observaciones, '')) As Descripcion FROM operaciones WHERE IdUsuario = {Me.Usuario.Id} And CodiTO = 'COMPM' And EstadoOperacion = 'GUARDADO'"
             Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
 
             Select Case dt.Rows.Count

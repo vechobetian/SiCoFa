@@ -149,9 +149,9 @@ Public Class FrmCajas
 
         Try
 
-            Dim sql As String = "SELECT * FROM TblCajas ORDER BY IdCaja"
-            Dim TblCajas As DataTable = mAdminDB.ObtenerTabla(sql)
-            Me.DataGridView1.DataSource = TblCajas
+            Dim sql As String = "SELECT * FROM cajas ORDER BY IdCaja"
+            Dim cajas As DataTable = mAdminDB.ObtenerTabla(sql)
+            Me.DataGridView1.DataSource = cajas
 
             If Me.DataGridView1.Rows.Count > 0 Then
                 Dim lastRowIndex As Integer = Me.DataGridView1.Rows.Count - 1
@@ -290,9 +290,9 @@ Public Class FrmCajas
             Dim AdminCajas As New N_AdminCajas
             AdminCajas.CierreCajaTransaccion(g_ParametrosTerminal.MacAddress, objCaja, g_ParametrosTerminal.Empresa, Me.Usuario, objComprobante)
 
-            Dim sql As String = "SELECT * FROM TblCajas ORDER BY IdCaja"
-            Dim TblCajas As DataTable = mAdminDB.ObtenerTabla(sql)
-            Me.DataGridView1.DataSource = TblCajas
+            Dim sql As String = "SELECT * FROM cajas ORDER BY IdCaja"
+            Dim cajas As DataTable = mAdminDB.ObtenerTabla(sql)
+            Me.DataGridView1.DataSource = cajas
 
             ' Opcional: Seleccionar la última caja (la recién abierta)
             If Me.DataGridView1.Rows.Count > 0 Then

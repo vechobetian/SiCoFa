@@ -8,7 +8,7 @@ Public Class D_AdminComprobantes
         Dim objTC As TipoComprobante = Nothing
 
         Try
-            Dim Sql As String = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes WHERE CodiTC = @CodiTC"
+            Dim Sql As String = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM tipo_comprobantes WHERE CodiTC = @CodiTC"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -53,9 +53,9 @@ Public Class D_AdminComprobantes
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes ORDER BY TipoComprobanteCLetra"
+                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM tipo_comprobantes ORDER BY TipoComprobanteCLetra"
             Else
-                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM TblTipoComprobantes WHERE TipoComprobanteCLetra LIKE @TipoComprobante ORDER BY TipoComprobanteCLetra"
+                sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM tipo_comprobantes WHERE TipoComprobanteCLetra LIKE @TipoComprobante ORDER BY TipoComprobanteCLetra"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

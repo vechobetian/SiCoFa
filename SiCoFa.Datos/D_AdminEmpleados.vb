@@ -60,9 +60,9 @@ Public Class D_AdminEmpleados
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdEmpleado,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblEmpleados ORDER BY Nombre"
+                sql = "SELECT IdEmpleado,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM empleados ORDER BY Nombre"
             Else
-                sql = "SELECT IdEmpleado,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblEmpleados WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdEmpleado,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM empleados WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

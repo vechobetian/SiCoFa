@@ -8,15 +8,15 @@ Public Class FrmBuscaOperacionesIniciadas
         Try
 
             Dim sql As String = $"
-            SELECT TblOperaciones.IdOperacion, TblOperaciones.Inicio,
-                   IFNULL(TblClientes.Nombre, 'CONSUMIDOR FINAL NO IDENTIFICADO') AS Nombre
-            FROM TblOperaciones
-            LEFT JOIN TblOperacionesCL ON TblOperaciones.IdOperacion = TblOperacionesCL.IdOperacion
-            LEFT JOIN TblClientes ON TblOperacionesCL.IdCliente = TblClientes.IdCliente
-            WHERE TblOperaciones.IdEmpresa = {argIdEmpresa} AND 
-                  TblOperaciones.IdUsuario = {argIdUsuario} AND
-                  TblOperaciones.CodiTO='{argCodiTO}' AND
-                  TblOperaciones.EstadoOperacion = 'GUARDADO'"
+            SELECT operaciones.IdOperacion, operaciones.Inicio,
+                   IFNULL(clientes.Nombre, 'CONSUMIDOR FINAL NO IDENTIFICADO') AS Nombre
+            FROM operaciones
+            LEFT JOIN TblOperacionesCL ON operaciones.IdOperacion = TblOperacionesCL.IdOperacion
+            LEFT JOIN clientes ON TblOperacionesCL.IdCliente = clientes.IdCliente
+            WHERE operaciones.IdEmpresa = {argIdEmpresa} AND 
+                  operaciones.IdUsuario = {argIdUsuario} AND
+                  operaciones.CodiTO='{argCodiTO}' AND
+                  operaciones.EstadoOperacion = 'GUARDADO'"
 
             Dim OperacionesIniciadas As DataTable = mobj_AdminDB.ObtenerTabla(sql)
 
@@ -82,7 +82,7 @@ Public Class FrmBuscaOperacionesIniciadas
                 Me.Hide()
 
             Case Keys.Delete
-                Dim sql As String = $"DELETE FROM TblOperaciones WHERE IdOperacion= {Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value } "
+                Dim sql As String = $"DELETE FROM operaciones WHERE IdOperacion= {Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value } "
                 Dim eliminado As Boolean = mobj_AdminDB.EliminarRegistros(sql)
 
                 If eliminado Then

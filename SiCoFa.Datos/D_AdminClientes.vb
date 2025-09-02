@@ -9,7 +9,7 @@ Public Class D_AdminClientes
         Dim objCli As Cliente = Nothing
 
         Try
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes WHERE IdCliente=@IdCliente"
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE IdCliente=@IdCliente"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -65,9 +65,9 @@ Public Class D_AdminClientes
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes ORDER BY Nombre"
             Else
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM TblClientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

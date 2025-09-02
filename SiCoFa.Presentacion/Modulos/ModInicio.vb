@@ -59,7 +59,7 @@ Module ModInicio
         Try
 
             Dim obj_AdminDB As New N_AdminDB
-            Dim sqlPater As String = $"SELECT * FROM TblTerminales WHERE MacAddress = '{macAddress}'"
+            Dim sqlPater As String = $"SELECT * FROM terminales WHERE MacAddress = '{macAddress}'"
 
             Dim registroPaTer As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlPater)
 
@@ -68,7 +68,7 @@ Module ModInicio
             End If
 
             Dim IdEmpresa As Int32 = Convert.ToInt32(registroPaTer("IdEmpresa"))
-            Dim sqlEmpresa As String = $"SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM TblEmpresas WHERE IdEmpresa = '{IdEmpresa}'"
+            Dim sqlEmpresa As String = $"SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa = '{IdEmpresa}'"
 
             Dim registroEmpresa As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlEmpresa)
             Dim objEmpresa As New Empresa(

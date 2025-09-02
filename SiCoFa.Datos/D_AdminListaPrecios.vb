@@ -8,7 +8,7 @@ Public Class D_AdminListaPrecios
         Dim objLP As ListaPrecios = Nothing
 
         Try
-            Dim sql As String = "SELECT CodiLP,ListaPrecios,PrecioReferencia,PorcentajeAplicado,NumeroActualizacion,Baja FROM TblListaPrecios WHERE CodiLP=@CodiLP"
+            Dim sql As String = "SELECT CodiLP,ListaPrecios,PrecioReferencia,PorcentajeAplicado,NumeroActualizacion,Baja FROM lista_precios WHERE CodiLP=@CodiLP"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 

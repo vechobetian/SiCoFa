@@ -99,9 +99,9 @@ Public Class FrmComprobantesEmitidos
 
         Try
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = TblComprobantes
+            Me.DataGridView1.DataSource = comprobantes
             Me.ActualizarDetalle()
             Me.ActualizarMenus()
             Me.AjustarAnchoColumnasComprobantes()
@@ -269,8 +269,8 @@ Public Class FrmComprobantesEmitidos
 
             AdminOperaciones.FinalizarOperacion(g_ParametrosTerminal.MacAddress, objCb.Operacion, True)
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
         Catch ex As Exception
             AdminOperaciones.RegistrarError(objCb.Operacion.IdOperacion, ex.ToString)
@@ -320,8 +320,8 @@ Public Class FrmComprobantesEmitidos
             Dim objAdminReporteComprobantes As New ReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
             ' Opcional: Seleccionar la fila con el idOperacion actualizado
             For Each row As DataGridViewRow In Me.DataGridView1.Rows
@@ -393,8 +393,8 @@ Public Class FrmComprobantesEmitidos
                 End With
             End Using
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
             ' Opcional: Seleccionar la fila con el idOperacion actualizado
             For Each row As DataGridViewRow In Me.DataGridView1.Rows

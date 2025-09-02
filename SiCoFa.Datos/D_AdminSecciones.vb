@@ -10,7 +10,7 @@ Public Class D_AdminSecciones
         Dim objSec As Seccion
 
         Try
-            Dim sql As String = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM TblSecciones WHERE IdSeccion=@IdSeccion"
+            Dim sql As String = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM secciones WHERE IdSeccion=@IdSeccion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -53,9 +53,9 @@ Public Class D_AdminSecciones
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM TblSecciones ORDER BY Seccion"
+                sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM secciones ORDER BY Seccion"
             Else
-                sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM TblSecciones WHERE Seccion LIKE @Seccion ORDER BY Seccion"
+                sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM secciones WHERE Seccion LIKE @Seccion ORDER BY Seccion"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

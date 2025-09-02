@@ -95,9 +95,9 @@ Public Class FrmMovimientosCC
 
         Try
 
-            Dim TblOperacionesCC As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Dim operaciones_cc As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = TblOperacionesCC
+            Me.DataGridView1.DataSource = operaciones_cc
             Me.ActualizarDetalle()
             Me.ActualizarMenus()
             Me.AjustarAnchoColumnasComprobantes()
@@ -127,7 +127,7 @@ Public Class FrmMovimientosCC
 
     Private Sub FrmOperacionesCC_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        mAdminDB.ActualizarCampo("TblOperacionesCC", "IdOperaCancel", 0, "IdOperaCancel=-1 AND IdCC=" & Me.CuentaCorriente.IdCC)
+        mAdminDB.ActualizarCampo("operaciones_cc", "IdOperaCancel", 0, "IdOperaCancel=-1 AND IdCC=" & Me.CuentaCorriente.IdCC)
 
     End Sub
 
@@ -171,7 +171,7 @@ Public Class FrmMovimientosCC
             Dim idOperacion As Int64 = Convert.ToInt64(fila.Cells("IdOperacion").Value)
             Dim valorResu As String = Convert.ToString(fila.Cells("Resu").Value)
 
-            mAdminDB.ActualizarCampo("TblOperacionesCC", "IdOperaCancel", valorBD, "IdOperacion=" & idOperacion)
+            mAdminDB.ActualizarCampo("operaciones_cc", "IdOperaCancel", valorBD, "IdOperacion=" & idOperacion)
             Me.MarcarPorResu(valorResu, checkValue)
         End If
     End Sub
@@ -190,7 +190,7 @@ Public Class FrmMovimientosCC
                 fila.Cells("Seleccionar").ReadOnly = True
 
                 Dim idOperacion As Int64 = Convert.ToInt64(fila.Cells("IdOperacion").Value)
-                mAdminDB.ActualizarCampo("TblOperacionesCC", "IdOperaCancel", valorBD, "IdOperacion=" & idOperacion)
+                mAdminDB.ActualizarCampo("operaciones_cc", "IdOperaCancel", valorBD, "IdOperacion=" & idOperacion)
             End If
         Next
         AddHandler DataGridView1.CellValueChanged, AddressOf DataGridView1_CellValueChanged
@@ -326,8 +326,8 @@ Public Class FrmMovimientosCC
                 nuevaVentanaOperacionesCC.ShowDialog()
             End If
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -356,8 +356,8 @@ Public Class FrmMovimientosCC
                 nuevaVentanaOperacionesCC.ShowDialog()
             End If
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -388,8 +388,8 @@ Public Class FrmMovimientosCC
                 nuevaVentanaOperacionesCC.ShowDialog()
             End If
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -426,8 +426,8 @@ Public Class FrmMovimientosCC
                 nuevaVentanaOperacionesCC.ShowDialog()
             End If
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -452,8 +452,8 @@ Public Class FrmMovimientosCC
                 f.ShowDialog()
             End If
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
             ' Opcional: Seleccionar la fila con el idOperacion actualizado
             For Each row As DataGridViewRow In Me.DataGridView1.Rows
@@ -511,8 +511,8 @@ Public Class FrmMovimientosCC
             Dim objAdminReporteComprobantes As New ReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
             ' Opcional: Seleccionar la fila con el idOperacion actualizado
             For Each row As DataGridViewRow In Me.DataGridView1.Rows
@@ -544,10 +544,10 @@ Public Class FrmMovimientosCC
         End If
 
         Dim AdminDB As New N_AdminDB
-        AdminDB.ActualizarCampo("TblOperacionesCC", "Resu", resu, "IdOperacion=" & idOperacion)
+        AdminDB.ActualizarCampo("operaciones_cc", "Resu", resu, "IdOperacion=" & idOperacion)
 
-        Dim TblOperacionesCC As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-        Me.DataGridView1.DataSource = TblOperacionesCC
+        Dim operaciones_cc As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+        Me.DataGridView1.DataSource = operaciones_cc
 
         ' Opcional: Seleccionar la fila con el idOperacion actualizado
         For Each row As DataGridViewRow In Me.DataGridView1.Rows

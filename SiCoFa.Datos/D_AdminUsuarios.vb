@@ -8,7 +8,7 @@ Public Class D_AdminUsuarios
         Dim objUs As Usuario = Nothing
 
         Try
-            Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM TblUsuarios WHERE IdUsuario=@IdUsuario"
+            Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM usuarios WHERE IdUsuario=@IdUsuario"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -59,9 +59,9 @@ Public Class D_AdminUsuarios
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,Password FROM TblUsuarios ORDER BY Nombre"
+                sql = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,Password FROM usuarios ORDER BY Nombre"
             Else
-                sql = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,Password FROM TblUsuarios WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,Password FROM usuarios WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

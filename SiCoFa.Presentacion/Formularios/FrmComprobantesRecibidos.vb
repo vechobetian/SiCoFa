@@ -74,8 +74,8 @@ Public Class FrmComprobantesRecibidos
 
         Try
 
-            Dim TblComprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = TblComprobantes
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
 
             'Me.StartPosition = FormStartPosition.Manual
             'Me.Location = Screen.PrimaryScreen.WorkingArea.Location

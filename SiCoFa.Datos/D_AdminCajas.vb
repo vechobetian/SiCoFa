@@ -106,7 +106,7 @@ Public Class D_AdminCajas
 
         Try
 
-            Dim sql As String = "UPDATE TblOperacionesPE SET EstadoTransaccion='CERRADO' WHERE EstadoTransaccion='EN CAJA'"
+            Dim sql As String = "UPDATE operaciones_pe SET EstadoTransaccion='CERRADO' WHERE EstadoTransaccion='EN CAJA'"
 
             Using cmd As New MySqlCommand(sql, cn, tx)
                 Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()

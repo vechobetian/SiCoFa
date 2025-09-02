@@ -12,7 +12,7 @@ Public Class D_ParametrosSistema
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Dim cmd As New MySqlCommand("SELECT CodiParam, Parametro, Valor, Mostrar FROM TblParametros", cn)
+                Dim cmd As New MySqlCommand("SELECT CodiParam, Parametro, Valor, Mostrar FROM parametros_sistema", cn)
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
                     While dr.Read()
                         lista.Add(New ParametrosSistema With {

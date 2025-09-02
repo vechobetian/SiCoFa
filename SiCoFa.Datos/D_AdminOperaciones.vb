@@ -9,7 +9,7 @@ Public Class D_AdminOperaciones
         Dim objTO As TipoOperacion = Nothing
 
         Try
-            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones WHERE CodiTO=@CodiTO"
+            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM tipo_operaciones WHERE CodiTO=@CodiTO"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -54,7 +54,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones ORDER BY TipoOperacion"
+            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM tipo_operaciones ORDER BY TipoOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 Using cmd As MySqlCommand = cn.CreateCommand
@@ -92,7 +92,7 @@ Public Class D_AdminOperaciones
 
         Try
             ' **CRÍTICO: Usar parámetros SQL para evitar la inyección SQL**
-            Dim sql As String = "UPDATE TblOperaciones SET EstadoOperacion='Error', DesError=@descripcionError WHERE IdOperacion=@idOperacion"
+            Dim sql As String = "UPDATE operaciones SET EstadoOperacion='Error', DesError=@descripcionError WHERE IdOperacion=@idOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -248,7 +248,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Dim sql As String = "SELECT IdOperacion,Inicio,Fin,IdEmpresa,IdPC,IdCaja,IdUsuario,CodiTO,EstadoOperacion,Observaciones,DesError FROM TblOperaciones WHERE IdOperacion=@IdOperacion"
+            Dim sql As String = "SELECT IdOperacion,Inicio,Fin,IdEmpresa,IdPC,IdCaja,IdUsuario,CodiTO,EstadoOperacion,Observaciones,DesError FROM operaciones WHERE IdOperacion=@IdOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -486,20 +486,20 @@ Public Class D_AdminOperaciones
 
             Select Case argCodiTO
                 Case "CCC"
-                    sql = "UPDATE TblOperacionesCC " &
+                    sql = "UPDATE operaciones_cc " &
                       "SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel " &
                       "WHERE IdCC=@IdCC AND EstadoOperacionCC='NO CANCELADO' " &
                       "AND IdOperacion <= @UltimaOperacion"
 
                 Case "CRC"
-                    sql = "UPDATE TblOperacionesCC " &
+                    sql = "UPDATE operaciones_cc " &
                       "SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel " &
                       "WHERE IdCC=@IdCC AND Resu=@Resu " &
                       "AND EstadoOperacionCC='NO CANCELADO' " &
                       "AND IdOperacion <= @UltimaOperacion"
 
                 Case "CFC"
-                    sql = "UPDATE TblOperacionesCC " &
+                    sql = "UPDATE operaciones_cc " &
                       "SET EstadoOperacionCC='CANCELADO', IdOperaCancel=@IdOperaCancel " &
                       "WHERE IdCC=@IdCC AND IdOperaCancel=-1 " &
                       "AND EstadoOperacionCC='NO CANCELADO'"
@@ -592,7 +592,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Dim sql As String = "UPDATE TblOperacionesPE SET EstadoTransaccion = 'ANULADO' WHERE IdOperacion = @IdOperacion"
+            Dim sql As String = "UPDATE operaciones_pe SET EstadoTransaccion = 'ANULADO' WHERE IdOperacion = @IdOperacion"
 
             Using cmd As New MySqlCommand(sql, cn, tx)
                 cmd.CommandType = CommandType.Text

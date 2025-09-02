@@ -178,7 +178,7 @@ Public Class FrmOperacionesCC
     Private Sub BuscarOperacion(ByVal argTextoBuscado As String)
         Try
 
-            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM TblTipoOperaciones WHERE (CodiTO='CCC' OR CodiTO='CRC' OR CodiTO='PCC') AND TipoOperacion LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+            Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM tipo_operaciones WHERE (CodiTO='CCC' OR CodiTO='CRC' OR CodiTO='PCC') AND TipoOperacion LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
             Dim dt As DataTable = mobjAdminDB.ObtenerTabla(sql)
             Me.ReiniciarFormulario()
 
