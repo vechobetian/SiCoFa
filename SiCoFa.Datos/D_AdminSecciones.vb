@@ -100,7 +100,7 @@ Public Class D_AdminSecciones
         Try
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("SeccionInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_seccion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion
                         .Add("_EstablecerPrecio", MySqlDbType.Bit).Value = argEstablecerPrecio
@@ -134,7 +134,7 @@ Public Class D_AdminSecciones
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("SeccionActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_seccion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                         .Add("_Seccion", MySqlDbType.VarChar).Value = argSeccion

@@ -109,10 +109,10 @@ Public Class FrmIngresoMomientosCC
             Dim sql As String = ""
 
             If argTextoBuscado = "*" Then
-                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={cc.IdCC}"
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From vw_saldos_idcc_resu WHERE IdCC={cc.IdCC}"
 
             Else
-                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={cc.IdCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From vw_saldos_idcc_resu WHERE IdCC={cc.IdCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
 
             End If
 
@@ -199,17 +199,17 @@ Public Class FrmIngresoMomientosCC
         If resu = "" Then
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC}"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC}"
             Else
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         Else
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
             Else
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM ConMovimientosCC WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         End If

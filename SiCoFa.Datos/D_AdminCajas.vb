@@ -17,7 +17,7 @@ Public Class D_AdminCajas
                     Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, objTipoOperacion, "", "INICIADO", cn, tx)
 
                     Dim AdminDB As New D_AdminDB
-                    Dim sql As String = $"SELECT IdCB,Importe FROM ConMoviCajaPE WHERE IdCaja={argCaja.IdCaja} AND EstadoTransaccion='EN CAJA'"
+                    Dim sql As String = $"SELECT IdCB,Importe FROM vw_movimientos_caja_pe WHERE IdCaja={argCaja.IdCaja} AND EstadoTransaccion='EN CAJA'"
                     Dim dTable As DataTable = AdminDB.ObtenerTabla(sql)
 
                     For Each row As DataRow In dTable.Rows
@@ -82,7 +82,7 @@ Public Class D_AdminCajas
         Dim IdCaja As Long
         Try
 
-            Using cmd As New MySqlCommand("CajaCerrar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_cierre_caja", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_NCaja", MySqlDbType.VarChar).Value = argNCaja
                     .Add("p_IdCaja", MySqlDbType.Int64)

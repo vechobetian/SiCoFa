@@ -169,7 +169,7 @@ Public Class FrmPermisos
                         {"IdUsuario", idUsuario},
                         {"IdProceso", idProceso}
                     }
-                    AdminDB.InsertarRegistro("TblPermisos", valores)
+                    AdminDB.InsertarRegistro("permisos_usuarios", valores)
                 Catch ex As Exception
                     ' puede ser duplicado
                 End Try
@@ -177,7 +177,7 @@ Public Class FrmPermisos
         Else
             If permisosUsuario.Contains(idProceso) Then
                 permisosUsuario.Remove(idProceso)
-                Dim sqlDelete = $"DELETE FROM TblPermisos WHERE IdUsuario = {idUsuario} AND IdProceso = '{idProceso}'"
+                Dim sqlDelete = $"DELETE FROM permisos_usuarios WHERE IdUsuario = {idUsuario} AND IdProceso = '{idProceso}'"
                 AdminDB.EliminarRegistros(sqlDelete)
             End If
         End If
@@ -186,7 +186,7 @@ Public Class FrmPermisos
     Private Function ObtenerPermisosUsuario(idUsuario As Integer) As HashSet(Of String)
         Dim permisos As New HashSet(Of String)
         Dim AdminDB As New N_AdminDB
-        Dim tabla = AdminDB.ObtenerTabla($"SELECT IdProceso FROM TblPermisos WHERE IdUsuario = {idUsuario}")
+        Dim tabla = AdminDB.ObtenerTabla($"SELECT IdProceso FROM permisos_usuarios WHERE IdUsuario = {idUsuario}")
 
         If tabla IsNot Nothing Then
             For Each fila As DataRow In tabla.Rows

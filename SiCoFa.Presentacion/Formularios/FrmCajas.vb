@@ -71,7 +71,7 @@ Public Class FrmCajas
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
-        Dim sql As String = "SELECT TipoOperacion, CantOperaciones, Importe FROM ConMoviCajaEfectivo WHERE IdCaja = " & idCaja
+        Dim sql As String = "SELECT TipoOperacion, CantOperaciones, Importe FROM vw_movimientos_caja_ef WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
         Me.DataGridView2.DataSource = dt
@@ -96,7 +96,7 @@ Public Class FrmCajas
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
-        Dim sql As String = "SELECT MedioPE, CantOperaciones, Importe,EstadoTransaccion FROM ConMoviCajaPE WHERE IdCaja = " & idCaja
+        Dim sql As String = "SELECT MedioPE, CantOperaciones, Importe,EstadoTransaccion FROM vw_movimientos_caja_pe WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
         Me.DataGridView3.DataSource = dt
@@ -128,7 +128,7 @@ Public Class FrmCajas
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
-        Dim sql As String = "SELECT TipoOperacion, CantOperaciones, Importe FROM ConMoviCajaCC WHERE IdCaja = " & idCaja
+        Dim sql As String = "SELECT TipoOperacion, CantOperaciones, Importe FROM vw_movimientos_caja_cc WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
         Me.DataGridView4.DataSource = dt

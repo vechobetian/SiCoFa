@@ -106,7 +106,7 @@ Public Class D_AdminComprobantes
             Dim objConexionDB As New D_Conexion
             Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes,ImpNeto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
                         ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, TipoDoc, NumDoc, Cliente, ComprobanteAsociado
-                        FROM ConComprobantesEmitidos
+                        FROM vw_comprobantes_emitidos
                         WHERE IdOperacion=@IdOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -209,7 +209,7 @@ Public Class D_AdminComprobantes
 
         Try
 
-            Using cmd As New MySqlCommand("ComprobanteEmitir", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_emitir_comprobante", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)
@@ -265,7 +265,7 @@ Public Class D_AdminComprobantes
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("CAEActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_cae", cn) With {.CommandType = CommandType.StoredProcedure}
                     cmd.CommandType = CommandType.StoredProcedure
                     cmd.Parameters.AddWithValue("p_IdOperacion", argComprobante.Operacion.IdOperacion)
                     cmd.Parameters.AddWithValue("p_NumComp", argComprobante.NumComp)
@@ -305,7 +305,7 @@ Public Class D_AdminComprobantes
 
         Try
 
-            Using cmd As New MySqlCommand("ComprobanteRecibir", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_recibir_comprobante", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .AddWithValue("p_IdOpera", argComprobante.Operacion.IdOperacion)

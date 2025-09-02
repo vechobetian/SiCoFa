@@ -112,7 +112,7 @@ Public Class D_AdminMediosPE
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("MedioPEInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_medio_pe", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
                         .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB
@@ -141,7 +141,7 @@ Public Class D_AdminMediosPE
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("MedioPEActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_medio_pe", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdMPE", MySqlDbType.Int32).Value = argIdMPE
                         .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB

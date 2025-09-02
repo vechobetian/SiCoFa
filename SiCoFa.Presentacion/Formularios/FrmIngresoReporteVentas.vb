@@ -102,7 +102,7 @@
         Dim desdeSql As String = desdeFecha.ToString("yyyy-MM-dd")
         Dim hastaSql As String = hastaFecha.ToString("yyyy-MM-dd")
 
-        sql = $"SELECT Fecha,NOperac,ImpMedioTiket,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE FROM ConReporteVentas WHERE Fecha BETWEEN '{desdeSql}' AND '{hastaSql}'"
+        sql = $"SELECT Fecha,NOperac,ImpMedioTiket,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE FROM vw_reporte_ventas WHERE Fecha BETWEEN '{desdeSql}' AND '{hastaSql}'"
 
         FrmReporteVentas.SQL = sql
         Me.Close()

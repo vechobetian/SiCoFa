@@ -133,7 +133,7 @@ Public Class D_AdminProveedores
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ProveedorInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_proveedor", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -180,7 +180,7 @@ Public Class D_AdminProveedores
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ProveedorActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_proveedor", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdProveedor", MySqlDbType.Int32).Value = argIdProveedor
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio

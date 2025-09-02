@@ -135,7 +135,7 @@ Public Class D_AdminEmpleados
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("EmpleadoInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_empleado", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -180,7 +180,7 @@ Public Class D_AdminEmpleados
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("EmpleadoActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_empleado", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdEmpleado", MySqlDbType.Int32).Value = argIdEmpleado
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio

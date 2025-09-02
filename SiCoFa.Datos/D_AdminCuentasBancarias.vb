@@ -114,7 +114,7 @@ Public Class D_AdminCuentasBancarias
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("CtaBancariaInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_cuenta_bancaria", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
                         .Add("p_NumCuenta", MySqlDbType.VarChar).Value = argNumCuenta
@@ -142,7 +142,7 @@ Public Class D_AdminCuentasBancarias
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("CtaBancariaActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_cuenta_bancaria", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdCB", MySqlDbType.Int32).Value = argIdCB
                         .Add("p_Baja", MySqlDbType.Bit).Value = argBaja

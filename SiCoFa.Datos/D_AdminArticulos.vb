@@ -8,7 +8,7 @@ Public Class D_AdminArticulos
         Dim objArt As Articulo = Nothing
 
         Try
-            Dim sql As String = "SELECT IdArticulo,Codigo,CodBarras,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM ConArticulos WHERE IdArticulo=@IdArticulo"
+            Dim sql As String = "SELECT IdArticulo,Codigo,CodBarras,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM vw_articulos WHERE IdArticulo=@IdArticulo"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -86,7 +86,7 @@ Public Class D_AdminArticulos
         Dim objLA As New List(Of Articulo)
 
         Try
-            Dim sql As String = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM ConArticulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
+            Dim sql As String = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM vw_articulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -174,7 +174,7 @@ Public Class D_AdminArticulos
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ArticuloInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
                         .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
@@ -216,7 +216,7 @@ Public Class D_AdminArticulos
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ArticuloActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
                         .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
@@ -246,7 +246,7 @@ Public Class D_AdminArticulos
 
         Try
 
-            Using cmd As New MySqlCommand("ActualizarStock", cn) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_actualizar_stock", cn) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_EfInv", MySqlDbType.Int16).Value = argEfectoInventario

@@ -134,7 +134,7 @@ Public Class D_AdminOperaciones
 
             Dim objOperacion As Operacion = Nothing
 
-            Using cmd As New MySqlCommand("OperacionIniciar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_iniciar_operacion", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_IdEmpresa", MySqlDbType.Int32).Value = argEmpresa.Id
                     .Add("p_IdUsuario", MySqlDbType.Int32).Value = argUsuario.Id
@@ -183,7 +183,7 @@ Public Class D_AdminOperaciones
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("OperacionActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_operacion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argOperacion.IdOperacion
                         .Add("p_Inicio", MySqlDbType.DateTime).Value = argOperacion.Inicio
@@ -223,7 +223,7 @@ Public Class D_AdminOperaciones
     Friend Function FinalizarOperacion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argCajaAbierta As Boolean, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
         Try
 
-            Using cmd As New MySqlCommand("OperacionFinalizar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_finalizar_operacion", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_MacAddress", MySqlDbType.VarChar).Value = argMacAddress
                     .Add("p_Observaciones", MySqlDbType.VarChar).Value = argOperacion.Observaciones
@@ -350,7 +350,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Using cmd As New MySqlCommand("OperacionCBInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_insertar_operacion_cb", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
@@ -388,7 +388,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cmd As New MySqlCommand("OperacionCLInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_insertar_operacion_cl", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
@@ -412,7 +412,7 @@ Public Class D_AdminOperaciones
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("OperacionCLActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_operacion_cl", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                         .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
@@ -450,7 +450,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Using cmd As New MySqlCommand("OperacionCCInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_insertar_operacion_cc", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
@@ -531,7 +531,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Using cmd As New MySqlCommand("OperacionCPInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_insertar_operacion_cp", cn, tx) With {.CommandType = CommandType.StoredProcedure}
 
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
@@ -569,7 +569,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Using cmd As New MySqlCommand("OperacionPEInsertar", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_insertar_operacion_pe", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_IdMPE", MySqlDbType.Int32).Value = argIdMPE

@@ -49,7 +49,7 @@ Public Class FrmOperacionesCC
         Me.txtOperacion.Tag = "CCC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
 
-        Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+        Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM vw_saldos_idcc WHERE IdCC={mobjCuentaCorriente.IdCC}")
 
         mdecSaldoCC = Convert.ToDecimal(registroSaldoIdCC("Saldo"))
         mlngUltimaOperacionNoCanceladaCC = Convert.ToInt64(registroSaldoIdCC("UltimaOperacionNoCancelada"))
@@ -85,7 +85,7 @@ Public Class FrmOperacionesCC
         Me.txtOperacion.Tag = "CRC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
 
-        Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+        Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM vw_saldos_idcc WHERE IdCC={mobjCuentaCorriente.IdCC}")
 
         mdecSaldoCC = Convert.ToDecimal(registroSaldoIdCC("Saldo"))
         mlngUltimaOperacionNoCanceladaCC = Convert.ToInt64(registroSaldoIdCC("UltimaOperacionNoCancelada"))
@@ -94,7 +94,7 @@ Public Class FrmOperacionesCC
             Exit Sub
         End If
 
-        Dim registroSaldoIdCCResu As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+        Dim registroSaldoIdCCResu As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM vw_saldos_idcc_resu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
 
         mdecSaldoResumen = Convert.ToDecimal(registroSaldoIdCCResu("Saldo"))
         mlngUltimaOperacionNoCanceladaResu = Convert.ToInt64(registroSaldoIdCCResu("UltimaOperacionNoCancelada"))
@@ -131,13 +131,13 @@ Public Class FrmOperacionesCC
         Me.txtOperacion.Tag = "PCC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
 
-        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={mobjCuentaCorriente.IdCC}")
 
         If Me.Resumen = "" Then
             Exit Sub
         End If
 
-        mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+        mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
 
         If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
             MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
@@ -299,7 +299,7 @@ Public Class FrmOperacionesCC
 
             End Select
 
-            Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCC WHERE IdCC={mobjCuentaCorriente.IdCC}")
+            Dim registroSaldoIdCC As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM vw_saldos_idcc WHERE IdCC={mobjCuentaCorriente.IdCC}")
 
             With Me
                 .txtCuentaCorriente.Tag = mobjCuentaCorriente.IdCC
@@ -365,10 +365,10 @@ Public Class FrmOperacionesCC
             Dim sql As String = ""
 
             If argTextoBuscado = "*" Then
-                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={idCC}"
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From vw_saldos_idcc_resu WHERE IdCC={idCC}"
 
             Else
-                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From ConSaldosIdCCResu WHERE IdCC={idCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+                sql = $"SELECT Resu, CONCAT(Resu, '  | ', LPAD(FORMAT(Saldo, 2, 'es_AR'), 12, ' ')) AS ResuImporte From vw_saldos_idcc_resu WHERE IdCC={idCC} AND Resu LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
 
             End If
 
@@ -435,7 +435,7 @@ Public Class FrmOperacionesCC
                 Exit Sub
             End If
 
-            Dim registroSaldoIdCCResu As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM ConSaldosIdCCResu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+            Dim registroSaldoIdCCResu As Dictionary(Of String, Object) = mobjAdminDB.ObtenerRegistro($"SELECT Saldo,UltimaOperacionNoCancelada FROM vw_saldos_idcc_resu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
 
             mdecSaldoResumen = Convert.ToDecimal(registroSaldoIdCCResu("Saldo"))
             mlngUltimaOperacionNoCanceladaResu = Convert.ToInt64(registroSaldoIdCCResu("UltimaOperacionNoCancelada"))

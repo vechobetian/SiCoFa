@@ -144,7 +144,7 @@ Public Class D_AdminClientes
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ClienteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_cliente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -191,7 +191,7 @@ Public Class D_AdminClientes
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("ClienteActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_cliente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdCliente", MySqlDbType.Int32).Value = argIdCliente
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -226,7 +226,7 @@ Public Class D_AdminClientes
         Dim objCC As CuentaCorriente = Nothing
 
         Try
-            Dim sql As String = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM ConCtasCorriente WHERE IdCliente=@IdCliente"
+            Dim sql As String = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente WHERE IdCliente=@IdCliente"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -273,9 +273,9 @@ Public Class D_AdminClientes
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM ConCtasCorriente ORDER BY Descripcion"
+                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente ORDER BY Descripcion"
             Else
-                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM ConCtasCorriente WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
+                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -339,7 +339,7 @@ Public Class D_AdminClientes
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("CtaCorrienteInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_cuenta_corriente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdCliente", MySqlDbType.Int32).Value = argIdCliente
                         .Add("_Descripcion", MySqlDbType.VarChar).Value = argDescripcion
@@ -374,7 +374,7 @@ Public Class D_AdminClientes
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("CtaCorrienteActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_cuenta_corriente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdCC", MySqlDbType.Int32).Value = argIdCC
                         .Add("_Credito", MySqlDbType.Decimal).Value = argCredito

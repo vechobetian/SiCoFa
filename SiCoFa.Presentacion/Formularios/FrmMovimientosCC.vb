@@ -103,14 +103,14 @@ Public Class FrmMovimientosCC
             Me.AjustarAnchoColumnasComprobantes()
             Me.AjustarAnchoColumnasDetalle()
 
-            mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCC WHERE IdCC={Me.CuentaCorriente.IdCC}")
+            mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaCorriente.IdCC}")
             mSaldoAdeudadoItemsSeleccinados = 0
 
             If String.IsNullOrWhiteSpace(Me.ResumenSeleccionado) Then
                 mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
 
             Else
-                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM ConSaldosIdCCResu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
+                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
 
             End If
 

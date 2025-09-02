@@ -154,7 +154,7 @@ Public Class FrmComprobantesEmitidos
     Private Sub ImprimirComprobante(ByVal argNumCopias As Integer)
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -181,7 +181,7 @@ Public Class FrmComprobantesEmitidos
         Try
 
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -244,7 +244,7 @@ Public Class FrmComprobantesEmitidos
             Exit Sub
         End If
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idOperacion As Long = Convert.ToInt64(valor)

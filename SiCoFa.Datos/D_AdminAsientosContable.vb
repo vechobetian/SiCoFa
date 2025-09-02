@@ -107,7 +107,7 @@ Public Class D_AdminAsientosContable
         Dim NumAsiento As Long
 
         Try
-            Using cmd As New MySqlCommand("AsientoContableInsertarAsiento", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_insertar_asiento_contable", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 cmd.Parameters.AddWithValue("p_IdOperacion", argOperacion.IdOperacion)
                 cmd.Parameters.Add("p_NumAsiento", MySqlDbType.Int64)
                 cmd.Parameters("p_NumAsiento").Direction = ParameterDirection.Output
@@ -117,7 +117,7 @@ Public Class D_AdminAsientosContable
 
             For Each iac As ItemAsientoContable In argAsiento.DetalleCuentas
                 If iac.Importe <> 0 Then
-                    Using cmd1 As New MySqlCommand("AsientoContableInsertarCuenta", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+                    Using cmd1 As New MySqlCommand("sp_insertar_cuenta_imputable", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                         With cmd1.Parameters
                             .AddWithValue("p_NumAsiento", NumAsiento)
                             .AddWithValue("p_IdAf", iac.IdAf)

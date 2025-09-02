@@ -135,7 +135,7 @@ Public Class D_AdminUsuarios
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("UsuarioInsertar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_insertar_usuario", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -181,7 +181,7 @@ Public Class D_AdminUsuarios
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("UsuarioActualizar", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_actualizar_usuario", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
                         .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
@@ -213,7 +213,7 @@ Public Class D_AdminUsuarios
             Dim objConexionDB As New D_Conexion
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
-                Using cmd As New MySqlCommand("VerificarAutorizacionProceso", cn) With {.CommandType = CommandType.StoredProcedure}
+                Using cmd As New MySqlCommand("sp_verificar_autorizacion_proceso", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
                         .Add("p_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
                         .Add("p_Password", MySqlDbType.VarChar).Value = argPassword
