@@ -921,7 +921,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function AnularPagoTransaccion(ByVal argIdOperacion As Long, ByVal argUsuario As Usuario) As Boolean
+    Public Function AnularPagoTransaccion(ByVal argIdOperacion As Long, ByVal argUsuario As Usuario, ByVal argCodiTO As String) As Boolean
         Dim objConexionDB As New D_Conexion
 
         Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
@@ -929,6 +929,13 @@ Public Class D_AdminOperaciones
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
                 Try
+
+                    Dim AdminDB As New D_AdminDB
+                    Dim EstadoOperacionCC As String = AdminDB.ObtenerValor($"SELECT EstadoOperacionCC FROM operacion_cc WHERE IdOperacion={argIdOperacion}")
+
+                    If argCodiTO = "PCC" And EstadoOperacionCC = "CANCELADO" Then
+                        Throw New Exception("La operacion seleccionada es un Pago a cuenta de un Resumen Cancelado")
+                    End If
 
                     ' 1) Anular operacion
                     Dim sqlOperaciones As String =

@@ -287,4 +287,15 @@ Public Class N_AdminOperaciones
 
     End Function
 
+    Public Function AnularPagoTransaccion(ByVal argIdOperacion As Long, ByVal argUsuario As Usuario, ByVal argCodiTO As String) As Boolean
+        Try
+            Dim AdminOperaciones As New D_AdminOperaciones
+            Dim Finalizado As Boolean = AdminOperaciones.AnularPagoTransaccion(argIdOperacion, argUsuario, argCodiTO)
+            Return Finalizado
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "AnularPagoTransaccion", ex.Message))
+
+        End Try
+    End Function
 End Class

@@ -442,6 +442,11 @@ Public Class FrmComprobantesEmitidos
             Exit Sub
         End If
 
+        Dim User As Usuario = ModSeguridad.ValidarUsuario("ANULAR_COMPROBANTE")
+        If User Is Nothing Then
+            Exit Sub
+        End If
+
         Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
@@ -449,9 +454,21 @@ Public Class FrmComprobantesEmitidos
         Dim AdminOperaciones As New N_AdminOperaciones
 
         Try
+            Dim codiTO As String = Me.DataGridView1.CurrentRow.Cells("CodiTO").Value
 
-            'AdminOperaciones.FinalizarOperacion(g_ParametrosTerminal.MacAddress, objCb.Operacion, True)
+            AdminOperaciones.AnularPagoTransaccion(idOperacion, User, codiTO)
 
+            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = comprobantes
+
+            ' Opcional: Seleccionar la fila con el idOperacion actualizado
+            For Each row As DataGridViewRow In Me.DataGridView1.Rows
+                If Convert.ToInt64(row.Cells(2).Value) = idOperacion Then
+                    row.Selected = True
+                    Me.DataGridView1.CurrentCell = row.Cells(2)
+                    Exit For
+                End If
+            Next
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
