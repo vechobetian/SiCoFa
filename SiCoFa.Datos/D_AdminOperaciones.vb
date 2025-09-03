@@ -921,4 +921,61 @@ Public Class D_AdminOperaciones
 
     End Function
 
+    Public Function AnularPagoTransaccion(ByVal argIdOperacion As Long, ByVal argUsuario As Usuario) As Boolean
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+
+                    ' 1) Anular operacion
+                    Dim sqlOperaciones As String =
+                    $"UPDATE operaciones 
+                     SET EstadoOperacion = 'ANULADO',Observaciones='Operacion anulada por el Usuario: {argUsuario.Id}'
+                     WHERE IdOperacion = @IdOperacion"
+
+                    Using cmd As New MySqlCommand(sqlOperaciones, cn, tx)
+                        cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' 2) Anular operacion_cc
+                    Dim sqlOperacionesCC As String =
+                    "UPDATE operaciones_cc 
+                     SET EstadoOperacionCC = 'ANULADO' 
+                     WHERE IdOperacion = @IdOperacion"
+
+                    Using cmd As New MySqlCommand(sqlOperacionesCC, cn, tx)
+                        cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' 2) Restablecer operacion_cc canceladas
+                    Dim sqlOperacionesCCARestablecer As String =
+                    "UPDATE operaciones_cc 
+                     SET EstadoOperacionCC = 'NO CANCELADO' 
+                     WHERE IdOperaCancel = @IdOperacion"
+
+                    Using cmd As New MySqlCommand(sqlOperacionesCCARestablecer, cn, tx)
+                        cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "AnularPagoTransaccion", ex.Message), ex)
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
 End Class

@@ -18,6 +18,12 @@ Public Class FrmComprobantesEmitidos
             Me.mnuOperacionesRecuperarComprobante.Visible = False
         End If
 
+        If Me.DataGridView1.CurrentRow.Cells("CodiTO").Value = "VTAM" Then
+            Me.mnuOperacionesNC.Visible = True
+        Else
+            Me.mnuOperacionesNC.Visible = False
+        End If
+
         If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "RTOX" Then
             Me.mnuOperacionesFacturarRemito.Visible = True
         Else
@@ -28,6 +34,12 @@ Public Class FrmComprobantesEmitidos
             Me.mnuOperacionesFacturarPresupuesto.Visible = True
         Else
             Me.mnuOperacionesFacturarPresupuesto.Visible = False
+        End If
+
+        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "REC" Then
+            Me.mnuOperacionesAnularReciboDePago.Visible = True
+        Else
+            Me.mnuOperacionesAnularReciboDePago.Visible = False
         End If
 
     End Sub
@@ -55,11 +67,11 @@ Public Class FrmComprobantesEmitidos
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
-            If DataGridView1.ColumnCount = 18 Then
+            If DataGridView1.ColumnCount = 19 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.15R, 0.06R, 0.04R, 0.05R, 0.05R, 0.05R, 0.05R, 0.07R, 0.05R, 0.18R, 0.0R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.15R, 0.06R, 0.04R, 0.05R, 0.05R, 0.05R, 0.05R, 0.07R, 0.05R, 0.18R, 0.0R, 0.0R}
 
-                For i As Integer = 0 To 17
+                For i As Integer = 0 To 18
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
 
@@ -420,4 +432,31 @@ Public Class FrmComprobantesEmitidos
         Me.FacturarPresupuesto(Keys.F9)
     End Sub
 
+    Private Sub mnuOperacionesAnularReciboDePago_Click(sender As Object, e As EventArgs) Handles mnuOperacionesAnularReciboDePago.Click
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+
+        Dim estadoOperacion As String = Me.DataGridView1.CurrentRow.Cells("EstadoOperacion").Value
+
+        If estadoOperacion <> "FINALIZADO" Then
+            MsgBox("Solo se puede anular pagos con estado FINALIZADO", vbInformation, "SiCoFa")
+            Exit Sub
+        End If
+
+        Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+        Dim idOperacion As Long = Convert.ToInt64(valor)
+        Dim AdminOperaciones As New N_AdminOperaciones
+
+        Try
+
+            'AdminOperaciones.FinalizarOperacion(g_ParametrosTerminal.MacAddress, objCb.Operacion, True)
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
 End Class
