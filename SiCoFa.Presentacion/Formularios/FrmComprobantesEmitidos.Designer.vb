@@ -69,6 +69,8 @@ Partial Class FrmComprobantesEmitidos
         Me.CodiTC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperAsoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Operacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdUsuario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TipoComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -355,7 +357,7 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTC, Me.IdOperAsoc, Me.IdOperacion, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Cliente, Me.ImpBto, Me.ImpDes, Me.ImpNeto, Me.ImpEf, Me.ImpCC, Me.ImpPE, Me.ComprobanteAsociado, Me.EstadoOperacion, Me.Observaciones, Me.DescripcionError, Me.CodiTO})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTC, Me.IdOperAsoc, Me.IdOperacion, Me.Operacion, Me.IdUsuario, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Cliente, Me.ImpBto, Me.ImpDes, Me.ImpNeto, Me.ImpEf, Me.ImpCC, Me.ImpPE, Me.ComprobanteAsociado, Me.EstadoOperacion, Me.Observaciones, Me.DescripcionError, Me.CodiTO})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
@@ -387,6 +389,20 @@ Partial Class FrmComprobantesEmitidos
         Me.IdOperacion.HeaderText = "IdOperacion"
         Me.IdOperacion.Name = "IdOperacion"
         Me.IdOperacion.ReadOnly = True
+        '
+        'Operacion
+        '
+        Me.Operacion.DataPropertyName = "Operacion"
+        Me.Operacion.HeaderText = "Operacion"
+        Me.Operacion.Name = "Operacion"
+        Me.Operacion.ReadOnly = True
+        '
+        'IdUsuario
+        '
+        Me.IdUsuario.DataPropertyName = "IdUsuario"
+        Me.IdUsuario.HeaderText = "IdUsuario"
+        Me.IdUsuario.Name = "IdUsuario"
+        Me.IdUsuario.ReadOnly = True
         '
         'TipoComprobante
         '
@@ -579,6 +595,8 @@ Partial Class FrmComprobantesEmitidos
     Friend WithEvents CodiTC As DataGridViewTextBoxColumn
     Friend WithEvents IdOperAsoc As DataGridViewTextBoxColumn
     Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
+    Friend WithEvents Operacion As DataGridViewTextBoxColumn
+    Friend WithEvents IdUsuario As DataGridViewTextBoxColumn
     Friend WithEvents TipoComprobante As DataGridViewTextBoxColumn
     Friend WithEvents FechaComp As DataGridViewTextBoxColumn
     Friend WithEvents PVenta As DataGridViewTextBoxColumn

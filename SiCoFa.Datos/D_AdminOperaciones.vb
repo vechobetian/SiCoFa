@@ -931,7 +931,7 @@ Public Class D_AdminOperaciones
                 Try
 
                     Dim AdminDB As New D_AdminDB
-                    Dim EstadoOperacionCC As String = AdminDB.ObtenerValor($"SELECT EstadoOperacionCC FROM operacion_cc WHERE IdOperacion={argIdOperacion}")
+                    Dim EstadoOperacionCC As String = AdminDB.ObtenerValor($"SELECT EstadoOperacionCC FROM operaciones_cc WHERE IdOperacion={argIdOperacion}")
 
                     If argCodiTO = "PCC" And EstadoOperacionCC = "CANCELADO" Then
                         Throw New Exception("La operacion seleccionada es un Pago a cuenta de un Resumen Cancelado")

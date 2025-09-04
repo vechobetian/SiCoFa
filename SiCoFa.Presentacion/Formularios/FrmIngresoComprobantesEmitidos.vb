@@ -304,16 +304,16 @@ Public Class FrmIngresoComprobantesEmitidos
         Dim hastaSql As String = hastaFecha.ToString("yyyy-MM-dd")
 
         If Me.txtCliente.Tag.ToString = "" And Me.txtTipoComprobante.Tag.ToString = "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,Operacion,IdUsuario,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
         ElseIf Me.txtCliente.Tag.ToString <> "" And Me.txtTipoComprobante.Tag.ToString = "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,Operacion,IdUsuario,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
         ElseIf Me.txtCliente.Tag.ToString = "" And Me.txtTipoComprobante.Tag.ToString <> "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,Operacion,IdUsuario,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
         ElseIf Me.txtCliente.Tag.ToString <> "" And Me.txtTipoComprobante.Tag.ToString <> "" Then
-            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
+            sql = $"SELECT IdOperacion,CodiTC,IdOperAsoc,Operacion,IdUsuario,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos WHERE CodiTC='{Me.txtTipoComprobante.Tag.ToString}' AND IdCliente={Convert.ToInt32(Me.txtCliente.Tag)} AND FechaComp BETWEEN '{desdeSql}' AND '{hastaSql}' ORDER BY IdOperacion"
 
         End If
 
