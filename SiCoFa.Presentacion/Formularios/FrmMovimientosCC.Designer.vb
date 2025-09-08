@@ -73,9 +73,8 @@ Partial Class FrmMovimientosCC
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Operacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Resu = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TipoComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Comprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NumComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ComprobanteAsociado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Observaciones = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -233,7 +232,7 @@ Partial Class FrmMovimientosCC
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTO, Me.CodiTC, Me.Seleccionar, Me.IdOperacion, Me.Operacion, Me.Resu, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.ComprobanteAsociado, Me.Observaciones, Me.Importe, Me.EstadoOperacionCC})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTO, Me.CodiTC, Me.Seleccionar, Me.IdOperacion, Me.Operacion, Me.Resu, Me.Comprobante, Me.FechaComp, Me.NumComp, Me.ComprobanteAsociado, Me.Observaciones, Me.Importe, Me.EstadoOperacionCC})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
@@ -387,7 +386,7 @@ Partial Class FrmMovimientosCC
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.87716!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.12284!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 496.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 500.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaCorriente, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblImporteAdeudadoItemsSeleccionados, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoCuentaCorriente, 1, 0)
@@ -428,7 +427,7 @@ Partial Class FrmMovimientosCC
         Me.lblSaldoCuentaCorriente.AutoSize = True
         Me.lblSaldoCuentaCorriente.Dock = System.Windows.Forms.DockStyle.Left
         Me.lblSaldoCuentaCorriente.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaldoCuentaCorriente.Location = New System.Drawing.Point(681, 3)
+        Me.lblSaldoCuentaCorriente.Location = New System.Drawing.Point(678, 3)
         Me.lblSaldoCuentaCorriente.Name = "lblSaldoCuentaCorriente"
         Me.lblSaldoCuentaCorriente.Size = New System.Drawing.Size(214, 21)
         Me.lblSaldoCuentaCorriente.TabIndex = 0
@@ -476,12 +475,12 @@ Partial Class FrmMovimientosCC
         Me.Resu.Name = "Resu"
         Me.Resu.ReadOnly = True
         '
-        'TipoComprobante
+        'Comprobante
         '
-        Me.TipoComprobante.DataPropertyName = "TipoComprobante"
-        Me.TipoComprobante.HeaderText = "Comprobante"
-        Me.TipoComprobante.Name = "TipoComprobante"
-        Me.TipoComprobante.ReadOnly = True
+        Me.Comprobante.DataPropertyName = "Comprobante"
+        Me.Comprobante.HeaderText = "Comprobante"
+        Me.Comprobante.Name = "Comprobante"
+        Me.Comprobante.ReadOnly = True
         '
         'FechaComp
         '
@@ -489,13 +488,6 @@ Partial Class FrmMovimientosCC
         Me.FechaComp.HeaderText = "Fecha"
         Me.FechaComp.Name = "FechaComp"
         Me.FechaComp.ReadOnly = True
-        '
-        'PVenta
-        '
-        Me.PVenta.DataPropertyName = "PVenta"
-        Me.PVenta.HeaderText = "P.Venta"
-        Me.PVenta.Name = "PVenta"
-        Me.PVenta.ReadOnly = True
         '
         'NumComp
         '
@@ -600,9 +592,8 @@ Partial Class FrmMovimientosCC
     Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
     Friend WithEvents Operacion As DataGridViewTextBoxColumn
     Friend WithEvents Resu As DataGridViewTextBoxColumn
-    Friend WithEvents TipoComprobante As DataGridViewTextBoxColumn
+    Friend WithEvents Comprobante As DataGridViewTextBoxColumn
     Friend WithEvents FechaComp As DataGridViewTextBoxColumn
-    Friend WithEvents PVenta As DataGridViewTextBoxColumn
     Friend WithEvents NumComp As DataGridViewTextBoxColumn
     Friend WithEvents ComprobanteAsociado As DataGridViewTextBoxColumn
     Friend WithEvents Observaciones As DataGridViewTextBoxColumn

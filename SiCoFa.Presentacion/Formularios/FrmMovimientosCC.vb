@@ -51,11 +51,11 @@ Public Class FrmMovimientosCC
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
-            If DataGridView1.ColumnCount = 14 Then
+            If DataGridView1.ColumnCount = 13 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.01R, 0.05R, 0.1R, 0.04R, 0.1R, 0.04R, 0.03R, 0.04R, 0.07R, 0.4R, 0.05R, 0.07R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.01R, 0.04R, 0.1R, 0.02R, 0.1R, 0.04R, 0.05R, 0.07R, 0.45R, 0.05R, 0.07R}
 
-                For i As Integer = 0 To 13
+                For i As Integer = 0 To 12
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
 

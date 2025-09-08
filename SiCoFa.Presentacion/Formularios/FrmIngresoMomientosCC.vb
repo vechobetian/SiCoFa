@@ -199,17 +199,17 @@ Public Class FrmIngresoMomientosCC
         If resu = "" Then
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC}"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC}"
             Else
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         Else
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
             Else
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, TipoComprobante, FechaComp, PVenta, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         End If
