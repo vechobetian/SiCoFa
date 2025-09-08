@@ -375,7 +375,7 @@ Public Class FrmPagos
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
 
             If FrmOrigen IsNot Nothing Then
-                Dim nuevaVentanaVentas As New FrmPresupuestos()
+                Dim nuevaVentanaVentas As New FrmVentas
                 nuevaVentanaVentas.Usuario = Me.Operacion.Usuario
                 nuevaVentanaVentas.Show()
 

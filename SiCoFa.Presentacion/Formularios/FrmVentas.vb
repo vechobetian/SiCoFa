@@ -154,7 +154,7 @@ Public Class FrmVentas
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
-            If argTecla = Keys.F8 OrElse argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
+            If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
 
                 Using FPagos As New FrmPagos
                     Dim AdminComprobantes As New N_AdminComprobantes

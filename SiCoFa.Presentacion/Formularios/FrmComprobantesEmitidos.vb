@@ -447,6 +447,16 @@ Public Class FrmComprobantesEmitidos
             Exit Sub
         End If
 
+        Dim NComp As String = Me.DataGridView1.CurrentRow.Cells("NumComp").Value
+
+        If MessageBox.Show("Esta por anular el Recibo N° " & NComp,
+                   "SiCoFa",
+                   MessageBoxButtons.OKCancel,
+                   MessageBoxIcon.Question,
+                   MessageBoxDefaultButton.Button2) = DialogResult.Cancel Then
+            Exit Sub
+        End If
+
         Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
