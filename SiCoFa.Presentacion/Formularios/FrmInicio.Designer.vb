@@ -47,9 +47,9 @@ Partial Class FrmInicio
         Me.mnuAuditoriaComprobantesEmitidos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaComprobantesRecibidos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaReporteVentas = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CuentaProveedoresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CuentasBancariaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CuentaEmpleadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaCuentasProveedores = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaCuentasBancarias = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaCuentasEmpleados = New System.Windows.Forms.ToolStripMenuItem()
         Me.MovimientoDeProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RankingDeVentaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
@@ -193,7 +193,7 @@ Partial Class FrmInicio
         '
         'mnuAuditoria
         '
-        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAuditoriaCuentasCorrientes, Me.mnuAuditoriaComprobantes, Me.mnuAuditoriaReporteVentas, Me.CuentaProveedoresToolStripMenuItem, Me.CuentasBancariaToolStripMenuItem, Me.CuentaEmpleadosToolStripMenuItem, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
+        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAuditoriaCuentasCorrientes, Me.mnuAuditoriaComprobantes, Me.mnuAuditoriaReporteVentas, Me.mnuAuditoriaCuentasProveedores, Me.mnuAuditoriaCuentasBancarias, Me.mnuAuditoriaCuentasEmpleados, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
         Me.mnuAuditoria.Name = "mnuAuditoria"
         Me.mnuAuditoria.Size = New System.Drawing.Size(68, 20)
         Me.mnuAuditoria.Text = "&Auditoría"
@@ -229,23 +229,23 @@ Partial Class FrmInicio
         Me.mnuAuditoriaReporteVentas.Size = New System.Drawing.Size(205, 22)
         Me.mnuAuditoriaReporteVentas.Text = "Reporte de &Ventas"
         '
-        'CuentaProveedoresToolStripMenuItem
+        'mnuAuditoriaCuentasProveedores
         '
-        Me.CuentaProveedoresToolStripMenuItem.Name = "CuentaProveedoresToolStripMenuItem"
-        Me.CuentaProveedoresToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.CuentaProveedoresToolStripMenuItem.Text = "Cuenta Provee&dores"
+        Me.mnuAuditoriaCuentasProveedores.Name = "mnuAuditoriaCuentasProveedores"
+        Me.mnuAuditoriaCuentasProveedores.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaCuentasProveedores.Text = "Cuenta Provee&dores"
         '
-        'CuentasBancariaToolStripMenuItem
+        'mnuAuditoriaCuentasBancarias
         '
-        Me.CuentasBancariaToolStripMenuItem.Name = "CuentasBancariaToolStripMenuItem"
-        Me.CuentasBancariaToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.CuentasBancariaToolStripMenuItem.Text = "Cuentas &Bancarias"
+        Me.mnuAuditoriaCuentasBancarias.Name = "mnuAuditoriaCuentasBancarias"
+        Me.mnuAuditoriaCuentasBancarias.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaCuentasBancarias.Text = "Cuentas &Bancarias"
         '
-        'CuentaEmpleadosToolStripMenuItem
+        'mnuAuditoriaCuentasEmpleados
         '
-        Me.CuentaEmpleadosToolStripMenuItem.Name = "CuentaEmpleadosToolStripMenuItem"
-        Me.CuentaEmpleadosToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.CuentaEmpleadosToolStripMenuItem.Text = "Cuenta &Empleados"
+        Me.mnuAuditoriaCuentasEmpleados.Name = "mnuAuditoriaCuentasEmpleados"
+        Me.mnuAuditoriaCuentasEmpleados.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaCuentasEmpleados.Text = "Cuenta &Empleados"
         '
         'MovimientoDeProductosToolStripMenuItem
         '
@@ -403,9 +403,9 @@ Partial Class FrmInicio
     Friend WithEvents mnuAuditoriaCuentasCorrientes As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantes As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaReporteVentas As ToolStripMenuItem
-    Friend WithEvents CuentaProveedoresToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CuentasBancariaToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CuentaEmpleadosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaCuentasProveedores As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaCuentasBancarias As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaCuentasEmpleados As ToolStripMenuItem
     Friend WithEvents MovimientoDeProductosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RankingDeVentaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuSistemaPTerminal As ToolStripMenuItem

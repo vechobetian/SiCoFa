@@ -177,7 +177,7 @@ Public Class FrmIngresoMomientosCC
         End Try
     End Sub
 
-    Private Sub btnMostrarComprobantes_Click(sender As Object, e As EventArgs) Handles btnMostrarComprobantes.Click
+    Private Sub btnMostrarComprobantes_Click(sender As Object, e As EventArgs) Handles btnMostrarMovimientos.Click
 
         If Me.txtCuentaCorriente.Tag Is Nothing Then
             MsgBox("No se estableció ninguna Cuenta Corriente válida", vbCritical, "SiCoFa")

@@ -26,7 +26,7 @@ Partial Class FrmIngresoMomientosCB
         Me.txtCuentaBancaria = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.btnMostrarComprobantes = New System.Windows.Forms.Button()
+        Me.btnMostrarMovimientos = New System.Windows.Forms.Button()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.txtResumen = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
@@ -59,14 +59,14 @@ Partial Class FrmIngresoMomientosCB
         Me.Label6.TabIndex = 14
         Me.Label6.Text = "Resumen:"
         '
-        'btnMostrarComprobantes
+        'btnMostrarMovimientos
         '
-        Me.btnMostrarComprobantes.Location = New System.Drawing.Point(593, 104)
-        Me.btnMostrarComprobantes.Name = "btnMostrarComprobantes"
-        Me.btnMostrarComprobantes.Size = New System.Drawing.Size(131, 23)
-        Me.btnMostrarComprobantes.TabIndex = 3
-        Me.btnMostrarComprobantes.Text = "&Mostrar Comprobantes"
-        Me.btnMostrarComprobantes.UseVisualStyleBackColor = True
+        Me.btnMostrarMovimientos.Location = New System.Drawing.Point(593, 104)
+        Me.btnMostrarMovimientos.Name = "btnMostrarMovimientos"
+        Me.btnMostrarMovimientos.Size = New System.Drawing.Size(131, 23)
+        Me.btnMostrarMovimientos.TabIndex = 3
+        Me.btnMostrarMovimientos.Text = "&Mostrar Comprobantes"
+        Me.btnMostrarMovimientos.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
@@ -93,13 +93,13 @@ Partial Class FrmIngresoMomientosCB
         Me.ClientSize = New System.Drawing.Size(750, 143)
         Me.Controls.Add(Me.txtResumen)
         Me.Controls.Add(Me.CheckBox1)
-        Me.Controls.Add(Me.btnMostrarComprobantes)
+        Me.Controls.Add(Me.btnMostrarMovimientos)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtCuentaBancaria)
         Me.Name = "FrmIngresoMomientosCB"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Comprobantes Emitidos"
+        Me.Text = "Movimientos Cuenta Bancaria"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -107,7 +107,7 @@ Partial Class FrmIngresoMomientosCB
     Friend WithEvents txtCuentaBancaria As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents btnMostrarComprobantes As Button
+    Friend WithEvents btnMostrarMovimientos As Button
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents txtResumen As TextBox
 End Class

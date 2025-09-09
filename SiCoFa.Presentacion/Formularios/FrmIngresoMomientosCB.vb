@@ -44,6 +44,7 @@ Public Class FrmIngresoMomientosCB
 
             If lcb Is Nothing Then
                 MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
+                Me.txtCuentaBancaria.Tag = Nothing
                 Me.txtCuentaBancaria.Text = ""
                 Me.txtCuentaBancaria.Select()
                 Exit Sub
@@ -52,6 +53,9 @@ Public Class FrmIngresoMomientosCB
             Select Case lcb.Count
                 Case 0
                     MsgBox("Cuenta no Encontrada", vbInformation, "SiCoFa")
+                    Me.txtCuentaBancaria.Tag = Nothing
+                    Me.txtCuentaBancaria.Text = ""
+                    Me.txtCuentaBancaria.Select()
                     Exit Sub
 
                 Case 1
@@ -68,7 +72,7 @@ Public Class FrmIngresoMomientosCB
                         If f.ShowDialog() = DialogResult.OK Then
                             cb = Me.SeleccionarCuentaBancariaListado(f.Valor1Seleccionado, lcb)
                         Else
-                            Me.txtCuentaBancaria.Tag = ""
+                            Me.txtCuentaBancaria.Tag = Nothing
                             Me.txtCuentaBancaria.Text = ""
                             Me.txtCuentaBancaria.Select()
                             Exit Sub
@@ -78,8 +82,11 @@ Public Class FrmIngresoMomientosCB
                     End Using ' <- aquí se libera completamente
             End Select
 
-            Me.txtCuentaBancaria.Tag = cb.IdCB
-            Me.txtCuentaBancaria.Text = cb.Descripcion
+            With Me
+                .LimpiarFormulario()
+                Me.txtCuentaBancaria.Tag = cb
+                Me.txtCuentaBancaria.Text = cb.Descripcion
+            End With
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -90,6 +97,12 @@ Public Class FrmIngresoMomientosCB
 
     Private Sub txtCuenaBancaria_Validating(sender As Object, e As CancelEventArgs) Handles txtCuentaBancaria.Validating
         Try
+
+            If String.IsNullOrEmpty(Me.txtCuentaBancaria.Text) Then
+                MsgBox("Cuenta Bancaria es un dato requerido", vbCritical, "SiCoFa")
+                e.Cancel = True
+                Exit Sub
+            End If
 
             Me.BuscarCuentaBancaria(Me.txtCuentaBancaria.Text)
 
@@ -120,7 +133,7 @@ Public Class FrmIngresoMomientosCB
         End Try
     End Sub
 
-    Private Sub btnMostrarComprobantes_Click(sender As Object, e As EventArgs) Handles btnMostrarComprobantes.Click
+    Private Sub btnMostrarMovimientos_Click(sender As Object, e As EventArgs) Handles btnMostrarMovimientos.Click
 
         If Me.txtCuentaBancaria.Tag Is Nothing Then
             MsgBox("No se estableció ninguna Cuenta Corriente válida", vbCritical, "SiCoFa")
@@ -130,43 +143,43 @@ Public Class FrmIngresoMomientosCB
         Dim resu As String = Me.txtResumen.Text
 
         Dim sql As String = ""
-        Dim cc As CuentaCorriente = Nothing
+        Dim cb As CuentaBancaria = Nothing
 
         If txtCuentaBancaria.Tag IsNot Nothing Then
-            cc = DirectCast(txtCuentaBancaria.Tag, CuentaCorriente)
+            cb = DirectCast(txtCuentaBancaria.Tag, CuentaBancaria)
         Else
-            MsgBox("No se pudo establecer la cuenta corriente", vbCritical, "SiCoFa")
+            MsgBox("No se pudo establecer la cuenta", vbCritical, "SiCoFa")
             Me.txtCuentaBancaria.Text = ""
         End If
 
         If resu = "" Then
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC}"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB}"
             Else
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB} AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         Else
 
             If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB} AND Resu='{resu}'"
             Else
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cc.IdCC} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
+                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
             End If
 
         End If
 
-        With FrmMovimientosCC
+        With FrmMovimientosCB
             .SQL = sql
             .ResumenSeleccionado = resu
-            .CuentaCorriente = cc
-            .DescripcionCuentaCorriente = Me.txtCuentaBancaria.Text
+            .CuentaBancaria = cb
+            .DescripcionCuentaBancaria = Me.txtCuentaBancaria.Text
         End With
 
         Me.Close()
-        FrmMovimientosCC.Show()
-        FrmMovimientosCC.BringToFront()
+        FrmMovimientosCB.Show()
+        FrmMovimientosCB.BringToFront()
 
     End Sub
 

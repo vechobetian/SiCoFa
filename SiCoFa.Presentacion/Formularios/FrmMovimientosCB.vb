@@ -3,9 +3,9 @@ Imports SiCoFa.Entidades
 
 Public Class FrmMovimientosCB
 
-    Property CuentaCorriente As CuentaCorriente = Nothing
+    Property CuentaBancaria As CuentaBancaria = Nothing
 
-    Property DescripcionCuentaCorriente As String = ""
+    Property DescripcionCuentaBancaria As String = ""
 
     Property ResumenSeleccionado As String = ""
 
@@ -50,7 +50,7 @@ Public Class FrmMovimientosCB
 
     End Sub
 
-    Private Sub FrmComprobantesEmitidos_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmMovimientosCB_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
 
@@ -60,18 +60,18 @@ Public Class FrmMovimientosCB
             Me.ActualizarMenus()
             Me.AjustarAnchoColumnasComprobantes()
 
-            mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaCorriente.IdCC}")
+            mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaBancaria.IdCB}")
             mSaldoAdeudadoItemsSeleccinados = 0
 
             If String.IsNullOrWhiteSpace(Me.ResumenSeleccionado) Then
                 mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
 
             Else
-                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
+                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaBancaria.IdCB} AND Resu='{Me.ResumenSeleccionado}'")
 
             End If
 
-            Me.lblDescripcionCuentaCorriente.Text = "Cuenta Corriente: " & Me.DescripcionCuentaCorriente
+            Me.lblDescripcionCuentaCorriente.Text = "Cuenta Corriente: " & Me.DescripcionCuentaBancaria
             Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: " & mSaldoAdeudadoCuentaCorriente.ToString("N2")
             Me.lblImporteAdeudadoItemsSeleccionados.Text = "Importe Adeudado Items Seleccionados: " & mSaldoAdeudadoItemsSeleccinados.ToString("N2")
 
@@ -84,7 +84,7 @@ Public Class FrmMovimientosCB
 
     Private Sub FrmOperacionesCC_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        mAdminDB.ActualizarCampo("operaciones_cc", "IdOperaCancel", 0, "IdOperaCancel=-1 AND IdCC=" & Me.CuentaCorriente.IdCC)
+        mAdminDB.ActualizarCampo("operaciones_cc", "IdOperaCancel", 0, "IdOperaCancel=-1 AND IdCC=" & Me.CuentaBancaria.IdCB)
 
     End Sub
 
@@ -258,137 +258,6 @@ Public Class FrmMovimientosCB
 
     Private Sub mnuArchivoSalir_Click(sender As Object, e As EventArgs) Handles mnuArchivoSalir.Click
         Me.Close()
-    End Sub
-
-    Private Sub mnuOperacionesCancelarCuenta_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCancelarCuenta.Click
-        Try
-            If mSaldoAdeudadoCuentaCorriente <= 0 Then
-                MsgBox("El Saldo de la Cuenta Corriente es " & mSaldoAdeudadoCuentaCorriente.ToString, vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            If Me.CuentaCorriente Is Nothing Then
-                MsgBox("No se establecio ninguna cuenta corriente", vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            Dim u As Usuario = ModSeguridad.ValidarUsuario(FrmInicio.mnuOperacionesCC.Name)
-
-            If u IsNot Nothing Then
-                Dim nuevaVentanaOperacionesCC As New FrmOperacionesCC()
-                nuevaVentanaOperacionesCC.Usuario = u
-                nuevaVentanaOperacionesCC.Resumen = "0000"
-                nuevaVentanaOperacionesCC.IniciarCancelacionCuentaCorriente(Me.CuentaCorriente)
-                nuevaVentanaOperacionesCC.ShowDialog()
-            End If
-
-            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = comprobantes
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-    End Sub
-
-    Private Sub mnuOperacionesCancelarResumen_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCancelarResumen.Click
-        Try
-            If mSaldoAdeudadoCuentaCorriente <= 0 Then
-                MsgBox("El Saldo de la Cuenta Corriente es " & mSaldoAdeudadoCuentaCorriente.ToString, vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            If Me.CuentaCorriente Is Nothing Then
-                MsgBox("No se establecio ninguna cuenta corriente", vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            Dim u As Usuario = ModSeguridad.ValidarUsuario(FrmInicio.mnuOperacionesCC.Name)
-
-            If u IsNot Nothing Then
-                Dim nuevaVentanaOperacionesCC As New FrmOperacionesCC()
-                nuevaVentanaOperacionesCC.Usuario = u
-                nuevaVentanaOperacionesCC.Resumen = Me.ResumenSeleccionado
-                nuevaVentanaOperacionesCC.IniciarCancelacionResumen(Me.CuentaCorriente)
-                nuevaVentanaOperacionesCC.ShowDialog()
-            End If
-
-            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = comprobantes
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-
-    End Sub
-
-    Private Sub mnuOperacionesPagoACuenta_Click(sender As Object, e As EventArgs) Handles mnuOperacionesPagoACuenta.Click
-        Try
-
-            If mSaldoAdeudadoCuentaCorriente <= 0 Then
-                MsgBox("El Saldo de la Cuenta Corriente es " & mSaldoAdeudadoCuentaCorriente.ToString, vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            If Me.CuentaCorriente Is Nothing Then
-                MsgBox("No se establecio ninguna cuenta corriente", vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            Dim u As Usuario = ModSeguridad.ValidarUsuario(FrmInicio.mnuOperacionesCC.Name)
-
-            If u IsNot Nothing Then
-                Dim nuevaVentanaOperacionesCC As New FrmOperacionesCC()
-                nuevaVentanaOperacionesCC.Usuario = u
-                nuevaVentanaOperacionesCC.Resumen = Me.ResumenSeleccionado
-                nuevaVentanaOperacionesCC.IniciarPagoCuenta(Me.CuentaCorriente)
-                nuevaVentanaOperacionesCC.ShowDialog()
-            End If
-
-            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = comprobantes
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-
-    End Sub
-
-    Private Sub mnuOperacionesCancelarFacturas_Click(sender As Object, e As EventArgs) Handles mnuOperacionesCancelarFacturas.Click
-        Try
-            If mSaldoAdeudadoCuentaCorriente <= 0 Then
-                MsgBox("El Saldo de la Cuenta Corriente es " & mSaldoAdeudadoCuentaCorriente.ToString, vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            If Me.CuentaCorriente Is Nothing Then
-                MsgBox("No se establecio ninguna cuenta corriente", vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            Dim importeCancelar As Decimal = Me.CalcularImporteTotalTildados
-
-            If importeCancelar <= 0 Then
-                MsgBox("El Importe total a cancelar es " & importeCancelar.ToString("N2"), vbCritical, "SiCoFa")
-                Exit Sub
-            End If
-
-            Dim u As Usuario = ModSeguridad.ValidarUsuario(FrmInicio.mnuOperacionesCC.Name)
-
-            If u IsNot Nothing Then
-                Dim nuevaVentanaOperacionesCC As New FrmOperacionesCC()
-                nuevaVentanaOperacionesCC.Usuario = u
-                nuevaVentanaOperacionesCC.Resumen = "0000"
-                nuevaVentanaOperacionesCC.IniciarCancelacionFacturas(Me.CuentaCorriente, importeCancelar)
-                nuevaVentanaOperacionesCC.ShowDialog()
-            End If
-
-            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = comprobantes
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-
     End Sub
 
     Private Sub mnuOperacionesNC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesNC.Click

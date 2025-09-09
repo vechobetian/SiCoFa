@@ -238,4 +238,23 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub CuentasBancariaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaCuentasBancarias.Click
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaCuentasBancarias.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmIngresoMomientosCB()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+
+    End Sub
 End Class
