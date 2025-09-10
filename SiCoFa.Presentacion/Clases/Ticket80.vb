@@ -438,6 +438,117 @@ Public Class Ticket80
         e.Graphics.Dispose()
 
     End Sub
+
+    Private Sub DINTERNO(ByVal sender As Object, ByVal e As PrintPageEventArgs)
+        Dim fuenteGrande As Font = New Font("consolas", 15)
+        Dim printFont As Font = New Font("consolas", 8)
+        Dim topMargin As Double = e.MarginBounds.Top
+        Dim yPos As Double
+        Dim strTotal As String
+
+        Const IncrementoYPreTexto As Integer = 15
+        Const IncrementoYPreLinea As Integer = 5
+        Const MargenIzquierdo As Integer = 10
+        Const Linea As String = "__________________________________________"
+
+        e.Graphics.DrawString(Copia, printFont, Brushes.Black, MargenIzquierdo, 5)
+
+        If Len(Comprobante.Empresa.Nombre) > 20 Then
+            e.Graphics.DrawString(Comprobante.Empresa.Nombre, printFont, Brushes.Black, MargenIzquierdo, 30)
+        Else
+            e.Graphics.DrawString(Comprobante.Empresa.Nombre, fuenteGrande, Brushes.Black, MargenIzquierdo, 30)
+        End If
+
+        yPos = 60
+
+        e.Graphics.DrawString(Comprobante.Empresa.Domicilio, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString(Comprobante.Empresa.Localidad & "-" & Comprobante.Empresa.Provincia, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Telefono: " & Comprobante.Empresa.Telefono, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Tipo Iva: " & Comprobante.Empresa.IVA.TipoIVA, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("CUIT: " & Comprobante.Empresa.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Ing.Btos: " & Comprobante.Empresa.IB, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Inicio Actividades: " & Comprobante.Empresa.FechaAlta, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreLinea
+        e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        Dim fuenteGigante As Font = New Font("consolas", 30)
+        Dim rectF1 As New RectangleF(MargenIzquierdo + 3, yPos + 4, 50, 50)
+        Dim stringFormat As New StringFormat()
+
+        stringFormat.Alignment = StringAlignment.Center
+        stringFormat.LineAlignment = StringAlignment.Center
+
+        e.Graphics.DrawString(Comprobante.TipoComprobante.Letra, fuenteGigante, Brushes.Black, rectF1, stringFormat)
+        e.Graphics.DrawRectangle(Pens.Black, Rectangle.Round(rectF1))
+        e.Graphics.DrawString("Cod." & Comprobante.TipoComprobante.CodiTC_ARCA, printFont, Brushes.Black, MargenIzquierdo + 9, yPos + 42)
+        e.Graphics.DrawString(Comprobante.TipoComprobante.TipoComprobanteSLetra, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 3)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("P.Vta:" & Comprobante.PVenta & "           Nro:" & Comprobante.NumComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Fecha:" & Comprobante.FechaComp, printFont, Brushes.Black, MargenIzquierdo + 58, yPos + 10)
+
+        Dim hora As String = TimeString
+        e.Graphics.DrawString("Hora:" & hora, printFont, Brushes.Black, MargenIzquierdo + 183, yPos + 10)
+        yPos += IncrementoYPreLinea + 15
+        e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
+
+        e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        'Fin del Encabezado
+
+        'Aca comienza el detalle del comprobante
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Operación: " & Comprobante.Operacion.TipoOperacion.TipoOperacion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+
+        yPos += IncrementoYPreTexto
+        strTotal = "$" & Comprobante.ImpBto.ToString("N2")
+        e.Graphics.DrawString("SON PESOS: " & StrDup(11 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += 2 * IncrementoYPreTexto
+
+        yPos += IncrementoYPreLinea
+        e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        yPos += IncrementoYPreTexto
+        e.Graphics.DrawString("Documento no válido como Factura", printFont, Brushes.Black, MargenIzquierdo, yPos)
+
+        If Comprobante.Operacion.Observaciones <> "" Then
+            Dim intNumCarRestantes As Integer
+            Dim strLineaObservaciones As String
+            Dim x As Integer
+            Dim y As Integer = 1
+            Dim lineas() As String = Split(Comprobante.Operacion.Observaciones, vbCrLf)
+
+            yPos += IncrementoYPreLinea
+            e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            yPos += IncrementoYPreTexto
+            e.Graphics.DrawString("Observaciones:", printFont, Brushes.Black, MargenIzquierdo, yPos)
+
+            For Each strLinea As String In lineas
+                intNumCarRestantes = Len(strLinea)
+                If intNumCarRestantes > 42 Then
+                    Do While intNumCarRestantes > 0
+                        x += 1
+                        strLineaObservaciones = Mid(strLinea, y, 42)
+                        y += 42
+                        intNumCarRestantes = Len(strLinea) - 42 * x
+                        yPos += IncrementoYPreTexto
+                        e.Graphics.DrawString(strLineaObservaciones.TrimStart(" "), printFont, Brushes.Black, MargenIzquierdo, yPos)
+                    Loop
+                Else
+                    yPos += IncrementoYPreTexto
+                    e.Graphics.DrawString(strLinea.TrimStart(" "), printFont, Brushes.Black, MargenIzquierdo, yPos)
+                End If
+            Next
+
+        End If
+        e.Graphics.Dispose()
+
+    End Sub
+
     Public Sub Imprimir(ByVal argCopia As String)
 
         Dim printDoc As New PrintDocument()
@@ -453,10 +564,13 @@ Public Class Ticket80
 
         Copia = argCopia
         Select Case Comprobante.TipoComprobante.CodiTC_SiCoFa
-            Case "FAA", "FAB", "FAC", "NCA", "NCB", "NCC", "NCX", "RECR", "PRESU", "RTOX", "DI"
+            Case "FAA", "FAB", "FAC", "NCA", "NCB", "NCC", "NCX", "RECR", "PRESU", "RTOX"
                 AddHandler printDoc.PrintPage, AddressOf FACTURA
             Case "REC"
                 AddHandler printDoc.PrintPage, AddressOf RECIBO
+            Case "DI"
+                AddHandler printDoc.PrintPage, AddressOf DINTERNO
+
         End Select
 
         printDoc.Print()

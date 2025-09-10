@@ -153,20 +153,10 @@ Public Class FrmIngresoMomientosCB
         End If
 
         If resu = "" Then
-
-            If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp, NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB}"
-            Else
-                sql = $"SELECT IdOperacion,Operacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB} AND EstadoOperacionCC='NO CANCELADO'"
-            End If
+            sql = $"SELECT CodiTO, CodiTC, IdOperacion, Resu, Operacion, FechaComp, Comprobante, NumComp, ComprobanteAsociado, Importe, SaldoA, SaldoP, EstadoOperacionCB, Observaciones FROM vw_movimientos_cb WHERE IdCB={cb.IdCB}"
 
         Else
-
-            If CheckBox1.Checked Then
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB} AND Resu='{resu}'"
-            Else
-                sql = $"SELECT IdOperacion,CodiTO, CodiTC,  Resu, Comprobante, FechaComp,  NumComp, Importe, ComprobanteAsociado, EstadoOperacionCC, Observaciones FROM vw_movimientos_cc WHERE IdCC={cb.IdCB} AND Resu='{resu}' AND EstadoOperacionCC='NO CANCELADO'"
-            End If
+            sql = $"SELECT CodiTO, CodiTC, IdOperacion, Resu, Operacion, FechaComp, Comprobante, NumComp, ComprobanteAsociado, Importe, SaldoA, SaldoP, EstadoOperacionCB, Observaciones FROM vw_movimientos_cb WHERE IdCB={cb.IdCB} AND Resu='{resu}'"
 
         End If
 

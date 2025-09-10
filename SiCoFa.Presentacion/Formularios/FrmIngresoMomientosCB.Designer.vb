@@ -27,7 +27,6 @@ Partial Class FrmIngresoMomientosCB
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnMostrarMovimientos = New System.Windows.Forms.Button()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.txtResumen = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
@@ -68,16 +67,6 @@ Partial Class FrmIngresoMomientosCB
         Me.btnMostrarMovimientos.Text = "&Mostrar Comprobantes"
         Me.btnMostrarMovimientos.UseVisualStyleBackColor = True
         '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(30, 108)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(183, 17)
-        Me.CheckBox1.TabIndex = 15
-        Me.CheckBox1.Text = "Mostrar Operaciones Canceladas"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
         'txtResumen
         '
         Me.txtResumen.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -92,7 +81,6 @@ Partial Class FrmIngresoMomientosCB
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(750, 143)
         Me.Controls.Add(Me.txtResumen)
-        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.btnMostrarMovimientos)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label3)
@@ -108,6 +96,5 @@ Partial Class FrmIngresoMomientosCB
     Friend WithEvents Label3 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents btnMostrarMovimientos As Button
-    Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents txtResumen As TextBox
 End Class
