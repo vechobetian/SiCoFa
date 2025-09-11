@@ -32,6 +32,7 @@ Partial Class FrmMovimientosCB
         Me.mnuArchivoImprimir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesRetiroEfectivo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesNC = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.CodiTO = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -51,6 +52,8 @@ Partial Class FrmMovimientosCB
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblDescripcionCuentaBancaria = New System.Windows.Forms.Label()
         Me.lblSaldoActual = New System.Windows.Forms.Label()
+        Me.mnuOperacionesDepositoEfectivo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesTransferenciaBancaria = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -110,16 +113,22 @@ Partial Class FrmMovimientosCB
         '
         'mnuOperaciones
         '
-        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesNC})
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesRetiroEfectivo, Me.mnuOperacionesDepositoEfectivo, Me.mnuOperacionesTransferenciaBancaria, Me.mnuOperacionesNC})
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
+        '
+        'mnuOperacionesRetiroEfectivo
+        '
+        Me.mnuOperacionesRetiroEfectivo.Name = "mnuOperacionesRetiroEfectivo"
+        Me.mnuOperacionesRetiroEfectivo.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesRetiroEfectivo.Text = "&Retiro Efectivo"
         '
         'mnuOperacionesNC
         '
         Me.mnuOperacionesNC.Image = CType(resources.GetObject("mnuOperacionesNC.Image"), System.Drawing.Image)
         Me.mnuOperacionesNC.Name = "mnuOperacionesNC"
-        Me.mnuOperacionesNC.Size = New System.Drawing.Size(180, 22)
+        Me.mnuOperacionesNC.Size = New System.Drawing.Size(191, 22)
         Me.mnuOperacionesNC.Text = "&Nota de Crédito"
         '
         'DataGridView1
@@ -255,7 +264,7 @@ Partial Class FrmMovimientosCB
         Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
         Me.TableLayoutPanel2.ColumnCount = 2
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 787.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 793.0!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaBancaria, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoActual, 1, 0)
@@ -290,6 +299,18 @@ Partial Class FrmMovimientosCB
         Me.lblSaldoActual.TabIndex = 1
         Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $0,00"
         Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'mnuOperacionesDepositoEfectivo
+        '
+        Me.mnuOperacionesDepositoEfectivo.Name = "mnuOperacionesDepositoEfectivo"
+        Me.mnuOperacionesDepositoEfectivo.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesDepositoEfectivo.Text = "&Deposito Efectivo"
+        '
+        'mnuOperacionesTransferenciaBancaria
+        '
+        Me.mnuOperacionesTransferenciaBancaria.Name = "mnuOperacionesTransferenciaBancaria"
+        Me.mnuOperacionesTransferenciaBancaria.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesTransferenciaBancaria.Text = "&Transferencia Bancaria"
         '
         'FrmMovimientosCB
         '
@@ -337,4 +358,7 @@ Partial Class FrmMovimientosCB
     Friend WithEvents Importe As DataGridViewTextBoxColumn
     Friend WithEvents SaldoP As DataGridViewTextBoxColumn
     Friend WithEvents EstadoOperacionCB As DataGridViewTextBoxColumn
+    Friend WithEvents mnuOperacionesRetiroEfectivo As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesDepositoEfectivo As ToolStripMenuItem
+    Friend WithEvents mnuOperacionesTransferenciaBancaria As ToolStripMenuItem
 End Class

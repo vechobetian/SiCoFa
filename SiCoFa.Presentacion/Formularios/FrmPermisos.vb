@@ -17,7 +17,8 @@ Public Class FrmPermisos
         {"CIERRE_CAJA", "Realizar cierre de caja"},
         {"RETIRO_EF_CAJA", "Retiro Efectivo Caja Abierta"},
         {"NOTA_CREDITO", "Hacer Notas de Crédito"},
-        {"FACTURACION_REMITOS", "Facturación Remitos"}
+        {"FACTURACION_REMITOS", "Facturación Remitos"},
+        {"OPERACIONES_BANCARIAS", "Operaciones Bancarias"}
     }
 
     Private Sub FrmPermisos_Load(sender As Object, e As EventArgs) Handles MyBase.Load

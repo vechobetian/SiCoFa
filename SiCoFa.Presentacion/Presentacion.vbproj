@@ -138,6 +138,12 @@
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
     <Compile Include="Clases\OpcionBoolean.vb" />
+    <Compile Include="Formularios\FrmOperacionesCB.Designer.vb">
+      <DependentUpon>FrmOperacionesCB.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmOperacionesCB.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmIngresoMomientosCB.Designer.vb">
       <DependentUpon>FrmIngresoMomientosCB.vb</DependentUpon>
     </Compile>
@@ -427,6 +433,9 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmOperacionesCB.resx">
+      <DependentUpon>FrmOperacionesCB.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmIngresoMomientosCB.resx">
       <DependentUpon>FrmIngresoMomientosCB.vb</DependentUpon>

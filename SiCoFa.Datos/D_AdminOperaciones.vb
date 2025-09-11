@@ -985,4 +985,48 @@ Public Class D_AdminOperaciones
 
     End Function
 
+    Public Function OperacionCBTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argTipoOperacion As TipoOperacion, ByVal argUsuario As Usuario, ByVal argOperacionCBOrigen As OperacionCB, ByVal argOperacionCBDestino As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+                    Dim AdminOperaciones As New D_AdminOperaciones
+                    Dim objOperacion As Operacion = AdminOperaciones.IniciarOperacion(argEmpresa, argUsuario, argTipoOperacion, argObservacion, "INICIADO", cn, tx)
+
+                    Me.InsertarOperacionCB(objOperacion.IdOperacion, argOperacionCBOrigen.IdCB, argOperacionCBOrigen.Importe, cn, tx)
+
+                    If argOperacionCBDestino IsNot Nothing Then
+                        Me.InsertarOperacionCB(objOperacion.IdOperacion, argOperacionCBDestino.IdCB, argOperacionCBDestino.Importe, cn, tx)
+                    End If
+
+                    Dim AdminComprobantes As New D_AdminComprobantes
+                    argComprobante.IdOperacion = objOperacion.IdOperacion
+                    argComprobante.Operacion = objOperacion
+
+                    AdminComprobantes.RecibirComprobante(argComprobante, cn, tx)
+
+                    Dim AdminAsientoContable As New D_AdminAsientosContable
+                    AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)
+
+                    Me.FinalizarOperacion(argMacAddress, objOperacion, False, cn, tx)
+
+                    tx.Commit()
+                    Return True
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw New Exception(Vecho.MensajeError(Me.ToString, "OperacionCBTransaccion", ex.Message), ex)
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
+
 End Class

@@ -507,8 +507,7 @@ Public Class Ticket80
 
         yPos += IncrementoYPreTexto
         strTotal = "$" & Comprobante.ImpBto.ToString("N2")
-        e.Graphics.DrawString("SON PESOS: " & StrDup(11 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
-        yPos += 2 * IncrementoYPreTexto
+        e.Graphics.DrawString("Importe Operacion: " & strTotal, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
         yPos += IncrementoYPreLinea
         e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)

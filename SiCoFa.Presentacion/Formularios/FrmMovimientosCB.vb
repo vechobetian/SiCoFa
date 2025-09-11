@@ -40,9 +40,9 @@ Public Class FrmMovimientosCB
 
         Try
 
-            Dim operaciones_cc As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = operaciones_cc
+            Me.DataGridView1.DataSource = operaciones_cb
             Me.AjustarAnchoColumnasComprobantes()
 
             mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
@@ -104,6 +104,123 @@ Public Class FrmMovimientosCB
         Me.Close()
     End Sub
 
+    Private Sub mnuOperacionesRetiroEfectivo_Click(sender As Object, e As EventArgs) Handles mnuOperacionesRetiroEfectivo.Click
+
+        Try
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+            Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
+            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+            Dim idOperacion As Long = Convert.ToInt64(valor)
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario("OPERACIONES_BANCARIAS")
+
+            If u IsNot Nothing Then
+                Dim f As New FrmOperacionesCB()
+                f.Usuario = u
+                f.RetiroEfectivo(Me.CuentaBancaria)
+                f.ShowDialog()
+            End If
+
+            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
+
+            Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = operaciones_cb
+
+            ' Opcional: Seleccionar la fila con el idOperacion actualizado
+            For Each row As DataGridViewRow In Me.DataGridView1.Rows
+                If Convert.ToInt64(row.Cells("IdOperacion").Value) = idOperacion Then
+                    row.Selected = True
+                    Me.DataGridView1.CurrentCell = row.Cells("IdOperacion")
+                    Exit For
+                End If
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuOperacionesDepositoEfectivo_Click(sender As Object, e As EventArgs) Handles mnuOperacionesDepositoEfectivo.Click
+
+        Try
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+            Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
+            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+            Dim idOperacion As Long = Convert.ToInt64(valor)
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario("OPERACIONES_BANCARIAS")
+
+            If u IsNot Nothing Then
+                Dim f As New FrmOperacionesCB()
+                f.Usuario = u
+                f.DepositoEfectivo(Me.CuentaBancaria)
+                f.ShowDialog()
+            End If
+
+            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
+
+            Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = operaciones_cb
+
+            ' Opcional: Seleccionar la fila con el idOperacion actualizado
+            For Each row As DataGridViewRow In Me.DataGridView1.Rows
+                If Convert.ToInt64(row.Cells("IdOperacion").Value) = idOperacion Then
+                    row.Selected = True
+                    Me.DataGridView1.CurrentCell = row.Cells("IdOperacion")
+                    Exit For
+                End If
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuOperacionesTransferenciaBancaria_Click(sender As Object, e As EventArgs) Handles mnuOperacionesTransferenciaBancaria.Click
+        Try
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+            Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
+            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+            Dim idOperacion As Long = Convert.ToInt64(valor)
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario("OPERACIONES_BANCARIAS")
+
+            If u IsNot Nothing Then
+                Dim f As New FrmOperacionesCB()
+                f.Usuario = u
+                f.TransferenciaCB(Me.CuentaBancaria)
+                f.ShowDialog()
+            End If
+
+            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
+
+            Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = operaciones_cb
+
+            ' Opcional: Seleccionar la fila con el idOperacion actualizado
+            For Each row As DataGridViewRow In Me.DataGridView1.Rows
+                If Convert.ToInt64(row.Cells("IdOperacion").Value) = idOperacion Then
+                    row.Selected = True
+                    Me.DataGridView1.CurrentCell = row.Cells("IdOperacion")
+                    Exit For
+                End If
+            Next
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+
+    End Sub
+
     Private Sub mnuOperacionesNC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesNC.Click
         Try
 
@@ -121,17 +238,20 @@ Public Class FrmMovimientosCB
                 f.ShowDialog()
             End If
 
-            Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
-            Me.DataGridView1.DataSource = comprobantes
+            Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.DataSource = operaciones_cb
 
             ' Opcional: Seleccionar la fila con el idOperacion actualizado
             For Each row As DataGridViewRow In Me.DataGridView1.Rows
-                If Convert.ToInt64(row.Cells(2).Value) = idOperacion Then
+                If Convert.ToInt64(row.Cells("IdOperacion").Value) = idOperacion Then
                     row.Selected = True
-                    Me.DataGridView1.CurrentCell = row.Cells(2)
+                    Me.DataGridView1.CurrentCell = row.Cells("IdOperacion")
                     Exit For
                 End If
             Next
+
+            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -139,7 +259,6 @@ Public Class FrmMovimientosCB
         End Try
 
     End Sub
-
 
     Private Sub mnuArchivoImprimir_Click(sender As Object, e As EventArgs) Handles mnuArchivoImprimir.Click
         Me.ImprimirComprobante(1)
