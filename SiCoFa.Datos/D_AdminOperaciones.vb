@@ -1006,7 +1006,13 @@ Public Class D_AdminOperaciones
                     argComprobante.IdOperacion = objOperacion.IdOperacion
                     argComprobante.Operacion = objOperacion
 
-                    AdminComprobantes.RecibirComprobante(argComprobante, cn, tx)
+                    If argTipoOperacion.CodiTO = "ANUOP" Then
+                        AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
+
+                    Else
+                        AdminComprobantes.RecibirComprobante(argComprobante, cn, tx)
+
+                    End If
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable
                     AdminAsientoContable.EfectuarAsientoContable(objOperacion, argAsiento, cn, tx)

@@ -292,7 +292,7 @@ Public Class FrmOperacionesCB
 
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")
-            Dim AfectaCajaAbierta As Boolean = False
+            'Dim AfectaCajaAbierta As Boolean = False
             Dim objOperacionCBOrigen As OperacionCB = Nothing
             Dim objOperacionCBDestino As OperacionCB = Nothing
             Dim objAsCon As New AsientoContable

@@ -14,6 +14,43 @@ Public Class FrmMovimientosCB
     Private mAdminDB As New N_AdminDB
     Private mSaldoActual As Decimal = 0
 
+    Private Sub ActualizarMenus()
+
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        Dim importe As Decimal = Me.DataGridView1.CurrentRow.Cells("Importe").Value
+
+        If Me.DataGridView1.CurrentRow.Cells("CodiTO").Value = "TCB" Then
+            If Importe < 0 Then
+                Me.mnuVerCuenta.Text = "&Ver Cuenta Destino"
+            Else
+                Me.mnuVerCuenta.Text = "&Ver Cuenta Origen"
+            End If
+
+            Me.mnuVerCuenta.Visible = True
+        Else
+
+            Me.mnuVerCuenta.Visible = False
+
+        End If
+
+        Dim codiTO As String = Me.DataGridView1.CurrentRow.Cells("CodiTO").Value
+
+        Dim comprobanteAsociado As String = ""
+        Dim valor = Me.DataGridView1.CurrentRow.Cells("ComprobanteAsociado").Value
+
+        If valor IsNot Nothing AndAlso Not IsDBNull(valor) Then
+            comprobanteAsociado = valor.ToString()
+            comprobanteAsociado = Strings.Left(comprobanteAsociado, "5")
+        End If
+
+        If comprobanteAsociado <> "ANUOP" AndAlso (codiTO = "REFCB" OrElse codiTO = "DEFCB" OrElse (codiTO = "TCB" And importe < 0)) Then
+            Me.mnuOperacionesAnularOperacion.Visible = True
+        Else
+            Me.mnuOperacionesAnularOperacion.Visible = False
+        End If
+
+    End Sub
+
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
@@ -43,6 +80,7 @@ Public Class FrmMovimientosCB
             Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = operaciones_cb
+            Me.ActualizarMenus()
             Me.AjustarAnchoColumnasComprobantes()
 
             mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
@@ -70,6 +108,8 @@ Public Class FrmMovimientosCB
                 Me.DataGridView1.DataSource = Nothing
                 Exit Sub
             End If
+
+            Me.ActualizarMenus()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -221,22 +261,88 @@ Public Class FrmMovimientosCB
 
     End Sub
 
-    Private Sub mnuOperacionesNC_Click(sender As Object, e As EventArgs) Handles mnuOperacionesNC.Click
+    Private Sub mnuOperacionesAnularOperacion_Click(sender As Object, e As EventArgs) Handles mnuOperacionesAnularOperacion.Click
         Try
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario("OPERACIONES_BANCARIAS")
+
+            If u Is Nothing Then
+                Exit Sub
+            End If
 
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
             Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
+            Dim codiTO As String = Convert.ToString(Me.DataGridView1.CurrentRow.Cells("CodiTO").Value)
+            Dim importe As Decimal = Convert.ToDecimal(Me.DataGridView1.CurrentRow.Cells("Importe").Value)
+            Dim objOperacionCBOrigen As OperacionCB = Nothing
+            Dim objOperacionCBDestino As OperacionCB = Nothing
+            Dim objAsCon As New AsientoContable
 
-            Dim u As Usuario = ModSeguridad.ValidarUsuario("NOTA_CREDITO")
+            Select Case codiTO
+                Case "REFCB"
+                    objOperacionCBOrigen = New OperacionCB(0, Me.CuentaBancaria.IdCB, "", -importe, "")
 
-            If u IsNot Nothing Then
-                Dim f As New FrmNotaCredito()
-                f.Usuario = u
-                f.ObtenerComprobanteOrigen(idOperacion)
-                f.ShowDialog()
-            End If
+                    With objAsCon
+                        .InsertarItem("1.01.03.001", -importe)
+                        .InsertarItem("1.01.01.001", -importe)
+                    End With
+
+                Case "DEFCB"
+                    objOperacionCBOrigen = New OperacionCB(0, Me.CuentaBancaria.IdCB, "", -importe, "")
+
+                    With objAsCon
+                        .InsertarItem("1.01.01.001", -importe)
+                        .InsertarItem("1.01.03.001", -importe)
+                    End With
+
+                Case "TCB"
+
+                    Dim idCB As Int32 = mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}")
+
+                    objOperacionCBOrigen = New OperacionCB(0, Me.CuentaBancaria.IdCB, "", -importe, "")
+                    objOperacionCBDestino = New OperacionCB(0, idCB, "", -importe, "")
+
+            End Select
+
+            Dim AdminOperaciones As New N_AdminOperaciones
+            Dim objTO As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO("ANUOP")
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("ANUOP")
+            Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
+
+            Dim objComprobante As New Comprobante(
+                                                  argIdOperacion:=0,
+                                                  argOperacion:=Nothing,
+                                                  argTipoComprobante:=objTC,
+                                                  argPVenta:="",
+                                                  argNumComp:="",
+                                                  argFechaComp:=Now.Date,
+                                                  argImpBto:=importe,
+                                                  argImpDes:=0,
+                                                  argImpNeto:=importe,
+                                                  argImpEx:=0,
+                                                  argImpGrav1:=0,
+                                                  argImpGrav2:=0,
+                                                  argImpCB:=importe,
+                                                  argImpEf:=importe,
+                                                  argImpCC:=0,
+                                                  argImpPE:=0,
+                                                  argCAE:=Nothing,
+                                                  argIdCliente:=objCliente.Id,
+                                                  argCliente:=objCliente,
+                                                  argIdOperAsoc:=idOperacion,
+                                                  argCompAsoc:=Nothing,
+                                                  argEmpresa:=g_ParametrosTerminal.Empresa,
+                                                  argDetalle:=Nothing
+                                                  )
+
+
+            AdminOperaciones.OperacionCBTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, objTO, u, objOperacionCBOrigen, objOperacionCBDestino, objComprobante, objAsCon, "")
+
+            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
 
             Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.DataSource = operaciones_cb
@@ -250,9 +356,6 @@ Public Class FrmMovimientosCB
                 End If
             Next
 
-            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
-            Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
-
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -262,6 +365,17 @@ Public Class FrmMovimientosCB
 
     Private Sub mnuArchivoImprimir_Click(sender As Object, e As EventArgs) Handles mnuArchivoImprimir.Click
         Me.ImprimirComprobante(1)
+    End Sub
+
+    Private Sub mnuVerCuenta_Click(sender As Object, e As EventArgs) Handles mnuVerCuenta.Click
+        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+        Dim idOperacion As Long = Convert.ToInt64(valor)
+        Dim idCB As Int32 = mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}")
+        Dim AdminCB As New N_AdminCuentasBancarias
+        Dim CB As CuentaBancaria = AdminCB.ObtenerCuentaBancariaPorId(idCB)
+        MsgBox("Cuenta Bancaria: " & CB.Descripcion & vbCrLf & "Cuenta Numero: " & CB.NumCuenta, vbInformation, "SiCoFa")
     End Sub
 
 End Class
