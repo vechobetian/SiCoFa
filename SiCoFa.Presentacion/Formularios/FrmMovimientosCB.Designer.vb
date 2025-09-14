@@ -22,26 +22,16 @@ Partial Class FrmMovimientosCB
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMovimientosCB))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuArchivoImprimir = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperaciones = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesRetiroEfectivo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesDepositoEfectivo = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesTransferenciaBancaria = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesAnularOperacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuVerCuenta = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblDescripcionCuentaBancaria = New System.Windows.Forms.Label()
-        Me.lblSaldoActual = New System.Windows.Forms.Label()
         Me.CodiTO = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodiTC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -55,6 +45,16 @@ Partial Class FrmMovimientosCB
         Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SaldoP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EstadoOperacionCB = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblDescripcionCuentaBancaria = New System.Windows.Forms.Label()
+        Me.lblSaldoActual = New System.Windows.Forms.Label()
+        Me.mnuArchivoImprimir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuArchivoSalir = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesRetiroEfectivo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesDepositoEfectivo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesTransferenciaBancaria = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuOperacionesAnularOperacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,7 +87,7 @@ Partial Class FrmMovimientosCB
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones, Me.mnuVerCuenta})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(272, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(392, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -98,51 +98,12 @@ Partial Class FrmMovimientosCB
         Me.mnuArchivo.Size = New System.Drawing.Size(60, 20)
         Me.mnuArchivo.Text = "&Archivo"
         '
-        'mnuArchivoImprimir
-        '
-        Me.mnuArchivoImprimir.Image = CType(resources.GetObject("mnuArchivoImprimir.Image"), System.Drawing.Image)
-        Me.mnuArchivoImprimir.Name = "mnuArchivoImprimir"
-        Me.mnuArchivoImprimir.Size = New System.Drawing.Size(120, 22)
-        Me.mnuArchivoImprimir.Text = "&Imprimir"
-        '
-        'mnuArchivoSalir
-        '
-        Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
-        Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
-        Me.mnuArchivoSalir.Size = New System.Drawing.Size(120, 22)
-        Me.mnuArchivoSalir.Text = "&Salir"
-        '
         'mnuOperaciones
         '
         Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesRetiroEfectivo, Me.mnuOperacionesDepositoEfectivo, Me.mnuOperacionesTransferenciaBancaria, Me.mnuOperacionesAnularOperacion})
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
-        '
-        'mnuOperacionesRetiroEfectivo
-        '
-        Me.mnuOperacionesRetiroEfectivo.Name = "mnuOperacionesRetiroEfectivo"
-        Me.mnuOperacionesRetiroEfectivo.Size = New System.Drawing.Size(191, 22)
-        Me.mnuOperacionesRetiroEfectivo.Text = "&Retiro Efectivo"
-        '
-        'mnuOperacionesDepositoEfectivo
-        '
-        Me.mnuOperacionesDepositoEfectivo.Name = "mnuOperacionesDepositoEfectivo"
-        Me.mnuOperacionesDepositoEfectivo.Size = New System.Drawing.Size(191, 22)
-        Me.mnuOperacionesDepositoEfectivo.Text = "&Deposito Efectivo"
-        '
-        'mnuOperacionesTransferenciaBancaria
-        '
-        Me.mnuOperacionesTransferenciaBancaria.Name = "mnuOperacionesTransferenciaBancaria"
-        Me.mnuOperacionesTransferenciaBancaria.Size = New System.Drawing.Size(191, 22)
-        Me.mnuOperacionesTransferenciaBancaria.Text = "&Transferencia Bancaria"
-        '
-        'mnuOperacionesAnularOperacion
-        '
-        Me.mnuOperacionesAnularOperacion.Image = CType(resources.GetObject("mnuOperacionesAnularOperacion.Image"), System.Drawing.Image)
-        Me.mnuOperacionesAnularOperacion.Name = "mnuOperacionesAnularOperacion"
-        Me.mnuOperacionesAnularOperacion.Size = New System.Drawing.Size(191, 22)
-        Me.mnuOperacionesAnularOperacion.Text = "&Anular Operacion"
         '
         'mnuVerCuenta
         '
@@ -166,56 +127,6 @@ Partial Class FrmMovimientosCB
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(1544, 652)
         Me.DataGridView1.TabIndex = 1
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.TableLayoutPanel2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(5, 692)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1544, 40)
-        Me.Panel1.TabIndex = 12
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 805.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaBancaria, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoActual, 1, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1544, 40)
-        Me.TableLayoutPanel2.TabIndex = 0
-        '
-        'lblDescripcionCuentaBancaria
-        '
-        Me.lblDescripcionCuentaBancaria.AutoSize = True
-        Me.lblDescripcionCuentaBancaria.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lblDescripcionCuentaBancaria.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescripcionCuentaBancaria.Location = New System.Drawing.Point(6, 3)
-        Me.lblDescripcionCuentaBancaria.Name = "lblDescripcionCuentaBancaria"
-        Me.lblDescripcionCuentaBancaria.Size = New System.Drawing.Size(132, 34)
-        Me.lblDescripcionCuentaBancaria.TabIndex = 2
-        Me.lblDescripcionCuentaBancaria.Text = "Cuenta Bancaria:"
-        Me.lblDescripcionCuentaBancaria.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblSaldoActual
-        '
-        Me.lblSaldoActual.AutoSize = True
-        Me.lblSaldoActual.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSaldoActual.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaldoActual.Location = New System.Drawing.Point(1317, 3)
-        Me.lblSaldoActual.Name = "lblSaldoActual"
-        Me.lblSaldoActual.Size = New System.Drawing.Size(221, 34)
-        Me.lblSaldoActual.TabIndex = 1
-        Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $0,00"
-        Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'CodiTO
         '
@@ -291,10 +202,10 @@ Partial Class FrmMovimientosCB
         'Importe
         '
         Me.Importe.DataPropertyName = "Importe"
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Importe.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle10.Format = "N2"
+        DataGridViewCellStyle10.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle10
         Me.Importe.HeaderText = "Importe Operacion"
         Me.Importe.Name = "Importe"
         Me.Importe.ReadOnly = True
@@ -302,10 +213,10 @@ Partial Class FrmMovimientosCB
         'SaldoP
         '
         Me.SaldoP.DataPropertyName = "SaldoP"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.SaldoP.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle11.Format = "N2"
+        DataGridViewCellStyle11.NullValue = Nothing
+        Me.SaldoP.DefaultCellStyle = DataGridViewCellStyle11
         Me.SaldoP.HeaderText = "Saldo"
         Me.SaldoP.Name = "SaldoP"
         Me.SaldoP.ReadOnly = True
@@ -313,13 +224,105 @@ Partial Class FrmMovimientosCB
         'EstadoOperacionCB
         '
         Me.EstadoOperacionCB.DataPropertyName = "EstadoOperacionCB"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.EstadoOperacionCB.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.EstadoOperacionCB.DefaultCellStyle = DataGridViewCellStyle12
         Me.EstadoOperacionCB.HeaderText = "Estado"
         Me.EstadoOperacionCB.Name = "EstadoOperacionCB"
         Me.EstadoOperacionCB.ReadOnly = True
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(5, 692)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1544, 40)
+        Me.Panel1.TabIndex = 12
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 826.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaBancaria, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoActual, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(1544, 40)
+        Me.TableLayoutPanel2.TabIndex = 0
+        '
+        'lblDescripcionCuentaBancaria
+        '
+        Me.lblDescripcionCuentaBancaria.AutoSize = True
+        Me.lblDescripcionCuentaBancaria.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lblDescripcionCuentaBancaria.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDescripcionCuentaBancaria.Location = New System.Drawing.Point(6, 3)
+        Me.lblDescripcionCuentaBancaria.Name = "lblDescripcionCuentaBancaria"
+        Me.lblDescripcionCuentaBancaria.Size = New System.Drawing.Size(132, 34)
+        Me.lblDescripcionCuentaBancaria.TabIndex = 2
+        Me.lblDescripcionCuentaBancaria.Text = "Cuenta Bancaria:"
+        Me.lblDescripcionCuentaBancaria.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblSaldoActual
+        '
+        Me.lblSaldoActual.AutoSize = True
+        Me.lblSaldoActual.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblSaldoActual.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSaldoActual.Location = New System.Drawing.Point(1317, 3)
+        Me.lblSaldoActual.Name = "lblSaldoActual"
+        Me.lblSaldoActual.Size = New System.Drawing.Size(221, 34)
+        Me.lblSaldoActual.TabIndex = 1
+        Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $0,00"
+        Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'mnuArchivoImprimir
+        '
+        Me.mnuArchivoImprimir.Image = CType(resources.GetObject("mnuArchivoImprimir.Image"), System.Drawing.Image)
+        Me.mnuArchivoImprimir.Name = "mnuArchivoImprimir"
+        Me.mnuArchivoImprimir.Size = New System.Drawing.Size(120, 22)
+        Me.mnuArchivoImprimir.Text = "&Imprimir"
+        '
+        'mnuArchivoSalir
+        '
+        Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
+        Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
+        Me.mnuArchivoSalir.Size = New System.Drawing.Size(120, 22)
+        Me.mnuArchivoSalir.Text = "&Salir"
+        '
+        'mnuOperacionesRetiroEfectivo
+        '
+        Me.mnuOperacionesRetiroEfectivo.Image = Global.SiCoFa.Presentacion.My.Resources.Resources.bundle
+        Me.mnuOperacionesRetiroEfectivo.Name = "mnuOperacionesRetiroEfectivo"
+        Me.mnuOperacionesRetiroEfectivo.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesRetiroEfectivo.Text = "&Retiro Efectivo"
+        '
+        'mnuOperacionesDepositoEfectivo
+        '
+        Me.mnuOperacionesDepositoEfectivo.Image = Global.SiCoFa.Presentacion.My.Resources.Resources.BILL00E
+        Me.mnuOperacionesDepositoEfectivo.Name = "mnuOperacionesDepositoEfectivo"
+        Me.mnuOperacionesDepositoEfectivo.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesDepositoEfectivo.Text = "&Deposito Efectivo"
+        '
+        'mnuOperacionesTransferenciaBancaria
+        '
+        Me.mnuOperacionesTransferenciaBancaria.Image = Global.SiCoFa.Presentacion.My.Resources.Resources.BANK00A1
+        Me.mnuOperacionesTransferenciaBancaria.Name = "mnuOperacionesTransferenciaBancaria"
+        Me.mnuOperacionesTransferenciaBancaria.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesTransferenciaBancaria.Text = "&Transferencia Bancaria"
+        '
+        'mnuOperacionesAnularOperacion
+        '
+        Me.mnuOperacionesAnularOperacion.Image = CType(resources.GetObject("mnuOperacionesAnularOperacion.Image"), System.Drawing.Image)
+        Me.mnuOperacionesAnularOperacion.Name = "mnuOperacionesAnularOperacion"
+        Me.mnuOperacionesAnularOperacion.Size = New System.Drawing.Size(191, 22)
+        Me.mnuOperacionesAnularOperacion.Text = "&Anular Operacion"
         '
         'FrmMovimientosCB
         '

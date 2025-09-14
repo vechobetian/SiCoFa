@@ -286,14 +286,14 @@ Public Class FrmMovimientosCB
 
                     With objAsCon
                         .InsertarItem("1.01.03.001", -importe)
-                        .InsertarItem("1.01.01.001", -importe)
+                        .InsertarItem("1.01.01.001", importe)
                     End With
 
                 Case "DEFCB"
                     objOperacionCBOrigen = New OperacionCB(0, Me.CuentaBancaria.IdCB, "", -importe, "")
 
                     With objAsCon
-                        .InsertarItem("1.01.01.001", -importe)
+                        .InsertarItem("1.01.01.001", importe)
                         .InsertarItem("1.01.03.001", -importe)
                     End With
 
@@ -302,7 +302,7 @@ Public Class FrmMovimientosCB
                     Dim idCB As Int32 = mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}")
 
                     objOperacionCBOrigen = New OperacionCB(0, Me.CuentaBancaria.IdCB, "", -importe, "")
-                    objOperacionCBDestino = New OperacionCB(0, idCB, "", -importe, "")
+                    objOperacionCBDestino = New OperacionCB(0, idCB, "", importe, "")
 
             End Select
 
@@ -375,7 +375,7 @@ Public Class FrmMovimientosCB
         Dim idCB As Int32 = mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}")
         Dim AdminCB As New N_AdminCuentasBancarias
         Dim CB As CuentaBancaria = AdminCB.ObtenerCuentaBancariaPorId(idCB)
-        MsgBox("Cuenta Bancaria: " & CB.Descripcion & vbCrLf & "Cuenta Numero: " & CB.NumCuenta, vbInformation, "SiCoFa")
+        MsgBox("Entidad: " & CB.Descripcion & vbCrLf & "N° Cuenta: " & CB.NumCuenta, vbInformation, "SiCoFa")
     End Sub
 
 End Class

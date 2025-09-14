@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8B0FA709-10FE-4020-BBB1-0C9B5E888E28}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Sub Main</StartupObject>
+    <StartupObject>SiCoFa.Presentacion.FrmResultadosMensuales</StartupObject>
     <RootNamespace>SiCoFa.Presentacion</RootNamespace>
     <AssemblyName>SiCoFa.Presentacion</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -306,6 +306,12 @@
     <Compile Include="Formularios\FrmNotaCredito.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Formularios\FrmResultadosMensuales.Designer.vb">
+      <DependentUpon>FrmResultadosMensuales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmResultadosMensuales.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmVentas.Designer.vb">
       <DependentUpon>FrmVentas.vb</DependentUpon>
     </Compile>
@@ -519,6 +525,9 @@
     <EmbeddedResource Include="Formularios\FrmNotaCredito.resx">
       <DependentUpon>FrmNotaCredito.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmResultadosMensuales.resx">
+      <DependentUpon>FrmResultadosMensuales.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmVentas.resx">
       <DependentUpon>FrmVentas.vb</DependentUpon>
     </EmbeddedResource>
@@ -585,6 +594,14 @@
     <Content Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\BANK00A1.ICO" />
+    <None Include="Resources\BILL00E.ICO" />
+    <None Include="Resources\bundle.ico" />
+    <None Include="Resources\BANK00A.ICO" />
+    <None Include="Resources\NOTES00B.ICO" />
+    <None Include="Resources\Sobre18.ico" />
+    <None Include="Resources\Money4.ico" />
+    <None Include="Resources\NOTES01B.ICO" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
