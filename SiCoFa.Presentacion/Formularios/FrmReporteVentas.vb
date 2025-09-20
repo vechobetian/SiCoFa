@@ -13,7 +13,7 @@ Public Class FrmReporteVentas
 
             ' Asignar la fuente de datos al DataGridView
             Me.DataGridView1.DataSource = ReporteVentas
-            Me.AjustarAnchoColumnasComprobantes()
+            Me.AjustarAnchoColumnas()
 
             ' Agregar las filas de totales y porcentajes
             Me.AgregarFilasTotalesYPorcentaje()
@@ -22,7 +22,7 @@ Public Class FrmReporteVentas
         End Try
     End Sub
 
-    Private Sub AjustarAnchoColumnasComprobantes()
+    Private Sub AjustarAnchoColumnas()
         Try
             If DataGridView1.ColumnCount = 9 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 42
