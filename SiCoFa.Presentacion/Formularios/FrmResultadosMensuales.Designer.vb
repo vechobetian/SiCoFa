@@ -22,22 +22,25 @@ Partial Class FrmResultadosMensuales
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Año = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Mes = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -48,21 +51,18 @@ Partial Class FrmResultadosMensuales
         Me.ResultadoMensual = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Utilidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.DataGridView3 = New System.Windows.Forms.DataGridView()
-        Me.DataGridView4 = New System.Windows.Forms.DataGridView()
-        Me.DataGridView5 = New System.Windows.Forms.DataGridView()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CuentaImputableIngresos = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImporteIngresos = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.DataGridView3 = New System.Windows.Forms.DataGridView()
         Me.CuentaImputable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridView4 = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridView5 = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -101,6 +101,39 @@ Partial Class FrmResultadosMensuales
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1246, 774)
         Me.TableLayoutPanel1.TabIndex = 2
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label5.Location = New System.Drawing.Point(1039, 2)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(202, 20)
+        Me.Label5.TabIndex = 11
+        Me.Label5.Text = "Detalle de Perdidas"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label4.Location = New System.Drawing.Point(832, 2)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(199, 20)
+        Me.Label4.TabIndex = 10
+        Me.Label4.Text = "Detalle de Gastos"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Location = New System.Drawing.Point(625, 2)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(199, 20)
+        Me.Label3.TabIndex = 9
+        Me.Label3.Text = "Detalle de Ganancias"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'DataGridView1
         '
         Me.DataGridView1.AllowUserToAddRows = False
@@ -114,6 +147,7 @@ Partial Class FrmResultadosMensuales
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 25
+        Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(364, 742)
         Me.DataGridView1.TabIndex = 2
         '
@@ -129,8 +163,8 @@ Partial Class FrmResultadosMensuales
         'Mes
         '
         Me.Mes.DataPropertyName = "Mes"
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.Mes.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Mes.DefaultCellStyle = DataGridViewCellStyle16
         Me.Mes.Frozen = True
         Me.Mes.HeaderText = "Mes"
         Me.Mes.Name = "Mes"
@@ -140,10 +174,10 @@ Partial Class FrmResultadosMensuales
         'Ingresos
         '
         Me.Ingresos.DataPropertyName = "Ingresos"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.Ingresos.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle17.Format = "N2"
+        DataGridViewCellStyle17.NullValue = Nothing
+        Me.Ingresos.DefaultCellStyle = DataGridViewCellStyle17
         Me.Ingresos.Frozen = True
         Me.Ingresos.HeaderText = "Ingresos"
         Me.Ingresos.Name = "Ingresos"
@@ -153,10 +187,10 @@ Partial Class FrmResultadosMensuales
         'Ganancias
         '
         Me.Ganancias.DataPropertyName = "Ganancias"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.Ganancias.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle18.Format = "N2"
+        DataGridViewCellStyle18.NullValue = Nothing
+        Me.Ganancias.DefaultCellStyle = DataGridViewCellStyle18
         Me.Ganancias.Frozen = True
         Me.Ganancias.HeaderText = "Ganancias"
         Me.Ganancias.Name = "Ganancias"
@@ -166,10 +200,10 @@ Partial Class FrmResultadosMensuales
         'Gastos
         '
         Me.Gastos.DataPropertyName = "Gastos"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.Gastos.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle19.Format = "N2"
+        DataGridViewCellStyle19.NullValue = Nothing
+        Me.Gastos.DefaultCellStyle = DataGridViewCellStyle19
         Me.Gastos.Frozen = True
         Me.Gastos.HeaderText = "Gastos"
         Me.Gastos.Name = "Gastos"
@@ -179,10 +213,10 @@ Partial Class FrmResultadosMensuales
         'Perdidas
         '
         Me.Perdidas.DataPropertyName = "Perdidas"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.Perdidas.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle20.Format = "N2"
+        DataGridViewCellStyle20.NullValue = Nothing
+        Me.Perdidas.DefaultCellStyle = DataGridViewCellStyle20
         Me.Perdidas.Frozen = True
         Me.Perdidas.HeaderText = "Perdidas"
         Me.Perdidas.Name = "Perdidas"
@@ -192,10 +226,10 @@ Partial Class FrmResultadosMensuales
         'ResultadoMensual
         '
         Me.ResultadoMensual.DataPropertyName = "Resultado"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.ResultadoMensual.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle21.Format = "N2"
+        DataGridViewCellStyle21.NullValue = Nothing
+        Me.ResultadoMensual.DefaultCellStyle = DataGridViewCellStyle21
         Me.ResultadoMensual.HeaderText = "Resultado"
         Me.ResultadoMensual.Name = "ResultadoMensual"
         Me.ResultadoMensual.ReadOnly = True
@@ -203,10 +237,10 @@ Partial Class FrmResultadosMensuales
         'Utilidad
         '
         Me.Utilidad.DataPropertyName = "Utilidad"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.Utilidad.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle22.Format = "N2"
+        DataGridViewCellStyle22.NullValue = Nothing
+        Me.Utilidad.DefaultCellStyle = DataGridViewCellStyle22
         Me.Utilidad.HeaderText = "Utilidad"
         Me.Utilidad.Name = "Utilidad"
         Me.Utilidad.ReadOnly = True
@@ -225,8 +259,43 @@ Partial Class FrmResultadosMensuales
         Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowHeadersWidth = 25
         Me.DataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView2.Size = New System.Drawing.Size(240, 742)
         Me.DataGridView2.TabIndex = 3
+        '
+        'Fecha
+        '
+        Me.Fecha.DataPropertyName = "Fecha"
+        Me.Fecha.Frozen = True
+        Me.Fecha.HeaderText = "Fecha"
+        Me.Fecha.Name = "Fecha"
+        Me.Fecha.ReadOnly = True
+        Me.Fecha.Width = 70
+        '
+        'CuentaImputableIngresos
+        '
+        Me.CuentaImputableIngresos.DataPropertyName = "CuentaImputable"
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle23.NullValue = Nothing
+        Me.CuentaImputableIngresos.DefaultCellStyle = DataGridViewCellStyle23
+        Me.CuentaImputableIngresos.Frozen = True
+        Me.CuentaImputableIngresos.HeaderText = "Cuenta Imputada"
+        Me.CuentaImputableIngresos.Name = "CuentaImputableIngresos"
+        Me.CuentaImputableIngresos.ReadOnly = True
+        Me.CuentaImputableIngresos.Width = 150
+        '
+        'ImporteIngresos
+        '
+        Me.ImporteIngresos.DataPropertyName = "Importe"
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle24.Format = "N2"
+        DataGridViewCellStyle24.NullValue = Nothing
+        Me.ImporteIngresos.DefaultCellStyle = DataGridViewCellStyle24
+        Me.ImporteIngresos.Frozen = True
+        Me.ImporteIngresos.HeaderText = "Importe"
+        Me.ImporteIngresos.Name = "ImporteIngresos"
+        Me.ImporteIngresos.ReadOnly = True
+        Me.ImporteIngresos.Width = 120
         '
         'Label1
         '
@@ -264,8 +333,33 @@ Partial Class FrmResultadosMensuales
         Me.DataGridView3.RowHeadersVisible = False
         Me.DataGridView3.RowHeadersWidth = 25
         Me.DataGridView3.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.DataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView3.Size = New System.Drawing.Size(199, 742)
         Me.DataGridView3.TabIndex = 6
+        '
+        'CuentaImputable
+        '
+        Me.CuentaImputable.DataPropertyName = "CuentaImputable"
+        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle25.Format = "N2"
+        DataGridViewCellStyle25.NullValue = Nothing
+        Me.CuentaImputable.DefaultCellStyle = DataGridViewCellStyle25
+        Me.CuentaImputable.HeaderText = "Cuenta Imputada"
+        Me.CuentaImputable.Name = "CuentaImputable"
+        Me.CuentaImputable.ReadOnly = True
+        Me.CuentaImputable.Width = 190
+        '
+        'Importe
+        '
+        Me.Importe.DataPropertyName = "Importe"
+        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle26.Format = "N2"
+        DataGridViewCellStyle26.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle26
+        Me.Importe.HeaderText = "Importe"
+        Me.Importe.Name = "Importe"
+        Me.Importe.ReadOnly = True
+        Me.Importe.Width = 90
         '
         'DataGridView4
         '
@@ -281,8 +375,33 @@ Partial Class FrmResultadosMensuales
         Me.DataGridView4.RowHeadersVisible = False
         Me.DataGridView4.RowHeadersWidth = 25
         Me.DataGridView4.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.DataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView4.Size = New System.Drawing.Size(199, 742)
         Me.DataGridView4.TabIndex = 7
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.DataPropertyName = "CuentaImputable"
+        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle27.Format = "N2"
+        DataGridViewCellStyle27.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle27
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Cuenta Imputada"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 190
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.DataPropertyName = "Importe"
+        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle28.Format = "N2"
+        DataGridViewCellStyle28.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle28
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Importe"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 90
         '
         'DataGridView5
         '
@@ -298,131 +417,17 @@ Partial Class FrmResultadosMensuales
         Me.DataGridView5.RowHeadersVisible = False
         Me.DataGridView5.RowHeadersWidth = 25
         Me.DataGridView5.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.DataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView5.Size = New System.Drawing.Size(202, 742)
         Me.DataGridView5.TabIndex = 8
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label3.Location = New System.Drawing.Point(625, 2)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(199, 20)
-        Me.Label3.TabIndex = 9
-        Me.Label3.Text = "Detalle de Ganancias"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label4.Location = New System.Drawing.Point(832, 2)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(199, 20)
-        Me.Label4.TabIndex = 10
-        Me.Label4.Text = "Detalle de Gastos"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Label5.Location = New System.Drawing.Point(1039, 2)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(202, 20)
-        Me.Label5.TabIndex = 11
-        Me.Label5.Text = "Detalle de Perdidas"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Fecha
-        '
-        Me.Fecha.DataPropertyName = "Fecha"
-        Me.Fecha.Frozen = True
-        Me.Fecha.HeaderText = "Fecha"
-        Me.Fecha.Name = "Fecha"
-        Me.Fecha.ReadOnly = True
-        Me.Fecha.Width = 70
-        '
-        'CuentaImputableIngresos
-        '
-        Me.CuentaImputableIngresos.DataPropertyName = "CuentaImputable"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.CuentaImputableIngresos.DefaultCellStyle = DataGridViewCellStyle8
-        Me.CuentaImputableIngresos.Frozen = True
-        Me.CuentaImputableIngresos.HeaderText = "Cuenta Imputada"
-        Me.CuentaImputableIngresos.Name = "CuentaImputableIngresos"
-        Me.CuentaImputableIngresos.ReadOnly = True
-        Me.CuentaImputableIngresos.Width = 150
-        '
-        'ImporteIngresos
-        '
-        Me.ImporteIngresos.DataPropertyName = "Importe"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.ImporteIngresos.DefaultCellStyle = DataGridViewCellStyle9
-        Me.ImporteIngresos.Frozen = True
-        Me.ImporteIngresos.HeaderText = "Importe"
-        Me.ImporteIngresos.Name = "ImporteIngresos"
-        Me.ImporteIngresos.ReadOnly = True
-        Me.ImporteIngresos.Width = 120
-        '
-        'CuentaImputable
-        '
-        Me.CuentaImputable.DataPropertyName = "CuentaImputable"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.CuentaImputable.DefaultCellStyle = DataGridViewCellStyle10
-        Me.CuentaImputable.HeaderText = "Cuenta Imputada"
-        Me.CuentaImputable.Name = "CuentaImputable"
-        Me.CuentaImputable.ReadOnly = True
-        Me.CuentaImputable.Width = 190
-        '
-        'Importe
-        '
-        Me.Importe.DataPropertyName = "Importe"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle11.Format = "N2"
-        DataGridViewCellStyle11.NullValue = Nothing
-        Me.Importe.DefaultCellStyle = DataGridViewCellStyle11
-        Me.Importe.HeaderText = "Importe"
-        Me.Importe.Name = "Importe"
-        Me.Importe.ReadOnly = True
-        Me.Importe.Width = 90
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.DataPropertyName = "CuentaImputable"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.Format = "N2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle12
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Cuenta Imputada"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 190
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.DataPropertyName = "Importe"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle13.Format = "N2"
-        DataGridViewCellStyle13.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle13
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Importe"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 90
         '
         'DataGridViewTextBoxColumn3
         '
         Me.DataGridViewTextBoxColumn3.DataPropertyName = "CuentaImputable"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle14.Format = "N2"
-        DataGridViewCellStyle14.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle29.Format = "N2"
+        DataGridViewCellStyle29.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle29
         Me.DataGridViewTextBoxColumn3.HeaderText = "Cuenta Imputada"
         Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
         Me.DataGridViewTextBoxColumn3.ReadOnly = True
@@ -431,10 +436,10 @@ Partial Class FrmResultadosMensuales
         'DataGridViewTextBoxColumn4
         '
         Me.DataGridViewTextBoxColumn4.DataPropertyName = "Importe"
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle15.Format = "N2"
-        DataGridViewCellStyle15.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle30.Format = "N2"
+        DataGridViewCellStyle30.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn4.DefaultCellStyle = DataGridViewCellStyle30
         Me.DataGridViewTextBoxColumn4.HeaderText = "Importe"
         Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
         Me.DataGridViewTextBoxColumn4.ReadOnly = True
