@@ -33,6 +33,7 @@ Partial Class FrmSelectorUniversal
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
+        Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
@@ -46,14 +47,15 @@ Partial Class FrmSelectorUniversal
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.Size = New System.Drawing.Size(425, 450)
+        Me.DataGridView1.RowHeadersWidth = 21
+        Me.DataGridView1.Size = New System.Drawing.Size(546, 450)
         Me.DataGridView1.TabIndex = 0
         '
         'FrmSelectorUniversal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(425, 450)
+        Me.ClientSize = New System.Drawing.Size(546, 450)
         Me.ControlBox = False
         Me.Controls.Add(Me.DataGridView1)
         Me.Name = "FrmSelectorUniversal"

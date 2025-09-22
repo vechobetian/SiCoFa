@@ -7,7 +7,7 @@ Public Class N_AdminAsientosContable
         Dim AdminAsientosContable As New D_AdminAsientosContable
 
         Try
-            Dim ci As CuentaImputable = AdminAsientosContable.ObtenerTipoComprobantePorCodiTC(argCodiCta)
+            Dim ci As CuentaImputable = AdminAsientosContable.ObtenerCuentaImputablePorCodiCta(argCodiCta)
             Return ci
 
         Catch ex As Exception

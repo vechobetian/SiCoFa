@@ -4,12 +4,12 @@ Imports SiCoFa.Entidades
 
 Public Class D_AdminAsientosContable
 
-    Public Function ObtenerTipoComprobantePorCodiTC(ByVal argCodiCta As String) As CuentaImputable
+    Public Function ObtenerCuentaImputablePorCodiCta(ByVal argCodiCta As String) As CuentaImputable
         Dim objConexionDB As New D_Conexion
         Dim objCI As CuentaImputable = Nothing
 
         Try
-            Dim Sql As String = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables WHERE CodiCta = @CodiCta"
+            Dim Sql As String = "SELECT CodiCta,CodiCtaCol,CuentaImputable FROM cuentas_imputables WHERE CodiCta = @CodiCta"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -23,7 +23,7 @@ Public Class D_AdminAsientosContable
                         If datos.Read Then
                             Dim CodiCta As String = datos("CodiCta")
                             Dim CodiCtaCol As String = datos("CodiCtaCol")
-                            Dim NombreCta As String = datos("NombreCta")
+                            Dim NombreCta As String = datos("CuentaImputable")
                             objCI = New CuentaImputable(CodiCta, CodiCtaCol, NombreCta)
                         End If
 
@@ -52,9 +52,9 @@ Public Class D_AdminAsientosContable
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables ORDER BY NombreCta"
+                sql = "SELECT CodiCta,CodiCtaCol,CuentaImputable FROM cuentas_imputables ORDER BY CuentaImputable"
             Else
-                sql = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables WHERE NombreCta LIKE @NombreCta ORDER BY NombreCta"
+                sql = "SELECT CodiCta,CodiCtaCol,CuentaImputable FROM cuentas_imputables WHERE CuentaImputable LIKE @CuentaImputable ORDER BY CuentaImputables"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -64,13 +64,13 @@ Public Class D_AdminAsientosContable
                     cmd.CommandText = sql
 
                     If argTextoBuscado <> "*" Then
-                        cmd.Parameters.AddWithValue("@NombreCta", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                        cmd.Parameters.AddWithValue("@CuentaImputable", Replace(UCase(argTextoBuscado), " ", "%") & "%")
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            c = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("NombreCta"))
+                            c = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("CuentaImputable"))
                             lc.Add(c)
                         End While
 

@@ -362,7 +362,7 @@ Public Class FrmAsientoGastos
         Try
 
             Dim AdminDB As New N_AdminDB
-            Dim sql As String = "SELECT * FROM TblCtasImputables WHERE (LEFT(CodiCta,4)='6.02' OR LEFT(CodiCta,4)='6.04' OR LEFT(CodiCta,4)='6.05')  AND NombreCta LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
+            Dim sql As String = "SELECT * FROM cuentas_imputables WHERE (LEFT(CodiCta,4)='6.02' OR LEFT(CodiCta,4)='6.04' OR LEFT(CodiCta,4)='6.05')  AND CuentaImputable LIKE '" & Replace(argTextoBuscado, " ", "%") & "%'"
             Dim dt As DataTable = AdminDB.ObtenerTabla(sql)
 
             Select Case dt.Rows.Count
@@ -387,7 +387,7 @@ Public Class FrmAsientoGastos
                         f.Text = "Cuentas de Gasto"
                         f.Objetos = dt.DefaultView
                         f.NombrePropiedadId = "CodiCta"
-                        f.NombrePropiedadDescripcion = "NombreCta"
+                        f.NombrePropiedadDescripcion = "CuentaImputable"
                         f.HeaderPropiedadDescripcion = "Cuenta"
 
                         If f.ShowDialog() = DialogResult.OK Then
