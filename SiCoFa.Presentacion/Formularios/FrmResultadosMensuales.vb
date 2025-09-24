@@ -44,9 +44,9 @@ Public Class FrmResultadosMensuales
         Dim sql As String = $"SELECT CuentaImputable,Importe FROM vw_contabilidad_ganancias_mensuales WHERE anio={anio} AND mes={mes}"
 
         Dim dt As DataTable = mobjAdminDB.ObtenerTabla(sql)
-        Me.DataGridView3.DataSource = dt
+        'Me.DataGridView3.DataSource = dt
 
-        Me.DataGridView3.ClearSelection()
+        'Me.DataGridView3.ClearSelection()
 
     End Sub
 
@@ -84,9 +84,9 @@ Public Class FrmResultadosMensuales
         Dim sql As String = $"SELECT CuentaImputable,Importe FROM vw_contabilidad_perdidas_mensuales WHERE anio={anio} AND mes={mes}"
 
         Dim dt As DataTable = mobjAdminDB.ObtenerTabla(sql)
-        Me.DataGridView5.DataSource = dt
+        'Me.DataGridView5.DataSource = dt
 
-        Me.DataGridView5.ClearSelection()
+        'Me.DataGridView5.ClearSelection()
 
     End Sub
 
@@ -96,7 +96,7 @@ Public Class FrmResultadosMensuales
 
             If DataGridView1.ColumnCount = 8 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.08R, 0.055R, 0.2R, 0.142R, 0.2R, 0.142R, 0.15R, 0.1R}
+                Dim proporciones As Double() = {0.08R, 0.055R, 0.18R, 0.14R, 0.18R, 0.14R, 0.15R, 0.1R}
 
                 For i As Integer = 0 To 7
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
@@ -140,17 +140,17 @@ Public Class FrmResultadosMensuales
 
         Try
 
-            If DataGridView3.ColumnCount = 2 Then
-                Dim totalAncho As Integer = DataGridView1.Width
+            'If DataGridView3.ColumnCount = 2 Then
+            Dim totalAncho As Integer = DataGridView1.Width
                 Dim proporciones As Double() = {0.395R, 0.15R}
 
                 For i As Integer = 0 To 1
-                    DataGridView3.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
+                'DataGridView3.Columns(i).Width = CInt(totalAncho * proporciones(i))
+            Next
 
-            Else
-                MessageBox.Show("El DataGridView3 no tiene 2 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
+            'Else
+            MessageBox.Show("El DataGridView3 no tiene 2 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -186,17 +186,17 @@ Public Class FrmResultadosMensuales
 
         Try
 
-            If DataGridView5.ColumnCount = 2 Then
-                Dim totalAncho As Integer = DataGridView1.Width
+            'If DataGridView5.ColumnCount = 2 Then
+            Dim totalAncho As Integer = DataGridView1.Width
                 Dim proporciones As Double() = {0.395R, 0.15R}
 
                 For i As Integer = 0 To 1
-                    DataGridView5.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
+                'DataGridView5.Columns(i).Width = CInt(totalAncho * proporciones(i))
+            Next
 
-            Else
-                MessageBox.Show("El DataGridView4 no tiene 2 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
+            'Else
+            MessageBox.Show("El DataGridView4 no tiene 2 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -210,9 +210,9 @@ Public Class FrmResultadosMensuales
 
             Me.AjustarAnchoColumnasResultadosMensuales()
             Me.AjustarAnchoColumnasIngresos()
-            Me.AjustarAnchoColumnasGanancias()
+            'Me.AjustarAnchoColumnasGanancias()
             Me.AjustarAnchoColumnasGastos()
-            Me.AjustarAnchoColumnasPerdidas()
+            'Me.AjustarAnchoColumnasPerdidas()
 
             dTable = mobjAdminDB.ObtenerTabla(Me.strResultadosMensuales)
 

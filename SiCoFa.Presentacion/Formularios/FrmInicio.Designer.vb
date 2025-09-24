@@ -36,8 +36,8 @@ Partial Class FrmInicio
         Me.mnuFiscalIVADigital = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuFiscalIVAExcel = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuContabilidad = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ResultadosMensualesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaldoCuentaPatrimonialesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContabilidadResultadosMensuales = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuContabilidadSaldoCuentaPatrimoniales = New System.Windows.Forms.ToolStripMenuItem()
         Me.AsientoContableToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CancelarCuentasIncobraToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CierreEjercicioAbiertoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -156,22 +156,22 @@ Partial Class FrmInicio
         '
         'mnuContabilidad
         '
-        Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ResultadosMensualesToolStripMenuItem, Me.SaldoCuentaPatrimonialesToolStripMenuItem, Me.AsientoContableToolStripMenuItem, Me.CancelarCuentasIncobraToolStripMenuItem, Me.CierreEjercicioAbiertoToolStripMenuItem})
+        Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContabilidadResultadosMensuales, Me.mnuContabilidadSaldoCuentaPatrimoniales, Me.AsientoContableToolStripMenuItem, Me.CancelarCuentasIncobraToolStripMenuItem, Me.CierreEjercicioAbiertoToolStripMenuItem})
         Me.mnuContabilidad.Name = "mnuContabilidad"
         Me.mnuContabilidad.Size = New System.Drawing.Size(87, 20)
         Me.mnuContabilidad.Text = "Con&tabilidad"
         '
-        'ResultadosMensualesToolStripMenuItem
+        'mnuContabilidadResultadosMensuales
         '
-        Me.ResultadosMensualesToolStripMenuItem.Name = "ResultadosMensualesToolStripMenuItem"
-        Me.ResultadosMensualesToolStripMenuItem.Size = New System.Drawing.Size(230, 22)
-        Me.ResultadosMensualesToolStripMenuItem.Text = "&Resultados Mensuales"
+        Me.mnuContabilidadResultadosMensuales.Name = "mnuContabilidadResultadosMensuales"
+        Me.mnuContabilidadResultadosMensuales.Size = New System.Drawing.Size(230, 22)
+        Me.mnuContabilidadResultadosMensuales.Text = "&Resultados Mensuales"
         '
-        'SaldoCuentaPatrimonialesToolStripMenuItem
+        'mnuContabilidadSaldoCuentaPatrimoniales
         '
-        Me.SaldoCuentaPatrimonialesToolStripMenuItem.Name = "SaldoCuentaPatrimonialesToolStripMenuItem"
-        Me.SaldoCuentaPatrimonialesToolStripMenuItem.Size = New System.Drawing.Size(230, 22)
-        Me.SaldoCuentaPatrimonialesToolStripMenuItem.Text = "&Saldo Cuenta Patrimoniales"
+        Me.mnuContabilidadSaldoCuentaPatrimoniales.Name = "mnuContabilidadSaldoCuentaPatrimoniales"
+        Me.mnuContabilidadSaldoCuentaPatrimoniales.Size = New System.Drawing.Size(230, 22)
+        Me.mnuContabilidadSaldoCuentaPatrimoniales.Text = "&Saldo Cuenta Patrimoniales"
         '
         'AsientoContableToolStripMenuItem
         '
@@ -395,8 +395,8 @@ Partial Class FrmInicio
     Friend WithEvents mnuFiscalIVADigital As ToolStripMenuItem
     Friend WithEvents mnuFiscalIVAExcel As ToolStripMenuItem
     Friend WithEvents mnuContabilidad As ToolStripMenuItem
-    Friend WithEvents ResultadosMensualesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SaldoCuentaPatrimonialesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuContabilidadResultadosMensuales As ToolStripMenuItem
+    Friend WithEvents mnuContabilidadSaldoCuentaPatrimoniales As ToolStripMenuItem
     Friend WithEvents AsientoContableToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CancelarCuentasIncobraToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CierreEjercicioAbiertoToolStripMenuItem As ToolStripMenuItem

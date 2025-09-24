@@ -68,6 +68,26 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuContabilidadResultadosMensuales_Click(sender As Object, e As EventArgs) Handles mnuContabilidadResultadosMensuales.Click
+
+        Try
+
+            Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuContabilidadResultadosMensuales.Name)
+
+            If User Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmResultadosMensuales()
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
     Private Sub mnuEditarArticulos_Click(sender As Object, e As EventArgs) Handles mnuEditarArticulos.Click
 
         If ModSeguridad.ValidarUsuario(Me.mnuEditarArticulos.Name) Is Nothing Then
@@ -257,4 +277,5 @@ Public Class FrmInicio
 
 
     End Sub
+
 End Class
