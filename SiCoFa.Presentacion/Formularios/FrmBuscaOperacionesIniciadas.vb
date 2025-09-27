@@ -11,8 +11,8 @@ Public Class FrmBuscaOperacionesIniciadas
             SELECT operaciones.IdOperacion, operaciones.Inicio,
                    IFNULL(clientes.Nombre, 'CONSUMIDOR FINAL NO IDENTIFICADO') AS Nombre
             FROM operaciones
-            LEFT JOIN TblOperacionesCL ON operaciones.IdOperacion = TblOperacionesCL.IdOperacion
-            LEFT JOIN clientes ON TblOperacionesCL.IdCliente = clientes.IdCliente
+            LEFT JOIN operaciones_cl ON operaciones.IdOperacion = operaciones_cl.IdOperacion
+            LEFT JOIN clientes ON operaciones_cl.IdCliente = clientes.IdCliente
             WHERE operaciones.IdEmpresa = {argIdEmpresa} AND 
                   operaciones.IdUsuario = {argIdUsuario} AND
                   operaciones.CodiTO='{argCodiTO}' AND
@@ -45,7 +45,7 @@ Public Class FrmBuscaOperacionesIniciadas
             Exit Sub
         End If
 
-        Dim sql As String = "SELECT IdItem,Descripcion,Cantidad,PrecioUnitario,(Cantidad*PrecioUnitario) AS Importe FROM TblItemsComprobante WHERE IdOperacion='" & Me.dgvOperacionesIniciadas.CurrentRow.Cells(0).Value & "' ORDER BY IdItem"
+        Dim sql As String = "SELECT IdItem,Descripcion,Cantidad,PrecioUnitario,(Cantidad*PrecioUnitario) AS Importe FROM items_comprobante WHERE IdOperacion='" & Me.dgvOperacionesIniciadas.CurrentRow.Cells(0).Value & "' ORDER BY IdItem"
 
         Dim Items As DataTable = mobj_AdminDB.ObtenerTabla(sql)
         Me.dgvItemsOperacion.DataSource = Items
