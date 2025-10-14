@@ -2,7 +2,8 @@
 Imports SiCoFa.Entidades
 
 Public Class FrmComprobantesEmitidos
-    Property SQL As String
+    Property SQL As String = "SELECT IdOperacion,CodiTC,IdOperAsoc,Operacion,IdUsuario,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos ORDER BY IdOperacion"
+
 
     Private mAdminDB As New N_AdminDB
 
@@ -64,12 +65,36 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
+    Private Sub ActulizarImportes()
+
+        Try
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+            Dim impBto As String = Me.DataGridView1.CurrentRow.Cells("ImpBto").Value
+            Dim impDes As String = Me.DataGridView1.CurrentRow.Cells("ImpDes").Value
+            Dim impNeto As String = Me.DataGridView1.CurrentRow.Cells("ImpNeto").Value
+            Dim impEf As String = Me.DataGridView1.CurrentRow.Cells("ImpEf").Value
+            Dim impCC As String = Me.DataGridView1.CurrentRow.Cells("ImpCC").Value
+            Dim impPE As String = Me.DataGridView1.CurrentRow.Cells("ImpPE").Value
+
+            Me.lblImpBto.Text = impBto
+            Me.lblImpDes.Text = impDes
+            Me.lblImpNeto.Text = impNeto
+            Me.lblImpEf.Text = impEf
+            Me.lblImpCC.Text = impCC
+            Me.lblImpPE.Text = impPE
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+
+    End Sub
+
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
             If DataGridView1.ColumnCount = 21 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.04R, 0.08R, 0.03R, 0.08R, 0.04R, 0.03R, 0.04R, 0.14R, 0.06R, 0.04R, 0.05R, 0.05R, 0.05R, 0.05R, 0.07R, 0.05R, 0.1R, 0.0R, 0.0R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.17R, 0.06R, 0.15R, 0.07R, 0.05R, 0.07R, 0.2R, 0.1R, 0.1R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R}
 
                 For i As Integer = 0 To 20
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
@@ -91,7 +116,7 @@ Public Class FrmComprobantesEmitidos
 
             If DataGridView2.ColumnCount = 10 Then
                 Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.08R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
+                Dim proporciones As Double() = {0.0R, 0.08R, 0.3R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
 
                 For i As Integer = 0 To 9 ' Itera a través de las 9 columnas
                     DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))
@@ -116,6 +141,7 @@ Public Class FrmComprobantesEmitidos
             Me.DataGridView1.DataSource = comprobantes
             Me.ActualizarDetalle()
             Me.ActualizarMenus()
+            Me.ActulizarImportes()
             Me.AjustarAnchoColumnasComprobantes()
             Me.AjustarAnchoColumnasDetalle()
 
@@ -155,6 +181,7 @@ Public Class FrmComprobantesEmitidos
 
             Me.ActualizarDetalle()
             Me.ActualizarMenus()
+            Me.ActulizarImportes()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

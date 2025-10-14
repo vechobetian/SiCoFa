@@ -452,6 +452,9 @@ Public Class FrmVentas
     Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
+            Me.MaximizedBounds = Screen.FromHandle(Me.Handle).WorkingArea
+            Me.WindowState = FormWindowState.Maximized
+
             mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
             mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
             mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
