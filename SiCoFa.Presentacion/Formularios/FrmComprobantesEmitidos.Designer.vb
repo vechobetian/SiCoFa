@@ -22,14 +22,14 @@ Partial Class FrmComprobantesEmitidos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmComprobantesEmitidos))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.DataGridView2 = New System.Windows.Forms.DataGridView()
@@ -60,19 +60,6 @@ Partial Class FrmComprobantesEmitidos
         Me.mnuFacturarPresupuestoEmitirRemito = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesAnularReciboDePago = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblImpBto = New System.Windows.Forms.Label()
-        Me.lblImpDes = New System.Windows.Forms.Label()
-        Me.lblImpNeto = New System.Windows.Forms.Label()
-        Me.lblImpEf = New System.Windows.Forms.Label()
-        Me.lblImpCC = New System.Windows.Forms.Label()
-        Me.lblImpPE = New System.Windows.Forms.Label()
-        Me.lblImpBtoEtiqueta = New System.Windows.Forms.Label()
-        Me.lblImpDesEtiqueta = New System.Windows.Forms.Label()
-        Me.lblImpNetoEtiqueta = New System.Windows.Forms.Label()
-        Me.lblImpEfEtiqueta = New System.Windows.Forms.Label()
-        Me.lblImpCCEtiqueta = New System.Windows.Forms.Label()
-        Me.lblImpPEEtiqueta = New System.Windows.Forms.Label()
         Me.CodiTC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperAsoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -94,6 +81,19 @@ Partial Class FrmComprobantesEmitidos
         Me.ImpEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblImpPEEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImpCCEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImpEfEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImpNetoEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImpDesEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImpBtoEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImpBto = New System.Windows.Forms.Label()
+        Me.lblImpDes = New System.Windows.Forms.Label()
+        Me.lblImpNeto = New System.Windows.Forms.Label()
+        Me.lblImpEf = New System.Windows.Forms.Label()
+        Me.lblImpCC = New System.Windows.Forms.Label()
+        Me.lblImpPE = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
@@ -106,7 +106,7 @@ Partial Class FrmComprobantesEmitidos
         Me.TableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 308.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 395.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView2, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.MenuStrip1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView1, 0, 1)
@@ -128,14 +128,14 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView2.AllowUserToResizeRows = False
         Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle25.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento})
         Me.DataGridView2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -145,7 +145,7 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView2.RowHeadersWidth = 20
         Me.DataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(690, 199)
+        Me.DataGridView2.Size = New System.Drawing.Size(603, 199)
         Me.DataGridView2.TabIndex = 10
         '
         'IdItem
@@ -174,10 +174,10 @@ Partial Class FrmComprobantesEmitidos
         'Cantidad
         '
         Me.Cantidad.DataPropertyName = "Cantidad"
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle26.Format = "N2"
-        DataGridViewCellStyle26.NullValue = Nothing
-        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle2
         Me.Cantidad.FillWeight = 45.17765!
         Me.Cantidad.HeaderText = "Cantidad"
         Me.Cantidad.Name = "Cantidad"
@@ -185,10 +185,10 @@ Partial Class FrmComprobantesEmitidos
         'AlicIVA
         '
         Me.AlicIVA.DataPropertyName = "AlicIVA"
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle27.Format = "N2"
-        DataGridViewCellStyle27.NullValue = Nothing
-        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle27
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.Format = "N2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle3
         Me.AlicIVA.FillWeight = 49.05295!
         Me.AlicIVA.HeaderText = "IVA"
         Me.AlicIVA.Name = "AlicIVA"
@@ -197,10 +197,10 @@ Partial Class FrmComprobantesEmitidos
         'PrecioUnitario
         '
         Me.PrecioUnitario.DataPropertyName = "PrecioUnitario"
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle28.Format = "N2"
-        DataGridViewCellStyle28.NullValue = Nothing
-        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle4
         Me.PrecioUnitario.FillWeight = 163.2504!
         Me.PrecioUnitario.HeaderText = "Precio Unitario"
         Me.PrecioUnitario.Name = "PrecioUnitario"
@@ -209,10 +209,10 @@ Partial Class FrmComprobantesEmitidos
         'ImporteSinDescuento
         '
         Me.ImporteSinDescuento.DataPropertyName = "ImporteSinDescuento"
-        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle29.Format = "N2"
-        DataGridViewCellStyle29.NullValue = Nothing
-        Me.ImporteSinDescuento.DefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "N2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.ImporteSinDescuento.DefaultCellStyle = DataGridViewCellStyle5
         Me.ImporteSinDescuento.FillWeight = 142.2507!
         Me.ImporteSinDescuento.HeaderText = "Importe"
         Me.ImporteSinDescuento.Name = "ImporteSinDescuento"
@@ -221,10 +221,10 @@ Partial Class FrmComprobantesEmitidos
         'PorcentajeDescuento
         '
         Me.PorcentajeDescuento.DataPropertyName = "PorcentajeDescuento"
-        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle30.Format = "N2"
-        DataGridViewCellStyle30.NullValue = Nothing
-        Me.PorcentajeDescuento.DefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.PorcentajeDescuento.DefaultCellStyle = DataGridViewCellStyle6
         Me.PorcentajeDescuento.FillWeight = 135.4671!
         Me.PorcentajeDescuento.HeaderText = "%Descuento"
         Me.PorcentajeDescuento.Name = "PorcentajeDescuento"
@@ -233,10 +233,10 @@ Partial Class FrmComprobantesEmitidos
         'ImporteDescuento
         '
         Me.ImporteDescuento.DataPropertyName = "ImporteDescuento"
-        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle31.Format = "N2"
-        DataGridViewCellStyle31.NullValue = Nothing
-        Me.ImporteDescuento.DefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "N2"
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.ImporteDescuento.DefaultCellStyle = DataGridViewCellStyle7
         Me.ImporteDescuento.FillWeight = 128.8487!
         Me.ImporteDescuento.HeaderText = "Imp.Descuento"
         Me.ImporteDescuento.Name = "ImporteDescuento"
@@ -245,10 +245,10 @@ Partial Class FrmComprobantesEmitidos
         'ImporteConDescuento
         '
         Me.ImporteConDescuento.DataPropertyName = "ImporteConDescuento"
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle32.Format = "N2"
-        DataGridViewCellStyle32.NullValue = Nothing
-        Me.ImporteConDescuento.DefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "N2"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.ImporteConDescuento.DefaultCellStyle = DataGridViewCellStyle8
         Me.ImporteConDescuento.FillWeight = 95.13017!
         Me.ImporteConDescuento.HeaderText = "Imp.Cliente"
         Me.ImporteConDescuento.Name = "ImporteConDescuento"
@@ -259,7 +259,7 @@ Partial Class FrmComprobantesEmitidos
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(696, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(609, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -381,169 +381,6 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(1000, 493)
         Me.DataGridView1.TabIndex = 1
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.97351!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.02649!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpPEEtiqueta, 0, 5)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpCCEtiqueta, 0, 4)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpEfEtiqueta, 0, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpNetoEtiqueta, 0, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpDesEtiqueta, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpBtoEtiqueta, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpBto, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpDes, 1, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpNeto, 1, 2)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpEf, 1, 3)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpCC, 1, 4)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblImpPE, 1, 5)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(703, 533)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 6
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(302, 199)
-        Me.TableLayoutPanel2.TabIndex = 11
-        '
-        'lblImpBto
-        '
-        Me.lblImpBto.AutoSize = True
-        Me.lblImpBto.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpBto.Location = New System.Drawing.Point(166, 2)
-        Me.lblImpBto.Name = "lblImpBto"
-        Me.lblImpBto.Size = New System.Drawing.Size(131, 30)
-        Me.lblImpBto.TabIndex = 0
-        Me.lblImpBto.Text = "0,00"
-        Me.lblImpBto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImpDes
-        '
-        Me.lblImpDes.AutoSize = True
-        Me.lblImpDes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpDes.Location = New System.Drawing.Point(166, 34)
-        Me.lblImpDes.Name = "lblImpDes"
-        Me.lblImpDes.Size = New System.Drawing.Size(131, 30)
-        Me.lblImpDes.TabIndex = 1
-        Me.lblImpDes.Text = "0,00"
-        Me.lblImpDes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImpNeto
-        '
-        Me.lblImpNeto.AutoSize = True
-        Me.lblImpNeto.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpNeto.Location = New System.Drawing.Point(166, 66)
-        Me.lblImpNeto.Name = "lblImpNeto"
-        Me.lblImpNeto.Size = New System.Drawing.Size(131, 30)
-        Me.lblImpNeto.TabIndex = 2
-        Me.lblImpNeto.Text = "0,00"
-        Me.lblImpNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImpEf
-        '
-        Me.lblImpEf.AutoSize = True
-        Me.lblImpEf.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpEf.Location = New System.Drawing.Point(166, 98)
-        Me.lblImpEf.Name = "lblImpEf"
-        Me.lblImpEf.Size = New System.Drawing.Size(131, 30)
-        Me.lblImpEf.TabIndex = 3
-        Me.lblImpEf.Text = "0,00"
-        Me.lblImpEf.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImpCC
-        '
-        Me.lblImpCC.AutoSize = True
-        Me.lblImpCC.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpCC.Location = New System.Drawing.Point(166, 130)
-        Me.lblImpCC.Name = "lblImpCC"
-        Me.lblImpCC.Size = New System.Drawing.Size(131, 30)
-        Me.lblImpCC.TabIndex = 4
-        Me.lblImpCC.Text = "0,00"
-        Me.lblImpCC.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImpPE
-        '
-        Me.lblImpPE.AutoSize = True
-        Me.lblImpPE.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpPE.Location = New System.Drawing.Point(166, 162)
-        Me.lblImpPE.Name = "lblImpPE"
-        Me.lblImpPE.Size = New System.Drawing.Size(131, 35)
-        Me.lblImpPE.TabIndex = 5
-        Me.lblImpPE.Text = "0,00"
-        Me.lblImpPE.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImpBtoEtiqueta
-        '
-        Me.lblImpBtoEtiqueta.AutoSize = True
-        Me.lblImpBtoEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpBtoEtiqueta.Location = New System.Drawing.Point(5, 2)
-        Me.lblImpBtoEtiqueta.Name = "lblImpBtoEtiqueta"
-        Me.lblImpBtoEtiqueta.Size = New System.Drawing.Size(153, 30)
-        Me.lblImpBtoEtiqueta.TabIndex = 6
-        Me.lblImpBtoEtiqueta.Text = "Importe Bruto:"
-        Me.lblImpBtoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblImpDesEtiqueta
-        '
-        Me.lblImpDesEtiqueta.AutoSize = True
-        Me.lblImpDesEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpDesEtiqueta.Location = New System.Drawing.Point(5, 34)
-        Me.lblImpDesEtiqueta.Name = "lblImpDesEtiqueta"
-        Me.lblImpDesEtiqueta.Size = New System.Drawing.Size(153, 30)
-        Me.lblImpDesEtiqueta.TabIndex = 7
-        Me.lblImpDesEtiqueta.Text = "Importe Descuento:"
-        Me.lblImpDesEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblImpNetoEtiqueta
-        '
-        Me.lblImpNetoEtiqueta.AutoSize = True
-        Me.lblImpNetoEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpNetoEtiqueta.Location = New System.Drawing.Point(5, 66)
-        Me.lblImpNetoEtiqueta.Name = "lblImpNetoEtiqueta"
-        Me.lblImpNetoEtiqueta.Size = New System.Drawing.Size(153, 30)
-        Me.lblImpNetoEtiqueta.TabIndex = 8
-        Me.lblImpNetoEtiqueta.Text = "Importe Neto:"
-        Me.lblImpNetoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblImpEfEtiqueta
-        '
-        Me.lblImpEfEtiqueta.AutoSize = True
-        Me.lblImpEfEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpEfEtiqueta.Location = New System.Drawing.Point(5, 98)
-        Me.lblImpEfEtiqueta.Name = "lblImpEfEtiqueta"
-        Me.lblImpEfEtiqueta.Size = New System.Drawing.Size(153, 30)
-        Me.lblImpEfEtiqueta.TabIndex = 9
-        Me.lblImpEfEtiqueta.Text = "Importe Efectivo:"
-        Me.lblImpEfEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblImpCCEtiqueta
-        '
-        Me.lblImpCCEtiqueta.AutoSize = True
-        Me.lblImpCCEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpCCEtiqueta.Location = New System.Drawing.Point(5, 130)
-        Me.lblImpCCEtiqueta.Name = "lblImpCCEtiqueta"
-        Me.lblImpCCEtiqueta.Size = New System.Drawing.Size(153, 30)
-        Me.lblImpCCEtiqueta.TabIndex = 10
-        Me.lblImpCCEtiqueta.Text = "Importe Cuenta Corriente:"
-        Me.lblImpCCEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblImpPEEtiqueta
-        '
-        Me.lblImpPEEtiqueta.AutoSize = True
-        Me.lblImpPEEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImpPEEtiqueta.Location = New System.Drawing.Point(5, 162)
-        Me.lblImpPEEtiqueta.Name = "lblImpPEEtiqueta"
-        Me.lblImpPEEtiqueta.Size = New System.Drawing.Size(153, 35)
-        Me.lblImpPEEtiqueta.TabIndex = 11
-        Me.lblImpPEEtiqueta.Text = "Importe Pago Electronico:"
-        Me.lblImpPEEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'CodiTC
         '
@@ -710,6 +547,181 @@ Partial Class FrmComprobantesEmitidos
         Me.ImpPE.ReadOnly = True
         Me.ImpPE.Visible = False
         '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.97351!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.02649!))
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpPEEtiqueta, 0, 5)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpCCEtiqueta, 0, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpEfEtiqueta, 0, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpNetoEtiqueta, 0, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpDesEtiqueta, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpBtoEtiqueta, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpBto, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpDes, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpNeto, 1, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpEf, 1, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpCC, 1, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImpPE, 1, 5)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(616, 533)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 6
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(389, 199)
+        Me.TableLayoutPanel2.TabIndex = 11
+        '
+        'lblImpPEEtiqueta
+        '
+        Me.lblImpPEEtiqueta.AutoSize = True
+        Me.lblImpPEEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpPEEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpPEEtiqueta.Location = New System.Drawing.Point(5, 162)
+        Me.lblImpPEEtiqueta.Name = "lblImpPEEtiqueta"
+        Me.lblImpPEEtiqueta.Size = New System.Drawing.Size(200, 35)
+        Me.lblImpPEEtiqueta.TabIndex = 11
+        Me.lblImpPEEtiqueta.Text = "Importe Pago Electronico:"
+        Me.lblImpPEEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImpCCEtiqueta
+        '
+        Me.lblImpCCEtiqueta.AutoSize = True
+        Me.lblImpCCEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpCCEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpCCEtiqueta.Location = New System.Drawing.Point(5, 130)
+        Me.lblImpCCEtiqueta.Name = "lblImpCCEtiqueta"
+        Me.lblImpCCEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpCCEtiqueta.TabIndex = 10
+        Me.lblImpCCEtiqueta.Text = "Importe Cuenta Corriente:"
+        Me.lblImpCCEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImpEfEtiqueta
+        '
+        Me.lblImpEfEtiqueta.AutoSize = True
+        Me.lblImpEfEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpEfEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpEfEtiqueta.Location = New System.Drawing.Point(5, 98)
+        Me.lblImpEfEtiqueta.Name = "lblImpEfEtiqueta"
+        Me.lblImpEfEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpEfEtiqueta.TabIndex = 9
+        Me.lblImpEfEtiqueta.Text = "Importe Efectivo:"
+        Me.lblImpEfEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImpNetoEtiqueta
+        '
+        Me.lblImpNetoEtiqueta.AutoSize = True
+        Me.lblImpNetoEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpNetoEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpNetoEtiqueta.Location = New System.Drawing.Point(5, 66)
+        Me.lblImpNetoEtiqueta.Name = "lblImpNetoEtiqueta"
+        Me.lblImpNetoEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpNetoEtiqueta.TabIndex = 8
+        Me.lblImpNetoEtiqueta.Text = "Importe Neto:"
+        Me.lblImpNetoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImpDesEtiqueta
+        '
+        Me.lblImpDesEtiqueta.AutoSize = True
+        Me.lblImpDesEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpDesEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpDesEtiqueta.Location = New System.Drawing.Point(5, 34)
+        Me.lblImpDesEtiqueta.Name = "lblImpDesEtiqueta"
+        Me.lblImpDesEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpDesEtiqueta.TabIndex = 7
+        Me.lblImpDesEtiqueta.Text = "Importe Descuento:"
+        Me.lblImpDesEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImpBtoEtiqueta
+        '
+        Me.lblImpBtoEtiqueta.AutoSize = True
+        Me.lblImpBtoEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpBtoEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpBtoEtiqueta.Location = New System.Drawing.Point(5, 2)
+        Me.lblImpBtoEtiqueta.Name = "lblImpBtoEtiqueta"
+        Me.lblImpBtoEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpBtoEtiqueta.TabIndex = 6
+        Me.lblImpBtoEtiqueta.Text = "Importe Bruto:"
+        Me.lblImpBtoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImpBto
+        '
+        Me.lblImpBto.AutoSize = True
+        Me.lblImpBto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpBto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpBto.Location = New System.Drawing.Point(213, 2)
+        Me.lblImpBto.Name = "lblImpBto"
+        Me.lblImpBto.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpBto.TabIndex = 0
+        Me.lblImpBto.Text = "0,00"
+        Me.lblImpBto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImpDes
+        '
+        Me.lblImpDes.AutoSize = True
+        Me.lblImpDes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpDes.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpDes.Location = New System.Drawing.Point(213, 34)
+        Me.lblImpDes.Name = "lblImpDes"
+        Me.lblImpDes.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpDes.TabIndex = 1
+        Me.lblImpDes.Text = "0,00"
+        Me.lblImpDes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImpNeto
+        '
+        Me.lblImpNeto.AutoSize = True
+        Me.lblImpNeto.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpNeto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpNeto.Location = New System.Drawing.Point(213, 66)
+        Me.lblImpNeto.Name = "lblImpNeto"
+        Me.lblImpNeto.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpNeto.TabIndex = 2
+        Me.lblImpNeto.Text = "0,00"
+        Me.lblImpNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImpEf
+        '
+        Me.lblImpEf.AutoSize = True
+        Me.lblImpEf.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpEf.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpEf.Location = New System.Drawing.Point(213, 98)
+        Me.lblImpEf.Name = "lblImpEf"
+        Me.lblImpEf.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpEf.TabIndex = 3
+        Me.lblImpEf.Text = "0,00"
+        Me.lblImpEf.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImpCC
+        '
+        Me.lblImpCC.AutoSize = True
+        Me.lblImpCC.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpCC.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpCC.Location = New System.Drawing.Point(213, 130)
+        Me.lblImpCC.Name = "lblImpCC"
+        Me.lblImpCC.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpCC.TabIndex = 4
+        Me.lblImpCC.Text = "0,00"
+        Me.lblImpCC.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImpPE
+        '
+        Me.lblImpPE.AutoSize = True
+        Me.lblImpPE.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImpPE.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImpPE.Location = New System.Drawing.Point(213, 162)
+        Me.lblImpPE.Name = "lblImpPE"
+        Me.lblImpPE.Size = New System.Drawing.Size(171, 35)
+        Me.lblImpPE.TabIndex = 5
+        Me.lblImpPE.Text = "0,00"
+        Me.lblImpPE.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'FrmComprobantesEmitidos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -718,6 +730,7 @@ Partial Class FrmComprobantesEmitidos
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmComprobantesEmitidos"
         Me.Text = "FrmComprobantes"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()

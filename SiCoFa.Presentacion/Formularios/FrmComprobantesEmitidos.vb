@@ -2,8 +2,7 @@
 Imports SiCoFa.Entidades
 
 Public Class FrmComprobantesEmitidos
-    Property SQL As String = "SELECT IdOperacion,CodiTC,IdOperAsoc,Operacion,IdUsuario,TipoComprobante,FechaComp,PVenta,NumComp,Cliente,ImpBto,ImpDes,ImpNeto,ImpEf,ImpCC,ImpPE,ComprobanteAsociado,CodiTO,EstadoOperacion,DescripcionError FROM vw_comprobantes_emitidos ORDER BY IdOperacion"
-
+    Property SQL As String
 
     Private mAdminDB As New N_AdminDB
 
