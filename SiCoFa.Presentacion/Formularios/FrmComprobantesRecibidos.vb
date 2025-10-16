@@ -9,7 +9,7 @@ Public Class FrmComprobantesRecibidos
     Private Sub ActualizarDetalle()
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+            Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
             Dim idOperacion As Long = Convert.ToInt64(valor)
 
@@ -53,7 +53,7 @@ Public Class FrmComprobantesRecibidos
 
             If DataGridView2.ColumnCount = 9 Then
                 Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.08R, 0.58R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
+                Dim proporciones As Double() = {0.0R, 0.08R, 0.3R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
 
                 For i As Integer = 0 To 8 ' Itera a través de las 9 columnas
                     DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))

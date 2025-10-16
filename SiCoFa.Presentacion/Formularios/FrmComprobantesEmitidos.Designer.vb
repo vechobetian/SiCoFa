@@ -106,7 +106,7 @@ Partial Class FrmComprobantesEmitidos
         Me.TableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 395.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 397.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView2, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.MenuStrip1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView1, 0, 1)
@@ -145,7 +145,7 @@ Partial Class FrmComprobantesEmitidos
         Me.DataGridView2.RowHeadersWidth = 20
         Me.DataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(603, 199)
+        Me.DataGridView2.Size = New System.Drawing.Size(601, 199)
         Me.DataGridView2.TabIndex = 10
         '
         'IdItem
@@ -259,7 +259,7 @@ Partial Class FrmComprobantesEmitidos
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(609, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(607, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -566,7 +566,7 @@ Partial Class FrmComprobantesEmitidos
         Me.TableLayoutPanel2.Controls.Add(Me.lblImpCC, 1, 4)
         Me.TableLayoutPanel2.Controls.Add(Me.lblImpPE, 1, 5)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(616, 533)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(614, 533)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 6
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
@@ -575,7 +575,7 @@ Partial Class FrmComprobantesEmitidos
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(389, 199)
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(391, 199)
         Me.TableLayoutPanel2.TabIndex = 11
         '
         'lblImpPEEtiqueta
@@ -585,7 +585,7 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpPEEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblImpPEEtiqueta.Location = New System.Drawing.Point(5, 162)
         Me.lblImpPEEtiqueta.Name = "lblImpPEEtiqueta"
-        Me.lblImpPEEtiqueta.Size = New System.Drawing.Size(200, 35)
+        Me.lblImpPEEtiqueta.Size = New System.Drawing.Size(201, 35)
         Me.lblImpPEEtiqueta.TabIndex = 11
         Me.lblImpPEEtiqueta.Text = "Importe Pago Electronico:"
         Me.lblImpPEEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -597,7 +597,7 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpCCEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblImpCCEtiqueta.Location = New System.Drawing.Point(5, 130)
         Me.lblImpCCEtiqueta.Name = "lblImpCCEtiqueta"
-        Me.lblImpCCEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpCCEtiqueta.Size = New System.Drawing.Size(201, 30)
         Me.lblImpCCEtiqueta.TabIndex = 10
         Me.lblImpCCEtiqueta.Text = "Importe Cuenta Corriente:"
         Me.lblImpCCEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -609,7 +609,7 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpEfEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblImpEfEtiqueta.Location = New System.Drawing.Point(5, 98)
         Me.lblImpEfEtiqueta.Name = "lblImpEfEtiqueta"
-        Me.lblImpEfEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpEfEtiqueta.Size = New System.Drawing.Size(201, 30)
         Me.lblImpEfEtiqueta.TabIndex = 9
         Me.lblImpEfEtiqueta.Text = "Importe Efectivo:"
         Me.lblImpEfEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -621,7 +621,7 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpNetoEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblImpNetoEtiqueta.Location = New System.Drawing.Point(5, 66)
         Me.lblImpNetoEtiqueta.Name = "lblImpNetoEtiqueta"
-        Me.lblImpNetoEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpNetoEtiqueta.Size = New System.Drawing.Size(201, 30)
         Me.lblImpNetoEtiqueta.TabIndex = 8
         Me.lblImpNetoEtiqueta.Text = "Importe Neto:"
         Me.lblImpNetoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -633,7 +633,7 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpDesEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblImpDesEtiqueta.Location = New System.Drawing.Point(5, 34)
         Me.lblImpDesEtiqueta.Name = "lblImpDesEtiqueta"
-        Me.lblImpDesEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpDesEtiqueta.Size = New System.Drawing.Size(201, 30)
         Me.lblImpDesEtiqueta.TabIndex = 7
         Me.lblImpDesEtiqueta.Text = "Importe Descuento:"
         Me.lblImpDesEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -645,7 +645,7 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpBtoEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblImpBtoEtiqueta.Location = New System.Drawing.Point(5, 2)
         Me.lblImpBtoEtiqueta.Name = "lblImpBtoEtiqueta"
-        Me.lblImpBtoEtiqueta.Size = New System.Drawing.Size(200, 30)
+        Me.lblImpBtoEtiqueta.Size = New System.Drawing.Size(201, 30)
         Me.lblImpBtoEtiqueta.TabIndex = 6
         Me.lblImpBtoEtiqueta.Text = "Importe Bruto:"
         Me.lblImpBtoEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -655,9 +655,9 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpBto.AutoSize = True
         Me.lblImpBto.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImpBto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImpBto.Location = New System.Drawing.Point(213, 2)
+        Me.lblImpBto.Location = New System.Drawing.Point(214, 2)
         Me.lblImpBto.Name = "lblImpBto"
-        Me.lblImpBto.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpBto.Size = New System.Drawing.Size(172, 30)
         Me.lblImpBto.TabIndex = 0
         Me.lblImpBto.Text = "0,00"
         Me.lblImpBto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -667,9 +667,9 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpDes.AutoSize = True
         Me.lblImpDes.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImpDes.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImpDes.Location = New System.Drawing.Point(213, 34)
+        Me.lblImpDes.Location = New System.Drawing.Point(214, 34)
         Me.lblImpDes.Name = "lblImpDes"
-        Me.lblImpDes.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpDes.Size = New System.Drawing.Size(172, 30)
         Me.lblImpDes.TabIndex = 1
         Me.lblImpDes.Text = "0,00"
         Me.lblImpDes.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -679,9 +679,9 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpNeto.AutoSize = True
         Me.lblImpNeto.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImpNeto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImpNeto.Location = New System.Drawing.Point(213, 66)
+        Me.lblImpNeto.Location = New System.Drawing.Point(214, 66)
         Me.lblImpNeto.Name = "lblImpNeto"
-        Me.lblImpNeto.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpNeto.Size = New System.Drawing.Size(172, 30)
         Me.lblImpNeto.TabIndex = 2
         Me.lblImpNeto.Text = "0,00"
         Me.lblImpNeto.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -691,9 +691,9 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpEf.AutoSize = True
         Me.lblImpEf.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImpEf.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImpEf.Location = New System.Drawing.Point(213, 98)
+        Me.lblImpEf.Location = New System.Drawing.Point(214, 98)
         Me.lblImpEf.Name = "lblImpEf"
-        Me.lblImpEf.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpEf.Size = New System.Drawing.Size(172, 30)
         Me.lblImpEf.TabIndex = 3
         Me.lblImpEf.Text = "0,00"
         Me.lblImpEf.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -703,9 +703,9 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpCC.AutoSize = True
         Me.lblImpCC.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImpCC.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImpCC.Location = New System.Drawing.Point(213, 130)
+        Me.lblImpCC.Location = New System.Drawing.Point(214, 130)
         Me.lblImpCC.Name = "lblImpCC"
-        Me.lblImpCC.Size = New System.Drawing.Size(171, 30)
+        Me.lblImpCC.Size = New System.Drawing.Size(172, 30)
         Me.lblImpCC.TabIndex = 4
         Me.lblImpCC.Text = "0,00"
         Me.lblImpCC.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -715,9 +715,9 @@ Partial Class FrmComprobantesEmitidos
         Me.lblImpPE.AutoSize = True
         Me.lblImpPE.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImpPE.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImpPE.Location = New System.Drawing.Point(213, 162)
+        Me.lblImpPE.Location = New System.Drawing.Point(214, 162)
         Me.lblImpPE.Name = "lblImpPE"
-        Me.lblImpPE.Size = New System.Drawing.Size(171, 35)
+        Me.lblImpPE.Size = New System.Drawing.Size(172, 35)
         Me.lblImpPE.TabIndex = 5
         Me.lblImpPE.Text = "0,00"
         Me.lblImpPE.TextAlign = System.Drawing.ContentAlignment.MiddleRight

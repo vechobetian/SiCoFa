@@ -23,18 +23,18 @@ Partial Class FrmComprobantesRecibidos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmComprobantesRecibidos))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
@@ -87,8 +87,9 @@ Partial Class FrmComprobantesRecibidos
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset
-        Me.TableLayoutPanel1.ColumnCount = 1
+        Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 397.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.MenuStrip1, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView2, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.DataGridView1, 0, 1)
@@ -107,7 +108,7 @@ Partial Class FrmComprobantesRecibidos
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuOperaciones, Me.mnuOpciones})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1006, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(607, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -202,22 +203,23 @@ Partial Class FrmComprobantesRecibidos
         Me.DataGridView2.AllowUserToResizeRows = False
         Me.DataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView2.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteNeto, Me.ImporteIVA, Me.Importe})
         Me.DataGridView2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView2.Location = New System.Drawing.Point(5, 552)
         Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.RowHeadersVisible = False
         Me.DataGridView2.RowHeadersWidth = 20
         Me.DataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DataGridView2.Size = New System.Drawing.Size(1000, 180)
+        Me.DataGridView2.Size = New System.Drawing.Size(601, 180)
         Me.DataGridView2.TabIndex = 8
         '
         'IdItem
@@ -245,10 +247,10 @@ Partial Class FrmComprobantesRecibidos
         'Cantidad
         '
         Me.Cantidad.DataPropertyName = "Cantidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle14.Format = "N2"
+        DataGridViewCellStyle14.NullValue = Nothing
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle14
         Me.Cantidad.FillWeight = 168.7203!
         Me.Cantidad.HeaderText = "Cantidad"
         Me.Cantidad.Name = "Cantidad"
@@ -256,10 +258,10 @@ Partial Class FrmComprobantesRecibidos
         'AlicIVA
         '
         Me.AlicIVA.DataPropertyName = "AlicIVA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle15.Format = "N2"
+        DataGridViewCellStyle15.NullValue = Nothing
+        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle15
         Me.AlicIVA.FillWeight = 174.8724!
         Me.AlicIVA.HeaderText = "IVA"
         Me.AlicIVA.Name = "AlicIVA"
@@ -268,10 +270,10 @@ Partial Class FrmComprobantesRecibidos
         'PrecioUnitario
         '
         Me.PrecioUnitario.DataPropertyName = "PrecioCosto"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.Format = "N2"
+        DataGridViewCellStyle16.NullValue = Nothing
+        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle16
         Me.PrecioUnitario.FillWeight = 68.81715!
         Me.PrecioUnitario.HeaderText = "P.Costo"
         Me.PrecioUnitario.Name = "PrecioUnitario"
@@ -280,10 +282,10 @@ Partial Class FrmComprobantesRecibidos
         'ImporteNeto
         '
         Me.ImporteNeto.DataPropertyName = "ImporteNeto"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.ImporteNeto.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle17.Format = "N2"
+        DataGridViewCellStyle17.NullValue = Nothing
+        Me.ImporteNeto.DefaultCellStyle = DataGridViewCellStyle17
         Me.ImporteNeto.FillWeight = 59.96484!
         Me.ImporteNeto.HeaderText = "Imp.Neto"
         Me.ImporteNeto.Name = "ImporteNeto"
@@ -292,10 +294,10 @@ Partial Class FrmComprobantesRecibidos
         'ImporteIVA
         '
         Me.ImporteIVA.DataPropertyName = "ImporteIVA"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.ImporteIVA.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle18.Format = "N2"
+        DataGridViewCellStyle18.NullValue = Nothing
+        Me.ImporteIVA.DefaultCellStyle = DataGridViewCellStyle18
         Me.ImporteIVA.FillWeight = 57.10529!
         Me.ImporteIVA.HeaderText = "Imp.IVA"
         Me.ImporteIVA.Name = "ImporteIVA"
@@ -304,10 +306,10 @@ Partial Class FrmComprobantesRecibidos
         'Importe
         '
         Me.Importe.DataPropertyName = "Importe"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.Importe.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle19.Format = "N2"
+        DataGridViewCellStyle19.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle19
         Me.Importe.FillWeight = 54.31535!
         Me.Importe.HeaderText = "Importe"
         Me.Importe.Name = "Importe"
@@ -322,10 +324,12 @@ Partial Class FrmComprobantesRecibidos
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTC, Me.IdOperAsoc, Me.IdOperacion, Me.Operacion, Me.IdUsuario, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Proveedor, Me.Observaciones, Me.EstadoOperacion, Me.ImpBto, Me.ImpDes, Me.ImpCB, Me.ImpEf, Me.ImpCC, Me.ImpPE})
+        Me.TableLayoutPanel1.SetColumnSpan(Me.DataGridView1, 2)
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(1000, 512)
@@ -426,10 +430,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpBto
         '
         Me.ImpBto.DataPropertyName = "ImpBto"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle20.Format = "N2"
+        DataGridViewCellStyle20.NullValue = Nothing
+        Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle20
         Me.ImpBto.HeaderText = "ImpBto"
         Me.ImpBto.Name = "ImpBto"
         Me.ImpBto.ReadOnly = True
@@ -438,10 +442,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpDes
         '
         Me.ImpDes.DataPropertyName = "ImpDes"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.ImpDes.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle21.Format = "N2"
+        DataGridViewCellStyle21.NullValue = Nothing
+        Me.ImpDes.DefaultCellStyle = DataGridViewCellStyle21
         Me.ImpDes.HeaderText = "ImpDes"
         Me.ImpDes.Name = "ImpDes"
         Me.ImpDes.ReadOnly = True
@@ -458,10 +462,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpEf
         '
         Me.ImpEf.DataPropertyName = "ImpEf"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle22.Format = "N2"
+        DataGridViewCellStyle22.NullValue = Nothing
+        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle22
         Me.ImpEf.HeaderText = "ImpEf"
         Me.ImpEf.Name = "ImpEf"
         Me.ImpEf.ReadOnly = True
@@ -470,10 +474,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpCC
         '
         Me.ImpCC.DataPropertyName = "ImpCC"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle11.Format = "N2"
-        DataGridViewCellStyle11.NullValue = Nothing
-        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle23.Format = "N2"
+        DataGridViewCellStyle23.NullValue = Nothing
+        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle23
         Me.ImpCC.HeaderText = "ImpCC"
         Me.ImpCC.Name = "ImpCC"
         Me.ImpCC.ReadOnly = True
@@ -482,10 +486,10 @@ Partial Class FrmComprobantesRecibidos
         'ImpPE
         '
         Me.ImpPE.DataPropertyName = "ImpPE"
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle12.Format = "N2"
-        DataGridViewCellStyle12.NullValue = Nothing
-        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle24.Format = "N2"
+        DataGridViewCellStyle24.NullValue = Nothing
+        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle24
         Me.ImpPE.HeaderText = "ImpPE"
         Me.ImpPE.Name = "ImpPE"
         Me.ImpPE.ReadOnly = True
@@ -500,6 +504,7 @@ Partial Class FrmComprobantesRecibidos
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmComprobantesRecibidos"
         Me.Text = "FrmComprobantes"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
