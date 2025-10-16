@@ -29,11 +29,11 @@ Public Class FrmComprobantesRecibidos
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
-            If DataGridView1.ColumnCount = 14 Then
+            If DataGridView1.ColumnCount = 18 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 42
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.0R, 0.1R, 0.05R, 0.05R, 0.05R, 0.2R, 0.1R, 0.05R, 0.1R, 0.1R, 0.1R, 0.1R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.17R, 0.06R, 0.15R, 0.07R, 0.05R, 0.07R, 0.2R, 0.1R, 0.1R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R}
 
-                For i As Integer = 0 To 13
+                For i As Integer = 0 To 17
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
 
@@ -75,6 +75,7 @@ Public Class FrmComprobantesRecibidos
         Try
 
             Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
+            Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = comprobantes
 
             'Me.StartPosition = FormStartPosition.Manual

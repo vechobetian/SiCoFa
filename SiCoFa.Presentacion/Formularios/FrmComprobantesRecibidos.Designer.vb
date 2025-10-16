@@ -70,10 +70,11 @@ Partial Class FrmComprobantesRecibidos
         Me.PVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NumComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Proveedor = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ComprobanteAsociado = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Estado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Observaciones = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EstadoOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpBto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpDes = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpCB = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -272,7 +273,7 @@ Partial Class FrmComprobantesRecibidos
         DataGridViewCellStyle4.NullValue = Nothing
         Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle4
         Me.PrecioUnitario.FillWeight = 68.81715!
-        Me.PrecioUnitario.HeaderText = "Precio Costo + IVA"
+        Me.PrecioUnitario.HeaderText = "P.Costo"
         Me.PrecioUnitario.Name = "PrecioUnitario"
         Me.PrecioUnitario.ReadOnly = True
         '
@@ -284,7 +285,7 @@ Partial Class FrmComprobantesRecibidos
         DataGridViewCellStyle5.NullValue = Nothing
         Me.ImporteNeto.DefaultCellStyle = DataGridViewCellStyle5
         Me.ImporteNeto.FillWeight = 59.96484!
-        Me.ImporteNeto.HeaderText = "Importe Neto"
+        Me.ImporteNeto.HeaderText = "Imp.Neto"
         Me.ImporteNeto.Name = "ImporteNeto"
         Me.ImporteNeto.ReadOnly = True
         '
@@ -296,7 +297,7 @@ Partial Class FrmComprobantesRecibidos
         DataGridViewCellStyle6.NullValue = Nothing
         Me.ImporteIVA.DefaultCellStyle = DataGridViewCellStyle6
         Me.ImporteIVA.FillWeight = 57.10529!
-        Me.ImporteIVA.HeaderText = "Importe IVA"
+        Me.ImporteIVA.HeaderText = "Imp.IVA"
         Me.ImporteIVA.Name = "ImporteIVA"
         Me.ImporteIVA.ReadOnly = True
         '
@@ -320,7 +321,7 @@ Partial Class FrmComprobantesRecibidos
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTC, Me.IdOperAsoc, Me.IdOperacion, Me.Operacion, Me.IdUsuario, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Proveedor, Me.ComprobanteAsociado, Me.Estado, Me.ImpBto, Me.ImpDes, Me.ImpEf, Me.ImpCC, Me.ImpPE})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.CodiTC, Me.IdOperAsoc, Me.IdOperacion, Me.Operacion, Me.IdUsuario, Me.TipoComprobante, Me.FechaComp, Me.PVenta, Me.NumComp, Me.Proveedor, Me.Observaciones, Me.EstadoOperacion, Me.ImpBto, Me.ImpDes, Me.ImpCB, Me.ImpEf, Me.ImpCC, Me.ImpPE})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
@@ -407,19 +408,20 @@ Partial Class FrmComprobantesRecibidos
         Me.Proveedor.Name = "Proveedor"
         Me.Proveedor.ReadOnly = True
         '
-        'ComprobanteAsociado
+        'Observaciones
         '
-        Me.ComprobanteAsociado.DataPropertyName = "ComprobanteAsociado"
-        Me.ComprobanteAsociado.HeaderText = "Comp. Asoc."
-        Me.ComprobanteAsociado.Name = "ComprobanteAsociado"
-        Me.ComprobanteAsociado.ReadOnly = True
+        Me.Observaciones.DataPropertyName = "Observaciones"
+        Me.Observaciones.HeaderText = "Observaciones"
+        Me.Observaciones.Name = "Observaciones"
+        Me.Observaciones.ReadOnly = True
         '
-        'Estado
+        'EstadoOperacion
         '
-        Me.Estado.HeaderText = "Estado"
-        Me.Estado.Name = "Estado"
-        Me.Estado.ReadOnly = True
-        Me.Estado.Width = 80
+        Me.EstadoOperacion.DataPropertyName = "EstadoOperacion"
+        Me.EstadoOperacion.HeaderText = "Estado"
+        Me.EstadoOperacion.Name = "EstadoOperacion"
+        Me.EstadoOperacion.ReadOnly = True
+        Me.EstadoOperacion.Width = 80
         '
         'ImpBto
         '
@@ -444,6 +446,14 @@ Partial Class FrmComprobantesRecibidos
         Me.ImpDes.Name = "ImpDes"
         Me.ImpDes.ReadOnly = True
         Me.ImpDes.Visible = False
+        '
+        'ImpCB
+        '
+        Me.ImpCB.DataPropertyName = "ImpCB"
+        Me.ImpCB.HeaderText = "ImpCB"
+        Me.ImpCB.Name = "ImpCB"
+        Me.ImpCB.ReadOnly = True
+        Me.ImpCB.Visible = False
         '
         'ImpEf
         '
@@ -490,7 +500,6 @@ Partial Class FrmComprobantesRecibidos
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmComprobantesRecibidos"
         Me.Text = "FrmComprobantes"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -536,10 +545,11 @@ Partial Class FrmComprobantesRecibidos
     Friend WithEvents PVenta As DataGridViewTextBoxColumn
     Friend WithEvents NumComp As DataGridViewTextBoxColumn
     Friend WithEvents Proveedor As DataGridViewTextBoxColumn
-    Friend WithEvents ComprobanteAsociado As DataGridViewTextBoxColumn
-    Friend WithEvents Estado As DataGridViewTextBoxColumn
+    Friend WithEvents Observaciones As DataGridViewTextBoxColumn
+    Friend WithEvents EstadoOperacion As DataGridViewTextBoxColumn
     Friend WithEvents ImpBto As DataGridViewTextBoxColumn
     Friend WithEvents ImpDes As DataGridViewTextBoxColumn
+    Friend WithEvents ImpCB As DataGridViewTextBoxColumn
     Friend WithEvents ImpEf As DataGridViewTextBoxColumn
     Friend WithEvents ImpCC As DataGridViewTextBoxColumn
     Friend WithEvents ImpPE As DataGridViewTextBoxColumn
