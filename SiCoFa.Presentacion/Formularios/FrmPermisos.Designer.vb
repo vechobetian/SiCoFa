@@ -30,14 +30,14 @@ Partial Class FrmPermisos
         Me.flpPermisos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpPermisos.Location = New System.Drawing.Point(0, 0)
         Me.flpPermisos.Name = "flpPermisos"
-        Me.flpPermisos.Size = New System.Drawing.Size(800, 822)
+        Me.flpPermisos.Size = New System.Drawing.Size(800, 661)
         Me.flpPermisos.TabIndex = 0
         '
         'FrmPermisos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 822)
+        Me.ClientSize = New System.Drawing.Size(800, 661)
         Me.Controls.Add(Me.flpPermisos)
         Me.Name = "FrmPermisos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

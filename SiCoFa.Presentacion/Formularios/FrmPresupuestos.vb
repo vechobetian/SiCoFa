@@ -2,7 +2,6 @@
 Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
-Imports HasarArgentina
 
 Public Class FrmPresupuestos
     Property Usuario As Usuario
@@ -214,6 +213,20 @@ Public Class FrmPresupuestos
 
         End Try
 
+    End Sub
+
+    '--------------------------------------------
+    ' Da foco al primer ToolStripTextBox del ToolStrip
+    '--------------------------------------------
+    Private Sub EnfocarToolStripTextBox()
+        For Each item As ToolStripItem In ToolStrip1.Items
+            If TypeOf item Is ToolStripTextBox Then
+                Dim txt As ToolStripTextBox = CType(item, ToolStripTextBox)
+                txt.Focus()
+                txt.SelectAll()
+                Exit For
+            End If
+        Next
     End Sub
 
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
@@ -477,6 +490,9 @@ Public Class FrmPresupuestos
     Private Sub FrmPresupuestos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
+            Me.MaximizedBounds = Screen.FromHandle(Me.Handle).WorkingArea
+            Me.WindowState = FormWindowState.Maximized
+
             mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("PRESU")
             mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
             mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
@@ -631,59 +647,99 @@ Public Class FrmPresupuestos
 
     Private Sub DataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
         Try
-            If e.RowIndex >= 0 AndAlso e.ColumnIndex >= 0 Then
-                Dim nombreColumnaEditada As String = DataGridView1.Columns(e.ColumnIndex).Name
-                Dim nombreColumnaCantidad As String = "Cantidad"
-                Dim nombreColumnaPrecioUnitario As String = "PrecioUnitario"
+            ' Validación básica
+            If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
 
-                If nombreColumnaEditada.Equals(nombreColumnaCantidad, StringComparison.OrdinalIgnoreCase) Then
-                    If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        Dim itemComprobante As ItemComprobante = mobj_Items(e.RowIndex)
+            Dim dgv As DataGridView = DataGridView1
+            Dim nombreColumna As String = dgv.Columns(e.ColumnIndex).Name
 
-                        If itemComprobante.Articulo?.Seccion?.EstablecerPrecio Then ' Usando el operador ?. para evitar NullReferenceException
-                            Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(e.RowIndex).Cells(nombreColumnaPrecioUnitario)
-                            Me.DataGridView1.CurrentCell.ReadOnly = False
-                            Me.DataGridView1.BeginEdit(True)
-                        Else
-                            For Each item As ToolStripItem In ToolStrip1.Items
-                                If TypeOf item Is ToolStripTextBox Then
-                                    CType(item, ToolStripTextBox).Focus()
-                                    CType(item, ToolStripTextBox).SelectAll()
-                                    Exit For
-                                End If
-                            Next
-                            Me.DataGridView1.ClearSelection()
-                            ' Intenta establecer CurrentCell a Nothing
-                            Me.DataGridView1.CurrentCell = Nothing
-                        End If
-                        Me.DataGridView1.Refresh()
-                        Me.ActualizarTotales()
+            Const ColumnaCantidad As String = "Cantidad"
+            Const ColumnaPrecioUnitario As String = "PrecioUnitario"
 
-                    End If
-                End If
+            ' Solo continúa si la fila no tiene errores
+            If Not String.IsNullOrEmpty(dgv.Rows(e.RowIndex).ErrorText) Then Exit Sub
 
-                If nombreColumnaEditada.Equals(nombreColumnaPrecioUnitario, StringComparison.OrdinalIgnoreCase) Then
-                    If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
-                        For Each item As ToolStripItem In ToolStrip1.Items
-                            If TypeOf item Is ToolStripTextBox Then
-                                CType(item, ToolStripTextBox).Focus()
-                                CType(item, ToolStripTextBox).SelectAll()
-                                Exit For
-                            End If
-                        Next
-                        Me.DataGridView1.ClearSelection()
-                        Me.DataGridView1.CurrentCell = Nothing ' Intenta establecer CurrentCell a Nothing también aquí
-                        Me.DataGridView1.Refresh()
-                        Me.ActualizarTotales()
-                    End If
-                End If
-            End If
+            Select Case nombreColumna.ToLower()
+                Case ColumnaCantidad.ToLower()
+                    ManejarEdicionCantidad(e.RowIndex)
+
+                Case ColumnaPrecioUnitario.ToLower()
+                    EnfocarToolStripTextBox()
+                    dgv.ClearSelection()
+                    dgv.CurrentCell = Nothing
+                    dgv.Refresh()
+                    ActualizarTotales()
+            End Select
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-
         End Try
+    End Sub
 
+    '--------------------------------------------
+    ' Maneja la lógica cuando se edita la columna Cantidad
+    '--------------------------------------------
+    Private Sub ManejarEdicionCantidad(rowIndex As Integer)
+        Dim itemComprobante As ItemComprobante = mobj_Items(rowIndex)
+
+        If itemComprobante.Articulo?.Seccion?.EstablecerPrecio Then
+            Dim dgv = DataGridView1
+            dgv.CurrentCell = dgv.Rows(rowIndex).Cells("PrecioUnitario")
+            dgv.CurrentCell.ReadOnly = False
+            dgv.BeginEdit(True)
+        Else
+            EnfocarToolStripTextBox()
+            DataGridView1.ClearSelection()
+            DataGridView1.CurrentCell = Nothing
+        End If
+
+        DataGridView1.Refresh()
+        ActualizarTotales()
+    End Sub
+
+    Private Sub DataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles DataGridView1.EditingControlShowing
+        ' Verifica si la columna actual es la que te interesa
+        If DataGridView1.CurrentCell IsNot Nothing Then
+            Dim colName As String = DataGridView1.CurrentCell.OwningColumn.Name
+
+            If colName = "Cantidad" OrElse colName = "PrecioUnitario" Then
+                ' Quita manejadores anteriores para evitar duplicados
+                RemoveHandler e.Control.KeyPress, AddressOf DataGridViewTextBox_KeyPress
+
+                ' Asigna el evento KeyPress al control de edición
+                AddHandler e.Control.KeyPress, AddressOf DataGridViewTextBox_KeyPress
+            Else
+                ' Si no es una columna numérica, quita el manejador
+                RemoveHandler e.Control.KeyPress, AddressOf DataGridViewTextBox_KeyPress
+            End If
+        End If
+    End Sub
+
+    Private Sub DataGridViewTextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Obtener la columna actual
+        Dim dgv As DataGridView = Me.DataGridView1
+        Dim colName As String = dgv.CurrentCell.OwningColumn.Name
+
+        ' Solo aplicar a columnas numéricas
+        If colName = "Cantidad" OrElse colName = "PrecioUnitario" Then
+            Dim txt As TextBox = TryCast(sender, TextBox)
+            If txt Is Nothing Then Return
+
+            ' Reemplazar punto por coma
+            If e.KeyChar = "."c Then
+                e.KeyChar = ","c
+            End If
+
+            ' Evitar más de una coma
+            If e.KeyChar = ","c AndAlso txt.Text.Contains(",") Then
+                e.Handled = True
+            End If
+
+            ' Permitir solo números, coma y control (backspace)
+            If Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> ","c AndAlso Not Char.IsControl(e.KeyChar) Then
+                e.Handled = True
+            End If
+        End If
     End Sub
 
     Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionElimininarItemSeleccionado.Click

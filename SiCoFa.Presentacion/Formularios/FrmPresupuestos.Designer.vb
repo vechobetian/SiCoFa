@@ -22,14 +22,14 @@ Partial Class FrmPresupuestos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPresupuestos))
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -104,9 +104,8 @@ Partial Class FrmPresupuestos
         Me.TableLayoutPanel1.RowCount = 3
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 236.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1369, 739)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 190.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(984, 661)
         Me.TableLayoutPanel1.TabIndex = 0
         '
         'Panel3
@@ -114,18 +113,18 @@ Partial Class FrmPresupuestos
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel3.Controls.Add(Me.TableLayoutPanel3)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel3.Location = New System.Drawing.Point(6, 503)
+        Me.Panel3.Location = New System.Drawing.Point(6, 471)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(1357, 189)
+        Me.Panel3.Size = New System.Drawing.Size(972, 184)
         Me.Panel3.TabIndex = 5
         '
         'TableLayoutPanel3
         '
         Me.TableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
         Me.TableLayoutPanel3.ColumnCount = 3
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.43767!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.56233!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 278.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.9!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.1!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentosEtiqueta, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblPorcentajeAplicado, 0, 1)
@@ -142,16 +141,16 @@ Partial Class FrmPresupuestos
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(1355, 187)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(970, 182)
         Me.TableLayoutPanel3.TabIndex = 7
         '
         'lblImporteDescuentosEtiqueta
         '
         Me.lblImporteDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(876, 58)
+        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(571, 57)
         Me.lblImporteDescuentosEtiqueta.Name = "lblImporteDescuentosEtiqueta"
-        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(191, 52)
+        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(190, 51)
         Me.lblImporteDescuentosEtiqueta.TabIndex = 8
         Me.lblImporteDescuentosEtiqueta.Text = "Importe Descuentos:"
         Me.lblImporteDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -160,9 +159,9 @@ Partial Class FrmPresupuestos
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(1076, 58)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(770, 57)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(273, 52)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(194, 51)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -172,7 +171,7 @@ Partial Class FrmPresupuestos
         Me.lblPorcentajeAplicado.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.lblPorcentajeAplicado.AutoSize = True
         Me.lblPorcentajeAplicado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(6, 74)
+        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(6, 72)
         Me.lblPorcentajeAplicado.Name = "lblPorcentajeAplicado"
         Me.lblPorcentajeAplicado.Size = New System.Drawing.Size(241, 20)
         Me.lblPorcentajeAplicado.TabIndex = 16
@@ -183,7 +182,7 @@ Partial Class FrmPresupuestos
         Me.lblCantidadItems.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.lblCantidadItems.AutoSize = True
         Me.lblCantidadItems.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCantidadItems.Location = New System.Drawing.Point(6, 19)
+        Me.lblCantidadItems.Location = New System.Drawing.Point(6, 18)
         Me.lblCantidadItems.Name = "lblCantidadItems"
         Me.lblCantidadItems.Size = New System.Drawing.Size(75, 20)
         Me.lblCantidadItems.TabIndex = 10
@@ -193,9 +192,9 @@ Partial Class FrmPresupuestos
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(1076, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(770, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(273, 52)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(194, 51)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -204,9 +203,9 @@ Partial Class FrmPresupuestos
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(876, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(571, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
-        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(191, 52)
+        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(190, 51)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
         Me.lblImporteSinDescuentosEtiqueta.Text = "Total sin Descuentos:"
         Me.lblImporteSinDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -215,9 +214,9 @@ Partial Class FrmPresupuestos
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1076, 113)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(770, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(273, 71)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(194, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -226,9 +225,9 @@ Partial Class FrmPresupuestos
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(876, 113)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(571, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
-        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(191, 71)
+        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(190, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 9
         Me.lblImporteConDescuentosEtiqueta.Text = "Imp. a pagar:  "
         Me.lblImporteConDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -237,9 +236,9 @@ Partial Class FrmPresupuestos
         '
         Me.lblDatosOperacion.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDatosOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 113)
+        Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 111)
         Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(861, 71)
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(554, 68)
         Me.lblDatosOperacion.TabIndex = 17
         '
         'DataGridView1
@@ -249,14 +248,14 @@ Partial Class FrmPresupuestos
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView1.BackgroundColor = System.Drawing.Color.White
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.CodBarras, Me.Descripcion, Me.Cantidad, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -264,7 +263,7 @@ Partial Class FrmPresupuestos
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DataGridView1.Size = New System.Drawing.Size(1357, 417)
+        Me.DataGridView1.Size = New System.Drawing.Size(972, 385)
         Me.DataGridView1.TabIndex = 3
         '
         'IdItem
@@ -292,10 +291,10 @@ Partial Class FrmPresupuestos
         'Cantidad
         '
         Me.Cantidad.DataPropertyName = "Cantidad"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.Format = "N2"
+        DataGridViewCellStyle10.NullValue = Nothing
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle10
         Me.Cantidad.FillWeight = 168.7203!
         Me.Cantidad.HeaderText = "Cantidad"
         Me.Cantidad.Name = "Cantidad"
@@ -303,10 +302,10 @@ Partial Class FrmPresupuestos
         'AlicIVA
         '
         Me.AlicIVA.DataPropertyName = "AlicIVA"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.Format = "N2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle11.Format = "N2"
+        DataGridViewCellStyle11.NullValue = Nothing
+        Me.AlicIVA.DefaultCellStyle = DataGridViewCellStyle11
         Me.AlicIVA.FillWeight = 174.8724!
         Me.AlicIVA.HeaderText = "IVA"
         Me.AlicIVA.Name = "AlicIVA"
@@ -315,22 +314,22 @@ Partial Class FrmPresupuestos
         'PrecioUnitario
         '
         Me.PrecioUnitario.DataPropertyName = "PrecioUnitario"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.PrecioUnitario.DefaultCellStyle = DataGridViewCellStyle12
         Me.PrecioUnitario.FillWeight = 68.81715!
-        Me.PrecioUnitario.HeaderText = "Precio Unitario"
+        Me.PrecioUnitario.HeaderText = "P.Unitario"
         Me.PrecioUnitario.Name = "PrecioUnitario"
         Me.PrecioUnitario.ReadOnly = True
         '
         'ImporteSinDescuento
         '
         Me.ImporteSinDescuento.DataPropertyName = "ImporteSinDescuento"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.ImporteSinDescuento.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "N2"
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.ImporteSinDescuento.DefaultCellStyle = DataGridViewCellStyle13
         Me.ImporteSinDescuento.FillWeight = 59.96484!
         Me.ImporteSinDescuento.HeaderText = "Importe"
         Me.ImporteSinDescuento.Name = "ImporteSinDescuento"
@@ -339,34 +338,34 @@ Partial Class FrmPresupuestos
         'PorcentajeDescuento
         '
         Me.PorcentajeDescuento.DataPropertyName = "PorcentajeDescuento"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.PorcentajeDescuento.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle14.Format = "N2"
+        DataGridViewCellStyle14.NullValue = Nothing
+        Me.PorcentajeDescuento.DefaultCellStyle = DataGridViewCellStyle14
         Me.PorcentajeDescuento.FillWeight = 57.10529!
-        Me.PorcentajeDescuento.HeaderText = "%Descuento"
+        Me.PorcentajeDescuento.HeaderText = "%Desc."
         Me.PorcentajeDescuento.Name = "PorcentajeDescuento"
         Me.PorcentajeDescuento.ReadOnly = True
         '
         'ImporteDescuento
         '
         Me.ImporteDescuento.DataPropertyName = "ImporteDescuento"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.ImporteDescuento.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle15.Format = "N2"
+        DataGridViewCellStyle15.NullValue = Nothing
+        Me.ImporteDescuento.DefaultCellStyle = DataGridViewCellStyle15
         Me.ImporteDescuento.FillWeight = 54.31535!
-        Me.ImporteDescuento.HeaderText = "Imp.Descuento"
+        Me.ImporteDescuento.HeaderText = "Imp.Desc."
         Me.ImporteDescuento.Name = "ImporteDescuento"
         Me.ImporteDescuento.ReadOnly = True
         '
         'ImporteConDescuento
         '
         Me.ImporteConDescuento.DataPropertyName = "ImporteConDescuento"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImporteConDescuento.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle16.Format = "N2"
+        DataGridViewCellStyle16.NullValue = Nothing
+        Me.ImporteConDescuento.DefaultCellStyle = DataGridViewCellStyle16
         Me.ImporteConDescuento.FillWeight = 40.10151!
         Me.ImporteConDescuento.HeaderText = "Imp.Cliente"
         Me.ImporteConDescuento.Name = "ImporteConDescuento"
@@ -380,7 +379,7 @@ Partial Class FrmPresupuestos
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(6, 6)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1357, 62)
+        Me.Panel1.Size = New System.Drawing.Size(972, 62)
         Me.Panel1.TabIndex = 0
         '
         'ToolStrip1
@@ -390,7 +389,7 @@ Partial Class FrmPresupuestos
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripButton, Me.AbrirToolStripButton, Me.GuardarToolStripButton, Me.ImprimirToolStripButton, Me.toolStripSeparator, Me.CopiarToolStripButton, Me.PegarToolStripButton, Me.ClienteToolStripButton, Me.DesRecToolStripButton1, Me.AyudaToolStripButton, Me.ToolStripSeparator1, Me.SalirToolStripButton, Me.SelectorArticulos})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1357, 38)
+        Me.ToolStrip1.Size = New System.Drawing.Size(972, 38)
         Me.ToolStrip1.TabIndex = 1
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -508,7 +507,7 @@ Partial Class FrmPresupuestos
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuEdicion, Me.mnuProcesos})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1357, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(972, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -523,21 +522,21 @@ Partial Class FrmPresupuestos
         '
         Me.mnuArchivoAbrir.Image = CType(resources.GetObject("mnuArchivoAbrir.Image"), System.Drawing.Image)
         Me.mnuArchivoAbrir.Name = "mnuArchivoAbrir"
-        Me.mnuArchivoAbrir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoAbrir.Size = New System.Drawing.Size(116, 22)
         Me.mnuArchivoAbrir.Text = "A&brir"
         '
         'mnuArchivoGuardar
         '
         Me.mnuArchivoGuardar.Image = CType(resources.GetObject("mnuArchivoGuardar.Image"), System.Drawing.Image)
         Me.mnuArchivoGuardar.Name = "mnuArchivoGuardar"
-        Me.mnuArchivoGuardar.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoGuardar.Size = New System.Drawing.Size(116, 22)
         Me.mnuArchivoGuardar.Text = "&Guardar"
         '
         'mnuArchivoSalir
         '
         Me.mnuArchivoSalir.Image = CType(resources.GetObject("mnuArchivoSalir.Image"), System.Drawing.Image)
         Me.mnuArchivoSalir.Name = "mnuArchivoSalir"
-        Me.mnuArchivoSalir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuArchivoSalir.Size = New System.Drawing.Size(116, 22)
         Me.mnuArchivoSalir.Text = "&Salir"
         '
         'mnuEdicion
@@ -579,20 +578,18 @@ Partial Class FrmPresupuestos
         '
         Me.FacturarToolStripMenuItem.Name = "FacturarToolStripMenuItem"
         Me.FacturarToolStripMenuItem.ShortcutKeyDisplayString = "F10"
-        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FacturarToolStripMenuItem.Size = New System.Drawing.Size(142, 22)
         Me.FacturarToolStripMenuItem.Text = "&Facturar"
         '
         'FrmPresupuestos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1369, 739)
+        Me.ClientSize = New System.Drawing.Size(984, 661)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "FrmPresupuestos"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
@@ -636,7 +633,6 @@ Partial Class FrmPresupuestos
     Friend WithEvents lblImporteConDescuentosEtiqueta As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
-    Friend WithEvents lblImporteSinDescuentosEtiqueta As Label
     Friend WithEvents lblCantidadItems As Label
     Friend WithEvents lblImporteDescuentos As Label
     Friend WithEvents lblImporteConDescuentos As Label
@@ -645,6 +641,9 @@ Partial Class FrmPresupuestos
     Friend WithEvents lblImporteSinDescuentos As Label
     Friend WithEvents mnuProcesos As ToolStripMenuItem
     Friend WithEvents FacturarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClienteToolStripButton As ToolStripButton
+    Friend WithEvents lblDatosOperacion As Label
+    Friend WithEvents DesRecToolStripButton1 As ToolStripButton
     Friend WithEvents IdItem As DataGridViewTextBoxColumn
     Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn
@@ -655,7 +654,5 @@ Partial Class FrmPresupuestos
     Friend WithEvents PorcentajeDescuento As DataGridViewTextBoxColumn
     Friend WithEvents ImporteDescuento As DataGridViewTextBoxColumn
     Friend WithEvents ImporteConDescuento As DataGridViewTextBoxColumn
-    Friend WithEvents ClienteToolStripButton As ToolStripButton
-    Friend WithEvents lblDatosOperacion As Label
-    Friend WithEvents DesRecToolStripButton1 As ToolStripButton
+    Friend WithEvents lblImporteSinDescuentosEtiqueta As Label
 End Class

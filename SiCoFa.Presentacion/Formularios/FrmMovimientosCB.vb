@@ -56,7 +56,7 @@ Public Class FrmMovimientosCB
 
             If DataGridView1.ColumnCount = 13 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.04R, 0.1R, 0.02R, 0.1R, 0.04R, 0.048R, 0.08R, 0.36R, 0.07R, 0.07R, 0.07R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.04R, 0.1R, 0.02R, 0.1R, 0.04R, 0.048R, 0.08R, 0.37R, 0.07R, 0.07R, 0.07R}
 
                 For i As Integer = 0 To 12
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))

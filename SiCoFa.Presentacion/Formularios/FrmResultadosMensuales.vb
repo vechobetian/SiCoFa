@@ -21,7 +21,8 @@ Public Class FrmResultadosMensuales
         ' Primer día del mes siguiente (exclusivo)
         Dim hasta As Date = desde.AddMonths(1)
 
-        Dim sql As String = $"SELECT Fecha,CuentaImputable,Importe FROM vw_contabilidad_ingresos_mensuales WHERE Fecha>='{desde:yyyy-MM-dd}' AND Fecha<'{hasta:yyyy-MM-dd}'"
+        'Dim sql As String = $"SELECT CuentaImputable,Importe FROM vw_contabilidad_ingresos_mensuales WHERE Fecha>='{desde:yyyy-MM-dd}' AND Fecha<'{hasta:yyyy-MM-dd}'"
+        Dim sql As String = $"SELECT CuentaImputable,Importe FROM vw_contabilidad_ingresos_mensuales WHERE anio={anio} AND mes={mes}"
 
         Dim dt As DataTable = mobjAdminDB.ObtenerTabla(sql)
         Me.DataGridView2.DataSource = dt
@@ -117,11 +118,11 @@ Public Class FrmResultadosMensuales
 
         Try
 
-            If DataGridView2.ColumnCount = 3 Then
+            If DataGridView2.ColumnCount = 2 Then
                 Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.14R, 0.32R, 0.2R}
+                Dim proporciones As Double() = {0.395R, 0.15R}
 
-                For i As Integer = 0 To 2
+                For i As Integer = 0 To 1
                     DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
 

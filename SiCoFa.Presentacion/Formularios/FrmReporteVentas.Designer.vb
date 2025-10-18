@@ -22,32 +22,32 @@ Partial Class FrmReporteVentas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImpEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImpNeto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImpDes = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImpBto = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImpMedioTiket = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NOperac = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NOperac = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpMedioTiket = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpBto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpDes = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpNeto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -64,105 +64,23 @@ Partial Class FrmReporteVentas
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1359, 737)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(984, 661)
         Me.TableLayoutPanel1.TabIndex = 5
         '
-        'ImpPE
+        'MenuStrip1
         '
-        Me.ImpPE.DataPropertyName = "ImpPE"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle10
-        Me.ImpPE.HeaderText = "Pago Electronico"
-        Me.ImpPE.Name = "ImpPE"
-        Me.ImpPE.ReadOnly = True
-        Me.ImpPE.Width = 120
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo})
+        Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(980, 24)
+        Me.MenuStrip1.TabIndex = 9
+        Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'ImpCC
+        'mnuArchivo
         '
-        Me.ImpCC.DataPropertyName = "ImpCC"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle9
-        Me.ImpCC.HeaderText = "Cuenta Corriente"
-        Me.ImpCC.Name = "ImpCC"
-        Me.ImpCC.ReadOnly = True
-        '
-        'ImpEf
-        '
-        Me.ImpEf.DataPropertyName = "ImpEf"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle8
-        Me.ImpEf.HeaderText = "Efectivo"
-        Me.ImpEf.Name = "ImpEf"
-        Me.ImpEf.ReadOnly = True
-        '
-        'ImpNeto
-        '
-        Me.ImpNeto.DataPropertyName = "ImpNeto"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.ImpNeto.DefaultCellStyle = DataGridViewCellStyle7
-        Me.ImpNeto.HeaderText = "Importe Neto"
-        Me.ImpNeto.Name = "ImpNeto"
-        Me.ImpNeto.ReadOnly = True
-        Me.ImpNeto.Width = 150
-        '
-        'ImpDes
-        '
-        Me.ImpDes.DataPropertyName = "ImpDes"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.ImpDes.DefaultCellStyle = DataGridViewCellStyle6
-        Me.ImpDes.HeaderText = "Descuentos"
-        Me.ImpDes.Name = "ImpDes"
-        Me.ImpDes.ReadOnly = True
-        '
-        'ImpBto
-        '
-        Me.ImpBto.DataPropertyName = "ImpBto"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle5.Format = "N2"
-        DataGridViewCellStyle5.NullValue = Nothing
-        Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle5
-        Me.ImpBto.HeaderText = "Importe Bruto"
-        Me.ImpBto.Name = "ImpBto"
-        Me.ImpBto.ReadOnly = True
-        '
-        'ImpMedioTiket
-        '
-        Me.ImpMedioTiket.DataPropertyName = "ImpMedioTiket"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.ImpMedioTiket.DefaultCellStyle = DataGridViewCellStyle4
-        Me.ImpMedioTiket.HeaderText = "Ticket Promedio"
-        Me.ImpMedioTiket.Name = "ImpMedioTiket"
-        Me.ImpMedioTiket.ReadOnly = True
-        '
-        'NOperac
-        '
-        Me.NOperac.DataPropertyName = "NOperac"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.NOperac.DefaultCellStyle = DataGridViewCellStyle3
-        Me.NOperac.HeaderText = "N° Operaciones"
-        Me.NOperac.Name = "NOperac"
-        Me.NOperac.ReadOnly = True
-        '
-        'Fecha
-        '
-        Me.Fecha.DataPropertyName = "Fecha"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Fecha.DefaultCellStyle = DataGridViewCellStyle2
-        Me.Fecha.HeaderText = "Fecha"
-        Me.Fecha.Name = "Fecha"
-        Me.Fecha.ReadOnly = True
+        Me.mnuArchivo.Name = "mnuArchivo"
+        Me.mnuArchivo.Size = New System.Drawing.Size(60, 20)
+        Me.mnuArchivo.Text = "&Archivo"
         '
         'DataGridView1
         '
@@ -185,40 +103,127 @@ Partial Class FrmReporteVentas
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1349, 700)
+        Me.DataGridView1.Size = New System.Drawing.Size(974, 624)
         Me.DataGridView1.TabIndex = 1
         '
-        'MenuStrip1
+        'Fecha
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo})
-        Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1355, 24)
-        Me.MenuStrip1.TabIndex = 9
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.Fecha.DataPropertyName = "Fecha"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Fecha.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Fecha.HeaderText = "Fecha"
+        Me.Fecha.Name = "Fecha"
+        Me.Fecha.ReadOnly = True
+        Me.Fecha.Width = 80
         '
-        'mnuArchivo
+        'NOperac
         '
-        Me.mnuArchivo.Name = "mnuArchivo"
-        Me.mnuArchivo.Size = New System.Drawing.Size(60, 20)
-        Me.mnuArchivo.Text = "&Archivo"
+        Me.NOperac.DataPropertyName = "NOperac"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.NOperac.DefaultCellStyle = DataGridViewCellStyle3
+        Me.NOperac.HeaderText = "N° Operaciones"
+        Me.NOperac.Name = "NOperac"
+        Me.NOperac.ReadOnly = True
+        Me.NOperac.Width = 110
+        '
+        'ImpMedioTiket
+        '
+        Me.ImpMedioTiket.DataPropertyName = "ImpMedioTiket"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.ImpMedioTiket.DefaultCellStyle = DataGridViewCellStyle4
+        Me.ImpMedioTiket.HeaderText = "Ticket Promedio"
+        Me.ImpMedioTiket.Name = "ImpMedioTiket"
+        Me.ImpMedioTiket.ReadOnly = True
+        Me.ImpMedioTiket.Width = 110
+        '
+        'ImpBto
+        '
+        Me.ImpBto.DataPropertyName = "ImpBto"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle5.Format = "N2"
+        DataGridViewCellStyle5.NullValue = Nothing
+        Me.ImpBto.DefaultCellStyle = DataGridViewCellStyle5
+        Me.ImpBto.HeaderText = "Importe Bruto"
+        Me.ImpBto.Name = "ImpBto"
+        Me.ImpBto.ReadOnly = True
+        '
+        'ImpDes
+        '
+        Me.ImpDes.DataPropertyName = "ImpDes"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle6.Format = "N2"
+        DataGridViewCellStyle6.NullValue = Nothing
+        Me.ImpDes.DefaultCellStyle = DataGridViewCellStyle6
+        Me.ImpDes.HeaderText = "Descuentos"
+        Me.ImpDes.Name = "ImpDes"
+        Me.ImpDes.ReadOnly = True
+        Me.ImpDes.Width = 80
+        '
+        'ImpNeto
+        '
+        Me.ImpNeto.DataPropertyName = "ImpNeto"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "N2"
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.ImpNeto.DefaultCellStyle = DataGridViewCellStyle7
+        Me.ImpNeto.HeaderText = "Importe Neto"
+        Me.ImpNeto.Name = "ImpNeto"
+        Me.ImpNeto.ReadOnly = True
+        '
+        'ImpEf
+        '
+        Me.ImpEf.DataPropertyName = "ImpEf"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "N2"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle8
+        Me.ImpEf.HeaderText = "Efectivo"
+        Me.ImpEf.Name = "ImpEf"
+        Me.ImpEf.ReadOnly = True
+        '
+        'ImpCC
+        '
+        Me.ImpCC.DataPropertyName = "ImpCC"
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "N2"
+        DataGridViewCellStyle9.NullValue = Nothing
+        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle9
+        Me.ImpCC.HeaderText = "Cuenta Corriente"
+        Me.ImpCC.Name = "ImpCC"
+        Me.ImpCC.ReadOnly = True
+        Me.ImpCC.Width = 120
+        '
+        'ImpPE
+        '
+        Me.ImpPE.DataPropertyName = "ImpPE"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle10.Format = "N2"
+        DataGridViewCellStyle10.NullValue = Nothing
+        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle10
+        Me.ImpPE.HeaderText = "Pago Electronico"
+        Me.ImpPE.Name = "ImpPE"
+        Me.ImpPE.ReadOnly = True
+        Me.ImpPE.Width = 120
         '
         'FrmReporteVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1359, 737)
+        Me.ClientSize = New System.Drawing.Size(984, 661)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmReporteVentas"
         Me.Text = "Análisis de Ventas"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

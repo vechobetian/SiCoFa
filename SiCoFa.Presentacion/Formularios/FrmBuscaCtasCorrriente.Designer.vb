@@ -55,7 +55,7 @@ Partial Class FrmBuscaCtasCorrriente
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1241, 557)
+        Me.DataGridView1.Size = New System.Drawing.Size(984, 661)
         Me.DataGridView1.TabIndex = 2
         '
         'IdCC
@@ -81,7 +81,7 @@ Partial Class FrmBuscaCtasCorrriente
         Me.Descripcion.HeaderText = "Razón Social"
         Me.Descripcion.Name = "Descripcion"
         Me.Descripcion.ReadOnly = True
-        Me.Descripcion.Width = 400
+        Me.Descripcion.Width = 300
         '
         'Credito
         '
@@ -110,7 +110,7 @@ Partial Class FrmBuscaCtasCorrriente
         Me.Observaciones.HeaderText = "Observaciones"
         Me.Observaciones.Name = "Observaciones"
         Me.Observaciones.ReadOnly = True
-        Me.Observaciones.Width = 300
+        Me.Observaciones.Width = 150
         '
         'Saldo
         '
@@ -145,7 +145,7 @@ Partial Class FrmBuscaCtasCorrriente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1241, 557)
+        Me.ClientSize = New System.Drawing.Size(984, 661)
         Me.ControlBox = False
         Me.Controls.Add(Me.DataGridView1)
         Me.Name = "FrmBuscaCtasCorrriente"

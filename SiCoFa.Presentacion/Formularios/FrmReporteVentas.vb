@@ -26,7 +26,7 @@ Public Class FrmReporteVentas
         Try
             If DataGridView1.ColumnCount = 9 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 42
-                Dim proporciones As Double() = {0.1R, 0.1R, 0.1R, 0.2R, 0.1R, 0.1R, 0.1R, 0.1R, 0.1R}
+                Dim proporciones As Double() = {0.1R, 0.1R, 0.1R, 0.16R, 0.11R, 0.11R, 0.11R, 0.11R, 0.11R}
                 For i As Integer = 0 To 8
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
