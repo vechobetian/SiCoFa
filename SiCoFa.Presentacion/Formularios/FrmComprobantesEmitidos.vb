@@ -93,7 +93,7 @@ Public Class FrmComprobantesEmitidos
 
             If DataGridView1.ColumnCount = 21 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.17R, 0.06R, 0.15R, 0.07R, 0.05R, 0.07R, 0.2R, 0.1R, 0.1R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.17R, 0.06R, 0.14R, 0.07R, 0.05R, 0.07R, 0.2R, 0.1R, 0.1R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R}
 
                 For i As Integer = 0 To 20
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))

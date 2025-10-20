@@ -23,9 +23,9 @@ Partial Class FrmMovimientosCB
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmMovimientosCB))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,10 +38,6 @@ Partial Class FrmMovimientosCB
         Me.mnuOperacionesAnularOperacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuVerCuenta = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblDescripcionCuentaBancaria = New System.Windows.Forms.Label()
-        Me.lblSaldoActual = New System.Windows.Forms.Label()
         Me.CodiTO = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodiTC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -55,6 +51,10 @@ Partial Class FrmMovimientosCB
         Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SaldoP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EstadoOperacionCB = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblDescripcionCuentaBancaria = New System.Windows.Forms.Label()
+        Me.lblSaldoActual = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -171,56 +171,6 @@ Partial Class FrmMovimientosCB
         Me.DataGridView1.Size = New System.Drawing.Size(974, 581)
         Me.DataGridView1.TabIndex = 1
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.TableLayoutPanel2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(5, 621)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(974, 35)
-        Me.Panel1.TabIndex = 12
-        '
-        'TableLayoutPanel2
-        '
-        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
-        Me.TableLayoutPanel2.ColumnCount = 2
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 470.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaBancaria, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoActual, 1, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(974, 35)
-        Me.TableLayoutPanel2.TabIndex = 0
-        '
-        'lblDescripcionCuentaBancaria
-        '
-        Me.lblDescripcionCuentaBancaria.AutoSize = True
-        Me.lblDescripcionCuentaBancaria.Dock = System.Windows.Forms.DockStyle.Left
-        Me.lblDescripcionCuentaBancaria.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescripcionCuentaBancaria.Location = New System.Drawing.Point(6, 3)
-        Me.lblDescripcionCuentaBancaria.Name = "lblDescripcionCuentaBancaria"
-        Me.lblDescripcionCuentaBancaria.Size = New System.Drawing.Size(132, 29)
-        Me.lblDescripcionCuentaBancaria.TabIndex = 2
-        Me.lblDescripcionCuentaBancaria.Text = "Cuenta Bancaria:"
-        Me.lblDescripcionCuentaBancaria.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'lblSaldoActual
-        '
-        Me.lblSaldoActual.AutoSize = True
-        Me.lblSaldoActual.Dock = System.Windows.Forms.DockStyle.Right
-        Me.lblSaldoActual.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaldoActual.Location = New System.Drawing.Point(747, 3)
-        Me.lblSaldoActual.Name = "lblSaldoActual"
-        Me.lblSaldoActual.Size = New System.Drawing.Size(221, 29)
-        Me.lblSaldoActual.TabIndex = 1
-        Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $0,00"
-        Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'CodiTO
         '
         Me.CodiTO.DataPropertyName = "CodiTO"
@@ -298,10 +248,10 @@ Partial Class FrmMovimientosCB
         'Importe
         '
         Me.Importe.DataPropertyName = "Importe"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N2"
-        DataGridViewCellStyle7.NullValue = Nothing
-        Me.Importe.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N2"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle1
         Me.Importe.HeaderText = "Imp.Operacion"
         Me.Importe.Name = "Importe"
         Me.Importe.ReadOnly = True
@@ -310,10 +260,10 @@ Partial Class FrmMovimientosCB
         'SaldoP
         '
         Me.SaldoP.DataPropertyName = "SaldoP"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.SaldoP.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.SaldoP.DefaultCellStyle = DataGridViewCellStyle2
         Me.SaldoP.HeaderText = "Saldo"
         Me.SaldoP.Name = "SaldoP"
         Me.SaldoP.ReadOnly = True
@@ -322,14 +272,64 @@ Partial Class FrmMovimientosCB
         'EstadoOperacionCB
         '
         Me.EstadoOperacionCB.DataPropertyName = "EstadoOperacionCB"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.EstadoOperacionCB.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.EstadoOperacionCB.DefaultCellStyle = DataGridViewCellStyle3
         Me.EstadoOperacionCB.HeaderText = "Estado"
         Me.EstadoOperacionCB.Name = "EstadoOperacionCB"
         Me.EstadoOperacionCB.ReadOnly = True
         Me.EstadoOperacionCB.Width = 80
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.TableLayoutPanel2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(5, 621)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(974, 35)
+        Me.Panel1.TabIndex = 12
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
+        Me.TableLayoutPanel2.ColumnCount = 2
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 473.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.lblDescripcionCuentaBancaria, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblSaldoActual, 1, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 1
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(974, 35)
+        Me.TableLayoutPanel2.TabIndex = 0
+        '
+        'lblDescripcionCuentaBancaria
+        '
+        Me.lblDescripcionCuentaBancaria.AutoSize = True
+        Me.lblDescripcionCuentaBancaria.Dock = System.Windows.Forms.DockStyle.Left
+        Me.lblDescripcionCuentaBancaria.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDescripcionCuentaBancaria.Location = New System.Drawing.Point(6, 3)
+        Me.lblDescripcionCuentaBancaria.Name = "lblDescripcionCuentaBancaria"
+        Me.lblDescripcionCuentaBancaria.Size = New System.Drawing.Size(132, 29)
+        Me.lblDescripcionCuentaBancaria.TabIndex = 2
+        Me.lblDescripcionCuentaBancaria.Text = "Cuenta Bancaria:"
+        Me.lblDescripcionCuentaBancaria.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblSaldoActual
+        '
+        Me.lblSaldoActual.AutoSize = True
+        Me.lblSaldoActual.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblSaldoActual.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSaldoActual.Location = New System.Drawing.Point(747, 3)
+        Me.lblSaldoActual.Name = "lblSaldoActual"
+        Me.lblSaldoActual.Size = New System.Drawing.Size(221, 29)
+        Me.lblSaldoActual.TabIndex = 1
+        Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $0,00"
+        Me.lblSaldoActual.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'FrmMovimientosCB
         '
@@ -339,7 +339,6 @@ Partial Class FrmMovimientosCB
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmMovimientosCB"
         Me.Text = "Movimientos Cuenta Corriente"
-        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
