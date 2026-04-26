@@ -84,4 +84,36 @@ Public Class N_AdminArticulos
         End Try
 
     End Function
+
+    Public Function ImportarArticulosDesdeArchivo(ByVal argRutaArchivo As String) As String
+        Try
+            ' 1. Validaciones de Negocio
+            If Not System.IO.File.Exists(argRutaArchivo) Then
+                Return "Error: No se encontró el archivo en la ruta especificada."
+            End If
+
+            Dim info As New System.IO.FileInfo(argRutaArchivo)
+            If info.Length = 0 Then
+                Return "Error: El archivo seleccionado está vacío."
+            End If
+
+            ' 2. Llamada a la Capa de Datos
+            Dim AdminArticulos As New D_AdminArticulos
+
+            ' Ejecutamos la importación masiva que definimos en la capa Datos
+            Dim Exito As Boolean = AdminArticulos.ImportarArticulosDesdeArchivo(argRutaArchivo)
+
+            If Exito Then
+                ' Aquí podrías disparar el SP que procesa los 159 caracteres si fuera necesario
+                Return "OK: Se procesaron " & info.Name & " correctamente."
+            Else
+                Return "Error: Hubo un problema al insertar los registros en la base de datos."
+            End If
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ImportarManualFarmaceutico", ex.Message))
+            Return "Error crítico: " & ex.Message
+        End Try
+    End Function
+
 End Class

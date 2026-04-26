@@ -5,7 +5,7 @@ Public Class D_Conexion
     Private cadenaConexion As String
 
     Public Sub New()
-        cadenaConexion = ConfigurationManager.ConnectionStrings("Conexion_sicofaco_comercios").ConnectionString
+        cadenaConexion = ConfigurationManager.ConnectionStrings("Conexion_sicofaco_farmacias").ConnectionString
     End Sub
 
     ' Método para obtener una conexión abierta (se usará dentro de Using)
