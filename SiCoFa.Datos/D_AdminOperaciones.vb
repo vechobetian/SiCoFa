@@ -11,7 +11,7 @@ Public Class D_AdminOperaciones
         Try
             Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM tipo_operaciones WHERE CodiTO=@CodiTO"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -56,7 +56,7 @@ Public Class D_AdminOperaciones
 
             Dim sql As String = "SELECT CodiTO,TipoOperacion,EfInv,AfectaCajaAbierta,EfFin FROM tipo_operaciones ORDER BY TipoOperacion"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
@@ -94,7 +94,7 @@ Public Class D_AdminOperaciones
             ' **CRÍTICO: Usar parámetros SQL para evitar la inyección SQL**
             Dim sql As String = "UPDATE operaciones SET EstadoOperacion='Error', DesError=@descripcionError WHERE IdOperacion=@idOperacion"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand(sql, cn)
                     ' Agregar los parámetros
@@ -117,7 +117,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Dim objOperacion As Operacion = IniciarOperacion(argEmpresa, argUsuario, argTipoOperacion, argObservaciones, argEstadoOperacion, cn, Nothing)
                 Return objOperacion
             End Using
@@ -181,7 +181,7 @@ Public Class D_AdminOperaciones
     Public Function ActualizarOperacion(ByVal argOperacion As Operacion) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_operacion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -210,7 +210,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Return FinalizarOperacion(argMacAddress, argOperacion, argCajaAbierta, cn, Nothing)
             End Using
 
@@ -250,7 +250,7 @@ Public Class D_AdminOperaciones
 
             Dim sql As String = "SELECT IdOperacion,Inicio,Fin,IdEmpresa,IdPC,IdCaja,IdUsuario,CodiTO,EstadoOperacion,Observaciones,DesError FROM operaciones WHERE IdOperacion=@IdOperacion"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -301,7 +301,7 @@ Public Class D_AdminOperaciones
 
             Dim sql As String = "SELECT IdOperacion,IdCliente FROM TblOperacionesCL WHERE IdOperacion=@IdOperacion"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -337,7 +337,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Return InsertarOperacionCB(argIdOperacion, argIdCB, argImporte, cn, Nothing)
             End Using
 
@@ -374,7 +374,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Return InsertarOperacionCL(argIdOperacion, argIdCliente, cn, Nothing)
             End Using
 
@@ -410,7 +410,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_operacion_cl", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -437,7 +437,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Return InsertarOperacionCC(argIdOperacion, argIdCC, argResu, argImporte, argEstadoOperacionCC, argIdOperaCancel, cn, Nothing)
             End Using
 
@@ -556,7 +556,7 @@ Public Class D_AdminOperaciones
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
                 Return InsertarOperacionPE(argIdOperacion, argIdCC, argImporte, cn, Nothing)
             End Using
 
@@ -614,7 +614,7 @@ Public Class D_AdminOperaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -658,7 +658,7 @@ Public Class D_AdminOperaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -688,7 +688,7 @@ Public Class D_AdminOperaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -731,7 +731,7 @@ Public Class D_AdminOperaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -774,7 +774,7 @@ Public Class D_AdminOperaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -830,7 +830,7 @@ Public Class D_AdminOperaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -873,7 +873,7 @@ Public Class D_AdminOperaciones
     Public Function OperacionCCTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argUsuario As Usuario, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -924,7 +924,7 @@ Public Class D_AdminOperaciones
     Public Function AnularPagoTransaccion(ByVal argIdOperacion As Long, ByVal argUsuario As Usuario, ByVal argCodiTO As String) As Boolean
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -988,7 +988,7 @@ Public Class D_AdminOperaciones
     Public Function OperacionCBTransaccion(ByVal argMacAddress As String, ByVal argEmpresa As Empresa, ByVal argTipoOperacion As TipoOperacion, ByVal argUsuario As Usuario, ByVal argOperacionCBOrigen As OperacionCB, ByVal argOperacionCBDestino As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 

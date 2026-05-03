@@ -11,7 +11,7 @@ Public Class D_AdminClientes
         Try
             Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE IdCliente=@IdCliente"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -70,7 +70,7 @@ Public Class D_AdminClientes
                 sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -142,7 +142,7 @@ Public Class D_AdminClientes
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_insertar_cliente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -189,7 +189,7 @@ Public Class D_AdminClientes
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_cliente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -228,7 +228,7 @@ Public Class D_AdminClientes
         Try
             Dim sql As String = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente WHERE IdCliente=@IdCliente"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -278,7 +278,7 @@ Public Class D_AdminClientes
                 sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -337,7 +337,7 @@ Public Class D_AdminClientes
         Dim IdCC As Int16
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_insertar_cuenta_corriente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -372,7 +372,7 @@ Public Class D_AdminClientes
 
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_cuenta_corriente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters

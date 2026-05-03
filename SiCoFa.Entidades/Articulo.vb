@@ -1,7 +1,8 @@
 ﻿Public Class Articulo
     Property IdArticulo As String
-    Property Codigo As String
+    Property Codigo As Long
     Property CodBarras As String
+    Property NTroquel As String
     Property Nombre As String
     Property AlicuotaIVA As AlicuotaIVA
     Property FechaPrecio As Date

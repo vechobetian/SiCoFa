@@ -85,7 +85,8 @@ Public Class N_AdminArticulos
 
     End Function
 
-    Public Function ImportarArticulosDesdeArchivo(ByVal argRutaArchivo As String) As String
+    Public Function ImportarAStaging(ByVal argRutaArchivo As String) As String
+
         Try
             ' 1. Validaciones de Negocio
             If Not System.IO.File.Exists(argRutaArchivo) Then
@@ -101,7 +102,7 @@ Public Class N_AdminArticulos
             Dim AdminArticulos As New D_AdminArticulos
 
             ' Ejecutamos la importación masiva que definimos en la capa Datos
-            Dim Exito As Boolean = AdminArticulos.ImportarArticulosDesdeArchivo(argRutaArchivo)
+            Dim Exito As Boolean = AdminArticulos.ImportarAStaging(argRutaArchivo)
 
             If Exito Then
                 ' Aquí podrías disparar el SP que procesa los 159 caracteres si fuera necesario

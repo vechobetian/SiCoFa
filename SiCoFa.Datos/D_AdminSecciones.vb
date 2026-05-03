@@ -12,7 +12,7 @@ Public Class D_AdminSecciones
         Try
             Dim sql As String = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM secciones WHERE IdSeccion=@IdSeccion"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -58,7 +58,7 @@ Public Class D_AdminSecciones
                 sql = "SELECT IdSeccion,Seccion,EstablecerPrecio FROM secciones WHERE Seccion LIKE @Seccion ORDER BY Seccion"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -98,7 +98,7 @@ Public Class D_AdminSecciones
         Dim objConexionDB As New D_Conexion
         Dim IdSeccion As String
         Try
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_insertar_seccion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -132,7 +132,7 @@ Public Class D_AdminSecciones
 
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_seccion", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters

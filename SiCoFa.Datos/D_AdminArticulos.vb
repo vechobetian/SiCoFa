@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.IO
 Imports System.Linq
+Imports System.Text
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 
@@ -12,7 +13,7 @@ Public Class D_AdminArticulos
         Try
             Dim sql As String = "SELECT IdArticulo,Codigo,CodBarras,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM vw_articulos WHERE IdArticulo=@IdArticulo"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -90,7 +91,7 @@ Public Class D_AdminArticulos
         Try
             Dim sql As String = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM vw_articulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -174,7 +175,7 @@ Public Class D_AdminArticulos
             Dim objConexionDB As New D_Conexion
             Dim IdArticulo As String
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_insertar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -216,7 +217,7 @@ Public Class D_AdminArticulos
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -266,28 +267,28 @@ Public Class D_AdminArticulos
 
     End Function
 
-    Public Function ImportarArticulosDesdeArchivo(ByVal rutaArchivo As String) As Boolean
+    Public Function ImportarAStaging(ByVal rutaArchivo As String) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
             Dim tx As MySqlTransaction = cn.BeginTransaction()
 
             Try
                 ' Limpiar tabla
-                Using cmdTruncate As New MySqlCommand("TRUNCATE TABLE staging_manual", cn, tx)
+                Using cmdTruncate As New MySqlCommand("TRUNCATE TABLE staging", cn, tx)
                     cmdTruncate.ExecuteNonQuery()
                 End Using
 
                 Dim sqlBase As String =
-                "INSERT INTO staging_manual (linea_completa) VALUES "
+                    "INSERT INTO staging (linea_completa) VALUES "
 
                 Dim sb As New Text.StringBuilder()
                 sb.Append(sqlBase)
 
                 Dim contadorLote As Integer = 0
 
-                Using sr As New StreamReader(rutaArchivo, System.Text.Encoding.Default)
+                Using sr As New StreamReader(rutaArchivo, Encoding.GetEncoding(437), False, 65536)
 
                     Dim linea As String
 

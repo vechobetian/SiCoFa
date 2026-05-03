@@ -298,7 +298,7 @@ Public Class FrmInicio
                 Dim objNegocio As New N_AdminArticulos
 
                 ' 4. Llamamos a la función que creamos en Negocio
-                Dim resultado As String = objNegocio.ImportarArticulosDesdeArchivo(buscador.FileName)
+                Dim resultado As String = objNegocio.ImportarAStaging(buscador.FileName)
 
                 ' 5. Mostramos el resultado
                 If resultado.StartsWith("OK") Then

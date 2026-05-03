@@ -1,7 +1,9 @@
 ﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
+
 Public Class N_AdminFTP
     Private mobj_D_AdminFTP As New D_AdminFTP
+
     Public Function ListFiles(remotePath As String) As List(Of Archivo)
         Try
             Return mobj_D_AdminFTP.ListFiles(remotePath)
@@ -12,6 +14,7 @@ Public Class N_AdminFTP
         End Try
 
     End Function
+
     Public Function UploadFile(remotePath As String, localFilePath As String) As String
         Try
             Return mobj_D_AdminFTP.UploadFile(remotePath, localFilePath)
@@ -22,6 +25,7 @@ Public Class N_AdminFTP
         End Try
 
     End Function
+
     Public Function DownloadFile(remotePath As String, localFilePath As String) As Boolean
         Try
             Return mobj_D_AdminFTP.DownloadFile(remotePath, localFilePath)

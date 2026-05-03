@@ -12,7 +12,7 @@ Public Class D_AdminMediosPE
         Try
             Dim sql As String = "SELECT IdMPE,Descripcion,IdCB,Baja FROM medios_pe WHERE IdMPE=@IdMPE"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -63,7 +63,7 @@ Public Class D_AdminMediosPE
                 sql = "SELECT IdMPE,Descripcion,IdCB,Baja FROM medios_pe WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -110,7 +110,7 @@ Public Class D_AdminMediosPE
 
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_insertar_medio_pe", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -139,7 +139,7 @@ Public Class D_AdminMediosPE
 
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As New MySqlCommand("sp_actualizar_medio_pe", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters

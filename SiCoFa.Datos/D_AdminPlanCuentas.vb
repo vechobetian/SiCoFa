@@ -10,7 +10,7 @@ Public Class D_AdminPlanCuentas
         Try
             Dim sql As String = "SELECT CodiRub,NombreRub FROM TblRubros ORDER BY CodiRub"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -45,7 +45,7 @@ Public Class D_AdminPlanCuentas
         Try
             Dim sql As String = "SELECT CodiSubRub,CodiRub,NombreSubRubro FROM TblSubRubros WHERE CodiRub=@CodiRub ORDER BY CodiSubRub"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -82,7 +82,7 @@ Public Class D_AdminPlanCuentas
         Try
             Dim sql As String = "SELECT CodiCtaCol,CodiSubRub,NombreCtaCol FROM TblCtasColectivas WHERE CodiSubRub=@CodiSubRub ORDER BY CodiCtaCol"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -119,7 +119,7 @@ Public Class D_AdminPlanCuentas
         Try
             Dim sql As String = "SELECT CodiCta,CodiCtaCol,NombreCta FROM TblCtasImputables WHERE CodiCtaCol=@CodiCtaCol ORDER BY CodiCta"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text

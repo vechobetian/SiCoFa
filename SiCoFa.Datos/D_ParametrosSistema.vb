@@ -10,7 +10,7 @@ Public Class D_ParametrosSistema
             Dim objConexionDB As New D_Conexion
             Dim lista As New List(Of ParametrosSistema)
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
 
                 Dim cmd As New MySqlCommand("SELECT CodiParam, Parametro, Valor, Mostrar FROM parametros_sistema", cn)
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
