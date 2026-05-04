@@ -21,7 +21,7 @@ Public Class D_AdminFTP
         Dim fileList As New List(Of Archivo)
 
         Try
-            Dim request As FtpWebRequest = CType(WebRequest.Create(ftpServer & remotePath), FtpWebRequest)
+            Dim request As FtpWebRequest = CType(WebRequest.Create(ftpServer & "/" & remotePath), FtpWebRequest)
             request.Method = WebRequestMethods.Ftp.ListDirectoryDetails
             request.Credentials = New NetworkCredential(ftpUsername, ftpPassword)
 
