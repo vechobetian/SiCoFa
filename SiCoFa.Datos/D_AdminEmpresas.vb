@@ -12,7 +12,7 @@ Public Class D_AdminEmpresas
         Try
             Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa=@IdEmpresa"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -69,7 +69,7 @@ Public Class D_AdminEmpresas
                 sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -143,7 +143,7 @@ Public Class D_AdminEmpresas
         Dim IdEmpresa As Int32
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_insertar_empresa", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -192,7 +192,7 @@ Public Class D_AdminEmpresas
 
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_actualizar_empresa", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters

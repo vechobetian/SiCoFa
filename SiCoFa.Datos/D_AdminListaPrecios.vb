@@ -10,7 +10,7 @@ Public Class D_AdminListaPrecios
         Try
             Dim sql As String = "SELECT CodiLP,ListaPrecios,PrecioReferencia,PorcentajeAplicado,NumeroActualizacion,Baja FROM lista_precios WHERE CodiLP=@CodiLP"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text

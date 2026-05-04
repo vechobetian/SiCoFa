@@ -13,7 +13,7 @@ Public Class D_AdminArticulos
         Try
             Dim sql As String = "SELECT IdArticulo,Codigo,CodBarras,Nombre,AlicIVA,FechaPrecio,PrecioCosto,PrecioVenta,Baja,IdSeccion,Seccion,EstablecerPrecio,ActualizarPrecio,Stock,CodiLP,ListaPrecios,Fabricante FROM vw_articulos WHERE IdArticulo=@IdArticulo"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -91,7 +91,7 @@ Public Class D_AdminArticulos
         Try
             Dim sql As String = "SELECT IdArticulo, Codigo, CodBarras, Nombre, AlicIVA, FechaPrecio, PrecioCosto, PrecioVenta, Baja, IdSeccion, Seccion, EstablecerPrecio, ActualizarPrecio, Stock, CodiLP, ListaPrecios, Fabricante FROM vw_articulos WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras ORDER BY Nombre"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -175,7 +175,7 @@ Public Class D_AdminArticulos
             Dim objConexionDB As New D_Conexion
             Dim IdArticulo As String
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_insertar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -217,7 +217,7 @@ Public Class D_AdminArticulos
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_actualizar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -271,7 +271,7 @@ Public Class D_AdminArticulos
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion
             Dim tx As MySqlTransaction = cn.BeginTransaction()
 
             Try

@@ -7,7 +7,7 @@ Public Class D_AdminCajas
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 
@@ -125,7 +125,7 @@ Public Class D_AdminCajas
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias()
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
             Using tx As MySqlTransaction = cn.BeginTransaction()
 

@@ -2,7 +2,7 @@
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 
-Public Class D_ParametrosSistema
+Public Class D_AdminSistema
     Public Function ObtenerParametrosSistema() As List(Of ParametrosSistema)
 
         Try
@@ -10,7 +10,7 @@ Public Class D_ParametrosSistema
             Dim objConexionDB As New D_Conexion
             Dim lista As New List(Of ParametrosSistema)
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Dim cmd As New MySqlCommand("SELECT CodiParam, Parametro, Valor, Mostrar FROM parametros_sistema", cn)
                 Using dr As MySqlDataReader = cmd.ExecuteReader()
@@ -33,4 +33,6 @@ Public Class D_ParametrosSistema
         End Try
 
     End Function
+
+
 End Class

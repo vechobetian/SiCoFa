@@ -4,7 +4,7 @@ Public Class N_AdminDB
 
     Dim mobj_D_AdminDB As New D_AdminDB
 
-    Public Function ObtenerTabla(ByVal argSql As String) As DataTable
+    Public Function ObtenerTabla(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As DataTable
         Try
 
             Dim tbl As DataTable = mobj_D_AdminDB.ObtenerTabla(argSql)
@@ -16,7 +16,7 @@ Public Class N_AdminDB
 
     End Function
 
-    Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
+    Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable, Optional ByVal argDataBase As String = "FARMACIAS")
         Try
 
             mobj_D_AdminDB.ActualizarTabla(argSql, argTbl)
@@ -27,7 +27,7 @@ Public Class N_AdminDB
 
     End Sub
 
-    Public Function ObtenerValor(ByVal argSql As String) As Object
+    Public Function ObtenerValor(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Object
 
         Try
 
@@ -40,7 +40,7 @@ Public Class N_AdminDB
 
     End Function
 
-    Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
+    Public Function ObtenerRegistro(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Dictionary(Of String, Object)
 
         Try
 
@@ -53,7 +53,7 @@ Public Class N_AdminDB
 
     End Function
 
-    Public Sub InsertarRegistro(ByVal argSql As String, ByVal argValoresColumnas As Dictionary(Of String, Object))
+    Public Sub InsertarRegistro(ByVal argSql As String, ByVal argValoresColumnas As Dictionary(Of String, Object), Optional ByVal argDataBase As String = "FARMACIAS")
 
         Try
 
@@ -66,7 +66,7 @@ Public Class N_AdminDB
 
     End Sub
 
-    Public Function CuentaRegistros(ByVal argSql As String) As Integer
+    Public Function CuentaRegistros(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Integer
 
         Try
 
@@ -80,7 +80,7 @@ Public Class N_AdminDB
 
     End Function
 
-    Public Function EliminarRegistros(ByVal argSql As String) As Integer
+    Public Function EliminarRegistros(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Integer
         Try
             Dim FilasAfectadas As Integer = mobj_D_AdminDB.EliminarRegistros(argSql)
             Return FilasAfectadas
@@ -90,7 +90,7 @@ Public Class N_AdminDB
         End Try
     End Function
 
-    Public Function ActualizarCampo(ByVal argTabla As String, ByVal argCampo As String, ByVal argValor As Object, ByVal argCondicion As String) As Integer
+    Public Function ActualizarCampo(ByVal argTabla As String, ByVal argCampo As String, ByVal argValor As Object, ByVal argCondicion As String, Optional ByVal argDataBase As String = "FARMACIAS") As Integer
         Try
             Dim FilasAfectadas As Integer = mobj_D_AdminDB.ActualizarCampo(argTabla, argCampo, argValor, argCondicion)
             Return FilasAfectadas

@@ -10,7 +10,7 @@ Public Class D_AdminUsuarios
         Try
             Dim sql As String = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado FROM usuarios WHERE IdUsuario=@IdUsuario"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -64,7 +64,7 @@ Public Class D_AdminUsuarios
                 sql = "SELECT IdUsuario,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,Password FROM usuarios WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -133,7 +133,7 @@ Public Class D_AdminUsuarios
         Dim IdUsuario As Int32
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_insertar_usuario", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -179,7 +179,7 @@ Public Class D_AdminUsuarios
 
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_actualizar_usuario", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -211,7 +211,7 @@ Public Class D_AdminUsuarios
     Public Function VerificarAutorizacionProceso(ByVal argIdUsuario As Integer, ByVal argPassword As String, ByVal argIdProceso As String) As String
         Try
             Dim objConexionDB As New D_Conexion
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_verificar_autorizacion_proceso", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters

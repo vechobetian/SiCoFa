@@ -3,13 +3,13 @@ Imports System.Linq
 Imports MySql.Data.MySqlClient
 Public Class D_AdminDB
 
-    Public Function ObtenerTabla(ByVal argSql As String) As DataTable
+    Public Function ObtenerTabla(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As DataTable
 
         Try
             Dim objConexionDB As New D_Conexion
             Dim tbl As New DataTable
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
 
                 Using adapter = New MySqlDataAdapter(argSql, cn)
                     adapter.Fill(tbl)
@@ -27,12 +27,12 @@ Public Class D_AdminDB
 
     End Function
 
-    Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable)
+    Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable, Optional ByVal argDataBase As String = "FARMACIAS")
 
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
 
                 Using adapter = New MySqlDataAdapter(argSql, cn)
 
@@ -52,13 +52,13 @@ Public Class D_AdminDB
 
     End Sub
 
-    Public Function ObtenerValor(ByVal argSql As String) As Object
+    Public Function ObtenerValor(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Object
 
         Try
             Dim objConexionDB As New D_Conexion
             Dim valor As Object
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
 
                 Using command As New MySqlCommand(argSql, cn)
                     valor = command.ExecuteScalar()
@@ -79,12 +79,12 @@ Public Class D_AdminDB
 
     End Function
 
-    Public Function ObtenerRegistro(ByVal argSql As String) As Dictionary(Of String, Object)
+    Public Function ObtenerRegistro(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Dictionary(Of String, Object)
 
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -125,7 +125,7 @@ Public Class D_AdminDB
 
     End Function
 
-    Public Sub InsertarRegistro(ByVal argSql As String, ByVal valoresColumnas As Dictionary(Of String, Object))
+    Public Sub InsertarRegistro(ByVal argSql As String, ByVal valoresColumnas As Dictionary(Of String, Object), Optional ByVal argDataBase As String = "FARMACIAS")
 
         Try
             Dim objConexionDB As New D_Conexion
@@ -134,7 +134,7 @@ Public Class D_AdminDB
 
             Dim insertCommand As String = $"INSERT INTO {argSql} ({columnas}) VALUES ({valores})"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
 
                 Using cmd As New MySqlCommand(insertCommand, cn)
 
@@ -155,12 +155,12 @@ Public Class D_AdminDB
 
     End Sub
 
-    Public Function CuentaRegistros(ByVal argSql As String) As Integer
+    Public Function CuentaRegistros(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Integer
         Try
             Dim objConexionDB As New D_Conexion
             Dim cantidad As Integer = 0
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
                 Using cmd As New MySqlCommand(argSql, cn)
                     cantidad = Convert.ToInt32(cmd.ExecuteScalar())
                 End Using
@@ -173,12 +173,12 @@ Public Class D_AdminDB
         End Try
     End Function
 
-    Public Function EliminarRegistros(ByVal argSql As String) As Integer
+    Public Function EliminarRegistros(ByVal argSql As String, Optional ByVal argDataBase As String = "FARMACIAS") As Integer
         Try
             Dim objConexionDB As New D_Conexion
             Dim filasAfectadas As Integer = 0
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
 
                 Using cmd As New MySqlCommand(argSql, cn)
                     filasAfectadas = cmd.ExecuteNonQuery()
@@ -193,13 +193,13 @@ Public Class D_AdminDB
         End Try
     End Function
 
-    Public Function ActualizarCampo(ByVal argTabla As String, ByVal argCampo As String, ByVal argValor As Object, ByVal argCondicion As String) As Integer
+    Public Function ActualizarCampo(ByVal argTabla As String, ByVal argCampo As String, ByVal argValor As Object, ByVal argCondicion As String, Optional ByVal argDataBase As String = "FARMACIAS") As Integer
         Try
             Dim objConexionDB As New D_Conexion
             Dim filasAfectadas As Integer = 0
             Dim sql As String = $"UPDATE {argTabla} SET {argCampo} = @valor WHERE {argCondicion}"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
                 Using cmd As New MySqlCommand(sql, cn)
                     cmd.Parameters.AddWithValue("@valor", argValor)
                     filasAfectadas = cmd.ExecuteNonQuery()

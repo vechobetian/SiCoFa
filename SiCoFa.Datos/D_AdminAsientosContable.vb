@@ -11,7 +11,7 @@ Public Class D_AdminAsientosContable
         Try
             Dim Sql As String = "SELECT CodiCta,CodiCtaCol,CuentaImputable FROM cuentas_imputables WHERE CodiCta = @CodiCta"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -57,7 +57,7 @@ Public Class D_AdminAsientosContable
                 sql = "SELECT CodiCta,CodiCtaCol,CuentaImputable FROM cuentas_imputables WHERE CuentaImputable LIKE @CuentaImputable ORDER BY CuentaImputables"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -93,7 +93,7 @@ Public Class D_AdminAsientosContable
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 cn.Open()
                 Return EfectuarAsientoContable(argOperacion, argAsiento, cn, Nothing)
             End Using

@@ -316,4 +316,8 @@ Public Class FrmInicio
         End If
 
     End Sub
+
+    Private Sub ActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizacionesToolStripMenuItem.Click
+        FrmActualizaciones.Show()
+    End Sub
 End Class

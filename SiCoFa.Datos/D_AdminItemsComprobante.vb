@@ -10,7 +10,7 @@ Public Class D_AdminItemsComprobante
         Try
             Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM vw_items_comprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -76,7 +76,7 @@ Public Class D_AdminItemsComprobante
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 Dim IdItem As Long = Me.InsertarItemComprobante(argIdOperacion, argItemComprobante, cn, Nothing)
                 Return IdItem
             End Using
@@ -132,7 +132,7 @@ Public Class D_AdminItemsComprobante
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_actualizar_item_comprobante", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -161,7 +161,7 @@ Public Class D_AdminItemsComprobante
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_eliminar_item_comprobante", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -187,7 +187,7 @@ Public Class D_AdminItemsComprobante
         Try
             Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM vw_items_comprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -254,7 +254,7 @@ Public Class D_AdminItemsComprobante
             Dim objConexionDB As New D_Conexion
             Dim IdItem As Long
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_insertar_item_comprobante", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
@@ -292,7 +292,7 @@ Public Class D_AdminItemsComprobante
         Try
             Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion, CantidadF, CantidadA, AlicIVA, PrecioCosto, PrecioUnitario, Descuento, CodBarras FROM vw_items_nota_credito WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text

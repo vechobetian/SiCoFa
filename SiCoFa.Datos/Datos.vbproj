@@ -75,7 +75,7 @@
     <Compile Include="D_AdminDB.vb" />
     <Compile Include="D_AdminFTP.vb" />
     <Compile Include="D_AdminPlanCuentas.vb" />
-    <Compile Include="D_ParametrosSistema.vb" />
+    <Compile Include="D_AdminSistema.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>

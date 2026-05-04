@@ -10,7 +10,7 @@ Public Class N_ParametrosSistema
     End Sub
 
     Private Sub CargarParametros()
-        Dim datos As New D_ParametrosSistema
+        Dim datos As New D_AdminSistema
         Dim lista = datos.ObtenerParametrosSistema()
         mobj_Parametros = lista.ToDictionary(Function(p) p.CodiParam, StringComparer.OrdinalIgnoreCase)
     End Sub

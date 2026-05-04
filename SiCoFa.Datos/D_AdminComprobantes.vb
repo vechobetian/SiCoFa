@@ -10,7 +10,7 @@ Public Class D_AdminComprobantes
         Try
             Dim Sql As String = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM tipo_comprobantes WHERE CodiTC = @CodiTC"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -58,7 +58,7 @@ Public Class D_AdminComprobantes
                 sql = "SELECT CodiTC,TipoComprobanteCLetra,Letra,TipoComprobanteSLetra,CodiTCARCA FROM tipo_comprobantes WHERE TipoComprobanteCLetra LIKE @TipoComprobante ORDER BY TipoComprobanteCLetra"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
@@ -109,7 +109,7 @@ Public Class D_AdminComprobantes
                         FROM vw_comprobantes_emitidos
                         WHERE IdOperacion=@IdOperacion"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
@@ -193,7 +193,7 @@ Public Class D_AdminComprobantes
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 cn.Open()
                 Return EmitirComprobante(argComprobante, cn, Nothing)
             End Using
@@ -263,7 +263,7 @@ Public Class D_AdminComprobantes
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As New MySqlCommand("sp_actualizar_cae", cn) With {.CommandType = CommandType.StoredProcedure}
                     cmd.CommandType = CommandType.StoredProcedure
@@ -289,7 +289,7 @@ Public Class D_AdminComprobantes
         Try
             Dim objConexionDB As New D_Conexion
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 cn.Open()
                 Return RecibirComprobante(argComprobante, cn, Nothing)
             End Using

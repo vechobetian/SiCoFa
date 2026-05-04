@@ -11,7 +11,7 @@ Public Class D_AdminCuentasEmail
             Dim sql As String
 
             sql = "SELECT IdCEmail,Port,Host,User,Psw,Mail FROM TblCuentasEmail"
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexionFarmacias
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
                 Using cmd As MySqlCommand = cn.CreateCommand()
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
