@@ -16,12 +16,15 @@ Public Class D_AdminFTP
         ftpPassword = "AKBr^8z,,tFz"
     End Sub
 
-    ' Método para listar archivos en el directorio FTP
+    ' 1. Reemplazá tu función ListFiles por esta:
     Public Function ListFiles(remotePath As String) As List(Of Archivo)
         Dim fileList As New List(Of Archivo)
 
         Try
-            Dim request As FtpWebRequest = CType(WebRequest.Create(ftpServer & "/" & remotePath), FtpWebRequest)
+            ' Limpiamos barras para evitar el error de "nombre remoto no resuelto"
+            Dim uri As String = ftpServer.TrimEnd("/"c) & "/" & remotePath.TrimStart("/"c)
+            Dim request As FtpWebRequest = CType(WebRequest.Create(uri), FtpWebRequest)
+
             request.Method = WebRequestMethods.Ftp.ListDirectoryDetails
             request.Credentials = New NetworkCredential(ftpUsername, ftpPassword)
 
@@ -30,14 +33,14 @@ Public Class D_AdminFTP
                     Using reader As New StreamReader(responseStream)
                         Dim line As String = reader.ReadLine()
                         While Not String.IsNullOrEmpty(line)
+                            ' Llamamos al nuevo parseador
                             Dim objArchivo As Archivo = ParseFtpListLine(line)
 
                             If objArchivo IsNot Nothing Then
-
-                                If objArchivo.Name <> "." And objArchivo.Name <> ".." Then '. es el directorio actual, .. es el directorio padre
+                                ' Filtramos puntos de directorio de Linux
+                                If objArchivo.Name <> "." AndAlso objArchivo.Name <> ".." Then
                                     fileList.Add(objArchivo)
                                 End If
-
                             End If
                             line = reader.ReadLine()
                         End While
@@ -48,10 +51,55 @@ Public Class D_AdminFTP
             Return fileList
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "UploadFile", ex.Message))
-
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListFiles", ex.Message))
         End Try
+    End Function
 
+    ' 2. Reemplazá (o agregá) este método ParseFtpListLine:
+    Private Function ParseFtpListLine(line As String) As Archivo
+        Try
+            Dim obj As New Archivo
+            ' Dividimos la línea eliminando espacios dobles
+            Dim partes As String() = line.Split(New Char() {" "c}, StringSplitOptions.RemoveEmptyEntries)
+
+            ' Estructura típica de Linux: 9 columnas (0 a 8)
+            If partes.Length >= 9 Then
+                ' Capturamos el nombre completo (columna 8 en adelante)
+                obj.Name = String.Join(" ", partes.Skip(8))
+
+                ' Capturamos metadatos adicionales según tu clase
+                obj.Permissions = partes(0)
+                obj.User = partes(2)
+                obj.Group = partes(3)
+                Long.TryParse(partes(4), obj.Size)
+
+                ' Lógica de fecha: Mes=5, Día=6, Año/Hora=7
+                Dim mes As String = partes(5)
+                Dim dia As String = partes(6)
+                Dim anioOhora As String = partes(7)
+
+                ' Limpieza por si vienen dos años juntos (ej: "2026 2024")
+                If anioOhora.Contains(" ") Then
+                    anioOhora = anioOhora.Split(" "c)(0)
+                End If
+
+                Dim fechaParaParsear As String = $"{mes} {dia} {anioOhora}"
+
+                Try
+                    ' Usamos ModificationDate que es el nombre real en tu clase
+                    obj.ModificationDate = DateTime.Parse(fechaParaParsear, System.Globalization.CultureInfo.InvariantCulture)
+                Catch
+                    ' Si la fecha falla, asignamos la fecha actual para no detener el proceso
+                    obj.ModificationDate = DateTime.Now
+                End Try
+
+                Return obj
+            End If
+        Catch ex As Exception
+            ' Si la línea es inválida, la ignoramos para que el listado continúe
+            Return Nothing
+        End Try
+        Return Nothing
     End Function
 
     ' Método para subir un archivo al servidor FTP
