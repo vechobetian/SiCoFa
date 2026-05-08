@@ -65,6 +65,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="N_AdminActualizaciones.vb" />
     <Compile Include="N_AdminArticulos.vb" />
     <Compile Include="N_AdminAsientosContable.vb" />
     <Compile Include="N_AdminCAE.vb" />
