@@ -30,9 +30,11 @@ Public Class FrmActualizaciones
 
     Private Async Function DescargarArchivosNoProcesados() As Task
         Try
+            Dim lp As New N_AdminListaPrecios
+
             Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync("21036271")
             For Each a In archivos
-                If a = "ab26050601.zip" Then
+                If a.StartsWith("AB", StringComparison.OrdinalIgnoreCase) Then
                     Await mAdminActualizaciones.DescargarArchivoAsync("21036271", a)
                 End If
             Next

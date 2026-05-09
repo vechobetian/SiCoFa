@@ -4,61 +4,83 @@ Imports System.Net.Http
 Imports System.IO
 
 Public Class D_AdminActualizaciones
+
+    ' HttpClient único para toda la aplicación
+    Private Shared ReadOnly http As New HttpClient()
+
+    Shared Sub New()
+        http.Timeout = TimeSpan.FromSeconds(60)
+    End Sub
+
+    '====================================================
+    ' LISTAR ARCHIVOS DEL SERVIDOR
+    '====================================================
     Public Async Function ListarArchivosServidorAsync(token As String) _
-    As Task(Of List(Of String))
+        As Task(Of List(Of String))
+
+        If String.IsNullOrWhiteSpace(token) Then
+            Throw New ArgumentException("Token inválido")
+        End If
 
         Dim lista As New List(Of String)
 
         Dim url As String =
-        $"https://www.sicofa.com.ar/listar.php?token={token}"
+            $"https://www.sicofa.com.ar/listar.php?token={Uri.EscapeDataString(token)}"
 
-        Using client As New HttpClient()
+        Dim texto As String = Await http.GetStringAsync(url)
 
-            Dim texto As String =
-            Await client.GetStringAsync(url)
+        For Each linea In texto.Split({vbCrLf, vbLf},
+                                      StringSplitOptions.RemoveEmptyEntries)
 
-            For Each linea In texto.Split({vbCrLf, vbLf},
-                                     StringSplitOptions.RemoveEmptyEntries)
+            lista.Add(linea.Trim())
 
-                lista.Add(linea.Trim())
-
-            Next
-        End Using
+        Next
 
         Return lista
 
     End Function
 
+    '====================================================
+    ' DESCARGAR ARCHIVO (STREAMING - PROFESIONAL)
+    '====================================================
     Public Async Function DescargarArchivoAsync(token As String,
-                                            nombreArchivo As String,
-                                            rutaDestino As String) As Task
+                                                nombreArchivo As String,
+                                                rutaDestino As String) As Task
 
-        If String.IsNullOrWhiteSpace(token) OrElse String.IsNullOrWhiteSpace(nombreArchivo) Then
-            Throw New ArgumentException("Token o nombre de archivo inválido")
+        If String.IsNullOrWhiteSpace(token) _
+        OrElse String.IsNullOrWhiteSpace(nombreArchivo) Then
+
+            Throw New ArgumentException("Token o archivo inválido")
         End If
 
         Dim url As String =
-        $"https://www.sicofa.com.ar/descargar.php?token={Uri.EscapeDataString(token)}&archivo={Uri.EscapeDataString(nombreArchivo)}"
+            $"https://www.sicofa.com.ar/descargar.php?token={Uri.EscapeDataString(token)}&archivo={Uri.EscapeDataString(nombreArchivo)}"
 
         Try
-            Using client As New HttpClient()
 
-                Dim bytes = Await client.GetByteArrayAsync(url)
+            Using response =
+                Await http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead)
 
-                ' detectar si vino HTML
-                If bytes.Length < 5000 Then
-                    Dim texto = Text.Encoding.UTF8.GetString(bytes)
-                    If texto.Contains("<") Then
-                        Throw New Exception("El servidor devolvió un mensaje en lugar del archivo: " & texto)
-                    End If
-                End If
+                response.EnsureSuccessStatusCode()
 
-                File.WriteAllBytes(rutaDestino, bytes)
+                Using stream = Await response.Content.ReadAsStreamAsync()
+
+                    Using fs As New FileStream(
+                        rutaDestino,
+                        FileMode.Create,
+                        FileAccess.Write,
+                        FileShare.None)
+
+                        Await stream.CopyToAsync(fs)
+
+                    End Using
+
+                End Using
 
             End Using
 
         Catch ex As Exception
-            Throw New Exception("Error descargando archivo: " & ex.Message, ex)
+            Throw New Exception($"Error descargando {nombreArchivo}: {ex.Message}", ex)
         End Try
 
     End Function
