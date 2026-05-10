@@ -1,8 +1,7 @@
 ﻿Imports System.IO
-Imports Newtonsoft.Json.Linq
-Imports System.Windows.Controls
-Imports SiCoFa.Negocio
 Imports System.Threading.Tasks
+Imports Newtonsoft.Json.Linq
+Imports SiCoFa.Negocio
 
 Public Class FrmActualizaciones
 
@@ -10,6 +9,7 @@ Public Class FrmActualizaciones
 
     Private Sub FrmActualizaciones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CrearCarpetas()
+        LimpiarCarpetas()
     End Sub
 
     Private Sub CrearCarpetas()
@@ -28,20 +28,61 @@ Public Class FrmActualizaciones
 
     End Sub
 
-    Private Async Function DescargarArchivosNoProcesados() As Task
-        Try
-            Dim lp As New N_AdminListaPrecios
+    Private Sub LimpiarCarpetas()
 
-            Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync("21036271")
-            For Each a In archivos
-                If a.StartsWith("AB", StringComparison.OrdinalIgnoreCase) Then
-                    Await mAdminActualizaciones.DescargarArchivoAsync("21036271", a)
-                End If
+        Try
+            Dim rutaBase As String = "C:\SiCoFa_Server\Actualizaciones"
+
+            If Directory.Exists(rutaBase) Then
+                For Each archivo In Directory.GetFiles(rutaBase, "*.*", SearchOption.AllDirectories)
+                    File.Delete(archivo)
+                Next
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error limpiando carpetas: " & ex.Message)
+        End Try
+
+    End Sub
+
+    Private Async Function ActualizarArticulos() As Task
+
+        Try
+
+            Dim token As String = ObtenerToken()
+            Dim adminLP As New N_AdminListaPrecios
+            Dim listas = adminLP.ObtenerListasPreciosActivas()
+
+            Dim mapListas = listas.ToDictionary(Function(x) x.CodiLP, StringComparer.OrdinalIgnoreCase)
+
+            Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync(token)
+
+            Dim archivosOrdenados =
+            archivos.OrderBy(Function(a) CLng(a.Substring(2, 8)))
+
+            For Each archivo In archivosOrdenados
+
+                Dim codigoLista = archivo.Substring(0, 2)
+
+                If Not mapListas.ContainsKey(codigoLista) Then Continue For
+
+                Dim lista = mapListas(codigoLista)
+
+                Dim nroActualizacionArchivo = CLng(archivo.Substring(2, 8))
+
+                Dim nroActual = If(lista.NumeroActualizacion.HasValue, lista.NumeroActualizacion.Value, 0)
+
+                If nroActualizacionArchivo <= nroActual Then Continue For
+
+                Dim rutaZip = Await mAdminActualizaciones.DescargarArchivoAsync(token, archivo)
+
+                Dim rutaTxt = mAdminActualizaciones.NormalizarArchivoZip(archivo)
+
+                mAdminActualizaciones.ProcesarActualizacion(lista.CodiLP, nroActualizacionArchivo, lista.SP, lista.PorcentajeAplicado, rutaTxt)
             Next
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-
         End Try
 
     End Function
@@ -49,13 +90,7 @@ Public Class FrmActualizaciones
     Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Try
-            Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync("21036271")
-
-            For Each a In archivos
-                If a = "ab26050601.zip" Then
-                    Await mAdminActualizaciones.DescargarArchivoAsync("21036271", a)
-                End If
-            Next
+            Await Me.ActualizarArticulos
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)

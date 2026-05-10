@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Datos
+﻿Imports System.Data.SqlClient
+Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 
 Public Class N_AdminListaPrecios
@@ -13,6 +14,22 @@ Public Class N_AdminListaPrecios
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerListaPreciosPorCodiLP", ex.Message))
             Return Nothing
 
+        End Try
+
+    End Function
+
+    Public Function ObtenerListasPreciosActivas() As List(Of ListaPrecios)
+
+        Try
+
+            Dim adminListaPrecios As New D_AdminListaPrecios
+
+            Return adminListaPrecios.ObtenerListasPreciosActivas()
+
+        Catch ex As Exception
+
+            Throw New Exception(
+            Vecho.MensajeError(Me.ToString, NameOf(ObtenerListasPreciosActivas), ex.Message))
         End Try
 
     End Function

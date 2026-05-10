@@ -12,13 +12,14 @@ Public Class D_AdminListaPrecios
     Private Function MapListaPrecio(dr As MySqlDataReader) As ListaPrecios
 
         Return New ListaPrecios(
-            argCodiLP:=dr("CodiLP").ToString(),
-            argListaPrecios:=dr("ListaPrecios").ToString(),
-            argPrecioReferencia:=dr("PrecioReferencia").ToString(),
-            argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
-            argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
-            argBaja:=If(IsDBNull(dr("Baja")), Nothing, Convert.ToBoolean(dr("Baja")))
-        )
+        argCodiLP:=dr("CodiLP").ToString(),
+        argListaPrecios:=dr("ListaPrecios").ToString(),
+        argPrecioReferencia:=dr("PrecioReferencia").ToString(),
+        argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
+        argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
+        argBaja:=If(IsDBNull(dr("Baja")), Nothing, Convert.ToBoolean(dr("Baja"))),
+        argSP:=If(IsDBNull(dr("SP")), Nothing, dr("SP").ToString())
+    )
 
     End Function
 
@@ -37,7 +38,8 @@ Public Class D_AdminListaPrecios
                     PrecioReferencia,
                     PorcentajeAplicado,
                     NumeroActualizacion,
-                    Baja
+                    Baja,
+                    SP
                  FROM lista_precios
                  WHERE CodiLP = @CodiLP
                  LIMIT 1"
@@ -84,7 +86,8 @@ Public Class D_AdminListaPrecios
                     PrecioReferencia,
                     PorcentajeAplicado,
                     NumeroActualizacion,
-                    Baja
+                    Baja,
+                    SP
                  FROM lista_precios
                  WHERE Baja = 0
                  ORDER BY ListaPrecios"

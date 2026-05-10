@@ -280,43 +280,6 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuSistemaPTerminal_Click(sender As Object, e As EventArgs) Handles mnuSistemaPTerminal.Click
-
-        ' 1. Configuramos el buscador de archivos para que solo vea .txt
-        Dim buscador As New OpenFileDialog()
-        buscador.Filter = "Manual Farmacéutico (*.txt)|*.txt"
-        buscador.Title = "Seleccionar archivo del Manual"
-
-        ' 2. Si el usuario elige un archivo
-        If buscador.ShowDialog() = DialogResult.OK Then
-
-            ' Cambiamos el cursor a "Espera" porque son más de 50.000 líneas
-            Me.Cursor = Cursors.WaitCursor
-
-            Try
-                ' 3. Instanciamos la Capa de Negocio
-                Dim objNegocio As New N_AdminArticulos
-
-                ' 4. Llamamos a la función que creamos en Negocio
-                Dim resultado As String = objNegocio.ImportarAStaging(buscador.FileName)
-
-                ' 5. Mostramos el resultado
-                If resultado.StartsWith("OK") Then
-                    MessageBox.Show(resultado, "Proceso Terminado", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    MessageBox.Show(resultado, "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                End If
-
-            Catch ex As Exception
-                MessageBox.Show("Hubo un error en la interfaz: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Finally
-                ' 7. Pase lo que pase, devolvemos el cursor a la normalidad
-                Me.Cursor = Cursors.Default
-            End Try
-        End If
-
-    End Sub
-
     Private Sub ActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizacionesToolStripMenuItem.Click
         FrmActualizaciones.Show()
     End Sub
