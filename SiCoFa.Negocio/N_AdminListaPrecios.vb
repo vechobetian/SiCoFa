@@ -1,5 +1,4 @@
-﻿Imports System.Data.SqlClient
-Imports SiCoFa.Datos
+﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 
 Public Class N_AdminListaPrecios

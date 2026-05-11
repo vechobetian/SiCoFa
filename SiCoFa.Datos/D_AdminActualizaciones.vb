@@ -80,77 +80,7 @@ Public Class D_AdminActualizaciones
 
     End Function
 
-    Public Function ImportarAStaging1(ByVal rutaArchivo As String) As Boolean
-
-        Dim objConexionDB As New D_Conexion
-
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-            Dim tx As MySqlTransaction = cn.BeginTransaction()
-
-            Try
-                ' Limpiar tabla
-                Using cmdTruncate As New MySqlCommand("TRUNCATE TABLE staging", cn, tx)
-                    cmdTruncate.ExecuteNonQuery()
-                End Using
-
-                Dim sqlBase As String =
-                    "INSERT INTO staging (linea_completa) VALUES "
-
-                Dim sb As New Text.StringBuilder()
-                sb.Append(sqlBase)
-
-                Dim contadorLote As Integer = 0
-
-                Using sr As New StreamReader(rutaArchivo, Encoding.GetEncoding(437), False, 65536)
-
-                    Dim linea As String
-
-                    Do While Not sr.EndOfStream
-
-                        linea = sr.ReadLine()
-
-                        ' SOLO ignoramos NULL reales
-                        If linea Is Nothing Then Continue Do
-
-                        linea = linea.Replace("'", "''")
-
-                        sb.AppendFormat("('{0}'),", linea)
-                        contadorLote += 1
-
-                        If contadorLote = 1000 Then
-
-                            Using cmdInsert As New MySqlCommand(sb.ToString().TrimEnd(","c), cn, tx)
-                                cmdInsert.ExecuteNonQuery()
-                            End Using
-
-                            sb.Clear()
-                            sb.Append(sqlBase)
-                            contadorLote = 0
-                        End If
-
-                    Loop
-
-                End Using
-
-                ' Insertar resto
-                If contadorLote > 0 Then
-                    Using cmdInsert As New MySqlCommand(sb.ToString().TrimEnd(","c), cn, tx)
-                        cmdInsert.ExecuteNonQuery()
-                    End Using
-                End If
-
-                tx.Commit()
-                Return True
-
-            Catch ex As Exception
-                tx.Rollback()
-                Throw
-            End Try
-        End Using
-
-    End Function
-
-    Public Sub ProcesarActualizacion(argCodiLP As String, argNumeroActualizacion As Long, argSP As String, argPorcentaje As Decimal, argRutaArchivo As String)
+    Public Sub ProcesarActualizacion(argCodiPA As String, argNumeroActualizacion As Long, argStoredProcedure As String, argPorcentaje As Decimal, argRutaArchivo As String)
 
         Dim objConexionDB As New D_Conexion
 
@@ -160,8 +90,8 @@ Public Class D_AdminActualizaciones
 
                 Try
                     ImportarAStaging(argRutaArchivo, cn, tx)
-                    ActualizarArticulos(argSP, argPorcentaje, cn, tx)
-                    ActualizarNumeroActualizacion(argCodiLP, argNumeroActualizacion, cn, tx)
+                    EjecutarActualizacion(argStoredProcedure, argPorcentaje, cn, tx)
+                    ActualizarNumeroActualizacion(argCodiPA, argNumeroActualizacion, cn, tx)
 
                     tx.Commit()
 
@@ -203,7 +133,7 @@ Public Class D_AdminActualizaciones
 
     End Sub
 
-    Public Sub ActualizarArticulos(sp As String, porcentaje As Decimal, cn As MySqlConnection, tx As MySqlTransaction)
+    Public Sub EjecutarActualizacion(sp As String, porcentaje As Decimal, cn As MySqlConnection, tx As MySqlTransaction)
 
         Using cmd As New MySqlCommand(sp, cn, tx)
 
@@ -218,14 +148,14 @@ Public Class D_AdminActualizaciones
 
     End Sub
 
-    Public Sub ActualizarNumeroActualizacion(ByVal argCodiLP As String, ByVal argNumeroActualizacion As Long, cn As MySqlConnection, tx As MySqlTransaction)
+    Public Sub ActualizarNumeroActualizacion(ByVal argCodiPA As String, ByVal argNumeroActualizacion As Long, cn As MySqlConnection, tx As MySqlTransaction)
 
-        Dim sql As String = "UPDATE lista_precios SET NumeroActualizacion = @nro  WHERE CodiLP = @codi"
+        Dim sql As String = "UPDATE procesos_actualizacion SET NumeroActualizacion = @nro  WHERE CodiPA = @codi"
 
         Using cmd As New MySqlCommand(sql, cn, tx)
 
             cmd.Parameters.Add("@nro", MySqlDbType.Int64).Value = argNumeroActualizacion
-            cmd.Parameters.Add("@codi", MySqlDbType.VarChar).Value = argCodiLP
+            cmd.Parameters.Add("@codi", MySqlDbType.VarChar).Value = argCodiPA
 
             cmd.ExecuteNonQuery()
 

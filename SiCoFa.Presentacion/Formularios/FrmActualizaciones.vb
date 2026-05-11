@@ -19,7 +19,6 @@ Public Class FrmActualizaciones
 
             Directory.CreateDirectory(Path.Combine(rutaBase, "zip"))
             Directory.CreateDirectory(Path.Combine(rutaBase, "txt"))
-            Directory.CreateDirectory(Path.Combine(rutaBase, "dat"))
             Directory.CreateDirectory(Path.Combine(rutaBase, "Procesadas"))
 
         Catch ex As Exception
@@ -50,27 +49,26 @@ Public Class FrmActualizaciones
         Try
 
             Dim token As String = ObtenerToken()
-            Dim adminLP As New N_AdminListaPrecios
-            Dim listas = adminLP.ObtenerListasPreciosActivas()
+            Dim adminPA As New N_AdminProcesosActualizacion
+            Dim procesos = adminPA.ObtenerProcesosActualizacion()
 
-            Dim mapListas = listas.ToDictionary(Function(x) x.CodiLP, StringComparer.OrdinalIgnoreCase)
+            Dim mapProcesos = procesos.ToDictionary(Function(x) x.CodiPA, StringComparer.OrdinalIgnoreCase)
 
             Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync(token)
 
-            Dim archivosOrdenados =
-            archivos.OrderBy(Function(a) CLng(a.Substring(2, 8)))
+            Dim archivosOrdenados = archivos.OrderBy(Function(a) CLng(a.Substring(2, 8)))
 
             For Each archivo In archivosOrdenados
 
-                Dim codigoLista = archivo.Substring(0, 2)
+                Dim codigoPA = archivo.Substring(0, 2)
 
-                If Not mapListas.ContainsKey(codigoLista) Then Continue For
+                If Not mapProcesos.ContainsKey(codigoPA) Then Continue For
 
-                Dim lista = mapListas(codigoLista)
+                Dim proceso = mapProcesos(codigoPA)
 
                 Dim nroActualizacionArchivo = CLng(archivo.Substring(2, 8))
 
-                Dim nroActual = If(lista.NumeroActualizacion.HasValue, lista.NumeroActualizacion.Value, 0)
+                Dim nroActual = If(proceso.NumeroActualizacion.HasValue, proceso.NumeroActualizacion.Value, 0)
 
                 If nroActualizacionArchivo <= nroActual Then Continue For
 
@@ -78,7 +76,7 @@ Public Class FrmActualizaciones
 
                 Dim rutaTxt = mAdminActualizaciones.NormalizarArchivoZip(archivo)
 
-                mAdminActualizaciones.ProcesarActualizacion(lista.CodiLP, nroActualizacionArchivo, lista.SP, lista.PorcentajeAplicado, rutaTxt)
+                mAdminActualizaciones.ProcesarActualizacion(proceso.CodiPA, nroActualizacionArchivo, proceso.StoredProcedure, proceso.PorcentajeAplicado, rutaTxt)
             Next
 
         Catch ex As Exception
