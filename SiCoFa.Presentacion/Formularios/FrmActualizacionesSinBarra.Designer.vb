@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FrmActualizaciones
+Partial Class FrmActualizacionesSinBarra
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -23,51 +23,28 @@ Partial Class FrmActualizaciones
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.pbActualizacion = New System.Windows.Forms.ProgressBar()
-        Me.lblEstado = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(618, 397)
+        Me.Button1.Location = New System.Drawing.Point(491, 710)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(120, 27)
-        Me.Button1.TabIndex = 1
+        Me.Button1.TabIndex = 0
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'pbActualizacion
-        '
-        Me.pbActualizacion.Location = New System.Drawing.Point(31, 119)
-        Me.pbActualizacion.Name = "pbActualizacion"
-        Me.pbActualizacion.Size = New System.Drawing.Size(713, 23)
-        Me.pbActualizacion.TabIndex = 2
-        '
-        'lblEstado
-        '
-        Me.lblEstado.AutoSize = True
-        Me.lblEstado.Location = New System.Drawing.Point(28, 62)
-        Me.lblEstado.Name = "lblEstado"
-        Me.lblEstado.Size = New System.Drawing.Size(39, 13)
-        Me.lblEstado.TabIndex = 3
-        Me.lblEstado.Text = "Label1"
         '
         'FrmActualizaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.lblEstado)
-        Me.Controls.Add(Me.pbActualizacion)
+        Me.ClientSize = New System.Drawing.Size(623, 749)
         Me.Controls.Add(Me.Button1)
         Me.Name = "FrmActualizaciones"
-        Me.Text = "FrmActualizaciones"
+        Me.Text = "Form1"
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents Button1 As Button
-    Friend WithEvents pbActualizacion As ProgressBar
-    Friend WithEvents lblEstado As Label
 End Class

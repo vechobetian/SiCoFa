@@ -60,84 +60,80 @@ Public Class N_AdminActualizaciones
 
     End Function
 
-    Public Function NormalizarArchivoZip(nombreZip As String) As String
+    Public Function NormalizarArchivoZip(nombreZip As String) As List(Of String)
 
-        Dim rutaZip = "C:\SiCoFa_Server\Actualizaciones\zip"
-        Dim rutaTxt = "C:\SiCoFa_Server\Actualizaciones\txt"
+        Dim rutaZip As String = "C:\SiCoFa_Server\Actualizaciones\zip"
+        Dim rutaTxt As String = "C:\SiCoFa_Server\Actualizaciones\txt"
 
-        Dim archivoZip = Path.Combine(rutaZip, nombreZip)
-
-        If Not File.Exists(archivoZip) Then
-            Throw New Exception("No existe el archivo ZIP: " & archivoZip)
-        End If
-
-        Using zip As ZipArchive = ZipFile.OpenRead(archivoZip)
-
-            'Buscar TXT o DAT
-            Dim entry = zip.Entries.FirstOrDefault(
-            Function(e)
-                Dim n = e.Name.ToLower()
-                Return (n.EndsWith(".txt") OrElse n.EndsWith(".dat")) _
-                       AndAlso e.Length > 0
-            End Function)
-
-            If entry Is Nothing Then
-                Throw New Exception("El ZIP no contiene TXT/DAT válido")
-            End If
-
-            '📌 nombre final SIEMPRE TXT
-            Dim nombreFinal =
-            Path.GetFileNameWithoutExtension(entry.Name) & ".txt"
-
-            Dim destino = Path.Combine(rutaTxt, nombreFinal)
-
-            entry.ExtractToFile(destino, True)
-
-            Return destino
-
-        End Using
-
-    End Function
-
-    Public Function NormalizarArchivoZip1(nombreZip As String) As List(Of String)
-
-        Dim rutaZip = "C:\SiCoFa_Server\Actualizaciones\zip"
-        Dim rutaTxt = "C:\SiCoFa_Server\Actualizaciones\txt"
-
-        Dim archivoZip = Path.Combine(rutaZip, nombreZip)
+        Dim archivoZip As String = Path.Combine(rutaZip, nombreZip)
 
         If Not File.Exists(archivoZip) Then
-            Throw New Exception("No existe el archivo ZIP: " & archivoZip)
+            Throw New Exception("No existe el ZIP: " & archivoZip)
         End If
 
         Dim archivosGenerados As New List(Of String)
 
+        Dim nombreSinExt As String =
+        Path.GetFileNameWithoutExtension(nombreZip)
+
+        If nombreSinExt.Length < 3 Then
+            Throw New Exception("Nombre ZIP inválido")
+        End If
+
+        ' me26051101.zip
+        Dim codigoZip As String = nombreSinExt.Substring(0, 2)
+        Dim nroActualizacion As String = nombreSinExt.Substring(2)
+
         Using zip As ZipArchive = ZipFile.OpenRead(archivoZip)
 
-            Dim entries = zip.Entries.Where(Function(e)
-                                                Dim n = e.Name.ToLower()
-                                                Return (n.EndsWith(".txt") OrElse n.EndsWith(".dat")) _
-                                                   AndAlso e.Length > 0
-                                            End Function)
+            Dim entries = zip.Entries.
+            Where(Function(e)
+                      Dim n = e.Name.ToLower()
+                      Return (n.EndsWith(".txt") OrElse n.EndsWith(".dat")) _
+                             AndAlso e.Length > 0
+                  End Function).ToList()
 
-            If Not entries.Any() Then
-                Throw New Exception("El ZIP no contiene TXT/DAT válidos")
+            If entries.Count = 0 Then
+                Throw New Exception("ZIP sin TXT/DAT válidos")
             End If
 
-            For Each entry In entries
+            For Each entry As ZipArchiveEntry In entries
 
-                Dim nombreBase = Path.GetFileNameWithoutExtension(entry.Name)
+                Dim nombreBase =
+                Path.GetFileNameWithoutExtension(entry.Name)
 
-                ' ✔ mantener nombre original
-                Dim extension = Path.GetExtension(entry.Name).ToLower()
+                Dim extension =
+                Path.GetExtension(entry.Name).ToLower()
 
-                Dim extensionFinal As String = If(extension = ".dat", ".txt", extension)
+                Dim extensionFinal =
+                If(extension = ".dat", ".txt", extension)
 
-                Dim nombreFinal = nombreBase & extensionFinal
+                Dim nombreFinal As String
 
-                Dim destino = Path.Combine(rutaTxt, nombreFinal)
+                '====================================
+                ' SI SOLO HAY UN ARCHIVO → usar CodiLP del ZIP
+                '====================================
+                If entries.Count = 1 Then
 
-                If File.Exists(destino) Then File.Delete(destino)
+                    nombreFinal =
+                    codigoZip &
+                    nroActualizacion &
+                    extensionFinal
+
+                Else
+                    ' múltiples → usar nombre del archivo
+                    nombreFinal =
+                    nombreBase &
+                    nroActualizacion &
+                    extensionFinal
+                End If
+
+                Dim destino As String =
+                Path.Combine(rutaTxt, nombreFinal)
+
+                If File.Exists(destino) Then
+                    File.Delete(destino)
+                End If
 
                 entry.ExtractToFile(destino, True)
 

@@ -26,13 +26,11 @@ Public Class D_AdminActualizaciones
 
         Dim lista As New List(Of String)
 
-        Dim url As String =
-            $"https://www.sicofa.com.ar/listar.php?token={Uri.EscapeDataString(token)}"
+        Dim url As String = $"https://www.sicofa.com.ar/listar.php?token={Uri.EscapeDataString(token)}"
 
         Dim texto As String = Await http.GetStringAsync(url)
 
-        For Each linea In texto.Split({vbCrLf, vbLf},
-                                      StringSplitOptions.RemoveEmptyEntries)
+        For Each linea In texto.Split({vbCrLf, vbLf}, StringSplitOptions.RemoveEmptyEntries)
 
             lista.Add(linea.Trim())
 
