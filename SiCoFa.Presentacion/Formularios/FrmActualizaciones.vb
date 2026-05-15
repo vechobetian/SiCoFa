@@ -70,10 +70,7 @@ Public Class FrmActualizaciones
 
         Dim mapProcesos = procesos.ToDictionary(Function(x) x.CodiPA, StringComparer.OrdinalIgnoreCase)
 
-        progreso.Report(New ProgresoActualizacion With {
-        .Valor = 0,
-        .Mensaje = "Consultando servidor..."
-    })
+        progreso.Report(New ProgresoActualizacion With {.Valor = 0, .Mensaje = "Consultando servidor..."})
 
         '------------------------------------------
         ' LISTAR ZIP
@@ -101,8 +98,7 @@ Public Class FrmActualizaciones
 
             Dim proceso = mapProcesos(codigoPA)
 
-            Dim nroActual = If(proceso.NumeroActualizacion.HasValue,
-                           proceso.NumeroActualizacion.Value, 0)
+            Dim nroActual = If(proceso.NumeroActualizacion.HasValue, proceso.NumeroActualizacion.Value, 0)
 
             Dim nombreSinExtension = Path.GetFileNameWithoutExtension(archivoZip)
             Dim numeroTexto = nombreSinExtension.Substring(2)
@@ -112,15 +108,11 @@ Public Class FrmActualizaciones
 
             If nroActualizacionZip <= nroActual Then Continue For
 
-            progreso.Report(New ProgresoActualizacion With {
-            .Mensaje = "Descargando " & archivoZip
-        })
+            progreso.Report(New ProgresoActualizacion With {.Mensaje = "Descargando " & archivoZip})
 
-            Dim rutaZip =
-            Await mAdminActualizaciones.DescargarArchivoAsync(token, archivoZip)
+            Dim rutaZip = Await mAdminActualizaciones.DescargarArchivoAsync(token, archivoZip)
 
-            Dim rutasTxt =
-            mAdminActualizaciones.NormalizarArchivoZip(Path.GetFileName(rutaZip))
+            Dim rutasTxt = mAdminActualizaciones.NormalizarArchivoZip(Path.GetFileName(rutaZip))
 
             trabajosTotales += rutasTxt.Count
 
@@ -133,10 +125,7 @@ Public Class FrmActualizaciones
         '==========================================
         If trabajosTotales = 0 Then
 
-            progreso.Report(New ProgresoActualizacion With {
-            .Valor = 0,
-            .Mensaje = "No existen actualizaciones para procesar"
-        })
+            progreso.Report(New ProgresoActualizacion With {.Valor = 0, .Mensaje = "No existen actualizaciones para procesar"})
 
             Return
         End If
@@ -164,9 +153,7 @@ Public Class FrmActualizaciones
 
                     Dim proceso = mapProcesos(codigoPA)
 
-                    Dim nroActual =
-                    If(proceso.NumeroActualizacion.HasValue,
-                       proceso.NumeroActualizacion.Value, 0)
+                    Dim nroActual = If(proceso.NumeroActualizacion.HasValue, proceso.NumeroActualizacion.Value, 0)
 
                     If nroActualizacionZip <= nroActual Then Continue For
 
@@ -199,13 +186,9 @@ Public Class FrmActualizaciones
                 '------------------------------------------
                 trabajosRealizados += 1
 
-                Dim porcentaje =
-                CInt((trabajosRealizados / trabajosTotales) * 100)
+                Dim porcentaje = CInt((trabajosRealizados / trabajosTotales) * 100)
 
-                progreso.Report(New ProgresoActualizacion With {
-                .Valor = porcentaje,
-                .Mensaje = "Procesando " & Path.GetFileName(rutaTxt)
-            })
+                progreso.Report(New ProgresoActualizacion With {.Valor = porcentaje, .Mensaje = "Procesando " & Path.GetFileName(rutaTxt)})
 
             Next
 
@@ -220,10 +203,7 @@ Public Class FrmActualizaciones
         '====================================================
         ' ⭐ FIN REAL DEL PROCESO
         '====================================================
-        progreso.Report(New ProgresoActualizacion With {
-        .Valor = 100,
-        .Mensaje = "Actualización finalizada"
-    })
+        progreso.Report(New ProgresoActualizacion With {.Valor = 100, .Mensaje = "Actualización finalizada"})
 
     End Function
     '==============================================
