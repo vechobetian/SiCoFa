@@ -21,6 +21,22 @@ Public Class D_AdminProcesosActualizacion
 
     End Function
 
+    '-------------------------------------------------------
+    ' MAPEO OBRAS SOCIALES
+    '-------------------------------------------------------
+    Private Function MapObraSociales(dr As MySqlDataReader) As ObraSocial
+
+        Return New ObraSocial(
+        argIdIOS:=If(IsDBNull(dr("IdOS")), Nothing, Convert.ToInt32(dr("IdOS"))),
+        argNombreOS:=dr("NombreOS").ToString(),
+        argValidador:=dr("Validador").ToString,
+        argFinanciador:=dr("Finanaciador"),
+        argComprobanteFiscal:=If(IsDBNull(dr("ComprobanteFiscal")), Nothing, Convert.ToBoolean(dr("ComprobanteFiscal"))),
+        argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion")))
+    )
+
+    End Function
+
     Public Function ObtenerProcesosActualizacion() As List(Of ProcesoActualizacion)
 
         Dim lista As New List(Of ProcesoActualizacion)
@@ -54,6 +70,44 @@ Public Class D_AdminProcesosActualizacion
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerProcesosActualizacion), ex.Message))
+        End Try
+
+    End Function
+
+    Public Function ObtenerObraSociales() As List(Of ObraSocial)
+
+        Dim lista As New List(Of ObraSocial)
+
+        Try
+            Using cn = objConexionDB.ObtenerConexion("OS")
+
+                Const sql As String =
+                "SELECT 
+                    IdOS,
+                    NombreOS,
+                    Validador,
+                    Finanaciador,
+                    ComprobanteFiscal,
+                    NumeroActualizacion
+                 FROM obras_sociales                 
+                 ORDER BY NombreOS"
+
+                Using cmd As New MySqlCommand(sql, cn)
+
+                    Using dr = cmd.ExecuteReader()
+
+                        While dr.Read()
+                            lista.Add(MapObraSociales(dr))
+                        End While
+
+                    End Using
+                End Using
+            End Using
+
+            Return lista
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerObraSociales), ex.Message))
         End Try
 
     End Function

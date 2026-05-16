@@ -147,11 +147,11 @@ Public Class N_AdminActualizaciones
 
     End Function
 
-    Public Sub ProcesarActualizacion(argCodiPA As String, argNumeroActualizacion As Long, argStoredProcedure As String, argPorcentaje As Decimal, argRutaArchivo As String)
+    Public Sub ProcesarActualizacionArticulos(argCodiPA As String, argNumeroActualizacion As Long, argStoredProcedure As String, argPorcentaje As Decimal, argRutaArchivo As String)
         Dim AdminActualizaciones As New D_AdminActualizaciones
 
         Try
-            AdminActualizaciones.ProcesarActualizacion(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
+            AdminActualizaciones.ProcesarActualizacionArticulos(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacion", ex.Message))
@@ -159,5 +159,19 @@ Public Class N_AdminActualizaciones
         End Try
 
     End Sub
+
+    Public Sub ProcesarActualizacionObraSociales(argIdOS As Integer, argNumeroActualizacion As Long, argStoredProcedure As String, argRutaArchivo As String)
+        Dim AdminActualizaciones As New D_AdminActualizaciones
+
+        Try
+            'AdminActualizaciones.ProcesarActualizacion(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacion", ex.Message))
+
+        End Try
+
+    End Sub
+
 
 End Class

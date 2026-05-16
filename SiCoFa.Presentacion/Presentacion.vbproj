@@ -158,12 +158,6 @@
     <Compile Include="Formularios\FrmActualizaciones.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmActualizacionesSinBarra.Designer.vb">
-      <DependentUpon>FrmActualizacionesSinBarra.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmActualizacionesSinBarra.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Formularios\FrmOperacionesCB.Designer.vb">
       <DependentUpon>FrmOperacionesCB.vb</DependentUpon>
     </Compile>
@@ -468,9 +462,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmActualizaciones.resx">
       <DependentUpon>FrmActualizaciones.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmActualizacionesSinBarra.resx">
-      <DependentUpon>FrmActualizacionesSinBarra.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmOperacionesCB.resx">
       <DependentUpon>FrmOperacionesCB.vb</DependentUpon>

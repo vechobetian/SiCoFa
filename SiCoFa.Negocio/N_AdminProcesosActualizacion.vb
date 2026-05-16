@@ -19,4 +19,21 @@ Public Class N_AdminProcesosActualizacion
 
     End Function
 
+    Public Function ObtenerObraSociales() As List(Of ObraSocial)
+
+        Try
+
+            Dim AdminProcesoActualizacion As New D_AdminProcesosActualizacion
+
+            Return AdminProcesoActualizacion.ObtenerObraSociales()
+
+        Catch ex As Exception
+
+            Throw New Exception(
+            Vecho.MensajeError(Me.ToString, NameOf(ObtenerObraSociales), ex.Message))
+        End Try
+
+    End Function
+
+
 End Class

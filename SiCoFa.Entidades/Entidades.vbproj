@@ -89,6 +89,7 @@
     <Compile Include="ItemComprobante.vb" />
     <Compile Include="ItemComprobanteCompra.vb" />
     <Compile Include="IVA.vb" />
+    <Compile Include="ObraSocial.vb" />
     <Compile Include="ProcesoActualizacion.vb" />
     <Compile Include="ListaPrecios.vb" />
     <Compile Include="LoginTicket.vb" />
