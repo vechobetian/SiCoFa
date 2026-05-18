@@ -24,6 +24,22 @@ Public Class N_AdminActualizaciones
 
     End Function
 
+    Public Async Function ListarArchivosOSServidorAsync(token As String) As Task(Of List(Of String))
+
+        If String.IsNullOrWhiteSpace(token) Then
+            Throw New ArgumentException("Token inválido")
+        End If
+
+        Try
+            Return Await mAdminActualizaciones.ListarArchivosOSServidorAsync(token)
+
+        Catch ex As Exception
+            Throw New Exception(
+            Vecho.MensajeError(Me.ToString(), NameOf(ListarArchivosOSServidorAsync), ex.Message), ex)
+        End Try
+
+    End Function
+
     Public Async Function DescargarArchivoAsync(token As String, nombreArchivo As String) As Task(Of String)
 
         If String.IsNullOrWhiteSpace(token) Then
@@ -45,11 +61,7 @@ Public Class N_AdminActualizaciones
             Dim rutaDestino As String =
             IO.Path.Combine(carpetaDestino, nombreArchivo)
 
-            Await mAdminActualizaciones.DescargarArchivoAsync(
-            token,
-            nombreArchivo,
-            rutaDestino
-        )
+            Await mAdminActualizaciones.DescargarArchivoAsync(token, nombreArchivo, rutaDestino)
 
             Return rutaDestino
 
@@ -147,6 +159,70 @@ Public Class N_AdminActualizaciones
 
     End Function
 
+    Public Function NormalizarArchivoZipOS(nombreZip As String) As List(Of String)
+
+        Dim rutaZip As String = "C:\SiCoFa_Server\Actualizaciones\zip"
+        Dim rutaTxt As String = "C:\SiCoFa_Server\Actualizaciones\txt"
+
+        Dim archivoZip As String = Path.Combine(rutaZip, nombreZip)
+
+        If Not File.Exists(archivoZip) Then
+            Throw New Exception("No existe el ZIP: " & archivoZip)
+        End If
+
+        Dim archivosGenerados As New List(Of String)
+
+        Using zip As ZipArchive = ZipFile.OpenRead(archivoZip)
+
+            For Each entry As ZipArchiveEntry In zip.Entries
+
+                '------------------------------------
+                ' IGNORAR CARPETAS
+                '------------------------------------
+                If entry.Length = 0 Then Continue For
+
+                Dim nombreOriginal As String =
+                Path.GetFileName(entry.FullName)
+
+                If String.IsNullOrWhiteSpace(nombreOriginal) Then Continue For
+
+                '------------------------------------
+                ' CONVERTIR DAT -> TXT
+                '------------------------------------
+                Dim nombreBase =
+                Path.GetFileNameWithoutExtension(nombreOriginal)
+
+                Dim extension =
+                Path.GetExtension(nombreOriginal).ToLower()
+
+                Dim extensionFinal =
+                If(extension = ".dat", ".txt", extension)
+
+                Dim nombreFinal =
+                nombreBase & extensionFinal
+
+                Dim destino As String =
+                Path.Combine(rutaTxt, nombreFinal)
+
+                '------------------------------------
+                ' SOBRESCRIBIR SI EXISTE
+                '------------------------------------
+                If File.Exists(destino) Then
+                    File.Delete(destino)
+                End If
+
+                entry.ExtractToFile(destino)
+
+                archivosGenerados.Add(destino)
+
+            Next
+
+        End Using
+
+        Return archivosGenerados
+
+    End Function
+
     Public Sub ProcesarActualizacionArticulos(argCodiPA As String, argNumeroActualizacion As Long, argStoredProcedure As String, argPorcentaje As Decimal, argRutaArchivo As String)
         Dim AdminActualizaciones As New D_AdminActualizaciones
 
@@ -154,7 +230,7 @@ Public Class N_AdminActualizaciones
             AdminActualizaciones.ProcesarActualizacionArticulos(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacionArticulos", ex.Message))
 
         End Try
 
@@ -164,10 +240,10 @@ Public Class N_AdminActualizaciones
         Dim AdminActualizaciones As New D_AdminActualizaciones
 
         Try
-            'AdminActualizaciones.ProcesarActualizacion(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
+            AdminActualizaciones.ProcesarActualizacionObraSociales(argIdOS, argNumeroActualizacion, argStoredProcedure, argRutaArchivo)
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacionObraSociales", ex.Message))
 
         End Try
 

@@ -30,7 +30,7 @@ Public Class D_AdminProcesosActualizacion
         argIdIOS:=If(IsDBNull(dr("IdOS")), Nothing, Convert.ToInt32(dr("IdOS"))),
         argNombreOS:=dr("NombreOS").ToString(),
         argValidador:=dr("Validador").ToString,
-        argFinanciador:=dr("Finanaciador"),
+        argFinanciador:=dr("Financiador"),
         argComprobanteFiscal:=If(IsDBNull(dr("ComprobanteFiscal")), Nothing, Convert.ToBoolean(dr("ComprobanteFiscal"))),
         argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion")))
     )
@@ -86,7 +86,7 @@ Public Class D_AdminProcesosActualizacion
                     IdOS,
                     NombreOS,
                     Validador,
-                    Finanaciador,
+                    Financiador,
                     ComprobanteFiscal,
                     NumeroActualizacion
                  FROM obras_sociales                 

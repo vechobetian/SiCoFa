@@ -1,7 +1,4 @@
 ﻿Imports System.Collections.Generic
-Imports System.IO
-Imports System.Linq
-Imports System.Text
 Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 

@@ -40,6 +40,46 @@ Public Class D_AdminActualizaciones
     End Function
 
     '====================================================
+    ' LISTAR ARCHIVOS DEL SERVIDOR
+    '====================================================
+    Public Async Function ListarArchivosOSServidorAsync(token As String) As Task(Of List(Of String))
+
+        If String.IsNullOrWhiteSpace(token) Then
+            Throw New ArgumentException("Token inválido")
+        End If
+
+        Dim lista As New List(Of String)
+
+        Dim url As String =
+            $"https://www.sicofa.com.ar/listar.php?token={Uri.EscapeDataString(token)}"
+
+        Dim texto As String = Await http.GetStringAsync(url)
+
+        For Each linea In texto.Split({vbCrLf, vbLf},
+                                      StringSplitOptions.RemoveEmptyEntries)
+
+            Dim archivoCompleto = linea.Trim()
+
+            ' ⭐ obtener SOLO nombre archivo
+            Dim nombreArchivo = Path.GetFileName(archivoCompleto)
+
+            '------------------------------------------
+            ' FILTRO SOLO OS
+            '------------------------------------------
+
+            If Not nombreArchivo.StartsWith("OS", StringComparison.OrdinalIgnoreCase) Then
+                Continue For
+            End If
+
+            lista.Add(nombreArchivo)
+
+        Next
+
+        Return lista
+
+    End Function
+
+    '====================================================
     ' DESCARGAR ARCHIVO (STREAMING - PROFESIONAL)
     '====================================================
     Public Async Function DescargarArchivoAsync(token As String, nombreArchivo As String, rutaDestino As String) As Task
@@ -113,8 +153,7 @@ Public Class D_AdminActualizaciones
 
                 Try
                     ImportarAStaging(argRutaArchivo, cn, tx)
-                    EjecutarActualizacionObraSociales(argStoredProcedure, cn, tx)
-                    ActualizarNumeroActualizacionObraSocial(argIdOS, argNumeroActualizacion, cn, tx)
+                    EjecutarActualizacionObraSociales(argStoredProcedure, argNumeroActualizacion, cn, tx)
 
                     tx.Commit()
 
@@ -171,12 +210,14 @@ Public Class D_AdminActualizaciones
 
     End Sub
 
-    Public Sub EjecutarActualizacionObraSociales(sp As String, cn As MySqlConnection, tx As MySqlTransaction)
+    Public Sub EjecutarActualizacionObraSociales(ByVal sp As String, ByVal NumActualizacion As Long, cn As MySqlConnection, tx As MySqlTransaction)
 
         Using cmd As New MySqlCommand(sp, cn, tx)
 
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandTimeout = 0
+
+            cmd.Parameters.Add("p_NumActualizacion", MySqlDbType.Int64).Value = NumActualizacion
 
             cmd.ExecuteNonQuery()
 
@@ -192,21 +233,6 @@ Public Class D_AdminActualizaciones
 
             cmd.Parameters.Add("@nro", MySqlDbType.Int64).Value = argNumeroActualizacion
             cmd.Parameters.Add("@codi", MySqlDbType.VarChar).Value = argCodiPA
-
-            cmd.ExecuteNonQuery()
-
-        End Using
-
-    End Sub
-
-    Public Sub ActualizarNumeroActualizacionObraSocial(ByVal argIdOS As Integer, ByVal argNumeroActualizacion As Long, cn As MySqlConnection, tx As MySqlTransaction)
-
-        Dim sql As String = "UPDATE obras_sociales SET NumeroActualizacion = @nro  WHERE IdOS = @id"
-
-        Using cmd As New MySqlCommand(sql, cn, tx)
-
-            cmd.Parameters.Add("@nro", MySqlDbType.Int64).Value = argNumeroActualizacion
-            cmd.Parameters.Add("@id", MySqlDbType.VarChar).Value = argIdOS
 
             cmd.ExecuteNonQuery()
 

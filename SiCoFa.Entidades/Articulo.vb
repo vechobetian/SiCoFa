@@ -5,6 +5,7 @@
     Property NTroquel As String
     Property Nombre As String
     Property AlicuotaIVA As AlicuotaIVA
+    Property Unidades As Integer
     Property FechaPrecio As Date
     Property PrecioCosto As Decimal
     Property PrecioVenta As Decimal
