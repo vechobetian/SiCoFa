@@ -68,6 +68,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccionFarmacologica.vb" />
     <Compile Include="AlicuotaIVA.vb" />
     <Compile Include="Archivo.vb" />
     <Compile Include="Articulo.vb" />
@@ -91,6 +92,8 @@
     <Compile Include="ItemComprobante.vb" />
     <Compile Include="ItemComprobanteCompra.vb" />
     <Compile Include="IVA.vb" />
+    <Compile Include="Laboratorio.vb" />
+    <Compile Include="Monodroga.vb" />
     <Compile Include="ObraSocial.vb" />
     <Compile Include="ProcesoActualizacion.vb" />
     <Compile Include="ListaPrecios.vb" />
@@ -131,6 +134,7 @@
     <Compile Include="TipoDocumento.vb" />
     <Compile Include="TipoOperacion.vb" />
     <Compile Include="Usuario.vb" />
+    <Compile Include="ViaAdministracion.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

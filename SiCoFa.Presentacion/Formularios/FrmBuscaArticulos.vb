@@ -45,7 +45,7 @@ Public Class FrmBuscaArticulos
                 .Rows(x).Cells("Seccion").Value = a.Seccion.Seccion
                 .Rows(x).Cells("EstablecerPrecio").Value = a.Seccion.EstablecerPrecio
                 .Rows(x).Cells("ActualizarPrecio").Value = a.ActualizarPrecio
-                .Rows(x).Cells("Stock").Value = a.Stock
+                .Rows(x).Cells("Stock").Value = a.StockC
                 .Rows(x).Cells("CodiLP").Value = a.ListaPrecios.CodiLP
                 .Rows(x).Cells("ListaPrecios").Value = a.ListaPrecios.ListaPrecios
                 .Rows(x).Cells("Fabricante").Value = a.Fabricante
