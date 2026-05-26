@@ -4,6 +4,8 @@
     Public Sub New(ByVal argAlicIVA As Decimal)
         Me.AlicIVA = argAlicIVA
         Select Case argAlicIVA
+            Case 0
+                Me.AlicuotaIVA = "0.00%"
             Case 10.5
                 Me.AlicuotaIVA = "10.50%"
             Case 21

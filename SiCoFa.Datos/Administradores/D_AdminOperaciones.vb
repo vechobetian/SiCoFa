@@ -299,7 +299,7 @@ Public Class D_AdminOperaciones
 
         Try
 
-            Dim sql As String = "SELECT IdOperacion,IdCliente FROM TblOperacionesCL WHERE IdOperacion=@IdOperacion"
+            Dim sql As String = "SELECT IdOperacion,IdCliente FROM operaciones_cl WHERE IdOperacion=@IdOperacion"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 

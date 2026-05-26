@@ -7,7 +7,7 @@ Public Class Articulo
     Property NTroquel As String
     Property Nombre As String
     Property TipoVenta As TipoVenta
-    Property AlicuotaIVA As AlicuotaIVA
+    Property AlicIVA As Decimal
     Property Unidades As Integer
     Property TamanioEnvase As TamanioEnvase
     Property FechaPrecio As Date
@@ -15,8 +15,8 @@ Public Class Articulo
     Property PrecioVenta As Decimal
     Property PrecioOferta As Decimal
     Property Laboratorio As Laboratorio
-    Property AccionFarmacologica As AccionFarmacologica
     Property Monodroga As Monodroga
+    Property AccionFarmacologica As AccionFarmacologica
     Property Baja As Boolean
     Property TipoControl As TipoControl
     Property Heladera As Boolean
@@ -37,38 +37,53 @@ Public Class Articulo
     Property CodiUP As Integer
     Property CodiTU As Integer
     Property ListaPrecios As ListaPrecios
-    Property Fabricante As String
 
     Public Sub New(ByVal argIdArticulo As String,
                    ByVal argCodigo As String,
                    ByVal argCodBarras As String,
                    ByVal argNombre As String,
-                   ByVal argAlicuotaIVA As AlicuotaIVA,
+                   ByVal argTipoVenta As TipoVenta,
+                   ByVal argAlicIVA As Decimal,
+                   ByVal argUnidades As Integer,
+                   ByVal argTamanioEnvase As TamanioEnvase,
                    ByVal argFechaPrecio As Date,
                    ByVal argPrecioCosto As Decimal,
                    ByVal argPrecioVenta As Decimal,
+                   ByVal argPrecioOferta As Decimal,
+                   ByVal argLaboratorio As Laboratorio,
+                   ByVal argMonodroga As Monodroga,
+                   ByVal argAccionFarmacologica As AccionFarmacologica,
                    ByVal argBaja As Boolean,
+                   ByVal argTipoControl As TipoControl,
                    ByVal argSeccion As Seccion,
                    ByVal argActualizarPrecio As Boolean,
-                   ByVal argStock As Decimal,
-                   ByVal argListaPrecios As ListaPrecios,
-                   ByVal argFabricante As String
+                   ByVal argStockC As Integer,
+                   ByVal argStockF As Integer,
+                   ByVal argListaPrecios As ListaPrecios
                    )
 
         Me.IdArticulo = argIdArticulo
         Me.Codigo = argCodigo
         Me.CodBarras = argCodBarras
         Me.Nombre = argNombre
-        Me.AlicuotaIVA = argAlicuotaIVA
+        Me.TipoVenta = argTipoVenta
+        Me.AlicIVA = argAlicIVA
+        Me.Unidades = argUnidades
+        Me.TamanioEnvase = argTamanioEnvase
         Me.FechaPrecio = argFechaPrecio
         Me.PrecioCosto = argPrecioCosto
         Me.PrecioVenta = argPrecioVenta
+        Me.PrecioOferta = argPrecioOferta
+        Me.Laboratorio = argLaboratorio
+        Me.Monodroga = argMonodroga
+        Me.AccionFarmacologica = argAccionFarmacologica
         Me.Baja = argBaja
+        Me.TipoControl = argTipoControl
         Me.Seccion = argSeccion
         Me.ActualizarPrecio = argActualizarPrecio
-        Me.StockF = argStock
+        Me.StockC = argStockC
+        Me.StockF = argStockF
         Me.ListaPrecios = argListaPrecios
-        Me.Fabricante = argFabricante
 
     End Sub
 

@@ -1,8 +1,10 @@
-﻿Public Class ItemComprobanteCompra
+﻿Imports SiCoFa.Entidades.Enums
+
+Public Class ItemComprobanteCompra
 
     Private m_IdItem As Long
     Private m_Articulo As Articulo
-    Private m_Cantidad As Decimal
+    Private m_Cantidad As Integer
     Private m_PrecioCosto As Decimal
     Private m_PrecioVenta As Decimal
     Private m_PorcentajeAplicado As Decimal
@@ -14,7 +16,7 @@
     ' Constructor
     Public Sub New(
         ByVal argArticulo As Articulo,
-        ByVal argCantidad As Decimal,
+        ByVal argCantidad As Integer,
         ByVal argPrecioCosto As Decimal,
         ByVal argPrecioVenta As Decimal,
         ByVal argPorcentajeAplicado As Decimal,
@@ -58,11 +60,11 @@
         End Get
     End Property
 
-    Public Property Cantidad() As Decimal
+    Public Property Cantidad() As Integer
         Get
             Return m_Cantidad
         End Get
-        Set(value As Decimal)
+        Set(value As Integer)
             m_Cantidad = value
         End Set
     End Property
@@ -95,7 +97,7 @@
 
     Public ReadOnly Property AlicIVA() As Decimal
         Get
-            Return Articulo.AlicuotaIVA.AlicIVA
+            Return Articulo.AlicIVA
         End Get
     End Property
 
@@ -110,7 +112,7 @@
     Public ReadOnly Property ImporteNeto() As Decimal
         Get
             If m_IVAIncluido Then
-                Return Me.Importe / (1 + Me.Articulo.AlicuotaIVA.AlicIVA / 100)
+                Return Me.Importe / (1 + Me.Articulo.AlicIVA / 100)
             Else
                 Return Me.Importe
             End If
@@ -120,7 +122,7 @@
     <Newtonsoft.Json.JsonIgnore>
     Public ReadOnly Property ImporteIVA() As Decimal
         Get
-            Return Me.ImporteNeto * (Me.Articulo.AlicuotaIVA.AlicIVA / 100)
+            Return Me.ImporteNeto * (Me.Articulo.AlicIVA / 100)
         End Get
     End Property
 
@@ -163,7 +165,7 @@
         If m_IVAIncluido Then
             m_PrecioVenta = Math.Round(m_PrecioCosto * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100), 2, MidpointRounding.ToEven)
         Else
-            m_PrecioVenta = Math.Round(m_PrecioCosto * (1 + Me.Articulo.AlicuotaIVA.AlicIVA / 100) * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100), 2, MidpointRounding.ToEven)
+            m_PrecioVenta = Math.Round(m_PrecioCosto * (1 + Me.Articulo.AlicIVA / 100) * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100), 2, MidpointRounding.ToEven)
         End If
     End Sub
 

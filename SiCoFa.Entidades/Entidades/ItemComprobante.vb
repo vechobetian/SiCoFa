@@ -1,9 +1,11 @@
-﻿Public Class ItemComprobante
+﻿Imports SiCoFa.Entidades.Enums
+
+Public Class ItemComprobante
     Private m_IdItem As Long
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
     Private m_CodBarras As String
     Private m_Descripcion As String
-    Private m_Cantidad As Decimal
+    Private m_Cantidad As Integer
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
@@ -13,7 +15,7 @@
         ByVal argArticulo As Articulo,
         ByVal argCodBarras As String,
         ByVal argDescripcion As String,
-        ByVal argCantidad As Decimal,
+        ByVal argCantidad As Integer,
         ByVal argPrecioUnitario As Decimal,
         ByVal argAlicIVA As Decimal,
         ByVal argPorcentajeDescuento As Decimal
@@ -66,11 +68,11 @@
         End Set
     End Property
 
-    Public Property Cantidad() As Decimal
+    Public Property Cantidad() As Integer
         Get
             Return m_Cantidad
         End Get
-        Set(value As Decimal)
+        Set(value As Integer)
             If m_Cantidad <> value Then ' Solo recalcula si el valor cambia
                 m_Cantidad = value
                 ' Aquí no necesitamos recalcular todas las propiedades

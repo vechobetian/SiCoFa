@@ -4,26 +4,13 @@ Imports SiCoFa.Entidades
 Public Class FrmBuscaArticulos
     Property Articulos As IEnumerable(Of Articulo)
     Property ArticuloSeleccionado As Articulo
-    Private Sub SeleccionarArticulo()
-        Dim AdminListaPrecios As New N_AdminListaPrecios
-        Dim listaPrecios As ListaPrecios = AdminListaPrecios.ObtenerListaPreciosPorCodiLP(Me.DataGridView1.CurrentRow.Cells("CodiLP").Value)
 
-        Dim a As New Articulo(
-                              Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value,
-                              Me.DataGridView1.CurrentRow.Cells("Codigo").Value,
-                              Me.DataGridView1.CurrentRow.Cells("CodBarras").Value,
-                              Me.DataGridView1.CurrentRow.Cells("Nombre").Value,
-                              New AlicuotaIVA(Me.DataGridView1.CurrentRow.Cells("AlicIVA").Value),
-                              Me.DataGridView1.CurrentRow.Cells("FechaPrecio").Value,
-                              Me.DataGridView1.CurrentRow.Cells("PrecioCosto").Value,
-                              Me.DataGridView1.CurrentRow.Cells("PrecioVenta").Value,
-                              Me.DataGridView1.CurrentRow.Cells("Baja").Value,
-                              New Seccion(Me.DataGridView1.CurrentRow.Cells("IdSeccion").Value, Me.DataGridView1.CurrentRow.Cells("Seccion").Value, Me.DataGridView1.CurrentRow.Cells("EstablecerPrecio").Value),
-                              Me.DataGridView1.CurrentRow.Cells("ActualizarPrecio").Value,
-                              Me.DataGridView1.CurrentRow.Cells("Stock").Value,
-                              listaPrecios,
-                              Me.DataGridView1.CurrentRow.Cells("Fabricante").Value
-                             )
+    Private Sub SeleccionarArticulo()
+        'Dim AdminListaPrecios As New N_AdminListaPrecios
+        Dim AdminArticulos As New N_AdminArticulos
+        'Dim listaPrecios As ListaPrecios = AdminListaPrecios.ObtenerListaPreciosPorCodiLP(Me.DataGridView1.CurrentRow.Cells("CodiLP").Value)
+        Dim IdArticulo As String = Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value
+        Dim a As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticulo)
         Me.ArticuloSeleccionado = a
 
     End Sub
@@ -36,19 +23,21 @@ Public Class FrmBuscaArticulos
                 .Rows(x).Cells("Codigo").Value = a.Codigo
                 .Rows(x).Cells("CodBarras").Value = a.CodBarras
                 .Rows(x).Cells("Nombre").Value = a.Nombre
-                .Rows(x).Cells("AlicIVA").Value = a.AlicuotaIVA.AlicIVA
+                .Rows(x).Cells("AlicIVA").Value = a.AlicIVA
                 .Rows(x).Cells("FechaPrecio").Value = a.FechaPrecio
                 .Rows(x).Cells("PrecioCosto").Value = a.PrecioCosto
                 .Rows(x).Cells("PrecioVenta").Value = a.PrecioVenta
+                .Rows(x).Cells("PrecioOferta").Value = a.PrecioOferta
                 .Rows(x).Cells("Baja").Value = a.Baja
                 .Rows(x).Cells("IdSeccion").Value = a.Seccion.IdSeccion
                 .Rows(x).Cells("Seccion").Value = a.Seccion.Seccion
                 .Rows(x).Cells("EstablecerPrecio").Value = a.Seccion.EstablecerPrecio
                 .Rows(x).Cells("ActualizarPrecio").Value = a.ActualizarPrecio
-                .Rows(x).Cells("Stock").Value = a.StockC
+                .Rows(x).Cells("StockC").Value = a.StockC
+                .Rows(x).Cells("StockF").Value = a.StockF
                 .Rows(x).Cells("CodiLP").Value = a.ListaPrecios.CodiLP
                 .Rows(x).Cells("ListaPrecios").Value = a.ListaPrecios.ListaPrecios
-                .Rows(x).Cells("Fabricante").Value = a.Fabricante
+                .Rows(x).Cells("Laboratorio").Value = a.Laboratorio.Laboratorio
             End With
             x += 1
         Next

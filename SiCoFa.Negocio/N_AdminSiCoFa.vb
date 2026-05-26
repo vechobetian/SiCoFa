@@ -21,12 +21,7 @@ Public Class N_AdminSiCoFa
         Return TIVAS.OrderBy(Function(x) x.TipoIVA).ToList()
     End Function
 
-    Public Function AlicuotasIVA() As List(Of AlicuotaIVA)
-        Dim ALIVAS As New List(Of AlicuotaIVA)
-        ALIVAS.Add(New AlicuotaIVA(Convert.ToDecimal(10.5)))
-        ALIVAS.Add(New AlicuotaIVA(Convert.ToDecimal(21)))
-        Return ALIVAS.OrderBy(Function(x) x.AlicuotaIVA).ToList
-    End Function
+
 
     Public Function ObtenerTipoComprobanteVenta(ByVal argCodIVAEmpresa As String, ByVal argCodIVACliente As String) As TipoComprobante
 

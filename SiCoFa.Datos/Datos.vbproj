@@ -55,29 +55,30 @@
     <Import Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D_AdminActualizaciones.vb" />
-    <Compile Include="D_AdminArticulos.vb" />
-    <Compile Include="D_AdminAsientosContable.vb" />
-    <Compile Include="D_AdminCajas.vb" />
-    <Compile Include="D_AdminClientes.vb" />
-    <Compile Include="D_AdminComprobantes.vb" />
-    <Compile Include="D_AdminCuentasBancarias.vb" />
-    <Compile Include="D_AdminCuentasEmail.vb" />
-    <Compile Include="D_AdminEmpleados.vb" />
-    <Compile Include="D_AdminEmpresas.vb" />
-    <Compile Include="D_AdminItemsComprobante.vb" />
-    <Compile Include="D_AdminProcesosActualizacion.vb" />
-    <Compile Include="D_AdminListaPrecios.vb" />
-    <Compile Include="D_AdminOperaciones.vb" />
-    <Compile Include="D_AdminProveedores.vb" />
-    <Compile Include="D_AdminUsuarios.vb" />
-    <Compile Include="D_AdminMediosPE.vb" />
-    <Compile Include="D_AdminSecciones.vb" />
+    <Compile Include="Administradores\D_AdminActualizaciones.vb" />
+    <Compile Include="Administradores\D_AdminArticulos.vb" />
+    <Compile Include="Administradores\D_AdminAsientosContable.vb" />
+    <Compile Include="Administradores\D_AdminCajas.vb" />
+    <Compile Include="Administradores\D_AdminClientes.vb" />
+    <Compile Include="Administradores\D_AdminComprobantes.vb" />
+    <Compile Include="Administradores\D_AdminCuentasBancarias.vb" />
+    <Compile Include="Administradores\D_AdminCuentasEmail.vb" />
+    <Compile Include="Administradores\D_AdminEmpleados.vb" />
+    <Compile Include="Administradores\D_AdminEmpresas.vb" />
+    <Compile Include="Administradores\D_AdminItemsComprobante.vb" />
+    <Compile Include="Administradores\D_AdminProcesosActualizacion.vb" />
+    <Compile Include="Administradores\D_AdminListaPrecios.vb" />
+    <Compile Include="Administradores\D_AdminOperaciones.vb" />
+    <Compile Include="Administradores\D_AdminProveedores.vb" />
+    <Compile Include="Administradores\D_AdminUsuarios.vb" />
+    <Compile Include="Administradores\D_AdminMediosPE.vb" />
+    <Compile Include="Administradores\D_AdminSecciones.vb" />
     <Compile Include="D_Conexion.vb" />
-    <Compile Include="D_AdminDB.vb" />
-    <Compile Include="D_AdminFTP.vb" />
-    <Compile Include="D_AdminPlanCuentas.vb" />
-    <Compile Include="D_AdminSistema.vb" />
+    <Compile Include="Administradores\D_AdminDB.vb" />
+    <Compile Include="Administradores\D_AdminFTP.vb" />
+    <Compile Include="Administradores\D_AdminPlanCuentas.vb" />
+    <Compile Include="Administradores\D_AdminSistema.vb" />
+    <Compile Include="Mappers\ArticuloMapper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -312,6 +313,7 @@
       <CachedSettingsPropName>SiCoFa_Datos_WSN_Service</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

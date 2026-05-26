@@ -2,6 +2,7 @@
 Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
+Imports SiCoFa.Entidades.Enums
 
 Public Class FrmVentas
     Property Usuario As Usuario
@@ -16,18 +17,18 @@ Public Class FrmVentas
             mobj_Cliente = value
             Me.ActualizarDatosOperacion()
             mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
-            mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+            'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
         End Set
     End Property
 
     Private mobj_AdminOperacion As New N_AdminOperaciones
     Private mobj_Operacion As Operacion
-    Private mobj_OperacionOriginal As Operacion
+    'Private mobj_OperacionOriginal As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
-    Private mobj_ClienteOriginal As Cliente
+    'Private mobj_ClienteOriginal As Cliente
     Private mobj_Items As New BindingList(Of ItemComprobante)
-    Private mobj_ItemsOriginal As BindingList(Of ItemComprobante)
+    'Private mobj_ItemsOriginal As BindingList(Of ItemComprobante)
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
@@ -85,7 +86,7 @@ Public Class FrmVentas
                 mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
                 mobj_Operacion.Usuario = Me.Usuario
                 mobj_Operacion.TipoOperacion = mobj_TipoOperacion
-                mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
                 mobj_Cliente = mobj_AdminOperacion.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
 
                 If mobj_Cliente Is Nothing Then
@@ -93,12 +94,12 @@ Public Class FrmVentas
                     mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
                 End If
 
-                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+                'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
 
                 Dim AdminItems As New N_AdminItemsComprobante
                 Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
                 mobj_Items = New BindingList(Of ItemComprobante)(objItems)
-                mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+                'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
                 Me.ActualizarTotales()
                 Me.ActualizarDatosOperacion()
 
@@ -123,34 +124,34 @@ Public Class FrmVentas
 
             If mobj_Operacion Is Nothing Then
                 mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
-                If mobj_Operacion IsNot Nothing Then
-                    mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                End If
+                'If mobj_Operacion IsNot Nothing Then
+                'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                'End If
             Else
                 mobj_Operacion.Inicio = Now
                 mobj_Operacion.Observaciones = ""
                 mobj_Operacion.EstadoOperacion = "GUARDADO"
                 Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
 
-                If Actualizado = True Then
-                    mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                End If
+                'If Actualizado = True Then
+                'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                'End If
 
             End If
 
             If mobj_Cliente Is Nothing Then
                 Dim AdminClientes As New N_AdminClientes
                 mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
-                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+                'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
                 mobj_AdminOperacion.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
             End If
 
-            Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
+            'Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
 
-            If clienteCambio Then
-                mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
-                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
-            End If
+            'If clienteCambio Then
+            mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+            'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+            'End If
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
@@ -216,7 +217,7 @@ Public Class FrmVentas
                 End If
             Next
 
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+            'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -323,16 +324,19 @@ Public Class FrmVentas
 
             Dim a As Articulo = Nothing
             Dim la As New List(Of Articulo)
+            Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
+            Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
+            Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
+            Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
+            Dim TipoControl As TipoControl = New TipoControl("0")
 
             Select Case Strings.Left(argTextoBuscado, 1)
                 Case "*"
-                    Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "*", "")), New AlicuotaIVA(10.5), Now.Date, 0, 0, 0, SeccionItem, True, 0, Nothing, Nothing)
+                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "*", "")), TipoVenta.NoClasificado, 0, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
                     la.Add(a)
 
                 Case "/"
-                    Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 2", True)
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "/", "")), New AlicuotaIVA(21), Now.Date, 0, 0, 0, SeccionItem, True, 0, Nothing, Nothing)
+                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "/", "")), TipoVenta.NoClasificado, 21, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
                     la.Add(a)
 
                 Case Else
@@ -368,7 +372,7 @@ Public Class FrmVentas
 
             With Me
                 If a IsNot Nothing Then
-                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicuotaIVA.AlicIVA, 0)
+                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicIVA, 0)
                     mobj_Items.Add(i)
                     Me.DataGridView1.ClearSelection()
 
@@ -470,9 +474,9 @@ Public Class FrmVentas
             Me.WindowState = FormWindowState.Maximized
 
             mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
-            mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-            mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+            'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+            'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+            'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
             Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False
@@ -513,24 +517,24 @@ Public Class FrmVentas
 
         Try
 
-            Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
-            Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
-            Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
+            'Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
+            'Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
+            'Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
 
-            If operacionCambio OrElse clienteCambio OrElse itemsCambio Then
-                Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea guardar los cambios?", "Confirmar", MessageBoxButtons.YesNoCancel)
+            'If operacionCambio OrElse clienteCambio Then 'OrElse itemsCambio Then
+            'Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea guardar los cambios?", "Confirmar", MessageBoxButtons.YesNoCancel)
 
-                If resultado = DialogResult.Cancel Then
-                    e.Cancel = True
+            'If resultado = DialogResult.Cancel Then
+            'e.Cancel = True
 
-                ElseIf resultado = DialogResult.Yes Then
-                    Me.GuardarCambios(Keys.Escape)
+            'ElseIf resultado = DialogResult.Yes Then
+            Me.GuardarCambios(Keys.Escape)
 
-                ElseIf resultado = DialogResult.No Then
-                    ' Salir sin guardar
+            'ElseIf resultado = DialogResult.No Then
+            ' Salir sin guardar
 
-                End If
-            End If
+            'End If
+            'End If
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 

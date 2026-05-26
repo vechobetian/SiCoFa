@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
+Imports SiCoFa.Entidades.Enums
 Imports SiCoFa.Negocio
 Public Class FrmArticulos
     Private TextoBuscar As String
@@ -10,17 +11,10 @@ Public Class FrmArticulos
     Private Sub ObtenerAlicuotasIVA()
 
         Try
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            With Me.AlicuotaIVA
-                .DataSource = AdminSiCoFa.AlicuotasIVA
-                .ValueMember = "AlicIVA"
-                .DisplayMember = "AlicuotaIVA"
-                .SelectedIndex = -1
-            End With
+
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-
         End Try
 
     End Sub
@@ -105,7 +99,7 @@ Public Class FrmArticulos
                 .Nombre.Text = argArticulo.Nombre
                 .Codigo.Text = argArticulo.Codigo
                 .CodBarras.Text = argArticulo.CodBarras
-                .AlicuotaIVA.Text = argArticulo.AlicuotaIVA.AlicuotaIVA
+                .AlicuotaIVA.Text = argArticulo.AlicIVA
                 .Baja.SelectedIndex = If(argArticulo.Baja, 1, 0)
                 .Seccion.Text = argArticulo.Seccion.Seccion
             End With

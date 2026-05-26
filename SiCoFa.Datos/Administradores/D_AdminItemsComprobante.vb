@@ -1,6 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 Imports System.Collections.Generic
+Imports SiCoFa.Entidades.Enums
 
 Public Class D_AdminItemsComprobante
     Public Function ListarItemsPorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
@@ -39,7 +40,7 @@ Public Class D_AdminItemsComprobante
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
                             Dim CantidadResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadOrdinal))
-                            Dim AlicIVA As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
+                            Dim AlicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
                             Dim DescuentoResult As Decimal = If(datos.IsDBNull(descuentoOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoOrdinal)))
@@ -51,11 +52,11 @@ Public Class D_AdminItemsComprobante
                             Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
 
                             ' Crear objetos anidados
-                            Dim objAlicuotaIVAResult As AlicuotaIVA = New AlicuotaIVA(AlicIVA)
+                            Dim AdminArticulos As New D_AdminArticulos
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
-                            Dim objArticuloResult As Articulo = New Articulo(IdArticuloResult, 0, CodBarrasResult, DescripcionResult, objAlicuotaIVAResult, Now.Date, PrecioCostoResult, PrecioVentaResult, 0, objSeccionResult, 0, 0, Nothing, "")
+                            Dim objArticuloResult As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
 
-                            Dim objIC As New ItemComprobante(objArticuloResult, CodBarrasResult, DescripcionResult, CantidadResult, PrecioUnitarioResult, objAlicuotaIVAResult.AlicIVA, PorcentajeDescuento)
+                            Dim objIC As New ItemComprobante(objArticuloResult, CodBarrasResult, DescripcionResult, CantidadResult, PrecioUnitarioResult, AlicIVAResult, PorcentajeDescuento)
                             objIC.IdItem = IdItemResult
                             objLI.Add(objIC)
                         End While

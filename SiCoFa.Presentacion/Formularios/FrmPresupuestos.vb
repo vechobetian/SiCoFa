@@ -2,6 +2,7 @@
 Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
+Imports SiCoFa.Entidades.Enums
 
 Public Class FrmPresupuestos
     Property Usuario As Usuario
@@ -347,16 +348,19 @@ Public Class FrmPresupuestos
 
             Dim a As Articulo = Nothing
             Dim la As New List(Of Articulo)
+            Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
+            Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
+            Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
+            Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
+            Dim TipoControl As TipoControl = New TipoControl("0")
 
             Select Case Strings.Left(argTextoBuscado, 1)
                 Case "*"
-                    Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "*", "")), New AlicuotaIVA(10.5), Now.Date, 0, 0, 0, SeccionItem, True, 0, Nothing, Nothing)
+                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "*", "")), TipoVenta.NoClasificado, 0, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
                     la.Add(a)
 
                 Case "/"
-                    Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 2", True)
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "/", "")), New AlicuotaIVA(21), Now.Date, 0, 0, 0, SeccionItem, True, 0, Nothing, Nothing)
+                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "/", "")), TipoVenta.NoClasificado, 21, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
                     la.Add(a)
 
                 Case Else
@@ -392,7 +396,7 @@ Public Class FrmPresupuestos
 
             With Me
                 If a IsNot Nothing Then
-                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicuotaIVA.AlicIVA, 0)
+                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicIVA, 0)
                     mobj_Items.Add(i)
                     Me.DataGridView1.ClearSelection()
 

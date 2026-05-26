@@ -3,9 +3,9 @@
     Private ReadOnly m_IdArticulo As String
     Private ReadOnly m_CodBarras As String
     Private ReadOnly m_Descripcion As String
-    Private ReadOnly m_CantidadF As Decimal
-    Private ReadOnly m_CantidadA As Decimal
-    Private m_CantidadNC As Decimal
+    Private ReadOnly m_CantidadF As Integer
+    Private ReadOnly m_CantidadA As Integer
+    Private m_CantidadNC As Integer
     Private ReadOnly m_PrecioCosto As Decimal
     Private ReadOnly m_PrecioUnitario As Decimal
     Private ReadOnly m_AlicIVA As Decimal
@@ -16,8 +16,8 @@
         ByVal argIdArticulo As String,
         ByVal argCodBarras As String,
         ByVal argDescripcion As String,
-        ByVal argCantidadF As Decimal,
-        ByVal argCantidadA As Decimal,
+        ByVal argCantidadF As Integer,
+        ByVal argCantidadA As Integer,
         ByVal argPrecioCosto As Decimal,
         ByVal argPrecioUnitario As Decimal,
         ByVal argAlicIVA As Decimal,
@@ -59,23 +59,23 @@
         End Get
     End Property
 
-    Public ReadOnly Property CantidadF() As Decimal
+    Public ReadOnly Property CantidadF() As Integer
         Get
             Return m_CantidadF
         End Get
     End Property
 
-    Public ReadOnly Property CantidadA() As Decimal
+    Public ReadOnly Property CantidadA() As Integer
         Get
             Return m_CantidadA
         End Get
     End Property
 
-    Public Property CantidadNC() As Decimal
+    Public Property CantidadNC() As Integer
         Get
             Return m_CantidadNC
         End Get
-        Set(value As Decimal)
+        Set(value As Integer)
             m_CantidadNC = value
         End Set
     End Property
