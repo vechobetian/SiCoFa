@@ -4,7 +4,6 @@ Public Class UcItemVenta
 
     Public Property ItemVenta As ItemComprobante
 
-    Public Event ItemChanged()
     Public Event OnEliminar(item As ItemComprobante)
     Public Event BuscarArticuloRequest(uc As UcItemVenta, texto As String)
     Public Event CantidadConfirmada(uc As UcItemVenta)
@@ -52,6 +51,9 @@ Public Class UcItemVenta
 
         txtCantidad.TabStop = False
         txtPrecioUnitario.TabStop = False
+
+        txtCantidad.BackColor = Color.White
+        txtPrecioUnitario.BackColor = Color.White
 
     End Sub
 

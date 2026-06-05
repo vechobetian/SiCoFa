@@ -218,8 +218,16 @@ Public Class FrmVentas
 
         For i As Integer = mobj_Items.Count - 1 To 0 Step -1
 
+            Dim item As ItemComprobante = mobj_Items(i)
             Dim uc As New UcItemVenta()
             uc.Bind(mobj_Items(i))
+
+            If item.Articulo Is Nothing Then
+                uc.ModoBusqueda()
+            Else
+                uc.ModoItemCargado(item.Articulo.Seccion.EstablecerPrecio)
+            End If
+
             uc.Dock = DockStyle.Top
 
             AddHandler uc.OnEliminar, AddressOf EliminarItem
@@ -606,7 +614,7 @@ Public Class FrmVentas
             'e.Cancel = True
 
             'ElseIf resultado = DialogResult.Yes Then
-            Me.GuardarCambios(Keys.Escape)
+            'Me.GuardarCambios(Keys.Escape)
 
             'ElseIf resultado = DialogResult.No Then
             ' Salir sin guardar
