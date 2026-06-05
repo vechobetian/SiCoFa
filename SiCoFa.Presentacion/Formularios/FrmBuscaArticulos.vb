@@ -1,9 +1,12 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
+Imports SiCoFa.Entidades.Enums
 
 Public Class FrmBuscaArticulos
     Property Articulos As IEnumerable(Of Articulo)
     Property ArticuloSeleccionado As Articulo
+
+    Private FormularioCargado As Boolean = False
 
     Private Sub SeleccionarArticulo()
         'Dim AdminListaPrecios As New N_AdminListaPrecios
@@ -42,11 +45,47 @@ Public Class FrmBuscaArticulos
             x += 1
         Next
         Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(3)
-    End Sub
-    Private Sub FrmBuscaPersonas_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.CargarDatosEnDataGridView()
 
     End Sub
+    Private Sub FrmBuscaPersonas_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.FormularioCargado = False
+        Me.CargarDatosEnDataGridView()
+        Me.FormularioCargado = True
+        Me.ActualizarDatosAdicionales()
+    End Sub
+
+    Private Sub ActualizarDatosAdicionales()
+        Try
+
+            If Me.DataGridView1.CurrentRow Is Nothing OrElse FormularioCargado = False Then
+                Me.DataGridView1.DataSource = Nothing
+                Exit Sub
+            End If
+
+            Dim IdArticulo As String = Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value.ToString
+
+            Dim a As Articulo = Me.Articulos.FirstOrDefault(Function(x) x.IdArticulo = IdArticulo)
+
+            If a Is Nothing Then Exit Sub
+
+            Me.Monodroga.Text = a.Monodroga.Monodroga
+            Me.AccionFarmacologica.Text = a.AccionFarmacologica.AccionFarmacologia
+            If a.GTIN <> "" Then Me.Trazabilidad.Text = "SI" Else Me.Trazabilidad.Text = "NO"
+            Me.TipoControl.Text = a.TipoControl.Descripcion
+            Me.TipoVenta.Text = TipoVentaHelper.Descripcion(a.TipoVenta)
+            Me.ViaAdministracion.Text = a.ViaAdministracion.ViaAdministracion
+            If a.Heladera = True Then Me.Heladera.Text = "SI" Else Me.Heladera.Text = "NO"
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
+        Me.ActualizarDatosAdicionales()
+    End Sub
+
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.Escape

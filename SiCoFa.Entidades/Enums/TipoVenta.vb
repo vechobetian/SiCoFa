@@ -51,28 +51,28 @@
             Select Case tipo
 
                 Case TipoVenta.NoClasificado
-                    Return "No Clasificado"
+                    Return "NO CLASIFICADO"
 
                 Case TipoVenta.VentaLibre
-                    Return "Venta Libre"
+                    Return "VENTA LIBRE"
 
                 Case TipoVenta.VentaBajoReceta
-                    Return "Venta Bajo Receta"
+                    Return "VENTA BAJO RECETA"
 
                 Case TipoVenta.VentaBajoRecetaArchivada
-                    Return "Venta Bajo Receta Archivada"
+                    Return "VENTA BAJO RECETA ARCHIVADA"
 
                 Case TipoVenta.VentaBajoRecetaOficial
-                    Return "Venta Bajo Receta Oficial"
+                    Return "VENTA BAJO RECETA OFICIAL"
 
                 Case TipoVenta.Pendiente
-                    Return "Pendiente"
+                    Return "PENDIENTE"
 
                 Case TipoVenta.BajoControlMedicoRecomendado
-                    Return "Bajo Control Médico Recomendado"
+                    Return "BAJO CONTROL MEDICO RECOMENDADO"
 
                 Case Else
-                    Return "Desconocido"
+                    Return "DESCONOCIDO"
 
             End Select
 

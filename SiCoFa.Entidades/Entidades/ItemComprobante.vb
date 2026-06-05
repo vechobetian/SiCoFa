@@ -9,6 +9,11 @@ Public Class ItemComprobante
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
+    Private m_EsNuevo As Boolean = True
+
+    Public Sub New()
+
+    End Sub
 
     ' Constructor
     Public Sub New(
@@ -30,6 +35,15 @@ Public Class ItemComprobante
         ' No es necesario llamar a Recalcular aqui, ya que las propiedades
         ' se calcularán en sus Getters cuando se accedan.
     End Sub
+
+    Public Property EsNuevo() As Boolean
+        Get
+            Return m_EsNuevo
+        End Get
+        Set(value As Boolean)
+            m_EsNuevo = value
+        End Set
+    End Property
 
     ' Propiedades
     Public Property IdItem() As Long

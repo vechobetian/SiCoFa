@@ -4,7 +4,7 @@ Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades.Enums
 
-Public Class FrmPresupuestos
+Public Class FrmVentas
     Property Usuario As Usuario
 
     Public Property Cliente As Cliente
@@ -17,18 +17,18 @@ Public Class FrmPresupuestos
             mobj_Cliente = value
             Me.ActualizarDatosOperacion()
             mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
-            mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+            'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
         End Set
     End Property
 
     Private mobj_AdminOperacion As New N_AdminOperaciones
     Private mobj_Operacion As Operacion
-    Private mobj_OperacionOriginal As Operacion
+    'Private mobj_OperacionOriginal As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
-    Private mobj_ClienteOriginal As Cliente
+    'Private mobj_ClienteOriginal As Cliente
     Private mobj_Items As New BindingList(Of ItemComprobante)
-    Private mobj_ItemsOriginal As BindingList(Of ItemComprobante)
+    'Private mobj_ItemsOriginal As BindingList(Of ItemComprobante)
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
@@ -74,10 +74,10 @@ Public Class FrmPresupuestos
         Try
             Dim frm As New FrmBuscaOperacionesIniciadas()
 
-            If frm.CargarVentasIniciadas(g_ParametrosTerminal.Empresa.Id, Me.Usuario.Id, "PRESU") Then
+            If frm.CargarVentasIniciadas(g_ParametrosTerminal.Empresa.Id, Me.Usuario.Id, "VTAM") Then
                 frm.ShowDialog()
             Else
-                MsgBox("El Usuario " & Me.Usuario.Id & " no tiene Presupuestos Iniciados", vbInformation, "SiCoFa")
+                MsgBox("El Usuario " & Me.Usuario.Id & " no tiene Ventas Iniciadas", vbInformation, "SiCoFa")
                 frm.Dispose()
             End If
 
@@ -86,7 +86,7 @@ Public Class FrmPresupuestos
                 mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
                 mobj_Operacion.Usuario = Me.Usuario
                 mobj_Operacion.TipoOperacion = mobj_TipoOperacion
-                mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
                 mobj_Cliente = mobj_AdminOperacion.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
 
                 If mobj_Cliente Is Nothing Then
@@ -94,12 +94,12 @@ Public Class FrmPresupuestos
                     mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
                 End If
 
-                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+                'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
 
                 Dim AdminItems As New N_AdminItemsComprobante
                 Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
                 mobj_Items = New BindingList(Of ItemComprobante)(objItems)
-                mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+                'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
                 Me.ActualizarTotales()
                 Me.ActualizarDatosOperacion()
 
@@ -124,96 +124,72 @@ Public Class FrmPresupuestos
 
             If mobj_Operacion Is Nothing Then
                 mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
-                If mobj_Operacion IsNot Nothing Then
-                    mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                End If
+                'If mobj_Operacion IsNot Nothing Then
+                'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                'End If
             Else
                 mobj_Operacion.Inicio = Now
                 mobj_Operacion.Observaciones = ""
                 mobj_Operacion.EstadoOperacion = "GUARDADO"
                 Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
 
-                If Actualizado = True Then
-                    mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                End If
+                'If Actualizado = True Then
+                'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+                'End If
 
             End If
 
             If mobj_Cliente Is Nothing Then
                 Dim AdminClientes As New N_AdminClientes
                 mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
-                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+                'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
                 mobj_AdminOperacion.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
             End If
 
-            Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
+            'Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
 
-            If clienteCambio Then
-                mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
-                mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
-            End If
+            'If clienteCambio Then
+            mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+            'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+            'End If
 
             Me.InsertarItems(mobj_Operacion.IdOperacion)
 
-            If argTecla = Keys.F10 Then
-                Me.FinalizarOperacion()
-                Dim nuevoVentanaPresupuestos As New FrmPresupuestos
-                nuevoVentanaPresupuestos.Usuario = Me.Usuario
-                nuevoVentanaPresupuestos.Show()
-                Me.Close()
+            If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
+
+                Using FPagos As New FrmPagos
+                    Dim AdminComprobantes As New N_AdminComprobantes
+                    With FPagos
+                        .FrmOrigen = Me
+                        .Operacion = mobj_Operacion
+                        .Cliente = mobj_Cliente
+
+                        If argTecla = Keys.F9 Then
+                            Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
+                            .TipoComprobante = tc
+                        ElseIf argTecla = Keys.F10 AndAlso g_ParametrosSistema.GetValor("SFISCAL") = "FE" Then
+                            .TipoComprobante = Nothing
+                        Else
+                            Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
+                            .TipoComprobante = tc
+                        End If
+
+                        .ImporteBruto = mdec_ImporteSinDescuentos
+                        .ImporteDescuento = mdec_ImporteDescuentos
+                        .ImporteAPagar = mdec_ImporteConDescuentos
+                        .ImporteGravado1 = mdec_ImporteGravado1
+                        .ImporteGravado2 = mdec_ImporteGravado2
+                        .ItemsComprobante = mobj_Items.ToList
+                        .ShowDialog()
+                    End With
+                End Using
+
             End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
-    End Sub
-
-    Private Sub FinalizarOperacion()
-
-        Try
-
-            Dim AdminComprobantes As New N_AdminComprobantes
-            Dim objTipoComprobante As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("PRESU")
-            Dim objCb As Comprobante = Nothing
-
-            objCb = New Comprobante(
-                                    argIdOperacion:=mobj_Operacion.IdOperacion,
-                                    argOperacion:=mobj_Operacion,
-                                    argTipoComprobante:=objTipoComprobante,
-                                    argPVenta:=g_ParametrosTerminal.PVenta,
-                                    argNumComp:="",
-                                    argFechaComp:=Now.Date,
-                                    argImpBto:=mdec_ImporteSinDescuentos,
-                                    argImpDes:=mdec_ImporteDescuentos,
-                                    argImpNeto:=mdec_ImporteConDescuentos,
-                                    argImpEx:=0,
-                                    argImpGrav1:=mdec_ImporteGravado1,
-                                    argImpGrav2:=mdec_ImporteGravado2,
-                                    argImpCB:=0,
-                                    argImpEf:=0,
-                                    argImpCC:=0,
-                                    argImpPE:=0,
-                                    argCAE:=Nothing,
-                                    argIdCliente:=Me.Cliente.Id,
-                                    argCliente:=Me.Cliente,
-                                    argIdOperAsoc:=0,
-                                    argCompAsoc:=Nothing,
-                                    argEmpresa:=g_ParametrosTerminal.Empresa,
-                                    argDetalle:=mobj_Items.ToList
-                                    )
-
-            mobj_AdminOperacion.FinalizarPresupuestoTransaccion(g_ParametrosTerminal.MacAddress, mobj_Operacion, objCb)
-
-            Dim objAdminReporteComprobantes As New ReporteComprobantes
-            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
-
-        Catch ex As Exception
-            mobj_AdminOperacion.RegistrarError(mobj_Operacion.IdOperacion, ex.ToString)
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
     End Sub
 
     '--------------------------------------------
@@ -241,7 +217,7 @@ Public Class FrmPresupuestos
                 End If
             Next
 
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+            'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -473,10 +449,10 @@ Public Class FrmPresupuestos
         Dim UltimaActualizacion As String
 
         If mobj_Operacion Is Nothing Then
-            Me.Text = "Nuevo Presupuesto iniciado el " & Now & " por el usuario " & Me.Usuario.Nombre
+            Me.Text = "Nueva venta iniciada el " & Now & " por el usuario " & Me.Usuario.Nombre
             UltimaActualizacion = "- Inicio Operación: " & Now
         Else
-            Me.Text = "Presupuesto actualizado el " & mobj_Operacion.Inicio & " por el usuario " & Me.Usuario.Nombre
+            Me.Text = "Venta actualizada el " & mobj_Operacion.Inicio & " por el usuario " & Me.Usuario.Nombre
             UltimaActualizacion = "- Ultima Actualizacion: " & mobj_Operacion.Inicio
         End If
 
@@ -486,16 +462,16 @@ Public Class FrmPresupuestos
         Me.lblDatosOperacion.Text = Datos
     End Sub
 
-    Private Sub FrmPresupuestos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             Me.MaximizedBounds = Screen.FromHandle(Me.Handle).WorkingArea
             Me.WindowState = FormWindowState.Maximized
 
-            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("PRESU")
-            mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-            mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
+            'mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
+            'mobj_ClienteOriginal = ClonarObjeto(mobj_Cliente)
+            'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
             Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False
@@ -513,7 +489,7 @@ Public Class FrmPresupuestos
 
     End Sub
 
-    Private Sub FrmPresupuestos_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmVentas_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Try
             Me.AjustarAnchoColumnasProporcional()
@@ -536,24 +512,24 @@ Public Class FrmPresupuestos
 
         Try
 
-            Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
-            Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
-            Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
+            'Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
+            'Dim clienteCambio = Not JsonConvert.SerializeObject(mobj_Cliente).Equals(JsonConvert.SerializeObject(mobj_ClienteOriginal))
+            'Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
 
-            If operacionCambio OrElse clienteCambio OrElse itemsCambio Then
-                Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea guardar los cambios?", "Confirmar", MessageBoxButtons.YesNoCancel)
+            'If operacionCambio OrElse clienteCambio Then 'OrElse itemsCambio Then
+            'Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea guardar los cambios?", "Confirmar", MessageBoxButtons.YesNoCancel)
 
-                If resultado = DialogResult.Cancel Then
-                    e.Cancel = True
+            'If resultado = DialogResult.Cancel Then
+            'e.Cancel = True
 
-                ElseIf resultado = DialogResult.Yes Then
-                    Me.GuardarCambios(Keys.Escape)
+            'ElseIf resultado = DialogResult.Yes Then
+            Me.GuardarCambios(Keys.Escape)
 
-                ElseIf resultado = DialogResult.No Then
-                    ' Salir sin guardar
+            'ElseIf resultado = DialogResult.No Then
+            ' Salir sin guardar
 
-                End If
-            End If
+            'End If
+            'End If
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -562,17 +538,17 @@ Public Class FrmPresupuestos
     End Sub
 
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
-
         Select Case keyData
             Case Keys.F10
                 Me.GuardarCambios(Keys.F10)
+            Case Keys.F9
+                Me.GuardarCambios(Keys.F9)
+            Case Keys.F8
 
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)
         End Select
-
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
-
     End Function
 
     Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
@@ -603,7 +579,29 @@ Public Class FrmPresupuestos
     Private Sub DataGridView1_KeyDown(sender As Object, e As KeyEventArgs) Handles DataGridView1.KeyDown
         Try
 
-            If e.KeyCode = Keys.Delete AndAlso DataGridView1.SelectedRows.Count > 0 Then
+            If e.KeyCode = Keys.Enter Then
+
+                If DataGridView1.CurrentCell Is Nothing Then Exit Sub
+
+                Dim nombreColumna As String =
+                DataGridView1.Columns(DataGridView1.CurrentCell.ColumnIndex).Name
+
+                If nombreColumna = "Nombre" Then
+
+                    e.Handled = True
+                    e.SuppressKeyPress = True
+
+                    Dim texto As String = DataGridView1.CurrentCell.EditedFormattedValue.ToString()
+
+                    If Not String.IsNullOrWhiteSpace(texto) Then
+
+                        Me.BuscarArticulo(texto)
+
+                    End If
+
+                End If
+
+            ElseIf e.KeyCode = Keys.Delete AndAlso DataGridView1.SelectedRows.Count > 0 Then
                 Me.EliminarItemSeleccionado()
             End If
 
@@ -696,6 +694,7 @@ Public Class FrmPresupuestos
         ActualizarTotales()
     End Sub
 
+    ' Este evento se dispara cuando una celda entra en modo edición
     Private Sub DataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles DataGridView1.EditingControlShowing
         ' Verifica si la columna actual es la que te interesa
         If DataGridView1.CurrentCell IsNot Nothing Then
@@ -741,11 +740,11 @@ Public Class FrmPresupuestos
         End If
     End Sub
 
-    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionElimininarItemSeleccionado.Click
+    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarElimininarItemSeleccionado.Click
         Me.EliminarItemSeleccionado()
     End Sub
 
-    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEdicionAplicarDescuentoItemSeleccionado.Click
+    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarAplicarDescuentoItemSeleccionado.Click
 
         Try
             If DataGridView1.SelectedRows.Count = 1 Then
@@ -787,7 +786,7 @@ Public Class FrmPresupuestos
 
     Private Sub NuevoToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevoToolStripButton.Click
 
-        Dim nuevaVentanaVentas As New FrmPresupuestos()
+        Dim nuevaVentanaVentas As New FrmVentas()
         nuevaVentanaVentas.Usuario = Me.Usuario
         nuevaVentanaVentas.Show()
 
@@ -795,7 +794,7 @@ Public Class FrmPresupuestos
 
     End Sub
 
-    Private Sub mnuArchivoAbrir_Click(sender As Object, e As EventArgs) Handles mnuArchivoAbrir.Click
+    Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click
         Me.AbrirOperacion()
     End Sub
 
@@ -803,7 +802,7 @@ Public Class FrmPresupuestos
         Me.AbrirOperacion()
     End Sub
 
-    Private Sub mnuArchivoGuardar_Click(sender As Object, e As EventArgs) Handles mnuArchivoGuardar.Click
+    Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click
         Me.GuardarCambios(Keys.Escape)
         MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
@@ -813,16 +812,20 @@ Public Class FrmPresupuestos
         MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
     End Sub
 
-    Private Sub mnuArchivoSalir_Click(sender As Object, e As EventArgs) Handles mnuArchivoSalir.Click
+    Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
         Me.Close()
     End Sub
 
-    Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
+    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
         Me.Close()
     End Sub
 
     Private Sub FacturarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarToolStripMenuItem.Click
         Me.GuardarCambios(Keys.F10)
+    End Sub
+
+    Private Sub RemitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemitoToolStripMenuItem.Click
+        Me.GuardarCambios(Keys.F9)
     End Sub
 
     Private Sub CopiarToolStripButton_Click(sender As Object, e As EventArgs) Handles CopiarToolStripButton.Click

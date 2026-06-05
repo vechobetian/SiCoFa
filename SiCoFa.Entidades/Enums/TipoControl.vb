@@ -13,43 +13,43 @@
 
                 Case "0"
                     Me.Descripcion =
-                        "No Controlado"
+                        "NO CONTROLADO"
 
                 Case "2"
                     Me.Descripcion =
-                        "Psicotrópico Lista II"
+                        "PSICOTROTIPO LISTA II"
 
                 Case "3"
                     Me.Descripcion =
-                        "Psicotrópico Lista III"
+                        "PSICOTROPICO LISTA III"
 
                 Case "4"
                     Me.Descripcion =
-                        "Psicotrópico Lista IV"
+                        "PSICOTROPICO LISTA IV"
 
                 Case "6"
                     Me.Descripcion =
-                        "Estupefaciente Lista I"
+                        "ESTUPEFACIENTE LISTA I"
 
                 Case "7"
                     Me.Descripcion =
-                        "Estupefaciente Lista II"
+                        "ESTUPEFACIENTE LISTA II"
 
                 Case "8"
                     Me.Descripcion =
-                        "Estupefaciente Lista III"
+                        "ESTUPEFACIENTE LISTA III"
 
                 Case "9"
                     Me.Descripcion =
-                        "Succinilcolina"
+                        "SUCCINILCOLINA"
 
                 Case "A"
                     Me.Descripcion =
-                        "Venta Vigilada"
+                        "VENTA VIGILADA"
 
                 Case Else
                     Me.Descripcion =
-                        "Desconocido"
+                        "DESCONOCIDO"
 
             End Select
 

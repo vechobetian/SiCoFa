@@ -5,6 +5,112 @@ Imports SiCoFa.Entidades.Enums
 
 Public Class D_AdminArticulos
 
+    Public Function ArticuloGenericoExento(ByVal argDescripcion As String) As Articulo
+
+        Dim a As Articulo = Nothing
+        Dim la As New List(Of Articulo)
+        Dim TipoControl As TipoControl = New TipoControl("0")
+        Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
+        Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
+        Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
+        Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
+        Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
+        Dim Promocion As Promocion = New Promocion("0")
+
+        a = New Articulo(
+                         "0",
+                          0,
+                          "",
+                          UCase(argDescripcion.Substring(1)),
+                          TipoVenta.NoClasificado,
+                          0,
+                          1,
+                          TamanioEnvase.NoClasificado,
+                          Now.Date,
+                          0,
+                          0,
+                          0,
+                          Laboratorio,
+                          Monodroga,
+                          AccionFarmacologica,
+                          0,
+                          TipoControl,
+                          False,
+                          SeccionItem,
+                          True,
+                          0,
+                          0,
+                          "",
+                          ViaAdministracion,
+                          0,
+                          "NO APLICA",
+                          Promocion,
+                          1,
+                          0,
+                          False,
+                          0,
+                          "",
+                          0,
+                          0,
+                          Nothing
+                          )
+
+        Return a
+    End Function
+
+    Public Function ArticuloGenericoGravado(ByVal argDescripcion As String) As Articulo
+
+        Dim a As Articulo = Nothing
+        Dim la As New List(Of Articulo)
+        Dim TipoControl As TipoControl = New TipoControl("0")
+        Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
+        Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
+        Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
+        Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
+        Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
+        Dim Promocion As Promocion = New Promocion("0")
+
+        a = New Articulo(
+                         "0",
+                          0,
+                          "",
+                          UCase(argDescripcion.Substring(1)),
+                          TipoVenta.NoClasificado,
+                          21,
+                          1,
+                          TamanioEnvase.NoClasificado,
+                          Now.Date,
+                          0,
+                          0,
+                          0,
+                          Laboratorio,
+                          Monodroga,
+                          AccionFarmacologica,
+                          0,
+                          TipoControl,
+                          False,
+                          SeccionItem,
+                          True,
+                          0,
+                          0,
+                          "",
+                          ViaAdministracion,
+                          0,
+                          "NO APLICA",
+                          Promocion,
+                          1,
+                          0,
+                          False,
+                          0,
+                          "",
+                          0,
+                          0,
+                          Nothing
+                          )
+
+        Return a
+    End Function
+
     Public Function ObtenerArticuloPorId(ByVal argIdArticulo As String) As Articulo
 
         Dim objConexionDB As New D_Conexion
@@ -23,6 +129,7 @@ Public Class D_AdminArticulos
                                         PrecioCosto,
                                         PrecioVenta,
                                         PrecioOferta,
+                                        CodiPro,
                                         CodiLabora,
                                         Laboratorio,
                                         CodiMon,
@@ -31,14 +138,27 @@ Public Class D_AdminArticulos
                                         AccionFarmacologica,
                                         Baja,
                                         CodiTiCo,
+                                        Heladera,
                                         IdSeccion,
                                         Seccion,
                                         EstablecerPrecio,
                                         ActualizarPrecio,
                                         StockC,
                                         StockF,
+                                        GTIN,
+                                        CodiVia,
+                                        ViaAdministracion,
+                                        DesOferta,
+                                        UDiv,
+                                        DFrac,
+                                        RFrac,
                                         CodiLP,
-                                        ListaPrecios 
+                                        ListaPrecios,
+                                        Gravamen,
+                                        CodiFF,
+                                        Potencia,
+                                        CodiUP,
+                                        CodiTU                                        
                                 FROM vw_articulos
                                 WHERE IdArticulo=@IdArticulo"
 
@@ -94,6 +214,7 @@ Public Class D_AdminArticulos
                                         PrecioCosto,
                                         PrecioVenta,
                                         PrecioOferta,
+                                        CodiPro,
                                         CodiLabora,
                                         Laboratorio,
                                         CodiMon,
@@ -102,15 +223,28 @@ Public Class D_AdminArticulos
                                         AccionFarmacologica,
                                         Baja,
                                         CodiTiCo,
+                                        Heladera,
                                         IdSeccion,
                                         Seccion,
                                         EstablecerPrecio,
                                         ActualizarPrecio,
                                         StockC,
                                         StockF,
+                                        GTIN,
+                                        CodiVia,
+                                        ViaAdministracion,
+                                        DesOferta,
+                                        UDiv,
+                                        DFrac,
+                                        RFrac,
                                         CodiLP,
-                                        ListaPrecios 
-                                FROM vw_articulos 
+                                        ListaPrecios,
+                                        Gravamen,
+                                        CodiFF,
+                                        Potencia,
+                                        CodiUP,
+                                        CodiTU                                        
+                                FROM vw_articulos
                                 WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras 
                                 ORDER BY Nombre"
 

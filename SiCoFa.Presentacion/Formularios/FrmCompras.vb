@@ -282,25 +282,20 @@ Public Class FrmCompras
                 Exit Sub
             End If
 
+            Dim AdminArticulos As New N_AdminArticulos
             Dim a As Articulo = Nothing
             Dim la As New List(Of Articulo)
-            Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
-            Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
-            Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
-            Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
-            Dim TipoControl As TipoControl = New TipoControl("0")
 
             Select Case Strings.Left(argTextoBuscado, 1)
                 Case "*"
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "*", "")), TipoVenta.NoClasificado, 0, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
+                    a = AdminArticulos.ArticuloGenericoExento(argTextoBuscado)
                     la.Add(a)
 
                 Case "/"
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "/", "")), TipoVenta.NoClasificado, 21, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
+                    a = AdminArticulos.ArticuloGenericoGravado(argTextoBuscado)
                     la.Add(a)
 
                 Case Else
-                    Dim AdminArticulos As New N_AdminArticulos
                     la = AdminArticulos.ListarArticulos(argTextoBuscado)
 
             End Select

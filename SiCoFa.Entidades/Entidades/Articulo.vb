@@ -22,13 +22,13 @@ Public Class Articulo
     Property Heladera As Boolean
     Property Seccion As Seccion
     Property ActualizarPrecio As Boolean
-    Property StockF As Integer
     Property StockC As Integer
+    Property StockF As Integer
     Property GTIN As String
-    Property ViaAdministracoin As ViaAdministracion
+    Property ViaAdministracion As ViaAdministracion
     Property DesOferta As Decimal
     Property DFrac As String
-    Property CodiPro As String
+    Property Promocion As Promocion
     Property UDiv As Integer
     Property RFrac As Decimal
     Property Gravamen As Boolean
@@ -55,10 +55,23 @@ Public Class Articulo
                    ByVal argAccionFarmacologica As AccionFarmacologica,
                    ByVal argBaja As Boolean,
                    ByVal argTipoControl As TipoControl,
+                   ByVal argHeladera As Boolean,
                    ByVal argSeccion As Seccion,
                    ByVal argActualizarPrecio As Boolean,
                    ByVal argStockC As Integer,
                    ByVal argStockF As Integer,
+                   ByVal argGTIN As String,
+                   ByVal argViaAdministracion As ViaAdministracion,
+                   ByVal argDesOferta As Decimal,
+                   ByVal argDFrac As String,
+                   ByVal argPromocion As Promocion,
+                   ByVal argUDiv As Integer,
+                   ByVal argRFrac As Decimal,
+                   ByVal argGravamen As Boolean,
+                   ByVal argCodiFF As Integer,
+                   ByVal argPotencia As String,
+                   ByVal argCodiUP As Integer,
+                   ByVal argCodiTU As Integer,
                    ByVal argListaPrecios As ListaPrecios
                    )
 
@@ -79,10 +92,20 @@ Public Class Articulo
         Me.AccionFarmacologica = argAccionFarmacologica
         Me.Baja = argBaja
         Me.TipoControl = argTipoControl
+        Me.Heladera = argHeladera
         Me.Seccion = argSeccion
         Me.ActualizarPrecio = argActualizarPrecio
         Me.StockC = argStockC
         Me.StockF = argStockF
+        Me.GTIN = argGTIN
+        Me.ViaAdministracion = argViaAdministracion
+        Me.DesOferta = argDesOferta
+        Me.DFrac = argDFrac
+        Me.Gravamen = argGravamen
+        Me.CodiFF = argCodiFF
+        Me.Potencia = argPotencia
+        Me.CodiUP = argCodiUP
+        Me.CodiTU = argCodiTU
         Me.ListaPrecios = argListaPrecios
 
     End Sub

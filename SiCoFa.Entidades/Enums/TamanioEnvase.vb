@@ -61,34 +61,34 @@
             Select Case tipo
 
                 Case TamanioEnvase.NoClasificado
-                    Return "No Clasificado"
+                    Return "NO CLASIFICADO"
 
                 Case TamanioEnvase.Menor
-                    Return "Menor"
+                    Return "MENOR"
 
                 Case TamanioEnvase.Siguiente
-                    Return "Siguiente"
+                    Return "SIGUIENTE"
 
                 Case TamanioEnvase.GrandeDosPresentaciones
-                    Return "Grande de dos Presentaciones"
+                    Return "GRANDE DE DOS PRESENTACIONES"
 
                 Case TamanioEnvase.Gigante
-                    Return "Gigante"
+                    Return "GIGANTE"
 
                 Case TamanioEnvase.GrandeMasDeDosPresentaciones
-                    Return "Grande mas de dos Presentaciones"
+                    Return "GRANDE MAS DE DOS PRESENTACIONES"
 
                 Case TamanioEnvase.AntibioticoMonodosis
-                    Return "Antibiotico Monodosis"
+                    Return "ANTIBIOTICO MONODOSIS"
 
                 Case TamanioEnvase.AntibioticoMultidosis
-                    Return "Antibiotico Multidosis"
+                    Return "ANTIBIOTICO MULTIDOSIS"
 
                 Case TamanioEnvase.SolucionesParenterales
-                    Return "Soluciones Parenterales"
+                    Return "SOLUCIONES PARENTERALES"
 
                 Case TamanioEnvase.Hospitatalario
-                    Return "Hospitalario"
+                    Return "HOSPITALARIO"
 
                 Case Else
                     Return "Desconocido"

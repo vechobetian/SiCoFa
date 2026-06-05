@@ -13,6 +13,8 @@ Public Module ArticuloMapper
         Dim Monodroga As New Monodroga(Convert.ToInt32(datos("CodiMon")), datos("Monodroga").ToString())
         Dim AccionFarmacologica As New AccionFarmacologica(Convert.ToInt32(datos("CodiAcFa")), datos("AccionFarmacologica").ToString())
         Dim Seccion As New Seccion(datos("IdSeccion").ToString(), datos("Seccion").ToString(), Convert.ToBoolean(datos("EstablecerPrecio")))
+        Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(Convert.ToInt32(datos("CodiVia")), datos("ViaAdministracion").ToString)
+        Dim Promocion As Promocion = New Promocion(datos("CodiPro").ToString)
         Dim ListaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios"))
 
 
@@ -34,10 +36,23 @@ Public Module ArticuloMapper
                             AccionFarmacologica,
                             Convert.ToBoolean(datos("Baja")),
                             TipoControlResult,
+                            Convert.ToBoolean(datos("Heladera")),
                             Seccion,
                             Convert.ToBoolean(datos("ActualizarPrecio")),
                             Convert.ToInt32(datos("StockC")),
                             Convert.ToInt32(datos("StockF")),
+                            datos("GTIN").ToString,
+                            ViaAdministracion,
+                            Convert.ToDecimal(datos("DesOferta")),
+                            datos("DFrac").ToString,
+                            Promocion,
+                            Convert.ToInt32(datos("UDiv")),
+                            Convert.ToDecimal(datos("RFrac")),
+                            Convert.ToBoolean(datos("Gravamen")),
+                            Convert.ToInt32(datos("CodiFF")),
+                            datos("Potencia").ToString,
+                            Convert.ToInt32(datos("CodiUP")),
+                            Convert.ToInt32(datos("CodiTU")),
                             ListaPrecios
                             )
 

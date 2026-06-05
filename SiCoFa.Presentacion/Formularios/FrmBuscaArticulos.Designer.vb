@@ -22,10 +22,10 @@ Partial Class FrmBuscaArticulos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.IdArticulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Codigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -46,6 +46,20 @@ Partial Class FrmBuscaArticulos
         Me.CodiLP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListaPrecios = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Laboratorio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lblAccionFarmacologica = New System.Windows.Forms.Label()
+        Me.lblMonodroga = New System.Windows.Forms.Label()
+        Me.lblTrazabilidad = New System.Windows.Forms.Label()
+        Me.lblTipoControl = New System.Windows.Forms.Label()
+        Me.lblTipoVenta = New System.Windows.Forms.Label()
+        Me.lblViaAdministracion = New System.Windows.Forms.Label()
+        Me.Monodroga = New System.Windows.Forms.Label()
+        Me.AccionFarmacologica = New System.Windows.Forms.Label()
+        Me.Trazabilidad = New System.Windows.Forms.Label()
+        Me.TipoControl = New System.Windows.Forms.Label()
+        Me.TipoVenta = New System.Windows.Forms.Label()
+        Me.ViaAdministracion = New System.Windows.Forms.Label()
+        Me.lblHeladera = New System.Windows.Forms.Label()
+        Me.Heladera = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -57,14 +71,13 @@ Partial Class FrmBuscaArticulos
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Codigo, Me.CodBarras, Me.Nombre, Me.AlicIVA, Me.FechaPrecio, Me.PrecioCosto, Me.PrecioVenta, Me.PrecioOferta, Me.Baja, Me.IdSeccion, Me.Seccion, Me.EstablecerPrecio, Me.ActualizarPrecio, Me.StockC, Me.StockF, Me.CodiLP, Me.ListaPrecios, Me.Laboratorio})
-        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1164, 450)
+        Me.DataGridView1.Size = New System.Drawing.Size(1164, 508)
         Me.DataGridView1.TabIndex = 3
         '
         'IdArticulo
@@ -130,19 +143,19 @@ Partial Class FrmBuscaArticulos
         'PrecioVenta
         '
         Me.PrecioVenta.DataPropertyName = "PrecioVenta"
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N2"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.PrecioVenta.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "N2"
+        DataGridViewCellStyle9.NullValue = Nothing
+        Me.PrecioVenta.DefaultCellStyle = DataGridViewCellStyle9
         Me.PrecioVenta.HeaderText = "Pcio.Venta"
         Me.PrecioVenta.Name = "PrecioVenta"
         Me.PrecioVenta.ReadOnly = True
         '
         'PrecioOferta
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N2"
-        Me.PrecioOferta.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle10.Format = "N2"
+        Me.PrecioOferta.DefaultCellStyle = DataGridViewCellStyle10
         Me.PrecioOferta.HeaderText = "Pcio.Oferta"
         Me.PrecioOferta.Name = "PrecioOferta"
         Me.PrecioOferta.ReadOnly = True
@@ -189,8 +202,8 @@ Partial Class FrmBuscaArticulos
         'StockC
         '
         Me.StockC.DataPropertyName = "StockC"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockC.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockC.DefaultCellStyle = DataGridViewCellStyle11
         Me.StockC.HeaderText = "Stock C"
         Me.StockC.Name = "StockC"
         Me.StockC.ReadOnly = True
@@ -198,8 +211,8 @@ Partial Class FrmBuscaArticulos
         '
         'StockF
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockF.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockF.DefaultCellStyle = DataGridViewCellStyle12
         Me.StockF.HeaderText = "Stock F"
         Me.StockF.Name = "StockF"
         Me.StockF.ReadOnly = True
@@ -228,18 +241,173 @@ Partial Class FrmBuscaArticulos
         Me.Laboratorio.ReadOnly = True
         Me.Laboratorio.Width = 200
         '
+        'lblAccionFarmacologica
+        '
+        Me.lblAccionFarmacologica.AutoSize = True
+        Me.lblAccionFarmacologica.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAccionFarmacologica.Location = New System.Drawing.Point(12, 564)
+        Me.lblAccionFarmacologica.Name = "lblAccionFarmacologica"
+        Me.lblAccionFarmacologica.Size = New System.Drawing.Size(166, 16)
+        Me.lblAccionFarmacologica.TabIndex = 4
+        Me.lblAccionFarmacologica.Text = "Acción Farmacologica:"
+        '
+        'lblMonodroga
+        '
+        Me.lblMonodroga.AutoSize = True
+        Me.lblMonodroga.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMonodroga.Location = New System.Drawing.Point(12, 532)
+        Me.lblMonodroga.Name = "lblMonodroga"
+        Me.lblMonodroga.Size = New System.Drawing.Size(90, 16)
+        Me.lblMonodroga.TabIndex = 5
+        Me.lblMonodroga.Text = "Monodroga:"
+        '
+        'lblTrazabilidad
+        '
+        Me.lblTrazabilidad.AutoSize = True
+        Me.lblTrazabilidad.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTrazabilidad.Location = New System.Drawing.Point(12, 598)
+        Me.lblTrazabilidad.Name = "lblTrazabilidad"
+        Me.lblTrazabilidad.Size = New System.Drawing.Size(99, 16)
+        Me.lblTrazabilidad.TabIndex = 6
+        Me.lblTrazabilidad.Text = "Trazabilidad:"
+        '
+        'lblTipoControl
+        '
+        Me.lblTipoControl.AutoSize = True
+        Me.lblTipoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTipoControl.Location = New System.Drawing.Point(471, 532)
+        Me.lblTipoControl.Name = "lblTipoControl"
+        Me.lblTipoControl.Size = New System.Drawing.Size(118, 16)
+        Me.lblTipoControl.TabIndex = 7
+        Me.lblTipoControl.Text = "Tipo de Control:"
+        '
+        'lblTipoVenta
+        '
+        Me.lblTipoVenta.AutoSize = True
+        Me.lblTipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTipoVenta.Location = New System.Drawing.Point(471, 564)
+        Me.lblTipoVenta.Name = "lblTipoVenta"
+        Me.lblTipoVenta.Size = New System.Drawing.Size(109, 16)
+        Me.lblTipoVenta.TabIndex = 8
+        Me.lblTipoVenta.Text = "Tipo de Venta:"
+        '
+        'lblViaAdministracion
+        '
+        Me.lblViaAdministracion.AutoSize = True
+        Me.lblViaAdministracion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblViaAdministracion.Location = New System.Drawing.Point(471, 598)
+        Me.lblViaAdministracion.Name = "lblViaAdministracion"
+        Me.lblViaAdministracion.Size = New System.Drawing.Size(162, 16)
+        Me.lblViaAdministracion.TabIndex = 9
+        Me.lblViaAdministracion.Text = "Via de Administración:"
+        '
+        'Monodroga
+        '
+        Me.Monodroga.AutoSize = True
+        Me.Monodroga.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Monodroga.Location = New System.Drawing.Point(108, 532)
+        Me.Monodroga.Name = "Monodroga"
+        Me.Monodroga.Size = New System.Drawing.Size(80, 17)
+        Me.Monodroga.TabIndex = 10
+        Me.Monodroga.Text = "Monodroga"
+        '
+        'AccionFarmacologica
+        '
+        Me.AccionFarmacologica.AutoSize = True
+        Me.AccionFarmacologica.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AccionFarmacologica.Location = New System.Drawing.Point(184, 564)
+        Me.AccionFarmacologica.Name = "AccionFarmacologica"
+        Me.AccionFarmacologica.Size = New System.Drawing.Size(146, 17)
+        Me.AccionFarmacologica.TabIndex = 11
+        Me.AccionFarmacologica.Text = "Acción Farmacologica"
+        '
+        'Trazabilidad
+        '
+        Me.Trazabilidad.AutoSize = True
+        Me.Trazabilidad.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Trazabilidad.Location = New System.Drawing.Point(117, 598)
+        Me.Trazabilidad.Name = "Trazabilidad"
+        Me.Trazabilidad.Size = New System.Drawing.Size(86, 17)
+        Me.Trazabilidad.TabIndex = 12
+        Me.Trazabilidad.Text = "Trazabilidad"
+        '
+        'TipoControl
+        '
+        Me.TipoControl.AutoSize = True
+        Me.TipoControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TipoControl.Location = New System.Drawing.Point(595, 531)
+        Me.TipoControl.Name = "TipoControl"
+        Me.TipoControl.Size = New System.Drawing.Size(105, 17)
+        Me.TipoControl.TabIndex = 13
+        Me.TipoControl.Text = "Tipo de Control"
+        '
+        'TipoVenta
+        '
+        Me.TipoVenta.AutoSize = True
+        Me.TipoVenta.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TipoVenta.Location = New System.Drawing.Point(586, 564)
+        Me.TipoVenta.Name = "TipoVenta"
+        Me.TipoVenta.Size = New System.Drawing.Size(97, 17)
+        Me.TipoVenta.TabIndex = 14
+        Me.TipoVenta.Text = "Tipo de Venta"
+        '
+        'ViaAdministracion
+        '
+        Me.ViaAdministracion.AutoSize = True
+        Me.ViaAdministracion.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ViaAdministracion.Location = New System.Drawing.Point(639, 597)
+        Me.ViaAdministracion.Name = "ViaAdministracion"
+        Me.ViaAdministracion.Size = New System.Drawing.Size(144, 17)
+        Me.ViaAdministracion.TabIndex = 15
+        Me.ViaAdministracion.Text = "Via de Administración"
+        '
+        'lblHeladera
+        '
+        Me.lblHeladera.AutoSize = True
+        Me.lblHeladera.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblHeladera.Location = New System.Drawing.Point(891, 532)
+        Me.lblHeladera.Name = "lblHeladera"
+        Me.lblHeladera.Size = New System.Drawing.Size(76, 16)
+        Me.lblHeladera.TabIndex = 16
+        Me.lblHeladera.Text = "Heladera:"
+        '
+        'Heladera
+        '
+        Me.Heladera.AutoSize = True
+        Me.Heladera.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Heladera.Location = New System.Drawing.Point(973, 531)
+        Me.Heladera.Name = "Heladera"
+        Me.Heladera.Size = New System.Drawing.Size(66, 17)
+        Me.Heladera.TabIndex = 17
+        Me.Heladera.Text = "Heladera"
+        '
         'FrmBuscaArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1164, 450)
+        Me.ClientSize = New System.Drawing.Size(1161, 631)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Heladera)
+        Me.Controls.Add(Me.lblHeladera)
+        Me.Controls.Add(Me.ViaAdministracion)
+        Me.Controls.Add(Me.TipoVenta)
+        Me.Controls.Add(Me.TipoControl)
+        Me.Controls.Add(Me.Trazabilidad)
+        Me.Controls.Add(Me.AccionFarmacologica)
+        Me.Controls.Add(Me.Monodroga)
+        Me.Controls.Add(Me.lblViaAdministracion)
+        Me.Controls.Add(Me.lblTipoVenta)
+        Me.Controls.Add(Me.lblTipoControl)
+        Me.Controls.Add(Me.lblTrazabilidad)
+        Me.Controls.Add(Me.lblMonodroga)
+        Me.Controls.Add(Me.lblAccionFarmacologica)
         Me.Controls.Add(Me.DataGridView1)
         Me.Name = "FrmBuscaArticulos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Lista de Articulos"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -263,4 +431,18 @@ Partial Class FrmBuscaArticulos
     Friend WithEvents CodiLP As DataGridViewTextBoxColumn
     Friend WithEvents ListaPrecios As DataGridViewTextBoxColumn
     Friend WithEvents Laboratorio As DataGridViewTextBoxColumn
+    Friend WithEvents lblAccionFarmacologica As Label
+    Friend WithEvents lblMonodroga As Label
+    Friend WithEvents lblTrazabilidad As Label
+    Friend WithEvents lblTipoControl As Label
+    Friend WithEvents lblTipoVenta As Label
+    Friend WithEvents lblViaAdministracion As Label
+    Friend WithEvents Monodroga As Label
+    Friend WithEvents AccionFarmacologica As Label
+    Friend WithEvents Trazabilidad As Label
+    Friend WithEvents TipoControl As Label
+    Friend WithEvents TipoVenta As Label
+    Friend WithEvents ViaAdministracion As Label
+    Friend WithEvents lblHeladera As Label
+    Friend WithEvents Heladera As Label
 End Class

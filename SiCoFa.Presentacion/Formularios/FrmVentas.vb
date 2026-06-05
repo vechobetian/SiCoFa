@@ -100,12 +100,10 @@ Public Class FrmVentas
                 Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
                 mobj_Items = New BindingList(Of ItemComprobante)(objItems)
                 'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+                RenderItemsUC()
                 Me.ActualizarTotales()
                 Me.ActualizarDatosOperacion()
-
-                Me.DataGridView1.AutoGenerateColumns = False
-                Me.DataGridView1.DataSource = Me.mobj_Items
-                Me.DataGridView1.ClearSelection()
+                Me.AgregarItemVacio()
 
             End If
 
@@ -192,24 +190,13 @@ Public Class FrmVentas
         End Try
     End Sub
 
-    '--------------------------------------------
-    ' Da foco al primer ToolStripTextBox del ToolStrip
-    '--------------------------------------------
-    Private Sub EnfocarToolStripTextBox()
-        For Each item As ToolStripItem In ToolStrip1.Items
-            If TypeOf item Is ToolStripTextBox Then
-                Dim txt As ToolStripTextBox = CType(item, ToolStripTextBox)
-                txt.Focus()
-                txt.SelectAll()
-                Exit For
-            End If
-        Next
-    End Sub
-
     Private Sub InsertarItems(ByVal argIdOperacion As Long)
         Try
             Dim AdminItems As New N_AdminItemsComprobante
             For Each i As ItemComprobante In mobj_Items
+
+                If i.Articulo Is Nothing Then Continue For
+
                 If i.IdItem = 0 Then
                     i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
                 Else
@@ -225,37 +212,127 @@ Public Class FrmVentas
         End Try
     End Sub
 
+    Private Sub RenderItemsUC()
+
+        PanelItems.Controls.Clear()
+
+        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+            Dim uc As New UcItemVenta()
+            uc.Bind(mobj_Items(i))
+            uc.Dock = DockStyle.Top
+
+            AddHandler uc.OnEliminar, AddressOf EliminarItem
+            AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
+            AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
+            AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+
+            PanelItems.Controls.Add(uc)
+
+        Next
+
+    End Sub
+
+    Private Sub RenderItemsUC1()
+
+        PanelItems.Controls.Clear()
+
+        For Each item As ItemComprobante In mobj_Items
+
+            Dim uc As New UcItemVenta()
+            uc.Bind(item)
+            uc.Dock = DockStyle.Top
+
+            AddHandler uc.OnEliminar, AddressOf EliminarItem
+            AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
+            AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
+            AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+
+            PanelItems.Controls.Add(uc)
+
+        Next
+
+    End Sub
+
+    Private Sub AgregarItemUC(item As ItemComprobante)
+
+        Dim uc As New UcItemVenta()
+
+        uc.Bind(item)
+        uc.Dock = DockStyle.Top
+
+        AddHandler uc.OnEliminar, AddressOf EliminarItem
+        AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
+        AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
+        AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+
+        PanelItems.Controls.Add(uc)
+        PanelItems.Controls.SetChildIndex(uc, 0)
+
+    End Sub
+
+    Private Sub AgregarItemVacio()
+
+        Dim itemNuevo As New ItemComprobante()
+        itemNuevo.EsNuevo = True
+
+        mobj_Items.Add(itemNuevo)
+
+        AgregarItemUC(itemNuevo)
+
+        Dim nuevoUC As UcItemVenta = CType(PanelItems.Controls(0), UcItemVenta)
+
+        nuevoUC.EnfocarDescripcion()
+
+    End Sub
+
+    Private Sub PasarAlSiguienteItem(ucActual As UcItemVenta)
+
+        Dim index As Integer = PanelItems.Controls.GetChildIndex(ucActual)
+
+        For i As Integer = index - 1 To 0 Step -1
+
+            Dim uc As UcItemVenta = TryCast(PanelItems.Controls(i), UcItemVenta)
+
+            If uc Is Nothing OrElse uc.ItemVenta Is Nothing Then Continue For
+
+            If uc.ItemVenta.EsNuevo Then
+                uc.EnfocarDescripcion()
+            Else
+                uc.EnfocarCantidad()
+            End If
+
+            Exit Sub
+
+        Next
+
+    End Sub
+
+    Private Sub EliminarItem(item As ItemComprobante)
+
+        mobj_Items.Remove(item)
+
+        ' Eliminar filas vacías sobrantes
+        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+            If mobj_Items(i).Articulo Is Nothing Then
+                mobj_Items.RemoveAt(i)
+            End If
+
+        Next
+
+        ' Agregar una única fila vacía
+        AgregarItemVacio()
+
+        RenderItemsUC()
+
+        ActualizarTotales()
+
+    End Sub
+
     Private Sub EliminarItemSeleccionado()
         Try
-            If DataGridView1.IsCurrentCellInEditMode Then
-                MsgBox("El Item se encuentra en modo Edición, no se puede eliminar", vbCritical, "SiCoFa")
-                Exit Sub
-            End If
 
-            If DataGridView1.SelectedRows.Count = 0 Then
-                MsgBox("No hay ningun Item seleccionado para eliminar", vbInformation, "SiCoFa")
-                Exit Sub
-            End If
-
-            If MessageBox.Show("¿Seguro que desea eliminar los ítems seleccionados?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Dim AdminItems As New N_AdminItemsComprobante
-                Dim indicesAEliminar As New List(Of Integer)
-
-                For i As Integer = DataGridView1.SelectedRows.Count - 1 To 0 Step -1
-                    Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(i).Index
-                    If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
-                        If mobj_Items.Item(indiceFilaSeleccionada).IdItem > 0 Then
-                            Dim Eliminado As Boolean = AdminItems.EliminarItemComprobante(mobj_Items.Item(indiceFilaSeleccionada).IdItem)
-                        End If
-
-                        mobj_Items.RemoveAt(indiceFilaSeleccionada)
-                    End If
-                Next
-
-                DataGridView1.ClearSelection()
-                ActualizarTotales()
-
-            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -263,84 +340,36 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub AjustarAnchoToolStripTextBox()
-        Try
+    Private Sub BuscarArticuloDesdeUC(uc As UcItemVenta, texto As String)
 
-            Dim txtBox As ToolStripTextBox = Nothing
-
-            Dim anchoOcupado As Integer = 0
-
-            For Each item As ToolStripItem In ToolStrip1.Items
-                If TypeOf item Is ToolStripTextBox Then
-                    txtBox = CType(item, ToolStripTextBox)
-                Else
-                    anchoOcupado += item.Width
-                End If
-            Next
-
-            If txtBox IsNot Nothing Then
-
-                Dim margen As Integer = 10
-                Dim anchoDisponible As Integer = ToolStrip1.DisplayRectangle.Width - anchoOcupado - margen
-
-                txtBox.Width = Math.Max(50, anchoDisponible)
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
+        If String.IsNullOrWhiteSpace(texto) Then Exit Sub
+        BuscarArticulo(uc, texto)
 
     End Sub
 
-    Private Sub AjustarAnchoColumnasProporcional()
-        Try
-
-            If DataGridView1.ColumnCount = 10 Then
-                Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.08R, 0.5R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
-
-                For i As Integer = 0 To 9 ' Itera a través de las 9 columnas
-                    DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
-            Else
-                MessageBox.Show("El DataGridView no tiene 9 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub BuscarArticulo(ByVal argTextoBuscado As String)
+    Private Sub BuscarArticulo(uc As UcItemVenta, ByVal argTextoBuscado As String)
 
         Try
+
             If argTextoBuscado = "*" OrElse argTextoBuscado = "/" Then
                 MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
                 Exit Sub
             End If
 
+            Dim AdminArticulos As New N_AdminArticulos
             Dim a As Articulo = Nothing
             Dim la As New List(Of Articulo)
-            Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
-            Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
-            Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
-            Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
-            Dim TipoControl As TipoControl = New TipoControl("0")
 
             Select Case Strings.Left(argTextoBuscado, 1)
                 Case "*"
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "*", "")), TipoVenta.NoClasificado, 0, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
+                    a = AdminArticulos.ArticuloGenericoExento(argTextoBuscado)
                     la.Add(a)
 
                 Case "/"
-                    a = New Articulo("0", "", "", UCase(Replace(argTextoBuscado, "/", "")), TipoVenta.NoClasificado, 21, 1, TamanioEnvase.NoClasificado, Now.Date, 0, 0, 0, Laboratorio, Monodroga, AccionFarmacologica, 0, TipoControl, SeccionItem, True, 0, 0, Nothing)
+                    a = AdminArticulos.ArticuloGenericoGravado(argTextoBuscado)
                     la.Add(a)
 
                 Case Else
-                    Dim AdminArticulos As New N_AdminArticulos
                     la = AdminArticulos.ListarArticulos(argTextoBuscado)
 
             End Select
@@ -370,30 +399,96 @@ Public Class FrmVentas
 
             End Select
 
-            With Me
-                If a IsNot Nothing Then
-                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicIVA, 0)
-                    mobj_Items.Add(i)
-                    Me.DataGridView1.ClearSelection()
+            If a IsNot Nothing Then
 
-                    Dim nuevoIndiceFila As Integer = Me.DataGridView1.Rows.Count - 1
-                    Dim nombreColumnaCantidad As String = "Cantidad" ' Reemplaza con el nombre real
+                Dim i As ItemComprobante = uc.ItemVenta
 
-                    If Me.DataGridView1.Columns.Contains(nombreColumnaCantidad) AndAlso nuevoIndiceFila >= 0 Then
-                        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(nuevoIndiceFila).Cells(nombreColumnaCantidad)
-                        Me.DataGridView1.BeginEdit(True) ' Iniciar la edición de la celda
-                    End If
-                End If
+                i.Articulo = a
+                i.CodBarras = a.CodBarras
+                i.Descripcion = a.Nombre
+                i.Cantidad = 1
+                i.PrecioUnitario = a.PrecioVenta
+                i.AlicIVA = a.AlicIVA
 
-                .SelectorArticulos.Text = ""
-                Me.ActualizarTotales()
+                uc.Bind(i)
+                uc.ModoItemCargado(a.Seccion.EstablecerPrecio)
+                uc.HabilitarCantidad()
+                uc.EnfocarCantidad()
 
-            End With
+                ActualizarTotales()
+            Else
+                uc.txtDescripcion.Text = ""
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+
+    End Sub
+
+    Private Sub CantidadConfirmada(uc As UcItemVenta)
+
+        If uc.ItemVenta.Articulo Is Nothing Then
+            uc.EnfocarDescripcion()
+            Exit Sub
+        End If
+
+        uc.ItemVenta.Cantidad = Val(uc.txtCantidad.Text)
+
+        ActualizarTotales()
+
+        ' 🔥 SI ES NUEVO (flujo de carga)
+        If uc.ItemVenta.EsNuevo Then
+
+            If uc.ItemVenta.Articulo.Seccion.EstablecerPrecio Then
+
+                uc.HabilitarPrecio()
+                uc.EnfocarPrecio()
+
+            Else
+
+                uc.ItemVenta.EsNuevo = False
+                AgregarItemVacio()
+
+                Dim nuevoUC As UcItemVenta =
+                CType(PanelItems.Controls(0), UcItemVenta)
+
+            End If
+
+            Exit Sub
+        End If
+
+        ' 🔁 SI NO ES NUEVO (EDICIÓN)
+        PasarAlSiguienteItem(uc)
+
+    End Sub
+
+    Private Sub PrecioConfirmado(uc As UcItemVenta)
+
+        If uc.ItemVenta.Articulo Is Nothing Then
+            uc.EnfocarDescripcion()
+            Exit Sub
+        End If
+
+        uc.ItemVenta.PrecioUnitario = Val(uc.txtPrecioUnitario.Text)
+
+        ActualizarTotales()
+
+        If uc.ItemVenta.EsNuevo Then
+
+            uc.ItemVenta.EsNuevo = False
+            AgregarItemVacio()
+
+            Dim nuevoUC As UcItemVenta =
+            CType(PanelItems.Controls(0), UcItemVenta)
+
+            nuevoUC.EnfocarDescripcion()
+
+        Else
+            PasarAlSiguienteItem(uc)
+
+        End If
 
     End Sub
 
@@ -410,6 +505,9 @@ Public Class FrmVentas
             mdec_ImporteGravado2 = 0
 
             For Each i As ItemComprobante In Me.mobj_Items
+
+                If i.Articulo Is Nothing Then Continue For
+
                 mint_CantidadItems += 1
                 mdec_ImporteCosto += (i.Articulo.PrecioCosto * i.Cantidad)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
@@ -479,32 +577,12 @@ Public Class FrmVentas
             'mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
             Me.ActualizarDatosOperacion()
-            Me.DataGridView1.AutoGenerateColumns = False
-            Me.DataGridView1.DataSource = Me.mobj_Items
-            Me.DataGridView1.ClearSelection()
 
             For Each item As ToolStripItem In ToolStrip1.Items
                 item.Overflow = ToolStripItemOverflow.Never
             Next
 
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub FrmVentas_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-        Try
-            Me.AjustarAnchoColumnasProporcional()
-            Me.AjustarAnchoToolStripTextBox()
-            For Each item As ToolStripItem In ToolStrip1.Items
-                If TypeOf item Is ToolStripTextBox Then
-                    CType(item, ToolStripTextBox).Focus()
-                    Exit For
-                End If
-            Next
+            AgregarItemVacio()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -556,173 +634,6 @@ Public Class FrmVentas
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
     End Function
 
-    Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        Me.AjustarAnchoColumnasProporcional()
-        Me.AjustarAnchoToolStripTextBox()
-    End Sub
-
-    Private Sub SelectorArticulos_KeyDown(sender As Object, e As KeyEventArgs) Handles SelectorArticulos.KeyDown
-        Try
-
-            If String.IsNullOrWhiteSpace(Me.SelectorArticulos.Text) Then
-                Exit Sub
-            End If
-
-            If e.KeyCode = Keys.Enter Then
-                Me.BuscarArticulo(Me.SelectorArticulos.Text)
-                e.Handled = True ' Indica que el evento KeyDown ha sido manejado
-                e.SuppressKeyPress = True ' Evita que se genere el evento KeyPress
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub DataGridView1_KeyDown(sender As Object, e As KeyEventArgs) Handles DataGridView1.KeyDown
-        Try
-
-            If e.KeyCode = Keys.Delete AndAlso DataGridView1.SelectedRows.Count > 0 Then
-                Me.EliminarItemSeleccionado()
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub DataGridView1_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles DataGridView1.CellValidating
-
-        Try
-            If DataGridView1.Columns(e.ColumnIndex).Name.Equals("Cantidad", StringComparison.OrdinalIgnoreCase) Then
-                Dim valorIngresado As String = e.FormattedValue.ToString().Trim()
-                Dim cantidad As Decimal
-
-                If String.IsNullOrWhiteSpace(valorIngresado) OrElse Not Decimal.TryParse(valorIngresado, cantidad) OrElse cantidad <= 0 Then
-
-                    MsgBox("Cantidad debe ser un valor mayor que cero", vbCritical, "SiCoFa")
-                    e.Cancel = True
-
-                    DataGridView1.BeginEdit(True)
-
-                    Dim editingControl = TryCast(DataGridView1.EditingControl, TextBox)
-
-                    If editingControl IsNot Nothing Then
-                        editingControl.SelectAll()
-                    End If
-
-                End If
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
-    Private Sub DataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
-        Try
-            ' Validación básica
-            If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
-
-            Dim dgv As DataGridView = DataGridView1
-            Dim nombreColumna As String = dgv.Columns(e.ColumnIndex).Name
-
-            Const ColumnaCantidad As String = "Cantidad"
-            Const ColumnaPrecioUnitario As String = "PrecioUnitario"
-
-            ' Solo continúa si la fila no tiene errores
-            If Not String.IsNullOrEmpty(dgv.Rows(e.RowIndex).ErrorText) Then Exit Sub
-
-            Select Case nombreColumna.ToLower()
-                Case ColumnaCantidad.ToLower()
-                    ManejarEdicionCantidad(e.RowIndex)
-
-                Case ColumnaPrecioUnitario.ToLower()
-                    EnfocarToolStripTextBox()
-                    dgv.ClearSelection()
-                    dgv.CurrentCell = Nothing
-                    dgv.Refresh()
-                    ActualizarTotales()
-            End Select
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-    End Sub
-
-    '--------------------------------------------
-    ' Maneja la lógica cuando se edita la columna Cantidad
-    '--------------------------------------------
-    Private Sub ManejarEdicionCantidad(rowIndex As Integer)
-        Dim itemComprobante As ItemComprobante = mobj_Items(rowIndex)
-
-        If itemComprobante.Articulo?.Seccion?.EstablecerPrecio Then
-            Dim dgv = DataGridView1
-            dgv.CurrentCell = dgv.Rows(rowIndex).Cells("PrecioUnitario")
-            dgv.CurrentCell.ReadOnly = False
-            dgv.BeginEdit(True)
-        Else
-            EnfocarToolStripTextBox()
-            DataGridView1.ClearSelection()
-            DataGridView1.CurrentCell = Nothing
-        End If
-
-        DataGridView1.Refresh()
-        ActualizarTotales()
-    End Sub
-
-    ' Este evento se dispara cuando una celda entra en modo edición
-    Private Sub DataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles DataGridView1.EditingControlShowing
-        ' Verifica si la columna actual es la que te interesa
-        If DataGridView1.CurrentCell IsNot Nothing Then
-            Dim colName As String = DataGridView1.CurrentCell.OwningColumn.Name
-
-            If colName = "Cantidad" OrElse colName = "PrecioUnitario" Then
-                ' Quita manejadores anteriores para evitar duplicados
-                RemoveHandler e.Control.KeyPress, AddressOf DataGridViewTextBox_KeyPress
-
-                ' Asigna el evento KeyPress al control de edición
-                AddHandler e.Control.KeyPress, AddressOf DataGridViewTextBox_KeyPress
-            Else
-                ' Si no es una columna numérica, quita el manejador
-                RemoveHandler e.Control.KeyPress, AddressOf DataGridViewTextBox_KeyPress
-            End If
-        End If
-    End Sub
-
-    Private Sub DataGridViewTextBox_KeyPress(sender As Object, e As KeyPressEventArgs)
-        ' Obtener la columna actual
-        Dim dgv As DataGridView = Me.DataGridView1
-        Dim colName As String = dgv.CurrentCell.OwningColumn.Name
-
-        ' Solo aplicar a columnas numéricas
-        If colName = "Cantidad" OrElse colName = "PrecioUnitario" Then
-            Dim txt As TextBox = TryCast(sender, TextBox)
-            If txt Is Nothing Then Return
-
-            ' Reemplazar punto por coma
-            If e.KeyChar = "."c Then
-                e.KeyChar = ","c
-            End If
-
-            ' Evitar más de una coma
-            If e.KeyChar = ","c AndAlso txt.Text.Contains(",") Then
-                e.Handled = True
-            End If
-
-            ' Permitir solo números, coma y control (backspace)
-            If Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> ","c AndAlso Not Char.IsControl(e.KeyChar) Then
-                e.Handled = True
-            End If
-        End If
-    End Sub
-
     Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarElimininarItemSeleccionado.Click
         Me.EliminarItemSeleccionado()
     End Sub
@@ -730,22 +641,22 @@ Public Class FrmVentas
     Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarAplicarDescuentoItemSeleccionado.Click
 
         Try
-            If DataGridView1.SelectedRows.Count = 1 Then
-                Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(0).Index
+            'If DataGridView1.SelectedRows.Count = 1 Then
+            'Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(0).Index
 
-                If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
-                    Dim itemSeleccionado = mobj_Items(indiceFilaSeleccionada)
+            'If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
+            'Dim itemSeleccionado = mobj_Items(indiceFilaSeleccionada)
 
-                    Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
+            Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
 
                     If Not String.IsNullOrEmpty(descuentoStr) Then
                         Dim descuentoPorcentaje As Decimal
                         If Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
                             ' Asegurarse de que el descuento sea un valor válido (por ejemplo, entre 0 y 100)
                             If descuentoPorcentaje >= 0 AndAlso descuentoPorcentaje <= 100 Then
-                                itemSeleccionado.PorcentajeDescuento = descuentoPorcentaje
-                                Me.DataGridView1.Refresh()
-                                ActualizarTotales()
+                        'itemSeleccionado.PorcentajeDescuento = descuentoPorcentaje
+                        'Me.DataGridView1.Refresh()
+                        ActualizarTotales()
                             Else
                                 MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                             End If
@@ -753,12 +664,12 @@ Public Class FrmVentas
                             MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                         End If
                     End If
-                ElseIf DataGridView1.SelectedRows.Count > 1 Then
-                    MessageBox.Show("Por favor, seleccione solo un ítem para aplicar el descuento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Else
-                    MessageBox.Show("Por favor, seleccione un ítem para aplicar el descuento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                End If
-            End If
+                'ElseIf DataGridView1.SelectedRows.Count > 1 Then
+                MessageBox.Show("Por favor, seleccione solo un ítem para aplicar el descuento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'Else
+            'MessageBox.Show("Por favor, seleccione un ítem para aplicar el descuento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            'End If
+            'End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -825,9 +736,9 @@ Public Class FrmVentas
             mobj_Cliente = ClonarObjeto(PortapapelesVenta.Cliente)
 
             ' Actualizar la fuente de datos del DataGridView
-            Me.DataGridView1.DataSource = Nothing
-            Me.DataGridView1.DataSource = mobj_Items
-            Me.DataGridView1.ClearSelection()
+            'Me.DataGridView1.DataSource = Nothing
+            'Me.DataGridView1.DataSource = mobj_Items
+            'Me.DataGridView1.ClearSelection()
 
             ' Actualizar cualquier dato visual relacionado, por ejemplo:
             Me.ActualizarDatosOperacion()

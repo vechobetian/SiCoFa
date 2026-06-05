@@ -454,6 +454,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings1.settings</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcItemVenta.Designer.vb">
+      <DependentUpon>UcItemVenta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcItemVenta.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
@@ -612,6 +618,9 @@
     <EmbeddedResource Include="Reportes\rptCompCA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompRA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptReciboA4.rdlc" />
+    <EmbeddedResource Include="UserControls\UcItemVenta.resx">
+      <DependentUpon>UcItemVenta.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.config">
@@ -713,6 +722,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

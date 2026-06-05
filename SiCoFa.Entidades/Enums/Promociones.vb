@@ -12,28 +12,22 @@
             Select Case CodiPro.Trim().ToUpper()
 
                 Case "0"
-                    Me.Descripcion =
-                        "No Establecida"
+                    Me.Descripcion = "NO ESTABLECIDA"
 
                 Case "2X1"
-                    Me.Descripcion =
-                        "Dos por Uno"
+                    Me.Descripcion = "DOS POR UNO"
 
                 Case "3X2"
-                    Me.Descripcion =
-                        "Tres por Dos"
+                    Me.Descripcion = "TRES POR DOS"
 
                 Case "D1U"
-                    Me.Descripcion =
-                        "Descuento Oferta"
+                    Me.Descripcion = "DESCUENTO OFERTA"
 
                 Case "D2U"
-                    Me.Descripcion =
-                        "Descuento segunda Unidad"
+                    Me.Descripcion = "DESCUENTO SEGUNDA UNIDAD"
 
                 Case Else
-                    Me.Descripcion =
-                        "Desconocida"
+                    Me.Descripcion = "DESCONOCIDA"
 
             End Select
 

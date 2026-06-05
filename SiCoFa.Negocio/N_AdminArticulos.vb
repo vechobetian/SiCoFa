@@ -2,6 +2,34 @@
 Imports SiCoFa.Entidades
 
 Public Class N_AdminArticulos
+    Public Function ArticuloGenericoExento(ByVal argDescripcion As String) As Articulo
+        Dim AdminArticulos As New D_AdminArticulos
+        Dim objArt As Articulo
+        Try
+            objArt = AdminArticulos.ArticuloGenericoExento(argDescripcion)
+            Return objArt
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ArticuloGenericoExento", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
+    Public Function ArticuloGenericoGravado(ByVal argDescripcion As String) As Articulo
+        Dim AdminArticulos As New D_AdminArticulos
+        Dim objArt As Articulo
+        Try
+            objArt = AdminArticulos.ArticuloGenericoGravado(argDescripcion)
+            Return objArt
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ArticuloGenericoExento", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
     Public Function ObtenerArticuloPorId(ByVal argIdArticulo As String) As Articulo
         Dim AdminArticulos As New D_AdminArticulos
         Dim objArt As Articulo
