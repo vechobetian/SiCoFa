@@ -201,7 +201,7 @@ Public Class FrmVentas
 
             uc.Dock = DockStyle.Top
 
-            AddHandler uc.OnEliminar, AddressOf EliminarItem
+            AddHandler uc.ItemEliminado, AddressOf EliminarItem
             AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
             AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
             AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
@@ -222,7 +222,7 @@ Public Class FrmVentas
             uc.Bind(item)
             uc.Dock = DockStyle.Top
 
-            AddHandler uc.OnEliminar, AddressOf EliminarItem
+            AddHandler uc.ItemEliminado, AddressOf EliminarItem
             AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
             AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
             AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
@@ -240,7 +240,7 @@ Public Class FrmVentas
         uc.Bind(item)
         uc.Dock = DockStyle.Top
 
-        AddHandler uc.OnEliminar, AddressOf EliminarItem
+        AddHandler uc.ItemEliminado, AddressOf EliminarItem
         AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
         AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
         AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado

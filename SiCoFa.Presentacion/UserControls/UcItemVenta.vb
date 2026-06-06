@@ -3,14 +3,12 @@
 Public Class UcItemVenta
 
     Public Property ItemVenta As ItemComprobante
-    Public Property ImteSeleccionado As Boolean
 
-
-    Public Event OnEliminar(item As ItemComprobante)
+    Public Event ItemEliminado(item As ItemComprobante)
     Public Event BuscarArticuloRequest(uc As UcItemVenta, texto As String)
     Public Event CantidadConfirmada(uc As UcItemVenta)
     Public Event PrecioConfirmado(uc As UcItemVenta)
-    Public Event OnSeleccionItem(uc As UcItemVenta)
+    Public Event ItemSeleccionado(uc As UcItemVenta)
 
     Public Sub Bind(item As ItemComprobante)
 
@@ -47,7 +45,7 @@ Public Class UcItemVenta
 
     Private Sub UcItemVenta_Click(sender As Object, e As EventArgs) Handles Me.Click
 
-        RaiseEvent OnSeleccionItem(Me)
+        RaiseEvent ItemSeleccionado(Me)
 
     End Sub
 
@@ -118,7 +116,7 @@ Public Class UcItemVenta
     Private Sub btnEliminarItem_Click(sender As Object, e As EventArgs) Handles btnEliminarItem.Click
 
         If ItemVenta IsNot Nothing Then
-            RaiseEvent OnEliminar(ItemVenta)
+            RaiseEvent ItemEliminado(ItemVenta)
         End If
 
     End Sub
