@@ -3,11 +3,14 @@
 Public Class UcItemVenta
 
     Public Property ItemVenta As ItemComprobante
+    Public Property ImteSeleccionado As Boolean
+
 
     Public Event OnEliminar(item As ItemComprobante)
     Public Event BuscarArticuloRequest(uc As UcItemVenta, texto As String)
     Public Event CantidadConfirmada(uc As UcItemVenta)
     Public Event PrecioConfirmado(uc As UcItemVenta)
+    Public Event OnSeleccionItem(uc As UcItemVenta)
 
     Public Sub Bind(item As ItemComprobante)
 
@@ -40,6 +43,14 @@ Public Class UcItemVenta
         txtImporteConDescuento.Text = item.ImporteConDescuento.ToString("0.00")
 
     End Sub
+
+
+    Private Sub UcItemVenta_Click(sender As Object, e As EventArgs) Handles Me.Click
+
+        RaiseEvent OnSeleccionItem(Me)
+
+    End Sub
+
 
     Public Sub ModoBusqueda()
 
