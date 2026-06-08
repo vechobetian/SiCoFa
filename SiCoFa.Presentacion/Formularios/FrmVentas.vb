@@ -23,6 +23,7 @@ Public Class FrmVentas
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
     Private mobj_Items As New BindingList(Of ItemComprobante)
+    Private mobj_ItemSeleccionado As UcItemVenta
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0
     Private mdec_ImporteSinDescuentos As Decimal = 0
@@ -201,10 +202,12 @@ Public Class FrmVentas
 
             uc.Dock = DockStyle.Top
 
+
             AddHandler uc.ItemEliminado, AddressOf EliminarItem
-            AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
+            AddHandler uc.BusquedaArticuloSolicitada, AddressOf BuscarArticuloDesdeUC
             AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
             AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+            AddHandler uc.ItemSeleccionado, AddressOf SeleccionarItem
 
             PanelItems.Controls.Add(uc)
 
@@ -212,24 +215,51 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub RenderItemsUC1()
+    Private Sub MoverItemSeleccionado(delta As Integer)
 
-        PanelItems.Controls.Clear()
+        If PanelItems.Controls.Count = 0 Then Exit Sub
 
-        For Each item As ItemComprobante In mobj_Items
+        If mobj_ItemSeleccionado Is Nothing Then
+            Dim primero As UcItemVenta = TryCast(GetItemsOrdenados().FirstOrDefault(), UcItemVenta)
+            If primero IsNot Nothing Then SeleccionarItem(primero)
+            Exit Sub
+        End If
 
-            Dim uc As New UcItemVenta()
-            uc.Bind(item)
-            uc.Dock = DockStyle.Top
+        Dim lista As List(Of UcItemVenta) = GetItemsOrdenados()
 
-            AddHandler uc.ItemEliminado, AddressOf EliminarItem
-            AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
-            AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
-            AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+        Dim index As Integer = lista.IndexOf(mobj_ItemSeleccionado)
+        Dim nuevoIndex As Integer = index + delta
 
-            PanelItems.Controls.Add(uc)
+        If nuevoIndex < 0 Then nuevoIndex = 0
+        If nuevoIndex >= lista.Count Then nuevoIndex = lista.Count - 1
 
-        Next
+        Dim nuevoUC As UcItemVenta = lista(nuevoIndex)
+
+        SeleccionarItem(nuevoUC)
+        nuevoUC.EnfocarDescripcion()
+
+    End Sub
+
+    Private Function GetItemsOrdenados() As List(Of UcItemVenta)
+
+        Return PanelItems.Controls _
+        .OfType(Of UcItemVenta)() _
+        .Reverse() _
+        .ToList()
+
+    End Function
+
+    Private Sub SeleccionarItem(uc As UcItemVenta)
+
+        If mobj_ItemSeleccionado IsNot Nothing Then
+            mobj_ItemSeleccionado.Deseleccionar()
+        End If
+
+        mobj_ItemSeleccionado = uc
+
+        If mobj_ItemSeleccionado IsNot Nothing Then
+            mobj_ItemSeleccionado.Seleccionar()
+        End If
 
     End Sub
 
@@ -241,9 +271,10 @@ Public Class FrmVentas
         uc.Dock = DockStyle.Top
 
         AddHandler uc.ItemEliminado, AddressOf EliminarItem
-        AddHandler uc.BuscarArticuloRequest, AddressOf BuscarArticuloDesdeUC
+        AddHandler uc.BusquedaArticuloSolicitada, AddressOf BuscarArticuloDesdeUC
         AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
         AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+        AddHandler uc.ItemSeleccionado, AddressOf SeleccionarItem
 
         PanelItems.Controls.Add(uc)
         PanelItems.Controls.SetChildIndex(uc, 0)
@@ -289,6 +320,8 @@ Public Class FrmVentas
 
     Private Sub EliminarItem(item As ItemComprobante)
 
+        Dim AdminItems As New N_AdminItemsComprobante
+        AdminItems.EliminarItemComprobante(item.IdItem)
         mobj_Items.Remove(item)
 
         ' Eliminar filas vacías sobrantes
@@ -306,16 +339,6 @@ Public Class FrmVentas
         RenderItemsUC()
 
         ActualizarTotales()
-
-    End Sub
-
-    Private Sub EliminarItemSeleccionado()
-        Try
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
 
     End Sub
 
@@ -430,8 +453,7 @@ Public Class FrmVentas
                 uc.ItemVenta.EsNuevo = False
                 AgregarItemVacio()
 
-                Dim nuevoUC As UcItemVenta =
-                CType(PanelItems.Controls(0), UcItemVenta)
+                Dim nuevoUC As UcItemVenta = CType(PanelItems.Controls(0), UcItemVenta)
 
             End If
 
@@ -459,8 +481,7 @@ Public Class FrmVentas
             uc.ItemVenta.EsNuevo = False
             AgregarItemVacio()
 
-            Dim nuevoUC As UcItemVenta =
-            CType(PanelItems.Controls(0), UcItemVenta)
+            Dim nuevoUC As UcItemVenta = CType(PanelItems.Controls(0), UcItemVenta)
 
             nuevoUC.EnfocarDescripcion()
 
@@ -567,6 +588,22 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub FrmVentas_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+
+        Select Case e.KeyCode
+
+            Case Keys.Down, Keys.Right
+                MoverItemSeleccionado(1)
+                e.Handled = True
+
+            Case Keys.Up, Keys.Left
+                MoverItemSeleccionado(-1)
+                e.Handled = True
+
+        End Select
+
+    End Sub
+
     Private Sub FrmVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
         Try
@@ -595,43 +632,56 @@ Public Class FrmVentas
     End Function
 
     Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarElimininarItemSeleccionado.Click
-        Me.EliminarItemSeleccionado()
+
+        If mobj_ItemSeleccionado Is Nothing Then
+
+            Exit Sub
+
+        End If
+
+        Me.EliminarItem(mobj_ItemSeleccionado.ItemVenta)
+
     End Sub
 
     Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarAplicarDescuentoItemSeleccionado.Click
 
         Try
-            'If DataGridView1.SelectedRows.Count = 1 Then
-            'Dim indiceFilaSeleccionada As Integer = DataGridView1.SelectedRows(0).Index
 
-            'If indiceFilaSeleccionada >= 0 AndAlso indiceFilaSeleccionada < mobj_Items.Count Then
-            'Dim itemSeleccionado = mobj_Items(indiceFilaSeleccionada)
+            If mobj_ItemSeleccionado Is Nothing Then
 
-            Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
+                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
 
-                    If Not String.IsNullOrEmpty(descuentoStr) Then
-                        Dim descuentoPorcentaje As Decimal
-                        If Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
-                            ' Asegurarse de que el descuento sea un valor válido (por ejemplo, entre 0 y 100)
-                            If descuentoPorcentaje >= 0 AndAlso descuentoPorcentaje <= 100 Then
-                        'itemSeleccionado.PorcentajeDescuento = descuentoPorcentaje
-                        'Me.DataGridView1.Refresh()
-                        ActualizarTotales()
-                            Else
-                                MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                            End If
-                        Else
-                            MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        End If
-                    End If
-                'ElseIf DataGridView1.SelectedRows.Count > 1 Then
-                MessageBox.Show("Por favor, seleccione solo un ítem para aplicar el descuento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'Else
-            'MessageBox.Show("Por favor, seleccione un ítem para aplicar el descuento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            'End If
-            'End If
+            End If
+
+            Dim descuentoStr As String =
+            InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
+
+            If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
+
+            Dim descuentoPorcentaje As Decimal
+
+            If Not Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
+
+                MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+
+            End If
+
+            If descuentoPorcentaje < 0 OrElse descuentoPorcentaje > 100 Then
+
+                MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+
+            End If
+
+            mobj_ItemSeleccionado.ItemVenta.PorcentajeDescuento = descuentoPorcentaje
+
+            ActualizarTotales()
+            RenderItemsUC()
 
         Catch ex As Exception
+
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try

@@ -5,10 +5,81 @@ Public Class UcItemVenta
     Public Property ItemVenta As ItemComprobante
 
     Public Event ItemEliminado(item As ItemComprobante)
-    Public Event BuscarArticuloRequest(uc As UcItemVenta, texto As String)
+    Public Event BusquedaArticuloSolicitada(uc As UcItemVenta, texto As String)
     Public Event CantidadConfirmada(uc As UcItemVenta)
     Public Event PrecioConfirmado(uc As UcItemVenta)
     Public Event ItemSeleccionado(uc As UcItemVenta)
+
+    Protected Overridable Sub OnItemEliminado()
+
+        If ItemVenta IsNot Nothing Then
+            RaiseEvent ItemEliminado(ItemVenta)
+        End If
+
+    End Sub
+
+    Protected Overridable Sub OnBusquedaArticuloSolicitada()
+
+        Dim texto As String = txtDescripcion.Text.Trim()
+
+        If texto = "" Then Exit Sub
+
+        RaiseEvent BusquedaArticuloSolicitada(Me, txtDescripcion.Text)
+
+    End Sub
+
+    Protected Overridable Sub OnCantidadConfirmada()
+
+        If ItemVenta IsNot Nothing Then
+            ItemVenta.Cantidad = Val(txtCantidad.Text)
+            RaiseEvent CantidadConfirmada(Me)
+        End If
+
+    End Sub
+
+    Protected Overridable Sub OnPrecioConfirmado()
+
+        If ItemVenta IsNot Nothing Then
+            ItemVenta.PrecioUnitario = Val(txtPrecioUnitario.Text)
+            txtPrecioUnitario.Text = ItemVenta.PrecioUnitario.ToString("0.00")
+            RaiseEvent PrecioConfirmado(Me)
+        End If
+
+    End Sub
+
+    Protected Overridable Sub OnItemSeleccionado()
+
+        If ItemVenta IsNot Nothing Then
+
+            RaiseEvent ItemSeleccionado(Me)
+
+        End If
+
+    End Sub
+
+    Protected Overrides Sub OnControlAdded(e As ControlEventArgs)
+        MyBase.OnControlAdded(e)
+
+        AddFocusHandler(e.Control)
+    End Sub
+
+    Private Sub AddFocusHandler(ctrl As Control)
+
+        AddHandler ctrl.GotFocus, AddressOf Control_GotFocus
+
+        If ctrl.HasChildren Then
+            For Each c As Control In ctrl.Controls
+                AddFocusHandler(c)
+            Next
+        End If
+
+    End Sub
+
+    Private Sub Control_GotFocus(sender As Object, e As EventArgs)
+
+        RaiseEvent ItemSeleccionado(Me)
+
+    End Sub
 
     Public Sub Bind(item As ItemComprobante)
 
@@ -42,13 +113,45 @@ Public Class UcItemVenta
 
     End Sub
 
+    Public Sub Seleccionar()
 
-    Private Sub UcItemVenta_Click(sender As Object, e As EventArgs) Handles Me.Click
+        Dim colorSeleccion As Color = Color.LightBlue
 
-        RaiseEvent ItemSeleccionado(Me)
+        Me.BackColor = colorSeleccion
+
+        txtCodBarra.BackColor = colorSeleccion
+        txtDescripcion.BackColor = colorSeleccion
+        txtCantidad.BackColor = colorSeleccion
+        txtAlicIVA.BackColor = colorSeleccion
+        txtPrecioUnitario.BackColor = colorSeleccion
+        txtImporteSinDescuento.BackColor = colorSeleccion
+        txtPorcentajeDescuento.BackColor = colorSeleccion
+        txtImporteDescuento.BackColor = colorSeleccion
+        txtImporteConDescuento.BackColor = colorSeleccion
 
     End Sub
 
+    Public Sub Deseleccionar()
+
+        Me.BackColor = Color.White
+
+        txtCodBarra.BackColor = Color.White
+        txtDescripcion.BackColor = Color.White
+        txtCantidad.BackColor = Color.White
+        txtAlicIVA.BackColor = Color.White
+        txtPrecioUnitario.BackColor = Color.White
+        txtImporteSinDescuento.BackColor = Color.White
+        txtPorcentajeDescuento.BackColor = Color.White
+        txtImporteDescuento.BackColor = Color.White
+        txtImporteConDescuento.BackColor = Color.White
+
+    End Sub
+
+    Private Sub UcItemVenta_Click(sender As Object, e As EventArgs) Handles Me.Click
+
+        OnItemSeleccionado()
+
+    End Sub
 
     Public Sub ModoBusqueda()
 
@@ -115,9 +218,7 @@ Public Class UcItemVenta
 
     Private Sub btnEliminarItem_Click(sender As Object, e As EventArgs) Handles btnEliminarItem.Click
 
-        If ItemVenta IsNot Nothing Then
-            RaiseEvent ItemEliminado(ItemVenta)
-        End If
+        OnItemEliminado()
 
     End Sub
 
@@ -125,8 +226,7 @@ Public Class UcItemVenta
 
         If e.KeyCode = Keys.Enter Then
 
-            RaiseEvent BuscarArticuloRequest(Me, txtDescripcion.Text)
-
+            OnBusquedaArticuloSolicitada()
             e.SuppressKeyPress = True
 
         End If
@@ -137,10 +237,7 @@ Public Class UcItemVenta
 
         If e.KeyCode = Keys.Enter Then
 
-            ItemVenta.Cantidad = Val(txtCantidad.Text)
-
-            RaiseEvent CantidadConfirmada(Me)
-
+            OnCantidadConfirmada()
             e.SuppressKeyPress = True
 
         End If
@@ -151,14 +248,8 @@ Public Class UcItemVenta
 
         If e.KeyCode = Keys.Enter Then
 
-            ItemVenta.PrecioUnitario = Val(txtPrecioUnitario.Text)
-
-            txtPrecioUnitario.Text = ItemVenta.PrecioUnitario.ToString("0.00")
-
-            RaiseEvent PrecioConfirmado(Me)
-
+            OnPrecioConfirmado()
             e.SuppressKeyPress = True
-
 
         End If
 
