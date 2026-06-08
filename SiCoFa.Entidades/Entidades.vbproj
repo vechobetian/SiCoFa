@@ -85,6 +85,7 @@
     <Compile Include="Entidades\Documento.vb" />
     <Compile Include="Entidades\Empleado.vb" />
     <Compile Include="Entidades\Empresa.vb" />
+    <Compile Include="Entidades\PlanOS.vb" />
     <Compile Include="Enums\Promociones.vb" />
     <Compile Include="Enums\TamanioEnvase.vb" />
     <Compile Include="Enums\TipoControl.vb" />

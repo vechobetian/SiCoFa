@@ -55,8 +55,7 @@ Public Class D_AdminActualizaciones
 
         Dim texto As String = Await http.GetStringAsync(url)
 
-        For Each linea In texto.Split({vbCrLf, vbLf},
-                                      StringSplitOptions.RemoveEmptyEntries)
+        For Each linea In texto.Split({vbCrLf, vbLf}, StringSplitOptions.RemoveEmptyEntries)
 
             Dim archivoCompleto = linea.Trim()
 
