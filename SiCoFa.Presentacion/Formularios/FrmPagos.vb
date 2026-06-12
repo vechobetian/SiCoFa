@@ -61,7 +61,7 @@ Public Class FrmPagos
         Me.lblNombreCliente.Text = Me.Cliente.Nombre
         Me.lblTipoContribuyente.Text = Me.Cliente.IVA.TipoIVA
 
-        Me.lblTipoDocumento.Text = Me.Cliente.Documento.TipoDoc.TipoDocumento & ": "
+        Me.lblTipoDocumento.Text = Me.Cliente.Documento.TipoDoc.Descripcion & ": "
         Me.lblNumeroDocumento.Text = Me.Cliente.Documento.Numero
 
         If Me.Cliente.CuentaCorriente Is Nothing Then

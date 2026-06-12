@@ -66,7 +66,7 @@ Public Class FrmProveedores
                 .Provincia.Text = argProveedor.Provincia
                 .Telefono.Text = argProveedor.Telefono
                 .Email.Text = argProveedor.Email
-                .TipoDoc.Text = argProveedor.Documento.TipoDoc.TipoDocumento
+                .TipoDoc.Text = argProveedor.Documento.TipoDoc.Descripcion
                 .NumDoc.Text = argProveedor.Documento.Numero
                 .FechaAlta.Text = argProveedor.FechaAlta
                 .Estado.Text = argProveedor.Estado

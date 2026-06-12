@@ -65,7 +65,7 @@ Public Class FrmUsuarios
                 .Provincia.Text = argUsuario.Provincia
                 .Telefono.Text = argUsuario.Telefono
                 .Email.Text = argUsuario.Email
-                .TipoDoc.Text = argUsuario.Documento.TipoDoc.TipoDocumento
+                .TipoDoc.Text = argUsuario.Documento.TipoDoc.CodiTDoc
                 .NumDoc.Text = argUsuario.Documento.Numero
                 .FechaAlta.Text = argUsuario.FechaAlta
                 .Estado.Text = argUsuario.Estado

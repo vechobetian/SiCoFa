@@ -107,7 +107,7 @@ Public Class N_AdminComprobantes
                 Dim PVta As Integer = CInt(argComprobante.PVenta)
                 Dim NumComp As Long = CLng(argComprobante.NumComp)
 
-                argComprobante.QR = New QRCompE(argComprobante.FechaComp, CUIT, PVta, argComprobante.TipoComprobante.CodiTC_ARCA, NumComp, argComprobante.ImpBto, argComprobante.Cliente.Documento.TipoDoc.CodiTDoc, argComprobante.Cliente.Documento.Numero, argComprobante.CAE.NumCAE)
+                argComprobante.QR = New QRCompE(argComprobante.FechaComp, CUIT, PVta, argComprobante.TipoComprobante.CodiTC_ARCA, NumComp, argComprobante.ImpBto, argComprobante.Cliente.Documento.TipoDoc.CodiTDocAFIP, argComprobante.Cliente.Documento.Numero, argComprobante.CAE.NumCAE)
 
             End If
 

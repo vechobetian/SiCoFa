@@ -65,7 +65,7 @@ Public Class FrmEmpleados
                 .Provincia.Text = argEmpleado.Provincia
                 .Telefono.Text = argEmpleado.Telefono
                 .Email.Text = argEmpleado.Email
-                .TipoDoc.Text = argEmpleado.Documento.TipoDoc.TipoDocumento
+                .TipoDoc.Text = argEmpleado.Documento.TipoDoc.CodiTDoc
                 .NumDoc.Text = argEmpleado.Documento.Numero
                 .FechaAlta.Text = argEmpleado.FechaAlta
                 .Estado.Text = argEmpleado.Estado

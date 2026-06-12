@@ -5,11 +5,14 @@ Public Class N_AdminSiCoFa
 
     Public Function TiposDocumento() As List(Of TipoDocumento)
         Dim TDocs As New List(Of TipoDocumento)
-        TDocs.Add(New TipoDocumento("80"))
-        TDocs.Add(New TipoDocumento("86"))
-        TDocs.Add(New TipoDocumento("90"))
-        TDocs.Add(New TipoDocumento("96"))
-        Return TDocs.OrderBy(Function(x) x.TipoDocumento).ToList()
+        TDocs.Add(New TipoDocumento("CUIT"))
+        TDocs.Add(New TipoDocumento("CUIL"))
+        TDocs.Add(New TipoDocumento("LC"))
+        TDocs.Add(New TipoDocumento("DNI"))
+        TDocs.Add(New TipoDocumento("LE"))
+        TDocs.Add(New TipoDocumento("CI"))
+        TDocs.Add(New TipoDocumento("PAS"))
+        Return TDocs.OrderBy(Function(x) x.Descripcion).ToList()
     End Function
 
     Public Function TiposIVA() As List(Of IVA)

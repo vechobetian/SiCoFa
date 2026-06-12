@@ -170,7 +170,7 @@ Public Class FrmPanelClientes
                 .Provincia.Text = argCliente.Provincia
                 .Telefono.Text = argCliente.Telefono
                 .Email.Text = argCliente.Email
-                .TipoDoc.Text = argCliente.Documento.TipoDoc.TipoDocumento
+                .TipoDoc.Text = argCliente.Documento.TipoDoc.CodiTDoc
                 .NumDoc.Text = argCliente.Documento.Numero
                 .FechaAltaCliente.Text = argCliente.FechaAlta
                 .EstadoCliente.Text = argCliente.Estado

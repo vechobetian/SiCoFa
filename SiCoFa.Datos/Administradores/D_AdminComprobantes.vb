@@ -105,7 +105,7 @@ Public Class D_AdminComprobantes
 
             Dim objConexionDB As New D_Conexion
             Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes,ImpNeto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
-                        ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, TipoDoc, NumDoc, Cliente, ComprobanteAsociado
+                        ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, CodiTDoc, NumDoc, Cliente, ComprobanteAsociado
                         FROM vw_comprobantes_emitidos
                         WHERE IdOperacion=@IdOperacion"
 
@@ -230,7 +230,7 @@ Public Class D_AdminComprobantes
                     .AddWithValue("p_ImpCC", argComprobante.ImpCC)
                     .AddWithValue("p_ImpPE", argComprobante.ImpPE)
                     .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
-                    .AddWithValue("p_TipoDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
+                    .AddWithValue("p_CodiTDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
                     .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
 

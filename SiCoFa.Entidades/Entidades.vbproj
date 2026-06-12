@@ -77,6 +77,7 @@
     <Compile Include="Entidades\Caja.vb" />
     <Compile Include="Entidades\Cliente.vb" />
     <Compile Include="Entidades\Comprobante.vb" />
+    <Compile Include="Entidades\CredencialOS.vb" />
     <Compile Include="Entidades\CuentaBancaria.vb" />
     <Compile Include="Entidades\CuentaColectiva.vb" />
     <Compile Include="Entidades\CuentaCorriente.vb" />
@@ -85,7 +86,11 @@
     <Compile Include="Entidades\Documento.vb" />
     <Compile Include="Entidades\Empleado.vb" />
     <Compile Include="Entidades\Empresa.vb" />
+    <Compile Include="Entidades\Matricula.vb" />
     <Compile Include="Entidades\PlanOS.vb" />
+    <Compile Include="Entidades\Prescriptor.vb" />
+    <Compile Include="Entidades\Receta.vb" />
+    <Compile Include="Entidades\TipoPrescriptor.vb" />
     <Compile Include="Enums\Promociones.vb" />
     <Compile Include="Enums\TamanioEnvase.vb" />
     <Compile Include="Enums\TipoControl.vb" />
