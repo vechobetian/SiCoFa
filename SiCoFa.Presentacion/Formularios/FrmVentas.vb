@@ -22,6 +22,7 @@ Public Class FrmVentas
     Private mobj_Operacion As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
+    Private mobj_Receta As Receta
     Private mobj_Items As New BindingList(Of ItemComprobante)
     Private mobj_ItemSeleccionado As UcItemVenta
     Private mint_CantidadItems As Integer = 0
@@ -281,10 +282,11 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub AgregarItemVacio()
+    Private Sub AgregarItemVacio(Optional idReceta As Long = 0)
 
         Dim itemNuevo As New ItemComprobante()
         itemNuevo.EsNuevo = True
+        itemNuevo.IdReceta = idReceta
 
         mobj_Items.Add(itemNuevo)
 
@@ -321,22 +323,39 @@ Public Class FrmVentas
     Private Sub EliminarItem(item As ItemComprobante)
 
         Dim AdminItems As New N_AdminItemsComprobante
-        AdminItems.EliminarItemComprobante(item.IdItem)
-        mobj_Items.Remove(item)
 
-        ' Eliminar filas vacías sobrantes
-        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+        If item.IdReceta > 0 Then
 
-            If mobj_Items(i).Articulo Is Nothing Then
-                mobj_Items.RemoveAt(i)
-            End If
+            item.Articulo = Nothing
+            item.CodBarras = ""
+            item.Descripcion = ""
+            item.Cantidad = 0
+            item.AlicIVA = 0
+            item.PrecioUnitario = 0
+            item.PorcentajeDescuento = 0
+            item.EsNuevo = True
+            AdminItems.EliminarItemComprobante(item.IdItem)
 
-        Next
+        Else
 
-        ' Agregar una única fila vacía
-        AgregarItemVacio()
+            mobj_Items.Remove(item)
+            AdminItems.EliminarItemComprobante(item.IdItem)
 
-        RenderItemsUC()
+
+            ' Eliminar filas vacías sobrantes
+            For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+                If mobj_Items(i).Articulo Is Nothing Then
+                    mobj_Items.RemoveAt(i)
+                End If
+
+            Next
+
+            ' Agregar una única fila vacía
+            AgregarItemVacio()
+
+            RenderItemsUC()
+        End If
 
         ActualizarTotales()
 
@@ -441,7 +460,7 @@ Public Class FrmVentas
         ActualizarTotales()
 
         ' 🔥 SI ES NUEVO (flujo de carga)
-        If uc.ItemVenta.EsNuevo Then
+        If uc.ItemVenta.EsNuevo And uc.ItemVenta.IdReceta = 0 Then
 
             If uc.ItemVenta.Articulo.Seccion.EstablecerPrecio Then
 
@@ -452,7 +471,6 @@ Public Class FrmVentas
 
                 uc.ItemVenta.EsNuevo = False
                 AgregarItemVacio()
-
                 Dim nuevoUC As UcItemVenta = CType(PanelItems.Controls(0), UcItemVenta)
 
             End If
@@ -778,6 +796,31 @@ Public Class FrmVentas
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+
+    End Sub
+
+    Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
+        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+            If mobj_Items(i).Articulo Is Nothing Then
+                mobj_Items.RemoveAt(i)
+            End If
+
+        Next
+
+        RenderItemsUC()
+
+        Dim AdminOS As New N_AdminObraSociales
+        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(701)
+
+        mobj_Receta = New Receta(PlanOS)
+        mobj_Receta.IdReceta = 1
+
+        For i As Integer = 1 To PlanOS.LineasRta
+            AgregarItemVacio(mobj_Receta.IdReceta)
+        Next
+
+        AgregarItemVacio()
 
     End Sub
 

@@ -42,7 +42,7 @@ Partial Class FrmVentas
         Me.GuardarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ImprimirToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
-        Me.CopiarToolStripButton = New System.Windows.Forms.ToolStripButton()
+        Me.InsertRecetaToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.PegarToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ClienteToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.DesRecToolStripButton1 = New System.Windows.Forms.ToolStripButton()
@@ -106,7 +106,7 @@ Partial Class FrmVentas
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.90181!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.09819!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 235.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 247.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentosEtiqueta, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblCantidadItems, 0, 0)
@@ -130,9 +130,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(543, 57)
+        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(534, 57)
         Me.lblImporteDescuentosEtiqueta.Name = "lblImporteDescuentosEtiqueta"
-        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(182, 51)
+        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(179, 51)
         Me.lblImporteDescuentosEtiqueta.TabIndex = 8
         Me.lblImporteDescuentosEtiqueta.Text = "Importe Descuentos:"
         Me.lblImporteDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -141,9 +141,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(734, 57)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(722, 57)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(230, 51)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(242, 51)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -163,9 +163,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(734, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(722, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(230, 51)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(242, 51)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -174,9 +174,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(543, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(534, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
-        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(182, 51)
+        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(179, 51)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
         Me.lblImporteSinDescuentosEtiqueta.Text = "Total sin Descuentos:"
         Me.lblImporteSinDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -185,9 +185,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(734, 111)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(722, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(230, 68)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(242, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -196,9 +196,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(543, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(534, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
-        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(182, 68)
+        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(179, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 9
         Me.lblImporteConDescuentosEtiqueta.Text = "Imp. a pagar:  "
         Me.lblImporteConDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -209,7 +209,7 @@ Partial Class FrmVentas
         Me.lblDatosOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 111)
         Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(528, 68)
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(519, 68)
         Me.lblDatosOperacion.TabIndex = 17
         '
         'lblPorcentajeAplicado
@@ -238,7 +238,7 @@ Partial Class FrmVentas
         '
         Me.ToolStrip1.AutoSize = False
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripButton, Me.AbrirToolStripButton, Me.GuardarToolStripButton, Me.ImprimirToolStripButton, Me.toolStripSeparator, Me.CopiarToolStripButton, Me.PegarToolStripButton, Me.ClienteToolStripButton, Me.DesRecToolStripButton1, Me.AyudaToolStripButton, Me.ToolStripSeparator1, Me.SalirToolStripButton})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoToolStripButton, Me.AbrirToolStripButton, Me.GuardarToolStripButton, Me.ImprimirToolStripButton, Me.toolStripSeparator, Me.InsertRecetaToolStripButton, Me.PegarToolStripButton, Me.ClienteToolStripButton, Me.DesRecToolStripButton1, Me.AyudaToolStripButton, Me.ToolStripSeparator1, Me.SalirToolStripButton})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(972, 38)
@@ -286,14 +286,14 @@ Partial Class FrmVentas
         Me.toolStripSeparator.Name = "toolStripSeparator"
         Me.toolStripSeparator.Size = New System.Drawing.Size(6, 38)
         '
-        'CopiarToolStripButton
+        'InsertRecetaToolStripButton
         '
-        Me.CopiarToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.CopiarToolStripButton.Image = CType(resources.GetObject("CopiarToolStripButton.Image"), System.Drawing.Image)
-        Me.CopiarToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.CopiarToolStripButton.Name = "CopiarToolStripButton"
-        Me.CopiarToolStripButton.Size = New System.Drawing.Size(23, 35)
-        Me.CopiarToolStripButton.Text = "&Copiar"
+        Me.InsertRecetaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.InsertRecetaToolStripButton.Image = CType(resources.GetObject("InsertRecetaToolStripButton.Image"), System.Drawing.Image)
+        Me.InsertRecetaToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.InsertRecetaToolStripButton.Name = "InsertRecetaToolStripButton"
+        Me.InsertRecetaToolStripButton.Size = New System.Drawing.Size(23, 35)
+        Me.InsertRecetaToolStripButton.Text = "&Copiar"
         '
         'PegarToolStripButton
         '
@@ -484,7 +484,7 @@ Partial Class FrmVentas
     Friend WithEvents GuardarToolStripButton As ToolStripButton
     Friend WithEvents ImprimirToolStripButton As ToolStripButton
     Friend WithEvents toolStripSeparator As ToolStripSeparator
-    Friend WithEvents CopiarToolStripButton As ToolStripButton
+    Friend WithEvents InsertRecetaToolStripButton As ToolStripButton
     Friend WithEvents PegarToolStripButton As ToolStripButton
     Friend WithEvents AyudaToolStripButton As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator

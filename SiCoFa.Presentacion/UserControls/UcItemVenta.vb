@@ -113,37 +113,45 @@ Public Class UcItemVenta
 
     End Sub
 
+    Private Function ObtenerColorBase() As Color
+
+        If ItemVenta IsNot Nothing AndAlso ItemVenta.IdReceta > 0 Then
+
+            Return Color.LightYellow
+
+        End If
+
+        Return Color.White
+
+    End Function
+
+    Private Sub AplicarColor(color As Color)
+
+        Me.BackColor = color
+
+        txtCodBarra.BackColor = color
+        txtDescripcion.BackColor = color
+        txtCantidad.BackColor = color
+        txtAlicIVA.BackColor = color
+        txtPrecioUnitario.BackColor = color
+        txtImporteSinDescuento.BackColor = color
+        txtPorcentajeDescuento.BackColor = color
+        txtImporteDescuento.BackColor = color
+        txtImporteConDescuento.BackColor = color
+
+    End Sub
+
     Public Sub Seleccionar()
 
-        Dim colorSeleccion As Color = Color.LightBlue
+        If ObtenerColorBase() <> Color.White Then Exit Sub
 
-        Me.BackColor = colorSeleccion
-
-        txtCodBarra.BackColor = colorSeleccion
-        txtDescripcion.BackColor = colorSeleccion
-        txtCantidad.BackColor = colorSeleccion
-        txtAlicIVA.BackColor = colorSeleccion
-        txtPrecioUnitario.BackColor = colorSeleccion
-        txtImporteSinDescuento.BackColor = colorSeleccion
-        txtPorcentajeDescuento.BackColor = colorSeleccion
-        txtImporteDescuento.BackColor = colorSeleccion
-        txtImporteConDescuento.BackColor = colorSeleccion
+        AplicarColor(Color.LightBlue)
 
     End Sub
 
     Public Sub Deseleccionar()
 
-        Me.BackColor = Color.White
-
-        txtCodBarra.BackColor = Color.White
-        txtDescripcion.BackColor = Color.White
-        txtCantidad.BackColor = Color.White
-        txtAlicIVA.BackColor = Color.White
-        txtPrecioUnitario.BackColor = Color.White
-        txtImporteSinDescuento.BackColor = Color.White
-        txtPorcentajeDescuento.BackColor = Color.White
-        txtImporteDescuento.BackColor = Color.White
-        txtImporteConDescuento.BackColor = Color.White
+        AplicarColor(ObtenerColorBase())
 
     End Sub
 
@@ -154,7 +162,6 @@ Public Class UcItemVenta
     End Sub
 
     Public Sub ModoBusqueda()
-
 
         txtDescripcion.ReadOnly = False
 

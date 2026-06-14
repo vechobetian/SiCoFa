@@ -1,6 +1,4 @@
-﻿Imports SiCoFa.Entidades.Enums
-
-Public Class ItemComprobante
+﻿Public Class ItemComprobante
     Private m_IdItem As Long
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
     Private m_CodBarras As String
@@ -9,6 +7,7 @@ Public Class ItemComprobante
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
+    Private m_IdReceta As Long
     Private m_EsNuevo As Boolean = True
 
     Public Sub New()
@@ -17,14 +16,16 @@ Public Class ItemComprobante
 
     ' Constructor
     Public Sub New(
-        ByVal argArticulo As Articulo,
-        ByVal argCodBarras As String,
-        ByVal argDescripcion As String,
-        ByVal argCantidad As Integer,
-        ByVal argPrecioUnitario As Decimal,
-        ByVal argAlicIVA As Decimal,
-        ByVal argPorcentajeDescuento As Decimal
-    )
+                    ByVal argArticulo As Articulo,
+                    ByVal argCodBarras As String,
+                    ByVal argDescripcion As String,
+                    ByVal argCantidad As Integer,
+                    ByVal argPrecioUnitario As Decimal,
+                    ByVal argAlicIVA As Decimal,
+                    ByVal argPorcentajeDescuento As Decimal,
+                    Optional argIdReceta As Long = 0
+                   )
+
         m_Articulo = argArticulo
         m_CodBarras = argCodBarras
         m_Descripcion = argDescripcion
@@ -32,6 +33,7 @@ Public Class ItemComprobante
         m_PrecioUnitario = argPrecioUnitario
         m_AlicIVA = argAlicIVA
         m_PorcentajeDescuento = argPorcentajeDescuento
+        m_IdReceta = argIdReceta
         ' No es necesario llamar a Recalcular aqui, ya que las propiedades
         ' se calcularán en sus Getters cuando se accedan.
     End Sub
@@ -125,6 +127,15 @@ Public Class ItemComprobante
             If m_PorcentajeDescuento <> value Then ' Solo recalcula si el valor cambia
                 m_PorcentajeDescuento = value
             End If
+        End Set
+    End Property
+
+    Public Property IdReceta As Long
+        Get
+            Return m_IdReceta
+        End Get
+        Set(value As Long)
+            m_IdReceta = value
         End Set
     End Property
 

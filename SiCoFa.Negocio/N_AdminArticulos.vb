@@ -43,6 +43,7 @@ Public Class N_AdminArticulos
 
         End Try
     End Function
+
     Public Function ListarArticulos(ByVal argTextoBuscado As String) As List(Of Articulo)
         Dim AdminArticulos As New D_AdminArticulos
         Dim la As List(Of Articulo)
