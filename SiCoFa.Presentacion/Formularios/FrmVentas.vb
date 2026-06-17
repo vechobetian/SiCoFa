@@ -335,6 +335,7 @@ Public Class FrmVentas
             item.PorcentajeDescuento = 0
             item.EsNuevo = True
             AdminItems.EliminarItemComprobante(item.IdItem)
+            RenderItemsUC()
 
         Else
 

@@ -84,6 +84,7 @@ Public Class UcItemVenta
     Public Sub Bind(item As ItemComprobante)
 
         Me.ItemVenta = item
+        AplicarColor(ObtenerColorBase())
 
         txtCodBarra.Text = item.CodBarras
         txtDescripcion.Text = item.Descripcion
@@ -97,7 +98,6 @@ Public Class UcItemVenta
             txtPorcentajeDescuento.Text = ""
             txtImporteDescuento.Text = ""
             txtImporteConDescuento.Text = ""
-
             Exit Sub
 
         End If
@@ -129,6 +129,7 @@ Public Class UcItemVenta
 
         Me.BackColor = color
 
+        btnEliminarItem.BackColor = color
         txtCodBarra.BackColor = color
         txtDescripcion.BackColor = color
         txtCantidad.BackColor = color
@@ -171,8 +172,8 @@ Public Class UcItemVenta
         txtCantidad.TabStop = False
         txtPrecioUnitario.TabStop = False
 
-        txtCantidad.BackColor = Color.White
-        txtPrecioUnitario.BackColor = Color.White
+        txtCantidad.BackColor = ObtenerColorBase()
+        txtPrecioUnitario.BackColor = ObtenerColorBase()
 
     End Sub
 
