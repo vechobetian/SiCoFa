@@ -423,6 +423,18 @@ Public Class FrmVentas
 
             If a IsNot Nothing Then
 
+                Dim POS As Decimal = 0
+
+                If uc.ItemVenta.IdReceta > 0 Then
+                    Dim AdminRecetas As New N_AdminRecetas
+                    POS = AdminRecetas.ObtenerDescuento(mobj_Receta, a)
+                    If POS = 0 Then
+                        MsgBox(a.Nombre & "no tiene descuento")
+                        uc.txtDescripcion.Text = ""
+                        Exit Sub
+                    End If
+                End If
+
                 Dim i As ItemComprobante = uc.ItemVenta
 
                 i.Articulo = a
@@ -431,6 +443,7 @@ Public Class FrmVentas
                 i.Cantidad = 1
                 i.PrecioUnitario = a.PrecioVenta
                 i.AlicIVA = a.AlicIVA
+                i.PorcentajeDescuento = POS
 
                 uc.Bind(i)
                 uc.ModoItemCargado(a.Seccion.EstablecerPrecio)
@@ -641,7 +654,7 @@ Public Class FrmVentas
             Case Keys.F10
                 Me.GuardarCambios(Keys.F10)
             Case Keys.F9
-                Me.GuardarCambios(Keys.F9)
+                Me.GuardarCambios(Keys.F10)
             Case Keys.F8
 
             Case Else

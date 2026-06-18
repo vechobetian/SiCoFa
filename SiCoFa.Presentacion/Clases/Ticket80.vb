@@ -110,6 +110,9 @@ Public Class Ticket80
         e.Graphics.DrawString(Linea, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
         For Each Item As ItemComprobante In Comprobante.Detalle
+
+            If Item.Articulo Is Nothing Then Continue For
+
             Dim strDescripcion As String = Left(Item.Descripcion, 42)
             Dim strAlicIVA As String = "(" & Format(Item.AlicIVA, "Fixed") & ")"
 

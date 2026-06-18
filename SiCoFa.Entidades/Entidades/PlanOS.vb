@@ -6,8 +6,10 @@
     Public Property Proceso As Integer
     Public Property CodiLabora As Integer
     Public Property IdVdm1 As Integer
+    Public Property Vademecum1 As List(Of ItemVademecum)
     Public Property DesGeneral1 As Decimal
     Public Property IdVdm2 As Integer
+    Public Property Vademecum2 As List(Of ItemVademecum)
     Public Property DesGeneral2 As Decimal
     Public Property AtbMonoD As Integer
     Public Property AtbMultiD As Integer

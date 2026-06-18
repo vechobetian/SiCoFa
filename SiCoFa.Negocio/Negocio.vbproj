@@ -86,6 +86,7 @@
     <Compile Include="N_AdminMediosPE.vb" />
     <Compile Include="N_AdminOperaciones.vb" />
     <Compile Include="N_AdminProveedores.vb" />
+    <Compile Include="N_AdminRecetas.vb" />
     <Compile Include="N_AdminSecciones.vb" />
     <Compile Include="N_AdminUsuarios.vb" />
     <Compile Include="N_ParametrosSistema.vb" />
