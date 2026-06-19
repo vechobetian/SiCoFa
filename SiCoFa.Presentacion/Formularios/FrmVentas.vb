@@ -187,32 +187,43 @@ Public Class FrmVentas
 
     Private Sub RenderItemsUC()
 
-        PanelItems.Controls.Clear()
+        PanelItems.SuspendLayout()
 
-        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+        Try
 
-            Dim item As ItemComprobante = mobj_Items(i)
-            Dim uc As New UcItemVenta()
-            uc.Bind(mobj_Items(i))
+            PanelItems.Controls.Clear()
 
-            If item.Articulo Is Nothing Then
-                uc.ModoBusqueda()
-            Else
-                uc.ModoItemCargado(item.Articulo.Seccion.EstablecerPrecio)
-            End If
+            For i As Integer = mobj_Items.Count - 1 To 0 Step -1
 
-            uc.Dock = DockStyle.Top
+                Dim item As ItemComprobante = mobj_Items(i)
 
+                Dim uc As New UcItemVenta()
 
-            AddHandler uc.ItemEliminado, AddressOf EliminarItem
-            AddHandler uc.BusquedaArticuloSolicitada, AddressOf BuscarArticuloDesdeUC
-            AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
-            AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
-            AddHandler uc.ItemSeleccionado, AddressOf SeleccionarItem
+                uc.Bind(item)
 
-            PanelItems.Controls.Add(uc)
+                If item.Articulo Is Nothing Then
+                    uc.ModoBusqueda()
+                Else
+                    uc.ModoItemCargado(item.Articulo.Seccion.EstablecerPrecio)
+                End If
 
-        Next
+                uc.Dock = DockStyle.Top
+
+                AddHandler uc.ItemEliminado, AddressOf EliminarItem
+                AddHandler uc.BusquedaArticuloSolicitada, AddressOf BuscarArticuloDesdeUC
+                AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
+                AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
+                AddHandler uc.ItemSeleccionado, AddressOf SeleccionarItem
+
+                PanelItems.Controls.Add(uc)
+
+            Next
+
+        Finally
+
+            PanelItems.ResumeLayout()
+
+        End Try
 
     End Sub
 
@@ -264,7 +275,7 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub AgregarItemUC(item As ItemComprobante)
+    Private Function AgregarItemUC(item As ItemComprobante) As UcItemVenta
 
         Dim uc As New UcItemVenta()
 
@@ -280,9 +291,11 @@ Public Class FrmVentas
         PanelItems.Controls.Add(uc)
         PanelItems.Controls.SetChildIndex(uc, 0)
 
-    End Sub
+        Return uc
 
-    Private Sub AgregarItemVacio(Optional idReceta As Long = 0)
+    End Function
+
+    Private Function AgregarItemVacio(Optional idReceta As Long = 0) As UcItemVenta
 
         Dim itemNuevo As New ItemComprobante()
         itemNuevo.EsNuevo = True
@@ -290,13 +303,11 @@ Public Class FrmVentas
 
         mobj_Items.Add(itemNuevo)
 
-        AgregarItemUC(itemNuevo)
+        Dim uc As UcItemVenta = AgregarItemUC(itemNuevo)
 
-        Dim nuevoUC As UcItemVenta = CType(PanelItems.Controls(0), UcItemVenta)
+        Return uc
 
-        nuevoUC.EnfocarDescripcion()
-
-    End Sub
+    End Function
 
     Private Sub PasarAlSiguienteItem(ucActual As UcItemVenta)
 
@@ -814,6 +825,8 @@ Public Class FrmVentas
     End Sub
 
     Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
+
+        ' Limpiar items vacíos
         For i As Integer = mobj_Items.Count - 1 To 0 Step -1
 
             If mobj_Items(i).Articulo Is Nothing Then
@@ -822,19 +835,81 @@ Public Class FrmVentas
 
         Next
 
-        RenderItemsUC()
-
         Dim AdminOS As New N_AdminObraSociales
         Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(701)
 
         mobj_Receta = New Receta(PlanOS)
         mobj_Receta.IdReceta = 1
 
-        For i As Integer = 1 To PlanOS.LineasRta
-            AgregarItemVacio(mobj_Receta.IdReceta)
-        Next
+        PanelItems.SuspendLayout()
 
-        AgregarItemVacio()
+        Try
+
+            PanelItems.Controls.Clear()
+
+            Dim primerUC As UcItemVenta = Nothing
+
+            ' =====================
+            ' ITEM LIBRE (abajo de todo)
+            ' =====================
+            Dim itemLibre As New ItemComprobante()
+            itemLibre.EsNuevo = True
+            itemLibre.IdReceta = 0
+
+            mobj_Items.Add(itemLibre)
+
+            Dim ucLibre As UcItemVenta = AgregarItemUC(itemLibre)
+
+            ' =====================
+            ' FOOTER RECETA
+            ' =====================
+            Dim footer As New UcFooterReceta
+
+            footer.Bind(0D, 0D, 0D, 0D)
+            footer.Dock = DockStyle.Top
+
+            PanelItems.Controls.Add(footer)
+
+            ' =====================
+            ' ITEMS RECETA
+            ' =====================
+            For i As Integer = PlanOS.LineasRta To 1 Step -1
+
+                Dim item As New ItemComprobante()
+
+                item.EsNuevo = True
+                item.IdReceta = mobj_Receta.IdReceta
+
+                mobj_Items.Add(item)
+
+                Dim uc As UcItemVenta = AgregarItemUC(item)
+
+                primerUC = uc
+
+            Next
+
+            ' =====================
+            ' HEADER RECETA
+            ' =====================
+            Dim header As New UcHeaderReceta
+
+            header.Bind(mobj_Receta.Plan.Descripcion)
+            header.Dock = DockStyle.Top
+
+            PanelItems.Controls.Add(header)
+
+            ' =====================
+            ' FOCUS
+            ' =====================
+            If primerUC IsNot Nothing Then
+                primerUC.EnfocarDescripcion()
+            End If
+
+        Finally
+
+            PanelItems.ResumeLayout()
+
+        End Try
 
     End Sub
 

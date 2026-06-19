@@ -454,6 +454,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings1.settings</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UcFooterReceta.Designer.vb">
+      <DependentUpon>UcFooterReceta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcFooterReceta.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserControls\UcItemVenta.Designer.vb">
       <DependentUpon>UcItemVenta.vb</DependentUpon>
     </Compile>
@@ -624,6 +630,9 @@
     <EmbeddedResource Include="Reportes\rptCompCA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompRA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptReciboA4.rdlc" />
+    <EmbeddedResource Include="UserControls\UcFooterReceta.resx">
+      <DependentUpon>UcFooterReceta.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UcHeaderReceta.resx">
       <DependentUpon>UcHeaderReceta.vb</DependentUpon>
     </EmbeddedResource>
