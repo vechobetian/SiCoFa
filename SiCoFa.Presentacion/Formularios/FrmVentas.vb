@@ -826,7 +826,7 @@ Public Class FrmVentas
 
     Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
 
-        ' Limpiar items vacíos
+        ' limpiar items vacíos
         For i As Integer = mobj_Items.Count - 1 To 0 Step -1
 
             If mobj_Items(i).Articulo Is Nothing Then
@@ -841,75 +841,46 @@ Public Class FrmVentas
         mobj_Receta = New Receta(PlanOS)
         mobj_Receta.IdReceta = 1
 
-        PanelItems.SuspendLayout()
+        ' LIMPIAR PANTALLA (IMPORTANTE)
+        PanelItems.Controls.Clear()
 
-        Try
+        ' HEADER
+        Dim h As New UcHeaderReceta
+        h.Bind(mobj_Receta)
+        h.Dock = DockStyle.Top
+        PanelItems.Controls.Add(h)
 
-            PanelItems.Controls.Clear()
+        Dim primerUC As UcItemVenta = Nothing
 
-            Dim primerUC As UcItemVenta = Nothing
+        ' ITEMS DE RECETA
+        For i As Integer = 1 To PlanOS.LineasRta
 
-            ' =====================
-            ' ITEM LIBRE (abajo de todo)
-            ' =====================
-            Dim itemLibre As New ItemComprobante()
-            itemLibre.EsNuevo = True
-            itemLibre.IdReceta = 0
+            Dim item As New ItemComprobante()
+            item.EsNuevo = True
+            item.IdReceta = mobj_Receta.IdReceta
 
-            mobj_Items.Add(itemLibre)
+            mobj_Items.Add(item)
 
-            Dim ucLibre As UcItemVenta = AgregarItemUC(itemLibre)
+            Dim uc As UcItemVenta = AgregarItemUC(item)
 
-            ' =====================
-            ' FOOTER RECETA
-            ' =====================
-            Dim footer As New UcFooterReceta
-
-            footer.Bind(0D, 0D, 0D, 0D)
-            footer.Dock = DockStyle.Top
-
-            PanelItems.Controls.Add(footer)
-
-            ' =====================
-            ' ITEMS RECETA
-            ' =====================
-            For i As Integer = PlanOS.LineasRta To 1 Step -1
-
-                Dim item As New ItemComprobante()
-
-                item.EsNuevo = True
-                item.IdReceta = mobj_Receta.IdReceta
-
-                mobj_Items.Add(item)
-
-                Dim uc As UcItemVenta = AgregarItemUC(item)
-
+            If primerUC Is Nothing Then
                 primerUC = uc
-
-            Next
-
-            ' =====================
-            ' HEADER RECETA
-            ' =====================
-            Dim header As New UcHeaderReceta
-
-            header.Bind(mobj_Receta.Plan.Descripcion)
-            header.Dock = DockStyle.Top
-
-            PanelItems.Controls.Add(header)
-
-            ' =====================
-            ' FOCUS
-            ' =====================
-            If primerUC IsNot Nothing Then
-                primerUC.EnfocarDescripcion()
             End If
 
-        Finally
+        Next
 
-            PanelItems.ResumeLayout()
+        ' ITEM LIBRE
+        Dim itemLibre As New ItemComprobante()
+        itemLibre.EsNuevo = True
+        itemLibre.IdReceta = 0
 
-        End Try
+        mobj_Items.Add(itemLibre)
+        AgregarItemUC(itemLibre)
+
+        ' FOCUS EN PRIMER ITEM DE RECETA
+        If primerUC IsNot Nothing Then
+            primerUC.EnfocarDescripcion()
+        End If
 
     End Sub
 

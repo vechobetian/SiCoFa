@@ -10,6 +10,7 @@
     Public Property Prescriptor As Prescriptor
     Public Property ImporteTotal As Decimal
     Public Property ImporteOS As Decimal
+    Public Property ImporteCS As Decimal
     Public Property ImporteAf As Decimal
     Public Property NumAutorizacion As String
     Public Property EstadoReceta As String
