@@ -23,6 +23,7 @@ Public Class FrmVentas
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
     Private mobj_Receta As Receta
+    Private mobj_Recetas As New List(Of Receta)
     Private mobj_Items As New BindingList(Of ItemComprobante)
     Private mobj_ItemSeleccionado As UcItemVenta
     Private mint_CantidadItems As Integer = 0
@@ -33,6 +34,17 @@ Public Class FrmVentas
     Private mdec_PorcentaDescuentos As Decimal = 0
     Private mdec_ImporteGravado1 As Decimal = 0
     Private mdec_ImporteGravado2 As Decimal = 0
+    Private mdec_ImporteOS As Decimal = 0
+    Private mdec_ImporteCS As Decimal = 0
+    Private mint_NextIdReceta = 0
+
+    Private Function ObtenerNuevoIdReceta() As Long
+
+        mint_NextIdReceta += 1
+
+        Return mint_NextIdReceta
+
+    End Function
 
     Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
 
@@ -261,6 +273,39 @@ Public Class FrmVentas
 
     End Function
 
+    Private Sub ActualizarDatosReceta()
+
+        If mobj_ItemSeleccionado Is Nothing Then
+            LimpiarDatosReceta()
+            Exit Sub
+        End If
+
+        Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+        If item Is Nothing OrElse item.IdReceta = 0 Then
+            LimpiarDatosReceta()
+            Exit Sub
+        End If
+
+        Dim receta As Receta
+
+        lblIdReceta.Text = receta.IdReceta
+        lblPlanOS.Text = receta.Plan.Descripcion
+        lblImporteOS.Text = receta.ImporteOS.ToString("C2")
+        lblImporteCsr.Text = receta.ImporteCS.ToString("C2")
+        lblImporteAFReceta.Text = receta.Items.Count.ToString()
+
+    End Sub
+
+    Private Sub LimpiarDatosReceta()
+
+        lblPlan.Text = ""
+        lblImporteOS.Text = ""
+        lblImporteCoseguro.Text = ""
+        lblCantidadItems.Text = ""
+
+    End Sub
+
     Private Sub SeleccionarItem(uc As UcItemVenta)
 
         If mobj_ItemSeleccionado IsNot Nothing Then
@@ -357,7 +402,7 @@ Public Class FrmVentas
             ' Eliminar filas vacías sobrantes
             For i As Integer = mobj_Items.Count - 1 To 0 Step -1
 
-                If mobj_Items(i).Articulo Is Nothing Then
+                If mobj_Items(i).Articulo Is Nothing AndAlso mobj_Items(i).IdReceta = 0 Then
                     mobj_Items.RemoveAt(i)
                 End If
 
@@ -380,93 +425,136 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Function ObtenerReceta(idReceta As Long) As Receta
+
+        Return mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = idReceta)
+
+    End Function
+
     Private Sub BuscarArticulo(uc As UcItemVenta, ByVal argTextoBuscado As String)
 
         Try
 
             If argTextoBuscado = "*" OrElse argTextoBuscado = "/" Then
-                MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
+
+                MsgBox("Artículo no encontrado", vbInformation, "SiCoFa")
                 Exit Sub
+
             End If
 
             Dim AdminArticulos As New N_AdminArticulos
-            Dim a As Articulo = Nothing
-            Dim la As New List(Of Articulo)
+            Dim articulo As Articulo = Nothing
+            Dim listaArticulos As New List(Of Articulo)
 
             Select Case Strings.Left(argTextoBuscado, 1)
+
                 Case "*"
-                    a = AdminArticulos.ArticuloGenericoExento(argTextoBuscado)
-                    la.Add(a)
+
+                    articulo = AdminArticulos.ArticuloGenericoExento(argTextoBuscado)
+
+                    If articulo IsNot Nothing Then
+                        listaArticulos.Add(articulo)
+                    End If
 
                 Case "/"
-                    a = AdminArticulos.ArticuloGenericoGravado(argTextoBuscado)
-                    la.Add(a)
+
+                    articulo = AdminArticulos.ArticuloGenericoGravado(argTextoBuscado)
+
+                    If articulo IsNot Nothing Then
+                        listaArticulos.Add(articulo)
+                    End If
 
                 Case Else
-                    la = AdminArticulos.ListarArticulos(argTextoBuscado)
+
+                    listaArticulos = AdminArticulos.ListarArticulos(argTextoBuscado)
 
             End Select
 
-            If la Is Nothing Then
-                MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
+            If listaArticulos Is Nothing OrElse listaArticulos.Count = 0 Then
+
+                MsgBox("Artículo no encontrado", vbInformation, "SiCoFa")
                 Exit Sub
+
             End If
 
-            Select Case la.Count
-                Case 0
-                    MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
+            Select Case listaArticulos.Count
 
                 Case 1
-                    a = la.First
 
-                Case > 1
+                    articulo = listaArticulos.First()
+
+                Case Else
 
                     Using f As New FrmBuscaArticulos
-                        f.Articulos = la
-                        f.ShowDialog()
-                        If f.DialogResult = DialogResult.OK Then
-                            a = f.ArticuloSeleccionado
+
+                        f.Articulos = listaArticulos
+
+                        If f.ShowDialog() = DialogResult.OK Then
+                            articulo = f.ArticuloSeleccionado
                         End If
-                        f.Close()
+
                     End Using
 
             End Select
 
-            If a IsNot Nothing Then
+            If articulo Is Nothing Then
 
-                Dim POS As Decimal = 0
+                uc.txtDescripcion.Clear()
+                Exit Sub
 
-                If uc.ItemVenta.IdReceta > 0 Then
-                    Dim AdminRecetas As New N_AdminRecetas
-                    POS = AdminRecetas.ObtenerDescuento(mobj_Receta, a)
-                    If POS = 0 Then
-                        MsgBox(a.Nombre & "no tiene descuento")
-                        uc.txtDescripcion.Text = ""
-                        Exit Sub
-                    End If
-                End If
-
-                Dim i As ItemComprobante = uc.ItemVenta
-
-                i.Articulo = a
-                i.CodBarras = a.CodBarras
-                i.Descripcion = a.Nombre
-                i.Cantidad = 1
-                i.PrecioUnitario = a.PrecioVenta
-                i.AlicIVA = a.AlicIVA
-                i.PorcentajeDescuento = POS
-
-                uc.Bind(i)
-                uc.ModoItemCargado(a.Seccion.EstablecerPrecio)
-                uc.HabilitarCantidad()
-                uc.EnfocarCantidad()
-
-                ActualizarTotales()
-            Else
-                uc.txtDescripcion.Text = ""
             End If
 
+            Dim porcentajeOS As Decimal = 0
+
+            If uc.ItemVenta.IdReceta > 0 Then
+
+                Dim receta As Receta =
+                ObtenerReceta(uc.ItemVenta.IdReceta)
+
+                If receta Is Nothing Then
+
+                    MsgBox("No se encontró la receta asociada.", vbCritical, "SiCoFa")
+                    Exit Sub
+
+                End If
+
+                Dim AdminRecetas As New N_AdminRecetas
+
+                porcentajeOS = AdminRecetas.ObtenerDescuento(receta, articulo)
+
+                If porcentajeOS = 0 Then
+
+                    MsgBox(articulo.Nombre & " no tiene descuento", vbInformation, "SiCoFa")
+
+                    uc.txtDescripcion.Clear()
+
+                    Exit Sub
+
+                End If
+
+            End If
+
+            Dim item As ItemComprobante = uc.ItemVenta
+
+            item.Articulo = articulo
+            item.CodBarras = articulo.CodBarras
+            item.Descripcion = articulo.Nombre
+            item.Cantidad = 1
+            item.PrecioUnitario = articulo.PrecioVenta
+            item.AlicIVA = articulo.AlicIVA
+            item.PorcentajeOS = porcentajeOS
+
+            uc.Bind(item)
+
+            uc.ModoItemCargado(articulo.Seccion.EstablecerPrecio)
+
+            uc.HabilitarCantidad()
+            uc.EnfocarCantidad()
+
+            ActualizarTotales()
+
         Catch ex As Exception
+
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
@@ -491,6 +579,7 @@ Public Class FrmVentas
 
                 uc.HabilitarPrecio()
                 uc.EnfocarPrecio()
+                Exit Sub
 
             Else
 
@@ -500,7 +589,6 @@ Public Class FrmVentas
 
             End If
 
-            Exit Sub
         End If
 
         ' 🔁 SI NO ES NUEVO (EDICIÓN)
@@ -535,7 +623,7 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub ActualizarTotales()
+    Private Sub CalcularTotalesGlobales()
 
         Try
             mint_CantidadItems = 0
@@ -546,6 +634,8 @@ Public Class FrmVentas
             mdec_PorcentaDescuentos = 0
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
+            mdec_ImporteOS = 0
+            mdec_ImporteCS = 0
 
             For Each i As ItemComprobante In Me.mobj_Items
 
@@ -555,6 +645,8 @@ Public Class FrmVentas
                 mdec_ImporteCosto += (i.Articulo.PrecioCosto * i.Cantidad)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
+                mdec_ImporteOS += i.ImporteOS
+                mdec_ImporteCS += i.ImporteCS
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
                 Select Case i.AlicIVA
@@ -572,16 +664,53 @@ Public Class FrmVentas
             End If
 
             Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
-            Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
+            Me.lblImporteSinDescuentos.Text = mdec_ImporteSinDescuentos.ToString("$ #,##0.00")
             Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
-            Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
-            Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
+            Me.lblImporteDescuentos.Text = mdec_ImporteDescuentos.ToString("$ #,##0.00")
+            Me.lblImporteOS.Text = mdec_ImporteOS.ToString("$ #,##0.00")
+            Me.lblImporteCS.Text = mdec_ImporteCS.ToString("$ #,##0.00")
+            Me.lblImporteConDescuentos.Text = mdec_ImporteConDescuentos.ToString("$ #,##0.00")
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
 
+    End Sub
+
+    Private Sub CalcularTotalesPorReceta()
+
+        ' Reset
+        For Each r As Receta In mobj_Recetas
+            r.ImporteOS = 0
+            r.ImporteCS = 0
+            r.ImporteTotal = 0
+        Next
+
+        Dim dictRecetas = mobj_Recetas.ToDictionary(Function(x) x.IdReceta)
+
+        For Each i As ItemComprobante In mobj_Items
+
+            If i.Articulo Is Nothing Then Continue For
+            If i.IdReceta = 0 Then Continue For
+
+            Dim r As Receta = Nothing
+
+            If dictRecetas.TryGetValue(i.IdReceta, r) Then
+
+                r.ImporteOS += i.ImporteOS
+                r.ImporteCS += i.ImporteCS
+                r.ImporteTotal += i.ImporteConDescuento
+
+            End If
+
+        Next
+
+    End Sub
+
+    Private Sub ActualizarTotales()
+        Me.CalcularTotalesGlobales()
+        Me.CalcularTotalesPorReceta()
     End Sub
 
     Private Sub ActualizarDatosOperacion()
@@ -826,60 +955,77 @@ Public Class FrmVentas
 
     Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
 
-        ' limpiar items vacíos
-        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
-
-            If mobj_Items(i).Articulo Is Nothing Then
-                mobj_Items.RemoveAt(i)
-            End If
-
-        Next
-
         Dim AdminOS As New N_AdminObraSociales
         Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(701)
 
-        mobj_Receta = New Receta(PlanOS)
-        mobj_Receta.IdReceta = 1
+        Dim receta As New Receta(PlanOS)
 
-        ' LIMPIAR PANTALLA (IMPORTANTE)
-        PanelItems.Controls.Clear()
+        receta.IdReceta = ObtenerNuevoIdReceta()
 
-        ' HEADER
-        Dim h As New UcHeaderReceta
-        h.Bind(mobj_Receta)
-        h.Dock = DockStyle.Top
-        PanelItems.Controls.Add(h)
+        mobj_Recetas.Add(receta)
 
-        Dim primerUC As UcItemVenta = Nothing
+        ' Buscar el item libre vacío
+        Dim indice As Integer =
+        mobj_Items.ToList().
+        FindIndex(Function(i) i.IdReceta = 0 AndAlso i.Articulo Is Nothing)
 
-        ' ITEMS DE RECETA
+        If indice = -1 Then
+            indice = mobj_Items.Count
+        Else
+            mobj_Items.RemoveAt(indice)
+        End If
+
+        ' Guardar referencia al primer item de la receta
+        Dim primerItemReceta As ItemComprobante = Nothing
+
+        ' Insertar líneas de receta
         For i As Integer = 1 To PlanOS.LineasRta
 
             Dim item As New ItemComprobante()
+
             item.EsNuevo = True
-            item.IdReceta = mobj_Receta.IdReceta
+            item.IdReceta = receta.IdReceta
 
-            mobj_Items.Add(item)
-
-            Dim uc As UcItemVenta = AgregarItemUC(item)
-
-            If primerUC Is Nothing Then
-                primerUC = uc
+            If primerItemReceta Is Nothing Then
+                primerItemReceta = item
             End If
+
+            mobj_Items.Insert(indice, item)
+
+            indice += 1
 
         Next
 
-        ' ITEM LIBRE
+        ' Nuevo item libre al final
         Dim itemLibre As New ItemComprobante()
+
         itemLibre.EsNuevo = True
         itemLibre.IdReceta = 0
 
         mobj_Items.Add(itemLibre)
-        AgregarItemUC(itemLibre)
 
-        ' FOCUS EN PRIMER ITEM DE RECETA
-        If primerUC IsNot Nothing Then
-            primerUC.EnfocarDescripcion()
+        RenderItemsUC()
+
+        ' Enfocar el primer item de la receta insertada
+        If primerItemReceta IsNot Nothing Then
+
+            For Each ctrl As Control In PanelItems.Controls
+
+                If TypeOf ctrl Is UcItemVenta Then
+
+                    Dim uc As UcItemVenta = DirectCast(ctrl, UcItemVenta)
+
+                    If uc.ItemVenta Is primerItemReceta Then
+
+                        uc.EnfocarDescripcion()
+                        Exit For
+
+                    End If
+
+                End If
+
+            Next
+
         End If
 
     End Sub

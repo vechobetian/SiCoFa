@@ -26,15 +26,25 @@ Partial Class FrmVentas
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblPorcentajeAplicado = New System.Windows.Forms.Label()
         Me.lblImporteDescuentosEtiqueta = New System.Windows.Forms.Label()
         Me.lblImporteDescuentos = New System.Windows.Forms.Label()
-        Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.lblImporteSinDescuentos = New System.Windows.Forms.Label()
         Me.lblImporteSinDescuentosEtiqueta = New System.Windows.Forms.Label()
-        Me.lblImporteConDescuentos = New System.Windows.Forms.Label()
         Me.lblImporteConDescuentosEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImporteConDescuentos = New System.Windows.Forms.Label()
+        Me.lblImporteOSEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImporteCSEtiqueda = New System.Windows.Forms.Label()
+        Me.lblImporteOS = New System.Windows.Forms.Label()
+        Me.lblImporteCS = New System.Windows.Forms.Label()
+        Me.lblCantidadItems = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblImporteAfRecetaEtiqueta = New System.Windows.Forms.Label()
+        Me.lblPlanOSEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImporteCSRecetaEtiqueta = New System.Windows.Forms.Label()
+        Me.lblImporteOSRecetaEtiqueta = New System.Windows.Forms.Label()
         Me.lblDatosOperacion = New System.Windows.Forms.Label()
-        Me.lblPorcentajeAplicado = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.NuevoToolStripButton = New System.Windows.Forms.ToolStripButton()
@@ -63,9 +73,17 @@ Partial Class FrmVentas
         Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PresupuestoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelItems = New System.Windows.Forms.Panel()
+        Me.lblIdRecetaEtiqueta = New System.Windows.Forms.Label()
+        Me.lblIdReceta = New System.Windows.Forms.Label()
+        Me.lblPlanOS = New System.Windows.Forms.Label()
+        Me.lblImporteOSReceta = New System.Windows.Forms.Label()
+        Me.lblmporteCSReceta = New System.Windows.Forms.Label()
+        Me.lblImporteAFReceta = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.TableLayoutPanel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -104,124 +122,269 @@ Partial Class FrmVentas
         '
         Me.TableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
         Me.TableLayoutPanel3.ColumnCount = 3
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 73.90181!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.09819!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 251.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 183.0!))
+        Me.TableLayoutPanel3.Controls.Add(Me.lblPorcentajeAplicado, 0, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentosEtiqueta, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblCantidadItems, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentosEtiqueta, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentos, 2, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentosEtiqueta, 1, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblDatosOperacion, 0, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblPorcentajeAplicado, 0, 1)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentosEtiqueta, 1, 4)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentos, 2, 4)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteOSEtiqueta, 1, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteCSEtiqueda, 1, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteOS, 2, 2)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteCS, 2, 3)
+        Me.TableLayoutPanel3.Controls.Add(Me.lblCantidadItems, 0, 0)
+        Me.TableLayoutPanel3.Controls.Add(Me.Panel2, 0, 2)
         Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 3
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0!))
+        Me.TableLayoutPanel3.RowCount = 5
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(970, 182)
         Me.TableLayoutPanel3.TabIndex = 7
+        '
+        'lblPorcentajeAplicado
+        '
+        Me.lblPorcentajeAplicado.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblPorcentajeAplicado.AutoSize = True
+        Me.lblPorcentajeAplicado.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(6, 31)
+        Me.lblPorcentajeAplicado.Name = "lblPorcentajeAplicado"
+        Me.lblPorcentajeAplicado.Size = New System.Drawing.Size(230, 21)
+        Me.lblPorcentajeAplicado.TabIndex = 27
+        Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: 0,00 %"
         '
         'lblImporteDescuentosEtiqueta
         '
         Me.lblImporteDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(531, 57)
+        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(641, 30)
         Me.lblImporteDescuentosEtiqueta.Name = "lblImporteDescuentosEtiqueta"
-        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(178, 51)
+        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(137, 24)
         Me.lblImporteDescuentosEtiqueta.TabIndex = 8
-        Me.lblImporteDescuentosEtiqueta.Text = "Importe Descuentos:"
-        Me.lblImporteDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblImporteDescuentosEtiqueta.Text = "Descuentos:"
+        Me.lblImporteDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblImporteDescuentos
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(718, 57)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(787, 30)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(246, 51)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(177, 24)
         Me.lblImporteDescuentos.TabIndex = 13
-        Me.lblImporteDescuentos.Text = "0,00"
+        Me.lblImporteDescuentos.Text = "$ 0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblCantidadItems
-        '
-        Me.lblCantidadItems.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.lblCantidadItems.AutoSize = True
-        Me.lblCantidadItems.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCantidadItems.Location = New System.Drawing.Point(6, 18)
-        Me.lblCantidadItems.Name = "lblCantidadItems"
-        Me.lblCantidadItems.Size = New System.Drawing.Size(75, 20)
-        Me.lblCantidadItems.TabIndex = 10
-        Me.lblCantidadItems.Text = "- Items: 0"
         '
         'lblImporteSinDescuentos
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(718, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(787, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(246, 51)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(177, 24)
         Me.lblImporteSinDescuentos.TabIndex = 11
-        Me.lblImporteSinDescuentos.Text = "0,00"
+        Me.lblImporteSinDescuentos.Text = "$ 0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblImporteSinDescuentosEtiqueta
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(531, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(641, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
-        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(178, 51)
+        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(137, 24)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
-        Me.lblImporteSinDescuentosEtiqueta.Text = "Total sin Descuentos:"
-        Me.lblImporteSinDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblImporteConDescuentos
-        '
-        Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(718, 111)
-        Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(246, 68)
-        Me.lblImporteConDescuentos.TabIndex = 14
-        Me.lblImporteConDescuentos.Text = "0,00"
-        Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblImporteSinDescuentosEtiqueta.Text = "Importe Bruto:"
+        Me.lblImporteSinDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblImporteConDescuentosEtiqueta
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(531, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(641, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
-        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(178, 68)
-        Me.lblImporteConDescuentosEtiqueta.TabIndex = 9
-        Me.lblImporteConDescuentosEtiqueta.Text = "Imp. a pagar:  "
-        Me.lblImporteConDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(137, 68)
+        Me.lblImporteConDescuentosEtiqueta.TabIndex = 20
+        Me.lblImporteConDescuentosEtiqueta.Text = "A pagar:  "
+        Me.lblImporteConDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImporteConDescuentos
+        '
+        Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(787, 111)
+        Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(177, 68)
+        Me.lblImporteConDescuentos.TabIndex = 14
+        Me.lblImporteConDescuentos.Text = "$ 0,00"
+        Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImporteOSEtiqueta
+        '
+        Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(641, 57)
+        Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
+        Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(137, 24)
+        Me.lblImporteOSEtiqueta.TabIndex = 21
+        Me.lblImporteOSEtiqueta.Text = "Obra Sociales:"
+        Me.lblImporteOSEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImporteCSEtiqueda
+        '
+        Me.lblImporteCSEtiqueda.Dock = System.Windows.Forms.DockStyle.Right
+        Me.lblImporteCSEtiqueda.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(641, 84)
+        Me.lblImporteCSEtiqueda.Name = "lblImporteCSEtiqueda"
+        Me.lblImporteCSEtiqueda.Size = New System.Drawing.Size(137, 24)
+        Me.lblImporteCSEtiqueda.TabIndex = 22
+        Me.lblImporteCSEtiqueda.Text = "Coseguros:"
+        Me.lblImporteCSEtiqueda.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblImporteOS
+        '
+        Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteOS.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteOS.Location = New System.Drawing.Point(787, 57)
+        Me.lblImporteOS.Name = "lblImporteOS"
+        Me.lblImporteOS.Size = New System.Drawing.Size(177, 24)
+        Me.lblImporteOS.TabIndex = 23
+        Me.lblImporteOS.Text = "$ 0,00"
+        Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImporteCS
+        '
+        Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteCS.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteCS.Location = New System.Drawing.Point(787, 84)
+        Me.lblImporteCS.Name = "lblImporteCS"
+        Me.lblImporteCS.Size = New System.Drawing.Size(177, 24)
+        Me.lblImporteCS.TabIndex = 24
+        Me.lblImporteCS.Text = "$ 0,00"
+        Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblCantidadItems
+        '
+        Me.lblCantidadItems.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.lblCantidadItems.AutoSize = True
+        Me.lblCantidadItems.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCantidadItems.Location = New System.Drawing.Point(6, 4)
+        Me.lblCantidadItems.Name = "lblCantidadItems"
+        Me.lblCantidadItems.Size = New System.Drawing.Size(74, 21)
+        Me.lblCantidadItems.TabIndex = 26
+        Me.lblCantidadItems.Text = "- Items: 0"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.TableLayoutPanel2)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(3, 57)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel2.Name = "Panel2"
+        Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 3)
+        Me.Panel2.Size = New System.Drawing.Size(625, 122)
+        Me.Panel2.TabIndex = 28
+        '
+        'TableLayoutPanel2
+        '
+        Me.TableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
+        Me.TableLayoutPanel2.ColumnCount = 3
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250.0!))
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteAFReceta, 2, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblmporteCSReceta, 2, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteOSReceta, 2, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblPlanOS, 2, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblIdReceta, 2, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblIdRecetaEtiqueta, 1, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblPlanOSEtiqueta, 1, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteOSRecetaEtiqueta, 1, 2)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteCSRecetaEtiqueta, 1, 3)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblImporteAfRecetaEtiqueta, 1, 4)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblDatosOperacion, 0, 0)
+        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
+        Me.TableLayoutPanel2.RowCount = 5
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.TableLayoutPanel2.Size = New System.Drawing.Size(625, 122)
+        Me.TableLayoutPanel2.TabIndex = 6
+        '
+        'lblImporteAfRecetaEtiqueta
+        '
+        Me.lblImporteAfRecetaEtiqueta.AutoSize = True
+        Me.lblImporteAfRecetaEtiqueta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblImporteAfRecetaEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteAfRecetaEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteAfRecetaEtiqueta.Location = New System.Drawing.Point(269, 95)
+        Me.lblImporteAfRecetaEtiqueta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblImporteAfRecetaEtiqueta.Name = "lblImporteAfRecetaEtiqueta"
+        Me.lblImporteAfRecetaEtiqueta.Size = New System.Drawing.Size(100, 24)
+        Me.lblImporteAfRecetaEtiqueta.TabIndex = 5
+        Me.lblImporteAfRecetaEtiqueta.Text = "Importe AF:"
+        '
+        'lblPlanOSEtiqueta
+        '
+        Me.lblPlanOSEtiqueta.AutoSize = True
+        Me.lblPlanOSEtiqueta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblPlanOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblPlanOSEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPlanOSEtiqueta.Location = New System.Drawing.Point(269, 26)
+        Me.lblPlanOSEtiqueta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPlanOSEtiqueta.Name = "lblPlanOSEtiqueta"
+        Me.lblPlanOSEtiqueta.Size = New System.Drawing.Size(100, 20)
+        Me.lblPlanOSEtiqueta.TabIndex = 2
+        Me.lblPlanOSEtiqueta.Text = "Plan:"
+        '
+        'lblImporteCSRecetaEtiqueta
+        '
+        Me.lblImporteCSRecetaEtiqueta.AutoSize = True
+        Me.lblImporteCSRecetaEtiqueta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblImporteCSRecetaEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteCSRecetaEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteCSRecetaEtiqueta.Location = New System.Drawing.Point(269, 72)
+        Me.lblImporteCSRecetaEtiqueta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblImporteCSRecetaEtiqueta.Name = "lblImporteCSRecetaEtiqueta"
+        Me.lblImporteCSRecetaEtiqueta.Size = New System.Drawing.Size(100, 20)
+        Me.lblImporteCSRecetaEtiqueta.TabIndex = 4
+        Me.lblImporteCSRecetaEtiqueta.Text = "Importe CS:"
+        '
+        'lblImporteOSRecetaEtiqueta
+        '
+        Me.lblImporteOSRecetaEtiqueta.AutoSize = True
+        Me.lblImporteOSRecetaEtiqueta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblImporteOSRecetaEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteOSRecetaEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteOSRecetaEtiqueta.Location = New System.Drawing.Point(269, 49)
+        Me.lblImporteOSRecetaEtiqueta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblImporteOSRecetaEtiqueta.Name = "lblImporteOSRecetaEtiqueta"
+        Me.lblImporteOSRecetaEtiqueta.Size = New System.Drawing.Size(100, 20)
+        Me.lblImporteOSRecetaEtiqueta.TabIndex = 3
+        Me.lblImporteOSRecetaEtiqueta.Text = "Importe OS:"
         '
         'lblDatosOperacion
         '
         Me.lblDatosOperacion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblDatosOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 111)
+        Me.lblDatosOperacion.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDatosOperacion.Location = New System.Drawing.Point(3, 3)
+        Me.lblDatosOperacion.Margin = New System.Windows.Forms.Padding(0)
         Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(516, 68)
-        Me.lblDatosOperacion.TabIndex = 17
-        '
-        'lblPorcentajeAplicado
-        '
-        Me.lblPorcentajeAplicado.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.lblPorcentajeAplicado.AutoSize = True
-        Me.lblPorcentajeAplicado.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPorcentajeAplicado.Location = New System.Drawing.Point(6, 72)
-        Me.lblPorcentajeAplicado.Name = "lblPorcentajeAplicado"
-        Me.lblPorcentajeAplicado.Size = New System.Drawing.Size(241, 20)
-        Me.lblPorcentajeAplicado.TabIndex = 16
-        Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: 0,00 %"
+        Me.TableLayoutPanel2.SetRowSpan(Me.lblDatosOperacion, 5)
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(263, 116)
+        Me.lblDatosOperacion.TabIndex = 0
         '
         'Panel1
         '
@@ -448,6 +611,87 @@ Partial Class FrmVentas
         Me.PanelItems.Size = New System.Drawing.Size(972, 385)
         Me.PanelItems.TabIndex = 6
         '
+        'lblIdRecetaEtiqueta
+        '
+        Me.lblIdRecetaEtiqueta.AutoSize = True
+        Me.lblIdRecetaEtiqueta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblIdRecetaEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblIdRecetaEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIdRecetaEtiqueta.Location = New System.Drawing.Point(269, 3)
+        Me.lblIdRecetaEtiqueta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblIdRecetaEtiqueta.Name = "lblIdRecetaEtiqueta"
+        Me.lblIdRecetaEtiqueta.Size = New System.Drawing.Size(100, 20)
+        Me.lblIdRecetaEtiqueta.TabIndex = 6
+        Me.lblIdRecetaEtiqueta.Text = "IdReceta:"
+        '
+        'lblIdReceta
+        '
+        Me.lblIdReceta.AutoSize = True
+        Me.lblIdReceta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblIdReceta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblIdReceta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIdReceta.Location = New System.Drawing.Point(372, 3)
+        Me.lblIdReceta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblIdReceta.Name = "lblIdReceta"
+        Me.lblIdReceta.Size = New System.Drawing.Size(250, 20)
+        Me.lblIdReceta.TabIndex = 7
+        Me.lblIdReceta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblPlanOS
+        '
+        Me.lblPlanOS.AutoSize = True
+        Me.lblPlanOS.BackColor = System.Drawing.SystemColors.Window
+        Me.lblPlanOS.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblPlanOS.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPlanOS.Location = New System.Drawing.Point(372, 26)
+        Me.lblPlanOS.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblPlanOS.Name = "lblPlanOS"
+        Me.lblPlanOS.Size = New System.Drawing.Size(250, 20)
+        Me.lblPlanOS.TabIndex = 8
+        Me.lblPlanOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImporteOSReceta
+        '
+        Me.lblImporteOSReceta.AutoSize = True
+        Me.lblImporteOSReceta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblImporteOSReceta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteOSReceta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteOSReceta.Location = New System.Drawing.Point(372, 49)
+        Me.lblImporteOSReceta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblImporteOSReceta.Name = "lblImporteOSReceta"
+        Me.lblImporteOSReceta.Size = New System.Drawing.Size(250, 20)
+        Me.lblImporteOSReceta.TabIndex = 9
+        Me.lblImporteOSReceta.Text = "$ 0,00"
+        Me.lblImporteOSReceta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblmporteCSReceta
+        '
+        Me.lblmporteCSReceta.AutoSize = True
+        Me.lblmporteCSReceta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblmporteCSReceta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblmporteCSReceta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblmporteCSReceta.Location = New System.Drawing.Point(372, 72)
+        Me.lblmporteCSReceta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblmporteCSReceta.Name = "lblmporteCSReceta"
+        Me.lblmporteCSReceta.Size = New System.Drawing.Size(250, 20)
+        Me.lblmporteCSReceta.TabIndex = 10
+        Me.lblmporteCSReceta.Text = "$ 0,00"
+        Me.lblmporteCSReceta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblImporteAFReceta
+        '
+        Me.lblImporteAFReceta.AutoSize = True
+        Me.lblImporteAFReceta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblImporteAFReceta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblImporteAFReceta.Font = New System.Drawing.Font("Segoe UI Semibold", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblImporteAFReceta.Location = New System.Drawing.Point(372, 95)
+        Me.lblImporteAFReceta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblImporteAFReceta.Name = "lblImporteAFReceta"
+        Me.lblImporteAFReceta.Size = New System.Drawing.Size(250, 24)
+        Me.lblImporteAFReceta.TabIndex = 11
+        Me.lblImporteAFReceta.Text = "$ 0,00"
+        Me.lblImporteAFReceta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'FrmVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -463,6 +707,9 @@ Partial Class FrmVentas
         Me.Panel3.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.TableLayoutPanel3.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.ResumeLayout(False)
+        Me.TableLayoutPanel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
@@ -505,12 +752,28 @@ Partial Class FrmVentas
     Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
     Friend WithEvents lblImporteDescuentosEtiqueta As Label
     Friend WithEvents lblImporteDescuentos As Label
-    Friend WithEvents lblCantidadItems As Label
     Friend WithEvents lblImporteSinDescuentos As Label
     Friend WithEvents lblImporteSinDescuentosEtiqueta As Label
     Friend WithEvents lblImporteConDescuentos As Label
-    Friend WithEvents lblImporteConDescuentosEtiqueta As Label
-    Friend WithEvents lblDatosOperacion As Label
-    Friend WithEvents lblPorcentajeAplicado As Label
     Friend WithEvents PanelItems As Panel
+    Friend WithEvents lblImporteConDescuentosEtiqueta As Label
+    Friend WithEvents lblImporteOSEtiqueta As Label
+    Friend WithEvents lblImporteCSEtiqueda As Label
+    Friend WithEvents lblImporteOS As Label
+    Friend WithEvents lblImporteCS As Label
+    Friend WithEvents lblPorcentajeAplicado As Label
+    Friend WithEvents lblCantidadItems As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents lblDatosOperacion As Label
+    Friend WithEvents lblImporteCSRecetaEtiqueta As Label
+    Friend WithEvents lblImporteOSRecetaEtiqueta As Label
+    Friend WithEvents lblPlanOSEtiqueta As Label
+    Friend WithEvents lblImporteAfRecetaEtiqueta As Label
+    Friend WithEvents TableLayoutPanel2 As TableLayoutPanel
+    Friend WithEvents lblIdRecetaEtiqueta As Label
+    Friend WithEvents lblImporteAFReceta As Label
+    Friend WithEvents lblmporteCSReceta As Label
+    Friend WithEvents lblImporteOSReceta As Label
+    Friend WithEvents lblPlanOS As Label
+    Friend WithEvents lblIdReceta As Label
 End Class

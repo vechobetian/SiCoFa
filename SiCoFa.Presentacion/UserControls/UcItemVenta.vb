@@ -107,17 +107,44 @@ Public Class UcItemVenta
         txtAlicIVA.Text = item.AlicIVA.ToString("0.00")
         txtPrecioUnitario.Text = item.PrecioUnitario.ToString("0.00")
         txtImporteSinDescuento.Text = item.ImporteSinDescuento.ToString("0.00")
-        txtPorcentajeDescuento.Text = item.PorcentajeDescuento.ToString("0.00")
-        txtImporteDescuento.Text = item.ImporteDescuento.ToString("0.00")
+
+        If item.PorcentajeOS > 0 Then
+            txtPorcentajeDescuento.Text = item.PorcentajeOS.ToString("0.00")
+        Else
+            txtPorcentajeDescuento.Text = item.PorcentajeDescuento.ToString("0.00")
+        End If
+
+        If item.ImporteOS > 0 OrElse item.ImporteCS > 0 Then
+            txtImporteDescuento.Text = (item.ImporteOS + item.ImporteCS).ToString("0.00")
+        Else
+            txtImporteDescuento.Text = item.ImporteDescuento.ToString("0.00")
+        End If
+
         txtImporteConDescuento.Text = item.ImporteConDescuento.ToString("0.00")
 
     End Sub
+
+    Private Shared ReadOnly ColoresReceta As Color() =
+    {
+        Color.Khaki,
+        Color.Honeydew,
+        Color.AliceBlue,
+        Color.MistyRose,
+        Color.Lavender,
+        Color.LemonChiffon
+    }
+
+    Private Function ObtenerColorReceta(idReceta As Long) As Color
+
+        Return ColoresReceta((idReceta - 1) Mod ColoresReceta.Length)
+
+    End Function
 
     Private Function ObtenerColorBase() As Color
 
         If ItemVenta IsNot Nothing AndAlso ItemVenta.IdReceta > 0 Then
 
-            Return Color.LightYellow
+            Return ObtenerColorReceta(ItemVenta.IdReceta)
 
         End If
 

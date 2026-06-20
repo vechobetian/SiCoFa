@@ -460,12 +460,6 @@
     <Compile Include="UserControls\UcItemVenta.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UcHeaderReceta.Designer.vb">
-      <DependentUpon>UcHeaderReceta.vb</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UcHeaderReceta.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
@@ -624,9 +618,6 @@
     <EmbeddedResource Include="Reportes\rptCompCA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptCompRA4.rdlc" />
     <EmbeddedResource Include="Reportes\rptReciboA4.rdlc" />
-    <EmbeddedResource Include="UserControls\UcHeaderReceta.resx">
-      <DependentUpon>UcHeaderReceta.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UcItemVenta.resx">
       <DependentUpon>UcItemVenta.vb</DependentUpon>
     </EmbeddedResource>

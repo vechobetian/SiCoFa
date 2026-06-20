@@ -8,6 +8,8 @@
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
     Private m_IdReceta As Long
+    Private m_PorcentajeOS As Decimal
+    Private m_PorcentajeCS As Decimal
     Private m_EsNuevo As Boolean = True
 
     Public Sub New()
@@ -139,6 +141,28 @@
         End Set
     End Property
 
+    Public Property PorcentajeOS() As Decimal
+        Get
+            Return m_PorcentajeOS
+        End Get
+        Set(value As Decimal)
+            If m_PorcentajeOS <> value Then ' Solo recalcula si el valor cambia
+                m_PorcentajeOS = value
+            End If
+        End Set
+    End Property
+
+    Public Property PorcentajeCS() As Decimal
+        Get
+            Return m_PorcentajeCS
+        End Get
+        Set(value As Decimal)
+            If m_PorcentajeCS <> value Then ' Solo recalcula si el valor cambia
+                m_PorcentajeCS = value
+            End If
+        End Set
+    End Property
+
     ' --- Propiedades ReadOnly que se calculan directamente ---
 
     ' Si PrecioUnitario ya incluye IVA, este es el precio antes de IVA
@@ -191,7 +215,7 @@
 
     Public ReadOnly Property ImporteConDescuento() As Decimal
         Get
-            Return Me.ImporteSinDescuento - Me.ImporteDescuento
+            Return Me.ImporteSinDescuento - Me.ImporteDescuento - ImporteOS - ImporteCS
         End Get
     End Property
 
@@ -213,6 +237,30 @@
     Public ReadOnly Property ImporteTotal() As Decimal
         Get
             Return Me.ImporteNetoConDescuento + Me.ImporteIVA
+        End Get
+    End Property
+
+    Public ReadOnly Property CoberturaOSUnitario() As Decimal
+        Get
+            Return Math.Round(m_PrecioUnitario * m_PorcentajeOS / 100, 2, MidpointRounding.ToEven)
+        End Get
+    End Property
+
+    Public ReadOnly Property CoberturaCSUnitario() As Decimal
+        Get
+            Return Math.Round(m_PrecioUnitario * m_PorcentajeCS / 100, 2, MidpointRounding.ToEven)
+        End Get
+    End Property
+
+    Public ReadOnly Property ImporteOS() As Decimal
+        Get
+            Return Math.Round(m_Cantidad * Me.CoberturaOSUnitario, 2, MidpointRounding.ToEven)
+        End Get
+    End Property
+
+    Public ReadOnly Property ImporteCS() As Decimal
+        Get
+            Return Math.Round(m_Cantidad * Me.CoberturaCSUnitario, 2, MidpointRounding.ToEven)
         End Get
     End Property
 
