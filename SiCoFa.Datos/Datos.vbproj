@@ -66,6 +66,7 @@
     <Compile Include="Administradores\D_AdminEmpleados.vb" />
     <Compile Include="Administradores\D_AdminEmpresas.vb" />
     <Compile Include="Administradores\D_AdminItemsComprobante.vb" />
+    <Compile Include="Administradores\D_AdminItemsReceta.vb" />
     <Compile Include="Administradores\D_AdminObraSociales.vb" />
     <Compile Include="Administradores\D_AdminProcesosActualizacion.vb" />
     <Compile Include="Administradores\D_AdminListaPrecios.vb" />

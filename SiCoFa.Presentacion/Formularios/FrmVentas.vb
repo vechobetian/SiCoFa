@@ -22,7 +22,6 @@ Public Class FrmVentas
     Private mobj_Operacion As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
-    Private mobj_Receta As Receta
     Private mobj_Recetas As New List(Of Receta)
     Private mobj_Items As New BindingList(Of ItemComprobante)
     Private mobj_ItemSeleccionado As UcItemVenta
@@ -186,8 +185,10 @@ Public Class FrmVentas
 
                 If i.IdItem = 0 Then
                     i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
+
                 Else
                     Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.Articulo.PrecioCosto, i.PrecioUnitario, i.DescuentoUnitario)
+
                 End If
             Next
 
@@ -275,38 +276,32 @@ Public Class FrmVentas
 
     Private Sub ActualizarDatosReceta()
 
-        If mobj_ItemSeleccionado Is Nothing Then
-            LimpiarDatosReceta()
-            Exit Sub
+        Dim receta As Receta = Nothing
+
+        If mobj_ItemSeleccionado IsNot Nothing Then
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item IsNot Nothing AndAlso item.IdReceta <> 0 Then
+
+                receta = mobj_Recetas.FirstOrDefault(
+                    Function(r) r.IdReceta = item.IdReceta)
+
+            End If
+
         End If
 
-        Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+        UcReceta1.Receta = receta
 
-        If item Is Nothing OrElse item.IdReceta = 0 Then
-            LimpiarDatosReceta()
-            Exit Sub
+        If receta IsNot Nothing Then
+            UcReceta1.AplicarColor(mobj_ItemSeleccionado.BackColor)
         End If
-
-        Dim receta As Receta
-
-        lblIdReceta.Text = receta.IdReceta
-        lblPlanOS.Text = receta.Plan.Descripcion
-        lblImporteOS.Text = receta.ImporteOS.ToString("C2")
-        lblImporteCsr.Text = receta.ImporteCS.ToString("C2")
-        lblImporteAFReceta.Text = receta.Items.Count.ToString()
-
-    End Sub
-
-    Private Sub LimpiarDatosReceta()
-
-        lblPlan.Text = ""
-        lblImporteOS.Text = ""
-        lblImporteCoseguro.Text = ""
-        lblCantidadItems.Text = ""
 
     End Sub
 
     Private Sub SeleccionarItem(uc As UcItemVenta)
+
+        If mobj_ItemSeleccionado Is uc Then Exit Sub
 
         If mobj_ItemSeleccionado IsNot Nothing Then
             mobj_ItemSeleccionado.Deseleccionar()
@@ -317,6 +312,8 @@ Public Class FrmVentas
         If mobj_ItemSeleccionado IsNot Nothing Then
             mobj_ItemSeleccionado.Seleccionar()
         End If
+
+        ActualizarDatosReceta()
 
     End Sub
 
@@ -569,7 +566,7 @@ Public Class FrmVentas
         End If
 
         uc.ItemVenta.Cantidad = Val(uc.txtCantidad.Text)
-
+        uc.Bind(uc.ItemVenta)
         ActualizarTotales()
 
         ' 🔥 SI ES NUEVO (flujo de carga)
@@ -665,7 +662,8 @@ Public Class FrmVentas
 
             Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = mdec_ImporteSinDescuentos.ToString("$ #,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            'Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblDescuentos.Text = "Descuentos (" & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%)"
             Me.lblImporteDescuentos.Text = mdec_ImporteDescuentos.ToString("$ #,##0.00")
             Me.lblImporteOS.Text = mdec_ImporteOS.ToString("$ #,##0.00")
             Me.lblImporteCS.Text = mdec_ImporteCS.ToString("$ #,##0.00")
@@ -682,9 +680,10 @@ Public Class FrmVentas
 
         ' Reset
         For Each r As Receta In mobj_Recetas
+            r.ImporteTotal = 0
             r.ImporteOS = 0
             r.ImporteCS = 0
-            r.ImporteTotal = 0
+            r.ImporteAf = 0
         Next
 
         Dim dictRecetas = mobj_Recetas.ToDictionary(Function(x) x.IdReceta)
@@ -698,9 +697,10 @@ Public Class FrmVentas
 
             If dictRecetas.TryGetValue(i.IdReceta, r) Then
 
+                r.ImporteTotal += i.ImporteSinDescuento
                 r.ImporteOS += i.ImporteOS
                 r.ImporteCS += i.ImporteCS
-                r.ImporteTotal += i.ImporteConDescuento
+                r.ImporteAf += i.ImporteConDescuento
 
             End If
 
@@ -716,7 +716,7 @@ Public Class FrmVentas
     Private Sub ActualizarDatosOperacion()
         Dim NombreCliente As String
         If mobj_Cliente Is Nothing Then
-            NombreCliente = "CONSUMIDOR FINAL NO IDENTIFICADO"
+            NombreCliente = "CONSUMIDOR FINAL S/IDENTIFICAR"
         Else
             NombreCliente = mobj_Cliente.Nombre
         End If

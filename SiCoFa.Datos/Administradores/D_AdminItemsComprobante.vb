@@ -1,7 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 Imports System.Collections.Generic
-Imports SiCoFa.Entidades.Enums
 
 Public Class D_AdminItemsComprobante
     Public Function ListarItemsPorIdOperacion(ByVal argIdOperacion As Long) As List(Of ItemComprobante)
@@ -72,6 +71,7 @@ Public Class D_AdminItemsComprobante
 
         End Try
     End Function
+
     Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
 
         Try
@@ -120,6 +120,38 @@ Public Class D_AdminItemsComprobante
         End Try
 
     End Function
+
+    Public Function InsertarItemComprobanteTransaccion(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
+
+        Dim objConexionDB As New D_Conexion
+
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+
+            Using tx As MySqlTransaction = cn.BeginTransaction()
+
+                Try
+                    Dim IdItem As Long = Me.InsertarItemComprobante(argIdOperacion, argItemComprobante, cn, tx)
+
+                    If argItemComprobante.IdReceta > 0 Then
+                        Dim AdminItemsReceta As New D_AdminItemsReceta
+                        AdminItemsReceta.InsertarItemReceta(IdItem, argIdOperacion, argItemComprobante, cn, tx)
+                    End If
+
+                    tx.Commit()
+                    Return IdItem
+
+                Catch ex As Exception
+                    tx.Rollback()
+                    Throw
+
+                End Try
+
+            End Using
+
+        End Using
+
+    End Function
+
 
     Public Function ActualizarItemComprobante(
                                             ByVal argIdItem As Long,
