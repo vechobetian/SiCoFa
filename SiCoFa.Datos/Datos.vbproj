@@ -72,6 +72,7 @@
     <Compile Include="Administradores\D_AdminListaPrecios.vb" />
     <Compile Include="Administradores\D_AdminOperaciones.vb" />
     <Compile Include="Administradores\D_AdminProveedores.vb" />
+    <Compile Include="Administradores\D_AdminRecetas.vb" />
     <Compile Include="Administradores\D_AdminUsuarios.vb" />
     <Compile Include="Administradores\D_AdminMediosPE.vb" />
     <Compile Include="Administradores\D_AdminSecciones.vb" />

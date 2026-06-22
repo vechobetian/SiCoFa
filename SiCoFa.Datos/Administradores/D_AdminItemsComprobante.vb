@@ -152,7 +152,6 @@ Public Class D_AdminItemsComprobante
 
     End Function
 
-
     Public Function ActualizarItemComprobante(
                                             ByVal argIdItem As Long,
                                             ByVal argCantidad As Decimal,
