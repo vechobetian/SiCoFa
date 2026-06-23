@@ -15,14 +15,14 @@ Public Class N_AdminItemsComprobante
 
     End Function
 
-    Public Function InsertarItemComprobante(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
+    Public Function InsertarItemComprobanteVenta(ByVal argIdOperacion As Long, ByVal argItemsComprobante As List(Of ItemComprobante)) As Long
 
 
         Try
             Dim AdminItems As New D_AdminItemsComprobante
-            Dim IdItem As Long = AdminItems.InsertarItemComprobante(argIdOperacion, argItemComprobante)
+            'Dim IdItem As Long = AdminItems.InsertarItemsComprobanteVenta(argIdOperacion, argItemsComprobante)
 
-            Return IdItem
+            'Return IdItem
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobante", ex.Message))

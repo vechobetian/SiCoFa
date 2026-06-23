@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports SiCoFa.Datos
+Imports SiCoFa.Entidades
 
 Public Class N_AdminRecetas
 
@@ -38,5 +39,7 @@ Public Class N_AdminRecetas
         Return 0
 
     End Function
+
+
 
 End Class

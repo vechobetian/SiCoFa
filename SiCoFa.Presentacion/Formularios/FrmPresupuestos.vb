@@ -235,7 +235,7 @@ Public Class FrmPresupuestos
             Dim AdminItems As New N_AdminItemsComprobante
             For Each i As ItemComprobante In mobj_Items
                 If i.IdItem = 0 Then
-                    i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
+                    'i.IdItem = AdminItems.InsertarItemComprobanteVenta(argIdOperacion, i)
                 Else
                     Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.Articulo.PrecioCosto, i.PrecioUnitario, i.DescuentoUnitario)
                 End If

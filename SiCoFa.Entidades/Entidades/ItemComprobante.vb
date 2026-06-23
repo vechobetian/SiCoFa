@@ -7,7 +7,7 @@
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
-    Private m_IdReceta As Long
+    Private m_Receta As Receta
     Private m_PorcentajeOS As Decimal
     Private m_PorcentajeCS As Decimal
     Private m_EsNuevo As Boolean = True
@@ -25,7 +25,7 @@
                     ByVal argPrecioUnitario As Decimal,
                     ByVal argAlicIVA As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
-                    Optional argIdReceta As Long = 0
+                    Optional argReceta As Receta = Nothing
                    )
 
         m_Articulo = argArticulo
@@ -35,7 +35,7 @@
         m_PrecioUnitario = argPrecioUnitario
         m_AlicIVA = argAlicIVA
         m_PorcentajeDescuento = argPorcentajeDescuento
-        m_IdReceta = argIdReceta
+        m_Receta = argReceta
         ' No es necesario llamar a Recalcular aqui, ya que las propiedades
         ' se calcularán en sus Getters cuando se accedan.
     End Sub
@@ -132,12 +132,12 @@
         End Set
     End Property
 
-    Public Property IdReceta As Long
+    Public Property Receta As Receta
         Get
-            Return m_IdReceta
+            Return m_Receta
         End Get
-        Set(value As Long)
-            m_IdReceta = value
+        Set(value As Receta)
+            m_Receta = value
         End Set
     End Property
 

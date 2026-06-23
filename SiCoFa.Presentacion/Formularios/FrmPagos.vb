@@ -17,6 +17,7 @@ Public Class FrmPagos
     Property ImporteAPagar As Decimal
     Property ImporteGravado1 As Decimal
     Property ImporteGravado2 As Decimal
+    Property Recetas As List(Of Receta)
 
     Private mobj_AdminOperacion As New N_AdminOperaciones
     Private MediosDePago As MediosPagoBinding
@@ -362,7 +363,7 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC)
+            mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC, Recetas, ItemsComprobante)
 
             If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
                 Dim obj_N_AdminComprobantes As New N_AdminComprobantes

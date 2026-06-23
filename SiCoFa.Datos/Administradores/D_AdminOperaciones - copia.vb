@@ -610,7 +610,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
+    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -620,8 +620,6 @@ Public Class D_AdminOperaciones
 
                 Try
 
-                    argOperacion = IniciarOperacion(argOperacion.Empresa, argOperacion.Usuario, argOperacion.TipoOperacion, argOperacion.Observaciones, argOperacion.EstadoOperacion, cn, tx)
-
                     If argOperacionCC IsNot Nothing Then
                         Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, "NO CANCELADO", 0, cn, tx)
                     End If
@@ -630,18 +628,7 @@ Public Class D_AdminOperaciones
                         Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
-                    If argRecetas IsNot Nothing Then
-                        Dim AdminRecetas As New D_AdminRecetas
-                        AdminRecetas.GuardarRecetas(argRecetas, cn, tx)
-                    End If
-
-                    If argItemsComprobante IsNot Nothing Then
-                        Dim AdminItemsComprobante As New D_AdminItemsComprobante
-                        AdminItemsComprobante.InsertarItemsComprobanteVenta(argOperacion.IdOperacion, argItemsComprobante, cn, tx)
-                    End If
-
                     Dim AdminComprobantes As New D_AdminComprobantes
-                    argComprobante.Operacion = argOperacion
                     AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
 
                     Dim AdminAsientoContable As New D_AdminAsientosContable

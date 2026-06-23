@@ -119,26 +119,27 @@ Public Class FrmVentas
                 Exit Sub
             End If
 
-            If mobj_Operacion Is Nothing Then
-                mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
-            Else
-                mobj_Operacion.Inicio = Now
-                mobj_Operacion.Observaciones = ""
-                mobj_Operacion.EstadoOperacion = "GUARDADO"
-                Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
+            'If mobj_Operacion Is Nothing Then
+            'mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
+            'Else
+            'mobj_Operacion.Inicio = Now
+            'mobj_Operacion.Observaciones = ""
+            'mobj_Operacion.EstadoOperacion = "GUARDADO"
+            'Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
 
-            End If
+            'End If
+
 
             If mobj_Cliente Is Nothing Then
                 Dim AdminClientes As New N_AdminClientes
                 mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
-                mobj_AdminOperacion.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+                'mobj_AdminOperacion.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
             End If
 
-            mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
+            'mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
 
-            Me.InsertarItems(mobj_Operacion.IdOperacion)
-
+            'Me.InsertarItems(mobj_Operacion.IdOperacion)
+            mobj_Operacion = New Operacion(0, Date.MinValue, Date.MinValue, g_ParametrosTerminal.Empresa, g_ParametrosTerminal.IdPc, 0, Me.Usuario, mobj_TipoOperacion, "", "", "")
             If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
 
                 Using FPagos As New FrmPagos
@@ -184,7 +185,7 @@ Public Class FrmVentas
                 If i.Articulo Is Nothing Then Continue For
 
                 If i.IdItem = 0 Then
-                    i.IdItem = AdminItems.InsertarItemComprobante(argIdOperacion, i)
+                    'i.IdItem = AdminItems.InsertarItemComprobanteVenta(argIdOperacion, i)
 
                 Else
                     Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.Articulo.PrecioCosto, i.PrecioUnitario, i.DescuentoUnitario)
@@ -282,10 +283,10 @@ Public Class FrmVentas
 
             Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
 
-            If item IsNot Nothing AndAlso item.IdReceta <> 0 Then
+            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
 
                 receta = mobj_Recetas.FirstOrDefault(
-                    Function(r) r.IdReceta = item.IdReceta)
+                    Function(r) r.IdReceta = item.Receta.IdReceta)
 
             End If
 
@@ -337,11 +338,11 @@ Public Class FrmVentas
 
     End Function
 
-    Private Function AgregarItemVacio(Optional idReceta As Long = 0) As UcItemVenta
+    Private Function AgregarItemVacio(Optional argReceta As Receta = Nothing) As UcItemVenta
 
         Dim itemNuevo As New ItemComprobante()
         itemNuevo.EsNuevo = True
-        itemNuevo.IdReceta = idReceta
+        itemNuevo.Receta = argReceta
 
         mobj_Items.Add(itemNuevo)
 
@@ -377,7 +378,7 @@ Public Class FrmVentas
 
         Dim AdminItems As New N_AdminItemsComprobante
 
-        If item.IdReceta > 0 Then
+        If item.Receta IsNot Nothing Then
 
             item.Articulo = Nothing
             item.CodBarras = ""
@@ -399,7 +400,7 @@ Public Class FrmVentas
             ' Eliminar filas vacías sobrantes
             For i As Integer = mobj_Items.Count - 1 To 0 Step -1
 
-                If mobj_Items(i).Articulo Is Nothing AndAlso mobj_Items(i).IdReceta = 0 Then
+                If mobj_Items(i).Articulo Is Nothing AndAlso mobj_Items(i).Receta Is Nothing Then
                     mobj_Items.RemoveAt(i)
                 End If
 
@@ -503,10 +504,10 @@ Public Class FrmVentas
 
             Dim porcentajeOS As Decimal = 0
 
-            If uc.ItemVenta.IdReceta > 0 Then
+            If uc.ItemVenta.Receta IsNot Nothing Then
 
                 Dim receta As Receta =
-                ObtenerReceta(uc.ItemVenta.IdReceta)
+                ObtenerReceta(uc.ItemVenta.Receta.IdReceta)
 
                 If receta Is Nothing Then
 
@@ -570,7 +571,7 @@ Public Class FrmVentas
         ActualizarTotales()
 
         ' 🔥 SI ES NUEVO (flujo de carga)
-        If uc.ItemVenta.EsNuevo And uc.ItemVenta.IdReceta = 0 Then
+        If uc.ItemVenta.EsNuevo And uc.ItemVenta.Receta Is Nothing Then
 
             If uc.ItemVenta.Articulo.Seccion.EstablecerPrecio Then
 
@@ -691,11 +692,11 @@ Public Class FrmVentas
         For Each i As ItemComprobante In mobj_Items
 
             If i.Articulo Is Nothing Then Continue For
-            If i.IdReceta = 0 Then Continue For
+            If i.Receta Is Nothing Then Continue For
 
             Dim r As Receta = Nothing
 
-            If dictRecetas.TryGetValue(i.IdReceta, r) Then
+            If dictRecetas.TryGetValue(i.Receta.IdReceta, r) Then
 
                 r.ImporteTotal += i.ImporteSinDescuento
                 r.ImporteOS += i.ImporteOS
@@ -967,7 +968,7 @@ Public Class FrmVentas
         ' Buscar el item libre vacío
         Dim indice As Integer =
         mobj_Items.ToList().
-        FindIndex(Function(i) i.IdReceta = 0 AndAlso i.Articulo Is Nothing)
+        FindIndex(Function(i) i.Receta Is Nothing AndAlso i.Articulo Is Nothing)
 
         If indice = -1 Then
             indice = mobj_Items.Count
@@ -984,7 +985,7 @@ Public Class FrmVentas
             Dim item As New ItemComprobante()
 
             item.EsNuevo = True
-            item.IdReceta = receta.IdReceta
+            item.Receta = receta
 
             If primerItemReceta Is Nothing Then
                 primerItemReceta = item
@@ -1000,7 +1001,7 @@ Public Class FrmVentas
         Dim itemLibre As New ItemComprobante()
 
         itemLibre.EsNuevo = True
-        itemLibre.IdReceta = 0
+        itemLibre.Receta = Nothing
 
         mobj_Items.Add(itemLibre)
 

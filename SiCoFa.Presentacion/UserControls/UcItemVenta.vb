@@ -142,9 +142,9 @@ Public Class UcItemVenta
 
     Private Function ObtenerColorBase() As Color
 
-        If ItemVenta IsNot Nothing AndAlso ItemVenta.IdReceta > 0 Then
+        If ItemVenta IsNot Nothing AndAlso ItemVenta.Receta IsNot Nothing Then
 
-            Return ObtenerColorReceta(ItemVenta.IdReceta)
+            Return ObtenerColorReceta(ItemVenta.Receta.IdReceta)
 
         End If
 

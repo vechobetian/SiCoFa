@@ -98,7 +98,7 @@ Public Class D_AdminItemsReceta
                 With cmd.Parameters
                     .Add("p_IdItem", MySqlDbType.Int64).Value = argIdItem
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                    .Add("p_IdReceta", MySqlDbType.Int64).Value = argItemComprobante.IdReceta
+                    .Add("p_IdReceta", MySqlDbType.Int64).Value = argItemComprobante.Receta.IdReceta
                     .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
                     .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
                     .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad

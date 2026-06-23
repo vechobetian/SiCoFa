@@ -121,34 +121,29 @@ Public Class D_AdminItemsComprobante
 
     End Function
 
-    Public Function InsertarItemComprobanteTransaccion(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante) As Long
+    Public Function InsertarItemsComprobanteVenta(ByVal argIdOperacion As Long, ByVal argItemsVenta As List(Of ItemComprobante), ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
-        Dim objConexionDB As New D_Conexion
+        Try
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
+            For Each i As ItemComprobante In argItemsVenta
 
-            Using tx As MySqlTransaction = cn.BeginTransaction()
+                If i.Articulo Is Nothing Then Continue For
 
-                Try
-                    Dim IdItem As Long = Me.InsertarItemComprobante(argIdOperacion, argItemComprobante, cn, tx)
+                Dim IdItem As Long = Me.InsertarItemComprobante(argIdOperacion, i, cn, tx)
 
-                    If argItemComprobante.IdReceta > 0 Then
-                        Dim AdminItemsReceta As New D_AdminItemsReceta
-                        AdminItemsReceta.InsertarItemReceta(IdItem, argIdOperacion, argItemComprobante, cn, tx)
-                    End If
+                If i.Receta IsNot Nothing Then
+                    Dim AdminItemsReceta As New D_AdminItemsReceta
+                    AdminItemsReceta.InsertarItemReceta(IdItem, argIdOperacion, i, cn, tx)
+                End If
 
-                    tx.Commit()
-                    Return IdItem
+            Next
 
-                Catch ex As Exception
-                    tx.Rollback()
-                    Throw
+            Return True
 
-                End Try
+        Catch ex As Exception
+            Throw
 
-            End Using
-
-        End Using
+        End Try
 
     End Function
 

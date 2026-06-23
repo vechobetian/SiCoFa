@@ -66,8 +66,9 @@ Partial Class FrmInicio
         Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPTerminal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPSistema = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ActualizarVersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -329,7 +330,7 @@ Partial Class FrmInicio
         '
         'mnuSistema
         '
-        Me.mnuSistema.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSistemaPTerminal, Me.mnuSistemaPSistema, Me.ActualizacionesToolStripMenuItem})
+        Me.mnuSistema.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSistemaPTerminal, Me.mnuSistemaPSistema, Me.ActualizacionesToolStripMenuItem, Me.ActualizarVersionToolStripMenuItem})
         Me.mnuSistema.Name = "mnuSistema"
         Me.mnuSistema.Size = New System.Drawing.Size(60, 20)
         Me.mnuSistema.Text = "&Sistema"
@@ -346,17 +347,23 @@ Partial Class FrmInicio
         Me.mnuSistemaPSistema.Size = New System.Drawing.Size(194, 22)
         Me.mnuSistemaPSistema.Text = "Parametros de &Sistema"
         '
+        'ActualizacionesToolStripMenuItem
+        '
+        Me.ActualizacionesToolStripMenuItem.Name = "ActualizacionesToolStripMenuItem"
+        Me.ActualizacionesToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
+        Me.ActualizacionesToolStripMenuItem.Text = "Actualizaciones"
+        '
         'mnuAyuda
         '
         Me.mnuAyuda.Name = "mnuAyuda"
         Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
         Me.mnuAyuda.Text = "Ay&uda"
         '
-        'ActualizacionesToolStripMenuItem
+        'ActualizarVersionToolStripMenuItem
         '
-        Me.ActualizacionesToolStripMenuItem.Name = "ActualizacionesToolStripMenuItem"
-        Me.ActualizacionesToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
-        Me.ActualizacionesToolStripMenuItem.Text = "Actualizaciones"
+        Me.ActualizarVersionToolStripMenuItem.Name = "ActualizarVersionToolStripMenuItem"
+        Me.ActualizarVersionToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
+        Me.ActualizarVersionToolStripMenuItem.Text = "Actualizar Version"
         '
         'FrmInicio
         '
@@ -422,4 +429,5 @@ Partial Class FrmInicio
     Friend WithEvents mnuAuditoriaComprobantesRecibidos As ToolStripMenuItem
     Friend WithEvents mnuOperacionesPresupuestos As ToolStripMenuItem
     Friend WithEvents ActualizacionesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ActualizarVersionToolStripMenuItem As ToolStripMenuItem
 End Class
