@@ -1,5 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 
 Public Class D_AdminRecetas
@@ -49,15 +48,5 @@ Public Class D_AdminRecetas
         End Try
 
     End Function
-
-    Public Sub GuardarRecetas(ByVal argRecetas As List(Of Receta), ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction)
-
-        For Each receta As Receta In argRecetas
-
-            InsertarReceta(receta, cn, tx)
-
-        Next
-
-    End Sub
 
 End Class

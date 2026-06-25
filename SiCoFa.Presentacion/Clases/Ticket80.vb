@@ -24,6 +24,7 @@ Public Class Ticket80
         Dim strTar As String
         Dim strCC As String
         Dim strEf As String
+        Dim strOS As String
         Dim Tab As String
 
         Const IncrementoYPreTexto As Integer = 15
@@ -122,8 +123,15 @@ Public Class Ticket80
                 strImpDesItem = Format(Item.ImporteNetoDescuento, "Fixed")
             Else
                 strCantPUnit = Format(Item.Cantidad, "##0.000") & "/" & Format(Item.PrecioUnitario, "Fixed")
-                strImpItem = Format(Item.ImporteConDescuento, "Fixed")
-                strImpDesItem = Format(Item.ImporteDescuento, "Fixed")
+
+                If Item.Receta Is Nothing Then
+                    strImpItem = Format(Item.ImporteConDescuento, "Fixed")
+                    strImpDesItem = Format(Item.ImporteDescuento, "Fixed")
+                Else
+                    strImpItem = Format(Item.ImporteSinDescuento, "Fixed")
+                    strImpDesItem = Format(0, "Fixed")
+                End If
+
             End If
 
             Tab = StrDup(16 - Len(strCantPUnit), " ")
@@ -200,6 +208,12 @@ Public Class Ticket80
         'yPos += IncrementoYPreTexto
         'e.Graphics.DrawString("Obra Social: " & StrDup(29 - Len(strOS), " ") & strOS, printFont, Brushes.Black, MargenIzquierdo, yPos)
         'End If
+
+        If Comprobante.ImpOS > 0 Then
+            strOS = Format(Comprobante.ImpOS, "Standard")
+            yPos += IncrementoYPreTexto
+            e.Graphics.DrawString("Obra Social: " & StrDup(29 - Len(strOS), " ") & strOS, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        End If
 
         If Comprobante.ImpPE > 0 Then
             strTar = Format(Comprobante.ImpPE, "Standard")

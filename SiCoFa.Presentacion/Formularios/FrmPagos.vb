@@ -15,8 +15,10 @@ Public Class FrmPagos
     Property ImporteBruto As Decimal
     Property ImporteDescuento As Decimal
     Property ImporteAPagar As Decimal
+    Property ImporteExento As Decimal
     Property ImporteGravado1 As Decimal
     Property ImporteGravado2 As Decimal
+    Property ImporteOS As Decimal
     Property Recetas As List(Of Receta)
 
     Private mobj_AdminOperacion As New N_AdminOperaciones
@@ -339,13 +341,14 @@ Public Class FrmPagos
                                     argImpBto:=Me.ImporteBruto,
                                     argImpDes:=Me.ImporteDescuento,
                                     argImpNeto:=Me.ImporteAPagar,
-                                    argImpEx:=0,
+                                    argImpEx:=Me.ImporteExento,
                                     argImpGrav1:=Me.ImporteGravado1,
                                     argImpGrav2:=Me.ImporteGravado2,
                                     argImpCB:=0,
                                     argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
                                     argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
                                     argImpPE:=Me.MediosDePago.ImportePagoElectronico,
+                                    argImpOS:=Me.ImporteOS,
                                     argCAE:=Nothing,
                                     argIdCliente:=Me.Cliente.Id,
                                     argCliente:=Me.Cliente,
@@ -360,6 +363,7 @@ Public Class FrmPagos
                 .InsertarItem("1.01.01.001", MediosDePago.ImportePagoEfectivo)
                 .InsertarItem("1.03.01.001", MediosDePago.ImporteCuentaCorriente)
                 .InsertarItem("1.03.02.001", MediosDePago.ImportePagoElectronico)
+                .InsertarItem("1.03.04.001", ImporteOS)
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
@@ -425,6 +429,7 @@ Public Class FrmPagos
                                     argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
                                     argImpCC:=0,
                                     argImpPE:=Me.MediosDePago.ImportePagoElectronico,
+                                    argImpOS:=0,
                                     argCAE:=Nothing,
                                     argIdCliente:=Me.Cliente.Id,
                                     argCliente:=Me.Cliente,

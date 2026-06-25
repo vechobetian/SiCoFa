@@ -194,6 +194,7 @@ Public Class FrmPresupuestos
                                     argImpEf:=0,
                                     argImpCC:=0,
                                     argImpPE:=0,
+                                    argImpOS:=0,
                                     argCAE:=Nothing,
                                     argIdCliente:=Me.Cliente.Id,
                                     argCliente:=Me.Cliente,

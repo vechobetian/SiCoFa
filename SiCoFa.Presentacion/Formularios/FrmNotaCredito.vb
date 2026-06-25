@@ -167,6 +167,7 @@ Public Class FrmNotaCredito
             Dim impEf As Decimal
             Dim impCC As Decimal
             Dim impPE As Decimal
+            Dim impOS As Decimal
 
             Dim AdminOperacion As New N_AdminOperaciones
             Dim objTipoOperacion As TipoOperacion = Nothing
@@ -185,6 +186,7 @@ Public Class FrmNotaCredito
                 impEf = mobj_ComprobanteOrigen.ImpEf
                 impCC = mobj_ComprobanteOrigen.ImpCC
                 impPE = mobj_ComprobanteOrigen.ImpPE
+                impOS = mobj_ComprobanteOrigen.ImpOS
             End If
 
             If mobj_ComprobanteOrigen.ImpEf > 0 And Me.chkAcreditarTodo.Checked = False Then 'Esta situación deberia darse solamente cuando la unica forma de pago es Efectivo
@@ -236,6 +238,7 @@ Public Class FrmNotaCredito
             argImpEf:=impEf,
             argImpCC:=impCC,
             argImpPE:=impPE,
+            argImpOS:=impOS,
             argCAE:=Nothing,
             argIdCliente:=mobj_ComprobanteOrigen.Cliente.Id,
             argCliente:=mobj_ComprobanteOrigen.Cliente,
@@ -251,6 +254,7 @@ Public Class FrmNotaCredito
                 .InsertarItem("1.01.01.001", -impEf)
                 .InsertarItem("1.03.01.001", -impCC)
                 .InsertarItem("1.03.02.001", -impPE)
+                .InsertarItem("1.03.04.001", -impOS)
             End With
 
             AdminOperacion.NotaCreditoTransaccion(objTipoOperacion, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objCC, objPE, objCb, objAC, "")

@@ -105,7 +105,7 @@ Public Class D_AdminComprobantes
 
             Dim objConexionDB As New D_Conexion
             Dim sql As String = "SELECT IdOperacion, CodiTC, FechaComp, PVenta, NumComp, IdCliente, ImpBto, ImpDes,ImpNeto, ImpEx, ImpGrav1, ImpNeto1, ImpIVA1,
-                        ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, IdOperAsoc, CAE, VtoCAE, CodiTDoc, NumDoc, Cliente, ComprobanteAsociado
+                        ImpGrav2, ImpNeto2, ImpIVA2, ImpCB, ImpEf, ImpCC, ImpPE, ImpOS, IdOperAsoc, CAE, VtoCAE, CodiTDoc, NumDoc, Cliente, ComprobanteAsociado
                         FROM vw_comprobantes_emitidos
                         WHERE IdOperacion=@IdOperacion"
 
@@ -167,6 +167,7 @@ Public Class D_AdminComprobantes
                             argImpEf:=Convert.ToDecimal(datos("ImpEf")),
                             argImpCC:=Convert.ToDecimal(datos("ImpCC")),
                             argImpPE:=Convert.ToDecimal(datos("ImpPE")),
+                            argImpOS:=Convert.ToDecimal(datos("ImpOS")),
                             argCAE:=objCAE,
                             argIdCliente:=Convert.ToInt32(datos("IdCliente")),
                             argCliente:=objCliente,
@@ -229,6 +230,7 @@ Public Class D_AdminComprobantes
                     .AddWithValue("p_ImpEf", argComprobante.ImpEf)
                     .AddWithValue("p_ImpCC", argComprobante.ImpCC)
                     .AddWithValue("p_ImpPE", argComprobante.ImpPE)
+                    .AddWithValue("p_ImpOS", argComprobante.ImpOS)
                     .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
                     .AddWithValue("p_CodiTDoc", argComprobante.Cliente.Documento.TipoDoc.CodiTDoc)
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)

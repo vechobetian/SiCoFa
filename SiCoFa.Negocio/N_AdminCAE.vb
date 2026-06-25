@@ -82,11 +82,13 @@ Public Class N_AdminCAE
 
                 If argComprobante.TipoComprobante.CodiTC_ARCA = 11 Or argComprobante.TipoComprobante.CodiTC_ARCA = 13 Then
                     .ImpTotConc = 0
+                    .ImpOpEx = 0
                     .ImpNeto = argComprobante.ImpEx + argComprobante.ImpGrav1 + argComprobante.ImpGrav2
                     .ImpIVA = 0
                     .ImpTotal = argComprobante.ImpEx + argComprobante.ImpGrav1 + argComprobante.ImpGrav2
                 Else
-                    .ImpTotConc = argComprobante.ImpEx
+                    .ImpTotConc = 0
+                    .ImpOpEx = argComprobante.ImpEx
                     .ImpNeto = argComprobante.ImpNeto1 + argComprobante.ImpNeto2
                     .ImpIVA = argComprobante.ImpIVA1 + argComprobante.ImpIVA2
                     .ImpTotal = argComprobante.ImpNeto1 + argComprobante.ImpNeto2 + argComprobante.ImpIVA1 + argComprobante.ImpIVA2 + argComprobante.ImpEx
@@ -124,7 +126,6 @@ Public Class N_AdminCAE
 
                 Dim IdIvaRec As Integer = Me.IdIVAReceptor(argComprobante.Cliente.IVA.CodIVA)
 
-                .ImpOpEx = 0
                 .ImpTrib = 0
                 .MonId = "PES"
                 '.CanMisMonExt = "S"

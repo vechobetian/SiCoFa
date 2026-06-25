@@ -332,6 +332,7 @@ Public Class FrmMovimientosCB
                                                   argImpEf:=importe,
                                                   argImpCC:=0,
                                                   argImpPE:=0,
+                                                  argImpOS:=0,
                                                   argCAE:=Nothing,
                                                   argIdCliente:=objCliente.Id,
                                                   argCliente:=objCliente,

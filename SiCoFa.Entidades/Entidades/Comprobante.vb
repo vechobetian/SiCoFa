@@ -15,10 +15,11 @@
     Property ImpGrav2 As Decimal
     Property ImpNeto2 As Decimal
     Property ImpIVA2 As Decimal
+    Property ImpCB As Decimal
     Property ImpEf As Decimal
     Property ImpCC As Decimal
     Property ImpPE As Decimal
-    Property ImpCB As Decimal
+    Property ImpOS As Decimal
     Property CAE As CAE
     Property IdCliente As Long
     Property Cliente As Cliente
@@ -46,6 +47,7 @@
         ByVal argImpEf As Decimal,
         ByVal argImpCC As Decimal,
         ByVal argImpPE As Decimal,
+        ByVal argImpOS As Decimal,
         ByVal argCAE As CAE,
         ByVal argIdCliente As Long,
         ByVal argCliente As Cliente,
@@ -62,7 +64,7 @@
 
         Inicializar(argIdOperacion, argOperacion, argTipoComprobante, argPVenta, argNumComp, argFechaComp,
                     argImpBto, argImpDes, argImpNeto, argImpEx, argImpGrav1, neto1, iva1,
-                    argImpGrav2, neto2, iva2, argImpCB, argImpEf, argImpCC, argImpPE,
+                    argImpGrav2, neto2, iva2, argImpCB, argImpEf, argImpCC, argImpPE, argImpOS,
                     argCAE, argIdCliente, argCliente, argIdOperAsoc, argCompAsoc, argEmpresa, argDetalle)
     End Sub
 
@@ -88,6 +90,7 @@
         ByVal argImpEf As Decimal,
         ByVal argImpCC As Decimal,
         ByVal argImpPE As Decimal,
+        ByVal argImpOS As Decimal,
         ByVal argCAE As CAE,
         ByVal argIdCliente As Long,
         ByVal argCliente As Cliente,
@@ -99,7 +102,7 @@
 
         Inicializar(argIdOperacion, argOperacion, argTipoComprobante, argPVenta, argNumComp, argFechaComp,
                     argImpBto, argImpDes, argImpNeto, argImpEx, argImpGrav1, argImpNeto1, argImpIVA1,
-                    argImpGrav2, argImpNeto2, argImpIVA2, argImpCB, argImpEf, argImpCC, argImpPE,
+                    argImpGrav2, argImpNeto2, argImpIVA2, argImpCB, argImpEf, argImpCC, argImpPE, argImpOS,
                     argCAE, argIdCliente, argCliente, argIdOperAsoc, argCompAsoc, argEmpresa, argDetalle)
     End Sub
 
@@ -125,6 +128,7 @@
         ByVal impEf As Decimal,
         ByVal impCC As Decimal,
         ByVal impPE As Decimal,
+        ByVal impOS As Decimal,
         ByVal cae As CAE,
         ByVal idCliente As Long,
         ByVal cliente As Cliente,
@@ -154,6 +158,7 @@
         Me.ImpEf = Math.Round(impEf, 2)
         Me.ImpCC = Math.Round(impCC, 2)
         Me.ImpPE = Math.Round(impPE, 2)
+        Me.ImpOS = Math.Round(impOS, 2)
         Me.CAE = cae
         Me.IdCliente = idCliente
         Me.Cliente = cliente

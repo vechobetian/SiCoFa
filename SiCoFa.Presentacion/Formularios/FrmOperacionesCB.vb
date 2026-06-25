@@ -338,6 +338,7 @@ Public Class FrmOperacionesCB
                                                   argImpEf:=importe,
                                                   argImpCC:=0,
                                                   argImpPE:=0,
+                                                  argImpOS:=0,
                                                   argCAE:=Nothing,
                                                   argIdCliente:=Nothing,
                                                   argCliente:=Nothing,

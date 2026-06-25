@@ -31,6 +31,7 @@ Public Class FrmVentas
     Private mdec_ImporteDescuentos As Decimal = 0
     Private mdec_ImporteConDescuentos As Decimal = 0
     Private mdec_PorcentaDescuentos As Decimal = 0
+    Private mdec_ImporteExento As Decimal = 0
     Private mdec_ImporteGravado1 As Decimal = 0
     Private mdec_ImporteGravado2 As Decimal = 0
     Private mdec_ImporteOS As Decimal = 0
@@ -148,6 +149,7 @@ Public Class FrmVentas
                         .FrmOrigen = Me
                         .Operacion = mobj_Operacion
                         .Cliente = mobj_Cliente
+                        .Recetas = mobj_Recetas
 
                         If argTecla = Keys.F9 Then
                             Dim tc As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("RTOX")
@@ -164,6 +166,8 @@ Public Class FrmVentas
                         .ImporteAPagar = mdec_ImporteConDescuentos
                         .ImporteGravado1 = mdec_ImporteGravado1
                         .ImporteGravado2 = mdec_ImporteGravado2
+                        .ImporteExento = mdec_ImporteExento
+                        .ImporteOS = mdec_ImporteOS
                         .ItemsComprobante = mobj_Items.ToList
                         .ShowDialog()
                     End With
@@ -630,6 +634,7 @@ Public Class FrmVentas
             mdec_ImporteDescuentos = 0
             mdec_ImporteConDescuentos = 0
             mdec_PorcentaDescuentos = 0
+            mdec_ImporteExento = 0
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
             mdec_ImporteOS = 0
@@ -648,10 +653,20 @@ Public Class FrmVentas
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
                 Select Case i.AlicIVA
+                    Case 0
+
+                        If i.Receta Is Nothing Then
+                            mdec_ImporteExento += i.ImporteConDescuento
+                        Else
+                            mdec_ImporteExento += i.ImporteSinDescuento
+                        End If
+
                     Case 10.5
                         mdec_ImporteGravado1 += i.ImporteConDescuento
+
                     Case 21
                         mdec_ImporteGravado2 += i.ImporteConDescuento
+
                 End Select
             Next
 

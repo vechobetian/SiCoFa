@@ -632,7 +632,10 @@ Public Class D_AdminOperaciones
 
                     If argRecetas IsNot Nothing Then
                         Dim AdminRecetas As New D_AdminRecetas
-                        AdminRecetas.GuardarRecetas(argRecetas, cn, tx)
+                        For Each r As Receta In argRecetas
+                            r.IdOperacion = argOperacion.IdOperacion
+                            AdminRecetas.InsertarReceta(r, cn, tx)
+                        Next
                     End If
 
                     If argItemsComprobante IsNot Nothing Then
