@@ -168,6 +168,7 @@ Public Class FrmVentas
                         .ImporteGravado2 = mdec_ImporteGravado2
                         .ImporteExento = mdec_ImporteExento
                         .ImporteOS = mdec_ImporteOS
+                        .ImporteCS = mdec_ImporteCS
                         .ItemsComprobante = mobj_Items.ToList
                         .ShowDialog()
                     End With
@@ -222,7 +223,7 @@ Public Class FrmVentas
                 If item.Articulo Is Nothing Then
                     uc.ModoBusqueda()
                 Else
-                    uc.ModoItemCargado(item.Articulo.Seccion.EstablecerPrecio)
+                    uc.ModoItemCargado(item.Articulo.Fraccionable, item.Articulo.Seccion.EstablecerPrecio)
                 End If
 
                 uc.Dock = DockStyle.Top
@@ -548,7 +549,7 @@ Public Class FrmVentas
 
             uc.Bind(item)
 
-            uc.ModoItemCargado(articulo.Seccion.EstablecerPrecio)
+            uc.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
 
             uc.HabilitarCantidad()
             uc.EnfocarCantidad()

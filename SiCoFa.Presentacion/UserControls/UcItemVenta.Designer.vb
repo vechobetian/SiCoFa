@@ -33,15 +33,17 @@ Partial Class UcItemVenta
         Me.txtDescripcion = New System.Windows.Forms.TextBox()
         Me.txtCodBarra = New System.Windows.Forms.TextBox()
         Me.btnEliminarItem = New System.Windows.Forms.Button()
+        Me.txtFraccionado = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
         '
-        Me.TableLayoutPanel1.ColumnCount = 10
+        Me.TableLayoutPanel1.ColumnCount = 11
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
@@ -49,13 +51,14 @@ Partial Class UcItemVenta
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.txtImporteConDescuento, 9, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtImporteDescuento, 8, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtPorcentajeDescuento, 7, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtImporteSinDescuento, 6, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtPrecioUnitario, 5, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtAlicIVA, 4, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.txtCantidad, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtFraccionado, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtImporteConDescuento, 10, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtImporteDescuento, 9, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtPorcentajeDescuento, 8, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtImporteSinDescuento, 7, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtPrecioUnitario, 6, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtAlicIVA, 5, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtCantidad, 4, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.txtDescripcion, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.txtCodBarra, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.btnEliminarItem, 0, 0)
@@ -169,7 +172,7 @@ Partial Class UcItemVenta
         Me.txtDescripcion.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtDescripcion.Location = New System.Drawing.Point(131, 3)
         Me.txtDescripcion.Name = "txtDescripcion"
-        Me.txtDescripcion.Size = New System.Drawing.Size(504, 18)
+        Me.txtDescripcion.Size = New System.Drawing.Size(464, 18)
         Me.txtDescripcion.TabIndex = 1
         '
         'txtCodBarra
@@ -202,6 +205,17 @@ Partial Class UcItemVenta
         Me.btnEliminarItem.Text = "X"
         Me.btnEliminarItem.UseVisualStyleBackColor = False
         '
+        'txtFraccionado
+        '
+        Me.txtFraccionado.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFraccionado.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtFraccionado.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFraccionado.Location = New System.Drawing.Point(601, 3)
+        Me.txtFraccionado.Name = "txtFraccionado"
+        Me.txtFraccionado.Size = New System.Drawing.Size(34, 18)
+        Me.txtFraccionado.TabIndex = 10
+        Me.txtFraccionado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'UcItemVenta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -226,4 +240,5 @@ Partial Class UcItemVenta
     Friend WithEvents txtCantidad As TextBox
     Friend WithEvents txtDescripcion As TextBox
     Friend WithEvents btnEliminarItem As Button
+    Friend WithEvents txtFraccionado As TextBox
 End Class

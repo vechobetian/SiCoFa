@@ -3,6 +3,7 @@
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
     Private m_CodBarras As String
     Private m_Descripcion As String
+    Private m_Fraccionado As Boolean
     Private m_Cantidad As Integer
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
     Private m_AlicIVA As Decimal
@@ -21,6 +22,7 @@
                     ByVal argArticulo As Articulo,
                     ByVal argCodBarras As String,
                     ByVal argDescripcion As String,
+                    ByVal argFraccionado As Boolean,
                     ByVal argCantidad As Integer,
                     ByVal argPrecioUnitario As Decimal,
                     ByVal argAlicIVA As Decimal,
@@ -31,6 +33,7 @@
         m_Articulo = argArticulo
         m_CodBarras = argCodBarras
         m_Descripcion = argDescripcion
+        m_Fraccionado = argFraccionado
         m_Cantidad = argCantidad
         m_PrecioUnitario = argPrecioUnitario
         m_AlicIVA = argAlicIVA
@@ -83,6 +86,15 @@
         End Get
         Set(value As String)
             m_Descripcion = value
+        End Set
+    End Property
+
+    Public Property Fraccionado() As Boolean
+        Get
+            Return m_Fraccionado
+        End Get
+        Set(value As Boolean)
+            m_Fraccionado = value
         End Set
     End Property
 

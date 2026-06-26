@@ -19,6 +19,8 @@ Public Class FrmPagos
     Property ImporteGravado1 As Decimal
     Property ImporteGravado2 As Decimal
     Property ImporteOS As Decimal
+    Property ImporteCS As Decimal
+
     Property Recetas As List(Of Receta)
 
     Private mobj_AdminOperacion As New N_AdminOperaciones
@@ -348,7 +350,7 @@ Public Class FrmPagos
                                     argImpEf:=Me.MediosDePago.ImportePagoEfectivo,
                                     argImpCC:=Me.MediosDePago.ImporteCuentaCorriente,
                                     argImpPE:=Me.MediosDePago.ImportePagoElectronico,
-                                    argImpOS:=Me.ImporteOS,
+                                    argImpOS:=Me.ImporteOS + Me.ImporteCS,
                                     argCAE:=Nothing,
                                     argIdCliente:=Me.Cliente.Id,
                                     argCliente:=Me.Cliente,

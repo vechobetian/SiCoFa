@@ -392,7 +392,7 @@ Public Class FrmPresupuestos
 
             With Me
                 If a IsNot Nothing Then
-                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, 1, a.PrecioVenta, a.AlicIVA, 0)
+                    Dim i As New ItemComprobante(a, a.CodBarras, a.Nombre, a.Fraccionable, 1, a.PrecioVenta, a.AlicIVA, 0)
                     mobj_Items.Add(i)
                     Me.DataGridView1.ClearSelection()
 

@@ -6,6 +6,7 @@ Public Class UcItemVenta
 
     Public Event ItemEliminado(item As ItemComprobante)
     Public Event BusquedaArticuloSolicitada(uc As UcItemVenta, texto As String)
+    Public Event FraccionadoConfirmado(uc As UcItemVenta)
     Public Event CantidadConfirmada(uc As UcItemVenta)
     Public Event PrecioConfirmado(uc As UcItemVenta)
     Public Event ItemSeleccionado(uc As UcItemVenta)
@@ -26,6 +27,13 @@ Public Class UcItemVenta
 
         RaiseEvent BusquedaArticuloSolicitada(Me, txtDescripcion.Text)
 
+    End Sub
+
+    Protected Overridable Sub OnFraccionadoConfirmado()
+        If ItemVenta IsNot Nothing Then
+            ItemVenta.Fraccionado = Val(txtFraccionado.Text)
+            RaiseEvent FraccionadoConfirmado(Me)
+        End If
     End Sub
 
     Protected Overridable Sub OnCantidadConfirmada()
@@ -91,6 +99,7 @@ Public Class UcItemVenta
 
         If item.Articulo Is Nothing Then
             btnEliminarItem.Visible = False
+            txtFraccionado.Text = ""
             txtCantidad.Text = ""
             txtAlicIVA.Text = ""
             txtPrecioUnitario.Text = ""
@@ -103,6 +112,7 @@ Public Class UcItemVenta
         End If
 
         btnEliminarItem.Visible = True
+        txtFraccionado.Text = item.Fraccionado.ToString
         txtCantidad.Text = item.Cantidad.ToString()
         txtAlicIVA.Text = item.AlicIVA.ToString("0.00")
         txtPrecioUnitario.Text = item.PrecioUnitario.ToString("0.00")
@@ -159,6 +169,7 @@ Public Class UcItemVenta
         btnEliminarItem.BackColor = color
         txtCodBarra.BackColor = color
         txtDescripcion.BackColor = color
+        txtFraccionado.BackColor = color
         txtCantidad.BackColor = color
         txtAlicIVA.BackColor = color
         txtPrecioUnitario.BackColor = color
@@ -193,23 +204,30 @@ Public Class UcItemVenta
 
         txtDescripcion.ReadOnly = False
 
+        txtFraccionado.ReadOnly = True
         txtCantidad.ReadOnly = True
         txtPrecioUnitario.ReadOnly = True
 
+        txtFraccionado.TabStop = False
         txtCantidad.TabStop = False
         txtPrecioUnitario.TabStop = False
 
+        txtFraccionado.BackColor = ObtenerColorBase()
         txtCantidad.BackColor = ObtenerColorBase()
         txtPrecioUnitario.BackColor = ObtenerColorBase()
 
     End Sub
 
-    Public Sub ModoItemCargado(permiteEditarPrecio As Boolean)
+    Public Sub ModoItemCargado(permiteFraccionar As Boolean, permiteEditarPrecio As Boolean)
 
         txtDescripcion.ReadOnly = True
 
+        txtFraccionado.ReadOnly = False
         txtCantidad.ReadOnly = False
         txtCantidad.TabStop = True
+
+        txtFraccionado.ReadOnly = Not permiteFraccionar
+        txtFraccionado.TabStop = permiteFraccionar
 
         txtPrecioUnitario.ReadOnly = Not permiteEditarPrecio
         txtPrecioUnitario.TabStop = permiteEditarPrecio
@@ -220,6 +238,13 @@ Public Class UcItemVenta
 
         txtDescripcion.Focus()
         txtDescripcion.SelectAll()
+
+    End Sub
+
+    Public Sub EnfocarFraccionado()
+
+        txtFraccionado.Focus()
+        txtFraccionado.SelectAll()
 
     End Sub
 
@@ -234,6 +259,13 @@ Public Class UcItemVenta
 
         txtPrecioUnitario.Focus()
         txtPrecioUnitario.SelectAll()
+
+    End Sub
+
+    Public Sub HabilitarFraccionado()
+
+        txtFraccionado.ReadOnly = False
+        txtFraccionado.TabStop = True
 
     End Sub
 
@@ -262,6 +294,17 @@ Public Class UcItemVenta
         If e.KeyCode = Keys.Enter Then
 
             OnBusquedaArticuloSolicitada()
+            e.SuppressKeyPress = True
+
+        End If
+
+    End Sub
+
+    Private Sub txtFraccionado_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFraccionado.KeyDown
+
+        If e.KeyCode = Keys.Enter Then
+
+            OnFraccionadoConfirmado()
             e.SuppressKeyPress = True
 
         End If

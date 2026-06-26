@@ -153,32 +153,38 @@ Public Class Ticket80
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("Subtotal: " & StrDup(32 - Len(strSubTotal), " ") & strSubTotal, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strImpEx = Format(Comprobante.ImpEx, "Standard")
-            yPos += IncrementoYPreTexto
-            e.Graphics.DrawString("Imp.Exento: " & StrDup(30 - Len(strImpEx), " ") & strImpEx, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            If Comprobante.ImpEx > 0 Then
+                strImpEx = Format(Comprobante.ImpEx, "Standard")
+                yPos += IncrementoYPreTexto
+                e.Graphics.DrawString("Imp.Exento: " & StrDup(30 - Len(strImpEx), " ") & strImpEx, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            End If
 
-            strImpNeto1 = Format(Comprobante.ImpNeto1, "Standard")
-            yPos += IncrementoYPreTexto
-            e.Graphics.DrawString("Imp.Neto 10,5%: " & StrDup(26 - Len(strImpNeto1), " ") & strImpNeto1, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            If Comprobante.ImpNeto1 > 0 Then
+                strImpNeto1 = Format(Comprobante.ImpNeto1, "Standard")
+                yPos += IncrementoYPreTexto
+                e.Graphics.DrawString("Imp.Neto 10,5%: " & StrDup(26 - Len(strImpNeto1), " ") & strImpNeto1, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strIVA1 = Format(Comprobante.ImpIVA1, "Standard")
-            yPos += IncrementoYPreTexto
-            e.Graphics.DrawString("I.V.A 10,5%: " & StrDup(29 - Len(strIVA1), " ") & strIVA1, printFont, Brushes.Black, MargenIzquierdo, yPos)
+                strIVA1 = Format(Comprobante.ImpIVA1, "Standard")
+                yPos += IncrementoYPreTexto
+                e.Graphics.DrawString("I.V.A 10,5%: " & StrDup(29 - Len(strIVA1), " ") & strIVA1, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            End If
 
-            strImpNeto2 = Format(Comprobante.ImpNeto2, "Standard")
-            yPos += IncrementoYPreTexto
-            e.Graphics.DrawString("Imp.Neto 21%: " & StrDup(28 - Len(strImpNeto2), " ") & strImpNeto2, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            If Comprobante.ImpNeto2 > 0 Then
+                strImpNeto2 = Format(Comprobante.ImpNeto2, "Standard")
+                yPos += IncrementoYPreTexto
+                e.Graphics.DrawString("Imp.Neto 21%: " & StrDup(28 - Len(strImpNeto2), " ") & strImpNeto2, printFont, Brushes.Black, MargenIzquierdo, yPos)
 
-            strIVA2 = Format(Comprobante.ImpIVA2, "Standard")
-            yPos += IncrementoYPreTexto
-            e.Graphics.DrawString("I.V.A 21%: " & StrDup(31 - Len(strIVA2), " ") & strIVA2, printFont, Brushes.Black, MargenIzquierdo, yPos)
+                strIVA2 = Format(Comprobante.ImpIVA2, "Standard")
+                yPos += IncrementoYPreTexto
+                e.Graphics.DrawString("I.V.A 21%: " & StrDup(31 - Len(strIVA2), " ") & strIVA2, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            End If
 
-            strTotal = Format(Comprobante.ImpNeto, "Standard")
+            strTotal = Format(Comprobante.ImpNeto + Comprobante.ImpOS, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("TOTAL: " & StrDup(15 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
 
         Else
-            strTotal = Format(Comprobante.ImpNeto, "Standard")
+            strTotal = Format(Comprobante.ImpNeto + Comprobante.ImpOS, "Standard")
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString("TOTAL: " & StrDup(15 - Len(strTotal), " ") & strTotal, fuenteGrande, Brushes.Black, MargenIzquierdo, yPos)
 

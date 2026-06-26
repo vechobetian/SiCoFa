@@ -22,6 +22,7 @@ Public Class D_AdminItemsReceta
                         Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
                         Dim idArticuloOrdinal As Integer = datos.GetOrdinal("Idarticulo")
                         Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
+                        Dim fraccionableOrdinal As Integer = datos.GetOrdinal("Fraccionable")
                         Dim cantidadOrdinal As Integer = datos.GetOrdinal("Cantidad")
                         Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
                         Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
@@ -38,6 +39,7 @@ Public Class D_AdminItemsReceta
                             Dim IdItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim FraccionableResult As Boolean = datos.GetBoolean(fraccionableOrdinal)
                             Dim CantidadResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadOrdinal))
                             Dim AlicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
@@ -55,7 +57,7 @@ Public Class D_AdminItemsReceta
                             Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
                             Dim objArticuloResult As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
 
-                            Dim objIC As New ItemComprobante(objArticuloResult, CodBarrasResult, DescripcionResult, CantidadResult, PrecioUnitarioResult, AlicIVAResult, PorcentajeDescuento)
+                            Dim objIC As New ItemComprobante(objArticuloResult, CodBarrasResult, DescripcionResult, FraccionableResult, CantidadResult, PrecioUnitarioResult, AlicIVAResult, PorcentajeDescuento)
                             objIC.IdItem = IdItemResult
                             objLI.Add(objIC)
                         End While

@@ -36,6 +36,9 @@ Partial Class FrmVentas
         Me.lblImporteCSEtiqueda = New System.Windows.Forms.Label()
         Me.lblImporteOS = New System.Windows.Forms.Label()
         Me.lblImporteCS = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lblDatosOperacion = New System.Windows.Forms.Label()
+        Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.NuevoToolStripButton = New System.Windows.Forms.ToolStripButton()
@@ -64,17 +67,14 @@ Partial Class FrmVentas
         Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PresupuestoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelItems = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.lblDatosOperacion = New System.Windows.Forms.Label()
-        Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.UcReceta1 = New SiCoFa.Presentacion.UcReceta()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TableLayoutPanel1
@@ -112,7 +112,7 @@ Partial Class FrmVentas
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblDescuentos, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
@@ -140,7 +140,7 @@ Partial Class FrmVentas
         '
         Me.lblDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescuentos.Location = New System.Drawing.Point(610, 30)
+        Me.lblDescuentos.Location = New System.Drawing.Point(601, 30)
         Me.lblDescuentos.Name = "lblDescuentos"
         Me.lblDescuentos.Size = New System.Drawing.Size(174, 24)
         Me.lblDescuentos.TabIndex = 8
@@ -151,9 +151,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(793, 30)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(784, 30)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(171, 24)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(180, 24)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "$ 0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -162,9 +162,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(793, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(784, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(171, 24)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(180, 24)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "$ 0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -173,7 +173,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(610, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(601, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
         Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
@@ -184,7 +184,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(610, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(601, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
         Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(174, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 20
@@ -195,9 +195,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(793, 111)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(784, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(171, 68)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(180, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "$ 0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -206,7 +206,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(610, 57)
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(601, 57)
         Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
         Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteOSEtiqueta.TabIndex = 21
@@ -217,7 +217,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteCSEtiqueda.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCSEtiqueda.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(610, 84)
+        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(601, 84)
         Me.lblImporteCSEtiqueda.Name = "lblImporteCSEtiqueda"
         Me.lblImporteCSEtiqueda.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteCSEtiqueda.TabIndex = 22
@@ -228,9 +228,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOS.Location = New System.Drawing.Point(793, 57)
+        Me.lblImporteOS.Location = New System.Drawing.Point(784, 57)
         Me.lblImporteOS.Name = "lblImporteOS"
-        Me.lblImporteOS.Size = New System.Drawing.Size(171, 24)
+        Me.lblImporteOS.Size = New System.Drawing.Size(180, 24)
         Me.lblImporteOS.TabIndex = 23
         Me.lblImporteOS.Text = "$ 0,00"
         Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -239,12 +239,45 @@ Partial Class FrmVentas
         '
         Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCS.Location = New System.Drawing.Point(793, 84)
+        Me.lblImporteCS.Location = New System.Drawing.Point(784, 84)
         Me.lblImporteCS.Name = "lblImporteCS"
-        Me.lblImporteCS.Size = New System.Drawing.Size(171, 24)
+        Me.lblImporteCS.Size = New System.Drawing.Size(180, 24)
         Me.lblImporteCS.TabIndex = 24
         Me.lblImporteCS.Text = "$ 0,00"
         Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.UcReceta1)
+        Me.Panel2.Controls.Add(Me.lblDatosOperacion)
+        Me.Panel2.Controls.Add(Me.lblCantidadItems)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(3, 3)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel2.Name = "Panel2"
+        Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 5)
+        Me.Panel2.Size = New System.Drawing.Size(592, 176)
+        Me.Panel2.TabIndex = 25
+        '
+        'lblDatosOperacion
+        '
+        Me.lblDatosOperacion.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDatosOperacion.Location = New System.Drawing.Point(0, 59)
+        Me.lblDatosOperacion.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblDatosOperacion.Name = "lblDatosOperacion"
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(595, 109)
+        Me.lblDatosOperacion.TabIndex = 29
+        Me.lblDatosOperacion.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        '
+        'lblCantidadItems
+        '
+        Me.lblCantidadItems.AutoSize = True
+        Me.lblCantidadItems.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCantidadItems.Location = New System.Drawing.Point(3, 3)
+        Me.lblCantidadItems.Name = "lblCantidadItems"
+        Me.lblCantidadItems.Size = New System.Drawing.Size(66, 17)
+        Me.lblCantidadItems.TabIndex = 30
+        Me.lblCantidadItems.Text = "- Items: 0"
         '
         'Panel1
         '
@@ -471,39 +504,6 @@ Partial Class FrmVentas
         Me.PanelItems.Size = New System.Drawing.Size(972, 385)
         Me.PanelItems.TabIndex = 6
         '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.UcReceta1)
-        Me.Panel2.Controls.Add(Me.lblDatosOperacion)
-        Me.Panel2.Controls.Add(Me.lblCantidadItems)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(3, 3)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel2.Name = "Panel2"
-        Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 5)
-        Me.Panel2.Size = New System.Drawing.Size(601, 176)
-        Me.Panel2.TabIndex = 25
-        '
-        'lblDatosOperacion
-        '
-        Me.lblDatosOperacion.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDatosOperacion.Location = New System.Drawing.Point(0, 59)
-        Me.lblDatosOperacion.Margin = New System.Windows.Forms.Padding(0)
-        Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(595, 109)
-        Me.lblDatosOperacion.TabIndex = 29
-        Me.lblDatosOperacion.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'lblCantidadItems
-        '
-        Me.lblCantidadItems.AutoSize = True
-        Me.lblCantidadItems.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCantidadItems.Location = New System.Drawing.Point(3, 3)
-        Me.lblCantidadItems.Name = "lblCantidadItems"
-        Me.lblCantidadItems.Size = New System.Drawing.Size(66, 17)
-        Me.lblCantidadItems.TabIndex = 30
-        Me.lblCantidadItems.Text = "- Items: 0"
-        '
         'UcReceta1
         '
         Me.UcReceta1.Dock = System.Windows.Forms.DockStyle.Right
@@ -528,14 +528,14 @@ Partial Class FrmVentas
         Me.TableLayoutPanel1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

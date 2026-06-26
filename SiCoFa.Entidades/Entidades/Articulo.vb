@@ -27,6 +27,7 @@ Public Class Articulo
     Property GTIN As String
     Property ViaAdministracion As ViaAdministracion
     Property DesOferta As Decimal
+    Property Fraccionable As Boolean
     Property DFrac As String
     Property Promocion As Promocion
     Property UDiv As Integer
@@ -63,9 +64,10 @@ Public Class Articulo
                    ByVal argGTIN As String,
                    ByVal argViaAdministracion As ViaAdministracion,
                    ByVal argDesOferta As Decimal,
-                   ByVal argDFrac As String,
                    ByVal argPromocion As Promocion,
-                   ByVal argUDiv As Integer,
+                   ByRef argFraccionable As Boolean,
+                    ByVal argDFrac As String,
+                  ByVal argUDiv As Integer,
                    ByVal argRFrac As Decimal,
                    ByVal argGravamen As Boolean,
                    ByVal argCodiFF As Integer,
@@ -100,7 +102,9 @@ Public Class Articulo
         Me.GTIN = argGTIN
         Me.ViaAdministracion = argViaAdministracion
         Me.DesOferta = argDesOferta
+        Me.Fraccionable = argFraccionable
         Me.DFrac = argDFrac
+        Me.UDiv = argUDiv
         Me.Gravamen = argGravamen
         Me.CodiFF = argCodiFF
         Me.Potencia = argPotencia
