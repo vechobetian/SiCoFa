@@ -53,11 +53,11 @@ Public Class D_AdminItemsComprobante
                             Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
 
                             ' Crear objetos anidados
-                            Dim AdminArticulos As New D_AdminArticulos
-                            Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
-                            Dim objArticuloResult As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
+                            'Dim AdminArticulos As New D_AdminArticulos
+                            'Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
+                            'Dim objArticuloResult As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
 
-                            Dim objIC As New ItemComprobante(objArticuloResult, CodBarrasResult, DescripcionResult, FraccionadoResult, CantidadResult, PrecioUnitarioResult, AlicIVAResult, PorcentajeDescuento)
+                            Dim objIC As New ItemComprobante(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, FraccionadoResult, CantidadResult, PrecioCostoResult, PrecioUnitarioResult, AlicIVAResult, DescuentoResult, PorcentajeDescuento)
                             objIC.IdItem = IdItemResult
                             objLI.Add(objIC)
                         End While
@@ -333,6 +333,7 @@ Public Class D_AdminItemsComprobante
                         Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
                         Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
                         Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
+                        Dim fraccionadoOrdinal As Integer = datos.GetOrdinal("Fraccionado")
                         Dim cantidadFOrdinal As Integer = datos.GetOrdinal("CantidadF")
                         Dim cantidadAOrdinal As Integer = datos.GetOrdinal("CantidadA")
                         Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
@@ -346,6 +347,7 @@ Public Class D_AdminItemsComprobante
                             Dim IdItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim FraccionadoResult As Boolean = datos.GetBoolean(fraccionadoOrdinal)
                             Dim CantidadFResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadFOrdinal))
                             Dim CantidadAResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadAOrdinal))
                             Dim AlicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
@@ -355,7 +357,7 @@ Public Class D_AdminItemsComprobante
                             Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
 
 
-                            Dim objINC As New ItemComprobanteNC(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, CantidadFResult, CantidadAResult, PrecioCostoResult, PrecioUnitarioResult, AlicIVAResult, DescuentoResult)
+                            Dim objINC As New ItemComprobanteNC(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, FraccionadoResult, CantidadFResult, CantidadAResult, PrecioCostoResult, PrecioUnitarioResult, AlicIVAResult, DescuentoResult)
                             objLI.Add(objINC)
                         End While
                     End Using

@@ -3,6 +3,7 @@
     Private ReadOnly m_IdArticulo As String
     Private ReadOnly m_CodBarras As String
     Private ReadOnly m_Descripcion As String
+    Private ReadOnly m_Fraccionado As Boolean
     Private ReadOnly m_CantidadF As Integer
     Private ReadOnly m_CantidadA As Integer
     Private m_CantidadNC As Integer
@@ -16,6 +17,7 @@
         ByVal argIdArticulo As String,
         ByVal argCodBarras As String,
         ByVal argDescripcion As String,
+        ByVal argFraccionado As Boolean,
         ByVal argCantidadF As Integer,
         ByVal argCantidadA As Integer,
         ByVal argPrecioCosto As Decimal,
@@ -27,6 +29,7 @@
         m_CodBarras = argCodBarras
         m_IdArticulo = argIdArticulo
         m_Descripcion = argDescripcion
+        m_Fraccionado = argFraccionado
         m_CantidadF = argCantidadF
         m_CantidadA = argCantidadA
         m_PrecioCosto = argPrecioCosto
@@ -56,6 +59,12 @@
     Public ReadOnly Property Descripcion() As String
         Get
             Return m_Descripcion
+        End Get
+    End Property
+
+    Public ReadOnly Property Fraccionado() As Boolean
+        Get
+            Return m_Fraccionado
         End Get
     End Property
 

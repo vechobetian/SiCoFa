@@ -112,7 +112,7 @@ Public Class UcItemVenta
         End If
 
         btnEliminarItem.Visible = True
-        txtFraccionado.Text = item.Fraccionado.ToString
+        txtFraccionado.Text = CInt(item.Fraccionado).ToString
         txtCantidad.Text = item.Cantidad.ToString()
         txtAlicIVA.Text = item.AlicIVA.ToString("0.00")
         txtPrecioUnitario.Text = item.PrecioUnitario.ToString("0.00")
@@ -300,9 +300,29 @@ Public Class UcItemVenta
 
     End Sub
 
+    Private Sub txtFraccionado_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtFraccionado.KeyPress
+
+        Select Case e.KeyChar
+            Case ChrW(Keys.Back), "0"c, "1"c
+                ' Permitir
+            Case Else
+                e.Handled = True
+        End Select
+
+    End Sub
+
     Private Sub txtFraccionado_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFraccionado.KeyDown
 
         If e.KeyCode = Keys.Enter Then
+
+            If txtFraccionado.Text.Trim() <> "0" AndAlso txtFraccionado.Text.Trim() <> "1" Then
+
+                MsgBox("Los valores permitidos son 0 (No fraccionado) o 1 (Fraccionado).", vbInformation, "SiCoFa")
+                txtFraccionado.SelectAll()
+                e.SuppressKeyPress = True
+                Exit Sub
+
+            End If
 
             OnFraccionadoConfirmado()
             e.SuppressKeyPress = True
@@ -314,6 +334,12 @@ Public Class UcItemVenta
     Private Sub txtCantidad_KeyDown(sender As Object, e As KeyEventArgs) Handles txtCantidad.KeyDown
 
         If e.KeyCode = Keys.Enter Then
+
+            Dim cantidad As Integer
+
+            If Not Integer.TryParse(txtCantidad.Text, cantidad) OrElse cantidad <= 0 Then
+                txtCantidad.Text = "1"
+            End If
 
             OnCantidadConfirmada()
             e.SuppressKeyPress = True

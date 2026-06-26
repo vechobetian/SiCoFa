@@ -390,7 +390,6 @@ Public Class FrmVentas
             item.Descripcion = ""
             item.Cantidad = 0
             item.AlicIVA = 0
-            item.PrecioUnitario = 0
             item.PorcentajeDescuento = 0
             item.EsNuevo = True
             AdminItems.EliminarItemComprobante(item.IdItem)
@@ -543,7 +542,6 @@ Public Class FrmVentas
             item.CodBarras = articulo.CodBarras
             item.Descripcion = articulo.Nombre
             item.Cantidad = 1
-            item.PrecioUnitario = articulo.PrecioVenta
             item.AlicIVA = articulo.AlicIVA
             item.PorcentajeOS = porcentajeOS
 
@@ -551,8 +549,15 @@ Public Class FrmVentas
 
             uc.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
 
-            uc.HabilitarCantidad()
-            uc.EnfocarCantidad()
+            If uc.ItemVenta.Articulo.Fraccionable AndAlso uc.ItemVenta.Receta Is Nothing Then
+                uc.HabilitarFraccionado()
+                uc.EnfocarFraccionado()
+
+            Else
+                uc.HabilitarCantidad()
+                uc.EnfocarCantidad()
+
+            End If
 
             ActualizarTotales()
 

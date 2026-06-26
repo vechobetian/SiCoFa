@@ -23,6 +23,7 @@ Partial Class UcItemVenta
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.txtFraccionado = New System.Windows.Forms.TextBox()
         Me.txtImporteConDescuento = New System.Windows.Forms.TextBox()
         Me.txtImporteDescuento = New System.Windows.Forms.TextBox()
         Me.txtPorcentajeDescuento = New System.Windows.Forms.TextBox()
@@ -33,7 +34,6 @@ Partial Class UcItemVenta
         Me.txtDescripcion = New System.Windows.Forms.TextBox()
         Me.txtCodBarra = New System.Windows.Forms.TextBox()
         Me.btnEliminarItem = New System.Windows.Forms.Button()
-        Me.txtFraccionado = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -70,6 +70,17 @@ Partial Class UcItemVenta
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1178, 25)
         Me.TableLayoutPanel1.TabIndex = 0
+        '
+        'txtFraccionado
+        '
+        Me.txtFraccionado.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.txtFraccionado.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtFraccionado.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtFraccionado.Location = New System.Drawing.Point(601, 3)
+        Me.txtFraccionado.Name = "txtFraccionado"
+        Me.txtFraccionado.Size = New System.Drawing.Size(34, 18)
+        Me.txtFraccionado.TabIndex = 10
+        Me.txtFraccionado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'txtImporteConDescuento
         '
@@ -204,17 +215,6 @@ Partial Class UcItemVenta
         Me.btnEliminarItem.TabIndex = 9
         Me.btnEliminarItem.Text = "X"
         Me.btnEliminarItem.UseVisualStyleBackColor = False
-        '
-        'txtFraccionado
-        '
-        Me.txtFraccionado.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtFraccionado.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtFraccionado.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFraccionado.Location = New System.Drawing.Point(601, 3)
-        Me.txtFraccionado.Name = "txtFraccionado"
-        Me.txtFraccionado.Size = New System.Drawing.Size(34, 18)
-        Me.txtFraccionado.TabIndex = 10
-        Me.txtFraccionado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'UcItemVenta
         '

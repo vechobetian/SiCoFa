@@ -1,11 +1,14 @@
 ﻿Public Class ItemComprobante
     Private m_IdItem As Long
+    Private m_IdArticulo As String
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
     Private m_CodBarras As String
     Private m_Descripcion As String
     Private m_Fraccionado As Boolean
     Private m_Cantidad As Integer
+    Private m_PrecioCosto As Decimal
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
+    Private m_DescuentoUnitario As Decimal
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
     Private m_Receta As Receta
@@ -17,14 +20,13 @@
 
     End Sub
 
-    ' Constructor
+    ' Constructor para items nuevos (hace cálculos)
     Public Sub New(
                     ByVal argArticulo As Articulo,
                     ByVal argCodBarras As String,
                     ByVal argDescripcion As String,
                     ByVal argFraccionado As Boolean,
                     ByVal argCantidad As Integer,
-                    ByVal argPrecioUnitario As Decimal,
                     ByVal argAlicIVA As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
                     Optional argReceta As Receta = Nothing
@@ -35,12 +37,40 @@
         m_Descripcion = argDescripcion
         m_Fraccionado = argFraccionado
         m_Cantidad = argCantidad
-        m_PrecioUnitario = argPrecioUnitario
         m_AlicIVA = argAlicIVA
         m_PorcentajeDescuento = argPorcentajeDescuento
         m_Receta = argReceta
         ' No es necesario llamar a Recalcular aqui, ya que las propiedades
         ' se calcularán en sus Getters cuando se accedan.
+    End Sub
+
+    ' Constructor para items cargados desde base de datos
+
+    Public Sub New(
+                    ByVal argIdItem As Long,
+                    ByVal argIdArticulo As String,
+                    ByVal argCodBarras As String,
+                    ByVal argDescripcion As String,
+                    ByVal argFraccionado As Boolean,
+                    ByVal argCantidad As Integer,
+                    ByVal argAlicIVA As Decimal,
+                    ByVal argPrecioCosto As Decimal,
+                    ByVal argPrecioUnitario As Decimal,
+                    ByVal argDescuentoUnitario As Decimal,
+                    ByVal argPorcentajeDescuento As Decimal
+                   )
+
+        m_IdItem = argIdItem
+        m_IdArticulo = argIdArticulo
+        m_CodBarras = argCodBarras
+        m_Descripcion = argDescripcion
+        m_Fraccionado = argFraccionado
+        m_Cantidad = argCantidad
+        m_AlicIVA = argAlicIVA
+        m_PrecioCosto = argPrecioCosto
+        m_PrecioUnitario = argPrecioUnitario
+        m_DescuentoUnitario = argDescuentoUnitario
+        m_PorcentajeDescuento = argPorcentajeDescuento
     End Sub
 
     Public Property EsNuevo() As Boolean
@@ -60,6 +90,14 @@
         Set(value As Long)
             m_IdItem = value
         End Set
+    End Property
+
+    Public ReadOnly Property IdArticulo() As String
+
+        Get
+            Return m_IdArticulo
+        End Get
+
     End Property
 
     Public Property Articulo() As Articulo
@@ -111,15 +149,41 @@
         End Set
     End Property
 
-    Public Property PrecioUnitario() As Decimal
+    Public Property PrecioCosto() As Decimal
+
         Get
-            Return m_PrecioUnitario
+            Return m_PrecioCosto
         End Get
         Set(value As Decimal)
+            m_PrecioCosto = value
+        End Set
+
+    End Property
+
+    Public Property PrecioUnitario() As Decimal
+
+        Get
+
+            If m_Articulo Is Nothing Or m_Articulo.Seccion.EstablecerPrecio Then Return 0
+
+            If m_Fraccionado Then
+                m_PrecioUnitario = m_Articulo.PrecioVenta / m_Articulo.UDiv
+            Else
+                m_PrecioUnitario = m_Articulo.PrecioVenta
+            End If
+
+            Return m_PrecioUnitario
+
+        End Get
+
+        Set(value As Decimal)
+
             If m_PrecioUnitario <> value Then ' Solo recalcula si el valor cambia
                 m_PrecioUnitario = value
             End If
+
         End Set
+
     End Property
 
     Public Property AlicIVA() As Decimal
