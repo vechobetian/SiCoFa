@@ -35,6 +35,8 @@ Partial Class UcReceta
         Me.lblImporteAF = New System.Windows.Forms.Label()
         Me.lblImporteCS = New System.Windows.Forms.Label()
         Me.lblImporteOS = New System.Windows.Forms.Label()
+        Me.lblTotalRecetaEtiqueta = New System.Windows.Forms.Label()
+        Me.lblTotalReceta = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -44,30 +46,33 @@ Partial Class UcReceta
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.lblTotalReceta, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblTotalRecetaEtiqueta, 0, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.lblValidacion, 1, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.lblValidacionEtiqueta, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.lblPlanOS, 1, 1)
         Me.TableLayoutPanel1.Controls.Add(Me.lblIdReceta, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblIdRecetaEtiqueta, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblPlanOSEtiqueta, 0, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteAfEtiqueta, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteCSEtiqueta, 0, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteOSEtiqueta, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteAF, 1, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteCS, 1, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteOS, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteAfEtiqueta, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteCSEtiqueta, 0, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteOSEtiqueta, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteAF, 1, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteCS, 1, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblImporteOS, 1, 4)
         Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 6
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66666!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(307, 129)
+        Me.TableLayoutPanel1.RowCount = 7
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(307, 148)
         Me.TableLayoutPanel1.TabIndex = 7
         '
         'lblValidacion
@@ -76,10 +81,10 @@ Partial Class UcReceta
         Me.lblValidacion.BackColor = System.Drawing.SystemColors.Window
         Me.lblValidacion.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblValidacion.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValidacion.Location = New System.Drawing.Point(96, 45)
+        Me.lblValidacion.Location = New System.Drawing.Point(96, 43)
         Me.lblValidacion.Margin = New System.Windows.Forms.Padding(0)
         Me.lblValidacion.Name = "lblValidacion"
-        Me.lblValidacion.Size = New System.Drawing.Size(208, 18)
+        Me.lblValidacion.Size = New System.Drawing.Size(208, 17)
         Me.lblValidacion.TabIndex = 14
         Me.lblValidacion.Text = "        "
         Me.lblValidacion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -90,10 +95,10 @@ Partial Class UcReceta
         Me.lblValidacionEtiqueta.BackColor = System.Drawing.SystemColors.Window
         Me.lblValidacionEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblValidacionEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValidacionEtiqueta.Location = New System.Drawing.Point(3, 45)
+        Me.lblValidacionEtiqueta.Location = New System.Drawing.Point(3, 43)
         Me.lblValidacionEtiqueta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblValidacionEtiqueta.Name = "lblValidacionEtiqueta"
-        Me.lblValidacionEtiqueta.Size = New System.Drawing.Size(90, 18)
+        Me.lblValidacionEtiqueta.Size = New System.Drawing.Size(90, 17)
         Me.lblValidacionEtiqueta.TabIndex = 13
         Me.lblValidacionEtiqueta.Text = "Validacion:"
         '
@@ -103,10 +108,10 @@ Partial Class UcReceta
         Me.lblPlanOS.BackColor = System.Drawing.SystemColors.Window
         Me.lblPlanOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblPlanOS.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPlanOS.Location = New System.Drawing.Point(96, 24)
+        Me.lblPlanOS.Location = New System.Drawing.Point(96, 23)
         Me.lblPlanOS.Margin = New System.Windows.Forms.Padding(0)
         Me.lblPlanOS.Name = "lblPlanOS"
-        Me.lblPlanOS.Size = New System.Drawing.Size(208, 18)
+        Me.lblPlanOS.Size = New System.Drawing.Size(208, 17)
         Me.lblPlanOS.TabIndex = 8
         Me.lblPlanOS.Text = "         "
         Me.lblPlanOS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -120,7 +125,7 @@ Partial Class UcReceta
         Me.lblIdReceta.Location = New System.Drawing.Point(96, 3)
         Me.lblIdReceta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblIdReceta.Name = "lblIdReceta"
-        Me.lblIdReceta.Size = New System.Drawing.Size(208, 18)
+        Me.lblIdReceta.Size = New System.Drawing.Size(208, 17)
         Me.lblIdReceta.TabIndex = 7
         Me.lblIdReceta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -133,7 +138,7 @@ Partial Class UcReceta
         Me.lblIdRecetaEtiqueta.Location = New System.Drawing.Point(3, 3)
         Me.lblIdRecetaEtiqueta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblIdRecetaEtiqueta.Name = "lblIdRecetaEtiqueta"
-        Me.lblIdRecetaEtiqueta.Size = New System.Drawing.Size(90, 18)
+        Me.lblIdRecetaEtiqueta.Size = New System.Drawing.Size(90, 17)
         Me.lblIdRecetaEtiqueta.TabIndex = 6
         Me.lblIdRecetaEtiqueta.Text = "IdReceta:"
         '
@@ -143,10 +148,10 @@ Partial Class UcReceta
         Me.lblPlanOSEtiqueta.BackColor = System.Drawing.SystemColors.Window
         Me.lblPlanOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblPlanOSEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPlanOSEtiqueta.Location = New System.Drawing.Point(3, 24)
+        Me.lblPlanOSEtiqueta.Location = New System.Drawing.Point(3, 23)
         Me.lblPlanOSEtiqueta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblPlanOSEtiqueta.Name = "lblPlanOSEtiqueta"
-        Me.lblPlanOSEtiqueta.Size = New System.Drawing.Size(90, 18)
+        Me.lblPlanOSEtiqueta.Size = New System.Drawing.Size(90, 17)
         Me.lblPlanOSEtiqueta.TabIndex = 2
         Me.lblPlanOSEtiqueta.Text = "O.S. Plan:"
         '
@@ -156,10 +161,10 @@ Partial Class UcReceta
         Me.lblImporteAfEtiqueta.BackColor = System.Drawing.SystemColors.Window
         Me.lblImporteAfEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteAfEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteAfEtiqueta.Location = New System.Drawing.Point(3, 108)
+        Me.lblImporteAfEtiqueta.Location = New System.Drawing.Point(3, 126)
         Me.lblImporteAfEtiqueta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblImporteAfEtiqueta.Name = "lblImporteAfEtiqueta"
-        Me.lblImporteAfEtiqueta.Size = New System.Drawing.Size(90, 18)
+        Me.lblImporteAfEtiqueta.Size = New System.Drawing.Size(90, 19)
         Me.lblImporteAfEtiqueta.TabIndex = 12
         Me.lblImporteAfEtiqueta.Text = "Importe AF:"
         '
@@ -169,10 +174,10 @@ Partial Class UcReceta
         Me.lblImporteCSEtiqueta.BackColor = System.Drawing.SystemColors.Window
         Me.lblImporteCSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCSEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCSEtiqueta.Location = New System.Drawing.Point(3, 87)
+        Me.lblImporteCSEtiqueta.Location = New System.Drawing.Point(3, 106)
         Me.lblImporteCSEtiqueta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblImporteCSEtiqueta.Name = "lblImporteCSEtiqueta"
-        Me.lblImporteCSEtiqueta.Size = New System.Drawing.Size(90, 18)
+        Me.lblImporteCSEtiqueta.Size = New System.Drawing.Size(90, 17)
         Me.lblImporteCSEtiqueta.TabIndex = 4
         Me.lblImporteCSEtiqueta.Text = "Importe CS:"
         '
@@ -182,10 +187,10 @@ Partial Class UcReceta
         Me.lblImporteOSEtiqueta.BackColor = System.Drawing.SystemColors.Window
         Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(3, 66)
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(3, 86)
         Me.lblImporteOSEtiqueta.Margin = New System.Windows.Forms.Padding(0)
         Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
-        Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(90, 18)
+        Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(90, 17)
         Me.lblImporteOSEtiqueta.TabIndex = 3
         Me.lblImporteOSEtiqueta.Text = "Importe OS:"
         '
@@ -195,10 +200,10 @@ Partial Class UcReceta
         Me.lblImporteAF.BackColor = System.Drawing.SystemColors.Window
         Me.lblImporteAF.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteAF.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteAF.Location = New System.Drawing.Point(96, 108)
+        Me.lblImporteAF.Location = New System.Drawing.Point(96, 126)
         Me.lblImporteAF.Margin = New System.Windows.Forms.Padding(0)
         Me.lblImporteAF.Name = "lblImporteAF"
-        Me.lblImporteAF.Size = New System.Drawing.Size(208, 18)
+        Me.lblImporteAF.Size = New System.Drawing.Size(208, 19)
         Me.lblImporteAF.TabIndex = 11
         Me.lblImporteAF.Text = "$ 0,00"
         Me.lblImporteAF.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -209,10 +214,10 @@ Partial Class UcReceta
         Me.lblImporteCS.BackColor = System.Drawing.SystemColors.Window
         Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCS.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCS.Location = New System.Drawing.Point(96, 87)
+        Me.lblImporteCS.Location = New System.Drawing.Point(96, 106)
         Me.lblImporteCS.Margin = New System.Windows.Forms.Padding(0)
         Me.lblImporteCS.Name = "lblImporteCS"
-        Me.lblImporteCS.Size = New System.Drawing.Size(208, 18)
+        Me.lblImporteCS.Size = New System.Drawing.Size(208, 17)
         Me.lblImporteCS.TabIndex = 10
         Me.lblImporteCS.Text = "$ 0,00"
         Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -223,13 +228,40 @@ Partial Class UcReceta
         Me.lblImporteOS.BackColor = System.Drawing.SystemColors.Window
         Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOS.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOS.Location = New System.Drawing.Point(96, 66)
+        Me.lblImporteOS.Location = New System.Drawing.Point(96, 86)
         Me.lblImporteOS.Margin = New System.Windows.Forms.Padding(0)
         Me.lblImporteOS.Name = "lblImporteOS"
-        Me.lblImporteOS.Size = New System.Drawing.Size(208, 18)
+        Me.lblImporteOS.Size = New System.Drawing.Size(208, 17)
         Me.lblImporteOS.TabIndex = 9
         Me.lblImporteOS.Text = "$ 0,00"
         Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblTotalRecetaEtiqueta
+        '
+        Me.lblTotalRecetaEtiqueta.AutoSize = True
+        Me.lblTotalRecetaEtiqueta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblTotalRecetaEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblTotalRecetaEtiqueta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalRecetaEtiqueta.Location = New System.Drawing.Point(3, 63)
+        Me.lblTotalRecetaEtiqueta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblTotalRecetaEtiqueta.Name = "lblTotalRecetaEtiqueta"
+        Me.lblTotalRecetaEtiqueta.Size = New System.Drawing.Size(90, 20)
+        Me.lblTotalRecetaEtiqueta.TabIndex = 15
+        Me.lblTotalRecetaEtiqueta.Text = "Total Receta:"
+        '
+        'lblTotalReceta
+        '
+        Me.lblTotalReceta.AutoSize = True
+        Me.lblTotalReceta.BackColor = System.Drawing.SystemColors.Window
+        Me.lblTotalReceta.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblTotalReceta.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalReceta.Location = New System.Drawing.Point(96, 63)
+        Me.lblTotalReceta.Margin = New System.Windows.Forms.Padding(0)
+        Me.lblTotalReceta.Name = "lblTotalReceta"
+        Me.lblTotalReceta.Size = New System.Drawing.Size(208, 20)
+        Me.lblTotalReceta.TabIndex = 16
+        Me.lblTotalReceta.Text = "$ 0,00"
+        Me.lblTotalReceta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'UcReceta
         '
@@ -237,7 +269,7 @@ Partial Class UcReceta
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "UcReceta"
-        Me.Size = New System.Drawing.Size(307, 129)
+        Me.Size = New System.Drawing.Size(307, 148)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
@@ -257,4 +289,6 @@ Partial Class UcReceta
     Friend WithEvents lblValidacionEtiqueta As Label
     Friend WithEvents lblImporteAfEtiqueta As Label
     Friend WithEvents lblValidacion As Label
+    Friend WithEvents lblTotalReceta As Label
+    Friend WithEvents lblTotalRecetaEtiqueta As Label
 End Class

@@ -106,7 +106,7 @@ Public Class D_AdminItemsReceta
                     .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad
                     .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
                     .Add("p_POS", MySqlDbType.Decimal).Value = argItemComprobante.PorcentajeOS
-                    .Add("p_ACargoOS", MySqlDbType.Decimal).Value = argItemComprobante.CoberturaOSUnitario
+                    .Add("p_ACargoOS", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoOS
                 End With
 
                 cmd.ExecuteNonQuery()

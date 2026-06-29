@@ -13,7 +13,9 @@
     Private m_PorcentajeDescuento As Decimal
     Private m_Receta As Receta
     Private m_PorcentajeOS As Decimal
+    Private m_DescuentoOS As Decimal
     Private m_PorcentajeCS As Decimal
+    Private m_DescuentoCS As Decimal
     Private m_EsNuevo As Boolean = True
 
     Public Sub New()
@@ -23,21 +25,15 @@
     ' Constructor para items nuevos (hace cálculos)
     Public Sub New(
                     ByVal argArticulo As Articulo,
-                    ByVal argCodBarras As String,
-                    ByVal argDescripcion As String,
                     ByVal argFraccionado As Boolean,
                     ByVal argCantidad As Integer,
-                    ByVal argAlicIVA As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
                     Optional argReceta As Receta = Nothing
                    )
 
         m_Articulo = argArticulo
-        m_CodBarras = argCodBarras
-        m_Descripcion = argDescripcion
         m_Fraccionado = argFraccionado
         m_Cantidad = argCantidad
-        m_AlicIVA = argAlicIVA
         m_PorcentajeDescuento = argPorcentajeDescuento
         m_Receta = argReceta
         ' No es necesario llamar a Recalcular aqui, ya que las propiedades
@@ -104,9 +100,17 @@
         Get
             Return m_Articulo
         End Get
-        Set(value As Articulo)
-            m_Articulo = value
+
+        Set(a As Articulo)
+            m_Articulo = a
+            m_IdArticulo = a.IdArticulo
+            m_CodBarras = a.CodBarras
+            m_Descripcion = a.Nombre
+            m_PrecioCosto = a.PrecioCosto
+            m_PrecioUnitario = a.PrecioVenta
+            m_AlicIVA = a.AlicIVA
         End Set
+
     End Property
 
     Public Property CodBarras() As String
@@ -218,25 +222,49 @@
     End Property
 
     Public Property PorcentajeOS() As Decimal
+
         Get
             Return m_PorcentajeOS
         End Get
-        Set(value As Decimal)
-            If m_PorcentajeOS <> value Then ' Solo recalcula si el valor cambia
-                m_PorcentajeOS = value
-            End If
+        Set(POS As Decimal)
+            m_PorcentajeOS = POS
         End Set
+
+    End Property
+
+    Public Property DescuentoOS() As Decimal
+
+        Get
+            Return m_DescuentoOS
+        End Get
+
+        Set(DesOS As Decimal)
+            m_DescuentoOS = DesOS
+        End Set
+
     End Property
 
     Public Property PorcentajeCS() As Decimal
+
         Get
             Return m_PorcentajeCS
         End Get
-        Set(value As Decimal)
-            If m_PorcentajeCS <> value Then ' Solo recalcula si el valor cambia
-                m_PorcentajeCS = value
-            End If
+
+        Set(PCS As Decimal)
+            m_PorcentajeCS = PCS
         End Set
+
+    End Property
+
+    Public Property DescuentoCS() As Decimal
+        Get
+            Return m_DescuentoCS
+        End Get
+
+        Set(DesCS As Decimal)
+            m_DescuentoCS = DesCS
+        End Set
+
     End Property
 
     ' --- Propiedades ReadOnly que se calculan directamente ---
@@ -316,27 +344,15 @@
         End Get
     End Property
 
-    Public ReadOnly Property CoberturaOSUnitario() As Decimal
-        Get
-            Return Math.Round(m_PrecioUnitario * m_PorcentajeOS / 100, 2, MidpointRounding.ToEven)
-        End Get
-    End Property
-
-    Public ReadOnly Property CoberturaCSUnitario() As Decimal
-        Get
-            Return Math.Round(m_PrecioUnitario * m_PorcentajeCS / 100, 2, MidpointRounding.ToEven)
-        End Get
-    End Property
-
     Public ReadOnly Property ImporteOS() As Decimal
         Get
-            Return Math.Round(m_Cantidad * Me.CoberturaOSUnitario, 2, MidpointRounding.ToEven)
+            Return Math.Round(m_Cantidad * m_DescuentoOS, 2, MidpointRounding.ToEven)
         End Get
     End Property
 
     Public ReadOnly Property ImporteCS() As Decimal
         Get
-            Return Math.Round(m_Cantidad * Me.CoberturaCSUnitario, 2, MidpointRounding.ToEven)
+            Return Math.Round(m_Cantidad * m_DescuentoCS, 2, MidpointRounding.ToEven)
         End Get
     End Property
 

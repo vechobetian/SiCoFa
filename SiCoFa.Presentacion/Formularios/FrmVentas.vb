@@ -506,8 +506,6 @@ Public Class FrmVentas
 
             End If
 
-            Dim porcentajeOS As Decimal = 0
-
             If uc.ItemVenta.Receta IsNot Nothing Then
 
                 Dim receta As Receta =
@@ -522,9 +520,9 @@ Public Class FrmVentas
 
                 Dim AdminRecetas As New N_AdminRecetas
 
-                porcentajeOS = AdminRecetas.ObtenerDescuento(receta, articulo)
+                AdminRecetas.ObtenerCobertura(articulo, uc.ItemVenta)
 
-                If porcentajeOS = 0 Then
+                If uc.ItemVenta.DescuentoOS = 0 AndAlso uc.ItemVenta.DescuentoCS = 0 AndAlso uc.ItemVenta.Receta.Plan.Proceso <> 0 Then
 
                     MsgBox(articulo.Nombre & " no tiene descuento", vbInformation, "SiCoFa")
 
@@ -543,7 +541,6 @@ Public Class FrmVentas
             item.Descripcion = articulo.Nombre
             item.Cantidad = 1
             item.AlicIVA = articulo.AlicIVA
-            item.PorcentajeOS = porcentajeOS
 
             uc.Bind(item)
 
@@ -978,7 +975,7 @@ Public Class FrmVentas
     Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
 
         Dim AdminOS As New N_AdminObraSociales
-        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(701)
+        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(301)
 
         Dim receta As New Receta(PlanOS)
 

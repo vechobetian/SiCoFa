@@ -21,22 +21,6 @@ Public Class D_AdminProcesosActualizacion
 
     End Function
 
-    '-------------------------------------------------------
-    ' MAPEO OBRAS SOCIALES
-    '-------------------------------------------------------
-    Private Function MapObraSociales(dr As MySqlDataReader) As ObraSocial
-
-        Return New ObraSocial(
-        argIdIOS:=If(IsDBNull(dr("IdOS")), Nothing, Convert.ToInt32(dr("IdOS"))),
-        argNombreOS:=dr("NombreOS").ToString(),
-        argValidador:=dr("Validador").ToString,
-        argFinanciador:=dr("Financiador"),
-        argComprobanteFiscal:=If(IsDBNull(dr("ComprobanteFiscal")), Nothing, Convert.ToBoolean(dr("ComprobanteFiscal"))),
-        argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion")))
-    )
-
-    End Function
-
     Public Function ObtenerProcesosActualizacion() As List(Of ProcesoActualizacion)
 
         Dim lista As New List(Of ProcesoActualizacion)
@@ -97,7 +81,8 @@ Public Class D_AdminProcesosActualizacion
                     Using dr = cmd.ExecuteReader()
 
                         While dr.Read()
-                            lista.Add(MapObraSociales(dr))
+                            'lista.Add(MapObraSociales(dr))
+                            lista.Add(ObraSocialMapper.Map(dr))
                         End While
 
                     End Using

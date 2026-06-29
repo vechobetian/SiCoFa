@@ -88,6 +88,7 @@
     <Compile Include="Entidades\Empresa.vb" />
     <Compile Include="Entidades\ItemVademecum.vb" />
     <Compile Include="Entidades\Matricula.vb" />
+    <Compile Include="Entidades\ParametrosValidacion.vb" />
     <Compile Include="Entidades\PlanOS.vb" />
     <Compile Include="Entidades\Prescriptor.vb" />
     <Compile Include="Entidades\Receta.vb" />

@@ -82,6 +82,7 @@
     <Compile Include="Administradores\D_AdminPlanCuentas.vb" />
     <Compile Include="Administradores\D_AdminSistema.vb" />
     <Compile Include="Mappers\ArticuloMapper.vb" />
+    <Compile Include="Mappers\ObraSocialMapper.vb" />
     <Compile Include="Mappers\PlanOSMapper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Settings.Designer.vb">

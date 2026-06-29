@@ -10,6 +10,7 @@ Public Class Ticket80
         Dim topMargin As Double = e.MarginBounds.Top
         Dim yPos As Double
         Dim strLinea2Item As String
+        Dim strLinea3Item As String
         Dim strCantPUnit As String
         Dim strImpItem As String
         Dim strImpDesItem As String
@@ -122,14 +123,17 @@ Public Class Ticket80
                 strImpItem = Format(Item.ImporteNetoConDescuento, "Fixed")
                 strImpDesItem = Format(Item.ImporteNetoDescuento, "Fixed")
             Else
-                strCantPUnit = Format(Item.Cantidad, "##0.000") & "/" & Format(Item.PrecioUnitario, "Fixed")
 
-                If Item.Receta Is Nothing Then
+                strCantPUnit = Item.Cantidad & "/" & Format(Item.PrecioUnitario, "Fixed")
+
+                If Item.ImporteOS = 0 Then
                     strImpItem = Format(Item.ImporteConDescuento, "Fixed")
                     strImpDesItem = Format(Item.ImporteDescuento, "Fixed")
+                    strLinea3Item = ""
                 Else
                     strImpItem = Format(Item.ImporteSinDescuento, "Fixed")
                     strImpDesItem = Format(0, "Fixed")
+                    strLinea3Item = "OS: (" & Item.PorcentajeOS & "%) " & Format(Item.ImporteOS, "Fixed") & " AF: " & Format(Item.ImporteSinDescuento - Item.ImporteOS, "Fixed")
                 End If
 
             End If
@@ -142,6 +146,11 @@ Public Class Ticket80
 
             yPos += IncrementoYPreTexto
             e.Graphics.DrawString(strLinea2Item, printFont, Brushes.Black, MargenIzquierdo, yPos)
+
+            If strLinea3Item <> "" Then
+                yPos += IncrementoYPreTexto
+                e.Graphics.DrawString(strLinea3Item, printFont, Brushes.Black, MargenIzquierdo, yPos)
+            End If
 
         Next
 

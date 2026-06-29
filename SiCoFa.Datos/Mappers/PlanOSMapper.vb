@@ -29,6 +29,24 @@ Public Module PlanOSMapper
 
         End If
 
+        Dim PVal As ParametrosValidacion = Nothing
+
+        If IsDBNull(datos("Validador")) = False Then
+
+
+            PVal = New ParametrosValidacion(
+                datos("ValidadorOS").ToString,
+                datos("DescripcionValidador").ToString,
+                datos("NumPrestador").ToString,
+                datos("CuitPrestador").ToString,
+                If(IsDBNull(datos("Usuario")), Nothing, datos("Usuario").ToString()),
+                If(IsDBNull(datos("IdOrganizacion")), Nothing, datos("IdOrganizacion").ToString()),
+                If(IsDBNull(datos("Licencia")), Nothing, datos("Licencia").ToString()),
+                If(IsDBNull(datos("Reporte")), Nothing, datos("Reporte").ToString())
+            )
+
+        End If
+
         Return New PlanOS(
             Convert.ToInt64(datos("IdPlan")),
             datos("Descripcion").ToString(),
