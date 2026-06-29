@@ -1,6 +1,4 @@
-﻿Imports SiCoFa.Entidades
-
-Public Class ParametrosValidacion
+﻿Public Class ParametrosValidacion
     Public Property Validadro As String
     Public Property Descripcion As String
     Public Property NumPrestador As String
