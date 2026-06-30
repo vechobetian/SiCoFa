@@ -508,8 +508,7 @@ Public Class FrmVentas
 
             If uc.ItemVenta.Receta IsNot Nothing Then
 
-                Dim receta As Receta =
-                ObtenerReceta(uc.ItemVenta.Receta.IdReceta)
+                Dim receta As Receta = ObtenerReceta(uc.ItemVenta.Receta.IdReceta)
 
                 If receta Is Nothing Then
 
@@ -537,10 +536,10 @@ Public Class FrmVentas
             Dim item As ItemComprobante = uc.ItemVenta
 
             item.Articulo = articulo
-            item.CodBarras = articulo.CodBarras
-            item.Descripcion = articulo.Nombre
+            'item.CodBarras = articulo.CodBarras
+            'item.Descripcion = articulo.Nombre
             item.Cantidad = 1
-            item.AlicIVA = articulo.AlicIVA
+            'item.AlicIVA = articulo.AlicIVA
 
             uc.Bind(item)
 

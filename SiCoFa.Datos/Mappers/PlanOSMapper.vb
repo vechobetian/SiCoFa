@@ -29,20 +29,38 @@ Public Module PlanOSMapper
 
         End If
 
-        Dim PVal As ParametrosValidacion = Nothing
+        Dim PValOS As ParametrosValidacion = Nothing
 
-        If IsDBNull(datos("Validador")) = False Then
+        If IsDBNull(datos("ValidadorOS")) = False Then
 
 
-            PVal = New ParametrosValidacion(
+            PValOS = New ParametrosValidacion(
                 datos("ValidadorOS").ToString,
-                datos("DescripcionValidador").ToString,
-                datos("NumPrestador").ToString,
+                datos("DescripcionValidadorOS").ToString,
+                datos("NumPrestadorOS").ToString,
                 datos("CuitPrestador").ToString,
-                If(IsDBNull(datos("Usuario")), Nothing, datos("Usuario").ToString()),
-                If(IsDBNull(datos("IdOrganizacion")), Nothing, datos("IdOrganizacion").ToString()),
-                If(IsDBNull(datos("Licencia")), Nothing, datos("Licencia").ToString()),
-                If(IsDBNull(datos("Reporte")), Nothing, datos("Reporte").ToString())
+                If(IsDBNull(datos("UsuarioOS")), Nothing, datos("UsuarioOS").ToString()),
+                If(IsDBNull(datos("IdOrganizacionOS")), Nothing, datos("IdOrganizacionOS").ToString()),
+                If(IsDBNull(datos("LicenciaOS")), Nothing, datos("LicenciaOS").ToString()),
+                If(IsDBNull(datos("ReporteOS")), Nothing, datos("ReporteOS").ToString())
+            )
+
+        End If
+
+        Dim PValCS As ParametrosValidacion = Nothing
+
+        If IsDBNull(datos("ValidadorCS")) = False Then
+
+
+            PValOS = New ParametrosValidacion(
+                datos("ValidadorCS").ToString,
+                datos("DescripcionValidadorCS").ToString,
+                datos("NumPrestadorCS").ToString,
+                datos("CuitPrestador").ToString,
+                If(IsDBNull(datos("UsuarioCS")), Nothing, datos("UsuarioCS").ToString()),
+                If(IsDBNull(datos("IdOrganizacionCS")), Nothing, datos("IdOrganizacionCS").ToString()),
+                If(IsDBNull(datos("LicenciaCS")), Nothing, datos("LicenciaCS").ToString()),
+                If(IsDBNull(datos("ReporteCS")), Nothing, datos("ReporteCS").ToString())
             )
 
         End If
