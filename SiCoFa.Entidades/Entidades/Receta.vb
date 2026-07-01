@@ -14,7 +14,7 @@
     Public Property ImporteAf As Decimal
     Public Property NumAutorizacion As String
     Public Property EstadoReceta As String
-    Public Property Detalle As List(Of ItemReceta)
+    Public Property Detalle As List(Of ItemComprobante)
 
     Public Sub New(ByVal argPlanOS As PlanOS)
 

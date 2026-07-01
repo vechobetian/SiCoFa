@@ -42,7 +42,8 @@ Public Module PlanOSMapper
                 If(IsDBNull(datos("UsuarioOS")), Nothing, datos("UsuarioOS").ToString()),
                 If(IsDBNull(datos("IdOrganizacionOS")), Nothing, datos("IdOrganizacionOS").ToString()),
                 If(IsDBNull(datos("LicenciaOS")), Nothing, datos("LicenciaOS").ToString()),
-                If(IsDBNull(datos("ReporteOS")), Nothing, datos("ReporteOS").ToString())
+                If(IsDBNull(datos("ReporteOS")), Nothing, datos("ReporteOS").ToString()),
+                If(IsDBNull(datos("UrlOS")), Nothing, datos("UrlOS").ToString())
             )
 
         End If
@@ -60,7 +61,8 @@ Public Module PlanOSMapper
                 If(IsDBNull(datos("UsuarioCS")), Nothing, datos("UsuarioCS").ToString()),
                 If(IsDBNull(datos("IdOrganizacionCS")), Nothing, datos("IdOrganizacionCS").ToString()),
                 If(IsDBNull(datos("LicenciaCS")), Nothing, datos("LicenciaCS").ToString()),
-                If(IsDBNull(datos("ReporteCS")), Nothing, datos("ReporteCS").ToString())
+                If(IsDBNull(datos("ReporteCS")), Nothing, datos("ReporteCS").ToString()),
+                If(IsDBNull(datos("UrlCS")), Nothing, datos("UrlCS").ToString())
             )
 
         End If

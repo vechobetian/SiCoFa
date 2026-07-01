@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autorizadores\MISV.vb" />
+    <Compile Include="Interfaces\IValidador.vb" />
+    <Compile Include="Modelos\ResultadoValidacion.vb" />
+    <Compile Include="Modelos\SolicitudValidacion.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
