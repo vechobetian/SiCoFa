@@ -1048,4 +1048,7 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
+
+    End Sub
 End Class

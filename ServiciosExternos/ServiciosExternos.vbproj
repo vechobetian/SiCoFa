@@ -64,6 +64,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autorizadores\LPAMI.vb" />
     <Compile Include="Autorizadores\MISV.vb" />
     <Compile Include="Interfaces\IValidador.vb" />
     <Compile Include="Modelos\ResultadoValidacion.vb" />
