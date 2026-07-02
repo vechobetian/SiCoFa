@@ -695,6 +695,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ServiciosExternos\ServiciosExternos.vbproj">
+      <Project>{c3f1a960-d62b-4028-a95f-fa39898c17a1}</Project>
+      <Name>ServiciosExternos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SiCoFa.Entidades\Entidades.vbproj">
       <Project>{2215aad4-a976-496f-b9f8-87258163c48b}</Project>
       <Name>Entidades</Name>

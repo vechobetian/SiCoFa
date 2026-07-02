@@ -12,7 +12,7 @@ Public Class LPAMI
     Private Const COD_ACCION_CONSULTA_RECETAS As String = "490220"
 
     Public Function ConsultaRecetasBeneficiario(argReceta As Receta) As ResultadoValidacion Implements IValidador.ConsultaRecetasBeneficiario
-        Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argReceta, 1, "C")
+        Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argReceta, 1, "200")
 
         ' Por ahora solo para probar
         IO.File.WriteAllText("C:\Temp\ConsultaRecetas.xml", xmlAdesfa)

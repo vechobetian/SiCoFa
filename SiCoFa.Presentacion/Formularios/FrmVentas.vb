@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports SiCoFa.ServiciosExternos
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
@@ -290,8 +291,7 @@ Public Class FrmVentas
 
             If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
 
-                receta = mobj_Recetas.FirstOrDefault(
-                    Function(r) r.IdReceta = item.Receta.IdReceta)
+                receta = mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = item.Receta.IdReceta)
 
             End If
 
@@ -1049,6 +1049,24 @@ Public Class FrmVentas
     End Sub
 
     Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
+        Dim receta As Receta = Nothing
 
+        If mobj_ItemSeleccionado IsNot Nothing Then
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                receta = mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = item.Receta.IdReceta)
+
+            End If
+
+        End If
+
+        If receta IsNot Nothing Then
+            receta.Credencial.Numero = "14021682880700"
+            Dim Validador As New LPAMI
+            Dim Respuesta As ResultadoValidacion = Validador.ConsultaRecetasBeneficiario(receta)
+        End If
     End Sub
 End Class
