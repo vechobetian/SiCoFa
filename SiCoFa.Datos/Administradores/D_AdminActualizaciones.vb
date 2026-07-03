@@ -129,6 +129,7 @@ Public Class D_AdminActualizaciones
                     EjecutarActualizacionArticulos(argStoredProcedure, argPorcentaje, cn, tx)
                     ActualizarNumeroActualizacionProcesos(argCodiPA, argNumeroActualizacion, cn, tx)
 
+
                     tx.Commit()
 
                 Catch ex As Exception
@@ -137,6 +138,20 @@ Public Class D_AdminActualizaciones
                 End Try
 
             End Using
+
+        End Using
+
+    End Sub
+
+    Public Sub ProcesarActualizacionPami(ByVal NumActualizacion As Long,
+                                    cn As MySqlConnection,
+                                    tx As MySqlTransaction)
+
+        Using cmd As New MySqlCommand("sp_actualizar_pami", cn, tx)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandTimeout = 0
+            cmd.ExecuteNonQuery()
 
         End Using
 
@@ -235,6 +250,14 @@ Public Class D_AdminActualizaciones
 
             cmd.ExecuteNonQuery()
 
+        End Using
+
+    End Sub
+
+    Public Sub LimpiarStaging(cn As MySqlConnection, tx As MySqlTransaction)
+
+        Using cmd As New MySqlCommand("TRUNCATE TABLE staging", cn, tx)
+            cmd.ExecuteNonQuery()
         End Using
 
     End Sub
