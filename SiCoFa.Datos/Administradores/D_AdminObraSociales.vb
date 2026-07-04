@@ -99,4 +99,34 @@ Public Class D_AdminObraSociales
 
     End Function
 
+    Public Function GenerarIdMensajeValidador(ByVal argValidador As String) As Long
+
+        Try
+
+            Using cn As MySqlConnection = (New D_Conexion).ObtenerConexion
+
+                Using cmd As New MySqlCommand("sp_numero_mensaje_validador", cn)
+
+                    cmd.CommandType = CommandType.StoredProcedure
+
+                    cmd.Parameters.Add("p_Validador", MySqlDbType.VarChar).Value = argValidador
+
+                    Dim pOut = cmd.Parameters.Add("p_NumeroMensaje", MySqlDbType.Int64)
+                    pOut.Direction = ParameterDirection.Output
+
+                    cmd.ExecuteNonQuery()
+
+                    Return CLng(pOut.Value)
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(GenerarIdMensajeValidador), ex.Message))
+
+        End Try
+
+    End Function
+
 End Class

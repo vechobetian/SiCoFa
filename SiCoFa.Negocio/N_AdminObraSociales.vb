@@ -1,19 +1,22 @@
-﻿Imports SiCoFa.Datos
+﻿Imports System.Data.SqlClient
+Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 
 Public Class N_AdminObraSociales
     Public Function ObtenerPlanOSPorId(ByVal argIdPlan As Long) As PlanOS
+
         Dim AdminOS As New D_AdminObraSociales
-        Dim objPlanOS As PlanOS
-        Try
-            objPlanOS = AdminOS.ObtenerPlanOSPorId(argIdPlan)
-            Return objPlanOS
+        Dim objPlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(argIdPlan)
+        Return objPlanOS
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerPlanOSPorId", ex.Message))
-            Return Nothing
+    End Function
 
-        End Try
+    Public Function GenerarIdMensajeValidador(ByVal argValidador As String) As Long
+
+        Dim AdminOS As New D_AdminObraSociales
+        Dim IdMensaje As Long = AdminOS.GenerarIdMensajeValidador(argValidador)
+        Return IdMensaje
+
     End Function
 
 

@@ -1,30 +1,75 @@
-﻿Imports System.Text
+﻿Imports System.IO
+Imports System.Net
+Imports System.Net.WebRequestMethods
+Imports System.Security.Cryptography
+Imports System.Text
 Imports System.Xml
 Imports SiCoFa.Entidades
+Imports Vecho
+
 
 Public Class LPAMI
     Implements IValidador
 
     Private Const VERSION_ADESFA As String = "3.1.0"
-    Private Const NOMBRE_SOFTWARE As String = "SICOFA"
+    Private Const NOMBRE_SOFTWARE As String = "SiCoFa"
     Private Const VERSION_SOFTWARE As String = "4.0.0"
     Private Const COD_ACCION_AUTORIZACION As String = "290020"
     Private Const COD_ACCION_CONSULTA_RECETAS As String = "490220"
+    Private Const UrlVentaHomologacion As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
+    Private Const UrlVentaProduccion As String = "https://ws.farmalink.com.ar/VentaSecureSvc?WSDL"
+    Private Const UrlRecetaElectronicaHomologacion As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
+    Private Const UrlRecetaElectronicaProduccion As String = "https://ws.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
-    Public Function ConsultaRecetasBeneficiario(argReceta As Receta) As ResultadoValidacion Implements IValidador.ConsultaRecetasBeneficiario
+    Public Function ConsultaRecetasBeneficiario(argIdMensaje As Long, argReceta As Receta) As ResultadoValidacion Implements IValidador.ConsultaRecetasBeneficiario
+
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+
         Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argReceta, 1, "200")
+        Dim pv As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+        Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
 
-        ' Por ahora solo para probar
-        IO.File.WriteAllText("C:\Temp\ConsultaRecetas.xml", xmlAdesfa)
+        Dim soap As String =
+                $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
+                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:ns1=""http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"">
+                    <soap:Header>
+                        <wsse:Security xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"">
+                            <wsse:UsernameToken xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" wsu:Id=""Id-288f0808-3666-49ff-a478-7ad89cfcfea7"">
+                                <wsse:Username>{pv.Usuario}</wsse:Username>
+                                <wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">{pv.Licencia}</wsse:Password>
+                                <wsu:Created>{ahora}</wsu:Created>
+                            </wsse:UsernameToken>
+                        </wsse:Security>
+                    </soap:Header>
+                    <soap:Body>
+                        <ns1:consultaAfiliadoRecetaElectRq xmlns:ns1=""http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"">
+                            <ns1:infoCabeceraRq>
+                                <ns1:idOrganizacion>{pv.IdOrganizacion}</ns1:idOrganizacion>
+                                <ns1:tipoOrganizacion>FAR</ns1:tipoOrganizacion>
+                            </ns1:infoCabeceraRq>
+                            <ns1:payload>{xmlAdesfa}</ns1:payload>
+                        </ns1:consultaAfiliadoRecetaElectRq>
+                    </soap:Body>
+                </soap:Envelope>"
+
+        IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+
+        Dim url As String = UrlRecetaElectronicaProduccion
+
+        Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"
+
+        Dim respuesta As XmlDocument = PostWebService(url, soapAction, soap)
 
         Dim resultado As New ResultadoValidacion
-        resultado.XmlRespuesta = xmlAdesfa
+        resultado.XmlRespuesta = respuesta.OuterXml
+
+        IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", resultado.XmlRespuesta)
 
         Return resultado
 
     End Function
 
-    Public Function SolicitarAutorizacion(argReceta As Receta) As ResultadoValidacion Implements IValidador.SolicitarAutorizacion
+    Public Function SolicitarAutorizacion(argIdMensaje As Long, argReceta As Receta) As ResultadoValidacion Implements IValidador.SolicitarAutorizacion
 
         Throw New NotImplementedException()
 
@@ -57,7 +102,7 @@ Public Class LPAMI
         writer.WriteEndElement()
 
         writer.WriteStartElement("Validador")
-        writer.WriteElementString("CodigoADESFA", "0")
+        writer.WriteElementString("CodigoADESFA", "")
         writer.WriteElementString("Nombre", "IMED")
         writer.WriteEndElement()
 
@@ -314,94 +359,113 @@ Public Class LPAMI
     '=========================================================
     ' SOAP
     '=========================================================
-    Private Function CrearSoap(argReceta As Receta,
-                           argMetodo As String,
-                           argNamespace As String,
-                           argMensajeAdesfa As String) As String
+    Private Function CrearSoap(
+    argMetodo As String,
+    argNamespace As String,
+    argMensajeAdesfa As String,
+    p As ParametrosValidacion
+) As String
 
-        Dim settings As New XmlWriterSettings With {
-            .Indent = True,
-            .OmitXmlDeclaration = False,
-            .Encoding = Encoding.UTF8
-        }
+        Dim fechaUtc As String = Format$(Now, "yyyy-mm-dd\Thh:nn:ss") & "Z"
 
-        Dim sb As New StringBuilder()
+        Dim soap As String
 
-        Dim p As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+        soap = ""
+        soap = soap & "<soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" "
+        soap = soap & "xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" "
+        soap = soap & "xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" "
+        soap = soap & "xmlns:ns1=""" & argNamespace & """>"
 
-        Using writer As XmlWriter = XmlWriter.Create(sb, settings)
+        '========================
+        ' HEADER WSSE (VB6 STYLE)
+        '========================
+        soap = soap & "<soap:Header>"
+        soap = soap & "<wsse:Security xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"">"
+        soap = soap & "<wsse:UsernameToken xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" "
+        soap = soap & "xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" "
+        'soap = soap & "wsu:Id=""Id-" & Replace(CStr(Guid.NewGuid()), "{", "") & """>"
 
-            Dim fechaUtc As String = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ")
+        soap = soap & "<wsse:Username>" & p.Usuario & "</wsse:Username>"
 
-            writer.WriteStartDocument()
+        soap = soap & "<wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">"
+        soap = soap & p.Licencia
+        soap = soap & "</wsse:Password>"
 
-            writer.WriteStartElement("soap", "Envelope", "http://schemas.xmlsoap.org/soap/envelope/")
+        soap = soap & "<wsu:Created>" & fechaUtc & "</wsu:Created>"
+        soap = soap & "</wsse:UsernameToken>"
+        soap = soap & "</wsse:Security>"
+        soap = soap & "</soap:Header>"
 
-            writer.WriteAttributeString("xmlns", "wsse", Nothing,
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")
+        '========================
+        ' BODY (STRICT VB6)
+        '========================
+        soap = soap & "<soap:Body>"
+        soap = soap & "<ns1:" & argMetodo & " xmlns:ns1=""" & argNamespace & """>"
 
-            writer.WriteAttributeString("xmlns", "wsu", Nothing,
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd")
+        soap = soap & "<ns1:infoCabeceraRq>"
+        soap = soap & "<ns1:idOrganizacion>" & p.IdOrganizacion & "</ns1:idOrganizacion>"
+        soap = soap & "<ns1:tipoOrganizacion>FAR</ns1:tipoOrganizacion>"
+        soap = soap & "</ns1:infoCabeceraRq>"
 
-            writer.WriteAttributeString("xmlns", "ns1", Nothing, argNamespace)
+        soap = soap & "<ns1:payload>"
+        soap = soap & argMensajeAdesfa
+        soap = soap & "</ns1:payload>"
 
-            '========================================================
-            ' HEADER
-            '========================================================
-            writer.WriteStartElement("soap", "Header", "http://schemas.xmlsoap.org/soap/envelope/")
+        soap = soap & "</ns1:" & argMetodo & ">"
+        soap = soap & "</soap:Body>"
 
-            writer.WriteStartElement("wsse", "Security",
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")
+        soap = soap & "</soap:Envelope>"
 
-            writer.WriteStartElement("wsse", "UsernameToken",
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd")
+        Return soap
 
-            writer.WriteAttributeString("wsu", "Id",
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
-                "Id-" & Guid.NewGuid().ToString())
+    End Function
 
-            writer.WriteElementString("wsse", "Username", Nothing, p.Usuario)
+    Friend Function PostWebservice(Url As String, soapAction As String, xmlBody As String) As XmlDocument
 
-            writer.WriteStartElement("wsse", "Password", Nothing)
-            writer.WriteAttributeString("Type",
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-username-token-profile-1.0#PasswordText")
-            writer.WriteString(p.Licencia)
-            writer.WriteEndElement()
+        Try
+            ' Crear la solicitud HTTP
+            Dim request As HttpWebRequest = CType(WebRequest.Create(Url), HttpWebRequest)
+            request.Method = "POST"
+            request.ContentType = "text/xml;charset=UTF-8"
+            request.Headers.Add("SOAPAction", soapAction)
 
-            writer.WriteElementString("wsu", "Created",
-                "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
-                fechaUtc)
+            ' Agregar el sobre SOAP al cuerpo de la solicitud
+            Dim data As Byte() = Encoding.UTF8.GetBytes(xmlBody)
+            request.ContentLength = data.Length
 
-            writer.WriteEndElement() 'UsernameToken
-            writer.WriteEndElement() 'Security
-            writer.WriteEndElement() 'Header
+            Using stream As Stream = request.GetRequestStream()
+                stream.Write(data, 0, data.Length)
+            End Using
 
-            '========================================================
-            ' BODY
-            '========================================================
-            writer.WriteStartElement("soap", "Body", "http://schemas.xmlsoap.org/soap/envelope/")
+            ' Obtener la respuesta del servidor
+            Using response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
+                Using reader As New StreamReader(response.GetResponseStream())
+                    Dim responseString As String = reader.ReadToEnd()
 
-            writer.WriteStartElement("ns1", argMetodo, argNamespace)
+                    ' Convertir a XmlDocument
+                    Dim xmlResponse As New XmlDocument()
+                    xmlResponse.LoadXml(responseString)
+                    Return xmlResponse
+                End Using
+            End Using
 
-            writer.WriteStartElement("ns1", "infoCabeceraRq", argNamespace)
+        Catch ex As XmlException
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error al procesar la respuesta XML: " & ex.Message))
 
-            writer.WriteElementString("ns1", "idOrganizacion", argNamespace, p.IdOrganizacion)
-            writer.WriteElementString("ns1", "tipoOrganizacion", argNamespace, "FAR")
+        Catch ex As WebException
+            If ex.Response IsNot Nothing Then
+                Using reader As New StreamReader(ex.Response.GetResponseStream())
+                    Dim serverError As String = reader.ReadToEnd()
+                    Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", serverError))
+                End Using
+            Else
+                Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error de red: " & ex.Message))
+            End If
 
-            writer.WriteEndElement() 'infoCabeceraRq
+        Catch ex As Exception
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", ex.Message))
 
-            writer.WriteElementString("ns1", "payload", argNamespace, argMensajeAdesfa)
-
-            writer.WriteEndElement() 'argMetodo
-
-            writer.WriteEndElement() 'Body
-            writer.WriteEndElement() 'Envelope
-
-            writer.WriteEndDocument()
-
-        End Using
-
-        Return sb.ToString()
+        End Try
 
     End Function
 

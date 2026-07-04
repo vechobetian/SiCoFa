@@ -974,7 +974,7 @@ Public Class FrmVentas
     Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
 
         Dim AdminOS As New N_AdminObraSociales
-        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(301)
+        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(1101)
 
         Dim receta As New Receta(PlanOS)
 
@@ -1064,9 +1064,12 @@ Public Class FrmVentas
         End If
 
         If receta IsNot Nothing Then
-            receta.Credencial.Numero = "14021682880700"
+            Dim c As New CredencialOS("14021682880700", "")
+            receta.Credencial = c
             Dim Validador As New LPAMI
-            Dim Respuesta As ResultadoValidacion = Validador.ConsultaRecetasBeneficiario(receta)
+            Dim AdminOS As New N_AdminObraSociales
+            Dim IdMensaje As Long = AdminOS.GenerarIdMensajeValidador("LPAMI")
+            Dim Respuesta As ResultadoValidacion = Validador.ConsultaRecetasBeneficiario(IdMensaje, receta)
         End If
     End Sub
 End Class

@@ -110,6 +110,10 @@
       <Project>{2215aad4-a976-496f-b9f8-87258163c48b}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Vecho\Vecho.vbproj">
+      <Project>{14823426-df84-456c-b790-c99f3c98a050}</Project>
+      <Name>Vecho</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
