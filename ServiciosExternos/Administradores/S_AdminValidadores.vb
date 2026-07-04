@@ -1,10 +1,11 @@
-﻿Public NotInheritable Class S_AdminAutorizadores
+﻿Public NotInheritable Class S_AdminValidadores
     Private Sub New()
+
     End Sub
 
-    Public Shared Function Crear(nombreValidador As String) As IValidador
+    Public Shared Function ObtenerAutorizador(Validador As String) As IValidador
 
-        Select Case nombreValidador.ToUpper()
+        Select Case Validador.ToUpper()
 
             Case "LPAMI"
                 Return New LPAMI()
@@ -16,7 +17,7 @@
                 Return New MISV
 
             Case Else
-                Throw New Exception("Validador no implementado: " & nombreValidador)
+                Throw New Exception("Validador no implementado: " & Validador)
 
         End Select
 
