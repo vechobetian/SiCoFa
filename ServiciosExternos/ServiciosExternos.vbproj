@@ -64,6 +64,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administradores\S_AdminAutorizadores.vb" />
+    <Compile Include="Autorizadores\FLINK.vb" />
     <Compile Include="Autorizadores\LPAMI.vb" />
     <Compile Include="Autorizadores\MISV.vb" />
     <Compile Include="Interfaces\IValidador.vb" />
