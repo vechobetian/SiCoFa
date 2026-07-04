@@ -1,5 +1,4 @@
 ﻿Imports System.ComponentModel
-Imports SiCoFa.ServiciosExternos
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
@@ -1066,10 +1065,8 @@ Public Class FrmVentas
         If receta IsNot Nothing Then
             Dim c As New CredencialOS("14021682880700", "")
             receta.Credencial = c
-            Dim Validador As New LPAMI
-            Dim AdminOS As New N_AdminObraSociales
-            Dim IdMensaje As Long = AdminOS.GenerarIdMensajeValidador("LPAMI")
-            Dim Respuesta As ResultadoValidacion = Validador.ConsultaRecetasBeneficiario(IdMensaje, receta)
+            Dim adminRecetas As New N_AdminRecetas
+            adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
         End If
     End Sub
 End Class

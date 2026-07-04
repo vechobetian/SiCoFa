@@ -10,7 +10,6 @@ Module ObraSocialMapper
         argNombreOS:=If(IsDBNull(dr("NombreOS")), Nothing, dr("NombreOS")).ToString,
         argValidador:=If(IsDBNull(dr("Validador")), Nothing, dr("Validador")).ToString(),
         Nothing,
-        argFinanciador:=If(IsDBNull(dr("Financiador")), Nothing, dr("Financiador")).ToString(),
         argComprobanteFiscal:=If(IsDBNull(dr("ComprobanteFiscal")), Nothing, Convert.ToBoolean(dr("ComprobanteFiscal"))),
         argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion")))
     )

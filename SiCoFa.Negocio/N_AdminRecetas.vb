@@ -1,6 +1,24 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports SiCoFa.ServiciosExternos
+Imports SiCoFa.Datos
+Imports SiCoFa.Entidades
 
 Public Class N_AdminRecetas
+
+    Public Function ObtenerIdMensajeValidador(ByVal argValidador As String) As Long
+
+        Dim AdminRecetas As New D_AdminRecetas
+        Dim IdMensaje As Long = AdminRecetas.ObtenerIdMensajeValidador(argValidador)
+        Return IdMensaje
+
+    End Function
+
+    Public Function ConsultaRecetasBeneficiario(argCredencial As CredencialOS, argPValidacion As ParametrosValidacion) As List(Of Receta)
+
+        Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argPValidacion.Validador)
+        Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argPValidacion.Validador)
+        Dim consultaResponse As List(Of Receta) = iVal.ConsultaRecetasBeneficiario(argCredencial, argPValidacion, idMsje)
+        Return consultaResponse
+    End Function
 
     Public Sub ObtenerCobertura(ByVal argArticulo As Articulo, ByRef argItemComprobante As ItemComprobante)
 

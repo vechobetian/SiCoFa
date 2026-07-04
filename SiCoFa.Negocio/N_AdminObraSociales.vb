@@ -11,13 +11,4 @@ Public Class N_AdminObraSociales
 
     End Function
 
-    Public Function GenerarIdMensajeValidador(ByVal argValidador As String) As Long
-
-        Dim AdminOS As New D_AdminObraSociales
-        Dim IdMensaje As Long = AdminOS.GenerarIdMensajeValidador(argValidador)
-        Return IdMensaje
-
-    End Function
-
-
 End Class

@@ -3,7 +3,7 @@
 
     End Sub
 
-    Public Shared Function ObtenerAutorizador(Validador As String) As IValidador
+    Public Shared Function ObtenerValidador(Validador As String) As IValidador
 
         Select Case Validador.ToUpper()
 

@@ -3,6 +3,36 @@ Imports SiCoFa.Entidades
 
 Public Class D_AdminRecetas
 
+    Public Function ObtenerIdMensajeValidador(ByVal argValidador As String) As Long
+
+        Try
+
+            Using cn As MySqlConnection = (New D_Conexion).ObtenerConexion
+
+                Using cmd As New MySqlCommand("sp_numero_mensaje_validador", cn)
+
+                    cmd.CommandType = CommandType.StoredProcedure
+
+                    cmd.Parameters.Add("p_Validador", MySqlDbType.VarChar).Value = argValidador
+
+                    Dim pOut = cmd.Parameters.Add("p_NumeroMensaje", MySqlDbType.Int64)
+                    pOut.Direction = ParameterDirection.Output
+
+                    cmd.ExecuteNonQuery()
+
+                    Return CLng(pOut.Value)
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerIdMensajeValidador), ex.Message))
+
+        End Try
+
+    End Function
+
     Friend Function InsertarReceta(ByRef argReceta As Receta, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
 
         Try

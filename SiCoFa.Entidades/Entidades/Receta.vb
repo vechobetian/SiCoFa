@@ -17,6 +17,10 @@
     Public Property EstadoReceta As String
     Public Property Items As List(Of ItemComprobante)
 
+    Public Sub New()
+
+    End Sub
+
     Public Sub New(ByVal argPlanOS As PlanOS)
 
         Me.Plan = argPlanOS
