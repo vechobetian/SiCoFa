@@ -1065,8 +1065,11 @@ Public Class FrmVentas
         If receta IsNot Nothing Then
             Dim c As New CredencialOS("14021682880700", "")
             receta.Credencial = c
+            receta.NumReceta = "8263155276740"
             Dim adminRecetas As New N_AdminRecetas
-            adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
+            'adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
+            adminRecetas.ConsultaRecetaElectronica(receta)
+
         End If
     End Sub
 End Class

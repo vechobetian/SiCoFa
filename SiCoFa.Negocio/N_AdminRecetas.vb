@@ -18,6 +18,16 @@ Public Class N_AdminRecetas
         Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argPValidacion.Validador)
         Dim consultaResponse As List(Of Receta) = iVal.ConsultaRecetasBeneficiario(argCredencial, argPValidacion, idMsje)
         Return consultaResponse
+
+    End Function
+
+    Public Function ConsultaRecetaElectronica(argReceta As Receta) As Receta
+
+        Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argReceta.Plan.OS.PValidacion.Validador)
+        Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argReceta.Plan.OS.PValidacion.Validador)
+        Dim consultaResponse As Receta = iVal.ConsultaRecetaElectronica(argReceta, idMsje)
+        Return consultaResponse
+
     End Function
 
     Public Sub ObtenerCobertura(ByVal argArticulo As Articulo, ByRef argItemComprobante As ItemComprobante)

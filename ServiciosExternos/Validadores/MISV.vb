@@ -7,6 +7,10 @@ Public Class MISV
         Throw New NotImplementedException()
     End Function
 
+    Private Function ConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long) As Receta Implements IValidador.ConsultaRecetaElectronica
+        Throw New NotImplementedException()
+    End Function
+
     Public Function ConsultaRecetasBeneficiario(argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
         Throw New NotImplementedException()
     End Function
