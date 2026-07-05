@@ -1069,7 +1069,43 @@ Public Class FrmVentas
             Dim adminRecetas As New N_AdminRecetas
             'adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
             adminRecetas.ConsultaRecetaElectronica(receta)
-
+            CargarRecetaEnPantalla(receta)
         End If
     End Sub
+
+    Private Sub CargarRecetaEnPantalla(receta As Receta)
+
+        If receta Is Nothing OrElse receta.Items Is Nothing Then Exit Sub
+
+        ' Buscamos o creamos la receta en memoria global
+        Dim rec As Receta = mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = receta.IdReceta)
+
+        If rec Is Nothing Then
+            mobj_Recetas.Add(receta)
+            rec = receta
+        End If
+
+        ' Insertar items en la grilla
+        Dim indice As Integer = 0
+
+        For Each it As ItemComprobante In receta.Items
+
+            Dim itemNuevo As New ItemComprobante()
+
+            itemNuevo.EsNuevo = True
+            itemNuevo.Receta = rec
+            itemNuevo.Descripcion = it.Descripcion
+            itemNuevo.CodBarras = it.CodBarras
+            itemNuevo.Cantidad = it.Cantidad
+            itemNuevo.PrecioUnitario = it.PrecioUnitario
+
+            mobj_Items.Insert(indice, itemNuevo)
+            indice += 1
+
+        Next
+
+        RenderItemsUC()
+
+    End Sub
+
 End Class
