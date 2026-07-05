@@ -2,6 +2,7 @@
     Private m_IdItem As Long
     Private m_IdArticulo As String
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
+    Private m_NTroquel As String
     Private m_CodBarras As String
     Private m_Descripcion As String
     Private m_Fraccionado As Boolean
@@ -53,7 +54,8 @@
                     ByVal argPrecioCosto As Decimal,
                     ByVal argPrecioUnitario As Decimal,
                     ByVal argDescuentoUnitario As Decimal,
-                    ByVal argPorcentajeDescuento As Decimal
+                    ByVal argPorcentajeDescuento As Decimal,
+                    Optional argNTroquel As String = ""
                    )
 
         m_IdItem = argIdItem
@@ -67,6 +69,7 @@
         m_PrecioUnitario = argPrecioUnitario
         m_DescuentoUnitario = argDescuentoUnitario
         m_PorcentajeDescuento = argPorcentajeDescuento
+        m_NTroquel = argNTroquel
     End Sub
 
     Public Property EsNuevo() As Boolean
@@ -119,6 +122,15 @@
         End Get
         Set(value As String)
             m_CodBarras = value
+        End Set
+    End Property
+
+    Public Property NTroquel() As String
+        Get
+            Return m_NTroquel
+        End Get
+        Set(value As String)
+            m_NTroquel = value
         End Set
     End Property
 

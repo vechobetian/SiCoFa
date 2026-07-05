@@ -63,17 +63,17 @@ Public Class LPAMI
 
         Dim recetas As List(Of Receta) = ParsearRecetas(xmlResponse)
 
-        For Each receta As Receta In recetas
+        'For Each receta As Receta In recetas
 
-            Debug.WriteLine("Receta: " & receta.IdReceta)
-            Debug.WriteLine("Número: " & receta.NumReceta)
-            Debug.WriteLine("Fecha: " & receta.FechaPrescripcion.ToShortDateString())
+        'Debug.WriteLine("Receta: " & receta.IdReceta)
+        'Debug.WriteLine("Número: " & receta.NumReceta)
+        'Debug.WriteLine("Fecha: " & receta.FechaPrescripcion.ToShortDateString())
 
-            For Each item As ItemComprobante In receta.Items
-                Debug.WriteLine("   " & item.Descripcion)
-            Next
+        'For Each item As ItemComprobante In receta.Items
+        'Debug.WriteLine("   " & item.Descripcion)
+        'Next
 
-        Next
+        'Next
 
         Return recetas
 
@@ -120,9 +120,22 @@ Public Class LPAMI
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
-            Dim receta As Receta
+            argReceta = ParsearRecetaElectronica(xmlResponse)
 
-            Return receta
+            Debug.WriteLine("Receta: " & argReceta.NumReceta)
+            Debug.WriteLine("Fecha: " & argReceta.FechaPrescripcion)
+
+            For Each item In argReceta.Items
+                Debug.WriteLine(item.IdItem & " - " & item.Descripcion & " - Troquel: " & item.NTroquel & "PUnit: " & item.PrecioUnitario)
+            Next
+
+            Debug.WriteLine("TipoPrescriptor: " & argReceta.Prescriptor.TipoPrescriptor.CodiTPres)
+            Debug.WriteLine("TipoMatricula: " & argReceta.Prescriptor.Matricula.CodiTMat)
+            Debug.WriteLine("NMatricula: " & argReceta.Prescriptor.Matricula.Numero)
+
+
+
+            Return argReceta
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "ConsultaRecetaElectronica", ex.Message))
@@ -542,6 +555,89 @@ Public Class LPAMI
         Next
 
         Return recetas
+
+    End Function
+
+    Private Function ParsearRecetaElectronica(xml As XmlDocument) As Receta
+
+        Dim receta As New Receta
+
+        '=========================
+        ' Encabezado de la receta
+        '=========================
+
+        Dim encabezado As XmlNode = xml.SelectSingleNode("//MensajeADESFA/EncabezadoReceta")
+
+        If encabezado Is Nothing Then
+            Return receta
+        End If
+
+        receta.NumReceta = encabezado.SelectSingleNode("Formulario/Numero")?.InnerText
+
+        Dim fecha As String = encabezado.SelectSingleNode("FechaReceta")?.InnerText
+
+        If Not String.IsNullOrEmpty(fecha) Then
+            receta.FechaPrescripcion = DateTime.ParseExact(fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
+        End If
+
+        If receta.Prescriptor Is Nothing Then
+            Dim codiTPrescriptor As String = encabezado.SelectSingleNode("Prescriptor/TipoPrescriptor")?.InnerText
+            Dim tipoPrescriptor As New TipoPrescriptor(codiTPrescriptor)
+            Dim codiTMat As String = encabezado.SelectSingleNode("Prescriptor/TipoMatricula")?.InnerText
+            Dim nMatricula As String = encabezado.SelectSingleNode("Prescriptor/NroMatricula")?.InnerText
+            Dim matricula As New Matricula(codiTMat, nMatricula)
+            receta.Prescriptor = New Prescriptor(tipoPrescriptor, Nothing, "", "", matricula)
+        End If
+
+        '=========================
+        ' Detalle
+        '=========================
+
+        receta.Items = New List(Of ItemComprobante)
+
+        Dim referencias As XmlNodeList = xml.SelectNodes("//MensajeADESFA/DetalleReceta/ReferenciaRx")
+
+        For Each referencia As XmlNode In referencias
+
+            Dim idItem As Long = referencia.SelectSingleNode("NroLinea")?.InnerText
+            Dim idArticulo As String = ""
+            Dim codBarras As String = ""
+            Dim nTroquel As String = ""
+            Dim cantidadPrescripta As Integer = referencia.SelectSingleNode("CantidadPrescripta")?.InnerText
+
+            For Each nodoItem As XmlNode In referencia.SelectNodes("Item")
+
+                If nodoItem.SelectSingleNode("Estado")?.InnerText = "1" Then
+
+                    If nodoItem.SelectSingleNode("Alfabeta")?.InnerText <> "" Then
+                        idArticulo = "M" & nodoItem.SelectSingleNode("Alfabeta")?.InnerText
+                    End If
+
+                    If nodoItem.SelectSingleNode("CodBarras")?.InnerText <> "" Then
+                        codBarras = nodoItem.SelectSingleNode("CodBarras")?.InnerText
+                    End If
+
+                    If nodoItem.SelectSingleNode("CodTroquel")?.InnerText <> "" Then
+                        nTroquel = nodoItem.SelectSingleNode("CodTroquel")?.InnerText
+                    End If
+
+                    Dim pUnit As Decimal
+
+                    Decimal.TryParse(nodoItem.SelectSingleNode("ImporteUnitario")?.InnerText, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, pUnit)
+
+                    Dim descripcion As String = nodoItem.SelectSingleNode("Descripcion")?.InnerText
+
+                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, nTroquel)
+
+                    receta.Items.Add(item)
+
+                End If
+
+            Next
+
+        Next
+
+        Return receta
 
     End Function
 
