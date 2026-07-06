@@ -5,6 +5,6 @@ Public Interface IValidador
 
     Function ConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long) As Receta
 
-    Function SolicitarAutorizacion(argIdMensaje As Long, argReceta As Receta) As ResultadoValidacion
+    Function SolicitarAutorizacion(argReceta As Receta, argIdMensaje As Long) As ResultadoValidacion
 
 End Interface

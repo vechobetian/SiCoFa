@@ -4,6 +4,7 @@
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
     Private m_NTroquel As String
     Private m_CodBarras As String
+    Private m_Codigo As Long
     Private m_Descripcion As String
     Private m_Fraccionado As Boolean
     Private m_Cantidad As Integer
@@ -107,13 +108,24 @@
         Set(a As Articulo)
             m_Articulo = a
             m_IdArticulo = a.IdArticulo
+            m_Codigo = a.Codigo
             m_CodBarras = a.CodBarras
+            m_NTroquel = a.NTroquel
             m_Descripcion = a.Nombre
             m_PrecioCosto = a.PrecioCosto
             m_PrecioUnitario = a.PrecioVenta
             m_AlicIVA = a.AlicIVA
         End Set
 
+    End Property
+
+    Public Property Codigo() As String
+        Get
+            Return m_Codigo
+        End Get
+        Set(value As String)
+            m_Codigo = value
+        End Set
     End Property
 
     Public Property CodBarras() As String

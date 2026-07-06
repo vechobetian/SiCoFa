@@ -25,7 +25,7 @@ Public Class UcReceta
 
         lblIdReceta.Text = mobj_Receta.IdReceta.ToString()
         lblPlanOS.Text = mobj_Receta.Plan.Descripcion
-        lblValidacion.Text = mobj_Receta.Plan.OS.Validador & mobj_Receta.NumAutorizacion
+        lblValidacion.Text = mobj_Receta.Plan.OS.Validador & " " & mobj_Receta.NumAutorizacion
         lblTotalReceta.Text = mobj_Receta.ImporteTotal.ToString("C2")
         lblImporteOS.Text = mobj_Receta.ImporteOS.ToString("C2")
         lblImporteCS.Text = mobj_Receta.ImporteCS.ToString("C2")

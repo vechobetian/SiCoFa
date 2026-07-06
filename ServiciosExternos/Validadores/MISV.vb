@@ -3,7 +3,7 @@ Public Class MISV
 
     Implements IValidador
 
-    Public Function SolicitarAutorizacion(argIdMensaje As Long, argReceta As Receta) As ResultadoValidacion Implements IValidador.SolicitarAutorizacion
+    Public Function SolicitarAutorizacion(argReceta As Receta, argIdMensaje As Long) As ResultadoValidacion Implements IValidador.SolicitarAutorizacion
         Throw New NotImplementedException()
     End Function
 

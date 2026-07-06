@@ -535,10 +535,7 @@ Public Class FrmVentas
             Dim item As ItemComprobante = uc.ItemVenta
 
             item.Articulo = articulo
-            'item.CodBarras = articulo.CodBarras
-            'item.Descripcion = articulo.Nombre
             item.Cantidad = 1
-            'item.AlicIVA = articulo.AlicIVA
 
             uc.Bind(item)
 
@@ -982,9 +979,7 @@ Public Class FrmVentas
         mobj_Recetas.Add(receta)
 
         ' Buscar el item libre vacío
-        Dim indice As Integer =
-        mobj_Items.ToList().
-        FindIndex(Function(i) i.Receta Is Nothing AndAlso i.Articulo Is Nothing)
+        Dim indice As Integer = mobj_Items.ToList().FindIndex(Function(i) i.Receta Is Nothing AndAlso i.Articulo Is Nothing)
 
         If indice = -1 Then
             indice = mobj_Items.Count
@@ -1048,34 +1043,41 @@ Public Class FrmVentas
     End Sub
 
     Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
-        Dim receta As Receta = Nothing
 
-        If mobj_ItemSeleccionado IsNot Nothing Then
+        Dim AdminOS As New N_AdminObraSociales
+        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(1101)
 
-            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+        Dim receta As New Receta(PlanOS)
 
-            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+        receta.IdReceta = ObtenerNuevoIdReceta()
 
-                receta = mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = item.Receta.IdReceta)
+        Dim c As New CredencialOS("14021682880700", "")
+        receta.Credencial = c
+        receta.NumReceta = "8263155276740"
+        Dim adminRecetas As New N_AdminRecetas
+        'adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
+        adminRecetas.ConsultaRecetaElectronica(receta)
+        CargarRecetaEnPantalla(receta)
 
-            End If
-
-        End If
-
-        If receta IsNot Nothing Then
-            Dim c As New CredencialOS("14021682880700", "")
-            receta.Credencial = c
-            receta.NumReceta = "8263155276740"
-            Dim adminRecetas As New N_AdminRecetas
-            'adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
-            adminRecetas.ConsultaRecetaElectronica(receta)
-            CargarRecetaEnPantalla(receta)
-        End If
     End Sub
 
     Private Sub CargarRecetaEnPantalla(receta As Receta)
 
+        Dim adminArticulos As New N_AdminArticulos
+
         If receta Is Nothing OrElse receta.Items Is Nothing Then Exit Sub
+
+        ' Buscar el item libre vacío
+        Dim indice As Integer = mobj_Items.ToList().FindIndex(Function(i) i.Receta Is Nothing AndAlso i.Articulo Is Nothing)
+
+        If indice = -1 Then
+            indice = mobj_Items.Count
+        Else
+            mobj_Items.RemoveAt(indice)
+        End If
+
+        ' Guardar referencia al primer item de la receta
+        Dim primerItemReceta As ItemComprobante = Nothing
 
         ' Buscamos o creamos la receta en memoria global
         Dim rec As Receta = mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = receta.IdReceta)
@@ -1085,26 +1087,60 @@ Public Class FrmVentas
             rec = receta
         End If
 
-        ' Insertar items en la grilla
-        Dim indice As Integer = 0
+        For Each i As ItemComprobante In receta.Items
+            Dim a As Articulo = adminArticulos.ObtenerArticuloPorId(i.IdArticulo)
 
-        For Each it As ItemComprobante In receta.Items
+            Dim itemNuevo As New ItemComprobante
 
-            Dim itemNuevo As New ItemComprobante()
+            If primerItemReceta Is Nothing Then
+                primerItemReceta = itemNuevo
+            End If
 
-            itemNuevo.EsNuevo = True
-            itemNuevo.Receta = rec
-            itemNuevo.Descripcion = it.Descripcion
-            itemNuevo.CodBarras = it.CodBarras
-            itemNuevo.Cantidad = it.Cantidad
-            itemNuevo.PrecioUnitario = it.PrecioUnitario
+            With itemNuevo
+                .EsNuevo = True
+                .Articulo = a
+                .Cantidad = i.Cantidad
+                .Receta = rec
+            End With
 
             mobj_Items.Insert(indice, itemNuevo)
             indice += 1
 
         Next
 
+        ' Nuevo item libre al final
+        Dim itemLibre As New ItemComprobante()
+
+        itemLibre.EsNuevo = True
+        itemLibre.Receta = Nothing
+
+        mobj_Items.Add(itemLibre)
+
+        ActualizarTotales()
+
         RenderItemsUC()
+
+        ' Enfocar el primer item de la receta insertada
+        If primerItemReceta IsNot Nothing Then
+
+            For Each ctrl As Control In PanelItems.Controls
+
+                If TypeOf ctrl Is UcItemVenta Then
+
+                    Dim uc As UcItemVenta = DirectCast(ctrl, UcItemVenta)
+
+                    If uc.ItemVenta Is primerItemReceta Then
+
+                        uc.EnfocarDescripcion()
+                        Exit For
+
+                    End If
+
+                End If
+
+            Next
+
+        End If
 
     End Sub
 
