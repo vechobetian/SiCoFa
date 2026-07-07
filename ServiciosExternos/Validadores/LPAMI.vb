@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Net.WebRequestMethods
+Imports System.Runtime.Remoting.Metadata
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System.Xml
@@ -142,7 +143,7 @@ Public Class LPAMI
 
     End Function
 
-    Public Function SolicitarAutorizacion(argReceta As Receta, argIdMensaje As Long) As ResultadoValidacion Implements IValidador.SolicitarAutorizacion
+    Public Sub SolicitarAutorizacion(argReceta As Receta, argIdMensaje As Long) Implements IValidador.SolicitarAutorizacion
 
         Try
 
@@ -193,7 +194,55 @@ Public Class LPAMI
 
         End Try
 
-    End Function
+    End Sub
+
+    Public Sub CancelarAutorizacion(argReceta As Receta, argIdMensaje As Long) Implements IValidador.CancelarAutorizacion
+
+        Try
+
+            Dim xmlAdesfa As String = MensajeAdesfaAutorizacion(argReceta, argIdMensaje, "200")
+            Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
+            Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+
+            Dim soap As String =
+                $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
+                <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" 
+                    xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" 
+                    xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" 
+                    xmlns:aut=""http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"">
+                    <soapenv:Header>
+                        <oas:Security>
+                            <oas:UsernameToken wsu:Id=""Id-288f0808-3666-49ff-a478-7ad89cfcfea7"">
+                                <oas:Username>{pVal.Usuario}</oas:Username>
+                                <oas:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">{pVal.Licencia}</oas:Password>
+                                <wsu:Created>{ahora}</wsu:Created>
+                            </oas:UsernameToken>
+                        </oas:Security>
+                    </soapenv:Header>
+                    <soapenv:Body>
+                        <aut:cancelacionRecetaVentaRq>
+                            <aut:infoCabeceraRq>
+                                <aut:idOrganizacion>{pVal.IdOrganizacion}</aut:idOrganizacion>
+                                <aut:tipoOrganizacion>FAR</aut:tipoOrganizacion>
+                            </aut:infoCabeceraRq>
+                            <aut:payload>{xmlAdesfa}</aut:payload>
+                        </aut:cancelacionRecetaVentaRq>
+                    </soapenv:Body>
+                </soapenv:Envelope>"
+
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+
+            'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"
+
+            'Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
+
+
+        Catch ex As Exception
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
+
+        End Try
+
+    End Sub
 
     '=========================================================
     ' ENCABEZADO MENSAJE
@@ -323,7 +372,7 @@ Public Class LPAMI
         writer.WriteElementString("Apellido", "")
         writer.WriteElementString("Nombre", "")
         writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.CodiTMatADESFA)
-        writer.WriteElementString("Provincia", argReceta.Prescriptor.Provincia.CodigoProvincia)
+        writer.WriteElementString("Provincia", "")
         writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
         writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPresADESFA)
         writer.WriteElementString("Cuit", "")
@@ -398,28 +447,30 @@ Public Class LPAMI
 
         Dim nroItem As Integer = 0
 
-        For Each argItem In argReceta.Items
+        For Each i In argReceta.Items
 
-            nroItem += 1
+            If i.Articulo IsNot Nothing Then
+                nroItem += 1
 
-            writer.WriteStartElement("Item")
+                writer.WriteStartElement("Item")
 
-            writer.WriteElementString("NroItem", nroItem.ToString())
-            writer.WriteElementString("CodBarras", argItem.CodBarras)
-            writer.WriteElementString("CodTroquel", argItem.NTroquel)
-            writer.WriteElementString("Alfabeta", argItem.Codigo)
-            writer.WriteElementString("Kairos", "0")
-            writer.WriteElementString("Codigo", "0")
-            writer.WriteElementString("ImporteUnitario", "0")
-            writer.WriteElementString("CantidadSolicitada", argItem.Cantidad.ToString())
-            writer.WriteElementString("PorcentajeCobertura", "0")
-            writer.WriteElementString("CodPreautorizacion", "0")
-            writer.WriteElementString("ImporteCobertura", "0")
-            writer.WriteElementString("Diagnostico", "N")
-            writer.WriteElementString("DosisDiaria", "0")
-            writer.WriteElementString("Generico", "M")
+                writer.WriteElementString("NroItem", nroItem.ToString())
+                writer.WriteElementString("CodBarras", i.CodBarras)
+                writer.WriteElementString("CodTroquel", i.NTroquel)
+                writer.WriteElementString("Alfabeta", i.Codigo)
+                writer.WriteElementString("Kairos", "0")
+                writer.WriteElementString("Codigo", "0")
+                writer.WriteElementString("ImporteUnitario", "0")
+                writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
+                writer.WriteElementString("PorcentajeCobertura", "0")
+                writer.WriteElementString("CodPreautorizacion", "0")
+                writer.WriteElementString("ImporteCobertura", "0")
+                writer.WriteElementString("Diagnostico", "N")
+                writer.WriteElementString("DosisDiaria", "0")
+                writer.WriteElementString("Generico", "M")
 
-            writer.WriteEndElement()
+                writer.WriteEndElement()
+            End If
 
         Next
 
@@ -587,7 +638,7 @@ Public Class LPAMI
             Dim numItem As Integer = 0
             For Each item As XmlNode In nodo.SelectNodes("DetalleReceta/Item")
                 numItem += 1
-                Dim itemReceta As New ItemComprobante(numItem, 0, "", item.InnerText.Trim(), 0, 1, 0, 1, 1, 0, 0)
+                Dim itemReceta As New ItemComprobante(numItem, "", "", item.InnerText.Trim(), 0, 1, 0, 1, 1, 0, 0)
                 itemsReceta.Add(itemReceta)
             Next
 
@@ -637,6 +688,7 @@ Public Class LPAMI
 
             Dim idItem As Long = referencia.SelectSingleNode("NroLinea")?.InnerText
             Dim idArticulo As String = ""
+            Dim codigo As String = ""
             Dim codBarras As String = ""
             Dim nTroquel As String = ""
             Dim cantidadPrescripta As Integer = referencia.SelectSingleNode("CantidadPrescripta")?.InnerText
@@ -646,6 +698,7 @@ Public Class LPAMI
                 If nodoItem.SelectSingleNode("Estado")?.InnerText = "1" Then
 
                     If nodoItem.SelectSingleNode("Alfabeta")?.InnerText <> "" Then
+                        codigo = nodoItem.SelectSingleNode("Alfabeta")?.InnerText
                         idArticulo = "M" & nodoItem.SelectSingleNode("Alfabeta")?.InnerText
                     End If
 
@@ -663,7 +716,7 @@ Public Class LPAMI
 
                     Dim descripcion As String = nodoItem.SelectSingleNode("Descripcion")?.InnerText
 
-                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, nTroquel)
+                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, codigo, nTroquel)
 
                     argReceta.Items.Add(item)
 

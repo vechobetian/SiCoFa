@@ -22,6 +22,7 @@ Public Module ArticuloMapper
                             datos("IdArticulo").ToString(),
                             datos("Codigo").ToString(),
                             datos("CodBarras").ToString(),
+                            datos("NTroquel").ToString,
                             datos("Nombre").ToString(),
                             TipoVenta,
                             Convert.ToDecimal(datos("AlicIVA")),

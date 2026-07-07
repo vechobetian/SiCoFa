@@ -56,7 +56,8 @@
                     ByVal argPrecioUnitario As Decimal,
                     ByVal argDescuentoUnitario As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
-                    Optional argNTroquel As String = ""
+                    Optional ByVal argCodigo As Long = 0,
+                    Optional ByVal argNTroquel As String = ""
                    )
 
         m_IdItem = argIdItem
@@ -70,6 +71,7 @@
         m_PrecioUnitario = argPrecioUnitario
         m_DescuentoUnitario = argDescuentoUnitario
         m_PorcentajeDescuento = argPorcentajeDescuento
+        m_Codigo = argCodigo
         m_NTroquel = argNTroquel
     End Sub
 
@@ -107,14 +109,18 @@
 
         Set(a As Articulo)
             m_Articulo = a
-            m_IdArticulo = a.IdArticulo
-            m_Codigo = a.Codigo
-            m_CodBarras = a.CodBarras
-            m_NTroquel = a.NTroquel
-            m_Descripcion = a.Nombre
-            m_PrecioCosto = a.PrecioCosto
-            m_PrecioUnitario = a.PrecioVenta
-            m_AlicIVA = a.AlicIVA
+
+            If a IsNot Nothing Then 'cuando elimino un item del frmventas, si el item corresponde a una receta no se elimina  el item, solo dejo un articulo vacio
+                m_IdArticulo = a.IdArticulo
+                m_Codigo = a.Codigo
+                m_CodBarras = a.CodBarras
+                m_NTroquel = a.NTroquel
+                m_Descripcion = a.Nombre
+                m_PrecioCosto = a.PrecioCosto
+                m_PrecioUnitario = a.PrecioVenta
+                m_AlicIVA = a.AlicIVA
+            End If
+
         End Set
 
     End Property

@@ -380,8 +380,6 @@ Public Class FrmVentas
 
     Private Sub EliminarItem(item As ItemComprobante)
 
-        Dim AdminItems As New N_AdminItemsComprobante
-
         If item.Receta IsNot Nothing Then
 
             item.Articulo = Nothing
@@ -391,14 +389,11 @@ Public Class FrmVentas
             item.AlicIVA = 0
             item.PorcentajeDescuento = 0
             item.EsNuevo = True
-            AdminItems.EliminarItemComprobante(item.IdItem)
             RenderItemsUC()
 
         Else
 
             mobj_Items.Remove(item)
-            AdminItems.EliminarItemComprobante(item.IdItem)
-
 
             ' Eliminar filas vacías sobrantes
             For i As Integer = mobj_Items.Count - 1 To 0 Step -1
@@ -1089,21 +1084,17 @@ Public Class FrmVentas
 
         For Each i As ItemComprobante In receta.Items
             Dim a As Articulo = adminArticulos.ObtenerArticuloPorId(i.IdArticulo)
-
-            Dim itemNuevo As New ItemComprobante
-
-            If primerItemReceta Is Nothing Then
-                primerItemReceta = itemNuevo
-            End If
-
-            With itemNuevo
-                .EsNuevo = True
-                .Articulo = a
-                .Cantidad = i.Cantidad
-                .Receta = rec
+            With i
+                i.Articulo = a
+                i.EsNuevo = True
+                i.Receta = rec
             End With
 
-            mobj_Items.Insert(indice, itemNuevo)
+            If primerItemReceta Is Nothing Then
+                primerItemReceta = i
+            End If
+
+            mobj_Items.Insert(indice, i)
             indice += 1
 
         Next
@@ -1140,6 +1131,52 @@ Public Class FrmVentas
 
             Next
 
+        End If
+
+    End Sub
+
+    Private Sub AyudaToolStripButton_Click(sender As Object, e As EventArgs) Handles AyudaToolStripButton.Click
+
+        Dim receta As Receta = Nothing
+
+        If mobj_ItemSeleccionado IsNot Nothing Then
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                receta = ObtenerReceta(item.Receta.IdReceta)
+
+            End If
+
+        End If
+
+        If receta IsNot Nothing Then
+            Dim adminRecetas As New N_AdminRecetas
+            adminRecetas.SolicitarAutorizacion(receta)
+        End If
+
+    End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
+
+        Dim receta As Receta = Nothing
+
+        If mobj_ItemSeleccionado IsNot Nothing Then
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                receta = ObtenerReceta(item.Receta.IdReceta)
+
+            End If
+
+        End If
+
+        If receta IsNot Nothing Then
+            Dim adminRecetas As New N_AdminRecetas
+            adminRecetas.SolicitarAutorizacion(receta)
         End If
 
     End Sub

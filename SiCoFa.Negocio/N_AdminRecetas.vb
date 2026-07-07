@@ -30,14 +30,13 @@ Public Class N_AdminRecetas
 
     End Function
 
-    Public Function SolicitarAutorizacion(argReceta As Receta) As ResultadoValidacion
+    Public Sub SolicitarAutorizacion(argReceta As Receta)
 
         Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argReceta.Plan.OS.PValidacion.Validador)
         Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argReceta.Plan.OS.PValidacion.Validador)
-        Dim validacionResponse As ResultadoValidacion = iVal.SolicitarAutorizacion(argReceta, idMsje)
-        Return validacionResponse
+        iVal.SolicitarAutorizacion(argReceta, idMsje)
 
-    End Function
+    End Sub
 
     Public Sub ObtenerCobertura(ByVal argArticulo As Articulo, ByRef argItemComprobante As ItemComprobante)
 

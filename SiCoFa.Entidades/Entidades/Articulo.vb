@@ -42,6 +42,7 @@ Public Class Articulo
     Public Sub New(ByVal argIdArticulo As String,
                    ByVal argCodigo As String,
                    ByVal argCodBarras As String,
+                   ByVal argNTroquel As String,
                    ByVal argNombre As String,
                    ByVal argTipoVenta As TipoVenta,
                    ByVal argAlicIVA As Decimal,
@@ -80,6 +81,7 @@ Public Class Articulo
         Me.IdArticulo = argIdArticulo
         Me.Codigo = argCodigo
         Me.CodBarras = argCodBarras
+        Me.NTroquel = argNTroquel
         Me.Nombre = argNombre
         Me.TipoVenta = argTipoVenta
         Me.AlicIVA = argAlicIVA
