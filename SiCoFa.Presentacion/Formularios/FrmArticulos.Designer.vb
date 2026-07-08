@@ -24,13 +24,20 @@ Partial Class FrmArticulos
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim IdArticuloLabel As System.Windows.Forms.Label
-        Dim NTroquelLabel As System.Windows.Forms.Label
-        Dim CodBarrasLabel As System.Windows.Forms.Label
-        Dim NombreLabel As System.Windows.Forms.Label
-        Dim AlicuotaIVALabel As System.Windows.Forms.Label
-        Dim BajaLabel As System.Windows.Forms.Label
-        Dim SeccionLabel As System.Windows.Forms.Label
+        Dim LblIdArticulo As System.Windows.Forms.Label
+        Dim LblNTroquel As System.Windows.Forms.Label
+        Dim LblCodBarras As System.Windows.Forms.Label
+        Dim LblNombre As System.Windows.Forms.Label
+        Dim LblAlicuotaIVA As System.Windows.Forms.Label
+        Dim LblBaja As System.Windows.Forms.Label
+        Dim LblSeccion As System.Windows.Forms.Label
+        Dim Label1 As System.Windows.Forms.Label
+        Dim LblTipoVenta As System.Windows.Forms.Label
+        Dim LblLaborarorio As System.Windows.Forms.Label
+        Dim LblMonodroba As System.Windows.Forms.Label
+        Dim LblAccionFarmacologica As System.Windows.Forms.Label
+        Dim LblTipoControl As System.Windows.Forms.Label
+        Dim LblHeladera As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmArticulos))
         Me.TxtIdArticulo = New System.Windows.Forms.TextBox()
         Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
@@ -52,79 +59,149 @@ Partial Class FrmArticulos
         Me.TxtAccionFarmacologica = New System.Windows.Forms.TextBox()
         Me.CmbTipoControl = New System.Windows.Forms.ComboBox()
         Me.CmbHeladera = New System.Windows.Forms.ComboBox()
-        IdArticuloLabel = New System.Windows.Forms.Label()
-        NTroquelLabel = New System.Windows.Forms.Label()
-        CodBarrasLabel = New System.Windows.Forms.Label()
-        NombreLabel = New System.Windows.Forms.Label()
-        AlicuotaIVALabel = New System.Windows.Forms.Label()
-        BajaLabel = New System.Windows.Forms.Label()
-        SeccionLabel = New System.Windows.Forms.Label()
+        LblIdArticulo = New System.Windows.Forms.Label()
+        LblNTroquel = New System.Windows.Forms.Label()
+        LblCodBarras = New System.Windows.Forms.Label()
+        LblNombre = New System.Windows.Forms.Label()
+        LblAlicuotaIVA = New System.Windows.Forms.Label()
+        LblBaja = New System.Windows.Forms.Label()
+        LblSeccion = New System.Windows.Forms.Label()
+        Label1 = New System.Windows.Forms.Label()
+        LblTipoVenta = New System.Windows.Forms.Label()
+        LblLaborarorio = New System.Windows.Forms.Label()
+        LblMonodroba = New System.Windows.Forms.Label()
+        LblAccionFarmacologica = New System.Windows.Forms.Label()
+        LblTipoControl = New System.Windows.Forms.Label()
+        LblHeladera = New System.Windows.Forms.Label()
         CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'IdArticuloLabel
+        'LblIdArticulo
         '
-        IdArticuloLabel.AutoSize = True
-        IdArticuloLabel.Location = New System.Drawing.Point(10, 43)
-        IdArticuloLabel.Name = "IdArticuloLabel"
-        IdArticuloLabel.Size = New System.Drawing.Size(57, 13)
-        IdArticuloLabel.TabIndex = 1
-        IdArticuloLabel.Text = "Id Articulo:"
+        LblIdArticulo.AutoSize = True
+        LblIdArticulo.Location = New System.Drawing.Point(10, 43)
+        LblIdArticulo.Name = "LblIdArticulo"
+        LblIdArticulo.Size = New System.Drawing.Size(57, 13)
+        LblIdArticulo.TabIndex = 1
+        LblIdArticulo.Text = "Id Articulo:"
         '
-        'NTroquelLabel
+        'LblNTroquel
         '
-        NTroquelLabel.AutoSize = True
-        NTroquelLabel.Location = New System.Drawing.Point(10, 97)
-        NTroquelLabel.Name = "NTroquelLabel"
-        NTroquelLabel.Size = New System.Drawing.Size(46, 13)
-        NTroquelLabel.TabIndex = 2
-        NTroquelLabel.Text = "Troquel:"
+        LblNTroquel.AutoSize = True
+        LblNTroquel.Location = New System.Drawing.Point(10, 95)
+        LblNTroquel.Name = "LblNTroquel"
+        LblNTroquel.Size = New System.Drawing.Size(46, 13)
+        LblNTroquel.TabIndex = 2
+        LblNTroquel.Text = "Troquel:"
         '
-        'CodBarrasLabel
+        'LblCodBarras
         '
-        CodBarrasLabel.AutoSize = True
-        CodBarrasLabel.Location = New System.Drawing.Point(10, 121)
-        CodBarrasLabel.Name = "CodBarrasLabel"
-        CodBarrasLabel.Size = New System.Drawing.Size(62, 13)
-        CodBarrasLabel.TabIndex = 4
-        CodBarrasLabel.Text = "Cod Barras:"
+        LblCodBarras.AutoSize = True
+        LblCodBarras.Location = New System.Drawing.Point(10, 121)
+        LblCodBarras.Name = "LblCodBarras"
+        LblCodBarras.Size = New System.Drawing.Size(62, 13)
+        LblCodBarras.TabIndex = 4
+        LblCodBarras.Text = "Cod Barras:"
         '
-        'NombreLabel
+        'LblNombre
         '
-        NombreLabel.AutoSize = True
-        NombreLabel.Location = New System.Drawing.Point(10, 71)
-        NombreLabel.Name = "NombreLabel"
-        NombreLabel.Size = New System.Drawing.Size(47, 13)
-        NombreLabel.TabIndex = 6
-        NombreLabel.Text = "Nombre:"
+        LblNombre.AutoSize = True
+        LblNombre.Location = New System.Drawing.Point(10, 69)
+        LblNombre.Name = "LblNombre"
+        LblNombre.Size = New System.Drawing.Size(47, 13)
+        LblNombre.TabIndex = 6
+        LblNombre.Text = "Nombre:"
         '
-        'AlicuotaIVALabel
+        'LblAlicuotaIVA
         '
-        AlicuotaIVALabel.AutoSize = True
-        AlicuotaIVALabel.Location = New System.Drawing.Point(10, 174)
-        AlicuotaIVALabel.Name = "AlicuotaIVALabel"
-        AlicuotaIVALabel.Size = New System.Drawing.Size(68, 13)
-        AlicuotaIVALabel.TabIndex = 8
-        AlicuotaIVALabel.Text = "Alicuota IVA:"
+        LblAlicuotaIVA.AutoSize = True
+        LblAlicuotaIVA.Location = New System.Drawing.Point(10, 174)
+        LblAlicuotaIVA.Name = "LblAlicuotaIVA"
+        LblAlicuotaIVA.Size = New System.Drawing.Size(68, 13)
+        LblAlicuotaIVA.TabIndex = 8
+        LblAlicuotaIVA.Text = "Alicuota IVA:"
         '
-        'BajaLabel
+        'LblBaja
         '
-        BajaLabel.AutoSize = True
-        BajaLabel.Location = New System.Drawing.Point(10, 360)
-        BajaLabel.Name = "BajaLabel"
-        BajaLabel.Size = New System.Drawing.Size(31, 13)
-        BajaLabel.TabIndex = 16
-        BajaLabel.Text = "Baja:"
+        LblBaja.AutoSize = True
+        LblBaja.Location = New System.Drawing.Point(12, 360)
+        LblBaja.Name = "LblBaja"
+        LblBaja.Size = New System.Drawing.Size(31, 13)
+        LblBaja.TabIndex = 16
+        LblBaja.Text = "Baja:"
         '
-        'SeccionLabel
+        'LblSeccion
         '
-        SeccionLabel.AutoSize = True
-        SeccionLabel.Location = New System.Drawing.Point(10, 387)
-        SeccionLabel.Name = "SeccionLabel"
-        SeccionLabel.Size = New System.Drawing.Size(49, 13)
-        SeccionLabel.TabIndex = 18
-        SeccionLabel.Text = "Seccion:"
+        LblSeccion.AutoSize = True
+        LblSeccion.Location = New System.Drawing.Point(10, 387)
+        LblSeccion.Name = "LblSeccion"
+        LblSeccion.Size = New System.Drawing.Size(49, 13)
+        LblSeccion.TabIndex = 18
+        LblSeccion.Text = "Seccion:"
+        '
+        'Label1
+        '
+        Label1.AutoSize = True
+        Label1.Location = New System.Drawing.Point(10, 147)
+        Label1.Name = "Label1"
+        Label1.Size = New System.Drawing.Size(62, 13)
+        Label1.TabIndex = 33
+        Label1.Text = "Tipo Venta:"
+        '
+        'LblTipoVenta
+        '
+        LblTipoVenta.AutoSize = True
+        LblTipoVenta.Location = New System.Drawing.Point(10, 201)
+        LblTipoVenta.Name = "LblTipoVenta"
+        LblTipoVenta.Size = New System.Drawing.Size(88, 13)
+        LblTipoVenta.TabIndex = 34
+        LblTipoVenta.Text = "Tamaño Envase:"
+        '
+        'LblLaborarorio
+        '
+        LblLaborarorio.AutoSize = True
+        LblLaborarorio.Location = New System.Drawing.Point(10, 228)
+        LblLaborarorio.Name = "LblLaborarorio"
+        LblLaborarorio.Size = New System.Drawing.Size(63, 13)
+        LblLaborarorio.TabIndex = 35
+        LblLaborarorio.Text = "Laboratorio:"
+        '
+        'LblMonodroba
+        '
+        LblMonodroba.AutoSize = True
+        LblMonodroba.Location = New System.Drawing.Point(10, 254)
+        LblMonodroba.Name = "LblMonodroba"
+        LblMonodroba.Size = New System.Drawing.Size(64, 13)
+        LblMonodroba.TabIndex = 36
+        LblMonodroba.Text = "Monodroga:"
+        '
+        'LblAccionFarmacologica
+        '
+        LblAccionFarmacologica.AutoSize = True
+        LblAccionFarmacologica.Location = New System.Drawing.Point(10, 280)
+        LblAccionFarmacologica.Name = "LblAccionFarmacologica"
+        LblAccionFarmacologica.Size = New System.Drawing.Size(75, 13)
+        LblAccionFarmacologica.TabIndex = 37
+        LblAccionFarmacologica.Text = "Acción Farma:"
+        '
+        'LblTipoControl
+        '
+        LblTipoControl.AutoSize = True
+        LblTipoControl.Location = New System.Drawing.Point(11, 306)
+        LblTipoControl.Name = "LblTipoControl"
+        LblTipoControl.Size = New System.Drawing.Size(67, 13)
+        LblTipoControl.TabIndex = 38
+        LblTipoControl.Text = "Tipo Control:"
+        '
+        'LblHeladera
+        '
+        LblHeladera.AutoSize = True
+        LblHeladera.Location = New System.Drawing.Point(10, 333)
+        LblHeladera.Name = "LblHeladera"
+        LblHeladera.Size = New System.Drawing.Size(53, 13)
+        LblHeladera.TabIndex = 39
+        LblHeladera.Text = "Heladera:"
         '
         'TxtIdArticulo
         '
@@ -143,7 +220,7 @@ Partial Class FrmArticulos
         'TxtNTroquel
         '
         Me.TxtNTroquel.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Codigo", True))
-        Me.TxtNTroquel.Location = New System.Drawing.Point(104, 94)
+        Me.TxtNTroquel.Location = New System.Drawing.Point(104, 92)
         Me.TxtNTroquel.Name = "TxtNTroquel"
         Me.TxtNTroquel.Size = New System.Drawing.Size(315, 20)
         Me.TxtNTroquel.TabIndex = 2
@@ -159,7 +236,7 @@ Partial Class FrmArticulos
         'TxtNombre
         '
         Me.TxtNombre.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
-        Me.TxtNombre.Location = New System.Drawing.Point(104, 68)
+        Me.TxtNombre.Location = New System.Drawing.Point(104, 66)
         Me.TxtNombre.Name = "TxtNombre"
         Me.TxtNombre.Size = New System.Drawing.Size(315, 20)
         Me.TxtNombre.TabIndex = 1
@@ -173,7 +250,7 @@ Partial Class FrmArticulos
         Me.CmbAlicuotaIVA.Location = New System.Drawing.Point(104, 171)
         Me.CmbAlicuotaIVA.Name = "CmbAlicuotaIVA"
         Me.CmbAlicuotaIVA.Size = New System.Drawing.Size(315, 21)
-        Me.CmbAlicuotaIVA.TabIndex = 4
+        Me.CmbAlicuotaIVA.TabIndex = 5
         '
         'CmbSeccion
         '
@@ -185,7 +262,7 @@ Partial Class FrmArticulos
         Me.CmbSeccion.Location = New System.Drawing.Point(104, 384)
         Me.CmbSeccion.Name = "CmbSeccion"
         Me.CmbSeccion.Size = New System.Drawing.Size(315, 21)
-        Me.CmbSeccion.TabIndex = 6
+        Me.CmbSeccion.TabIndex = 13
         '
         'ToolStrip1
         '
@@ -242,7 +319,7 @@ Partial Class FrmArticulos
         Me.CmdBaja.Location = New System.Drawing.Point(104, 357)
         Me.CmdBaja.Name = "CmdBaja"
         Me.CmdBaja.Size = New System.Drawing.Size(315, 21)
-        Me.CmdBaja.TabIndex = 5
+        Me.CmdBaja.TabIndex = 12
         '
         'CmbTipoVenta
         '
@@ -253,7 +330,7 @@ Partial Class FrmArticulos
         Me.CmbTipoVenta.Location = New System.Drawing.Point(104, 144)
         Me.CmbTipoVenta.Name = "CmbTipoVenta"
         Me.CmbTipoVenta.Size = New System.Drawing.Size(315, 21)
-        Me.CmbTipoVenta.TabIndex = 26
+        Me.CmbTipoVenta.TabIndex = 4
         '
         'CmbTamanioEnvase
         '
@@ -264,7 +341,7 @@ Partial Class FrmArticulos
         Me.CmbTamanioEnvase.Location = New System.Drawing.Point(104, 198)
         Me.CmbTamanioEnvase.Name = "CmbTamanioEnvase"
         Me.CmbTamanioEnvase.Size = New System.Drawing.Size(315, 21)
-        Me.CmbTamanioEnvase.TabIndex = 27
+        Me.CmbTamanioEnvase.TabIndex = 6
         '
         'TxtLaboratorio
         '
@@ -272,7 +349,7 @@ Partial Class FrmArticulos
         Me.TxtLaboratorio.Location = New System.Drawing.Point(104, 225)
         Me.TxtLaboratorio.Name = "TxtLaboratorio"
         Me.TxtLaboratorio.Size = New System.Drawing.Size(315, 20)
-        Me.TxtLaboratorio.TabIndex = 28
+        Me.TxtLaboratorio.TabIndex = 7
         '
         'TxtMonodroga
         '
@@ -280,7 +357,7 @@ Partial Class FrmArticulos
         Me.TxtMonodroga.Location = New System.Drawing.Point(104, 251)
         Me.TxtMonodroga.Name = "TxtMonodroga"
         Me.TxtMonodroga.Size = New System.Drawing.Size(315, 20)
-        Me.TxtMonodroga.TabIndex = 29
+        Me.TxtMonodroga.TabIndex = 8
         '
         'TxtAccionFarmacologica
         '
@@ -288,7 +365,7 @@ Partial Class FrmArticulos
         Me.TxtAccionFarmacologica.Location = New System.Drawing.Point(104, 277)
         Me.TxtAccionFarmacologica.Name = "TxtAccionFarmacologica"
         Me.TxtAccionFarmacologica.Size = New System.Drawing.Size(315, 20)
-        Me.TxtAccionFarmacologica.TabIndex = 30
+        Me.TxtAccionFarmacologica.TabIndex = 9
         '
         'CmbTipoControl
         '
@@ -299,7 +376,7 @@ Partial Class FrmArticulos
         Me.CmbTipoControl.Location = New System.Drawing.Point(104, 303)
         Me.CmbTipoControl.Name = "CmbTipoControl"
         Me.CmbTipoControl.Size = New System.Drawing.Size(315, 21)
-        Me.CmbTipoControl.TabIndex = 31
+        Me.CmbTipoControl.TabIndex = 10
         '
         'CmbHeladera
         '
@@ -307,16 +384,24 @@ Partial Class FrmArticulos
         Me.CmbHeladera.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
         Me.CmbHeladera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CmbHeladera.FormattingEnabled = True
+        Me.CmbHeladera.Items.AddRange(New Object() {"NO", "SI"})
         Me.CmbHeladera.Location = New System.Drawing.Point(104, 330)
         Me.CmbHeladera.Name = "CmbHeladera"
         Me.CmbHeladera.Size = New System.Drawing.Size(315, 21)
-        Me.CmbHeladera.TabIndex = 32
+        Me.CmbHeladera.TabIndex = 11
         '
         'FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(431, 416)
+        Me.Controls.Add(LblHeladera)
+        Me.Controls.Add(LblTipoControl)
+        Me.Controls.Add(LblAccionFarmacologica)
+        Me.Controls.Add(LblMonodroba)
+        Me.Controls.Add(LblLaborarorio)
+        Me.Controls.Add(LblTipoVenta)
+        Me.Controls.Add(Label1)
         Me.Controls.Add(Me.CmbHeladera)
         Me.Controls.Add(Me.CmbTipoControl)
         Me.Controls.Add(Me.TxtAccionFarmacologica)
@@ -326,18 +411,18 @@ Partial Class FrmArticulos
         Me.Controls.Add(Me.CmbTipoVenta)
         Me.Controls.Add(Me.CmdBaja)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(SeccionLabel)
+        Me.Controls.Add(LblSeccion)
         Me.Controls.Add(Me.CmbSeccion)
-        Me.Controls.Add(BajaLabel)
-        Me.Controls.Add(AlicuotaIVALabel)
+        Me.Controls.Add(LblBaja)
+        Me.Controls.Add(LblAlicuotaIVA)
         Me.Controls.Add(Me.CmbAlicuotaIVA)
-        Me.Controls.Add(NombreLabel)
+        Me.Controls.Add(LblNombre)
         Me.Controls.Add(Me.TxtNombre)
-        Me.Controls.Add(CodBarrasLabel)
+        Me.Controls.Add(LblCodBarras)
         Me.Controls.Add(Me.TxtCodBarras)
-        Me.Controls.Add(NTroquelLabel)
+        Me.Controls.Add(LblNTroquel)
         Me.Controls.Add(Me.TxtNTroquel)
-        Me.Controls.Add(IdArticuloLabel)
+        Me.Controls.Add(LblIdArticulo)
         Me.Controls.Add(Me.TxtIdArticulo)
         Me.Name = "FrmArticulos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

@@ -8,14 +8,47 @@ Public Class FrmArticulos
     Private mobj_AdminArticulos As New N_AdminArticulos
     Private ControlesReadOnly As New List(Of String)
 
-    Private Sub ObtenerAlicuotasIVA()
+    Private Sub CargarComboTipoVenta()
 
-        Try
+        Dim lista = [Enum].GetValues(GetType(Enums.TipoVenta)).
+        Cast(Of Enums.TipoVenta).
+        ToDictionary(Function(x) x, Function(x) Enums.TipoVentaHelper.Descripcion(x))
+        CmbTipoVenta.DataSource = New BindingSource(lista, Nothing)
+        CmbTipoVenta.DisplayMember = "Value"
+        CmbTipoVenta.ValueMember = "Key"
 
+    End Sub
 
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
+    Private Sub CargarComboTmanioEnvase()
+
+        Dim lista = [Enum].GetValues(GetType(Enums.TamanioEnvase)).
+        Cast(Of Enums.TamanioEnvase).
+        ToDictionary(Function(x) x, Function(x) Enums.TamanioEnvaseHelper.Descripcion(x))
+        CmbTamanioEnvase.DataSource = New BindingSource(lista, Nothing)
+        CmbTamanioEnvase.DisplayMember = "Value"
+        CmbTamanioEnvase.ValueMember = "Key"
+
+    End Sub
+
+    Private Sub CargarComboTipoControl()
+
+        With CmbTipoControl
+            .DataSource = TipoControl.Lista
+            .ValueMember = "CodiTiCo"
+            .DisplayMember = "Descripcion"
+            .SelectedIndex = -1
+        End With
+
+    End Sub
+
+    Private Sub CargarComboAlicuotasIVA()
+
+        With CmbAlicuotaIVA
+            .DataSource = AlicuotaIVA.Lista
+            .ValueMember = "AlicIVA"
+            .DisplayMember = "Descripcion"
+            .SelectedIndex = -1
+        End With
 
     End Sub
 
@@ -112,7 +145,7 @@ Public Class FrmArticulos
     End Sub
 
     Private Sub FrmArticulos_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.ObtenerAlicuotasIVA()
+        Me.CargarComboAlicuotasIVA()
         Me.ObtenerSecciones()
     End Sub
 

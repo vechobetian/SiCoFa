@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\AccionFarmacologica.vb" />
-    <Compile Include="Entidades\AlicuotaIVA.vb" />
     <Compile Include="Entidades\Archivo.vb" />
     <Compile Include="Entidades\Articulo.vb" />
     <Compile Include="Entidades\AsientoConbable.vb" />
@@ -93,6 +92,7 @@
     <Compile Include="Entidades\Prescriptor.vb" />
     <Compile Include="Entidades\Receta.vb" />
     <Compile Include="Entidades\TipoPrescriptor.vb" />
+    <Compile Include="Enums\AlicuotaIVA.vb" />
     <Compile Include="Enums\Promociones.vb" />
     <Compile Include="Enums\TamanioEnvase.vb" />
     <Compile Include="Enums\TipoControl.vb" />
