@@ -58,22 +58,36 @@ Public Class N_AdminArticulos
         End Try
     End Function
     Public Function InsertarArticulo(
-                                    ByVal argCodigo As String,
-                                    ByVal argCodBarras As String,
-                                    ByVal argNombre As String,
-                                    ByVal argAlicIVA As Decimal,
-                                    ByVal argIdSeccion As String
+                                    argCodBarras As String,
+                                    argNTroquel As String,
+                                    argNombre As String,
+                                    argCodiTV As String,
+                                    argAlicIVA As Decimal,
+                                    argCodiTE As String,
+                                    argCodiLabora As Integer,
+                                    argCodiMon As Integer,
+                                    argCodiAcFa As Integer,
+                                    argCodiTiCo As String,
+                                    argHeladera As Boolean,
+                                    argIdSeccion As String
                                     ) As String
         Try
 
             Dim AdminArticulos As New D_AdminArticulos
             Dim IdArticulo As String = AdminArticulos.InsertarArticulo(
-                                                                           UCase(argCodigo),
-                                                                           UCase(argCodBarras),
-                                                                           UCase(argNombre),
-                                                                           argAlicIVA,
-                                                                           argIdSeccion
-                                                                           )
+                                                                        UCase(argCodBarras),
+                                                                        UCase(argNTroquel),
+                                                                        UCase(argNombre),
+                                                                        argCodiTV,
+                                                                        argAlicIVA,
+                                                                        argCodiTE,
+                                                                        argCodiLabora,
+                                                                        argCodiMon,
+                                                                        argCodiAcFa,
+                                                                        argCodiTiCo,
+                                                                        argHeladera,
+                                                                        argIdSeccion
+                                                                      )
             Return IdArticulo
 
         Catch ex As Exception

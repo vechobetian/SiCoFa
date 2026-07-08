@@ -179,11 +179,11 @@ Public Class LPAMI
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"
+            Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"
 
-            'Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
 
-            'IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
             'argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
 
@@ -659,13 +659,14 @@ Public Class LPAMI
 
         Dim encabezado As XmlNode = xml.SelectSingleNode("//MensajeADESFA/EncabezadoReceta")
 
-        argReceta.NumReceta = encabezado.SelectSingleNode("Formulario/Numero")?.InnerText
-
         Dim fecha As String = encabezado.SelectSingleNode("FechaReceta")?.InnerText
 
         If Not String.IsNullOrEmpty(fecha) Then
             argReceta.FechaPrescripcion = DateTime.ParseExact(fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
         End If
+
+        argReceta.NumReceta = encabezado.SelectSingleNode("Formulario/Numero")?.InnerText
+        argReceta.Tratamiento = encabezado.SelectSingleNode("TipoTratamiento")?.InnerText
 
         If argReceta.Prescriptor Is Nothing Then
             Dim codiTPrescriptor As String = encabezado.SelectSingleNode("Prescriptor/TipoPrescriptor")?.InnerText
@@ -729,5 +730,9 @@ Public Class LPAMI
         Return argReceta
 
     End Function
+
+    Public Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
+
+    End Sub
 
 End Class

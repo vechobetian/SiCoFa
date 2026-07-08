@@ -1,8 +1,7 @@
 ﻿Imports System.Globalization
 Imports SiCoFa.Entidades
 Imports SiCoFa.Datos.WSN
-Imports System.IO
-Imports System.Reflection
+
 Public Class N_AdminCAE
     Property Observaciones As String
     Property Errores As String

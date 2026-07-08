@@ -211,6 +211,7 @@ Public Class D_AdminArticulos
             Dim sql As String = "SELECT IdArticulo,
                                         Codigo,
                                         CodBarras,
+                                        NTroquel,
                                         Nombre,
                                         CodiTV,
                                         AlicIVA,
@@ -252,7 +253,7 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE Nombre LIKE @Nombre OR Codigo = @Codigo OR CodBarras = @CodBarras 
+                                WHERE Nombre LIKE @Nombre OR Codigo = @NTroquel OR CodBarras = @CodBarras 
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -264,7 +265,7 @@ Public Class D_AdminArticulos
 
                     cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
 
-                    cmd.Parameters.AddWithValue("@Codigo", argTextoBuscado)
+                    cmd.Parameters.AddWithValue("@NTroquel", argTextoBuscado)
 
                     cmd.Parameters.AddWithValue("@CodBarras", argTextoBuscado)
 
@@ -293,11 +294,18 @@ Public Class D_AdminArticulos
     End Function
 
     Public Function InsertarArticulo(
-                                    ByVal argCodigo As String,
-                                    ByVal argCodBarras As String,
-                                    ByVal argNombre As String,
-                                    ByVal argAlicIVA As Decimal,
-                                    ByVal argIdSeccion As String
+                                    argCodBarras As String,
+                                    argNTroquel As String,
+                                    argNombre As String,
+                                    argCodiTV As String,
+                                    argAlicIVA As Decimal,
+                                    argCodiTE As String,
+                                    argCodiLabora As Integer,
+                                    argCodiMon As Integer,
+                                    argCodiAcFa As Integer,
+                                    argCodiTiCo As String,
+                                    argHeladera As Boolean,
+                                    argIdSeccion As String
                                     ) As String
 
         Try
@@ -308,17 +316,22 @@ Public Class D_AdminArticulos
 
                 Using cmd As New MySqlCommand("sp_insertar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
-                        .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
-                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
-                        .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
-                        .Add("_IdArticulo", MySqlDbType.VarChar, 10)
+                        .Add("p_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
+                        .Add("p_NTroquel", MySqlDbType.VarChar).Value = argNTroquel
+                        .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("p_CodiTV", MySqlDbType.VarChar).Value = argCodiTV
+                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
+                        .Add("p_CodiTE", MySqlDbType.VarChar).Value = argCodiTE
+                        .Add("p_CodiLabora", MySqlDbType.Int32).Value = argCodiLabora
+                        .Add("p_CodiMon", MySqlDbType.Int32).Value = argCodiMon
+                        .Add("p_CodiAcFa", MySqlDbType.Int32).Value = argCodiAcFa
+                        .Add("p_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
+                        .Add("p_IdArticulo", MySqlDbType.VarChar, 10)
                     End With
 
-                    cmd.Parameters("_IdArticulo").Direction = ParameterDirection.Output
+                    cmd.Parameters("p_IdArticulo").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdArticulo = cmd.Parameters("_IdArticulo").Value.ToString
+                    IdArticulo = cmd.Parameters("p_IdArticulo").Value.ToString
                     Return IdArticulo
                 End Using
 

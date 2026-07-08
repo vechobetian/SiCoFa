@@ -23,7 +23,7 @@ Public Class FrmArticulos
 
         Try
             Dim AdminSecciones As New N_AdminSecciones
-            With Me.Seccion
+            With Me.CmbSeccion
                 .DataSource = AdminSecciones.ListarSecciones("*")
                 .ValueMember = "IdSeccion"
                 .DisplayMember = "Seccion"
@@ -53,8 +53,8 @@ Public Class FrmArticulos
             Select Case la.Count
                 Case 0
                     MsgBox("Articulo no Encontrado", vbInformation, "SiCoFa")
-                    Me.Nombre.Text = ""
-                    Me.Nombre.Select()
+                    Me.TxtNombre.Text = ""
+                    Me.TxtNombre.Select()
                     Exit Sub
 
                 Case 1
@@ -76,8 +76,8 @@ Public Class FrmArticulos
             With Me
                 .LimpiarFormulario()
                 .MostrarArticulo(a)
-                .Nombre.Select()
-                .Nombre.SelectAll()
+                .TxtNombre.Select()
+                .TxtNombre.SelectAll()
             End With
 
         Catch ex As Exception
@@ -95,13 +95,13 @@ Public Class FrmArticulos
             End If
 
             With Me
-                .IdArticulo.Text = argArticulo.IdArticulo
-                .Nombre.Text = argArticulo.Nombre
-                .Codigo.Text = argArticulo.Codigo
-                .CodBarras.Text = argArticulo.CodBarras
-                .AlicuotaIVA.Text = argArticulo.AlicIVA
-                .Baja.SelectedIndex = If(argArticulo.Baja, 1, 0)
-                .Seccion.Text = argArticulo.Seccion.Seccion
+                .TxtIdArticulo.Text = argArticulo.IdArticulo
+                .TxtNombre.Text = argArticulo.Nombre
+                .TxtNTroquel.Text = argArticulo.NTroquel
+                .TxtCodBarras.Text = argArticulo.CodBarras
+                .CmbAlicuotaIVA.Text = argArticulo.AlicIVA
+                .CmdBaja.SelectedIndex = If(argArticulo.Baja, 1, 0)
+                .CmbSeccion.Text = argArticulo.Seccion.Seccion
             End With
 
         Catch ex As Exception
@@ -126,11 +126,25 @@ Public Class FrmArticulos
             End If
 
             If Me.NuevoArticulo = True Then
-                Dim IdArticulo As String = mobj_AdminArticulos.InsertarArticulo(Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, Me.Seccion.SelectedValue)
+                Dim IdArticulo As String = mobj_AdminArticulos.InsertarArticulo(
+                                                                                Me.TxtCodBarras.Text,
+                                                                                Me.TxtNTroquel.Text,
+                                                                                Me.TxtNombre.Text,
+                                                                                Me.CmbTipoVenta.SelectedValue,
+                                                                                Me.CmbAlicuotaIVA.SelectedValue,
+                                                                                Me.CmbTamanioEnvase.SelectedValue,
+                                                                                Me.TxtLaboratorio.Text,
+                                                                                Me.TxtMonodroga.Text,
+                                                                                Me.TxtAccionFarmacologica.Text,
+                                                                                Me.CmbTipoControl.SelectedValue,
+                                                                                Me.CmbHeladera.SelectedValue,
+                                                                                Me.CmbSeccion.SelectedValue
+                                                                                )
+
                 If IdArticulo <> "" Then
-                    Me.IdArticulo.Text = IdArticulo
-                    Me.Nombre.Text = UCase(Me.Nombre.Text)
-                    MsgBox("Se dio de alta el Articulo " & Nombre.Text, vbInformation, "SiCoFa")
+                    Me.TxtIdArticulo.Text = IdArticulo
+                    Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
+                    MsgBox("Se dio de alta el Articulo " & TxtNombre.Text, vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
@@ -139,16 +153,16 @@ Public Class FrmArticulos
                 Me.Nuevo.Checked = False
 
             Else
-                If Me.IdArticulo.Text = "" Then
-                    MsgBox("El Articulo " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                If Me.TxtIdArticulo.Text = "" Then
+                    MsgBox("El Articulo " & Me.TxtNombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim baja As Boolean = If(Me.Baja.SelectedItem.ToString() = "SI", True, False)
-                Dim Actualizado As Boolean = mobj_AdminArticulos.ActualizarArticulo(Me.IdArticulo.Text, Me.Codigo.Text, Me.CodBarras.Text, Me.Nombre.Text, Me.AlicuotaIVA.SelectedValue, baja, Me.Seccion.SelectedValue)
+                Dim baja As Boolean = If(Me.CmdBaja.SelectedItem.ToString() = "SI", True, False)
+                Dim Actualizado As Boolean = mobj_AdminArticulos.ActualizarArticulo(Me.TxtIdArticulo.Text, Me.TxtNTroquel.Text, Me.TxtCodBarras.Text, Me.TxtNombre.Text, Me.CmbAlicuotaIVA.SelectedValue, baja, Me.CmbSeccion.SelectedValue)
 
                 If Actualizado = True Then
-                    MsgBox("El Articulo " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
+                    MsgBox("El Articulo " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
@@ -163,7 +177,7 @@ Public Class FrmArticulos
 
             Me.EstablecerReadOnly(Me, ControlesReadOnly)
             Me.LimpiarFormulario()
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -194,7 +208,7 @@ Public Class FrmArticulos
 
             Me.EstablecerReadOnly(Me, ControlesReadOnly)
 
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -214,7 +228,7 @@ Public Class FrmArticulos
             Me.TextoBuscar = ""
 
             If str = "" Then
-                Me.Nombre.Select()
+                Me.TxtNombre.Select()
                 Exit Sub
             Else
                 Me.TextoBuscar = str
@@ -246,7 +260,7 @@ Public Class FrmArticulos
             End With
 
             Me.EstablecerReadOnly(Me, ControlesReadOnly)
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -255,13 +269,13 @@ Public Class FrmArticulos
 
     End Sub
 
-    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
+    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles TxtNombre.Validating
         Try
-            If Me.Nombre.Text = "" Or Me.NuevoArticulo = True Or Me.IdArticulo.Text <> "" Then
+            If Me.TxtNombre.Text = "" Or Me.NuevoArticulo = True Or Me.TxtIdArticulo.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarArticulo(Me.Nombre.Text)
+            Me.BuscarArticulo(Me.TxtNombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
