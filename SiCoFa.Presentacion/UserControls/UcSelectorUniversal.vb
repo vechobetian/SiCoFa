@@ -76,7 +76,7 @@ Public Class UcSelectorUniversal
 
             For Each obj In Objetos
 
-                If ObtenerDescripcion(obj).ToUpper() = value.ToUpper() Then
+                If String.Equals(ObtenerDescripcion(obj), value, StringComparison.OrdinalIgnoreCase) Then
 
                     Id = ObtenerId(obj)
                     Exit For
@@ -86,6 +86,7 @@ Public Class UcSelectorUniversal
             Next
 
         End Set
+
     End Property
 
     Public ReadOnly Property HaySeleccion As Boolean
@@ -333,10 +334,7 @@ Public Class UcSelectorUniversal
 
                 Else
 
-                    MessageBox.Show("No se encontraron coincidencias.",
-                                "SiCoFa",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                    MessageBox.Show("No se encontraron coincidencias.", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     If ValorPredeterminado IsNot Nothing Then
                         RestablecerValorPredeterminado()
@@ -366,19 +364,8 @@ Public Class UcSelectorUniversal
 
     Private Sub AsignarObjeto(obj As Object)
 
-        Dim pId As PropertyInfo =
-            obj.GetType().GetProperty(NombrePropiedadId)
-
-        Dim pDescripcion As PropertyInfo =
-            obj.GetType().GetProperty(NombrePropiedadDescripcion)
-
-        If pId IsNot Nothing Then
-            Id = pId.GetValue(obj)
-        End If
-
-        If pDescripcion IsNot Nothing Then
-            Descripcion = Convert.ToString(pDescripcion.GetValue(obj))
-        End If
+        Id = ObtenerId(obj)
+        Descripcion = ObtenerDescripcion(obj)
 
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
@@ -396,11 +383,7 @@ Public Class UcSelectorUniversal
 
             If f.ShowDialog() = DialogResult.OK Then
 
-                Id = f.Valor1Seleccionado
-                Descripcion = Convert.ToString(f.Valor2Seleccionado)
-
-                RaiseEvent ValorCambiado(Me, EventArgs.Empty)
-
+                Asignar(f.Valor1Seleccionado, Convert.ToString(f.Valor2Seleccionado))
                 Return True
 
             Else

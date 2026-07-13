@@ -82,6 +82,7 @@
     <Compile Include="Entidades\CuentaCorriente.vb" />
     <Compile Include="Entidades\CuentaEmail.vb" />
     <Compile Include="Entidades\CuentaImputable.vb" />
+    <Compile Include="Entidades\DatosRequeridos.vb" />
     <Compile Include="Entidades\Documento.vb" />
     <Compile Include="Entidades\Empleado.vb" />
     <Compile Include="Entidades\Empresa.vb" />

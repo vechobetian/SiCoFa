@@ -3,6 +3,7 @@ Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
 
 Public Class D_AdminObraSociales
+
     Public Function ObtenerPlanOSPorId(ByVal argIdPlan As Long) As PlanOS
 
         Dim objConexionDB As New D_Conexion
@@ -51,6 +52,57 @@ Public Class D_AdminObraSociales
         Catch ex As Exception
 
             Throw New Exception(Vecho.MensajeError(Me.ToString(), NameOf(ObtenerPlanOSPorId), ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ObtenerDatosRequeridos(ByVal argIdPlan As Long) As DatosRequeridos
+
+        Dim objConexionDB As New D_Conexion
+
+        Try
+
+            Dim dr As DatosRequeridos = Nothing
+
+            Dim sql As String = "SELECT * FROM datos_requeridos WHERE IdPlan = @IdPlan"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion("OS")
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    cmd.Parameters.Add("@IdPlan", MySqlDbType.Int64).Value = argIdPlan
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        If datos.Read() Then
+                            dr = New DatosRequeridos(
+                                                    CLng(datos("IdPlan")),
+                                                    Convert.ToBoolean(datos("NumRta")),
+                                                    Convert.ToBoolean(datos("NumAf")),
+                                                    Convert.ToBoolean(datos("NombreAf")),
+                                                    Convert.ToBoolean(datos("DocumentoAf")),
+                                                    Convert.ToBoolean(datos("Prescriptor")),
+                                                    Convert.ToBoolean(datos("Token")),
+                                                    Convert.ToBoolean(datos("Diagnostico"))
+                                                    )
+
+                        End If
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return dr
+
+        Catch ex As Exception
+
+            Throw New Exception(Vecho.MensajeError(Me.ToString(), NameOf(ObtenerDatosRequeridos), ex.Message))
 
         End Try
 
