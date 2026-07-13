@@ -4,15 +4,17 @@ Imports SiCoFa.Entidades
 Public Class FrmClientes
 
     Private mAdminClientes As New N_AdminClientes
-    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
-    Private Sub ObtenerTiposIVA()
+    Private ControlesReadOnly As New List(Of String) From {"TxtId", "TxtFechaAlta"}
+    Private DatosOpcionales As New List(Of String) From {"TxtId", "TxtDomicilio", "TxtLocalidad", "UcProvincia", "TxtTelefono", "TxtEmail"}
+
+    Private Sub CargarComboTipoIVA()
 
         Try
-            Me.IVA.DataSource = mobj_AdminSicofa.TiposIVA
-            Me.IVA.ValueMember = "CodIVA"
-            Me.IVA.DisplayMember = "TipoIVA"
-            Me.IVA.SelectedIndex = -1
+            IVA.DataSource = Nothing
+            IVA.DisplayMember = "Descripcion"
+            IVA.ValueMember = "CodIVA"
+            IVA.DataSource = TipoIVA.Lista
+            IVA.SelectedIndex = -1
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -54,8 +56,8 @@ Public Class FrmClientes
             Select Case lc.Count
                 Case 0
                     MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
-                    Me.Nombre.Text = ""
-                    Me.Nombre.Select()
+                    Me.TxtNombre.Text = ""
+                    Me.TxtNombre.Select()
                     Exit Sub
 
                 Case 1
@@ -77,8 +79,8 @@ Public Class FrmClientes
             With Me
                 .LimpiarFormulario()
                 .MostrarCliente(c)
-                .Nombre.Select()
-                .Nombre.SelectAll()
+                .TxtNombre.Select()
+                .TxtNombre.SelectAll()
             End With
 
         Catch ex As Exception
@@ -95,18 +97,18 @@ Public Class FrmClientes
 
         Try
             With Me
-                .Id.Text = argCliente.Id
-                .Nombre.Text = argCliente.Nombre
-                .Domicilio.Text = argCliente.Domicilio
-                .Localidad.Text = argCliente.Localidad
-                .Provincia.Text = argCliente.Provincia
-                .Telefono.Text = argCliente.Telefono
-                .Email.Text = argCliente.Email
-                .TipoDoc.Text = argCliente.Documento.TipoDoc.CodiTDoc
-                .NumDoc.Text = argCliente.Documento.Numero
-                .FechaAlta.Text = argCliente.FechaAlta
-                .Estado.Text = argCliente.Estado
-                .IVA.Text = argCliente.IVA.TipoIVA
+                .TxtId.Text = argCliente.Id
+                .TxtNombre.Text = argCliente.Nombre
+                .TxtDomicilio.Text = argCliente.Domicilio
+                .TxtLocalidad.Text = argCliente.Localidad
+                .UcProvincia.Descripcion = argCliente.Provincia
+                .TxtTelefono.Text = argCliente.Telefono
+                .TxtEmail.Text = argCliente.Email
+                .UcTipoDoc.Asignar(argCliente.Documento.TipoDoc.CodiTDoc, argCliente.Documento.TipoDoc.Descripcion)
+                .TxtNumDoc.Text = argCliente.Documento.Numero
+                .TxtFechaAlta.Text = argCliente.FechaAlta
+                .UcEstado.Descripcion = argCliente.Estado
+                .IVA.Text = argCliente.IVA.Descripcion
             End With
 
         Catch ex As Exception
@@ -125,11 +127,12 @@ Public Class FrmClientes
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminClientes.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+
+                Dim Id As Integer = mAdminClientes.InsertarCliente(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.IVA.SelectedValue)
                 If Id > 0 Then
-                    Me.Id.Text = Id
-                    Me.Nombre.Text = UCase(Me.Nombre.Text)
-                    MsgBox("Se dio de alta el Cliente " & Nombre.Text,, "SiCoFa")
+                    Me.TxtId.Text = Id
+                    Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
+                    MsgBox("Se dio de alta el Cliente " & TxtNombre.Text,, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
@@ -137,15 +140,15 @@ Public Class FrmClientes
                 Me.NuevaPersona = False
                 Me.Nuevo.Checked = False
             Else
-                If Me.Id.Text = "" Then
-                    MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                If Me.TxtId.Text = "" Then
+                    MsgBox("El cliente " & Me.TxtNombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminClientes.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.Estado.Text)
+                Dim Actualizado As Boolean = mAdminClientes.ActualizarCliente(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.IVA.SelectedValue, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
-                    MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
+                    MsgBox("El Cliente " & TxtNombre.Text & " se acutalizo correctamente",, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
                     Exit Sub
@@ -153,7 +156,7 @@ Public Class FrmClientes
             End If
 
             Me.LimpiarFormulario()
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -201,11 +204,11 @@ Public Class FrmClientes
         Try
             MyBase.Nombre_Validating(sender, e)
 
-            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text <> "" Then
+            If Me.TxtNombre.Text = "" Or Me.NuevaPersona = True Or Me.TxtId.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarCliente(Me.Nombre.Text)
+            Me.BuscarCliente(Me.TxtNombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -215,6 +218,6 @@ Public Class FrmClientes
     End Sub
     Private Sub FrmClientes_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.EstablecerReadOnly(Me, Me.ControlesReadOnly)
-        Me.ObtenerTiposIVA()
+        Me.CargarComboTipoIVA()
     End Sub
 End Class

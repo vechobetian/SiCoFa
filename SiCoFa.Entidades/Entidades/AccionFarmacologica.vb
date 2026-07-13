@@ -1,10 +1,10 @@
 ﻿Public Class AccionFarmacologica
-    Property Codi_AcFa As Integer
-    Property AccionFarmacologia As String
+    Property CodiAcFa As Integer
+    Property AccionFarmacologica As String
 
-    Public Sub New(ByVal argCodi_AcFa As Integer, ByVal argAccionFarmacologica As String)
-        Me.Codi_AcFa = argCodi_AcFa
-        Me.AccionFarmacologia = argAccionFarmacologica
+    Public Sub New(ByVal argCodiAcFa As Integer, ByVal argAccionFarmacologica As String)
+        Me.CodiAcFa = argCodiAcFa
+        Me.AccionFarmacologica = argAccionFarmacologica
     End Sub
 
 End Class

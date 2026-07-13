@@ -67,6 +67,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="N_AdminAccionesFarmacologicas.vb" />
     <Compile Include="N_AdminActualizaciones.vb" />
     <Compile Include="N_AdminArticulos.vb" />
     <Compile Include="N_AdminAsientosContable.vb" />
@@ -77,6 +78,8 @@
     <Compile Include="N_AdminEmpleados.vb" />
     <Compile Include="N_AdminEmpresas.vb" />
     <Compile Include="N_AdminItemsComprobante.vb" />
+    <Compile Include="N_AdminLaboratorios.vb" />
+    <Compile Include="N_AdminMonodrogas.vb" />
     <Compile Include="N_AdminObraSociales.vb" />
     <Compile Include="N_AdminProcesosActualizacion.vb" />
     <Compile Include="N_AdminListaPrecios.vb" />
@@ -90,7 +93,6 @@
     <Compile Include="N_AdminSecciones.vb" />
     <Compile Include="N_AdminUsuarios.vb" />
     <Compile Include="N_ParametrosSistema.vb" />
-    <Compile Include="N_AdminSiCoFa.vb" />
     <Compile Include="N_AdminEmail.vb" />
     <Compile Include="N_AdminFTP.vb" />
     <Compile Include="N_AdminPlanCuentas.vb" />

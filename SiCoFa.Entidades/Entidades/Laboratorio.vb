@@ -1,9 +1,9 @@
 ﻿Public Class Laboratorio
-    Property Codi_Labora
+    Property CodiLabora
     Property Laboratorio
 
-    Public Sub New(ByVal argCodi_Labora As Integer, ByVal argLaboratorio As String)
-        Me.Codi_Labora = argCodi_Labora
+    Public Sub New(ByVal argCodiLabora As Integer, ByVal argLaboratorio As String)
+        Me.CodiLabora = argCodiLabora
         Me.Laboratorio = argLaboratorio
     End Sub
 

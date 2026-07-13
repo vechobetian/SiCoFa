@@ -21,6 +21,7 @@ Public Class D_AdminClientes
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read() Then
+                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
                             objCli = New Cliente(
                                                 datos.GetInt32("IdCliente"),
                                                 datos.GetString("Nombre"),
@@ -29,8 +30,7 @@ Public Class D_AdminClientes
                                                 If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
                                                 If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
                                                 If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
-                                                datos.GetString("CodiTDoc"),
-                                                datos.GetString("NumDoc"),
+                                                objDoc,
                                                 datos.GetDateTime("FechaAlta"),
                                                 datos.GetString("Estado"),
                                                 datos.GetString("CodIVA")
@@ -51,7 +51,7 @@ Public Class D_AdminClientes
             Return objCli
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerClientePorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerClientePorId), ex.Message))
 
         End Try
 
@@ -107,7 +107,8 @@ Public Class D_AdminClientes
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
                             Dim EstadoResult As String = datos.GetString(estadoOrdinal)
                             Dim CodIVAResult As String = datos.GetString(codIVAOrdinal)
-                            c = New Cliente(IdClienteResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult, CodIVAResult)
+                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+                            c = New Cliente(IdClienteResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult, CodIVAResult)
                             lc.Add(c)
                         End While
 
@@ -120,7 +121,7 @@ Public Class D_AdminClientes
             Return lc
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarClientes", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarClientes), ex.Message))
             Return Nothing
 
         End Try
@@ -146,28 +147,28 @@ Public Class D_AdminClientes
 
                 Using cmd As New MySqlCommand("sp_insertar_cliente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
-                        .Add("_IdCliente", MySqlDbType.Int32)
+                        .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
+                        .Add("p_IdCliente", MySqlDbType.Int32)
                     End With
 
-                    cmd.Parameters("_IdCliente").Direction = ParameterDirection.Output
+                    cmd.Parameters("p_IdCliente").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdCliente = CInt(cmd.Parameters("_IdCliente").Value)
+                    IdCliente = CInt(cmd.Parameters("p_IdCliente").Value)
                 End Using
 
             End Using
             Return IdCliente
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCliente", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarCliente), Ex.Message))
 
         End Try
 
@@ -193,16 +194,16 @@ Public Class D_AdminClientes
 
                 Using cmd As New MySqlCommand("sp_actualizar_cliente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdCliente", MySqlDbType.Int32).Value = argIdCliente
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
-                        .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                        .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
+                        .Add("p_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
                     Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
@@ -213,7 +214,7 @@ Public Class D_AdminClientes
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCliente", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarCliente), Ex.Message))
             Return False
 
         End Try
@@ -258,7 +259,7 @@ Public Class D_AdminClientes
             Return objCC
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCuentaCorrientePorIdCliente", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerCuentaCorrientePorIdCliente), ex.Message))
             Return Nothing
 
         End Try
@@ -320,7 +321,7 @@ Public Class D_AdminClientes
             Return lc
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarCuentasCorriente", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarCuentasCorriente), ex.Message))
             Return Nothing
 
         End Try
@@ -357,7 +358,7 @@ Public Class D_AdminClientes
             Return IdCC
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaCorriente", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarCuentaCorriente), Ex.Message))
 
         End Try
 
@@ -376,10 +377,10 @@ Public Class D_AdminClientes
 
                 Using cmd As New MySqlCommand("sp_actualizar_cuenta_corriente", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdCC", MySqlDbType.Int32).Value = argIdCC
-                        .Add("_Credito", MySqlDbType.Decimal).Value = argCredito
-                        .Add("_Observaciones", MySqlDbType.Text).Value = argObservaciones
-                        .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                        .Add("p_IdCC", MySqlDbType.Int32).Value = argIdCC
+                        .Add("p_Credito", MySqlDbType.Decimal).Value = argCredito
+                        .Add("p_Observaciones", MySqlDbType.Text).Value = argObservaciones
+                        .Add("p_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
                     Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
@@ -390,7 +391,7 @@ Public Class D_AdminClientes
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCuentaCorriente", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarCuentaCorriente), Ex.Message))
             Return False
 
         End Try

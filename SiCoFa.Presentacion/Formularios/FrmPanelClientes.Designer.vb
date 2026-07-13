@@ -32,13 +32,14 @@ Partial Class FrmPanelClientes
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmPanelClientes))
         Me.PanelCliente = New System.Windows.Forms.TabControl()
         Me.Cliente = New System.Windows.Forms.TabPage()
-        Me.Provincia = New System.Windows.Forms.ComboBox()
+        Me.UcIVA = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcEstado = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcTipoDoc = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcProvincia = New SiCoFa.Presentacion.UcSelectorUniversal()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.IVA = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.EstadoCliente = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.FechaAltaCliente = New System.Windows.Forms.TextBox()
+        Me.TxtFechaAltaCliente = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -48,21 +49,20 @@ Partial Class FrmPanelClientes
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TipoDoc = New System.Windows.Forms.ComboBox()
-        Me.NumDoc = New System.Windows.Forms.TextBox()
-        Me.Email = New System.Windows.Forms.TextBox()
-        Me.Telefono = New System.Windows.Forms.TextBox()
-        Me.Localidad = New System.Windows.Forms.TextBox()
-        Me.Domicilio = New System.Windows.Forms.TextBox()
-        Me.Nombre = New System.Windows.Forms.TextBox()
-        Me.Id = New System.Windows.Forms.TextBox()
+        Me.TxtNumDoc = New System.Windows.Forms.TextBox()
+        Me.TxtEmail = New System.Windows.Forms.TextBox()
+        Me.TxtTelefono = New System.Windows.Forms.TextBox()
+        Me.TxtLocalidad = New System.Windows.Forms.TextBox()
+        Me.TxtDomicilio = New System.Windows.Forms.TextBox()
+        Me.TxtNombre = New System.Windows.Forms.TextBox()
+        Me.TxtId = New System.Windows.Forms.TextBox()
         Me.CuentaCorriente = New System.Windows.Forms.TabPage()
-        Me.Descripcion = New System.Windows.Forms.TextBox()
-        Me.EstadoCuentaCorriente = New System.Windows.Forms.ComboBox()
-        Me.FechaAltaCuentaCorriente = New System.Windows.Forms.TextBox()
-        Me.IdCC = New System.Windows.Forms.TextBox()
-        Me.Credito = New System.Windows.Forms.TextBox()
-        Me.Observaciones = New System.Windows.Forms.TextBox()
+        Me.UcEstadoCC = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.TxtDescripcion = New System.Windows.Forms.TextBox()
+        Me.TxtFechaAltaCuentaCorriente = New System.Windows.Forms.TextBox()
+        Me.TxtIdCC = New System.Windows.Forms.TextBox()
+        Me.TxtCredito = New System.Windows.Forms.TextBox()
+        Me.TxtObservaciones = New System.Windows.Forms.TextBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.Guardar = New System.Windows.Forms.ToolStripButton()
         Me.NuevoCliente = New System.Windows.Forms.ToolStripButton()
@@ -147,13 +147,14 @@ Partial Class FrmPanelClientes
         '
         'Cliente
         '
-        Me.Cliente.Controls.Add(Me.Provincia)
+        Me.Cliente.Controls.Add(Me.UcIVA)
+        Me.Cliente.Controls.Add(Me.UcEstado)
+        Me.Cliente.Controls.Add(Me.UcTipoDoc)
+        Me.Cliente.Controls.Add(Me.UcProvincia)
         Me.Cliente.Controls.Add(Me.Label4)
-        Me.Cliente.Controls.Add(Me.IVA)
         Me.Cliente.Controls.Add(Me.Label12)
-        Me.Cliente.Controls.Add(Me.EstadoCliente)
         Me.Cliente.Controls.Add(Me.Label11)
-        Me.Cliente.Controls.Add(Me.FechaAltaCliente)
+        Me.Cliente.Controls.Add(Me.TxtFechaAltaCliente)
         Me.Cliente.Controls.Add(Me.Label2)
         Me.Cliente.Controls.Add(Me.Label10)
         Me.Cliente.Controls.Add(Me.Label9)
@@ -163,14 +164,13 @@ Partial Class FrmPanelClientes
         Me.Cliente.Controls.Add(Me.Label5)
         Me.Cliente.Controls.Add(Me.Label3)
         Me.Cliente.Controls.Add(Me.Label1)
-        Me.Cliente.Controls.Add(Me.TipoDoc)
-        Me.Cliente.Controls.Add(Me.NumDoc)
-        Me.Cliente.Controls.Add(Me.Email)
-        Me.Cliente.Controls.Add(Me.Telefono)
-        Me.Cliente.Controls.Add(Me.Localidad)
-        Me.Cliente.Controls.Add(Me.Domicilio)
-        Me.Cliente.Controls.Add(Me.Nombre)
-        Me.Cliente.Controls.Add(Me.Id)
+        Me.Cliente.Controls.Add(Me.TxtNumDoc)
+        Me.Cliente.Controls.Add(Me.TxtEmail)
+        Me.Cliente.Controls.Add(Me.TxtTelefono)
+        Me.Cliente.Controls.Add(Me.TxtLocalidad)
+        Me.Cliente.Controls.Add(Me.TxtDomicilio)
+        Me.Cliente.Controls.Add(Me.TxtNombre)
+        Me.Cliente.Controls.Add(Me.TxtId)
         Me.Cliente.Location = New System.Drawing.Point(4, 22)
         Me.Cliente.Name = "Cliente"
         Me.Cliente.Padding = New System.Windows.Forms.Padding(3)
@@ -179,15 +179,81 @@ Partial Class FrmPanelClientes
         Me.Cliente.Text = "Datos Cliente"
         Me.Cliente.UseVisualStyleBackColor = True
         '
-        'Provincia
+        'UcIVA
         '
-        Me.Provincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Provincia.FormattingEnabled = True
-        Me.Provincia.ItemHeight = 13
-        Me.Provincia.Location = New System.Drawing.Point(76, 109)
-        Me.Provincia.Name = "Provincia"
-        Me.Provincia.Size = New System.Drawing.Size(300, 21)
-        Me.Provincia.TabIndex = 4
+        Me.UcIVA.BuscarConTextoVacio = False
+        Me.UcIVA.Descripcion = ""
+        Me.UcIVA.HeaderDescripcion = "Descripción"
+        Me.UcIVA.Id = Nothing
+        Me.UcIVA.Location = New System.Drawing.Point(76, 292)
+        Me.UcIVA.Name = "UcIVA"
+        Me.UcIVA.NombrePropiedadDescripcion = Nothing
+        Me.UcIVA.NombrePropiedadId = Nothing
+        Me.UcIVA.Objetos = Nothing
+        Me.UcIVA.PermitirVacio = True
+        Me.UcIVA.Size = New System.Drawing.Size(300, 20)
+        Me.UcIVA.SoloLectura = False
+        Me.UcIVA.TabIndex = 11
+        Me.UcIVA.TextoPredeterminado = ""
+        Me.UcIVA.TituloSelector = "Selección"
+        Me.UcIVA.ValorPredeterminado = Nothing
+        '
+        'UcEstado
+        '
+        Me.UcEstado.BuscarConTextoVacio = False
+        Me.UcEstado.Descripcion = ""
+        Me.UcEstado.HeaderDescripcion = "Descripción"
+        Me.UcEstado.Id = Nothing
+        Me.UcEstado.Location = New System.Drawing.Point(76, 266)
+        Me.UcEstado.Name = "UcEstado"
+        Me.UcEstado.NombrePropiedadDescripcion = Nothing
+        Me.UcEstado.NombrePropiedadId = Nothing
+        Me.UcEstado.Objetos = Nothing
+        Me.UcEstado.PermitirVacio = True
+        Me.UcEstado.Size = New System.Drawing.Size(300, 20)
+        Me.UcEstado.SoloLectura = False
+        Me.UcEstado.TabIndex = 10
+        Me.UcEstado.TextoPredeterminado = ""
+        Me.UcEstado.TituloSelector = "Selección"
+        Me.UcEstado.ValorPredeterminado = Nothing
+        '
+        'UcTipoDoc
+        '
+        Me.UcTipoDoc.BuscarConTextoVacio = False
+        Me.UcTipoDoc.Descripcion = ""
+        Me.UcTipoDoc.HeaderDescripcion = "Descripción"
+        Me.UcTipoDoc.Id = Nothing
+        Me.UcTipoDoc.Location = New System.Drawing.Point(76, 188)
+        Me.UcTipoDoc.Name = "UcTipoDoc"
+        Me.UcTipoDoc.NombrePropiedadDescripcion = Nothing
+        Me.UcTipoDoc.NombrePropiedadId = Nothing
+        Me.UcTipoDoc.Objetos = Nothing
+        Me.UcTipoDoc.PermitirVacio = True
+        Me.UcTipoDoc.Size = New System.Drawing.Size(300, 20)
+        Me.UcTipoDoc.SoloLectura = False
+        Me.UcTipoDoc.TabIndex = 7
+        Me.UcTipoDoc.TextoPredeterminado = ""
+        Me.UcTipoDoc.TituloSelector = "Selección"
+        Me.UcTipoDoc.ValorPredeterminado = Nothing
+        '
+        'UcProvincia
+        '
+        Me.UcProvincia.BuscarConTextoVacio = False
+        Me.UcProvincia.Descripcion = ""
+        Me.UcProvincia.HeaderDescripcion = "Descripción"
+        Me.UcProvincia.Id = Nothing
+        Me.UcProvincia.Location = New System.Drawing.Point(76, 110)
+        Me.UcProvincia.Name = "UcProvincia"
+        Me.UcProvincia.NombrePropiedadDescripcion = Nothing
+        Me.UcProvincia.NombrePropiedadId = Nothing
+        Me.UcProvincia.Objetos = Nothing
+        Me.UcProvincia.PermitirVacio = True
+        Me.UcProvincia.Size = New System.Drawing.Size(300, 20)
+        Me.UcProvincia.SoloLectura = False
+        Me.UcProvincia.TabIndex = 4
+        Me.UcProvincia.TextoPredeterminado = ""
+        Me.UcProvincia.TituloSelector = "Selección"
+        Me.UcProvincia.ValorPredeterminado = Nothing
         '
         'Label4
         '
@@ -198,16 +264,6 @@ Partial Class FrmPanelClientes
         Me.Label4.TabIndex = 70
         Me.Label4.Text = "IVA:"
         '
-        'IVA
-        '
-        Me.IVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.IVA.FormattingEnabled = True
-        Me.IVA.ItemHeight = 13
-        Me.IVA.Location = New System.Drawing.Point(76, 293)
-        Me.IVA.Name = "IVA"
-        Me.IVA.Size = New System.Drawing.Size(300, 21)
-        Me.IVA.TabIndex = 11
-        '
         'Label12
         '
         Me.Label12.AutoSize = True
@@ -216,17 +272,6 @@ Partial Class FrmPanelClientes
         Me.Label12.Size = New System.Drawing.Size(43, 13)
         Me.Label12.TabIndex = 68
         Me.Label12.Text = "Estado:"
-        '
-        'EstadoCliente
-        '
-        Me.EstadoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.EstadoCliente.FormattingEnabled = True
-        Me.EstadoCliente.ItemHeight = 13
-        Me.EstadoCliente.Items.AddRange(New Object() {"ACTIVO", "BAJA"})
-        Me.EstadoCliente.Location = New System.Drawing.Point(76, 266)
-        Me.EstadoCliente.Name = "EstadoCliente"
-        Me.EstadoCliente.Size = New System.Drawing.Size(300, 21)
-        Me.EstadoCliente.TabIndex = 10
         '
         'Label11
         '
@@ -237,13 +282,13 @@ Partial Class FrmPanelClientes
         Me.Label11.TabIndex = 67
         Me.Label11.Text = "Fecha Alta:"
         '
-        'FechaAltaCliente
+        'TxtFechaAltaCliente
         '
-        Me.FechaAltaCliente.Location = New System.Drawing.Point(76, 240)
-        Me.FechaAltaCliente.Name = "FechaAltaCliente"
-        Me.FechaAltaCliente.Size = New System.Drawing.Size(300, 20)
-        Me.FechaAltaCliente.TabIndex = 9
-        Me.FechaAltaCliente.TabStop = False
+        Me.TxtFechaAltaCliente.Location = New System.Drawing.Point(76, 240)
+        Me.TxtFechaAltaCliente.Name = "TxtFechaAltaCliente"
+        Me.TxtFechaAltaCliente.Size = New System.Drawing.Size(300, 20)
+        Me.TxtFechaAltaCliente.TabIndex = 9
+        Me.TxtFechaAltaCliente.TabStop = False
         '
         'Label2
         '
@@ -326,81 +371,71 @@ Partial Class FrmPanelClientes
         Me.Label1.TabIndex = 58
         Me.Label1.Text = "Nombre:"
         '
-        'TipoDoc
+        'TxtNumDoc
         '
-        Me.TipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.TipoDoc.FormattingEnabled = True
-        Me.TipoDoc.ItemHeight = 13
-        Me.TipoDoc.Location = New System.Drawing.Point(76, 188)
-        Me.TipoDoc.Name = "TipoDoc"
-        Me.TipoDoc.Size = New System.Drawing.Size(300, 21)
-        Me.TipoDoc.TabIndex = 7
+        Me.TxtNumDoc.Location = New System.Drawing.Point(76, 214)
+        Me.TxtNumDoc.Name = "TxtNumDoc"
+        Me.TxtNumDoc.Size = New System.Drawing.Size(300, 20)
+        Me.TxtNumDoc.TabIndex = 8
         '
-        'NumDoc
+        'TxtEmail
         '
-        Me.NumDoc.Location = New System.Drawing.Point(76, 214)
-        Me.NumDoc.Name = "NumDoc"
-        Me.NumDoc.Size = New System.Drawing.Size(300, 20)
-        Me.NumDoc.TabIndex = 8
+        Me.TxtEmail.Location = New System.Drawing.Point(76, 162)
+        Me.TxtEmail.Name = "TxtEmail"
+        Me.TxtEmail.Size = New System.Drawing.Size(300, 20)
+        Me.TxtEmail.TabIndex = 6
         '
-        'Email
+        'TxtTelefono
         '
-        Me.Email.Location = New System.Drawing.Point(76, 162)
-        Me.Email.Name = "Email"
-        Me.Email.Size = New System.Drawing.Size(300, 20)
-        Me.Email.TabIndex = 6
+        Me.TxtTelefono.Location = New System.Drawing.Point(76, 136)
+        Me.TxtTelefono.Name = "TxtTelefono"
+        Me.TxtTelefono.Size = New System.Drawing.Size(300, 20)
+        Me.TxtTelefono.TabIndex = 5
         '
-        'Telefono
+        'TxtLocalidad
         '
-        Me.Telefono.Location = New System.Drawing.Point(76, 136)
-        Me.Telefono.Name = "Telefono"
-        Me.Telefono.Size = New System.Drawing.Size(300, 20)
-        Me.Telefono.TabIndex = 5
+        Me.TxtLocalidad.Location = New System.Drawing.Point(76, 84)
+        Me.TxtLocalidad.Name = "TxtLocalidad"
+        Me.TxtLocalidad.Size = New System.Drawing.Size(300, 20)
+        Me.TxtLocalidad.TabIndex = 3
         '
-        'Localidad
+        'TxtDomicilio
         '
-        Me.Localidad.Location = New System.Drawing.Point(76, 84)
-        Me.Localidad.Name = "Localidad"
-        Me.Localidad.Size = New System.Drawing.Size(300, 20)
-        Me.Localidad.TabIndex = 3
+        Me.TxtDomicilio.Location = New System.Drawing.Point(76, 58)
+        Me.TxtDomicilio.Name = "TxtDomicilio"
+        Me.TxtDomicilio.Size = New System.Drawing.Size(300, 20)
+        Me.TxtDomicilio.TabIndex = 2
         '
-        'Domicilio
+        'TxtNombre
         '
-        Me.Domicilio.Location = New System.Drawing.Point(76, 58)
-        Me.Domicilio.Name = "Domicilio"
-        Me.Domicilio.Size = New System.Drawing.Size(300, 20)
-        Me.Domicilio.TabIndex = 2
+        Me.TxtNombre.Location = New System.Drawing.Point(76, 32)
+        Me.TxtNombre.Name = "TxtNombre"
+        Me.TxtNombre.Size = New System.Drawing.Size(300, 20)
+        Me.TxtNombre.TabIndex = 1
         '
-        'Nombre
+        'TxtId
         '
-        Me.Nombre.Location = New System.Drawing.Point(76, 32)
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.Size = New System.Drawing.Size(300, 20)
-        Me.Nombre.TabIndex = 1
-        '
-        'Id
-        '
-        Me.Id.Enabled = False
-        Me.Id.Location = New System.Drawing.Point(76, 6)
-        Me.Id.Name = "Id"
-        Me.Id.ReadOnly = True
-        Me.Id.Size = New System.Drawing.Size(300, 20)
-        Me.Id.TabIndex = 0
+        Me.TxtId.Enabled = False
+        Me.TxtId.Location = New System.Drawing.Point(76, 6)
+        Me.TxtId.Name = "TxtId"
+        Me.TxtId.ReadOnly = True
+        Me.TxtId.Size = New System.Drawing.Size(300, 20)
+        Me.TxtId.TabIndex = 0
         '
         'CuentaCorriente
         '
+        Me.CuentaCorriente.Controls.Add(Me.UcEstadoCC)
         Me.CuentaCorriente.Controls.Add(DescripcionLabel)
-        Me.CuentaCorriente.Controls.Add(Me.Descripcion)
+        Me.CuentaCorriente.Controls.Add(Me.TxtDescripcion)
         Me.CuentaCorriente.Controls.Add(EstadoLabel)
-        Me.CuentaCorriente.Controls.Add(Me.EstadoCuentaCorriente)
         Me.CuentaCorriente.Controls.Add(FechaAltaLabel)
-        Me.CuentaCorriente.Controls.Add(Me.FechaAltaCuentaCorriente)
+        Me.CuentaCorriente.Controls.Add(Me.TxtFechaAltaCuentaCorriente)
         Me.CuentaCorriente.Controls.Add(IdCCLabel)
-        Me.CuentaCorriente.Controls.Add(Me.IdCC)
+        Me.CuentaCorriente.Controls.Add(Me.TxtIdCC)
         Me.CuentaCorriente.Controls.Add(LimiteCreditoLabel)
-        Me.CuentaCorriente.Controls.Add(Me.Credito)
+        Me.CuentaCorriente.Controls.Add(Me.TxtCredito)
         Me.CuentaCorriente.Controls.Add(ObservacionesLabel)
-        Me.CuentaCorriente.Controls.Add(Me.Observaciones)
+        Me.CuentaCorriente.Controls.Add(Me.TxtObservaciones)
         Me.CuentaCorriente.Location = New System.Drawing.Point(4, 22)
         Me.CuentaCorriente.Name = "CuentaCorriente"
         Me.CuentaCorriente.Padding = New System.Windows.Forms.Padding(3)
@@ -409,53 +444,62 @@ Partial Class FrmPanelClientes
         Me.CuentaCorriente.Text = "Cuenta Corriente"
         Me.CuentaCorriente.UseVisualStyleBackColor = True
         '
-        'Descripcion
+        'UcEstadoCC
         '
-        Me.Descripcion.Location = New System.Drawing.Point(76, 32)
-        Me.Descripcion.Name = "Descripcion"
-        Me.Descripcion.Size = New System.Drawing.Size(300, 20)
-        Me.Descripcion.TabIndex = 12
+        Me.UcEstadoCC.BuscarConTextoVacio = False
+        Me.UcEstadoCC.Descripcion = ""
+        Me.UcEstadoCC.HeaderDescripcion = "Descripción"
+        Me.UcEstadoCC.Id = Nothing
+        Me.UcEstadoCC.Location = New System.Drawing.Point(76, 110)
+        Me.UcEstadoCC.Name = "UcEstadoCC"
+        Me.UcEstadoCC.NombrePropiedadDescripcion = Nothing
+        Me.UcEstadoCC.NombrePropiedadId = Nothing
+        Me.UcEstadoCC.Objetos = Nothing
+        Me.UcEstadoCC.PermitirVacio = True
+        Me.UcEstadoCC.Size = New System.Drawing.Size(300, 20)
+        Me.UcEstadoCC.SoloLectura = False
+        Me.UcEstadoCC.TabIndex = 15
+        Me.UcEstadoCC.TextoPredeterminado = ""
+        Me.UcEstadoCC.TituloSelector = "Selección"
+        Me.UcEstadoCC.ValorPredeterminado = Nothing
         '
-        'EstadoCuentaCorriente
+        'TxtDescripcion
         '
-        Me.EstadoCuentaCorriente.FormattingEnabled = True
-        Me.EstadoCuentaCorriente.ItemHeight = 13
-        Me.EstadoCuentaCorriente.Items.AddRange(New Object() {"HABILITADA", "SUSPENDIDA"})
-        Me.EstadoCuentaCorriente.Location = New System.Drawing.Point(76, 110)
-        Me.EstadoCuentaCorriente.Name = "EstadoCuentaCorriente"
-        Me.EstadoCuentaCorriente.Size = New System.Drawing.Size(300, 21)
-        Me.EstadoCuentaCorriente.TabIndex = 14
+        Me.TxtDescripcion.Location = New System.Drawing.Point(76, 32)
+        Me.TxtDescripcion.Name = "TxtDescripcion"
+        Me.TxtDescripcion.Size = New System.Drawing.Size(300, 20)
+        Me.TxtDescripcion.TabIndex = 13
         '
-        'FechaAltaCuentaCorriente
+        'TxtFechaAltaCuentaCorriente
         '
-        Me.FechaAltaCuentaCorriente.Location = New System.Drawing.Point(76, 84)
-        Me.FechaAltaCuentaCorriente.Name = "FechaAltaCuentaCorriente"
-        Me.FechaAltaCuentaCorriente.Size = New System.Drawing.Size(300, 20)
-        Me.FechaAltaCuentaCorriente.TabIndex = 41
-        Me.FechaAltaCuentaCorriente.TabStop = False
+        Me.TxtFechaAltaCuentaCorriente.Location = New System.Drawing.Point(76, 84)
+        Me.TxtFechaAltaCuentaCorriente.Name = "TxtFechaAltaCuentaCorriente"
+        Me.TxtFechaAltaCuentaCorriente.Size = New System.Drawing.Size(300, 20)
+        Me.TxtFechaAltaCuentaCorriente.TabIndex = 15
+        Me.TxtFechaAltaCuentaCorriente.TabStop = False
         '
-        'IdCC
+        'TxtIdCC
         '
-        Me.IdCC.Location = New System.Drawing.Point(76, 6)
-        Me.IdCC.Name = "IdCC"
-        Me.IdCC.Size = New System.Drawing.Size(300, 20)
-        Me.IdCC.TabIndex = 38
-        Me.IdCC.TabStop = False
+        Me.TxtIdCC.Location = New System.Drawing.Point(76, 6)
+        Me.TxtIdCC.Name = "TxtIdCC"
+        Me.TxtIdCC.Size = New System.Drawing.Size(300, 20)
+        Me.TxtIdCC.TabIndex = 12
+        Me.TxtIdCC.TabStop = False
         '
-        'Credito
+        'TxtCredito
         '
-        Me.Credito.Location = New System.Drawing.Point(76, 58)
-        Me.Credito.Name = "Credito"
-        Me.Credito.Size = New System.Drawing.Size(300, 20)
-        Me.Credito.TabIndex = 13
+        Me.TxtCredito.Location = New System.Drawing.Point(76, 58)
+        Me.TxtCredito.Name = "TxtCredito"
+        Me.TxtCredito.Size = New System.Drawing.Size(300, 20)
+        Me.TxtCredito.TabIndex = 14
         '
-        'Observaciones
+        'TxtObservaciones
         '
-        Me.Observaciones.Location = New System.Drawing.Point(12, 170)
-        Me.Observaciones.Multiline = True
-        Me.Observaciones.Name = "Observaciones"
-        Me.Observaciones.Size = New System.Drawing.Size(364, 139)
-        Me.Observaciones.TabIndex = 15
+        Me.TxtObservaciones.Location = New System.Drawing.Point(12, 170)
+        Me.TxtObservaciones.Multiline = True
+        Me.TxtObservaciones.Name = "TxtObservaciones"
+        Me.TxtObservaciones.Size = New System.Drawing.Size(364, 139)
+        Me.TxtObservaciones.TabIndex = 17
         '
         'ToolStrip1
         '
@@ -537,9 +581,8 @@ Partial Class FrmPanelClientes
     Friend WithEvents Cliente As TabPage
     Friend WithEvents CuentaCorriente As TabPage
     Friend WithEvents Label12 As Label
-    Friend WithEvents EstadoCliente As ComboBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents FechaAltaCliente As TextBox
+    Friend WithEvents TxtFechaAltaCliente As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
@@ -549,27 +592,28 @@ Partial Class FrmPanelClientes
     Friend WithEvents Label5 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents TipoDoc As ComboBox
-    Friend WithEvents NumDoc As TextBox
-    Friend WithEvents Email As TextBox
-    Friend WithEvents Telefono As TextBox
-    Friend WithEvents Localidad As TextBox
-    Friend WithEvents Domicilio As TextBox
-    Friend WithEvents Nombre As TextBox
-    Friend WithEvents Id As TextBox
+    Friend WithEvents TxtNumDoc As TextBox
+    Friend WithEvents TxtEmail As TextBox
+    Friend WithEvents TxtTelefono As TextBox
+    Friend WithEvents TxtLocalidad As TextBox
+    Friend WithEvents TxtDomicilio As TextBox
+    Friend WithEvents TxtNombre As TextBox
+    Friend WithEvents TxtId As TextBox
     Friend WithEvents Label4 As Label
-    Friend WithEvents IVA As ComboBox
-    Friend WithEvents Descripcion As TextBox
-    Friend WithEvents EstadoCuentaCorriente As ComboBox
-    Friend WithEvents FechaAltaCuentaCorriente As TextBox
-    Friend WithEvents IdCC As TextBox
-    Friend WithEvents Credito As TextBox
-    Friend WithEvents Observaciones As TextBox
+    Friend WithEvents TxtDescripcion As TextBox
+    Friend WithEvents TxtFechaAltaCuentaCorriente As TextBox
+    Friend WithEvents TxtIdCC As TextBox
+    Friend WithEvents TxtCredito As TextBox
+    Friend WithEvents TxtObservaciones As TextBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents Guardar As ToolStripButton
     Friend WithEvents NuevoCliente As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
-    Friend WithEvents Provincia As ComboBox
     Friend WithEvents NuevaCuentaCorriente As ToolStripButton
+    Friend WithEvents UcProvincia As UcSelectorUniversal
+    Friend WithEvents UcTipoDoc As UcSelectorUniversal
+    Friend WithEvents UcIVA As UcSelectorUniversal
+    Friend WithEvents UcEstado As UcSelectorUniversal
+    Friend WithEvents UcEstadoCC As UcSelectorUniversal
 End Class

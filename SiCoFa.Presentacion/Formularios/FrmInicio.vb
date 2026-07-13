@@ -107,11 +107,18 @@ Public Class FrmInicio
             Exit Sub
         End If
 
-        FrmPanelClientes.Show()
+        Dim f As New FrmPanelClientes
+        f.Show()
 
     End Sub
 
     Private Sub mnuEditarEmpleados_Click(sender As Object, e As EventArgs) Handles mnuEditarEmpleados.Click
+        If ModSeguridad.ValidarUsuario(Me.mnuEditarEmpleados.Name) Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim f As New FrmEmpleados
+        f.Show()
 
     End Sub
 
@@ -133,8 +140,8 @@ Public Class FrmInicio
                 Exit Sub
             End If
 
-            Dim frm As New FrmUsuarios()
-            frm.ShowDialog()
+            Dim f As New FrmUsuarios()
+            f.Show()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -284,4 +291,17 @@ Public Class FrmInicio
         FrmActualizaciones.Show()
     End Sub
 
+    Private Sub mnuEditarSecciones_Click(sender As Object, e As EventArgs) Handles mnuEditarSecciones.Click
+        If ModSeguridad.ValidarUsuario(Me.mnuEditarSecciones.Name) Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim f As New FrmSecciones
+        f.Show()
+
+    End Sub
+
+    Private Sub mnuEditarCuentasBancarias_Click(sender As Object, e As EventArgs) Handles mnuEditarCuentasBancarias.Click
+
+    End Sub
 End Class

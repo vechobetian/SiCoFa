@@ -21,7 +21,7 @@ Public Class D_AdminEmpleados
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read() Then
-
+                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
                             objEmp = New Empleado(
                                                   datos.GetInt32("IdUsuario"),
                                                   datos.GetString("Nombre"),
@@ -30,8 +30,7 @@ Public Class D_AdminEmpleados
                                                   If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
                                                   If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
                                                   If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
-                                                  datos.GetString("CodiTDoc"),
-                                                  datos.GetString("NumDoc"),
+                                                  objDoc,
                                                   datos.GetDateTime("FechaAlta"),
                                                   datos.GetString("Estado")
                                                   )
@@ -101,7 +100,8 @@ Public Class D_AdminEmpleados
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
                             Dim EstadoResult As String = datos.GetString(estadoOrdinal)
 
-                            e = New Empleado(IdEmpleadoResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
+                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+                            e = New Empleado(IdEmpleadoResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult)
                             le.Add(e)
                         End While
 
@@ -137,27 +137,27 @@ Public Class D_AdminEmpleados
 
                 Using cmd As New MySqlCommand("sp_insertar_empleado", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_IdEmpleado", MySqlDbType.Int32)
+                        .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_IdEmpleado", MySqlDbType.Int32)
                     End With
 
-                    cmd.Parameters("_IdEmpleado").Direction = ParameterDirection.Output
+                    cmd.Parameters("p_IdEmpleado").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdEmpleado = Convert.ToInt32(cmd.Parameters("_IdEmpleado").Value)
+                    IdEmpleado = Convert.ToInt32(cmd.Parameters("p_IdEmpleado").Value)
                 End Using
 
             End Using
             Return IdEmpleado
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarEmpleado", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarEmpleado), Ex.Message))
 
         End Try
 
@@ -182,15 +182,15 @@ Public Class D_AdminEmpleados
 
                 Using cmd As New MySqlCommand("sp_actualizar_empleado", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdEmpleado", MySqlDbType.Int32).Value = argIdEmpleado
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                        .Add("p_IdEmpleado", MySqlDbType.Int32).Value = argIdEmpleado
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
                     Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
@@ -201,7 +201,7 @@ Public Class D_AdminEmpleados
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpleado", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarEmpleado), Ex.Message))
 
         End Try
 

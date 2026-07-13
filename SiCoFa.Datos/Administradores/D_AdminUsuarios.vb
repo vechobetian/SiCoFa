@@ -20,7 +20,7 @@ Public Class D_AdminUsuarios
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read() Then
-
+                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
                             objUs = New Usuario(
                                                datos.GetInt32("IdUsuario"),
                                                datos.GetString("Nombre"),
@@ -29,8 +29,7 @@ Public Class D_AdminUsuarios
                                                If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
                                                If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
                                                If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
-                                               datos.GetString("CodiTDoc"),
-                                               datos.GetString("NumDoc"),
+                                               objDoc,
                                                datos.GetDateTime("FechaAlta"),
                                                datos.GetString("Estado")
                                                )
@@ -45,7 +44,7 @@ Public Class D_AdminUsuarios
             Return objUs
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerUsuarioPorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerUsuarioPorId), ex.Message))
 
         End Try
 
@@ -100,7 +99,9 @@ Public Class D_AdminUsuarios
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
                             Dim EstadoResult As String = datos.GetString(estadoOrdinal)
 
-                            u = New Usuario(IdUsuarioResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
+                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+
+                            u = New Usuario(IdUsuarioResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult)
                             lu.Add(u)
                         End While
 
@@ -113,7 +114,7 @@ Public Class D_AdminUsuarios
             Return lu
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarUsuario", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarUsuarios), ex.Message))
 
         End Try
 
@@ -137,27 +138,27 @@ Public Class D_AdminUsuarios
 
                 Using cmd As New MySqlCommand("sp_insertar_usuario", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_IdUsuario", MySqlDbType.Int32)
+                        .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_IdUsuario", MySqlDbType.Int32)
                     End With
 
-                    cmd.Parameters("_IdUsuario").Direction = ParameterDirection.Output
+                    cmd.Parameters("p_IdUsuario").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdUsuario = Convert.ToInt32(cmd.Parameters("_IdUsuario").Value)
+                    IdUsuario = Convert.ToInt32(cmd.Parameters("p_IdUsuario").Value)
                 End Using
 
             End Using
             Return IdUsuario
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarUsuario", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarUsuario), Ex.Message))
 
         End Try
 
@@ -183,15 +184,15 @@ Public Class D_AdminUsuarios
 
                 Using cmd As New MySqlCommand("sp_actualizar_usuario", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                        .Add("p_IdUsuario", MySqlDbType.Int32).Value = argIdUsuario
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
                     Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
@@ -202,7 +203,7 @@ Public Class D_AdminUsuarios
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarUsuario", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarUsuario), Ex.Message))
 
         End Try
 

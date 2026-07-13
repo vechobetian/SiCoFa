@@ -69,10 +69,10 @@ Public Class FrmBuscaArticulos
             If a Is Nothing Then Exit Sub
 
             Me.Monodroga.Text = a.Monodroga.Monodroga
-            Me.AccionFarmacologica.Text = a.AccionFarmacologica.AccionFarmacologia
+            Me.AccionFarmacologica.Text = a.AccionFarmacologica.AccionFarmacologica
             If a.GTIN <> "" Then Me.Trazabilidad.Text = "SI" Else Me.Trazabilidad.Text = "NO"
             Me.TipoControl.Text = a.TipoControl.Descripcion
-            Me.TipoVenta.Text = TipoVentaHelper.Descripcion(a.TipoVenta)
+            Me.TipoVenta.Text = a.TipoVenta.Descripcion
             Me.ViaAdministracion.Text = a.ViaAdministracion.ViaAdministracion
             If a.Heladera = True Then Me.Heladera.Text = "SI" Else Me.Heladera.Text = "NO"
 

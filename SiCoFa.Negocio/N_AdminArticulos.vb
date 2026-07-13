@@ -98,33 +98,41 @@ Public Class N_AdminArticulos
 
     End Function
     Public Function ActualizarArticulo(
-                                        ByVal argIdArticulo As String,
-                                        ByVal argCodigo As String,
-                                        ByVal argCodBarras As String,
-                                        ByVal argNombre As String,
-                                        ByVal argAlicIVA As Decimal,
-                                        ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As String
+                                        argIdArticulo As String,
+                                        argCodBarras As String,
+                                        argNTroquel As String,
+                                        argNombre As String,
+                                        argCodiTV As String,
+                                        argAlicIVA As Decimal,
+                                        argCodiTE As String,
+                                        argCodiLabora As Integer,
+                                        argCodiMon As Integer,
+                                        argCodiAcFa As Integer,
+                                        argCodiTiCo As String,
+                                        argHeladera As Boolean,
+                                        argBaja As Boolean,
+                                        argIdSeccion As String
                                         ) As Boolean
 
-        Try
 
-            Dim AdminArticulos As New D_AdminArticulos
+        Dim AdminArticulos As New D_AdminArticulos
             Dim Actualizado As Boolean = AdminArticulos.ActualizarArticulo(
-                                                                             argIdArticulo,
-                                                                             UCase(argCodigo),
-                                                                             UCase(argCodBarras),
-                                                                             UCase(argNombre),
-                                                                             argAlicIVA,
-                                                                             argBaja,
-                                                                             argIdSeccion
-                                                                             )
+                                                                           argIdArticulo,
+                                                                           UCase(argCodBarras),
+                                                                           UCase(argNTroquel),
+                                                                           UCase(argNombre),
+                                                                           argCodiTV,
+                                                                           argAlicIVA,
+                                                                           argCodiTE,
+                                                                           argCodiLabora,
+                                                                           argCodiMon,
+                                                                           argCodiAcFa,
+                                                                           argCodiTiCo,
+                                                                           argHeladera,
+                                                                           argBaja,
+                                                                           argIdSeccion
+                                                                           )
             Return Actualizado
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", ex.Message))
-            Return False
-
-        End Try
 
     End Function
 

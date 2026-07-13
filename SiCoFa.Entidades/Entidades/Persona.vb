@@ -18,8 +18,7 @@
                 ByVal argProvincia As String,
                 ByVal argTelefono As String,
                 ByVal argEmail As String,
-                ByVal argCodiTDoc As String,
-                ByVal argNumDoc As String,
+                ByVal argDocumento As Documento,
                 ByVal argFechaAlta As Date,
                 ByVal argEstado As String
                 )
@@ -31,7 +30,7 @@
         Me.Provincia = argProvincia
         Me.Telefono = argTelefono
         Me.Email = argEmail
-        Me.Documento = New Documento(argCodiTDoc, argNumDoc)
+        Me.Documento = argDocumento
         Me.FechaAlta = argFechaAlta
         Me.Estado = argEstado
     End Sub

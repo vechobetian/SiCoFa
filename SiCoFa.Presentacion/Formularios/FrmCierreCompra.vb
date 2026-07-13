@@ -216,7 +216,7 @@ Public Class FrmCierreCompra
                         f.ShowDialog()
                         If f.DialogResult = DialogResult.OK Then
                             Dim p As Persona = f.PersonaSeleccionado
-                            pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                            pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento, p.FechaAlta, p.Estado)
                         Else
                             Me.txtProveedor.Tag = ""
                             Me.txtProveedor.Text = ""

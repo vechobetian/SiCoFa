@@ -29,7 +29,7 @@ Public Class Articulo
     Property DesOferta As Decimal
     Property Fraccionable As Boolean
     Property DFrac As String
-    Property Promocion As Promocion
+    Property TipoPromocion As TipoPromocion
     Property UDiv As Integer
     Property RFrac As Decimal
     Property Gravamen As Boolean
@@ -65,7 +65,7 @@ Public Class Articulo
                    ByVal argGTIN As String,
                    ByVal argViaAdministracion As ViaAdministracion,
                    ByVal argDesOferta As Decimal,
-                   ByVal argPromocion As Promocion,
+                   ByVal argTipoPromocion As TipoPromocion,
                    ByRef argFraccionable As Boolean,
                    ByVal argDFrac As String,
                    ByVal argUDiv As Integer,

@@ -23,6 +23,7 @@ Public Class D_AdminEmpresas
 
                         If datos.Read() Then
 
+                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
                             objEmp = New Empresa(
                                                   datos.GetInt32("IdEmpresa"),
                                                   datos.GetString("Nombre"),
@@ -31,8 +32,7 @@ Public Class D_AdminEmpresas
                                                   If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
                                                   If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
                                                   If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
-                                                  datos.GetString("CodiTDoc"),
-                                                  datos.GetString("NumDoc"),
+                                                  objDoc,
                                                   datos.GetDateTime("FechaAlta"),
                                                   datos.GetString("Estado"),
                                                   datos.GetString("CodIVA"),
@@ -109,7 +109,8 @@ Public Class D_AdminEmpresas
                             Dim CodIVAResult As String = datos.GetString(codIvaOrdinal)
                             Dim IBResult As String = datos.GetString(IBOrdinal)
 
-                            e = New Empresa(IdEmpresaResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult, CodIVAResult, IBResult)
+                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+                            e = New Empresa(IdEmpresaResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult, CodIVAResult, IBResult)
                             le.Add(e)
                         End While
 

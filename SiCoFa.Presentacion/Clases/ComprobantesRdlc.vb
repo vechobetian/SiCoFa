@@ -9,10 +9,10 @@ Public Class ComprobantesRdlc
     Implements IDisposable
     Property Empresa As New List(Of Empresa)
     Property DocumentoEmpresa As New List(Of Documento)
-    Property IVAEmpresa As New List(Of IVA)
+    Property IVAEmpresa As New List(Of TipoIVA)
     Property Cliente As New List(Of Cliente)
     Property DocumentoCliente As New List(Of Documento)
-    Property IVACliente As New List(Of IVA)
+    Property IVACliente As New List(Of TipoIVA)
     Property TipoDocumentoCliente As New List(Of TipoDocumento)
     Property Encabezado As New List(Of Comprobante)
     Property TipoComprobante As New List(Of TipoComprobante)

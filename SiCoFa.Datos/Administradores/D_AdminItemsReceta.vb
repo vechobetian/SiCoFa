@@ -68,7 +68,7 @@ Public Class D_AdminItemsReceta
             Return objLI
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarItemsPorIdOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarItemsPorIdOperacion), ex.Message))
             Return New List(Of ItemComprobante)
 
         End Try
@@ -85,7 +85,7 @@ Public Class D_AdminItemsReceta
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemReceta", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarItemReceta), Ex.Message))
         End Try
 
     End Function
@@ -115,21 +115,14 @@ Public Class D_AdminItemsReceta
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemReceta", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarItemReceta), Ex.Message))
             Return 0
 
         End Try
 
     End Function
 
-    Public Function ActualizarItemReceta(
-                                         ByVal argIdItem As Long,
-                                         ByVal argCantidad As Decimal,
-                                         ByVal argPrecioCosto As Decimal,
-                                         ByVal argPrecioUnitario As Decimal,
-                                         ByVal argDescuento As Decimal
-                                         ) As Boolean
-
+    Public Function ActualizarItemReceta(ByVal argIdItem As Long, ByVal argCantidad As Decimal, ByVal argPrecioCosto As Decimal, ByVal argPrecioUnitario As Decimal, ByVal argDescuento As Decimal) As Boolean
 
         Try
             Dim objConexionDB As New D_Conexion
@@ -153,7 +146,7 @@ Public Class D_AdminItemsReceta
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarItemReceta), Ex.Message))
 
         End Try
 

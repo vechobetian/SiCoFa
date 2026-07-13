@@ -4,8 +4,8 @@ Imports SiCoFa.Entidades
 Public Class FrmUsuarios
 
     Private mAdminUsuarios As New N_AdminUsuarios
-    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
+    Private ControlesReadOnly As New List(Of String) From {"TxtId", "TxtFechaAlta"}
+    Private DatosOpcionales As New List(Of String) From {"TxtId", "TxtDomicilio", "TxtLocalidad", "UcProvincia", "TxtTelefono", "TxtEmail", "TxtFechaAlta", "CmbEstado"}
 
     Private Sub BuscarUsuario(ByVal argTextoBuscado As String)
 
@@ -15,16 +15,16 @@ Public Class FrmUsuarios
 
             If lu Is Nothing Then
                 MsgBox("Usuario no Encontrado", vbInformation, "SiCoFa")
-                Me.Nombre.Text = ""
-                Me.Nombre.Select()
+                Me.TxtNombre.Text = ""
+                Me.TxtNombre.Select()
                 Exit Sub
             End If
 
             Select Case lu.Count
                 Case 0
                     MsgBox("Usuario no Encontrado", vbInformation, "SiCoFa")
-                    Me.Nombre.Text = ""
-                    Me.Nombre.Select()
+                    Me.TxtNombre.Text = ""
+                    Me.TxtNombre.Select()
                     Exit Sub
                 Case 1
                     u = lu.First
@@ -34,7 +34,7 @@ Public Class FrmUsuarios
                         f.ShowDialog()
                         If f.DialogResult = DialogResult.OK Then
                             Dim p As Persona = f.PersonaSeleccionado
-                            u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                            u = New Usuario(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento, p.FechaAlta, p.Estado)
                         End If
                         f.Close()
                     End Using
@@ -43,8 +43,8 @@ Public Class FrmUsuarios
             With Me
                 .LimpiarFormulario()
                 .MostrarUsuario(u)
-                .Nombre.Select()
-                .Nombre.SelectAll()
+                .TxtNombre.Select()
+                .TxtNombre.SelectAll()
             End With
 
         Catch ex As Exception
@@ -58,17 +58,17 @@ Public Class FrmUsuarios
 
         Try
             With Me
-                .Id.Text = argUsuario.Id
-                .Nombre.Text = argUsuario.Nombre
-                .Domicilio.Text = argUsuario.Domicilio
-                .Localidad.Text = argUsuario.Localidad
-                .Provincia.Text = argUsuario.Provincia
-                .Telefono.Text = argUsuario.Telefono
-                .Email.Text = argUsuario.Email
-                .TipoDoc.Text = argUsuario.Documento.TipoDoc.CodiTDoc
-                .NumDoc.Text = argUsuario.Documento.Numero
-                .FechaAlta.Text = argUsuario.FechaAlta
-                .Estado.Text = argUsuario.Estado
+                .TxtId.Text = argUsuario.Id
+                .TxtNombre.Text = argUsuario.Nombre
+                .TxtDomicilio.Text = argUsuario.Domicilio
+                .TxtLocalidad.Text = argUsuario.Localidad
+                .UcProvincia.Descripcion = argUsuario.Provincia
+                .TxtTelefono.Text = argUsuario.Telefono
+                .TxtEmail.Text = argUsuario.Email
+                .UcTipoDoc.Asignar(argUsuario.Documento.TipoDoc.CodiTDoc, argUsuario.Documento.TipoDoc.Descripcion)
+                .TxtNumDoc.Text = argUsuario.Documento.Numero
+                .TxtFechaAlta.Text = argUsuario.FechaAlta
+                .UcEstado.Descripcion = argUsuario.Estado
             End With
 
         Catch ex As Exception
@@ -88,11 +88,11 @@ Public Class FrmUsuarios
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminUsuarios.InsertarUsuario(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+                Dim Id As Integer = mAdminUsuarios.InsertarUsuario(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text)
                 If Id > 0 Then
-                    Me.Id.Text = Id
-                    Me.Nombre.Text = UCase(Me.Nombre.Text)
-                    MsgBox("Se dio de alta el Usuario " & Nombre.Text, vbInformation, "SiCoFa")
+                    Me.TxtId.Text = Id
+                    Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
+                    MsgBox("Se dio de alta el Usuario " & TxtNombre.Text, vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
@@ -100,15 +100,15 @@ Public Class FrmUsuarios
                 Me.NuevaPersona = False
                 Me.Nuevo.Checked = False
             Else
-                If Me.Id.Text = "" Then
-                    MsgBox("El Usuario " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                If Me.TxtId.Text = "" Then
+                    MsgBox("El Usuario " & Me.TxtNombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminUsuarios.ActualizarUsuario(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.Estado.SelectedValue)
+                Dim Actualizado As Boolean = mAdminUsuarios.ActualizarUsuario(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
-                    MsgBox("El Usuario " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
+                    MsgBox("El Usuario " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
                     Exit Sub
@@ -116,7 +116,7 @@ Public Class FrmUsuarios
             End If
 
             Me.LimpiarFormulario()
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -167,11 +167,11 @@ Public Class FrmUsuarios
         Try
             MyBase.Nombre_Validating(sender, e)
 
-            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text <> "" Then
+            If Me.TxtNombre.Text = "" Or Me.NuevaPersona = True Or Me.TxtId.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarUsuario(Me.Nombre.Text)
+            Me.BuscarUsuario(Me.TxtNombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

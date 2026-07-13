@@ -55,6 +55,7 @@
     <Import Include="System.Data.Common" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administradores\D_AdminAccionesFarmacologicas.vb" />
     <Compile Include="Administradores\D_AdminActualizaciones.vb" />
     <Compile Include="Administradores\D_AdminArticulos.vb" />
     <Compile Include="Administradores\D_AdminAsientosContable.vb" />
@@ -67,6 +68,8 @@
     <Compile Include="Administradores\D_AdminEmpresas.vb" />
     <Compile Include="Administradores\D_AdminItemsComprobante.vb" />
     <Compile Include="Administradores\D_AdminItemsReceta.vb" />
+    <Compile Include="Administradores\D_AdminLaboratorios.vb" />
+    <Compile Include="Administradores\D_AdminMonodrogas.vb" />
     <Compile Include="Administradores\D_AdminObraSociales.vb" />
     <Compile Include="Administradores\D_AdminProcesosActualizacion.vb" />
     <Compile Include="Administradores\D_AdminListaPrecios.vb" />

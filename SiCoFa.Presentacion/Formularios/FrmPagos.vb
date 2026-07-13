@@ -30,8 +30,8 @@ Public Class FrmPagos
         Me.MediosDePago = New MediosPagoBinding(Me.ImporteAPagar)
 
         If Me.TipoComprobante Is Nothing Then
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Me.TipoComprobante = AdminComprobantes.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
         End If
 
         Me.txtTipoComprobante.Text = Me.TipoComprobante.TipoComprobanteCLetra '$"{Me.TipoComprobante.TipoComprobante} {Me.TipoComprobante.Letra}"
@@ -64,7 +64,7 @@ Public Class FrmPagos
 
     Private Sub ActualizarClienteMostrado()
         Me.lblNombreCliente.Text = Me.Cliente.Nombre
-        Me.lblTipoContribuyente.Text = Me.Cliente.IVA.TipoIVA
+        Me.lblTipoContribuyente.Text = Me.Cliente.IVA.Descripcion
 
         Me.lblTipoDocumento.Text = Me.Cliente.Documento.TipoDoc.Descripcion & ": "
         Me.lblNumeroDocumento.Text = Me.Cliente.Documento.Numero
@@ -173,8 +173,8 @@ Public Class FrmPagos
             Me.Cliente = c
             FrmOrigen.Cliente = c
             Me.ActualizarClienteMostrado()
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            Me.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Me.TipoComprobante = AdminComprobantes.ObtenerTipoComprobanteVenta(Me.Operacion.Empresa.IVA.CodIVA, Me.Cliente.IVA.CodIVA)
             Me.txtImporteCuentaCorriente.Enabled = True
             'Me.txtImporteCuentaCorriente.Text = Convert.ToDecimal(Me.MediosDePago.ImportePagoEfectivo).ToString("N")
             Me.txtImporteCuentaCorriente.Focus()

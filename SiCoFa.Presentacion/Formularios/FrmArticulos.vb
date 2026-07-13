@@ -2,65 +2,160 @@
 Imports SiCoFa.Entidades
 Imports SiCoFa.Entidades.Enums
 Imports SiCoFa.Negocio
+
 Public Class FrmArticulos
     Private TextoBuscar As String
     Private NuevoArticulo As Boolean
     Private mobj_AdminArticulos As New N_AdminArticulos
     Private ControlesReadOnly As New List(Of String)
+    Private DatosOpcionales As New List(Of String) From {"TxtIdArticulo", "TxtNTroquel", "TxtCodBarras"}
 
-    Private Sub CargarComboTipoVenta()
+    Private Sub CargarSelectorTipoVenta()
 
-        Dim lista = [Enum].GetValues(GetType(Enums.TipoVenta)).
-        Cast(Of Enums.TipoVenta).
-        ToDictionary(Function(x) x, Function(x) Enums.TipoVentaHelper.Descripcion(x))
-        CmbTipoVenta.DataSource = New BindingSource(lista, Nothing)
-        CmbTipoVenta.DisplayMember = "Value"
-        CmbTipoVenta.ValueMember = "Key"
-
-    End Sub
-
-    Private Sub CargarComboTmanioEnvase()
-
-        Dim lista = [Enum].GetValues(GetType(Enums.TamanioEnvase)).
-        Cast(Of Enums.TamanioEnvase).
-        ToDictionary(Function(x) x, Function(x) Enums.TamanioEnvaseHelper.Descripcion(x))
-        CmbTamanioEnvase.DataSource = New BindingSource(lista, Nothing)
-        CmbTamanioEnvase.DisplayMember = "Value"
-        CmbTamanioEnvase.ValueMember = "Key"
-
-    End Sub
-
-    Private Sub CargarComboTipoControl()
-
-        With CmbTipoControl
-            .DataSource = TipoControl.Lista
-            .ValueMember = "CodiTiCo"
-            .DisplayMember = "Descripcion"
-            .SelectedIndex = -1
+        With UcTipoVenta
+            .Objetos = TipoVenta.Lista
+            .NombrePropiedadId = "CodiTV"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Tipos de Venta"
+            .HeaderDescripcion = "Tipo de Venta"
+            .ValorPredeterminado = "7"
+            .TextoPredeterminado = "NO CLASIFICADO"
+            .PermitirVacio = False
         End With
 
     End Sub
 
-    Private Sub CargarComboAlicuotasIVA()
+    Private Sub CargarSelectorAlicuotaIVA()
 
-        With CmbAlicuotaIVA
-            .DataSource = AlicuotaIVA.Lista
-            .ValueMember = "AlicIVA"
-            .DisplayMember = "Descripcion"
-            .SelectedIndex = -1
+        With UcAlicuotaIVA
+            .Objetos = AlicuotaIVA.Lista
+            .NombrePropiedadId = "AlicIVA"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Alicuotas IVA"
+            .HeaderDescripcion = "Alicuota IVA"
+            .PermitirVacio = True
+
         End With
 
     End Sub
 
-    Private Sub ObtenerSecciones()
+    Private Sub CargarSelectorTamanioEnvase()
+
+        With UcTamanioEnvase
+            .Objetos = TamanioEnvase.Lista
+            .NombrePropiedadId = "CodiTE"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Tamaños Envase"
+            .HeaderDescripcion = "Tamaño Envase"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO CLASIFICADO"
+            .PermitirVacio = False
+        End With
+
+    End Sub
+
+    Private Sub CargarSelectorLaboratorio()
+        Dim Admin As New N_AdminLaboratorios
+
+        With UcLaboratorio
+            .Objetos = Admin.ListarLaboratorios("*")
+            .NombrePropiedadId = "CodiLabora"
+            .NombrePropiedadDescripcion = "Laboratorio"
+            .TituloSelector = "Laboratorios"
+            .HeaderDescripcion = "Laboratorio"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO ESTABLECIDO"
+            .PermitirVacio = False
+        End With
+    End Sub
+
+    Private Sub CargarSelectorMonodroga()
+        Dim Admin As New N_AdminMonodrogas
+
+        With UcMonodroga
+            .Objetos = Admin.ListarMonodrogas("*")
+            .NombrePropiedadId = "CodiMon"
+            .NombrePropiedadDescripcion = "Monodroga"
+            .TituloSelector = "Monodrogas"
+            .HeaderDescripcion = "Monodroga"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO ESTABLECIDA"
+            .PermitirVacio = False
+        End With
+    End Sub
+
+    Private Sub CargarSelectorAccionFarmacologica()
+        Dim Admin As New N_AdminAccionesFarmacologicas
+
+        With UcAccionFarmacologica
+            .Objetos = Admin.ListarAccionesFarmacologicas("*")
+            .NombrePropiedadId = "CodiAcFa"
+            .NombrePropiedadDescripcion = "AccionFarmacologica"
+            .TituloSelector = "Acciones Farmacologicas"
+            .HeaderDescripcion = "Accion Farmacologica"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO ESTABLECIDA"
+            .PermitirVacio = False
+        End With
+    End Sub
+
+    Private Sub CargarSelectorTipoControl()
+
+        With UcTipoControl
+            .Objetos = TipoControl.Lista
+            .NombrePropiedadId = "CodiTiCo"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Tipos de control"
+            .HeaderDescripcion = "Tipo de control"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO CONTROLADO"
+            .PermitirVacio = False
+        End With
+
+    End Sub
+
+    Private Sub CargarSelectorHeladera()
+
+        With UcHeladera
+            .Objetos = Buleano.Lista
+            .NombrePropiedadId = "Valor"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Cadena de Frío"
+            .HeaderDescripcion = "Heladera"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO"
+            .PermitirVacio = False
+        End With
+
+    End Sub
+
+    Private Sub CargarSelectorBaja()
+
+        With UcBaja
+            .Objetos = Buleano.Lista
+            .NombrePropiedadId = "Valor"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Baja de Producto"
+            .HeaderDescripcion = "Baja"
+            .ValorPredeterminado = 0
+            .TextoPredeterminado = "NO"
+            .PermitirVacio = False
+        End With
+
+    End Sub
+
+    Private Sub CargarSelectorSeccion()
 
         Try
             Dim AdminSecciones As New N_AdminSecciones
-            With Me.CmbSeccion
-                .DataSource = AdminSecciones.ListarSecciones("*")
-                .ValueMember = "IdSeccion"
-                .DisplayMember = "Seccion"
-                .SelectedIndex = -1
+
+            With UcSeccion
+                .Objetos = AdminSecciones.ListarSecciones("*")
+                .NombrePropiedadId = "IdSeccion"
+                .NombrePropiedadDescripcion = "Seccion"
+                .TituloSelector = "Secciones"
+                .HeaderDescripcion = "Sección"
+                .PermitirVacio = True
             End With
 
         Catch ex As Exception
@@ -73,7 +168,6 @@ Public Class FrmArticulos
     Private Sub BuscarArticulo(ByVal argTextoBuscado As String)
 
         Try
-
 
             Dim la As List(Of Articulo) = mobj_AdminArticulos.ListarArticulos(argTextoBuscado)
             Dim a As Articulo = Nothing
@@ -132,9 +226,19 @@ Public Class FrmArticulos
                 .TxtNombre.Text = argArticulo.Nombre
                 .TxtNTroquel.Text = argArticulo.NTroquel
                 .TxtCodBarras.Text = argArticulo.CodBarras
-                .CmbAlicuotaIVA.Text = argArticulo.AlicIVA
-                .CmdBaja.SelectedIndex = If(argArticulo.Baja, 1, 0)
-                .CmbSeccion.Text = argArticulo.Seccion.Seccion
+                .UcTipoVenta.Asignar(argArticulo.TipoVenta.CodiTV, argArticulo.TipoVenta.Descripcion)
+                Dim alicIVA As New AlicuotaIVA(argArticulo.AlicIVA)
+                .UcAlicuotaIVA.Asignar(alicIVA.AlicIVA, alicIVA.Descripcion)
+                .UcTamanioEnvase.Asignar(argArticulo.TamanioEnvase.CodiTE, argArticulo.TamanioEnvase.Descripcion)
+                .UcLaboratorio.Asignar(argArticulo.Laboratorio.CodiLabora, argArticulo.Laboratorio.Laboratorio)
+                .UcMonodroga.Asignar(argArticulo.Monodroga.CodiMon, argArticulo.Monodroga.Monodroga)
+                .UcAccionFarmacologica.Asignar(argArticulo.AccionFarmacologica.CodiAcFa, argArticulo.AccionFarmacologica.AccionFarmacologica)
+                UcTipoControl.Asignar(argArticulo.TipoControl.CodiTiCo, argArticulo.TipoControl.Descripcion)
+                Dim blnHeladera As Buleano = New Buleano(argArticulo.Heladera)
+                .UcHeladera.Asignar(blnHeladera.Valor, blnHeladera.Descripcion)
+                Dim blnBaja As Buleano = New Buleano(argArticulo.Baja)
+                .UcBaja.Asignar(blnBaja.Valor, blnBaja.Descripcion)
+                .UcSeccion.Asignar(argArticulo.Seccion.IdSeccion, argArticulo.Seccion.Seccion)
             End With
 
         Catch ex As Exception
@@ -145,14 +249,30 @@ Public Class FrmArticulos
     End Sub
 
     Private Sub FrmArticulos_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.CargarComboAlicuotasIVA()
-        Me.ObtenerSecciones()
+
+        With Me.ControlesReadOnly
+            .Clear()
+            .Add("IdArticulo")
+        End With
+
+        Me.EstablecerReadOnly(Me, ControlesReadOnly)
+
+        Me.CargarSelectorTipoVenta()
+        Me.CargarSelectorAlicuotaIVA()
+        Me.CargarSelectorTamanioEnvase()
+        Me.CargarSelectorLaboratorio()
+        Me.CargarSelectorMonodroga()
+        Me.CargarSelectorAccionFarmacologica()
+        Me.CargarSelectorTipoControl()
+        Me.CargarSelectorHeladera()
+        Me.CargarSelectorBaja()
+        Me.CargarSelectorSeccion()
     End Sub
 
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Try
 
-            Me.ValidarCampos(Me, ControlesReadOnly)
+            Me.ValidarCampos(Me, DatosOpcionales)
 
             If Me.ValidacionOK = False Then
                 Exit Sub
@@ -163,15 +283,15 @@ Public Class FrmArticulos
                                                                                 Me.TxtCodBarras.Text,
                                                                                 Me.TxtNTroquel.Text,
                                                                                 Me.TxtNombre.Text,
-                                                                                Me.CmbTipoVenta.SelectedValue,
-                                                                                Me.CmbAlicuotaIVA.SelectedValue,
-                                                                                Me.CmbTamanioEnvase.SelectedValue,
-                                                                                Me.TxtLaboratorio.Text,
-                                                                                Me.TxtMonodroga.Text,
-                                                                                Me.TxtAccionFarmacologica.Text,
-                                                                                Me.CmbTipoControl.SelectedValue,
-                                                                                Me.CmbHeladera.SelectedValue,
-                                                                                Me.CmbSeccion.SelectedValue
+                                                                                Me.UcTipoVenta.Id,
+                                                                                Me.UcAlicuotaIVA.Id,
+                                                                                Me.UcTamanioEnvase.Id,
+                                                                                Me.UcLaboratorio.Id,
+                                                                                Me.UcMonodroga.Id,
+                                                                                Me.UcAccionFarmacologica.Id,
+                                                                                Me.UcTipoControl.Id,
+                                                                                Me.UcHeladera.Id,
+                                                                                Me.UcSeccion.Id
                                                                                 )
 
                 If IdArticulo <> "" Then
@@ -191,8 +311,22 @@ Public Class FrmArticulos
                     Exit Sub
                 End If
 
-                Dim baja As Boolean = If(Me.CmdBaja.SelectedItem.ToString() = "SI", True, False)
-                Dim Actualizado As Boolean = mobj_AdminArticulos.ActualizarArticulo(Me.TxtIdArticulo.Text, Me.TxtNTroquel.Text, Me.TxtCodBarras.Text, Me.TxtNombre.Text, Me.CmbAlicuotaIVA.SelectedValue, baja, Me.CmbSeccion.SelectedValue)
+                Dim Actualizado As Boolean = mobj_AdminArticulos.ActualizarArticulo(
+                                                                                    Me.TxtIdArticulo.Text,
+                                                                                    Me.TxtCodBarras.Text,
+                                                                                    Me.TxtNTroquel.Text,
+                                                                                    Me.TxtNombre.Text,
+                                                                                    Me.UcTipoVenta.Id,
+                                                                                    Me.UcAlicuotaIVA.Id,
+                                                                                    Me.UcTamanioEnvase.Id,
+                                                                                    Me.UcLaboratorio.Id,
+                                                                                    Me.UcMonodroga.Id,
+                                                                                    Me.UcAccionFarmacologica.Id,
+                                                                                    Me.UcTipoControl.Id,
+                                                                                    Me.UcHeladera.Id,
+                                                                                    Me.UcBaja.Id,
+                                                                                    Me.UcSeccion.Id
+                                                                                    )
 
                 If Actualizado = True Then
                     MsgBox("El Articulo " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
@@ -203,7 +337,7 @@ Public Class FrmArticulos
             End If
 
 
-            With Me.ControlesReadOnly
+                With Me.ControlesReadOnly
                 .Clear()
                 .Add("IdArticulo")
             End With

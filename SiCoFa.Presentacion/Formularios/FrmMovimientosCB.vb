@@ -313,7 +313,7 @@ Public Class FrmMovimientosCB
             Dim objTO As TipoOperacion = AdminOperaciones.ObtenerTipoOperacionPorCodiTO("ANUOP")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("ANUOP")
-            Dim objCliente As New Cliente(0, "", "", "", "", "", "", "", "", Date.Now, "", "")
+            Dim objCliente As New Cliente(0, "", "", "", "", "", "", Nothing, Date.Now, "", "")
 
             Dim objComprobante As New Comprobante(
                                                   argIdOperacion:=0,

@@ -5,8 +5,8 @@ Imports SiCoFa.Entidades
 Public Class FrmProveedores
 
     Private mAdminProveedores As New N_AdminProveedores
-    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAlta"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email"}
+    Private ControlesReadOnly As New List(Of String) From {"TxtId", "TxtFechaAlta"}
+    Private DatosOpcionales As New List(Of String) From {"TxtId", "TxtDomicilio", "TxtLocalidad", "UcProvincia", "TxtTelefono", "TxtEmail"}
 
     Private Sub BuscarProveedor(ByVal argTextoBuscado As String)
 
@@ -17,16 +17,16 @@ Public Class FrmProveedores
 
             If lp Is Nothing Then
                 MsgBox("Proveedor no Encontrado", vbInformation, "SiCoFa")
-                Me.Nombre.Text = ""
-                Me.Nombre.Select()
+                Me.TxtNombre.Text = ""
+                Me.TxtNombre.Select()
                 Exit Sub
             End If
 
             Select Case lp.Count
                 Case 0
                     MsgBox("Proveedor no Encontrado", vbInformation, "SiCoFa")
-                    Me.Nombre.Text = ""
-                    Me.Nombre.Select()
+                    Me.TxtNombre.Text = ""
+                    Me.TxtNombre.Select()
                     Exit Sub
                 Case 1
                     pv = lp.First
@@ -36,7 +36,7 @@ Public Class FrmProveedores
                         f.ShowDialog()
                         If f.DialogResult = DialogResult.OK Then
                             Dim p As Persona = f.PersonaSeleccionado
-                            pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento.TipoDoc.CodiTDoc, p.Documento.Numero, p.FechaAlta, p.Estado)
+                            pv = New Proveedor(p.Id, p.Nombre, p.Domicilio, p.Localidad, p.Provincia, p.Telefono, p.Email, p.Documento, p.FechaAlta, p.Estado)
                         End If
                         f.Close()
                     End Using
@@ -45,8 +45,8 @@ Public Class FrmProveedores
             With Me
                 .LimpiarFormulario()
                 .MostrarProveedor(pv)
-                .Nombre.Select()
-                .Nombre.SelectAll()
+                .TxtNombre.Select()
+                .TxtNombre.SelectAll()
             End With
 
         Catch ex As Exception
@@ -59,17 +59,17 @@ Public Class FrmProveedores
 
         Try
             With Me
-                .Id.Text = argProveedor.Id
-                .Nombre.Text = argProveedor.Nombre
-                .Domicilio.Text = argProveedor.Domicilio
-                .Localidad.Text = argProveedor.Localidad
-                .Provincia.Text = argProveedor.Provincia
-                .Telefono.Text = argProveedor.Telefono
-                .Email.Text = argProveedor.Email
-                .TipoDoc.Text = argProveedor.Documento.TipoDoc.Descripcion
-                .NumDoc.Text = argProveedor.Documento.Numero
-                .FechaAlta.Text = argProveedor.FechaAlta
-                .Estado.Text = argProveedor.Estado
+                .TxtId.Text = argProveedor.Id
+                .TxtNombre.Text = argProveedor.Nombre
+                .TxtDomicilio.Text = argProveedor.Domicilio
+                .TxtLocalidad.Text = argProveedor.Localidad
+                .UcProvincia.Descripcion = argProveedor.Provincia
+                .TxtTelefono.Text = argProveedor.Telefono
+                .TxtEmail.Text = argProveedor.Email
+                .UcTipoDoc.Id = argProveedor.Documento.TipoDoc.CodiTDoc
+                .TxtNumDoc.Text = argProveedor.Documento.Numero
+                .TxtFechaAlta.Text = argProveedor.FechaAlta
+                .UcEstado.Descripcion = argProveedor.Estado
             End With
 
         Catch ex As Exception
@@ -88,11 +88,11 @@ Public Class FrmProveedores
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminProveedores.InsertarProveedor(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text)
+                Dim Id As Integer = mAdminProveedores.InsertarProveedor(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text)
                 If Id > 0 Then
-                    Me.Id.Text = Id
-                    Me.Nombre.Text = UCase(Me.Nombre.Text)
-                    MsgBox("Se dio de alta el Proveedor " & Nombre.Text, vbInformation, "SiCoFa")
+                    Me.TxtId.Text = Id
+                    Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
+                    MsgBox("Se dio de alta el Proveedor " & TxtNombre.Text, vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                     Exit Sub
@@ -100,15 +100,15 @@ Public Class FrmProveedores
                 Me.NuevaPersona = False
                 Me.Nuevo.Checked = False
             Else
-                If Me.Id.Text = "" Then
-                    MsgBox("El Proveedor " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                If Me.TxtId.Text = "" Then
+                    MsgBox("El Proveedor " & Me.TxtNombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminProveedores.ActualizarProveedor(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, "", Me.Estado.SelectedValue)
+                Dim Actualizado As Boolean = mAdminProveedores.ActualizarProveedor(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, "", Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
-                    MsgBox("El Proveedor " & Nombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
+                    MsgBox("El Proveedor " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
                     Exit Sub
@@ -116,7 +116,7 @@ Public Class FrmProveedores
             End If
 
             Me.LimpiarFormulario()
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -129,11 +129,12 @@ Public Class FrmProveedores
         Try
             MyBase.Nuevo_Click(sender, e)
             Dim valoresDefecto As New Dictionary(Of String, Object)
-            valoresDefecto.Add("FechaAlta", Date.Today.ToShortDateString) ' Año, Mes, Día
-            valoresDefecto.Add("Estado", "ACTIVO") ' O el ValueMember si aplica
-            ' Agrega aquí los nombres de todos los controles y sus valores por defecto
 
-            ' Llama al procedimiento para establecer los valores por defecto
+            With valoresDefecto
+                .Add("TxtFechaAlta", Date.Today.ToShortDateString)
+                .Add("UcEstado", "A")
+            End With
+
             EstablecerValoresPorDefecto(Me, valoresDefecto)
 
         Catch ex As Exception
@@ -164,11 +165,11 @@ Public Class FrmProveedores
         Try
             MyBase.Nombre_Validating(sender, e)
 
-            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text <> "" Then
+            If Me.TxtNombre.Text = "" Or Me.NuevaPersona = True Or Me.TxtId.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarProveedor(Me.Nombre.Text)
+            Me.BuscarProveedor(Me.TxtNombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

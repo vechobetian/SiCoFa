@@ -23,7 +23,6 @@ Partial Class FrmArticulos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim LblIdArticulo As System.Windows.Forms.Label
         Dim LblNTroquel As System.Windows.Forms.Label
         Dim LblCodBarras As System.Windows.Forms.Label
@@ -40,25 +39,24 @@ Partial Class FrmArticulos
         Dim LblHeladera As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmArticulos))
         Me.TxtIdArticulo = New System.Windows.Forms.TextBox()
-        Me.ArticuloBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TxtNTroquel = New System.Windows.Forms.TextBox()
         Me.TxtCodBarras = New System.Windows.Forms.TextBox()
         Me.TxtNombre = New System.Windows.Forms.TextBox()
-        Me.CmbAlicuotaIVA = New System.Windows.Forms.ComboBox()
-        Me.CmbSeccion = New System.Windows.Forms.ComboBox()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.Guardar = New System.Windows.Forms.ToolStripButton()
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
-        Me.CmdBaja = New System.Windows.Forms.ComboBox()
-        Me.CmbTipoVenta = New System.Windows.Forms.ComboBox()
-        Me.CmbTamanioEnvase = New System.Windows.Forms.ComboBox()
-        Me.TxtLaboratorio = New System.Windows.Forms.TextBox()
-        Me.TxtMonodroga = New System.Windows.Forms.TextBox()
-        Me.TxtAccionFarmacologica = New System.Windows.Forms.TextBox()
-        Me.CmbTipoControl = New System.Windows.Forms.ComboBox()
-        Me.CmbHeladera = New System.Windows.Forms.ComboBox()
+        Me.UcLaboratorio = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcMonodroga = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcAccionFarmacologica = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcSeccion = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcTipoVenta = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcTamanioEnvase = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcTipoControl = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcAlicuotaIVA = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcHeladera = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcBaja = New SiCoFa.Presentacion.UcSelectorUniversal()
         LblIdArticulo = New System.Windows.Forms.Label()
         LblNTroquel = New System.Windows.Forms.Label()
         LblCodBarras = New System.Windows.Forms.Label()
@@ -73,7 +71,6 @@ Partial Class FrmArticulos
         LblAccionFarmacologica = New System.Windows.Forms.Label()
         LblTipoControl = New System.Windows.Forms.Label()
         LblHeladera = New System.Windows.Forms.Label()
-        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -205,7 +202,6 @@ Partial Class FrmArticulos
         '
         'TxtIdArticulo
         '
-        Me.TxtIdArticulo.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "IdArticulo", True))
         Me.TxtIdArticulo.Location = New System.Drawing.Point(104, 40)
         Me.TxtIdArticulo.Name = "TxtIdArticulo"
         Me.TxtIdArticulo.ReadOnly = True
@@ -213,13 +209,8 @@ Partial Class FrmArticulos
         Me.TxtIdArticulo.TabIndex = 0
         Me.TxtIdArticulo.TabStop = False
         '
-        'ArticuloBindingSource
-        '
-        Me.ArticuloBindingSource.DataSource = GetType(SiCoFa.Entidades.Articulo)
-        '
         'TxtNTroquel
         '
-        Me.TxtNTroquel.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Codigo", True))
         Me.TxtNTroquel.Location = New System.Drawing.Point(104, 92)
         Me.TxtNTroquel.Name = "TxtNTroquel"
         Me.TxtNTroquel.Size = New System.Drawing.Size(315, 20)
@@ -227,7 +218,6 @@ Partial Class FrmArticulos
         '
         'TxtCodBarras
         '
-        Me.TxtCodBarras.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "CodBarras", True))
         Me.TxtCodBarras.Location = New System.Drawing.Point(104, 118)
         Me.TxtCodBarras.Name = "TxtCodBarras"
         Me.TxtCodBarras.Size = New System.Drawing.Size(315, 20)
@@ -235,34 +225,10 @@ Partial Class FrmArticulos
         '
         'TxtNombre
         '
-        Me.TxtNombre.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
         Me.TxtNombre.Location = New System.Drawing.Point(104, 66)
         Me.TxtNombre.Name = "TxtNombre"
         Me.TxtNombre.Size = New System.Drawing.Size(315, 20)
         Me.TxtNombre.TabIndex = 1
-        '
-        'CmbAlicuotaIVA
-        '
-        Me.CmbAlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbAlicuotaIVA.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbAlicuotaIVA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbAlicuotaIVA.FormattingEnabled = True
-        Me.CmbAlicuotaIVA.Location = New System.Drawing.Point(104, 171)
-        Me.CmbAlicuotaIVA.Name = "CmbAlicuotaIVA"
-        Me.CmbAlicuotaIVA.Size = New System.Drawing.Size(315, 21)
-        Me.CmbAlicuotaIVA.TabIndex = 5
-        '
-        'CmbSeccion
-        '
-        Me.CmbSeccion.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Seccion.Seccion", True))
-        Me.CmbSeccion.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Seccion", True))
-        Me.CmbSeccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbSeccion.FormattingEnabled = True
-        Me.CmbSeccion.ItemHeight = 13
-        Me.CmbSeccion.Location = New System.Drawing.Point(104, 384)
-        Me.CmbSeccion.Name = "CmbSeccion"
-        Me.CmbSeccion.Size = New System.Drawing.Size(315, 21)
-        Me.CmbSeccion.TabIndex = 13
         '
         'ToolStrip1
         '
@@ -309,92 +275,211 @@ Partial Class FrmArticulos
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
-        'CmdBaja
+        'UcLaboratorio
         '
-        Me.CmdBaja.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Baja", True))
-        Me.CmdBaja.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "Baja", True))
-        Me.CmdBaja.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmdBaja.FormattingEnabled = True
-        Me.CmdBaja.Items.AddRange(New Object() {"NO", "SI"})
-        Me.CmdBaja.Location = New System.Drawing.Point(104, 357)
-        Me.CmdBaja.Name = "CmdBaja"
-        Me.CmdBaja.Size = New System.Drawing.Size(315, 21)
-        Me.CmdBaja.TabIndex = 12
+        Me.UcLaboratorio.BuscarConTextoVacio = False
+        Me.UcLaboratorio.Descripcion = ""
+        Me.UcLaboratorio.HeaderDescripcion = "Descripción"
+        Me.UcLaboratorio.Id = Nothing
+        Me.UcLaboratorio.Location = New System.Drawing.Point(104, 225)
+        Me.UcLaboratorio.Name = "UcLaboratorio"
+        Me.UcLaboratorio.NombrePropiedadDescripcion = Nothing
+        Me.UcLaboratorio.NombrePropiedadId = Nothing
+        Me.UcLaboratorio.Objetos = Nothing
+        Me.UcLaboratorio.PermitirVacio = True
+        Me.UcLaboratorio.Size = New System.Drawing.Size(315, 20)
+        Me.UcLaboratorio.SoloLectura = False
+        Me.UcLaboratorio.TabIndex = 7
+        Me.UcLaboratorio.TextoPredeterminado = ""
+        Me.UcLaboratorio.TituloSelector = "Selección"
+        Me.UcLaboratorio.ValorPredeterminado = Nothing
         '
-        'CmbTipoVenta
+        'UcMonodroga
         '
-        Me.CmbTipoVenta.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbTipoVenta.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbTipoVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbTipoVenta.FormattingEnabled = True
-        Me.CmbTipoVenta.Location = New System.Drawing.Point(104, 144)
-        Me.CmbTipoVenta.Name = "CmbTipoVenta"
-        Me.CmbTipoVenta.Size = New System.Drawing.Size(315, 21)
-        Me.CmbTipoVenta.TabIndex = 4
+        Me.UcMonodroga.BuscarConTextoVacio = False
+        Me.UcMonodroga.Descripcion = ""
+        Me.UcMonodroga.HeaderDescripcion = "Descripción"
+        Me.UcMonodroga.Id = Nothing
+        Me.UcMonodroga.Location = New System.Drawing.Point(104, 251)
+        Me.UcMonodroga.Name = "UcMonodroga"
+        Me.UcMonodroga.NombrePropiedadDescripcion = Nothing
+        Me.UcMonodroga.NombrePropiedadId = Nothing
+        Me.UcMonodroga.Objetos = Nothing
+        Me.UcMonodroga.PermitirVacio = True
+        Me.UcMonodroga.Size = New System.Drawing.Size(315, 20)
+        Me.UcMonodroga.SoloLectura = False
+        Me.UcMonodroga.TabIndex = 8
+        Me.UcMonodroga.TextoPredeterminado = ""
+        Me.UcMonodroga.TituloSelector = "Selección"
+        Me.UcMonodroga.ValorPredeterminado = Nothing
         '
-        'CmbTamanioEnvase
+        'UcAccionFarmacologica
         '
-        Me.CmbTamanioEnvase.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbTamanioEnvase.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbTamanioEnvase.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbTamanioEnvase.FormattingEnabled = True
-        Me.CmbTamanioEnvase.Location = New System.Drawing.Point(104, 198)
-        Me.CmbTamanioEnvase.Name = "CmbTamanioEnvase"
-        Me.CmbTamanioEnvase.Size = New System.Drawing.Size(315, 21)
-        Me.CmbTamanioEnvase.TabIndex = 6
+        Me.UcAccionFarmacologica.BuscarConTextoVacio = False
+        Me.UcAccionFarmacologica.Descripcion = ""
+        Me.UcAccionFarmacologica.HeaderDescripcion = "Descripción"
+        Me.UcAccionFarmacologica.Id = Nothing
+        Me.UcAccionFarmacologica.Location = New System.Drawing.Point(104, 277)
+        Me.UcAccionFarmacologica.Name = "UcAccionFarmacologica"
+        Me.UcAccionFarmacologica.NombrePropiedadDescripcion = Nothing
+        Me.UcAccionFarmacologica.NombrePropiedadId = Nothing
+        Me.UcAccionFarmacologica.Objetos = Nothing
+        Me.UcAccionFarmacologica.PermitirVacio = True
+        Me.UcAccionFarmacologica.Size = New System.Drawing.Size(315, 20)
+        Me.UcAccionFarmacologica.SoloLectura = False
+        Me.UcAccionFarmacologica.TabIndex = 9
+        Me.UcAccionFarmacologica.TextoPredeterminado = ""
+        Me.UcAccionFarmacologica.TituloSelector = "Selección"
+        Me.UcAccionFarmacologica.ValorPredeterminado = Nothing
         '
-        'TxtLaboratorio
+        'UcSeccion
         '
-        Me.TxtLaboratorio.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
-        Me.TxtLaboratorio.Location = New System.Drawing.Point(104, 225)
-        Me.TxtLaboratorio.Name = "TxtLaboratorio"
-        Me.TxtLaboratorio.Size = New System.Drawing.Size(315, 20)
-        Me.TxtLaboratorio.TabIndex = 7
+        Me.UcSeccion.BuscarConTextoVacio = False
+        Me.UcSeccion.Descripcion = ""
+        Me.UcSeccion.HeaderDescripcion = "Descripción"
+        Me.UcSeccion.Id = Nothing
+        Me.UcSeccion.Location = New System.Drawing.Point(104, 387)
+        Me.UcSeccion.Name = "UcSeccion"
+        Me.UcSeccion.NombrePropiedadDescripcion = Nothing
+        Me.UcSeccion.NombrePropiedadId = Nothing
+        Me.UcSeccion.Objetos = Nothing
+        Me.UcSeccion.PermitirVacio = True
+        Me.UcSeccion.Size = New System.Drawing.Size(315, 20)
+        Me.UcSeccion.SoloLectura = False
+        Me.UcSeccion.TabIndex = 13
+        Me.UcSeccion.TextoPredeterminado = ""
+        Me.UcSeccion.TituloSelector = "Selección"
+        Me.UcSeccion.ValorPredeterminado = Nothing
         '
-        'TxtMonodroga
+        'UcTipoVenta
         '
-        Me.TxtMonodroga.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
-        Me.TxtMonodroga.Location = New System.Drawing.Point(104, 251)
-        Me.TxtMonodroga.Name = "TxtMonodroga"
-        Me.TxtMonodroga.Size = New System.Drawing.Size(315, 20)
-        Me.TxtMonodroga.TabIndex = 8
+        Me.UcTipoVenta.BuscarConTextoVacio = False
+        Me.UcTipoVenta.Descripcion = ""
+        Me.UcTipoVenta.HeaderDescripcion = "Descripción"
+        Me.UcTipoVenta.Id = Nothing
+        Me.UcTipoVenta.Location = New System.Drawing.Point(104, 144)
+        Me.UcTipoVenta.Name = "UcTipoVenta"
+        Me.UcTipoVenta.NombrePropiedadDescripcion = Nothing
+        Me.UcTipoVenta.NombrePropiedadId = Nothing
+        Me.UcTipoVenta.Objetos = Nothing
+        Me.UcTipoVenta.PermitirVacio = True
+        Me.UcTipoVenta.Size = New System.Drawing.Size(315, 20)
+        Me.UcTipoVenta.SoloLectura = False
+        Me.UcTipoVenta.TabIndex = 4
+        Me.UcTipoVenta.TextoPredeterminado = ""
+        Me.UcTipoVenta.TituloSelector = "Selección"
+        Me.UcTipoVenta.ValorPredeterminado = Nothing
         '
-        'TxtAccionFarmacologica
+        'UcTamanioEnvase
         '
-        Me.TxtAccionFarmacologica.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "Nombre", True))
-        Me.TxtAccionFarmacologica.Location = New System.Drawing.Point(104, 277)
-        Me.TxtAccionFarmacologica.Name = "TxtAccionFarmacologica"
-        Me.TxtAccionFarmacologica.Size = New System.Drawing.Size(315, 20)
-        Me.TxtAccionFarmacologica.TabIndex = 9
+        Me.UcTamanioEnvase.BuscarConTextoVacio = False
+        Me.UcTamanioEnvase.Descripcion = ""
+        Me.UcTamanioEnvase.HeaderDescripcion = "Descripción"
+        Me.UcTamanioEnvase.Id = Nothing
+        Me.UcTamanioEnvase.Location = New System.Drawing.Point(104, 198)
+        Me.UcTamanioEnvase.Name = "UcTamanioEnvase"
+        Me.UcTamanioEnvase.NombrePropiedadDescripcion = Nothing
+        Me.UcTamanioEnvase.NombrePropiedadId = Nothing
+        Me.UcTamanioEnvase.Objetos = Nothing
+        Me.UcTamanioEnvase.PermitirVacio = True
+        Me.UcTamanioEnvase.Size = New System.Drawing.Size(315, 20)
+        Me.UcTamanioEnvase.SoloLectura = False
+        Me.UcTamanioEnvase.TabIndex = 6
+        Me.UcTamanioEnvase.TextoPredeterminado = ""
+        Me.UcTamanioEnvase.TituloSelector = "Selección"
+        Me.UcTamanioEnvase.ValorPredeterminado = Nothing
         '
-        'CmbTipoControl
+        'UcTipoControl
         '
-        Me.CmbTipoControl.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbTipoControl.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbTipoControl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbTipoControl.FormattingEnabled = True
-        Me.CmbTipoControl.Location = New System.Drawing.Point(104, 303)
-        Me.CmbTipoControl.Name = "CmbTipoControl"
-        Me.CmbTipoControl.Size = New System.Drawing.Size(315, 21)
-        Me.CmbTipoControl.TabIndex = 10
+        Me.UcTipoControl.BuscarConTextoVacio = False
+        Me.UcTipoControl.Descripcion = ""
+        Me.UcTipoControl.HeaderDescripcion = "Descripción"
+        Me.UcTipoControl.Id = Nothing
+        Me.UcTipoControl.Location = New System.Drawing.Point(104, 304)
+        Me.UcTipoControl.Name = "UcTipoControl"
+        Me.UcTipoControl.NombrePropiedadDescripcion = Nothing
+        Me.UcTipoControl.NombrePropiedadId = Nothing
+        Me.UcTipoControl.Objetos = Nothing
+        Me.UcTipoControl.PermitirVacio = True
+        Me.UcTipoControl.Size = New System.Drawing.Size(315, 20)
+        Me.UcTipoControl.SoloLectura = False
+        Me.UcTipoControl.TabIndex = 10
+        Me.UcTipoControl.TextoPredeterminado = ""
+        Me.UcTipoControl.TituloSelector = "Selección"
+        Me.UcTipoControl.ValorPredeterminado = Nothing
         '
-        'CmbHeladera
+        'UcAlicuotaIVA
         '
-        Me.CmbHeladera.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbHeladera.DataBindings.Add(New System.Windows.Forms.Binding("SelectedValue", Me.ArticuloBindingSource, "AlicuotaIVA", True))
-        Me.CmbHeladera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CmbHeladera.FormattingEnabled = True
-        Me.CmbHeladera.Items.AddRange(New Object() {"NO", "SI"})
-        Me.CmbHeladera.Location = New System.Drawing.Point(104, 330)
-        Me.CmbHeladera.Name = "CmbHeladera"
-        Me.CmbHeladera.Size = New System.Drawing.Size(315, 21)
-        Me.CmbHeladera.TabIndex = 11
+        Me.UcAlicuotaIVA.BuscarConTextoVacio = False
+        Me.UcAlicuotaIVA.Descripcion = ""
+        Me.UcAlicuotaIVA.HeaderDescripcion = "Descripción"
+        Me.UcAlicuotaIVA.Id = Nothing
+        Me.UcAlicuotaIVA.Location = New System.Drawing.Point(104, 172)
+        Me.UcAlicuotaIVA.Name = "UcAlicuotaIVA"
+        Me.UcAlicuotaIVA.NombrePropiedadDescripcion = Nothing
+        Me.UcAlicuotaIVA.NombrePropiedadId = Nothing
+        Me.UcAlicuotaIVA.Objetos = Nothing
+        Me.UcAlicuotaIVA.PermitirVacio = True
+        Me.UcAlicuotaIVA.Size = New System.Drawing.Size(315, 20)
+        Me.UcAlicuotaIVA.SoloLectura = False
+        Me.UcAlicuotaIVA.TabIndex = 5
+        Me.UcAlicuotaIVA.TextoPredeterminado = ""
+        Me.UcAlicuotaIVA.TituloSelector = "Selección"
+        Me.UcAlicuotaIVA.ValorPredeterminado = Nothing
+        '
+        'UcHeladera
+        '
+        Me.UcHeladera.BuscarConTextoVacio = False
+        Me.UcHeladera.Descripcion = ""
+        Me.UcHeladera.HeaderDescripcion = "Descripción"
+        Me.UcHeladera.Id = Nothing
+        Me.UcHeladera.Location = New System.Drawing.Point(104, 330)
+        Me.UcHeladera.Name = "UcHeladera"
+        Me.UcHeladera.NombrePropiedadDescripcion = Nothing
+        Me.UcHeladera.NombrePropiedadId = Nothing
+        Me.UcHeladera.Objetos = Nothing
+        Me.UcHeladera.PermitirVacio = True
+        Me.UcHeladera.Size = New System.Drawing.Size(315, 20)
+        Me.UcHeladera.SoloLectura = False
+        Me.UcHeladera.TabIndex = 11
+        Me.UcHeladera.TextoPredeterminado = ""
+        Me.UcHeladera.TituloSelector = "Selección"
+        Me.UcHeladera.ValorPredeterminado = Nothing
+        '
+        'UcBaja
+        '
+        Me.UcBaja.BuscarConTextoVacio = False
+        Me.UcBaja.Descripcion = ""
+        Me.UcBaja.HeaderDescripcion = "Descripción"
+        Me.UcBaja.Id = Nothing
+        Me.UcBaja.Location = New System.Drawing.Point(104, 360)
+        Me.UcBaja.Name = "UcBaja"
+        Me.UcBaja.NombrePropiedadDescripcion = Nothing
+        Me.UcBaja.NombrePropiedadId = Nothing
+        Me.UcBaja.Objetos = Nothing
+        Me.UcBaja.PermitirVacio = True
+        Me.UcBaja.Size = New System.Drawing.Size(315, 20)
+        Me.UcBaja.SoloLectura = False
+        Me.UcBaja.TabIndex = 12
+        Me.UcBaja.TextoPredeterminado = ""
+        Me.UcBaja.TituloSelector = "Selección"
+        Me.UcBaja.ValorPredeterminado = Nothing
         '
         'FrmArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(431, 416)
+        Me.ClientSize = New System.Drawing.Size(431, 420)
+        Me.Controls.Add(Me.UcBaja)
+        Me.Controls.Add(Me.UcHeladera)
+        Me.Controls.Add(Me.UcAlicuotaIVA)
+        Me.Controls.Add(Me.UcTipoControl)
+        Me.Controls.Add(Me.UcTamanioEnvase)
+        Me.Controls.Add(Me.UcTipoVenta)
+        Me.Controls.Add(Me.UcSeccion)
+        Me.Controls.Add(Me.UcAccionFarmacologica)
+        Me.Controls.Add(Me.UcMonodroga)
+        Me.Controls.Add(Me.UcLaboratorio)
         Me.Controls.Add(LblHeladera)
         Me.Controls.Add(LblTipoControl)
         Me.Controls.Add(LblAccionFarmacologica)
@@ -402,20 +487,10 @@ Partial Class FrmArticulos
         Me.Controls.Add(LblLaborarorio)
         Me.Controls.Add(LblTipoVenta)
         Me.Controls.Add(Label1)
-        Me.Controls.Add(Me.CmbHeladera)
-        Me.Controls.Add(Me.CmbTipoControl)
-        Me.Controls.Add(Me.TxtAccionFarmacologica)
-        Me.Controls.Add(Me.TxtMonodroga)
-        Me.Controls.Add(Me.TxtLaboratorio)
-        Me.Controls.Add(Me.CmbTamanioEnvase)
-        Me.Controls.Add(Me.CmbTipoVenta)
-        Me.Controls.Add(Me.CmdBaja)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(LblSeccion)
-        Me.Controls.Add(Me.CmbSeccion)
         Me.Controls.Add(LblBaja)
         Me.Controls.Add(LblAlicuotaIVA)
-        Me.Controls.Add(Me.CmbAlicuotaIVA)
         Me.Controls.Add(LblNombre)
         Me.Controls.Add(Me.TxtNombre)
         Me.Controls.Add(LblCodBarras)
@@ -427,32 +502,29 @@ Partial Class FrmArticulos
         Me.Name = "FrmArticulos"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmArticulos"
-        CType(Me.ArticuloBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents ArticuloBindingSource As BindingSource
     Friend WithEvents TxtIdArticulo As TextBox
     Friend WithEvents TxtNTroquel As TextBox
     Friend WithEvents TxtCodBarras As TextBox
     Friend WithEvents TxtNombre As TextBox
-    Friend WithEvents CmbAlicuotaIVA As ComboBox
-    Friend WithEvents CmbSeccion As ComboBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents Guardar As ToolStripButton
     Friend WithEvents Nuevo As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
-    Friend WithEvents CmdBaja As ComboBox
-    Friend WithEvents CmbTipoVenta As ComboBox
-    Friend WithEvents CmbTamanioEnvase As ComboBox
-    Friend WithEvents TxtLaboratorio As TextBox
-    Friend WithEvents TxtMonodroga As TextBox
-    Friend WithEvents TxtAccionFarmacologica As TextBox
-    Friend WithEvents CmbTipoControl As ComboBox
-    Friend WithEvents CmbHeladera As ComboBox
+    Friend WithEvents UcLaboratorio As UcSelectorUniversal
+    Friend WithEvents UcMonodroga As UcSelectorUniversal
+    Friend WithEvents UcAccionFarmacologica As UcSelectorUniversal
+    Friend WithEvents UcSeccion As UcSelectorUniversal
+    Friend WithEvents UcTipoVenta As UcSelectorUniversal
+    Friend WithEvents UcTamanioEnvase As UcSelectorUniversal
+    Friend WithEvents UcTipoControl As UcSelectorUniversal
+    Friend WithEvents UcAlicuotaIVA As UcSelectorUniversal
+    Friend WithEvents UcHeladera As UcSelectorUniversal
+    Friend WithEvents UcBaja As UcSelectorUniversal
 End Class

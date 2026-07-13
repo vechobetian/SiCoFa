@@ -29,14 +29,13 @@ Partial Class FrmEdicionPersonas
         Me.Nuevo = New System.Windows.Forms.ToolStripButton()
         Me.Buscar = New System.Windows.Forms.ToolStripButton()
         Me.Limpiar = New System.Windows.Forms.ToolStripButton()
-        Me.TipoDoc = New System.Windows.Forms.ComboBox()
-        Me.NumDoc = New System.Windows.Forms.TextBox()
-        Me.Email = New System.Windows.Forms.TextBox()
-        Me.Telefono = New System.Windows.Forms.TextBox()
-        Me.Localidad = New System.Windows.Forms.TextBox()
-        Me.Domicilio = New System.Windows.Forms.TextBox()
-        Me.Nombre = New System.Windows.Forms.TextBox()
-        Me.Id = New System.Windows.Forms.TextBox()
+        Me.TxtNumDoc = New System.Windows.Forms.TextBox()
+        Me.TxtEmail = New System.Windows.Forms.TextBox()
+        Me.TxtTelefono = New System.Windows.Forms.TextBox()
+        Me.TxtLocalidad = New System.Windows.Forms.TextBox()
+        Me.TxtDomicilio = New System.Windows.Forms.TextBox()
+        Me.TxtNombre = New System.Windows.Forms.TextBox()
+        Me.TxtId = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -47,10 +46,11 @@ Partial Class FrmEdicionPersonas
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.FechaAlta = New System.Windows.Forms.TextBox()
+        Me.TxtFechaAlta = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Estado = New System.Windows.Forms.ComboBox()
-        Me.Provincia = New System.Windows.Forms.ComboBox()
+        Me.UcProvincia = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcTipoDoc = New SiCoFa.Presentacion.UcSelectorUniversal()
+        Me.UcEstado = New SiCoFa.Presentacion.UcSelectorUniversal()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -99,66 +99,56 @@ Partial Class FrmEdicionPersonas
         Me.Limpiar.Size = New System.Drawing.Size(23, 22)
         Me.Limpiar.Text = "Limpiar"
         '
-        'TipoDoc
+        'TxtNumDoc
         '
-        Me.TipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.TipoDoc.FormattingEnabled = True
-        Me.TipoDoc.ItemHeight = 13
-        Me.TipoDoc.Location = New System.Drawing.Point(79, 220)
-        Me.TipoDoc.Name = "TipoDoc"
-        Me.TipoDoc.Size = New System.Drawing.Size(300, 21)
-        Me.TipoDoc.TabIndex = 8
+        Me.TxtNumDoc.Location = New System.Drawing.Point(79, 246)
+        Me.TxtNumDoc.Name = "TxtNumDoc"
+        Me.TxtNumDoc.Size = New System.Drawing.Size(300, 20)
+        Me.TxtNumDoc.TabIndex = 9
         '
-        'NumDoc
+        'TxtEmail
         '
-        Me.NumDoc.Location = New System.Drawing.Point(79, 246)
-        Me.NumDoc.Name = "NumDoc"
-        Me.NumDoc.Size = New System.Drawing.Size(300, 20)
-        Me.NumDoc.TabIndex = 9
+        Me.TxtEmail.Location = New System.Drawing.Point(79, 194)
+        Me.TxtEmail.Name = "TxtEmail"
+        Me.TxtEmail.Size = New System.Drawing.Size(300, 20)
+        Me.TxtEmail.TabIndex = 7
         '
-        'Email
+        'TxtTelefono
         '
-        Me.Email.Location = New System.Drawing.Point(79, 194)
-        Me.Email.Name = "Email"
-        Me.Email.Size = New System.Drawing.Size(300, 20)
-        Me.Email.TabIndex = 7
+        Me.TxtTelefono.Location = New System.Drawing.Point(79, 168)
+        Me.TxtTelefono.Name = "TxtTelefono"
+        Me.TxtTelefono.Size = New System.Drawing.Size(300, 20)
+        Me.TxtTelefono.TabIndex = 6
         '
-        'Telefono
+        'TxtLocalidad
         '
-        Me.Telefono.Location = New System.Drawing.Point(79, 168)
-        Me.Telefono.Name = "Telefono"
-        Me.Telefono.Size = New System.Drawing.Size(300, 20)
-        Me.Telefono.TabIndex = 6
+        Me.TxtLocalidad.Location = New System.Drawing.Point(79, 116)
+        Me.TxtLocalidad.Name = "TxtLocalidad"
+        Me.TxtLocalidad.Size = New System.Drawing.Size(300, 20)
+        Me.TxtLocalidad.TabIndex = 4
         '
-        'Localidad
+        'TxtDomicilio
         '
-        Me.Localidad.Location = New System.Drawing.Point(79, 116)
-        Me.Localidad.Name = "Localidad"
-        Me.Localidad.Size = New System.Drawing.Size(300, 20)
-        Me.Localidad.TabIndex = 4
+        Me.TxtDomicilio.Location = New System.Drawing.Point(79, 90)
+        Me.TxtDomicilio.Name = "TxtDomicilio"
+        Me.TxtDomicilio.Size = New System.Drawing.Size(300, 20)
+        Me.TxtDomicilio.TabIndex = 3
         '
-        'Domicilio
+        'TxtNombre
         '
-        Me.Domicilio.Location = New System.Drawing.Point(79, 90)
-        Me.Domicilio.Name = "Domicilio"
-        Me.Domicilio.Size = New System.Drawing.Size(300, 20)
-        Me.Domicilio.TabIndex = 3
+        Me.TxtNombre.Location = New System.Drawing.Point(79, 64)
+        Me.TxtNombre.Name = "TxtNombre"
+        Me.TxtNombre.Size = New System.Drawing.Size(300, 20)
+        Me.TxtNombre.TabIndex = 2
         '
-        'Nombre
+        'TxtId
         '
-        Me.Nombre.Location = New System.Drawing.Point(79, 64)
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.Size = New System.Drawing.Size(300, 20)
-        Me.Nombre.TabIndex = 2
-        '
-        'Id
-        '
-        Me.Id.Enabled = False
-        Me.Id.Location = New System.Drawing.Point(79, 38)
-        Me.Id.Name = "Id"
-        Me.Id.ReadOnly = True
-        Me.Id.Size = New System.Drawing.Size(300, 20)
-        Me.Id.TabIndex = 1
+        Me.TxtId.Enabled = False
+        Me.TxtId.Location = New System.Drawing.Point(79, 38)
+        Me.TxtId.Name = "TxtId"
+        Me.TxtId.ReadOnly = True
+        Me.TxtId.Size = New System.Drawing.Size(300, 20)
+        Me.TxtId.TabIndex = 1
         '
         'Label10
         '
@@ -250,12 +240,12 @@ Partial Class FrmEdicionPersonas
         Me.Label11.TabIndex = 44
         Me.Label11.Text = "Fecha Alta:"
         '
-        'FechaAlta
+        'TxtFechaAlta
         '
-        Me.FechaAlta.Location = New System.Drawing.Point(79, 272)
-        Me.FechaAlta.Name = "FechaAlta"
-        Me.FechaAlta.Size = New System.Drawing.Size(300, 20)
-        Me.FechaAlta.TabIndex = 10
+        Me.TxtFechaAlta.Location = New System.Drawing.Point(79, 272)
+        Me.TxtFechaAlta.Name = "TxtFechaAlta"
+        Me.TxtFechaAlta.Size = New System.Drawing.Size(300, 20)
+        Me.TxtFechaAlta.TabIndex = 10
         '
         'Label12
         '
@@ -266,36 +256,74 @@ Partial Class FrmEdicionPersonas
         Me.Label12.TabIndex = 46
         Me.Label12.Text = "Estado:"
         '
-        'Estado
+        'UcProvincia
         '
-        Me.Estado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Estado.FormattingEnabled = True
-        Me.Estado.ItemHeight = 13
-        Me.Estado.Items.AddRange(New Object() {"ACTIVO", "BAJA"})
-        Me.Estado.Location = New System.Drawing.Point(79, 298)
-        Me.Estado.Name = "Estado"
-        Me.Estado.Size = New System.Drawing.Size(300, 21)
-        Me.Estado.TabIndex = 11
+        Me.UcProvincia.BuscarConTextoVacio = False
+        Me.UcProvincia.Descripcion = ""
+        Me.UcProvincia.HeaderDescripcion = "Descripción"
+        Me.UcProvincia.Id = Nothing
+        Me.UcProvincia.Location = New System.Drawing.Point(79, 142)
+        Me.UcProvincia.Name = "UcProvincia"
+        Me.UcProvincia.NombrePropiedadDescripcion = Nothing
+        Me.UcProvincia.NombrePropiedadId = Nothing
+        Me.UcProvincia.Objetos = Nothing
+        Me.UcProvincia.PermitirVacio = True
+        Me.UcProvincia.Size = New System.Drawing.Size(300, 20)
+        Me.UcProvincia.SoloLectura = False
+        Me.UcProvincia.TabIndex = 5
+        Me.UcProvincia.TextoPredeterminado = ""
+        Me.UcProvincia.TituloSelector = "Selección"
+        Me.UcProvincia.ValorPredeterminado = Nothing
         '
-        'Provincia
+        'UcTipoDoc
         '
-        Me.Provincia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Provincia.FormattingEnabled = True
-        Me.Provincia.Location = New System.Drawing.Point(79, 141)
-        Me.Provincia.Name = "Provincia"
-        Me.Provincia.Size = New System.Drawing.Size(300, 21)
-        Me.Provincia.TabIndex = 5
+        Me.UcTipoDoc.BuscarConTextoVacio = False
+        Me.UcTipoDoc.Descripcion = ""
+        Me.UcTipoDoc.HeaderDescripcion = "Descripción"
+        Me.UcTipoDoc.Id = Nothing
+        Me.UcTipoDoc.Location = New System.Drawing.Point(79, 220)
+        Me.UcTipoDoc.Name = "UcTipoDoc"
+        Me.UcTipoDoc.NombrePropiedadDescripcion = Nothing
+        Me.UcTipoDoc.NombrePropiedadId = Nothing
+        Me.UcTipoDoc.Objetos = Nothing
+        Me.UcTipoDoc.PermitirVacio = True
+        Me.UcTipoDoc.Size = New System.Drawing.Size(300, 20)
+        Me.UcTipoDoc.SoloLectura = False
+        Me.UcTipoDoc.TabIndex = 8
+        Me.UcTipoDoc.TextoPredeterminado = ""
+        Me.UcTipoDoc.TituloSelector = "Selección"
+        Me.UcTipoDoc.ValorPredeterminado = Nothing
+        '
+        'UcEstado
+        '
+        Me.UcEstado.BuscarConTextoVacio = False
+        Me.UcEstado.Descripcion = ""
+        Me.UcEstado.HeaderDescripcion = "Descripción"
+        Me.UcEstado.Id = Nothing
+        Me.UcEstado.Location = New System.Drawing.Point(79, 299)
+        Me.UcEstado.Name = "UcEstado"
+        Me.UcEstado.NombrePropiedadDescripcion = Nothing
+        Me.UcEstado.NombrePropiedadId = Nothing
+        Me.UcEstado.Objetos = Nothing
+        Me.UcEstado.PermitirVacio = True
+        Me.UcEstado.Size = New System.Drawing.Size(300, 20)
+        Me.UcEstado.SoloLectura = False
+        Me.UcEstado.TabIndex = 11
+        Me.UcEstado.TextoPredeterminado = ""
+        Me.UcEstado.TituloSelector = "Selección"
+        Me.UcEstado.ValorPredeterminado = Nothing
         '
         'FrmEdicionPersonas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(394, 331)
-        Me.Controls.Add(Me.Provincia)
+        Me.Controls.Add(Me.UcEstado)
+        Me.Controls.Add(Me.UcTipoDoc)
+        Me.Controls.Add(Me.UcProvincia)
         Me.Controls.Add(Me.Label12)
-        Me.Controls.Add(Me.Estado)
         Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.FechaAlta)
+        Me.Controls.Add(Me.TxtFechaAlta)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
@@ -305,14 +333,13 @@ Partial Class FrmEdicionPersonas
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TipoDoc)
-        Me.Controls.Add(Me.NumDoc)
-        Me.Controls.Add(Me.Email)
-        Me.Controls.Add(Me.Telefono)
-        Me.Controls.Add(Me.Localidad)
-        Me.Controls.Add(Me.Domicilio)
-        Me.Controls.Add(Me.Nombre)
-        Me.Controls.Add(Me.Id)
+        Me.Controls.Add(Me.TxtNumDoc)
+        Me.Controls.Add(Me.TxtEmail)
+        Me.Controls.Add(Me.TxtTelefono)
+        Me.Controls.Add(Me.TxtLocalidad)
+        Me.Controls.Add(Me.TxtDomicilio)
+        Me.Controls.Add(Me.TxtNombre)
+        Me.Controls.Add(Me.TxtId)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "FrmEdicionPersonas"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -329,14 +356,13 @@ Partial Class FrmEdicionPersonas
     Friend WithEvents Nuevo As ToolStripButton
     Friend WithEvents Buscar As ToolStripButton
     Friend WithEvents Limpiar As ToolStripButton
-    Friend WithEvents TipoDoc As ComboBox
-    Friend WithEvents NumDoc As TextBox
-    Friend WithEvents Email As TextBox
-    Friend WithEvents Telefono As TextBox
-    Friend WithEvents Localidad As TextBox
-    Friend WithEvents Domicilio As TextBox
-    Friend WithEvents Nombre As TextBox
-    Friend WithEvents Id As TextBox
+    Friend WithEvents TxtNumDoc As TextBox
+    Friend WithEvents TxtEmail As TextBox
+    Friend WithEvents TxtTelefono As TextBox
+    Friend WithEvents TxtLocalidad As TextBox
+    Friend WithEvents TxtDomicilio As TextBox
+    Friend WithEvents TxtNombre As TextBox
+    Friend WithEvents TxtId As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
@@ -347,8 +373,9 @@ Partial Class FrmEdicionPersonas
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents FechaAlta As TextBox
+    Friend WithEvents TxtFechaAlta As TextBox
     Friend WithEvents Label12 As Label
-    Friend WithEvents Estado As ComboBox
-    Friend WithEvents Provincia As ComboBox
+    Friend WithEvents UcProvincia As UcSelectorUniversal
+    Friend WithEvents UcTipoDoc As UcSelectorUniversal
+    Friend WithEvents UcEstado As UcSelectorUniversal
 End Class

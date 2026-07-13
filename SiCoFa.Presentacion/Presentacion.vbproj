@@ -466,6 +466,12 @@
     <Compile Include="UserControls\UcReceta.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="UserControls\UcSelectorUniversal.Designer.vb">
+      <DependentUpon>UcSelectorUniversal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UcSelectorUniversal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
@@ -629,6 +635,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\UcReceta.resx">
       <DependentUpon>UcReceta.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\UcSelectorUniversal.resx">
+      <DependentUpon>UcSelectorUniversal.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

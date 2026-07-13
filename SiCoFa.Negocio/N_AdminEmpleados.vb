@@ -1,10 +1,10 @@
-﻿Imports SiCoFa.Negocio
+﻿Imports SiCoFa.Datos
 Imports SiCoFa.Entidades
 
 Public Class N_AdminEmpleados
 
     Public Function ObtenerEmpleadoPorId(ByVal argIdEmpleado As Int32) As Empleado
-        Dim AdminEmpleados As New N_AdminEmpleados
+        Dim AdminEmpleados As New D_AdminEmpleados
         Dim objEmp As Empleado = Nothing
 
         Try
@@ -16,8 +16,9 @@ Public Class N_AdminEmpleados
 
         End Try
     End Function
+
     Public Function ListarEmpleados(ByVal argTextoBuscado As String) As List(Of Empleado)
-        Dim AdminEmpleados As New N_AdminEmpleados
+        Dim AdminEmpleados As New D_AdminEmpleados
         Dim le As List(Of Empleado) = Nothing
 
         Try
@@ -29,6 +30,7 @@ Public Class N_AdminEmpleados
 
         End Try
     End Function
+
     Public Function InsertarEmpleado(
                                     ByVal argNombre As String,
                                     ByVal argDomicilio As String,
@@ -40,7 +42,7 @@ Public Class N_AdminEmpleados
                                     ByVal argNumDoc As String
                                     ) As Integer
         Try
-            Dim AdminEmpleados As New N_AdminEmpleados
+            Dim AdminEmpleados As New D_AdminEmpleados
             Dim IdEmpleado As Integer = AdminEmpleados.InsertarEmpleado(
                                                                            UCase(argNombre),
                                                                            UCase(argDomicilio),
@@ -72,7 +74,7 @@ Public Class N_AdminEmpleados
                                      ) As Boolean
 
         Try
-            Dim AdminEmpleados As New N_AdminEmpleados
+            Dim AdminEmpleados As New D_AdminEmpleados
             Dim Actualizado As Boolean = AdminEmpleados.ActualizarEmpleado(
                                                                                argIdEmpleado,
                                                                                UCase(argDomicilio),

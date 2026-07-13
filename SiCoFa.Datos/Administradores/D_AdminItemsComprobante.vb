@@ -180,7 +180,7 @@ Public Class D_AdminItemsComprobante
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarItemComprobante), Ex.Message))
 
         End Try
 
@@ -205,7 +205,7 @@ Public Class D_AdminItemsComprobante
             End Using
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "EliminarItemComprobante", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(EliminarItemComprobante), ex.Message))
         End Try
     End Function
 
@@ -271,7 +271,7 @@ Public Class D_AdminItemsComprobante
             Return objLI
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarItemsCompraPorIdOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarItemsCompraPorIdOperacion), ex.Message))
             Return New List(Of ItemComprobanteCompra)
 
         End Try
@@ -307,7 +307,7 @@ Public Class D_AdminItemsComprobante
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobanteComrpa", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarItemComprobanteCompra), Ex.Message))
             Return 0
 
         End Try
@@ -367,7 +367,7 @@ Public Class D_AdminItemsComprobante
             Return objLI
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarItemsNCPorIdOperacion", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarItemsNCPorIdOperacion), ex.Message))
             Return New List(Of ItemComprobanteNC)
 
         End Try
@@ -397,7 +397,7 @@ Public Class D_AdminItemsComprobante
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarItemComprobanteNC", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarItemComprobanteNC), Ex.Message))
             Return 0
 
         End Try

@@ -20,6 +20,7 @@ Public Class D_AdminProveedores
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
                         If datos.Read() Then
 
+                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
                             objProv = New Proveedor(
                                                     datos.GetInt32("IdProveedor"),
                                                     datos.GetString("Nombre"),
@@ -28,8 +29,7 @@ Public Class D_AdminProveedores
                                                     If(datos.IsDBNull(datos.GetOrdinal("Provincia")), "", datos.GetString("Provincia")),
                                                     If(datos.IsDBNull(datos.GetOrdinal("Telefono")), "", datos.GetString("Telefono")),
                                                     If(datos.IsDBNull(datos.GetOrdinal("Email")), "", datos.GetString("Email")),
-                                                    datos.GetString("CodiTDoc"),
-                                                    datos.GetString("NumDoc"),
+                                                    objDoc,
                                                     datos.GetDateTime("FechaAlta"),
                                                     datos.GetString("Estado")
                                                     )
@@ -44,7 +44,7 @@ Public Class D_AdminProveedores
             Return objProv
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerProveedorPorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerProveedorPorId), ex.Message))
 
         End Try
 
@@ -99,7 +99,8 @@ Public Class D_AdminProveedores
                             Dim FechaAltaResult As Date = datos(fechaAltaOrdinal)
                             Dim EstadoResult As String = datos(estadoOrdinal)
 
-                            p = New Proveedor(IdProveedorResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, CodiTDocResult, NumDocResult, FechaAltaResult, EstadoResult)
+                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+                            p = New Proveedor(IdProveedorResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult)
                             lp.Add(p)
                         End While
 
@@ -112,7 +113,7 @@ Public Class D_AdminProveedores
             Return lp
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarProveedores", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarProveedores), ex.Message))
             Return Nothing
         End Try
 
@@ -135,20 +136,20 @@ Public Class D_AdminProveedores
 
                 Using cmd As New MySqlCommand("sp_insertar_proveedor", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_IdProveedor", MySqlDbType.Int32)
+                        .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_IdProveedor", MySqlDbType.Int32)
                     End With
 
-                    cmd.Parameters("_IdProveedor").Direction = ParameterDirection.Output
+                    cmd.Parameters("p_IdProveedor").Direction = ParameterDirection.Output
                     cmd.ExecuteNonQuery()
-                    IdProveedor = Convert.ToInt32(cmd.Parameters("_IdProveedor").Value)
+                    IdProveedor = Convert.ToInt32(cmd.Parameters("p_IdProveedor").Value)
                 End Using
 
             End Using
@@ -156,7 +157,7 @@ Public Class D_AdminProveedores
             Return IdProveedor
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarProveedor", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarProveedor), Ex.Message))
 
         End Try
 
@@ -170,7 +171,6 @@ Public Class D_AdminProveedores
                                     ByVal argEmail As String,
                                     ByVal argCodiTDoc As String,
                                     ByVal argNumDoc As String,
-                                    ByVal argCodIVA As String,
                                     ByVal argEstado As String
                                     ) As Boolean
 
@@ -182,16 +182,15 @@ Public Class D_AdminProveedores
 
                 Using cmd As New MySqlCommand("sp_actualizar_proveedor", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdProveedor", MySqlDbType.Int32).Value = argIdProveedor
-                        .Add("_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
-                        .Add("_Localidad", MySqlDbType.VarChar).Value = argLocalidad
-                        .Add("_Provincia", MySqlDbType.VarChar).Value = argProvincia
-                        .Add("_Telefono", MySqlDbType.VarChar).Value = argTelefono
-                        .Add("_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
-                        .Add("_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
-                        .Add("_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
-                        .Add("_Estado", MySqlDbType.VarChar).Value = argEstado
+                        .Add("p_IdProveedor", MySqlDbType.Int32).Value = argIdProveedor
+                        .Add("p_Domicilio", MySqlDbType.VarChar).Value = argDomicilio
+                        .Add("p_Localidad", MySqlDbType.VarChar).Value = argLocalidad
+                        .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
+                        .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
+                        .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
+                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
+                        .Add("p_Estado", MySqlDbType.VarChar).Value = argEstado
                     End With
 
                     Dim filasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
@@ -202,7 +201,7 @@ Public Class D_AdminProveedores
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarProveedor", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarProveedor), Ex.Message))
 
         End Try
 

@@ -6,8 +6,8 @@ Public Class FrmPanelClientes
     Private NuevaPersona As Boolean
     Private NuevaCtaCte As Boolean
     Private mobj_AdminClientes As New N_AdminClientes
-    Private ControlesReadOnly As New List(Of String) From {"Id", "FechaAltaCliente", "IdCC", "Descripcion", "FechaAltaCuentaCorriente"}
-    Private DatosOpcionales As New List(Of String) From {"Id", "Domicilio", "Localidad", "Provincia", "Telefono", "Email", "IdCC", "Descripcion", "Observaciones"}
+    Private ControlesReadOnly As New List(Of String) From {"TxtId", "TxtFechaAltaCliente", "TxtIdCC", "TxtDescripcion", "TxtFechaAltaCuentaCorriente"}
+    Private DatosOpcionales As New List(Of String) From {"TxtId", "TxtDomicilio", "TxtLocalidad", "UcProvincia", "TxtTelefono", "TxtEmail", "TxtIdCC", "TxtDescripcion", "TxtObservaciones"}
     Private pestanaCuentaCorriente As TabPage
     Private indiceOriginalCuentaCorriente As Integer
 
@@ -42,14 +42,35 @@ Public Class FrmPanelClientes
         End Try
 
     End Sub
-    Private Sub ObtenerProvincias()
+    Private Sub CargarSelectorProvincia()
         Try
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            With Me.Provincia
-                .DataSource = AdminSiCoFa.Provincias
-                .ValueMember = "PROVINCIA"
-                .DisplayMember = "PROVINCIA"
-                .SelectedIndex = -1
+            With UcProvincia
+                .Objetos = Provincia.Lista
+                .NombrePropiedadId = "CodiProvincia"
+                .NombrePropiedadDescripcion = "Provincia"
+                .TituloSelector = "Provincias"
+                .HeaderDescripcion = "Provincia"
+                .PermitirVacio = True
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+
+    End Sub
+
+    Private Sub CargarSelectorTipoDoc()
+
+        Try
+            With UcTipoDoc
+                .Objetos = TipoDocumento.Lista
+                .NombrePropiedadId = "CodiTDoc"
+                .NombrePropiedadDescripcion = "Descripcion"
+                .TituloSelector = "Tipos Documento"
+                .HeaderDescripcion = "Tipo Documento"
+                .ValorPredeterminado = "DNI"
+                .TextoPredeterminado = "DOCUMENTO NACIONAL DE IDENTIDAD"
+                .PermitirVacio = False
             End With
 
         Catch ex As Exception
@@ -59,30 +80,80 @@ Public Class FrmPanelClientes
 
     End Sub
 
-    Private Sub ObtenerTiposDocumento()
+    Private Sub CargarSelectorEstado()
 
         Try
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            Me.TipoDoc.DataSource = AdminSiCoFa.TiposDocumento
-            Me.TipoDoc.ValueMember = "CodiTDoc"
-            Me.TipoDoc.DisplayMember = "TipoDocumento"
-            Me.TipoDoc.SelectedIndex = -1
+            Dim estados As New Dictionary(Of String, String)
+
+            With estados
+                .Add("A", "ACTIVO")
+                .Add("B", "BAJA")
+            End With
+
+            With UcEstado
+                .Objetos = estados
+                .NombrePropiedadId = "Key"
+                .NombrePropiedadDescripcion = "Value"
+                .TituloSelector = "Estados"
+                .HeaderDescripcion = "Estado"
+                .ValorPredeterminado = "A"
+                .TextoPredeterminado = "ACTIVO"
+                .PermitirVacio = False
+            End With
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
 
+
     End Sub
 
-    Private Sub ObtenerTiposIVA()
+    Private Sub CargarSelectorEstadoCC()
 
         Try
-            Dim AdminSiCoFa As New N_AdminSiCoFa
-            Me.IVA.DataSource = AdminSiCoFa.TiposIVA
-            Me.IVA.ValueMember = "CodIVA"
-            Me.IVA.DisplayMember = "TipoIVA"
-            Me.IVA.SelectedIndex = -1
+            Dim estados As New Dictionary(Of String, String)
+
+            With estados
+                .Add("H", "HABILITADA")
+                .Add("B", "BAJA")
+                .Add("S", "SUSPENDIDA")
+            End With
+
+            With UcEstadoCC
+                .Objetos = estados
+                .NombrePropiedadId = "Key"
+                .NombrePropiedadDescripcion = "Value"
+                .TituloSelector = "Estados"
+                .HeaderDescripcion = "Estado"
+                .ValorPredeterminado = "H"
+                .TextoPredeterminado = "HABILITADA"
+                .PermitirVacio = False
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+
+    End Sub
+
+    Private Sub CargarSelectorIVA()
+
+        Try
+
+            With UcIVA
+                .Objetos = TipoIVA.Lista
+                .NombrePropiedadId = "CodIVA"
+                .NombrePropiedadDescripcion = "Descripcion"
+                .TituloSelector = "Tipos de IVA"
+                .HeaderDescripcion = "Tipo IVA"
+                .ValorPredeterminado = "CF"
+                .TextoPredeterminado = "CONSUMIDOR FINAL"
+                .PermitirVacio = False
+            End With
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
@@ -125,8 +196,8 @@ Public Class FrmPanelClientes
             Select Case lc.Count
                 Case 0
                     MsgBox("Cliente no Encontrado", vbInformation, "SiCoFa")
-                    Me.Nombre.Text = ""
-                    Me.Nombre.Select()
+                    Me.TxtNombre.Text = ""
+                    Me.TxtNombre.Select()
                     Exit Sub
 
                 Case 1
@@ -148,9 +219,9 @@ Public Class FrmPanelClientes
                 .LimpiarFormulario()
                 .MostrarCliente(c)
                 .MostrarCuentaCorriente(c.Id)
-                .Nombre.ReadOnly = True
-                .Nombre.Select()
-                .Nombre.SelectAll()
+                .TxtNombre.ReadOnly = True
+                .TxtNombre.Select()
+                .TxtNombre.SelectAll()
             End With
 
         Catch ex As Exception
@@ -163,18 +234,18 @@ Public Class FrmPanelClientes
 
         Try
             With Me
-                .Id.Text = argCliente.Id
-                .Nombre.Text = argCliente.Nombre
-                .Domicilio.Text = argCliente.Domicilio
-                .Localidad.Text = argCliente.Localidad
-                .Provincia.Text = argCliente.Provincia
-                .Telefono.Text = argCliente.Telefono
-                .Email.Text = argCliente.Email
-                .TipoDoc.Text = argCliente.Documento.TipoDoc.CodiTDoc
-                .NumDoc.Text = argCliente.Documento.Numero
-                .FechaAltaCliente.Text = argCliente.FechaAlta
-                .EstadoCliente.Text = argCliente.Estado
-                .IVA.Text = argCliente.IVA.TipoIVA
+                .TxtId.Text = argCliente.Id
+                .TxtNombre.Text = argCliente.Nombre
+                .TxtDomicilio.Text = argCliente.Domicilio
+                .TxtLocalidad.Text = argCliente.Localidad
+                .UcProvincia.Descripcion = argCliente.Provincia
+                .TxtTelefono.Text = argCliente.Telefono
+                .TxtEmail.Text = argCliente.Email
+                .UcTipoDoc.Id = argCliente.Documento.TipoDoc.CodiTDoc
+                .TxtNumDoc.Text = argCliente.Documento.Numero
+                .TxtFechaAltaCliente.Text = argCliente.FechaAlta
+                .UcEstado.Descripcion = argCliente.Estado
+                .UcIVA.Id = argCliente.IVA.CodIVA
             End With
 
         Catch ex As Exception
@@ -188,15 +259,21 @@ Public Class FrmPanelClientes
         Try
             Dim cc As CuentaCorriente = mobj_AdminClientes.ObtenerCuentaCorrientePorIdCliente(argIdCliente)
             If cc IsNot Nothing Then
-                Me.IdCC.Text = cc.IdCC
-                Me.Descripcion.Text = cc.Descripcion
-                Me.Credito.Text = cc.Credito
-                Me.FechaAltaCuentaCorriente.Text = cc.FechaAlta
-                Me.EstadoCuentaCorriente.Text = cc.Estado
-                Me.Observaciones.Text = cc.Observaciones
+                Me.TxtIdCC.Text = cc.IdCC
+                Me.TxtDescripcion.Text = cc.Descripcion
+                Me.TxtCredito.Text = cc.Credito
+                Me.TxtFechaAltaCuentaCorriente.Text = cc.FechaAlta
+                Me.UcEstadoCC.Descripcion = cc.Estado
+                Me.TxtObservaciones.Text = cc.Observaciones
                 Me.MostrarPestanaCuentaCorriente()
             Else
+                Me.TxtIdCC.Text = ""
+                Me.TxtDescripcion.Text = ""
+                Me.TxtCredito.Text = ""
+                Me.UcEstadoCC.Descripcion = ""
+                Me.TxtObservaciones.Text = ""
                 Me.NuevaCuentaCorriente.Visible = True
+
             End If
 
         Catch ex As Exception
@@ -217,11 +294,11 @@ Public Class FrmPanelClientes
 
             If Me.NuevaPersona = True Then
 
-                Dim IdCliente As Integer = mobj_AdminClientes.InsertarCliente(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue)
+                Dim IdCliente As Integer = mobj_AdminClientes.InsertarCliente(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcIVA.Id)
                 If IdCliente > 0 Then
-                    Me.Id.Text = IdCliente
-                    Me.Nombre.Text = UCase(Me.Nombre.Text)
-                    MsgBox("Se dio de alta el Cliente " & Nombre.Text,, "SiCoFa")
+                    Me.TxtId.Text = IdCliente
+                    Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
+                    MsgBox("Se dio de alta el Cliente " & TxtNombre.Text,, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
@@ -231,22 +308,22 @@ Public Class FrmPanelClientes
                 Me.NuevoCliente.Checked = False
 
             Else
-                If Me.Id.Text = "" Then
-                    MsgBox("El cliente " & Me.Nombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                If Me.TxtId.Text = "" Then
+                    MsgBox("El cliente " & Me.TxtNombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCliente(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.TipoDoc.SelectedValue, Me.NumDoc.Text, Me.IVA.SelectedValue, Me.EstadoCliente.Text)
+                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCliente(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcIVA.Id, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
-                    MsgBox("El Cliente " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
+                    MsgBox("El Cliente " & TxtNombre.Text & " se acutalizo correctamente",, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
                     Exit Sub
                 End If
             End If
 
-            If Me.NuevaCtaCte = True Or Me.IdCC.Text <> "" Then
+            If Me.NuevaCtaCte = True Or Me.TxtIdCC.Text <> "" Then
                 Me.ValidacionOK = False
                 Me.ValidarCampos(Me.CuentaCorriente, DatosOpcionales)
             End If
@@ -257,9 +334,9 @@ Public Class FrmPanelClientes
 
             If Me.NuevaCtaCte = True Then
 
-                Dim IdCC As Integer = mobj_AdminClientes.InsertarCuentaCorriente(Me.Id.Text, UCase(Me.Descripcion.Text), Convert.ToDecimal(Me.Credito.Text), Me.Observaciones.Text)
+                Dim IdCC As Integer = mobj_AdminClientes.InsertarCuentaCorriente(Me.TxtId.Text, UCase(Me.TxtDescripcion.Text), Convert.ToDecimal(Me.TxtCredito.Text), Me.TxtObservaciones.Text)
                 If IdCC > 0 Then
-                    Me.IdCC.Text = IdCC
+                    Me.TxtIdCC.Text = IdCC
                 Else
                     MsgBox("No se pudo crear la cuenta corriente, intente nuevamente",, "SiCoFa")
                     Exit Sub
@@ -268,9 +345,9 @@ Public Class FrmPanelClientes
                 Me.NuevaCtaCte = False
                 Me.NuevoCliente.Checked = False
 
-            ElseIf Me.IdCC.Text <> "" Then
+            ElseIf Me.TxtIdCC.Text <> "" Then
 
-                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCuentaCorriente(Me.IdCC.Text, Me.Credito.Text, Me.Observaciones.Text, Me.EstadoCuentaCorriente.Text)
+                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCuentaCorriente(Me.TxtIdCC.Text, Me.TxtCredito.Text, Me.TxtObservaciones.Text, Me.UcEstadoCC.Descripcion)
 
                 If Actualizado = False Then
                     MsgBox("No se pudo actualizar la cuenta corriente, intente nuevamente", "SiCoFa")
@@ -279,8 +356,10 @@ Public Class FrmPanelClientes
             End If
 
             Me.LimpiarFormulario()
+            Me.OcultarPestanaCuentaCorriente()
             Me.PanelCliente.SelectedTab = Me.Cliente
-            Me.Nombre.Select()
+            Me.TxtNombre.ReadOnly = False
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -293,16 +372,14 @@ Public Class FrmPanelClientes
             Me.LimpiarFormulario()
             Me.NuevaPersona = True
             Me.NuevoCliente.Checked = True
-            Me.Nombre.ReadOnly = False
-            Me.Nombre.Select()
+            Me.TxtNombre.ReadOnly = False
+            Me.TxtNombre.Select()
 
             Dim valoresDefecto As New Dictionary(Of String, Object)
 
             With valoresDefecto
-                .Add("FechaAltaCliente", Date.Today.ToShortDateString)
-                .Add("FechaAltaCuentaCorriente", Date.Today.ToShortDateString)
-                .Add("EstadoCliente", "ACTIVO")
-                .Add("EstadoCuentaCorriente", "HABILITADA")
+                .Add("TxtFechaAltaCliente", Date.Today.ToShortDateString)
+                .Add("TxtFechaAltaCuentaCorriente", Date.Today.ToShortDateString)
             End With
 
             Me.EstablecerValoresPorDefecto(Me.Cliente, valoresDefecto)
@@ -323,7 +400,7 @@ Public Class FrmPanelClientes
             Dim str = InputBox("Ingrese la Persona", "SiCoFa")
             Me.TextoBuscar = ""
             If str = "" Then
-                Me.Nombre.Select()
+                Me.TxtNombre.Select()
                 Exit Sub
             Else
                 Me.TextoBuscar = str
@@ -348,8 +425,8 @@ Public Class FrmPanelClientes
             Me.LimpiarFormulario()
             Me.NuevaPersona = False
             Me.OcultarPestanaCuentaCorriente()
-            Me.Nombre.ReadOnly = False
-            Me.Nombre.Select()
+            Me.TxtNombre.ReadOnly = False
+            Me.TxtNombre.Select()
             Me.NuevoCliente.Checked = False
 
         Catch ex As Exception
@@ -364,9 +441,9 @@ Public Class FrmPanelClientes
             Dim valoresDefecto As New Dictionary(Of String, Object)
 
             With valoresDefecto
-                .Add("Descripcion", UCase(Me.Nombre.Text))
-                .Add("FechaAltaCuentaCorriente", Date.Today.ToShortDateString)
-                .Add("EstadoCuentaCorriente", "HABILITADA")
+                .Add("TxtDescripcion", UCase(Me.TxtNombre.Text))
+                .Add("TxtFechaAltaCuentaCorriente", Date.Today.ToShortDateString)
+                .Add("UcEstadoCC", "H")
             End With
 
             Me.EstablecerValoresPorDefecto(Me.CuentaCorriente, valoresDefecto)
@@ -380,15 +457,15 @@ Public Class FrmPanelClientes
 
     End Sub
 
-    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles Nombre.Validating
+    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles TxtNombre.Validating
 
         Try
 
-            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text <> "" Then
+            If Me.TxtNombre.Text = "" Or Me.NuevaPersona = True Or Me.TxtId.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarCliente(Me.Nombre.Text)
+            Me.BuscarCliente(Me.TxtNombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -402,13 +479,15 @@ Public Class FrmPanelClientes
 
             Me.EstablecerReadOnly(Me.Cliente, Me.ControlesReadOnly)
             Me.EstablecerReadOnly(Me.CuentaCorriente, Me.ControlesReadOnly)
-            Me.ObtenerProvincias()
-            Me.ObtenerTiposDocumento()
-            Me.ObtenerTiposIVA()
+            Me.CargarSelectorProvincia()
+            Me.CargarSelectorTipoDoc()
+            Me.CargarSelectorEstado()
+            Me.CargarSelectorEstadoCC()
+            Me.CargarSelectorIVA()
             pestanaCuentaCorriente = Me.PanelCliente.TabPages("CuentaCorriente")
             indiceOriginalCuentaCorriente = Me.PanelCliente.TabPages.IndexOf(pestanaCuentaCorriente)
             OcultarPestanaCuentaCorriente()
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

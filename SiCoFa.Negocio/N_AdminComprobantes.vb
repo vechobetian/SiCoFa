@@ -3,6 +3,29 @@ Imports SiCoFa.Entidades
 
 Public Class N_AdminComprobantes
 
+    Public Function ObtenerTipoComprobanteVenta(ByVal argCodIVAEmpresa As String, ByVal argCodIVACliente As String) As TipoComprobante
+
+        Dim AdminComprobantes As New N_AdminComprobantes
+        Dim objTC As TipoComprobante = Nothing
+
+        Select Case argCodIVAEmpresa
+
+            Case "RI"
+                Select Case argCodIVACliente
+                    Case "CF", "MT", "EX"
+                        objTC = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("FAB")
+                    Case "RI"
+                        objTC = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("FAA")
+                End Select
+            Case "MT"
+                objTC = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("FAC")
+
+        End Select
+
+        Return objTC
+
+    End Function
+
     Public Function ObtenerTipoComprobantePorCodiTC(ByVal argCodiTC As String) As TipoComprobante
 
         Dim AdminComprobantes As New D_AdminComprobantes

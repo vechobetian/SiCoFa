@@ -9,13 +9,15 @@ Public Class D_AdminArticulos
 
         Dim a As Articulo = Nothing
         Dim la As New List(Of Articulo)
-        Dim TipoControl As TipoControl = New TipoControl("0")
+        Dim TipoVenta As New TipoVenta("7")
+        Dim TipoControl As New TipoControl("0")
+        Dim TamanioEnvase As New TamanioEnvase("0")
         Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
         Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
         Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
         Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
         Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
-        Dim Promocion As Promocion = New Promocion("0")
+        Dim TipoPromocion As New TipoPromocion("0")
 
         a = New Articulo(
                          "0",
@@ -23,10 +25,10 @@ Public Class D_AdminArticulos
                           "",
                           "",
                           UCase(argDescripcion.Substring(1)),
-                          TipoVenta.NoClasificado,
+                          TipoVenta,
                           0,
                           1,
-                          TamanioEnvase.NoClasificado,
+                          TamanioEnvase,
                           Now.Date,
                           0,
                           0,
@@ -44,9 +46,9 @@ Public Class D_AdminArticulos
                           "",
                           ViaAdministracion,
                           0,
-                           Promocion,
-                           False,
-                            "NO APLICA",
+                          TipoPromocion,
+                          False,
+                          "NO APLICA",
                           1,
                           0,
                           False,
@@ -64,13 +66,15 @@ Public Class D_AdminArticulos
 
         Dim a As Articulo = Nothing
         Dim la As New List(Of Articulo)
-        Dim TipoControl As TipoControl = New TipoControl("0")
+        Dim TipoVenta As New TipoVenta("7")
+        Dim TipoControl As New TipoControl("0")
+        Dim TamanioEnvase As New TamanioEnvase("0")
         Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
         Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
         Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
         Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
         Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
-        Dim Promocion As Promocion = New Promocion("0")
+        Dim TipoPromocion As New TipoPromocion("0")
 
         a = New Articulo(
                          "0",
@@ -78,10 +82,10 @@ Public Class D_AdminArticulos
                           "",
                           "",
                           UCase(argDescripcion.Substring(1)),
-                          TipoVenta.NoClasificado,
+                          TipoVenta,
                           21,
                           1,
-                          TamanioEnvase.NoClasificado,
+                          TamanioEnvase,
                           Now.Date,
                           0,
                           0,
@@ -99,9 +103,9 @@ Public Class D_AdminArticulos
                           "",
                           ViaAdministracion,
                           0,
-                           Promocion,
-                           False,
-                         "NO APLICA",
+                          TipoPromocion,
+                          False,
+                          "NO APLICA",
                           1,
                           0,
                           False,
@@ -195,7 +199,7 @@ Public Class D_AdminArticulos
 
         Catch ex As Exception
 
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerArticuloPorId", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerArticuloPorId), ex.Message))
 
         End Try
 
@@ -287,15 +291,15 @@ Public Class D_AdminArticulos
 
         Catch ex As Exception
 
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulos", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarArticulos), ex.Message))
 
         End Try
 
     End Function
 
     Public Function InsertarArticulo(
-                                    argCodBarras As String,
                                     argNTroquel As String,
+                                    argCodBarras As String,
                                     argNombre As String,
                                     argCodiTV As String,
                                     argAlicIVA As Decimal,
@@ -325,6 +329,8 @@ Public Class D_AdminArticulos
                         .Add("p_CodiLabora", MySqlDbType.Int32).Value = argCodiLabora
                         .Add("p_CodiMon", MySqlDbType.Int32).Value = argCodiMon
                         .Add("p_CodiAcFa", MySqlDbType.Int32).Value = argCodiAcFa
+                        .Add("p_CodiTiCo", MySqlDbType.VarChar).Value = argCodiTiCo
+                        .Add("p_Heladera", MySqlDbType.Bit).Value = argHeladera
                         .Add("p_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                         .Add("p_IdArticulo", MySqlDbType.VarChar, 10)
                     End With
@@ -338,7 +344,7 @@ Public Class D_AdminArticulos
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarArticulo", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarArticulo), Ex.Message))
             Return ""
 
         End Try
@@ -346,13 +352,20 @@ Public Class D_AdminArticulos
     End Function
 
     Public Function ActualizarArticulo(
-                                        ByVal argIdArticulo As String,
-                                        ByVal argCodigo As String,
-                                        ByVal argCodBarras As String,
-                                        ByVal argNombre As String,
-                                        ByVal argAlicIVA As Decimal,
-                                        ByVal argBaja As Boolean,
-                                        ByVal argIdSeccion As String
+                                        argIdArticulo As String,
+                                        argCodBarras As String,
+                                        argNTroquel As String,
+                                        argNombre As String,
+                                        argCodiTV As String,
+                                        argAlicIVA As Decimal,
+                                        argCodiTE As String,
+                                        argCodiLabora As Integer,
+                                        argCodiMon As Integer,
+                                        argCodiAcFa As Integer,
+                                        argCodiTiCo As String,
+                                        argHeladera As Boolean,
+                                        argBaja As Boolean,
+                                        argIdSeccion As String
                                         ) As Boolean
 
 
@@ -363,13 +376,20 @@ Public Class D_AdminArticulos
 
                 Using cmd As New MySqlCommand("sp_actualizar_articulo", cn) With {.CommandType = CommandType.StoredProcedure}
                     With cmd.Parameters
-                        .Add("_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
-                        .Add("_Codigo", MySqlDbType.VarChar).Value = argCodigo
-                        .Add("_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
-                        .Add("_Nombre", MySqlDbType.VarChar).Value = argNombre
-                        .Add("_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
-                        .Add("_Baja", MySqlDbType.Bit).Value = argBaja
-                        .Add("_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
+                        .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argIdArticulo
+                        .Add("p_CodBarras", MySqlDbType.VarChar).Value = argCodBarras
+                        .Add("p_NTroquel", MySqlDbType.VarChar).Value = argNTroquel
+                        .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
+                        .Add("p_CodiTV", MySqlDbType.VarChar).Value = argCodiTV
+                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
+                        .Add("p_CodiTE", MySqlDbType.VarChar).Value = argCodiTE
+                        .Add("p_CodiLabora", MySqlDbType.VarChar).Value = argCodiLabora
+                        .Add("p_CodiMon", MySqlDbType.VarChar).Value = argCodiMon
+                        .Add("p_CodiAcFa", MySqlDbType.VarChar).Value = argCodiAcFa
+                        .Add("p_CodiTiCo", MySqlDbType.VarChar).Value = argCodiTiCo
+                        .Add("p_Heladera", MySqlDbType.Bit).Value = argHeladera
+                        .Add("p_Baja", MySqlDbType.Bit).Value = argBaja
+                        .Add("p_IdSeccion", MySqlDbType.VarChar).Value = argIdSeccion
                     End With
 
                     Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())
@@ -380,7 +400,7 @@ Public Class D_AdminArticulos
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarArticulo", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarArticulo), Ex.Message))
 
         End Try
 

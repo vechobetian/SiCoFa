@@ -71,6 +71,7 @@ Module ModInicio
             Dim sqlEmpresa As String = $"SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa = '{IdEmpresa}'"
 
             Dim registroEmpresa As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlEmpresa)
+            Dim objDocumento As New Documento(Convert.ToString(registroEmpresa("CodiTDoc")), Convert.ToString(registroEmpresa("NumDoc")))
             Dim objEmpresa As New Empresa(
                                     argIdEmpresa:=Convert.ToInt32(registroEmpresa("IdEmpresa")),
                                     argNombre:=Convert.ToString(registroEmpresa("Nombre")),
@@ -79,8 +80,7 @@ Module ModInicio
                                     argProvincia:=Convert.ToString(registroEmpresa("Provincia")),
                                     argTelefono:=Convert.ToString(registroEmpresa("Telefono")),
                                     argEmail:=Convert.ToString(registroEmpresa("Email")),
-                                    argCodiTDoc:=Convert.ToString(registroEmpresa("CodiTDoc")),
-                                    argNumDoc:=Convert.ToString(registroEmpresa("NumDoc")),
+                                    argDocumento:=objDocumento,
                                     argFechaAlta:=Convert.ToDateTime(registroEmpresa("FechaAlta")),
                                     argEstado:=Convert.ToString(registroEmpresa("Estado")),
                                     argCodIVA:=Convert.ToString(registroEmpresa("CodIVA")),
@@ -112,7 +112,6 @@ Module ModInicio
         Try
 
             Dim AdminUsuarios As New N_AdminUsuarios
-            Dim objAdminSiCoFa As New N_AdminSiCoFa
             Dim lu As List(Of Usuario) = AdminUsuarios.ListarUsuarios("*")
 
             If lu.Count = 1 Then

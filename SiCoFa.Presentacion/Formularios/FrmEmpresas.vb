@@ -8,7 +8,7 @@ Public Class FrmEmpresas
     Private Sub ObtenerTiposIVA()
 
         Try
-            Me.IVA.DataSource = mobj_AdminSicofa.TiposIVA
+            Me.IVA.DataSource = TipoIVA.Lista
             Me.IVA.ValueMember = "CodIVA"
             Me.IVA.DisplayMember = "TipoIVA"
             Me.IVA.SelectedIndex = -1
@@ -46,16 +46,16 @@ Public Class FrmEmpresas
 
             If le Is Nothing Then
                 MsgBox("Empresa no Encontrada", vbInformation, "SiCoFa")
-                Me.Nombre.Text = ""
-                Me.Nombre.Select()
+                Me.TxtNombre.Text = ""
+                Me.TxtNombre.Select()
                 Exit Sub
             End If
 
             Select Case le.Count
                 Case 0
                     MsgBox("Empresa no Encontrada", vbInformation, "SiCoFa")
-                    Me.Nombre.Text = ""
-                    Me.Nombre.Select()
+                    Me.TxtNombre.Text = ""
+                    Me.TxtNombre.Select()
                     Exit Sub
                 Case 1
                     e = le.First
@@ -74,8 +74,8 @@ Public Class FrmEmpresas
             With Me
                 .LimpiarFormulario()
                 .MostrarEmpresa(e)
-                .Nombre.Select()
-                .Nombre.SelectAll()
+                .TxtNombre.Select()
+                .TxtNombre.SelectAll()
             End With
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -87,18 +87,18 @@ Public Class FrmEmpresas
 
         Try
             With Me
-                .Id.Text = argEmpresa.Id
-                .Nombre.Text = argEmpresa.Nombre
-                .Domicilio.Text = argEmpresa.Domicilio
-                .Localidad.Text = argEmpresa.Localidad
-                .Provincia.Text = argEmpresa.Provincia
-                .Telefono.Text = argEmpresa.Telefono
-                .Email.Text = argEmpresa.Email
-                .TipoDoc.Text = argEmpresa.Documento.TipoDoc.CodiTDoc
-                .NumDoc.Text = argEmpresa.Documento.Numero
-                .FechaAlta.Text = argEmpresa.FechaAlta
-                .Estado.Text = argEmpresa.Estado
-                .IVA.Text = argEmpresa.IVA.TipoIVA
+                .TxtId.Text = argEmpresa.Id
+                .TxtNombre.Text = argEmpresa.Nombre
+                .TxtDomicilio.Text = argEmpresa.Domicilio
+                .TxtLocalidad.Text = argEmpresa.Localidad
+                .UcProvincia.Descripcion = argEmpresa.Provincia
+                .TxtTelefono.Text = argEmpresa.Telefono
+                .TxtEmail.Text = argEmpresa.Email
+                .UcTipoDoc.Text = argEmpresa.Documento.TipoDoc.CodiTDoc
+                .TxtNumDoc.Text = argEmpresa.Documento.Numero
+                .TxtFechaAlta.Text = argEmpresa.FechaAlta
+                .UcEstado.Descripcion = argEmpresa.Estado
+                .IVA.Text = argEmpresa.IVA.Descripcion
                 .IB.Text = argEmpresa.IB
             End With
 
@@ -118,11 +118,11 @@ Public Class FrmEmpresas
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminEmpresas.InsertarEmpresa(Me.Nombre.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.IB.Text)
+                Dim Id As Integer = mAdminEmpresas.InsertarEmpresa(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.TxtNumDoc.Text, Me.TxtFechaAlta.Text, Me.IVA.SelectedValue, Me.IB.Text)
                 If Id > 0 Then
-                    Me.Id.Text = Id
-                    Me.Nombre.Text = UCase(Me.Nombre.Text)
-                    MsgBox("Se dio de alta la Empresa " & Nombre.Text,, "SiCoFa")
+                    Me.TxtId.Text = Id
+                    Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
+                    MsgBox("Se dio de alta la Empresa " & TxtNombre.Text,, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
@@ -130,15 +130,15 @@ Public Class FrmEmpresas
                 Me.NuevaPersona = False
                 Me.Nuevo.Checked = False
             Else
-                If Me.Id.Text = "" Then
-                    MsgBox("La Empresa " & Me.Nombre.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
+                If Me.TxtId.Text = "" Then
+                    MsgBox("La Empresa " & Me.TxtNombre.Text & " no fue dada de Alta", vbInformation, "SiCoFa")
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminEmpresas.ActualizarEmpresa(Me.Id.Text, Me.Domicilio.Text, Me.Localidad.Text, Me.Provincia.Text, Me.Telefono.Text, Me.Email.Text, Me.NumDoc.Text, Me.FechaAlta.Text, Me.IVA.SelectedValue, Me.Estado.Text, Me.IB.Text)
+                Dim Actualizado As Boolean = mAdminEmpresas.ActualizarEmpresa(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.TxtNumDoc.Text, Me.TxtFechaAlta.Text, Me.IVA.SelectedValue, Me.UcEstado.Descripcion, Me.IB.Text)
 
                 If Actualizado = True Then
-                    MsgBox("La Empresa " & Nombre.Text & " se acutalizo correctamente",, "SiCoFa")
+                    MsgBox("La Empresa " & TxtNombre.Text & " se acutalizo correctamente",, "SiCoFa")
                 Else
                     MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
                     Exit Sub
@@ -146,7 +146,7 @@ Public Class FrmEmpresas
             End If
 
             Me.LimpiarFormulario()
-            Me.Nombre.Select()
+            Me.TxtNombre.Select()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -195,11 +195,11 @@ Public Class FrmEmpresas
 
             MyBase.Nombre_Validating(sender, e)
 
-            If Me.Nombre.Text = "" Or Me.NuevaPersona = True Or Me.Id.Text <> "" Then
+            If Me.TxtNombre.Text = "" Or Me.NuevaPersona = True Or Me.TxtId.Text <> "" Then
                 Exit Sub
             End If
 
-            Me.BuscarEmpresa(Me.Nombre.Text)
+            Me.BuscarEmpresa(Me.TxtNombre.Text)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

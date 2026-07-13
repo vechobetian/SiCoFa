@@ -495,8 +495,7 @@ Public Class FrmMovimientosCC
 
         objCb.IdOperAsoc = objCb.IdOperacion
 
-        Dim AdminSiCoFa As New N_AdminSiCoFa
-        objCb.TipoComprobante = AdminSiCoFa.ObtenerTipoComprobanteVenta(g_ParametrosTerminal.Empresa.IVA.CodIVA, objCb.Cliente.IVA.CodIVA)
+        objCb.TipoComprobante = AdminComprobantes.ObtenerTipoComprobanteVenta(g_ParametrosTerminal.Empresa.IVA.CodIVA, objCb.Cliente.IVA.CodIVA)
 
         Try
             AdminOperaciones.FacturacionRemitoTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, User, objCb, "")

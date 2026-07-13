@@ -6,15 +6,15 @@ Public Module ArticuloMapper
 
     Public Function Map(datos As MySqlDataReader) As Articulo
 
-        Dim TipoVenta As TipoVenta = TipoVentaHelper.FromManualDat(datos("CodiTV").ToString())
-        Dim TamanioEnvase As TamanioEnvase = TamanioEnvaseHelper.FromManualDat(datos("CodiTE").ToString())
+        Dim TipoVenta As New TipoVenta(datos("CodiTV").ToString())
+        Dim TamanioEnvase As New TamanioEnvase(datos("CodiTE").ToString)
         Dim TipoControlResult As New TipoControl(datos("CodiTiCo").ToString())
         Dim Laboratorio As New Laboratorio(Convert.ToInt32(datos("CodiLabora")), datos("Laboratorio").ToString())
         Dim Monodroga As New Monodroga(Convert.ToInt32(datos("CodiMon")), datos("Monodroga").ToString())
         Dim AccionFarmacologica As New AccionFarmacologica(Convert.ToInt32(datos("CodiAcFa")), datos("AccionFarmacologica").ToString())
         Dim Seccion As New Seccion(datos("IdSeccion").ToString(), datos("Seccion").ToString(), Convert.ToBoolean(datos("EstablecerPrecio")))
         Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(Convert.ToInt32(datos("CodiVia")), datos("ViaAdministracion").ToString)
-        Dim Promocion As Promocion = New Promocion(datos("CodiPro").ToString)
+        Dim TipoPromocion As New TipoPromocion(datos("CodiPro").ToString)
         Dim ListaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios"))
 
 
@@ -45,7 +45,7 @@ Public Module ArticuloMapper
                             datos("GTIN").ToString,
                             ViaAdministracion,
                             Convert.ToDecimal(datos("DesOferta")),
-                            Promocion,
+                            TipoPromocion,
                             datos("Fraccionable"),
                             datos("DFrac").ToString,
                             Convert.ToInt32(datos("UDiv")),

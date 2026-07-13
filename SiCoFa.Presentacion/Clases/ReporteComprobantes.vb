@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 
 Public Class ReporteComprobantes
 
-    Public mobj_AdminSicofa As New N_AdminSiCoFa
+    Public AdminComprobantes As New N_AdminComprobantes
 
     Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante, ByVal argNumCopias As Int16)
 

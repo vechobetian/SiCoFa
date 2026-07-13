@@ -86,7 +86,6 @@ Public Class N_AdminProveedores
                                                                                argEmail,
                                                                                argCodiTDoc,
                                                                                argNumDoc,
-                                                                               argCodIVA,
                                                                                argEstado
                                                                                )
             Return Actualizado

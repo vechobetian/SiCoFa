@@ -49,7 +49,7 @@ Public Class D_AdminRecetas
                     .Add("p_Credencial", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Numero)
                     .Add("p_Nombre", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Nombre)
                     .Add("p_CodiTMat", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.CodiTMat)
-                    .Add("p_CodiProv", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Provincia.CodigoProvincia)
+                    .Add("p_CodiProv", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Provincia.CodiProvincia)
                     .Add("p_CodiTPres", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.TipoPrescriptor.CodiTPres)
                     .Add("p_NumMatricula", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.Numero)
                     .Add("p_ImporteTotal", MySqlDbType.Decimal).Value = argReceta.ImporteTotal
@@ -73,7 +73,7 @@ Public Class D_AdminRecetas
             Return True
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertReceta", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarReceta), Ex.Message))
 
         End Try
 
