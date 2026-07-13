@@ -5,7 +5,7 @@ Public Module PlanOSMapper
 
     Public Function Map(datos As MySqlDataReader) As PlanOS
 
-        Dim PValOS As ParametrosValidacion = Nothing
+        Dim pValOS As ParametrosValidacion = Nothing
 
         If Not IsDBNull(datos("ValidadorOS")) Then
             PValOS = New ParametrosValidacion(
@@ -21,7 +21,7 @@ Public Module PlanOSMapper
                 )
         End If
 
-        Dim OS As New ObraSocial(
+        Dim os As New ObraSocial(
             Convert.ToInt32(datos("IdOS")),
             datos("NombreOS").ToString(),
             If(IsDBNull(datos("ValidadorOS")), Nothing, datos("ValidadorOS")).ToString(),
@@ -30,7 +30,7 @@ Public Module PlanOSMapper
             Nothing
         )
 
-        Dim PValCS As ParametrosValidacion = Nothing
+        Dim pValCS As ParametrosValidacion = Nothing
 
         If Not IsDBNull(datos("ValidadorCS")) Then
             PValOS = New ParametrosValidacion(
@@ -46,26 +46,41 @@ Public Module PlanOSMapper
                 )
         End If
 
-        Dim CS As ObraSocial = Nothing
+        Dim cs As ObraSocial = Nothing
 
         If Convert.ToInt32(datos("IdCS")) > 0 Then
 
-            CS = New ObraSocial(
+            cs = New ObraSocial(
                 Convert.ToInt32(datos("IdCS")),
                 datos("NombreCS").ToString(),
                 If(IsDBNull(datos("ValidadorCS")), Nothing, datos("ValidadorCS")).ToString(),
-                PValCS,
+                pValCS,
                 Convert.ToBoolean(datos("ComprobanteFiscalCS")),
                 Nothing
             )
 
         End If
 
+        Dim dr As DatosRequeridos = Nothing
+
+        If Not datos.IsDBNull(datos.GetOrdinal("NumRta")) Then
+            dr = New DatosRequeridos(
+                                    Convert.ToBoolean(datos("NumRta")),
+                                    Convert.ToBoolean(datos("NumAf")),
+                                    Convert.ToBoolean(datos("NombreAf")),
+                                    Convert.ToBoolean(datos("DocumentoAf")),
+                                    Convert.ToBoolean(datos("IncluyeVL")),
+                                    Convert.ToBoolean(datos("Prescriptor")),
+                                    Convert.ToBoolean(datos("Token")),
+                                    Convert.ToBoolean(datos("Diagnostico"))
+                                    )
+        End If
+
         Return New PlanOS(
             Convert.ToInt64(datos("IdPlan")),
             datos("Descripcion").ToString(),
-            OS,
-            CS,
+            os,
+            cs,
             Convert.ToInt32(datos("Proceso")),
             Convert.ToInt32(datos("CodiLabora")),
             Convert.ToInt32(datos("IdVdm1")),
@@ -82,7 +97,8 @@ Public Module PlanOSMapper
             Convert.ToInt32(datos("DiasVencimientoRta")),
             Convert.ToBoolean(datos("Display")),
             If(IsDBNull(datos("Observaciones")), Nothing, datos("Observaciones").ToString()),
-            If(IsDBNull(datos("PlanValidacion")), Nothing, datos("PlanValidacion").ToString())
+            If(IsDBNull(datos("PlanValidacion")), Nothing, datos("PlanValidacion").ToString()),
+            dr
             )
 
     End Function

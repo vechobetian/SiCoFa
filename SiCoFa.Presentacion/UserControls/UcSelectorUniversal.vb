@@ -407,6 +407,10 @@ Public Class UcSelectorUniversal
 
     End Function
 
+    Private Sub UcSelectorUniversal_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.TxtSelector.Font = Me.Font
+    End Sub
+
 #End Region
 
 End Class

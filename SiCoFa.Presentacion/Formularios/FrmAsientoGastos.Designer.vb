@@ -239,7 +239,7 @@ Partial Class FrmAsientoGastos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(787, 500)
+        Me.ClientSize = New System.Drawing.Size(784, 500)
         Me.Controls.Add(Me.brnFinalizar)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)

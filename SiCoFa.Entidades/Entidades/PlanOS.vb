@@ -22,29 +22,31 @@
     Public Property Display As Boolean
     Public Property Observaciones As String
     Public Property PlanValidacion As String
+    Public Property DatosRequeridos As DatosRequeridos
 
     Public Sub New(
-                  ByVal argIdPlan As Long,
-                  ByVal argDescripcion As String,
-                  ByVal argOS As ObraSocial,
-                  ByVal argCS As ObraSocial,
-                  ByVal argProceso As Integer,
-                  ByVal argCodiLabora As Integer,
-                  ByVal argIdVdm1 As Integer,
-                  ByVal argDesGeneral1 As Decimal,
-                  ByVal argIdVdm2 As Integer,
-                  ByVal argDesGeneral2 As Decimal,
-                  ByVal argAtbMonoD As Integer,
-                  ByVal argAtbMultiD As Integer,
-                  ByVal argUnidRpChico As Integer,
-                  ByVal argUnidRpGrande As Integer,
-                  ByVal argLineasRta As Integer,
-                  ByVal argEnvGrandeRta As Integer,
-                  ByVal argIncluyeVL As Boolean,
-                  ByVal argDiasVencimientoRta As Integer,
-                  ByVal argDisplay As Boolean,
-                  ByVal argObservaciones As String,
-                  ByVal argPlanValidacion As String
+                    argIdPlan As Long,
+                    argDescripcion As String,
+                    argOS As ObraSocial,
+                    argCS As ObraSocial,
+                    argProceso As Integer,
+                    argCodiLabora As Integer,
+                    argIdVdm1 As Integer,
+                    argDesGeneral1 As Decimal,
+                    argIdVdm2 As Integer,
+                    argDesGeneral2 As Decimal,
+                    argAtbMonoD As Integer,
+                    argAtbMultiD As Integer,
+                    argUnidRpChico As Integer,
+                    argUnidRpGrande As Integer,
+                    argLineasRta As Integer,
+                    argEnvGrandeRta As Integer,
+                    argIncluyeVL As Boolean,
+                    argDiasVencimientoRta As Integer,
+                    argDisplay As Boolean,
+                    argObservaciones As String,
+                    argPlanValidacion As String,
+                    argDatosRequeridos As DatosRequeridos
                   )
 
         Me.IdPlan = argIdPlan
@@ -68,7 +70,7 @@
         Me.Display = argDisplay
         Me.Observaciones = argObservaciones
         Me.PlanValidacion = argPlanValidacion
-
+        Me.DatosRequeridos = argDatosRequeridos
     End Sub
 
 End Class

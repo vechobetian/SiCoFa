@@ -93,6 +93,7 @@
     <Compile Include="Entidades\Prescriptor.vb" />
     <Compile Include="Entidades\Receta.vb" />
     <Compile Include="Tipos\Buleano.vb" />
+    <Compile Include="Tipos\SelectorItem.vb" />
     <Compile Include="Tipos\TipoPrescriptor.vb" />
     <Compile Include="Tipos\AlicuotaIVA.vb" />
     <Compile Include="Tipos\TipoPromocion.vb" />

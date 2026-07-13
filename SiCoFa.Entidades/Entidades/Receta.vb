@@ -9,6 +9,7 @@
     Public Property Documento As Documento
     Public Property Credencial As CredencialOS
     Public Property Prescriptor As Prescriptor
+    Public Property Token As String
     Public Property ImporteTotal As Decimal
     Public Property ImporteOS As Decimal
     Public Property ImporteCS As Decimal

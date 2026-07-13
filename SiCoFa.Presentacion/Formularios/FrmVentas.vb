@@ -962,10 +962,19 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
+    Private Sub InsertRecetaToolStripButton_Clic(sender As Object, e As EventArgs)
 
-        Dim AdminOS As New N_AdminObraSociales
-        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(1101)
+        Dim PlanOS As PlanOS = Nothing
+
+        Using frm As New FrmSelectorPlanesOS
+
+            If frm.ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            PlanOS = frm.PlanSeleccionado
+
+        End Using
 
         Dim receta As New Receta(PlanOS)
 
@@ -1037,6 +1046,27 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
+
+        Dim PlanOS As PlanOS = Nothing
+
+        Using frm As New FrmSelectorPlanesOS
+
+            If frm.ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            PlanOS = frm.PlanSeleccionado
+
+        End Using
+
+        Dim receta As New Receta(PlanOS)
+
+        receta.IdReceta = ObtenerNuevoIdReceta()
+        Me.CargarRecetaEnPantalla(receta)
+
+    End Sub
+
     Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
 
         Dim AdminOS As New N_AdminObraSociales
@@ -1060,7 +1090,7 @@ Public Class FrmVentas
 
         Dim adminArticulos As New N_AdminArticulos
 
-        If receta Is Nothing OrElse receta.Items Is Nothing Then Exit Sub
+        If receta Is Nothing Then Exit Sub
 
         ' Buscar el item libre vacío
         Dim indice As Integer = mobj_Items.ToList().FindIndex(Function(i) i.Receta Is Nothing AndAlso i.Articulo Is Nothing)
@@ -1074,30 +1104,45 @@ Public Class FrmVentas
         ' Guardar referencia al primer item de la receta
         Dim primerItemReceta As ItemComprobante = Nothing
 
-        ' Buscamos o creamos la receta en memoria global
-        Dim rec As Receta = mobj_Recetas.FirstOrDefault(Function(r) r.IdReceta = receta.IdReceta)
+        mobj_Recetas.Add(receta)
 
-        If rec Is Nothing Then
-            mobj_Recetas.Add(receta)
-            rec = receta
+        If receta.Items IsNot Nothing Then
+
+            For Each i As ItemComprobante In receta.Items
+                Dim a As Articulo = adminArticulos.ObtenerArticuloPorId(i.IdArticulo)
+                With i
+                    i.Articulo = a
+                    i.EsNuevo = True
+                    i.Receta = receta
+                End With
+
+                If primerItemReceta Is Nothing Then
+                    primerItemReceta = i
+                End If
+
+                mobj_Items.Insert(indice, i)
+                indice += 1
+
+            Next
+
+        Else
+            For i As Integer = 1 To receta.Plan.LineasRta
+
+                Dim item As New ItemComprobante()
+
+                item.EsNuevo = True
+                item.Receta = receta
+
+                If primerItemReceta Is Nothing Then
+                    primerItemReceta = item
+                End If
+
+                mobj_Items.Insert(indice, item)
+
+                indice += 1
+
+            Next
         End If
-
-        For Each i As ItemComprobante In receta.Items
-            Dim a As Articulo = adminArticulos.ObtenerArticuloPorId(i.IdArticulo)
-            With i
-                i.Articulo = a
-                i.EsNuevo = True
-                i.Receta = rec
-            End With
-
-            If primerItemReceta Is Nothing Then
-                primerItemReceta = i
-            End If
-
-            mobj_Items.Insert(indice, i)
-            indice += 1
-
-        Next
 
         ' Nuevo item libre al final
         Dim itemLibre As New ItemComprobante()
