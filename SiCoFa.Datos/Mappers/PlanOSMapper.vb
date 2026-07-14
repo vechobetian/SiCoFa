@@ -65,11 +65,11 @@ Public Module PlanOSMapper
 
         If Not datos.IsDBNull(datos.GetOrdinal("NumRta")) Then
             dr = New DatosRequeridos(
+                                    Convert.ToInt64(datos("IdPlan")),
                                     Convert.ToBoolean(datos("NumRta")),
                                     Convert.ToBoolean(datos("NumAf")),
                                     Convert.ToBoolean(datos("NombreAf")),
                                     Convert.ToBoolean(datos("DocumentoAf")),
-                                    Convert.ToBoolean(datos("IncluyeVL")),
                                     Convert.ToBoolean(datos("Prescriptor")),
                                     Convert.ToBoolean(datos("Token")),
                                     Convert.ToBoolean(datos("Diagnostico"))

@@ -1063,6 +1063,15 @@ Public Class FrmVentas
         Dim receta As New Receta(PlanOS)
 
         receta.IdReceta = ObtenerNuevoIdReceta()
+
+        Using frm As New FrmDatosReceta(receta)
+
+            If frm.ShowDialog() = DialogResult.OK Then
+                ' receta ya fue modificada
+            End If
+
+        End Using
+
         Me.CargarRecetaEnPantalla(receta)
 
     End Sub
@@ -1076,8 +1085,8 @@ Public Class FrmVentas
 
         receta.IdReceta = ObtenerNuevoIdReceta()
 
-        Dim c As New CredencialOS("14021682880700", "")
-        receta.Credencial = c
+        'Dim c As New CredencialOS("14021682880700", "")
+        'receta.Credencial = c
         receta.NumReceta = "8263155276740"
         Dim adminRecetas As New N_AdminRecetas
         'adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
