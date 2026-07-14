@@ -99,6 +99,7 @@
     <Compile Include="Tipos\TipoPromocion.vb" />
     <Compile Include="Tipos\TamanioEnvase.vb" />
     <Compile Include="Tipos\TipoControl.vb" />
+    <Compile Include="Tipos\TipoTratamiento.vb" />
     <Compile Include="Tipos\TipoVenta.vb" />
     <Compile Include="Entidades\ItemAsientoContable.vb" />
     <Compile Include="Entidades\ItemComprobanteNC.vb" />

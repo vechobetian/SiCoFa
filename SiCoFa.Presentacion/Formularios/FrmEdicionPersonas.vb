@@ -31,8 +31,8 @@ Public Class FrmEdicionPersonas
                 .NombrePropiedadDescripcion = "Descripcion"
                 .TituloSelector = "Tipos Documento"
                 .HeaderDescripcion = "Tipo Documento"
-                .ValorPredeterminado = "DNI"
-                .TextoPredeterminado = "DOCUMENTO NACIONAL DE IDENTIDAD"
+                .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTDoc
+                .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
                 .PermitirVacio = False
             End With
 

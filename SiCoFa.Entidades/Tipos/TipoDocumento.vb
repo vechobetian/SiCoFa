@@ -40,6 +40,12 @@
         End Get
     End Property
 
+    Public Shared ReadOnly Property Predeterminado As TipoDocumento
+        Get
+            Return New TipoDocumento("DNI")
+        End Get
+    End Property
+
     Public ReadOnly Property Descripcion As String
         Get
             Return m_Descripcion

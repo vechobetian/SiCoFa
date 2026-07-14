@@ -18,8 +18,8 @@ Public Class FrmArticulos
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Tipos de Venta"
             .HeaderDescripcion = "Tipo de Venta"
-            .ValorPredeterminado = "7"
-            .TextoPredeterminado = "NO CLASIFICADO"
+            .ValorPredeterminado = TipoVenta.Predeterminado.CodiTV
+            .TextoPredeterminado = TipoVenta.Predeterminado.Descripcion
             .PermitirVacio = False
         End With
 
@@ -47,8 +47,8 @@ Public Class FrmArticulos
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Tamaños Envase"
             .HeaderDescripcion = "Tamaño Envase"
-            .ValorPredeterminado = 0
-            .TextoPredeterminado = "NO CLASIFICADO"
+            .ValorPredeterminado = TamanioEnvase.Predeterminado.CodiTE
+            .TextoPredeterminado = TamanioEnvase.Predeterminado.Descripcion
             .PermitirVacio = False
         End With
 
@@ -107,8 +107,8 @@ Public Class FrmArticulos
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Tipos de control"
             .HeaderDescripcion = "Tipo de control"
-            .ValorPredeterminado = 0
-            .TextoPredeterminado = "NO CONTROLADO"
+            .ValorPredeterminado = TipoControl.Predeterminado.CodiTiCo
+            .TextoPredeterminado = TipoControl.Predeterminado.Descripcion
             .PermitirVacio = False
         End With
 

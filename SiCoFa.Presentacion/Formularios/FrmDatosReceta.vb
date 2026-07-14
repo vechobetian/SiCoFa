@@ -3,24 +3,65 @@
 Public Class FrmDatosReceta
     Private m_Receta As Receta
 
+    Private Sub CargarSelectorTratamiento()
+
+        Try
+            With UcTratamiento
+                .Objetos = TipoTratamiento.Lista
+                .NombrePropiedadId = "CodiTT"
+                .NombrePropiedadDescripcion = "Descripcion"
+                .TituloSelector = "Tipos Tratamiento"
+                .HeaderDescripcion = "Tipo Tratamiento"
+                .ValorPredeterminado = TipoTratamiento.Predeterminado.CodiTT
+                .TextoPredeterminado = TipoTratamiento.Predeterminado.Descripcion
+                .PermitirVacio = False
+            End With
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub AgregarCampoTipoDocumento()
+
+        Dim uc As New UcSelectorUniversal
+
+        With uc
+            .Objetos = TipoDocumento.Lista
+            .NombrePropiedadId = "CodiTDoc"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Tipos Documento"
+            .HeaderDescripcion = "Tipo Documento"
+            .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTDocADESFA
+            .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
+            .PermitirVacio = False
+            .Tag = "Credencial.Documento.TipoDoc"
+        End With
+
+        AgregarCampo("Tipo Documento", uc)
+
+    End Sub
+
     Public Sub New(argReceta As Receta)
 
         InitializeComponent()
 
         m_Receta = argReceta
 
+        Me.CargarSelectorTratamiento()
         Me.CargarDatosRequeridos()
 
     End Sub
 
-    Private Sub AgregarCampoTexto(argTitulo As String, argNombrePropiedad As String)
+    Private Sub AgregarCampo(argTitulo As String, argControl As Control)
 
         ' Panel contenedor
         Dim pnl As New Panel
 
         With pnl
-            .Width = FlowLayoutPanel1.ClientSize.Width - 25
-            .Height = 55
+            .Width = FlowLayoutPanel1.ClientSize.Width
+            .Height = 40
             .Margin = New Padding(3)
         End With
 
@@ -28,40 +69,51 @@ Public Class FrmDatosReceta
         Dim lbl As New Label
 
         With lbl
-            .Text = argTitulo
+            .Text = argTitulo & ": "
             .AutoSize = False
-            .Location = New Point(12, 36)
+            .Width = 255
+            .Height = 30
+            .Location = New Point(0, 5)
+            .TextAlign = ContentAlignment.MiddleLeft
             .Font = New Font("Microsoft Sans Serif", 18, FontStyle.Regular)
         End With
 
-        ' Caja de texto
+        ' Posicionar el control recibido
+        With argControl
+            .Location = New Point(259, 3)
+            .Width = 500
+            .Height = 35
+        End With
+
+        pnl.Controls.Add(lbl)
+        pnl.Controls.Add(argControl)
+
+        FlowLayoutPanel1.Controls.Add(pnl)
+
+    End Sub
+
+    Private Sub AgregarCampoTexto(argTitulo As String, argNombrePropiedad As String)
+
         Dim txt As New TextBox
 
         With txt
             .Name = "Txt" & argNombrePropiedad
             .Tag = argNombrePropiedad
-            .Width = pnl.Width
-            .Location = New Point(0, 22)
-            .Font = New Font("Microsoft Sans Serif", 18, FontStyle.Regular)
+            '.Font = New Font("Microsoft Sans Serif", 18, FontStyle.Regular)
         End With
 
-        ' Si la propiedad ya tiene un valor en la receta, lo mostramos
+        ' Cargar valor...
         Dim p = GetType(Receta).GetProperty(argNombrePropiedad)
 
         If p IsNot Nothing Then
-
             Dim valor = p.GetValue(m_Receta)
 
             If valor IsNot Nothing Then
                 txt.Text = valor.ToString()
             End If
-
         End If
 
-        pnl.Controls.Add(lbl)
-        pnl.Controls.Add(txt)
-
-        FlowLayoutPanel1.Controls.Add(pnl)
+        AgregarCampo(argTitulo, txt)
 
     End Sub
 
@@ -84,7 +136,7 @@ Public Class FrmDatosReceta
         End If
 
         If dr.DocumentoAfiliado Then
-            AgregarCampoTexto("Tipo Documento", NameOf(m_Receta.Credencial.Documento.TipoDoc))
+            AgregarCampoTipoDocumento()
             AgregarCampoTexto("Numero Documento", NameOf(m_Receta.Credencial.Documento.Numero))
         End If
 
@@ -95,6 +147,22 @@ Public Class FrmDatosReceta
         If dr.Token Then
             AgregarCampoTexto("Token", NameOf(m_Receta.Credencial.Token))
         End If
+
+        AjustarTamañoFormulario()
+
+    End Sub
+
+    Private Sub AjustarTamañoFormulario()
+
+        Dim altura As Integer = 0
+
+        For Each ctrl As Control In FlowLayoutPanel1.Controls
+            altura += ctrl.Height + ctrl.Margin.Top + ctrl.Margin.Bottom
+        Next
+
+        FlowLayoutPanel1.Height = altura + 10
+
+        Me.Height = FlowLayoutPanel1.Bottom + 50
 
     End Sub
 
