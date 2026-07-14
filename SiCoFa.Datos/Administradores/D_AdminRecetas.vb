@@ -50,7 +50,7 @@ Public Class D_AdminRecetas
                     .Add("p_Nombre", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Nombre)
                     .Add("p_CodiTMat", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.CodiTMat)
                     .Add("p_CodiProv", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Provincia.CodiProvincia)
-                    .Add("p_CodiTPres", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.TipoPrescriptor.CodiTPres)
+                    .Add("p_CodiTPres", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.TipoPrescriptor.CodiTP)
                     .Add("p_NumMatricula", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.Numero)
                     .Add("p_ImporteTotal", MySqlDbType.Decimal).Value = argReceta.ImporteTotal
                     .Add("p_ImporteOS", MySqlDbType.Decimal).Value = argReceta.ImporteOS

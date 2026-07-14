@@ -37,6 +37,27 @@ Public Class FrmDatosReceta
             .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
             .PermitirVacio = False
             .Tag = "Credencial.Documento.TipoDoc"
+            .Name = "UcTipoDocumento"
+        End With
+
+        AgregarCampo("Tipo Documento", uc)
+
+    End Sub
+
+    Private Sub AgregarCampoTipoPrescriptor()
+
+        Dim uc As New UcSelectorUniversal
+
+        With uc
+            .Objetos = TipoPrescriptor.Lista
+            .NombrePropiedadId = "CodiTP"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Tipos Documento"
+            .HeaderDescripcion = "Tipo Documento"
+            .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTDocADESFA
+            .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
+            .PermitirVacio = False
+            .Tag = "Credencial.Documento.TipoDoc"
         End With
 
         AgregarCampo("Tipo Documento", uc)
@@ -144,8 +165,16 @@ Public Class FrmDatosReceta
             AgregarCampoTexto("Número Receta", NameOf(m_Receta.NumReceta))
         End If
 
+        If dr.Prescriptor Then
+
+        End If
+
         If dr.Token Then
             AgregarCampoTexto("Token", NameOf(m_Receta.Credencial.Token))
+        End If
+
+        If dr.Diagnostico Then
+            AgregarCampoTexto("Diagnostico", NameOf(m_Receta.Diagnostico))
         End If
 
         AjustarTamañoFormulario()

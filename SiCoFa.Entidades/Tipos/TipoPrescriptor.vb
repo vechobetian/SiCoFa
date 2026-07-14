@@ -1,11 +1,11 @@
 ﻿Public Class TipoPrescriptor
-    Public Property CodiTPres As String
+    Public Property CodiTP As String
 
     Private m_Descripcion As String
 
     Public ReadOnly Property CodiTPresOsde As String
         Get
-            Select Case CodiTPres
+            Select Case CodiTP
                 Case "M"
                     Return "1"
 
@@ -24,9 +24,9 @@
 
     Public ReadOnly Property CodiTPresADESFA As String
         Get
-            Select Case CodiTPres
+            Select Case CodiTP
                 Case "M", "O", "P"
-                    Return CodiTPres
+                    Return CodiTP
 
                 Case Else
                     Return ""
@@ -50,11 +50,11 @@
         End Get
     End Property
 
-    Public Sub New(argCodiTPres As String)
+    Public Sub New(argCodiTP As String)
 
-        Me.CodiTPres = argCodiTPres.Trim().ToUpper
+        Me.CodiTP = argCodiTP.Trim().ToUpper
 
-        Select Case argCodiTPres.Trim().ToUpper
+        Select Case argCodiTP.Trim().ToUpper
             Case "M" : m_Descripcion = "MEDICO"
             Case "O" : m_Descripcion = "ODONTOLOGO"
             Case "P" : m_Descripcion = "PSIQUIATRA"
