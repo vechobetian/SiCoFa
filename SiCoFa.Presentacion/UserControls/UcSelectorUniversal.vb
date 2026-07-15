@@ -6,6 +6,8 @@ Public Class UcSelectorUniversal
 
     Private m_Id As Object
 
+    Private m_ObjetoSeleccionado As Object
+
 #End Region
 
 #Region "Configuración"
@@ -33,6 +35,12 @@ Public Class UcSelectorUniversal
 #End Region
 
 #Region "Propiedades"
+
+    Public ReadOnly Property ObjetoSeleccionado As Object
+        Get
+            Return m_ObjetoSeleccionado
+        End Get
+    End Property
 
     Public Property Id As Object
 
@@ -113,6 +121,7 @@ Public Class UcSelectorUniversal
 
         Id = Nothing
         Descripcion = ""
+        m_ObjetoSeleccionado = Nothing
 
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
@@ -123,14 +132,47 @@ Public Class UcSelectorUniversal
         Me.Id = id
         Me.Descripcion = descripcion
 
+        m_ObjetoSeleccionado = Nothing
+
+        If Objetos IsNot Nothing Then
+            For Each obj In Objetos
+                If Object.Equals(ObtenerId(obj), id) Then
+                    m_ObjetoSeleccionado = obj
+                    Exit For
+                End If
+            Next
+        End If
+
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
     End Sub
 
     Public Sub RestablecerValorPredeterminado()
 
-        Me.Id = ValorPredeterminado
-        Me.Descripcion = TextoPredeterminado
+        If ValorPredeterminado Is Nothing Then
+            Limpiar()
+            Return
+        End If
+
+        If Objetos IsNot Nothing Then
+
+            For Each obj In Objetos
+
+                If Object.Equals(ObtenerId(obj), ValorPredeterminado) Then
+
+                    AsignarObjeto(obj)
+                    Exit Sub
+
+                End If
+
+            Next
+
+        End If
+
+        'Si no encontró el objeto
+        Id = ValorPredeterminado
+        Descripcion = TextoPredeterminado
+        m_ObjetoSeleccionado = Nothing
 
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
@@ -363,6 +405,8 @@ Public Class UcSelectorUniversal
 #Region "Selección"
 
     Private Sub AsignarObjeto(obj As Object)
+
+        m_ObjetoSeleccionado = obj
 
         Id = ObtenerId(obj)
         Descripcion = ObtenerDescripcion(obj)
