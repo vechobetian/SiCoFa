@@ -44,13 +44,13 @@ Public Class D_AdminRecetas
                     .Add("p_IdPlan", MySqlDbType.Int32).Value = argReceta.Plan.IdPlan
                     .Add("p_FechaPrescripcion", MySqlDbType.Date).Value = If(argReceta.FechaPrescripcion = Date.MinValue, DBNull.Value, argReceta.FechaPrescripcion)
                     .Add("p_NumReceta", MySqlDbType.VarChar).Value = If(String.IsNullOrEmpty(argReceta.NumReceta), DBNull.Value, argReceta.NumReceta)
-                    .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, DBNull.Value, argReceta.Documento.TipoDoc.CodiTDoc)
+                    .Add("p_CodiTD", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, DBNull.Value, argReceta.Documento.TipoDoc.CodiTD)
                     .Add("p_NumDoc", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, DBNull.Value, argReceta.Documento.Numero)
                     .Add("p_Credencial", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Numero)
                     .Add("p_Nombre", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Nombre)
-                    .Add("p_CodiTMat", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.CodiTMat)
+                    .Add("p_CodiTM", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.CodiTM)
                     .Add("p_CodiProv", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Provincia.CodiProvincia)
-                    .Add("p_CodiTPres", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.TipoPrescriptor.CodiTP)
+                    .Add("p_CodiTP", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.TipoPrescriptor.CodiTP)
                     .Add("p_NumMatricula", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.Numero)
                     .Add("p_ImporteTotal", MySqlDbType.Decimal).Value = argReceta.ImporteTotal
                     .Add("p_ImporteOS", MySqlDbType.Decimal).Value = argReceta.ImporteOS

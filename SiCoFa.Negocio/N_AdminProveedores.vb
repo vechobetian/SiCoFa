@@ -36,29 +36,23 @@ Public Class N_AdminProveedores
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCodiTDoc As String,
+                                    ByVal argCodiTD As String,
                                     ByVal argNumDoc As String
                                     ) As Integer
-        Try
 
-            Dim AdminProveedores As New D_AdminProveedores
-            Dim IdProveedor As Integer = AdminProveedores.InsertarProveedor(
+        Dim AdminProveedores As New D_AdminProveedores
+        Dim IdProveedor As Integer = AdminProveedores.InsertarProveedor(
                                                                            UCase(argNombre),
                                                                            UCase(argDomicilio),
                                                                            UCase(argLocalidad),
                                                                            UCase(argProvincia),
                                                                            UCase(argTelefono),
                                                                            UCase(argEmail),
-                                                                           UCase(argCodiTDoc),
+                                                                           UCase(argCodiTD),
                                                                            UCase(argNumDoc)
                                                                            )
-            Return IdProveedor
+        Return IdProveedor
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarProveedor", ex.Message))
-            Return 0
-
-        End Try
 
     End Function
     Public Function ActualizarProveedor(
@@ -68,33 +62,27 @@ Public Class N_AdminProveedores
                                       ByVal argProvincia As String,
                                       ByVal argTelefono As String,
                                       ByVal argEmail As String,
-                                      ByVal argCodiTDoc As String,
+                                      ByVal argCodiTD As String,
                                       ByVal argNumDoc As String,
                                       ByVal argCodIVA As String,
                                       ByVal argEstado As String
                                      ) As Boolean
 
-        Try
 
-            Dim AdminProveedores As New D_AdminProveedores
-            Dim Actualizado As Boolean = AdminProveedores.ActualizarProveedor(
-                                                                               argIdProveedor,
-                                                                               UCase(argDomicilio),
-                                                                               UCase(argLocalidad),
-                                                                               UCase(argProvincia),
-                                                                               argTelefono,
-                                                                               argEmail,
-                                                                               argCodiTDoc,
-                                                                               argNumDoc,
-                                                                               argEstado
-                                                                               )
-            Return Actualizado
+        Dim AdminProveedores As New D_AdminProveedores
+        Dim Actualizado As Boolean = AdminProveedores.ActualizarProveedor(
+                                                                          argIdProveedor,
+                                                                          UCase(argDomicilio),
+                                                                          UCase(argLocalidad),
+                                                                          UCase(argProvincia),
+                                                                          argTelefono,
+                                                                          argEmail,
+                                                                          argCodiTD,
+                                                                          argNumDoc,
+                                                                          argEstado
+                                                                          )
+        Return Actualizado
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarProveedor", ex.Message))
-            Return False
-
-        End Try
 
     End Function
 End Class

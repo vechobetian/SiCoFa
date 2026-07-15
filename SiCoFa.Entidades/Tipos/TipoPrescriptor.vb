@@ -22,7 +22,7 @@
         End Get
     End Property
 
-    Public ReadOnly Property CodiTPresADESFA As String
+    Public ReadOnly Property CodiTPADESFA As String
         Get
             Select Case CodiTP
                 Case "M", "O", "P"

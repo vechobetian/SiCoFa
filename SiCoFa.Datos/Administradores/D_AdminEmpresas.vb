@@ -10,7 +10,7 @@ Public Class D_AdminEmpresas
         Dim objEmp As Empresa = Nothing
 
         Try
-            Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa=@IdEmpresa"
+            Dim sql As String = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa=@IdEmpresa"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -23,7 +23,7 @@ Public Class D_AdminEmpresas
 
                         If datos.Read() Then
 
-                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
+                            Dim objDoc As New Documento(datos.GetString("CodiTD"), datos.GetString("NumDoc"))
                             objEmp = New Empresa(
                                                   datos.GetInt32("IdEmpresa"),
                                                   datos.GetString("Nombre"),
@@ -64,9 +64,9 @@ Public Class D_AdminEmpresas
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas ORDER BY Nombre"
+                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas ORDER BY Nombre"
             Else
-                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -87,7 +87,7 @@ Public Class D_AdminEmpresas
                         Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
                         Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
                         Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
-                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim codiTDOrdinal As Integer = datos.GetOrdinal("CodiTD")
                         Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
                         Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
                         Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
@@ -102,14 +102,14 @@ Public Class D_AdminEmpresas
                             Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
                             Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
                             Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
-                            Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
+                            Dim CodiTDResult As String = datos.GetString(codiTDOrdinal)
                             Dim NumDocResult As String = datos.GetString(numDocOrdinal)
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
                             Dim EstadoResult As String = datos.GetString(estadoOrdinal)
                             Dim CodIVAResult As String = datos.GetString(codIvaOrdinal)
                             Dim IBResult As String = datos.GetString(IBOrdinal)
 
-                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+                            Dim d As New Documento(CodiTDResult, NumDocResult)
                             e = New Empresa(IdEmpresaResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult, CodIVAResult, IBResult)
                             le.Add(e)
                         End While
@@ -122,7 +122,7 @@ Public Class D_AdminEmpresas
             Return le
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarEmpresas", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarEmpresas), ex.Message))
             Return Nothing
 
         End Try

@@ -64,7 +64,7 @@ Public Class FrmPanelClientes
         Try
             With UcTipoDoc
                 .Objetos = TipoDocumento.Lista
-                .NombrePropiedadId = "CodiTDoc"
+                .NombrePropiedadId = "CodiTD"
                 .NombrePropiedadDescripcion = "Descripcion"
                 .TituloSelector = "Tipos Documento"
                 .HeaderDescripcion = "Tipo Documento"
@@ -241,7 +241,7 @@ Public Class FrmPanelClientes
                 .UcProvincia.Descripcion = argCliente.Provincia
                 .TxtTelefono.Text = argCliente.Telefono
                 .TxtEmail.Text = argCliente.Email
-                .UcTipoDoc.Id = argCliente.Documento.TipoDoc.CodiTDoc
+                .UcTipoDoc.Id = argCliente.Documento.TipoDoc.CodiTD
                 .TxtNumDoc.Text = argCliente.Documento.Numero
                 .TxtFechaAltaCliente.Text = argCliente.FechaAlta
                 .UcEstado.Descripcion = argCliente.Estado

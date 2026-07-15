@@ -37,7 +37,7 @@ Public Class N_AdminClientes
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCodiTDoc As String,
+                                    ByVal argCodiTD As String,
                                     ByVal argNumDoc As String,
                                     ByVal argCodIVA As String
                                     ) As Integer
@@ -51,7 +51,7 @@ Public Class N_AdminClientes
                                                                        UCase(argProvincia),
                                                                        UCase(argTelefono),
                                                                        UCase(argEmail),
-                                                                       UCase(argCodiTDoc),
+                                                                       UCase(argCodiTD),
                                                                        UCase(argNumDoc),
                                                                        UCase(argCodIVA)
                                                                        )
@@ -72,62 +72,45 @@ Public Class N_AdminClientes
                                       ByVal argProvincia As String,
                                       ByVal argTelefono As String,
                                       ByVal argEmail As String,
-                                      ByVal argCodiTDoc As String,
+                                      ByVal argCodiTD As String,
                                       ByVal argNumDoc As String,
                                       ByVal argCodIVA As String,
                                       ByVal argEstado As String
                                      ) As Boolean
 
-        Try
-            Dim AdminClientes As New D_AdminClientes
-            Dim Actualizado As Boolean = AdminClientes.ActualizarCliente(
-                                                                           argIdCliente,
-                                                                           UCase(argDomicilio),
-                                                                           UCase(argLocalidad),
-                                                                           UCase(argProvincia),
-                                                                           argTelefono,
-                                                                           argEmail,
-                                                                           argCodiTDoc,
-                                                                           UCase(argNumDoc),
-                                                                           argCodIVA,
-                                                                           argEstado
-                                                                           )
-            Return Actualizado
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCliente", ex.Message))
-            Return False
-
-        End Try
+        Dim AdminClientes As New D_AdminClientes
+        Dim Actualizado As Boolean = AdminClientes.ActualizarCliente(
+                                                                     argIdCliente,
+                                                                     UCase(argDomicilio),
+                                                                     UCase(argLocalidad),
+                                                                     UCase(argProvincia),
+                                                                     argTelefono,
+                                                                     argEmail,
+                                                                     argCodiTD,
+                                                                     UCase(argNumDoc),
+                                                                     argCodIVA,
+                                                                     argEstado
+                                                                     )
+        Return Actualizado
 
     End Function
 
     Public Function ObtenerCuentaCorrientePorIdCliente(ByVal argIdCliente As Int32) As CuentaCorriente
+
         Dim AdminClientes As New D_AdminClientes
         Dim objCC As CuentaCorriente
-        Try
-            objCC = AdminClientes.ObtenerCuentaCorrientePorIdCliente(argIdCliente)
-            Return objCC
+        objCC = AdminClientes.ObtenerCuentaCorrientePorIdCliente(argIdCliente)
+        Return objCC
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCuentaCorrientePorIdCliente", ex.Message))
-            Return Nothing
-
-        End Try
     End Function
 
     Public Function ListarCuentasCorriente(ByVal argTextoBuscado As String) As List(Of CuentaCorriente)
         Dim AdminClientes As New D_AdminClientes
         Dim lc As List(Of CuentaCorriente)
 
-        Try
-            lc = AdminClientes.ListarCuentasCorriente(argTextoBuscado)
-            Return lc
+        lc = AdminClientes.ListarCuentasCorriente(argTextoBuscado)
+        Return lc
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarCuentasCorriente", ex.Message))
-            Return Nothing
-
-        End Try
     End Function
 
     Public Function InsertarCuentaCorriente(
@@ -136,20 +119,14 @@ Public Class N_AdminClientes
                                             ByVal argCredito As Decimal,
                                             ByVal argObservaciones As String
                                             ) As Int16
-        Try
-            Dim AdminClientes As New D_AdminClientes
-            Dim IdCC As Int16 = AdminClientes.InsertarCuentaCorriente(argIdCliente,
+
+        Dim AdminClientes As New D_AdminClientes
+        Dim IdCC As Int16 = AdminClientes.InsertarCuentaCorriente(argIdCliente,
                                                                             UCase(argDescripcion),
                                                                             argCredito,
                                                                             argObservaciones
                                                                             )
-            Return IdCC
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarCuentaCorriente", ex.Message))
-            Return 0
-
-        End Try
+        Return IdCC
 
     End Function
 
@@ -159,20 +136,10 @@ Public Class N_AdminClientes
                                               ByVal argObservaciones As String,
                                               ByVal argEstado As String
                                               ) As Boolean
-        Try
-            Dim AdminClientes As New D_AdminClientes
-            Dim Actualizado As Boolean = AdminClientes.ActualizarCuentaCorriente(argIdCC,
-                                                                                      argCredito,
-                                                                                      argObservaciones,
-                                                                                      argEstado
-                                                                                      )
-            Return Actualizado
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarCuentaCorriente", ex.Message))
-            Return 0
-
-        End Try
+        Dim AdminClientes As New D_AdminClientes
+        Dim Actualizado As Boolean = AdminClientes.ActualizarCuentaCorriente(argIdCC, argCredito, argObservaciones, argEstado)
+        Return Actualizado
 
     End Function
 End Class

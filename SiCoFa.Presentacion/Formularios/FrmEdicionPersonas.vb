@@ -27,11 +27,11 @@ Public Class FrmEdicionPersonas
         Try
             With UcTipoDoc
                 .Objetos = TipoDocumento.Lista
-                .NombrePropiedadId = "CodiTDoc"
+                .NombrePropiedadId = "CodiTD"
                 .NombrePropiedadDescripcion = "Descripcion"
                 .TituloSelector = "Tipos Documento"
                 .HeaderDescripcion = "Tipo Documento"
-                .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTDoc
+                .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTD
                 .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
                 .PermitirVacio = False
             End With

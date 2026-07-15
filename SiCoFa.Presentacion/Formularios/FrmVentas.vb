@@ -962,7 +962,7 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub InsertRecetaToolStripButton_Clic(sender As Object, e As EventArgs)
+    Private Sub NuevaRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevaRecetaToolStripButton.Click
 
         Dim PlanOS As PlanOS = Nothing
 
@@ -980,103 +980,56 @@ Public Class FrmVentas
 
         receta.IdReceta = ObtenerNuevoIdReceta()
 
-        mobj_Recetas.Add(receta)
+        If receta.Plan.OS.PValidacion.RecetaElectronica Then
+            Using frm As New FrmDatosReceta(receta)
 
-        ' Buscar el item libre vacío
-        Dim indice As Integer = mobj_Items.ToList().FindIndex(Function(i) i.Receta Is Nothing AndAlso i.Articulo Is Nothing)
-
-        If indice = -1 Then
-            indice = mobj_Items.Count
-        Else
-            mobj_Items.RemoveAt(indice)
-        End If
-
-        ' Guardar referencia al primer item de la receta
-        Dim primerItemReceta As ItemComprobante = Nothing
-
-        ' Insertar líneas de receta
-        For i As Integer = 1 To PlanOS.LineasRta
-
-            Dim item As New ItemComprobante()
-
-            item.EsNuevo = True
-            item.Receta = receta
-
-            If primerItemReceta Is Nothing Then
-                primerItemReceta = item
-            End If
-
-            mobj_Items.Insert(indice, item)
-
-            indice += 1
-
-        Next
-
-        ' Nuevo item libre al final
-        Dim itemLibre As New ItemComprobante()
-
-        itemLibre.EsNuevo = True
-        itemLibre.Receta = Nothing
-
-        mobj_Items.Add(itemLibre)
-
-        RenderItemsUC()
-
-        ' Enfocar el primer item de la receta insertada
-        If primerItemReceta IsNot Nothing Then
-
-            For Each ctrl As Control In PanelItems.Controls
-
-                If TypeOf ctrl Is UcItemVenta Then
-
-                    Dim uc As UcItemVenta = DirectCast(ctrl, UcItemVenta)
-
-                    If uc.ItemVenta Is primerItemReceta Then
-
-                        uc.EnfocarDescripcion()
-                        Exit For
-
-                    End If
-
+                If frm.ShowDialog() = DialogResult.OK Then
+                    ' receta ya fue modificada
                 End If
 
-            Next
-
+            End Using
         End If
-
-    End Sub
-
-    Private Sub InsertRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles InsertRecetaToolStripButton.Click
-
-        Dim PlanOS As PlanOS = Nothing
-
-        Using frm As New FrmSelectorPlanesOS
-
-            If frm.ShowDialog() <> DialogResult.OK Then
-                Exit Sub
-            End If
-
-            PlanOS = frm.PlanSeleccionado
-
-        End Using
-
-        Dim receta As New Receta(PlanOS)
-
-        receta.IdReceta = ObtenerNuevoIdReceta()
-
-        Using frm As New FrmDatosReceta(receta)
-
-            If frm.ShowDialog() = DialogResult.OK Then
-                ' receta ya fue modificada
-            End If
-
-        End Using
 
         Me.CargarRecetaEnPantalla(receta)
 
     End Sub
 
-    Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
+    Private Sub DatosRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles DatosRecetaToolStripButton.Click
+
+        Dim receta As Receta = Nothing
+
+        If mobj_ItemSeleccionado IsNot Nothing Then
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                receta = ObtenerReceta(item.Receta.IdReceta)
+
+            End If
+
+        End If
+
+        If receta IsNot Nothing Then
+
+            If receta.Plan.DatosRequeridos Is Nothing Then
+                MessageBox.Show("Datos Requeridos no establecidos", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+            End If
+
+            Using frm As New FrmDatosReceta(receta)
+
+                If frm.ShowDialog() = DialogResult.OK Then
+                    ' receta ya fue modificada
+                End If
+
+            End Using
+
+        End If
+
+    End Sub
+
+    Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs)
 
         Dim AdminOS As New N_AdminObraSociales
         Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(1101)
@@ -1234,5 +1187,6 @@ Public Class FrmVentas
         End If
 
     End Sub
+
 
 End Class

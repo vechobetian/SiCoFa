@@ -31,7 +31,7 @@ Partial Class FrmBuscaPersonas
         Me.Provincia = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Telefono = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Email = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodiTDoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CodiTD = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TipoDocumento = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NumDoc = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaAlta = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -46,7 +46,7 @@ Partial Class FrmBuscaPersonas
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Domicilio, Me.Localidad, Me.Provincia, Me.Telefono, Me.Email, Me.CodiTDoc, Me.TipoDocumento, Me.NumDoc, Me.FechaAlta, Me.Estado})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Id, Me.Nombre, Me.Domicilio, Me.Localidad, Me.Provincia, Me.Telefono, Me.Email, Me.CodiTD, Me.TipoDocumento, Me.NumDoc, Me.FechaAlta, Me.Estado})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
@@ -113,13 +113,13 @@ Partial Class FrmBuscaPersonas
         Me.Email.Name = "Email"
         Me.Email.ReadOnly = True
         '
-        'CodiTDoc
+        'CodiTD
         '
-        Me.CodiTDoc.DataPropertyName = "CodiTDoc"
-        Me.CodiTDoc.HeaderText = "CodiTDoc"
-        Me.CodiTDoc.Name = "CodiTDoc"
-        Me.CodiTDoc.ReadOnly = True
-        Me.CodiTDoc.Visible = False
+        Me.CodiTD.DataPropertyName = "CodiTD"
+        Me.CodiTD.HeaderText = "CodiTD"
+        Me.CodiTD.Name = "CodiTD"
+        Me.CodiTD.ReadOnly = True
+        Me.CodiTD.Visible = False
         '
         'TipoDocumento
         '
@@ -176,7 +176,7 @@ Partial Class FrmBuscaPersonas
     Friend WithEvents Provincia As DataGridViewTextBoxColumn
     Friend WithEvents Telefono As DataGridViewTextBoxColumn
     Friend WithEvents Email As DataGridViewTextBoxColumn
-    Friend WithEvents CodiTDoc As DataGridViewTextBoxColumn
+    Friend WithEvents CodiTD As DataGridViewTextBoxColumn
     Friend WithEvents TipoDocumento As DataGridViewTextBoxColumn
     Friend WithEvents NumDoc As DataGridViewTextBoxColumn
     Friend WithEvents FechaAlta As DataGridViewTextBoxColumn

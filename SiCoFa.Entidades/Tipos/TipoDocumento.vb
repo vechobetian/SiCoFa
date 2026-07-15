@@ -1,12 +1,12 @@
 ﻿Public Class TipoDocumento
 
-    Public Property CodiTDoc As String
+    Public Property CodiTD As String
 
     Private m_Descripcion As String
 
-    Public ReadOnly Property CodiTDocAFIP As String
+    Public ReadOnly Property CodiTDAFIP As String
         Get
-            Select Case CodiTDoc
+            Select Case CodiTD
                 Case "CUIT"
                     Return "80"
 
@@ -28,11 +28,11 @@
         End Get
     End Property
 
-    Public ReadOnly Property CodiTDocADESFA As String
+    Public ReadOnly Property CodiTDADESFA As String
         Get
-            Select Case CodiTDoc
+            Select Case CodiTD
                 Case "DNI", "CUIL", "LC", "LE", "CI", "PAS", "CUIT", "SI"
-                    Return CodiTDoc
+                    Return CodiTD
 
                 Case Else
                     Return ""
@@ -68,11 +68,11 @@
 
     End Property
 
-    Public Sub New(argCodiTDoc As String)
+    Public Sub New(argCodiTD As String)
 
-        Me.CodiTDoc = argCodiTDoc.Trim().ToUpper
+        Me.CodiTD = argCodiTD.Trim().ToUpper
 
-        Select Case argCodiTDoc.Trim().ToUpper
+        Select Case argCodiTD.Trim().ToUpper
             Case "DNI" : m_Descripcion = "DOCUMENTO NACIONAL DE IDENTIDAD"
             Case "CUIT" : m_Descripcion = "CLAVE UNICA DE IDENTIFICACION TRIBUTARIA"
             Case "CUIL" : m_Descripcion = "CODIGO UNICO DE IDENTIFICACION LABORAL"

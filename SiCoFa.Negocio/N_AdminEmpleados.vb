@@ -38,27 +38,22 @@ Public Class N_AdminEmpleados
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCodiTDoc As String,
+                                    ByVal argCodiTD As String,
                                     ByVal argNumDoc As String
                                     ) As Integer
-        Try
-            Dim AdminEmpleados As New D_AdminEmpleados
-            Dim IdEmpleado As Integer = AdminEmpleados.InsertarEmpleado(
-                                                                           UCase(argNombre),
-                                                                           UCase(argDomicilio),
-                                                                           UCase(argLocalidad),
-                                                                           UCase(argProvincia),
-                                                                           UCase(argTelefono),
-                                                                           UCase(argEmail),
-                                                                           UCase(argCodiTDoc),
-                                                                           UCase(argNumDoc)
-                                                                           )
-            Return IdEmpleado
+        Dim AdminEmpleados As New D_AdminEmpleados
+        Dim IdEmpleado As Integer = AdminEmpleados.InsertarEmpleado(
+                                                                    UCase(argNombre),
+                                                                    UCase(argDomicilio),
+                                                                    UCase(argLocalidad),
+                                                                    UCase(argProvincia),
+                                                                    UCase(argTelefono),
+                                                                    UCase(argEmail),
+                                                                    UCase(argCodiTD),
+                                                                    UCase(argNumDoc)
+                                                                    )
+        Return IdEmpleado
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarEmpleado", ex.Message))
-
-        End Try
 
     End Function
     Public Function ActualizarEmpleado(
@@ -68,30 +63,25 @@ Public Class N_AdminEmpleados
                                       ByVal argProvincia As String,
                                       ByVal argTelefono As String,
                                       ByVal argEmail As String,
-                                      ByVal argCodiTDoc As String,
+                                      ByVal argCodiTD As String,
                                       ByVal argNumDoc As String,
                                       ByVal argEstado As String
                                      ) As Boolean
 
-        Try
-            Dim AdminEmpleados As New D_AdminEmpleados
-            Dim Actualizado As Boolean = AdminEmpleados.ActualizarEmpleado(
-                                                                               argIdEmpleado,
-                                                                               UCase(argDomicilio),
-                                                                               UCase(argLocalidad),
-                                                                               UCase(argProvincia),
-                                                                               argTelefono,
-                                                                               argEmail,
-                                                                               argCodiTDoc,
-                                                                               argNumDoc,
-                                                                               argEstado
-                                                                               )
-            Return Actualizado
+        Dim AdminEmpleados As New D_AdminEmpleados
+        Dim Actualizado As Boolean = AdminEmpleados.ActualizarEmpleado(
+                                                                       argIdEmpleado,
+                                                                       UCase(argDomicilio),
+                                                                       UCase(argLocalidad),
+                                                                       UCase(argProvincia),
+                                                                       argTelefono,
+                                                                       argEmail,
+                                                                       argCodiTD,
+                                                                       argNumDoc,
+                                                                       argEstado
+                                                                       )
+        Return Actualizado
 
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarEmpleado", ex.Message))
-
-        End Try
 
     End Function
 End Class

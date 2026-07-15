@@ -65,7 +65,7 @@ Public Class FrmUsuarios
                 .UcProvincia.Descripcion = argUsuario.Provincia
                 .TxtTelefono.Text = argUsuario.Telefono
                 .TxtEmail.Text = argUsuario.Email
-                .UcTipoDoc.Asignar(argUsuario.Documento.TipoDoc.CodiTDoc, argUsuario.Documento.TipoDoc.Descripcion)
+                .UcTipoDoc.Asignar(argUsuario.Documento.TipoDoc.CodiTD, argUsuario.Documento.TipoDoc.Descripcion)
                 .TxtNumDoc.Text = argUsuario.Documento.Numero
                 .TxtFechaAlta.Text = argUsuario.FechaAlta
                 .UcEstado.Descripcion = argUsuario.Estado

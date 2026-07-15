@@ -94,7 +94,7 @@ Public Class FrmEmpresas
                 .UcProvincia.Descripcion = argEmpresa.Provincia
                 .TxtTelefono.Text = argEmpresa.Telefono
                 .TxtEmail.Text = argEmpresa.Email
-                .UcTipoDoc.Text = argEmpresa.Documento.TipoDoc.CodiTDoc
+                .UcTipoDoc.Text = argEmpresa.Documento.TipoDoc.CodiTD
                 .TxtNumDoc.Text = argEmpresa.Documento.Numero
                 .TxtFechaAlta.Text = argEmpresa.FechaAlta
                 .UcEstado.Descripcion = argEmpresa.Estado

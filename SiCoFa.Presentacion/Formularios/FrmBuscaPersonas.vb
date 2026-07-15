@@ -5,7 +5,7 @@ Public Class FrmBuscaPersonas
     Property PersonaSeleccionado As Persona
     Private Sub SeleccionarPersona()
 
-        Dim d As New Documento(Me.DataGridView1.CurrentRow.Cells("CodiTDoc").Value, Me.DataGridView1.CurrentRow.Cells("NumDoc").Value)
+        Dim d As New Documento(Me.DataGridView1.CurrentRow.Cells("CodiTD").Value, Me.DataGridView1.CurrentRow.Cells("NumDoc").Value)
         Dim p As New Persona(
                             Me.DataGridView1.CurrentRow.Cells("Id").Value,
                             Me.DataGridView1.CurrentRow.Cells("Nombre").Value,
@@ -33,7 +33,7 @@ Public Class FrmBuscaPersonas
                 .Rows(x).Cells("Provincia").Value = p.Provincia
                 .Rows(x).Cells("Telefono").Value = p.Telefono
                 .Rows(x).Cells("Email").Value = p.Email
-                .Rows(x).Cells("CodiTDoc").Value = p.Documento.TipoDoc.CodiTDoc
+                .Rows(x).Cells("CodiTD").Value = p.Documento.TipoDoc.CodiTD
                 .Rows(x).Cells("TipoDocumento").Value = p.Documento.TipoDoc.Descripcion
                 .Rows(x).Cells("NumDoc").Value = p.Documento.Numero
                 .Rows(x).Cells("FechaAlta").Value = p.FechaAlta

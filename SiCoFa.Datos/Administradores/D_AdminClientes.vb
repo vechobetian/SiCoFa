@@ -9,7 +9,7 @@ Public Class D_AdminClientes
         Dim objCli As Cliente = Nothing
 
         Try
-            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE IdCliente=@IdCliente"
+            Dim sql As String = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE IdCliente=@IdCliente"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -21,7 +21,7 @@ Public Class D_AdminClientes
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read() Then
-                            Dim objDoc As New Documento(datos.GetString("CodiTDoc"), datos.GetString("NumDoc"))
+                            Dim objDoc As New Documento(datos.GetString("CodiTD"), datos.GetString("NumDoc"))
                             objCli = New Cliente(
                                                 datos.GetInt32("IdCliente"),
                                                 datos.GetString("Nombre"),
@@ -65,9 +65,9 @@ Public Class D_AdminClientes
         Try
             Dim sql As String
             If argTextoBuscado = "*" Then
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA FROM clientes ORDER BY Nombre"
             Else
-                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
+                sql = "SELECT IdCliente,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA FROM clientes WHERE Nombre LIKE @Nombre ORDER BY Nombre"
             End If
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -88,7 +88,7 @@ Public Class D_AdminClientes
                         Dim provinciaOrdinal As Integer = datos.GetOrdinal("Provincia")
                         Dim telefonoOrdinal As Integer = datos.GetOrdinal("Telefono")
                         Dim emailOrdinal As Integer = datos.GetOrdinal("Email")
-                        Dim codiTDocOrdinal As Integer = datos.GetOrdinal("CodiTDoc")
+                        Dim codiTDOrdinal As Integer = datos.GetOrdinal("CodiTD")
                         Dim numDocOrdinal As Integer = datos.GetOrdinal("NumDoc")
                         Dim fechaAltaOrdinal As Integer = datos.GetOrdinal("FechaAlta")
                         Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
@@ -102,12 +102,12 @@ Public Class D_AdminClientes
                             Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
                             Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
                             Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
-                            Dim CodiTDocResult As String = datos.GetString(codiTDocOrdinal)
+                            Dim CodiTDResult As String = datos.GetString(codiTDOrdinal)
                             Dim NumDocResult As String = datos.GetString(numDocOrdinal)
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
                             Dim EstadoResult As String = datos.GetString(estadoOrdinal)
                             Dim CodIVAResult As String = datos.GetString(codIVAOrdinal)
-                            Dim d As New Documento(CodiTDocResult, NumDocResult)
+                            Dim d As New Documento(CodiTDResult, NumDocResult)
                             c = New Cliente(IdClienteResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult, CodIVAResult)
                             lc.Add(c)
                         End While
@@ -134,7 +134,7 @@ Public Class D_AdminClientes
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCodiTDoc As String,
+                                    ByVal argCodiTD As String,
                                     ByVal argNumDoc As String,
                                     ByVal argCodIVA As String
                                     ) As Int32
@@ -153,7 +153,7 @@ Public Class D_AdminClientes
                         .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
                         .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
                         .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_CodiTD", MySqlDbType.VarChar).Value = argCodiTD
                         .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
                         .Add("p_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
                         .Add("p_IdCliente", MySqlDbType.Int32)
@@ -180,7 +180,7 @@ Public Class D_AdminClientes
                                     ByVal argProvincia As String,
                                     ByVal argTelefono As String,
                                     ByVal argEmail As String,
-                                    ByVal argCodiTDoc As String,
+                                    ByVal argCodiTD As String,
                                     ByVal argNumDoc As String,
                                     ByVal argCodIVA As String,
                                     ByVal argEstado As String
@@ -200,7 +200,7 @@ Public Class D_AdminClientes
                         .Add("p_Provincia", MySqlDbType.VarChar).Value = argProvincia
                         .Add("p_Telefono", MySqlDbType.VarChar).Value = argTelefono
                         .Add("p_Email", MySqlDbType.VarChar).Value = argEmail
-                        .Add("p_CodiTDoc", MySqlDbType.VarChar).Value = argCodiTDoc
+                        .Add("p_CodiTD", MySqlDbType.VarChar).Value = argCodiTD
                         .Add("p_NumDoc", MySqlDbType.VarChar).Value = argNumDoc
                         .Add("p_CodIVA", MySqlDbType.VarChar).Value = argCodIVA
                         .Add("p_Estado", MySqlDbType.VarChar).Value = argEstado

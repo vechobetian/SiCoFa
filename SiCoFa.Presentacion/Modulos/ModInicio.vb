@@ -68,10 +68,10 @@ Module ModInicio
             End If
 
             Dim IdEmpresa As Int32 = Convert.ToInt32(registroPaTer("IdEmpresa"))
-            Dim sqlEmpresa As String = $"SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTDoc,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa = '{IdEmpresa}'"
+            Dim sqlEmpresa As String = $"SELECT IdEmpresa,Nombre,Domicilio,Localidad,Provincia,Telefono,Email,CodiTD,NumDoc,FechaAlta,Estado,CodIVA,IB FROM empresas WHERE IdEmpresa = '{IdEmpresa}'"
 
             Dim registroEmpresa As Dictionary(Of String, Object) = obj_AdminDB.ObtenerRegistro(sqlEmpresa)
-            Dim objDocumento As New Documento(Convert.ToString(registroEmpresa("CodiTDoc")), Convert.ToString(registroEmpresa("NumDoc")))
+            Dim objDocumento As New Documento(Convert.ToString(registroEmpresa("CodiTD")), Convert.ToString(registroEmpresa("NumDoc")))
             Dim objEmpresa As New Empresa(
                                     argIdEmpresa:=Convert.ToInt32(registroEmpresa("IdEmpresa")),
                                     argNombre:=Convert.ToString(registroEmpresa("Nombre")),

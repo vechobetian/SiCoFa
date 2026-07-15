@@ -55,7 +55,7 @@ Public Class N_AdminCAE
                 '.FchServDesde = Now.ToString("yyyyMMdd") 'Esto solo se informa si concepto=2 o 3
                 '.FchServHasta = Now.ToString("yyyyMMdd") 'Esto solo se informa si concepto=2 o 3
                 '.FchVtoPago = Now.ToString("yyyyMMdd")   'Esto solo se informa si concepto=2 o 3
-                .DocTipo = argComprobante.Cliente.Documento.TipoDoc.CodiTDocAFIP
+                .DocTipo = argComprobante.Cliente.Documento.TipoDoc.CodiTDAFIP
                 .DocNro = argComprobante.Cliente.Documento.Numero
 
                 Dim lastRes As FERecuperaLastCbteResponse = service.FECompUltimoAutorizado(mvarAuthRequest, CInt(argComprobante.PVenta), argComprobante.TipoComprobante.CodiTC_ARCA)

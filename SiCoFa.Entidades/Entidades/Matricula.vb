@@ -1,15 +1,15 @@
 ﻿Public Class Matricula
-    Public Property CodiTMat As String
+    Public Property CodiTM As String
     Public Property Numero As String
 
-    Public Sub New(ByVal argCodiTMat As String, ByVal argNumero As String)
-        Me.CodiTMat = argCodiTMat.ToUpper.Trim
+    Public Sub New(ByVal argCodiTM As String, ByVal argNumero As String)
+        Me.CodiTM = argCodiTM.ToUpper.Trim
         Me.Numero = argNumero
     End Sub
 
     Public ReadOnly Property Descripcion As String
         Get
-            Select Case CodiTMat
+            Select Case CodiTM
                 Case "N"
                     Return "NACIONAL"
 
@@ -25,9 +25,9 @@
 
     Public ReadOnly Property CodiTMatADESFA As String
         Get
-            Select Case CodiTMat
+            Select Case CodiTM
                 Case "N", "P"
-                    Return CodiTMat
+                    Return CodiTM
 
                 Case Else
                     Return "NO ESPECIFICADA"

@@ -130,8 +130,8 @@ Public Class LPAMI
             'Debug.WriteLine(item.IdItem & " - " & item.Descripcion & " - Troquel: " & item.NTroquel & "PUnit: " & item.PrecioUnitario)
             'Next
 
-            'Debug.WriteLine("TipoPrescriptor: " & argReceta.Prescriptor.TipoPrescriptor.CodiTPres)
-            'Debug.WriteLine("TipoMatricula: " & argReceta.Prescriptor.Matricula.CodiTMat)
+            'Debug.WriteLine("TipoPrescriptor: " & argReceta.Prescriptor.TipoPrescriptor.CodiTP)
+            'Debug.WriteLine("TipoMatricula: " & argReceta.Prescriptor.Matricula.CodiTM)
             'Debug.WriteLine("NMatricula: " & argReceta.Prescriptor.Matricula.Numero)
 
             Return argReceta
@@ -374,7 +374,7 @@ Public Class LPAMI
         writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.CodiTMatADESFA)
         writer.WriteElementString("Provincia", "")
         writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
-        writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPresADESFA)
+        writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPADESFA)
         writer.WriteElementString("Cuit", "")
         writer.WriteElementString("Especialidad", "")
         writer.WriteEndElement()
@@ -671,9 +671,9 @@ Public Class LPAMI
         If argReceta.Prescriptor Is Nothing Then
             Dim codiTPrescriptor As String = encabezado.SelectSingleNode("Prescriptor/TipoPrescriptor")?.InnerText
             Dim tipoPrescriptor As New TipoPrescriptor(codiTPrescriptor)
-            Dim codiTMat As String = encabezado.SelectSingleNode("Prescriptor/TipoMatricula")?.InnerText
+            Dim codiTM As String = encabezado.SelectSingleNode("Prescriptor/TipoMatricula")?.InnerText
             Dim nMatricula As String = encabezado.SelectSingleNode("Prescriptor/NroMatricula")?.InnerText
-            Dim matricula As New Matricula(codiTMat, nMatricula)
+            Dim matricula As New Matricula(codiTM, nMatricula)
             argReceta.Prescriptor = New Prescriptor(tipoPrescriptor, Nothing, "", "", matricula)
         End If
 
