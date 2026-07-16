@@ -20,6 +20,8 @@ Public Class FrmDatosReceta
             .Tag = "Tratamiento"
             .Name = "UcTratamiento"
 
+            AddHandler uc.Validating, AddressOf ValidarMatricula
+
             Dim codigo = ObtenerValor(m_Receta, .Tag.ToString())
 
             If codigo IsNot Nothing Then
@@ -144,6 +146,53 @@ Public Class FrmDatosReceta
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+
+    End Sub
+
+    Private Sub CargarCampoMatricula()
+
+        Try
+
+            Dim adminDB As New N_AdminDB
+
+            Dim sql As String = "SELECT IdPrescriptor, CONCAT(Matricula,'|',Apellido, ' ',Nombre) AS Prescriptor FROM prescriptores"
+
+            Dim dt As DataTable = adminDB.ObtenerTabla(sql)
+
+            Dim lista As New List(Of SelectorItem)
+
+            For Each fila As DataRow In dt.Rows
+
+                lista.Add(New SelectorItem(fila("IdPrescriptor"), fila("Prescriptor").ToString()))
+
+            Next
+
+            Dim uc As New UcSelectorUniversal
+
+            With uc
+
+                .Objetos = lista
+                .NombrePropiedadId = "Id"
+                .NombrePropiedadDescripcion = "Descripcion"
+                .TituloSelector = "Prescriptores"
+                .HeaderDescripcion = "Prescriptor"
+                .PermitirVacio = False
+                .Tag = "Prescriptor.Matricula.Numero"
+                .Name = "UcMatricula"
+
+                Dim valor = ObtenerValor(m_Receta, .Tag.ToString())
+
+                If valor IsNot Nothing Then
+                    .Id = valor
+                End If
+
+            End With
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
         End Try
 
     End Sub
@@ -475,6 +524,17 @@ Public Class FrmDatosReceta
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+
+    End Sub
+
+    Private Sub ValidarMatricula(sender As Object, e As System.ComponentModel.CancelEventArgs)
+        Dim uc As UcSelectorUniversal = DirectCast(sender, UcSelectorUniversal)
+
+        If Not uc.ObjetoSeleccionado Then
+            e.Cancel = True
+            MessageBox.Show("Debe ingresar la fecha de prescripción", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
     End Sub
 
