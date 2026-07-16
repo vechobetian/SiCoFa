@@ -1,7 +1,9 @@
-﻿Imports SiCoFa.Negocio
+﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
+Imports SiCoFa.Negocio
 
 Public Class FrmDatosReceta
+
     Private m_Receta As Receta
 
     Private Sub AgregarCampoTratamiento()
@@ -19,8 +21,6 @@ Public Class FrmDatosReceta
             .PermitirVacio = False
             .Tag = "Tratamiento"
             .Name = "UcTratamiento"
-
-            AddHandler uc.Validating, AddressOf ValidarMatricula
 
             Dim codigo = ObtenerValor(m_Receta, .Tag.ToString())
 
@@ -170,6 +170,8 @@ Public Class FrmDatosReceta
 
             Dim uc As New UcSelectorUniversal
 
+            AddHandler uc.SelectorValidating, AddressOf ValidarMatricula
+
             With uc
 
                 .Objetos = lista
@@ -178,6 +180,7 @@ Public Class FrmDatosReceta
                 .TituloSelector = "Prescriptores"
                 .HeaderDescripcion = "Prescriptor"
                 .PermitirVacio = False
+                .PermitirNuevo = True
                 .Tag = "Prescriptor.Matricula.Numero"
                 .Name = "UcMatricula"
 
@@ -445,12 +448,12 @@ Public Class FrmDatosReceta
         If dr.Prescriptor Then
 
             AgregarCampoMatricula()
-            'AgregarCampoTipoPrescriptor()
-            'AgregarCampoTipoMatricula()
-            'AgregarCampoProvincia()
+            AgregarCampoTipoPrescriptor()
+            AgregarCampoTipoMatricula()
+            AgregarCampoProvincia()
             'AgregarCampoTexto("Número Matricula", NameOf(m_Receta.Prescriptor.Matricula.Numero), "Prescriptor.Matricula." & NameOf(m_Receta.Prescriptor.Matricula.Numero))
-            'AgregarCampoTexto("Apellido", NameOf(m_Receta.Prescriptor.Apellido), "Prescriptor.Apellido")
-            'AgregarCampoTexto("Nombre", NameOf(m_Receta.Prescriptor.Nombre), "Prescriptor.Nombre")
+            AgregarCampoTexto("Apellido", NameOf(m_Receta.Prescriptor.Apellido), "Prescriptor.Apellido")
+            AgregarCampoTexto("Nombre", NameOf(m_Receta.Prescriptor.Nombre), "Prescriptor.Nombre")
 
         End If
 
@@ -530,17 +533,15 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Private Sub ValidarMatricula(sender As Object, e As System.ComponentModel.CancelEventArgs)
-        Dim uc As UcSelectorUniversal = DirectCast(sender, UcSelectorUniversal)
+    Private Sub ValidarMatricula(sender As Object, e As CancelEventArgs)
 
-        If uc.ObjetoSeleccionado Is Nothing Then
-            e.Cancel = True
-            MessageBox.Show("Debe ingresar Numero de Matricula", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Exit Sub
-        End If
+        Dim uc = DirectCast(sender, UcSelectorUniversal)
+
+        If uc.ObjetoSeleccionado IsNot Nothing Then Exit Sub
+
+        If Not uc.PermitirNuevo Then Exit Sub
 
     End Sub
-
 
     Private Sub InsertarPrescriptor(argReceta As Receta)
         Try

@@ -32,6 +32,8 @@ Public Class UcSelectorUniversal
 
     Public Property TextoPredeterminado As String = ""
 
+    Public Property PermitirNuevo As Boolean = False
+
 #End Region
 
 #Region "Propiedades"
@@ -114,6 +116,8 @@ Public Class UcSelectorUniversal
     Public Event Seleccionado(sender As Object, e As EventArgs)
 
     Public Event ValorCambiado(sender As Object, e As EventArgs)
+
+    Public Event SelectorValidating(sender As Object, e As System.ComponentModel.CancelEventArgs)
 
 #End Region
 
@@ -236,6 +240,10 @@ Public Class UcSelectorUniversal
     End Sub
 
     Private Sub TxtSelector_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles TxtSelector.Validating
+
+        RaiseEvent SelectorValidating(Me, e)
+
+        If e.Cancel Then Exit Sub
 
         If SoloLectura Then Exit Sub
 
@@ -371,6 +379,19 @@ Public Class UcSelectorUniversal
         Select Case lista.Count
 
             Case 0
+
+                If PermitirNuevo Then
+
+                    ' Mantener el texto escrito por el usuario
+                    m_Id = Nothing
+                    m_ObjetoSeleccionado = Nothing
+
+                    RaiseEvent ValorCambiado(Me, EventArgs.Empty)
+
+                    Return True
+
+                End If
+
 
                 If PermitirVacio Then
 
