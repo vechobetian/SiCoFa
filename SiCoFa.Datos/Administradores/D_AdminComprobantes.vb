@@ -232,7 +232,7 @@ Public Class D_AdminComprobantes
                     .AddWithValue("p_ImpPE", argComprobante.ImpPE)
                     .AddWithValue("p_ImpOS", argComprobante.ImpOS)
                     .AddWithValue("p_IdOperAsoc", argComprobante.IdOperAsoc)
-                    .AddWithValue("p_CodiTD", argComprobante.Cliente.Documento.TipoDoc.CodiTD)
+                    .AddWithValue("p_CodiTD", argComprobante.Cliente.Documento.TipoDocumento.CodiTD)
                     .AddWithValue("p_NumDoc", argComprobante.Cliente.Documento.Numero)
                     .AddWithValue("p_Cliente", argComprobante.Cliente.Nombre)
 

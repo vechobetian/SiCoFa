@@ -65,7 +65,7 @@ Public Class FrmEmpleados
                 .UcProvincia.Descripcion = argEmpleado.Provincia
                 .TxtTelefono.Text = argEmpleado.Telefono
                 .TxtEmail.Text = argEmpleado.Email
-                .UcTipoDoc.Id = argEmpleado.Documento.TipoDoc.CodiTD
+                .UcTipoDoc.Id = argEmpleado.Documento.TipoDocumento.CodiTD
                 .TxtNumDoc.Text = argEmpleado.Documento.Numero
                 .TxtFechaAlta.Text = argEmpleado.FechaAlta
                 .UcEstado.Descripcion = argEmpleado.Estado

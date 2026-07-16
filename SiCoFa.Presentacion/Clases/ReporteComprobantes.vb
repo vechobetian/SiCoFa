@@ -35,7 +35,7 @@ Public Class ReporteComprobantes
                 .Cliente.Add(argComprobante.Cliente)
                 .DocumentoCliente.Add(argComprobante.Cliente.Documento)
                 .IVACliente.Add(argComprobante.Cliente.IVA)
-                .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
+                .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDocumento)
                 .Encabezado.Add(argComprobante)
                 .TipoComprobante.Add(argComprobante.TipoComprobante)
                 .Detalle = argComprobante.Detalle
@@ -81,7 +81,7 @@ Public Class ReporteComprobantes
                     .Cliente.Add(argComprobante.Cliente)
                     .DocumentoCliente.Add(argComprobante.Cliente.Documento)
                     .IVACliente.Add(argComprobante.Cliente.IVA)
-                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
+                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDocumento)
                     .Encabezado.Add(argComprobante)
                     .TipoComprobante.Add(argComprobante.TipoComprobante)
                     .Detalle = argComprobante.Detalle
@@ -121,7 +121,7 @@ Public Class ReporteComprobantes
                     .Cliente.Add(argComprobante.Cliente)
                     .DocumentoCliente.Add(argComprobante.Cliente.Documento)
                     .IVACliente.Add(argComprobante.Cliente.IVA)
-                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDoc)
+                    .TipoDocumentoCliente.Add(argComprobante.Cliente.Documento.TipoDocumento)
                     .Encabezado.Add(argComprobante)
                     .TipoComprobante.Add(argComprobante.TipoComprobante)
                     .Detalle = argComprobante.Detalle

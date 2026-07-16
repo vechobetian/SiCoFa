@@ -46,7 +46,7 @@ Public Class FrmPanelClientes
         Try
             With UcProvincia
                 .Objetos = Provincia.Lista
-                .NombrePropiedadId = "CodiProvincia"
+                .NombrePropiedadId = "CodiP"
                 .NombrePropiedadDescripcion = "Provincia"
                 .TituloSelector = "Provincias"
                 .HeaderDescripcion = "Provincia"
@@ -241,7 +241,7 @@ Public Class FrmPanelClientes
                 .UcProvincia.Descripcion = argCliente.Provincia
                 .TxtTelefono.Text = argCliente.Telefono
                 .TxtEmail.Text = argCliente.Email
-                .UcTipoDoc.Id = argCliente.Documento.TipoDoc.CodiTD
+                .UcTipoDoc.Id = argCliente.Documento.TipoDocumento.CodiTD
                 .TxtNumDoc.Text = argCliente.Documento.Numero
                 .TxtFechaAltaCliente.Text = argCliente.FechaAlta
                 .UcEstado.Descripcion = argCliente.Estado

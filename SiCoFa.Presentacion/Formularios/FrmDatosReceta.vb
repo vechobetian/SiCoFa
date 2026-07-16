@@ -1,4 +1,5 @@
-﻿Imports SiCoFa.Entidades
+﻿Imports SiCoFa.Negocio
+Imports SiCoFa.Entidades
 
 Public Class FrmDatosReceta
     Private m_Receta As Receta
@@ -18,6 +19,12 @@ Public Class FrmDatosReceta
             .PermitirVacio = False
             .Tag = "Tratamiento"
             .Name = "UcTratamiento"
+
+            Dim codigo = ObtenerValor(m_Receta, .Tag.ToString())
+
+            If codigo IsNot Nothing Then
+                .Id = codigo
+            End If
         End With
 
         AgregarCampo("Tratamiento", uc)
@@ -37,8 +44,16 @@ Public Class FrmDatosReceta
             .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTDADESFA
             .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
             .PermitirVacio = False
-            .Tag = "Documento.CodiTD"
+            .Tag = "Documento.TipoDocumento.CodiTD"
             .Name = "UcTipoDocumento"
+
+            ' Cargar el valor actual de la receta
+            Dim codigo = ObtenerValor(m_Receta, .Tag.ToString())
+
+            If codigo IsNot Nothing Then
+                .Id = codigo
+            End If
+
         End With
 
         AgregarCampo("Tipo Documento", uc)
@@ -50,18 +65,86 @@ Public Class FrmDatosReceta
         Dim uc As New UcSelectorUniversal
 
         With uc
+
             .Objetos = TipoPrescriptor.Lista
             .NombrePropiedadId = "CodiTP"
             .NombrePropiedadDescripcion = "Descripcion"
-            .TituloSelector = "Tipo Prescriptores"
+            .TituloSelector = "Tipos Prescriptores"
             .HeaderDescripcion = "Tipo Prescriptor"
-            .ValorPredeterminado = TipoDocumento.Predeterminado.CodiTDADESFA
-            .TextoPredeterminado = TipoDocumento.Predeterminado.Descripcion
+            .ValorPredeterminado = TipoPrescriptor.Predeterminado.CodiTD
+            .TextoPredeterminado = TipoPrescriptor.Predeterminado.Descripcion
             .PermitirVacio = False
-            .Tag = "CodiTP"
+            .Tag = "Prescriptor.TipoPrescriptor.CodiTP"
+            .Name = "UcTipoPrescriptor"
+
+            Dim codigo = ObtenerValor(m_Receta, .Tag.ToString())
+
+            If codigo IsNot Nothing Then
+                .Id = codigo
+            End If
+
         End With
 
         AgregarCampo("Tipo Prescriptor", uc)
+
+    End Sub
+
+    Private Sub AgregarCampoTipoMatricula()
+
+        Dim uc As New UcSelectorUniversal
+
+        With uc
+
+            .Objetos = TipoMatricula.Lista
+            .NombrePropiedadId = "CodiTM"
+            .NombrePropiedadDescripcion = "Descripcion"
+            .TituloSelector = "Tipos Matrícula"
+            .HeaderDescripcion = "Tipo Matrícula"
+            .ValorPredeterminado = TipoMatricula.Predeterminado.CodiTM
+            .TextoPredeterminado = TipoMatricula.Predeterminado.Descripcion
+            .PermitirVacio = False
+            .Tag = "Prescriptor.Matricula.TipoMatricula.CodiTM"
+            .Name = "UcTipoMatricula"
+
+            Dim valor = ObtenerValor(m_Receta, .Tag.ToString())
+
+            If valor IsNot Nothing Then
+                .Id = valor
+            End If
+
+        End With
+
+        AgregarCampo("Tipo Matrícula", uc)
+
+    End Sub
+
+    Private Sub AgregarCampoProvincia()
+        Try
+            Dim uc As New UcSelectorUniversal
+
+            With uc
+                .Objetos = Provincia.Lista
+                .NombrePropiedadId = "CodiP"
+                .NombrePropiedadDescripcion = "Provincia"
+                .TituloSelector = "Provincias"
+                .HeaderDescripcion = "Provincia"
+                .PermitirVacio = False
+                .Tag = "Prescriptor.Provincia.CodiP"
+                .Name = "UcProvincia"
+
+                Dim valor = ObtenerValor(m_Receta, .Tag.ToString())
+
+                If valor IsNot Nothing Then
+                    .Id = valor
+                End If
+
+            End With
+
+            AgregarCampo("Provincia", uc)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
 
     End Sub
 
@@ -75,8 +158,7 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Protected Overrides Function ProcessCmdKey(ByRef msg As Message,
-                                           keyData As Keys) As Boolean
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
 
         If keyData = Keys.F2 Then
             Me.ActualizarRecetaDesdeControles()
@@ -101,7 +183,7 @@ Public Class FrmDatosReceta
 
                     Case TypeOf ctrl Is TextBox
 
-                        AsignarValor(m_Receta, ruta, DirectCast(ctrl, TextBox).Text)
+                        AsignarValor(m_Receta, ruta, UCase(DirectCast(ctrl, TextBox).Text))
 
                     Case TypeOf ctrl Is MaskedTextBox
 
@@ -117,8 +199,9 @@ Public Class FrmDatosReceta
 
                         End If
                     Case TypeOf ctrl Is UcSelectorUniversal
+
                         Dim uc = DirectCast(ctrl, UcSelectorUniversal)
-                        Dim obj As Object = uc.ObjetoSeleccionado
+                        AsignarValor(m_Receta, ruta, uc.Id)
 
                     Case TypeOf ctrl Is ComboBox
 
@@ -159,6 +242,28 @@ Public Class FrmDatosReceta
         pFinal.SetValue(actual, valor)
 
     End Sub
+
+    Private Function ObtenerValor(obj As Object, ruta As String) As Object
+
+        If obj Is Nothing Then Return Nothing
+
+        Dim actual As Object = obj
+
+        For Each nombre As String In ruta.Split("."c)
+
+            If actual Is Nothing Then Return Nothing
+
+            Dim p = actual.GetType().GetProperty(nombre)
+
+            If p Is Nothing Then Return Nothing
+
+            actual = p.GetValue(actual)
+
+        Next
+
+        Return actual
+
+    End Function
 
     Private Sub AgregarCampo(argTitulo As String, argControl As Control)
 
@@ -203,7 +308,7 @@ Public Class FrmDatosReceta
         Dim txt As New TextBox
 
         With txt
-            .Name = "Txt" & argNombrePropiedad
+            .Name = "Txt" & argRutaPropiedad.Replace(".", "_")
             .Tag = argRutaPropiedad           ' <-- antes guardabas el nombre de la propiedad
             '.Font = New Font("Microsoft Sans Serif", 18, FontStyle.Regular)
         End With
@@ -211,16 +316,10 @@ Public Class FrmDatosReceta
         AddHandler txt.Validating, AddressOf ValidarControl
 
         ' Cargar valor...
-        Dim p = GetType(Receta).GetProperty(argNombrePropiedad)
+        Dim valor = ObtenerValor(m_Receta, argRutaPropiedad)
 
-        If p IsNot Nothing Then
-
-            Dim valor = p.GetValue(m_Receta)
-
-            If valor IsNot Nothing Then
-                txt.Text = valor.ToString()
-            End If
-
+        If valor IsNot Nothing Then
+            txt.Text = valor.ToString()
         End If
 
         AgregarCampo(argTitulo, txt)
@@ -242,22 +341,25 @@ Public Class FrmDatosReceta
         AddHandler mtxt.Validating, AddressOf ValidarFechaPrescripcion
 
         ' Cargar valor
-        Dim p = GetType(Receta).GetProperty(argNombrePropiedad)
+        Dim valor = ObtenerValor(m_Receta, argRutaPropiedad)
 
-        If p IsNot Nothing Then
-            Dim valor = p.GetValue(m_Receta)
+        If valor IsNot Nothing AndAlso TypeOf valor Is Date Then
 
-            If valor IsNot Nothing Then
-                If TypeOf valor Is Date Then
-                    mtxt.Text = CType(valor, Date).ToString("dd/MM/yyyy")
-                Else
-                    mtxt.Text = valor.ToString()
-                End If
+            Dim fecha As Date = CType(valor, Date)
+
+            If fecha <> Date.MinValue Then
+                mtxt.Text = fecha.ToString("dd/MM/yyyy")
+            Else
+                mtxt.Clear()
             End If
+
+        Else
+
+            mtxt.Clear()
+
         End If
 
         AgregarCampo(argTitulo, mtxt)
-        mtxt.Clear()
 
     End Sub
 
@@ -273,11 +375,11 @@ Public Class FrmDatosReceta
         Dim dr = m_Receta.Plan.DatosRequeridos
 
         If dr.NumeroAfiliado Then
-            AgregarCampoTexto("Número Afiliado", NameOf(m_Receta.Credencial.Numero), "CredencialOS." & NameOf(m_Receta.Credencial.Numero))
+            AgregarCampoTexto("Número Afiliado", NameOf(m_Receta.Credencial.Numero), "Credencial." & NameOf(m_Receta.Credencial.Numero))
         End If
 
         If dr.NombreAfiliado Then
-            AgregarCampoTexto("Nombre Afiliado", NameOf(m_Receta.Credencial.Nombre), "CredencialOS." & NameOf(m_Receta.Credencial.Numero))
+            AgregarCampoTexto("Nombre Afiliado", NameOf(m_Receta.Credencial.Nombre), "Credencial." & NameOf(m_Receta.Credencial.Nombre))
         End If
 
         If dr.DocumentoAfiliado Then
@@ -291,10 +393,17 @@ Public Class FrmDatosReceta
 
         If dr.Prescriptor Then
 
+            AgregarCampoTipoPrescriptor()
+            AgregarCampoTipoMatricula()
+            AgregarCampoProvincia()
+            AgregarCampoTexto("Número Matricula", NameOf(m_Receta.Prescriptor.Matricula.Numero), "Prescriptor.Matricula." & NameOf(m_Receta.Prescriptor.Matricula.Numero))
+            AgregarCampoTexto("Apellido", NameOf(m_Receta.Prescriptor.Apellido), "Prescriptor.Apellido")
+            AgregarCampoTexto("Nombre", NameOf(m_Receta.Prescriptor.Nombre), "Prescriptor.Nombre")
+
         End If
 
         If dr.Token Then
-            AgregarCampoTexto("Token", NameOf(m_Receta.Credencial.Token), "CredencialOS." & NameOf(m_Receta.Credencial.Numero))
+            AgregarCampoTexto("Token", NameOf(m_Receta.Credencial.Token), "Credencial." & NameOf(m_Receta.Credencial.Token))
         End If
 
         If dr.Diagnostico Then
@@ -343,23 +452,56 @@ Public Class FrmDatosReceta
 
     Private Sub ValidarControl(sender As Object, e As System.ComponentModel.CancelEventArgs)
 
-        If TypeOf sender Is TextBox Then
+        Try
 
-            Dim txt As TextBox = DirectCast(sender, TextBox)
+            If TypeOf sender Is TextBox Then
 
-            If String.IsNullOrWhiteSpace(txt.Text) Then
+                Dim txt As TextBox = DirectCast(sender, TextBox)
 
-                MessageBox.Show("Debe completar " & txt.Tag.ToString() & ".", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                If String.IsNullOrWhiteSpace(txt.Text) Then
 
-                txt.Focus()
-                txt.SelectAll()
+                    MessageBox.Show("Debe completar " & txt.Tag.ToString() & ".", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                e.Cancel = True
+                    txt.Focus()
+                    txt.SelectAll()
+
+                    e.Cancel = True
+
+                End If
 
             End If
 
-        End If
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
+        End Try
+
+    End Sub
+
+    Private Sub InsertarPrescriptor(argReceta As Receta)
+        Try
+            If argReceta.Prescriptor IsNot Nothing Then
+                Dim adminDB As New N_AdminDB
+
+                Dim p = argReceta.Prescriptor
+                Dim id As String = p.Matricula.TipoMatricula.CodiTMADESFA & p.Provincia.CodiP & p.TipoPrescriptor.CodiTP & p.Matricula.Numero
+
+                Dim valores As New Dictionary(Of String, Object) From {
+                                                                        {"IdPrescriptor", id},
+                                                                        {"Matricula", p.Matricula.Numero},
+                                                                        {"Apellido", p.Apellido},
+                                                                        {"Nombre", p.Nombre}
+                                                                       }
+
+
+                adminDB.InsertarRegistro("prescriptores", valores)
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
     End Sub
 
     Private Sub AjustarTamañoFormulario()

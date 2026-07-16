@@ -104,7 +104,7 @@ Public Class FrmClientes
                 .UcProvincia.Descripcion = argCliente.Provincia
                 .TxtTelefono.Text = argCliente.Telefono
                 .TxtEmail.Text = argCliente.Email
-                .UcTipoDoc.Asignar(argCliente.Documento.TipoDoc.CodiTD, argCliente.Documento.TipoDoc.Descripcion)
+                .UcTipoDoc.Asignar(argCliente.Documento.TipoDocumento.CodiTD, argCliente.Documento.TipoDocumento.Descripcion)
                 .TxtNumDoc.Text = argCliente.Documento.Numero
                 .TxtFechaAlta.Text = argCliente.FechaAlta
                 .UcEstado.Descripcion = argCliente.Estado

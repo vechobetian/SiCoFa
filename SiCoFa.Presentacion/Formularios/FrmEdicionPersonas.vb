@@ -9,7 +9,7 @@ Public Class FrmEdicionPersonas
         Try
             With UcProvincia
                 .Objetos = Provincia.Lista
-                .NombrePropiedadId = "CodiProvincia"
+                .NombrePropiedadId = "CodiP"
                 .NombrePropiedadDescripcion = "Provincia"
                 .TituloSelector = "Provincias"
                 .HeaderDescripcion = "Provincia"

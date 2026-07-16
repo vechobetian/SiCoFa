@@ -19,7 +19,10 @@
     Public Property Items As List(Of ItemComprobante)
 
     Public Sub New()
-
+        Documento = New Documento
+        Credencial = New CredencialOS
+        Prescriptor = New Prescriptor
+        'Items = New List(Of ItemComprobante)
     End Sub
 
     Public Sub New(ByVal argPlanOS As PlanOS)

@@ -97,7 +97,7 @@ Public Class Ticket58
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("IVA:" & Comprobante.Cliente.IVA.Descripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.Documento.TipoDoc.Descripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.Documento.TipoDocumento.Descripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Num.Doc:" & Comprobante.Cliente.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreLinea
@@ -337,7 +337,7 @@ Public Class Ticket58
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("IVA:" & Comprobante.Cliente.IVA.Descripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
-        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.Documento.TipoDoc.Descripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
+        e.Graphics.DrawString("Tipo Doc:" & Comprobante.Cliente.Documento.TipoDocumento.Descripcion, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreTexto
         e.Graphics.DrawString("Num.Doc:" & Comprobante.Cliente.Documento.Numero, printFont, Brushes.Black, MargenIzquierdo, yPos)
         yPos += IncrementoYPreLinea

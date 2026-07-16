@@ -33,8 +33,8 @@ Public Class FrmBuscaPersonas
                 .Rows(x).Cells("Provincia").Value = p.Provincia
                 .Rows(x).Cells("Telefono").Value = p.Telefono
                 .Rows(x).Cells("Email").Value = p.Email
-                .Rows(x).Cells("CodiTD").Value = p.Documento.TipoDoc.CodiTD
-                .Rows(x).Cells("TipoDocumento").Value = p.Documento.TipoDoc.Descripcion
+                .Rows(x).Cells("CodiTD").Value = p.Documento.TipoDocumento.CodiTD
+                .Rows(x).Cells("TipoDocumento").Value = p.Documento.TipoDocumento.Descripcion
                 .Rows(x).Cells("NumDoc").Value = p.Documento.Numero
                 .Rows(x).Cells("FechaAlta").Value = p.FechaAlta
                 .Rows(x).Cells("Estado").Value = p.Estado

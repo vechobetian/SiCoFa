@@ -34,6 +34,12 @@
         End Get
     End Property
 
+    Public Shared ReadOnly Property Predeterminado As TipoDocumento
+        Get
+            Return New TipoDocumento("M")
+        End Get
+    End Property
+
     Public ReadOnly Property Descripcion As String
         Get
             Return m_Descripcion
@@ -49,6 +55,13 @@
                 }
         End Get
     End Property
+
+    Public Sub New()
+
+        Me.CodiTP = "M"
+        m_Descripcion = "MEDICO"
+
+    End Sub
 
     Public Sub New(argCodiTP As String)
 

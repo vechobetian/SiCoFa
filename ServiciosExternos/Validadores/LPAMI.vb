@@ -371,7 +371,7 @@ Public Class LPAMI
         writer.WriteStartElement("Prescriptor")
         writer.WriteElementString("Apellido", "")
         writer.WriteElementString("Nombre", "")
-        writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.CodiTMatADESFA)
+        writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.TipoMatricula.CodiTMADESFA)
         writer.WriteElementString("Provincia", "")
         writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
         writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPADESFA)

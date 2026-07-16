@@ -51,16 +51,18 @@ Public Class UcSelectorUniversal
         Set(value As Object)
 
             m_Id = value
+            m_ObjetoSeleccionado = Nothing
+            TxtSelector.Text = ""
 
             If Objetos Is Nothing Then Exit Property
-
-            TxtSelector.Text = ""
 
             For Each obj In Objetos
 
                 If Object.Equals(ObtenerId(obj), value) Then
 
+                    m_ObjetoSeleccionado = obj
                     TxtSelector.Text = ObtenerDescripcion(obj)
+
                     Exit For
 
                 End If

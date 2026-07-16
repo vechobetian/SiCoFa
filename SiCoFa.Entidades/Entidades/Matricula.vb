@@ -1,40 +1,19 @@
 ﻿Public Class Matricula
-    Public Property CodiTM As String
+
+    Public Property TipoMatricula As TipoMatricula
     Public Property Numero As String
 
-    Public Sub New(ByVal argCodiTM As String, ByVal argNumero As String)
-        Me.CodiTM = argCodiTM.ToUpper.Trim
-        Me.Numero = argNumero
+    Public Sub New()
+
+        Me.TipoMatricula = New TipoMatricula
+
     End Sub
 
-    Public ReadOnly Property Descripcion As String
-        Get
-            Select Case CodiTM
-                Case "N"
-                    Return "NACIONAL"
+    Public Sub New(ByVal argCodiTM As String, ByVal argNumero As String)
 
-                Case "P"
-                    Return "PROVINCIAL"
+        Me.TipoMatricula = New TipoMatricula(argCodiTM)
+        Me.Numero = argNumero
 
-                Case Else
-                    Return "NO ESPECIFICADA"
-
-            End Select
-        End Get
-    End Property
-
-    Public ReadOnly Property CodiTMatADESFA As String
-        Get
-            Select Case CodiTM
-                Case "N", "P"
-                    Return CodiTM
-
-                Case Else
-                    Return "NO ESPECIFICADA"
-            End Select
-        End Get
-    End Property
+    End Sub
 
 End Class
-
-

@@ -1,5 +1,5 @@
 ﻿Public Class Provincia
-    Public Property CodiProvincia As String
+    Public Property CodiP As String
     Private m_Provincia As String
 
     Public ReadOnly Property Provincia As String
@@ -39,11 +39,16 @@
         End Get
     End Property
 
-    Public Sub New(ByVal argCodiProvincia As String)
+    Public Sub New()
+        Me.CodiP = ""
+        Me.m_Provincia = ""
+    End Sub
 
-        Me.CodiProvincia = argCodiProvincia.Trim().ToUpper
+    Public Sub New(ByVal argCodiP As String)
 
-        Select Case argCodiProvincia.Trim.ToUpper
+        Me.CodiP = argCodiP.Trim().ToUpper
+
+        Select Case argCodiP.Trim.ToUpper
             Case "A" : m_Provincia = "NEUQUEN"
             Case "B" : m_Provincia = "BUENOS AIRES"
             Case "C" : m_Provincia = "CABA"
