@@ -150,7 +150,7 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Private Sub CargarCampoMatricula()
+    Private Sub AgregarCampoMatricula()
 
         Try
 
@@ -188,6 +188,8 @@ Public Class FrmDatosReceta
                 End If
 
             End With
+
+            AgregarCampo("Matricula", uc)
 
         Catch ex As Exception
 
@@ -442,12 +444,13 @@ Public Class FrmDatosReceta
 
         If dr.Prescriptor Then
 
-            AgregarCampoTipoPrescriptor()
-            AgregarCampoTipoMatricula()
-            AgregarCampoProvincia()
-            AgregarCampoTexto("Número Matricula", NameOf(m_Receta.Prescriptor.Matricula.Numero), "Prescriptor.Matricula." & NameOf(m_Receta.Prescriptor.Matricula.Numero))
-            AgregarCampoTexto("Apellido", NameOf(m_Receta.Prescriptor.Apellido), "Prescriptor.Apellido")
-            AgregarCampoTexto("Nombre", NameOf(m_Receta.Prescriptor.Nombre), "Prescriptor.Nombre")
+            AgregarCampoMatricula()
+            'AgregarCampoTipoPrescriptor()
+            'AgregarCampoTipoMatricula()
+            'AgregarCampoProvincia()
+            'AgregarCampoTexto("Número Matricula", NameOf(m_Receta.Prescriptor.Matricula.Numero), "Prescriptor.Matricula." & NameOf(m_Receta.Prescriptor.Matricula.Numero))
+            'AgregarCampoTexto("Apellido", NameOf(m_Receta.Prescriptor.Apellido), "Prescriptor.Apellido")
+            'AgregarCampoTexto("Nombre", NameOf(m_Receta.Prescriptor.Nombre), "Prescriptor.Nombre")
 
         End If
 
@@ -530,13 +533,14 @@ Public Class FrmDatosReceta
     Private Sub ValidarMatricula(sender As Object, e As System.ComponentModel.CancelEventArgs)
         Dim uc As UcSelectorUniversal = DirectCast(sender, UcSelectorUniversal)
 
-        If Not uc.ObjetoSeleccionado Then
+        If uc.ObjetoSeleccionado Is Nothing Then
             e.Cancel = True
-            MessageBox.Show("Debe ingresar la fecha de prescripción", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Debe ingresar Numero de Matricula", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Exit Sub
         End If
 
     End Sub
+
 
     Private Sub InsertarPrescriptor(argReceta As Receta)
         Try
