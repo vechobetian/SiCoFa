@@ -216,6 +216,7 @@ Public Class FrmDatosReceta
 
         If keyData = Keys.F2 Then
             Me.ActualizarRecetaDesdeControles()
+            Me.InsertarPrescriptor(m_Receta)
             Return True   ' Indica que la teck1la fue procesada
         End If
 
