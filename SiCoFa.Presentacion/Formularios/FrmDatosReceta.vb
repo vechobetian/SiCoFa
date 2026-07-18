@@ -181,6 +181,7 @@ Public Class FrmDatosReceta
                 .HeaderDescripcion = "Prescriptor"
                 .PermitirVacio = False
                 .PermitirNuevo = True
+                .IdNuevo = 0
                 .Tag = "Prescriptor.Matricula.Numero"
                 .Name = "UcMatricula"
 
@@ -256,7 +257,12 @@ Public Class FrmDatosReceta
                     Case TypeOf ctrl Is UcSelectorUniversal
 
                         Dim uc = DirectCast(ctrl, UcSelectorUniversal)
-                        AsignarValor(m_Receta, ruta, uc.Id)
+
+                        If uc.Id = 0 Then
+
+                        Else
+                            AsignarValor(m_Receta, ruta, uc.Id)
+                        End If
 
                     Case TypeOf ctrl Is ComboBox
 

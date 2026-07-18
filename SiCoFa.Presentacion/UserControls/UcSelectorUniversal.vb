@@ -34,6 +34,8 @@ Public Class UcSelectorUniversal
 
     Public Property PermitirNuevo As Boolean = False
 
+    Public Property IdNuevo As Object = Nothing
+
 #End Region
 
 #Region "Propiedades"
@@ -383,7 +385,7 @@ Public Class UcSelectorUniversal
                 If PermitirNuevo Then
 
                     ' Mantener el texto escrito por el usuario
-                    m_Id = Nothing
+                    m_Id = IdNuevo
                     m_ObjetoSeleccionado = Nothing
 
                     RaiseEvent ValorCambiado(Me, EventArgs.Empty)
