@@ -1,5 +1,6 @@
 ﻿Public Class Prescriptor
 
+    Public Property IdPrescriptor As String
     Public Property TipoPrescriptor As TipoPrescriptor
     Public Property Provincia As Provincia
     Public Property Apellido As String

@@ -150,13 +150,14 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Private Sub AgregarCampoMatricula()
+    Private Sub AgregarCampoPrescriptor()
 
         Try
 
             Dim adminDB As New N_AdminDB
 
-            Dim sql As String = "SELECT IdPrescriptor, CONCAT(Matricula,'|',Apellido, ' ',Nombre) AS Prescriptor FROM prescriptores"
+            Dim sql As String =
+            "SELECT IdPrescriptor, Matricula FROM prescriptores ORDER BY Matricula"
 
             Dim dt As DataTable = adminDB.ObtenerTabla(sql)
 
@@ -164,36 +165,45 @@ Public Class FrmDatosReceta
 
             For Each fila As DataRow In dt.Rows
 
-                lista.Add(New SelectorItem(fila("IdPrescriptor"), fila("Prescriptor").ToString()))
+                lista.Add(New SelectorItem(
+                fila("IdPrescriptor").ToString(),
+                fila("Matricula").ToString()))
 
             Next
 
             Dim uc As New UcSelectorUniversal
 
-            AddHandler uc.SelectorValidating, AddressOf ValidarMatricula
+            AddHandler uc.SelectorValidating, AddressOf ValidarPrescriptor
 
             With uc
 
                 .Objetos = lista
                 .NombrePropiedadId = "Id"
                 .NombrePropiedadDescripcion = "Descripcion"
+
                 .TituloSelector = "Prescriptores"
                 .HeaderDescripcion = "Prescriptor"
+
                 .PermitirVacio = False
                 .PermitirNuevo = True
-                .IdNuevo = 0
-                .Tag = "Prescriptor.Matricula.Numero"
-                .Name = "UcMatricula"
+                .IdNuevo = "0"
 
-                Dim valor = ObtenerValor(m_Receta, .Tag.ToString())
+                .Tag = "Prescriptor.IdPrescriptor"
+                .Name = "UcPrescriptor"
 
-                If valor IsNot Nothing Then
-                    .Id = valor
+                If m_Receta.Prescriptor IsNot Nothing Then
+
+                    If Not String.IsNullOrWhiteSpace(m_Receta.Prescriptor.IdPrescriptor) Then
+
+                        .Id = m_Receta.Prescriptor.IdPrescriptor
+
+                    End If
+
                 End If
 
             End With
 
-            AgregarCampo("Matricula", uc)
+            AgregarCampo("Prescriptor", uc)
 
         Catch ex As Exception
 
@@ -213,12 +223,66 @@ Public Class FrmDatosReceta
 
     End Sub
 
+    Private Sub FrmDatosReceta_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+
+        If e.KeyCode = Keys.Escape Then
+
+            e.Handled = True
+            e.SuppressKeyPress = True
+
+            Me.DialogResult = DialogResult.Cancel
+            Me.Close()
+
+        End If
+
+    End Sub
+
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
 
         If keyData = Keys.F2 Then
             Me.ActualizarRecetaDesdeControles()
-            Me.InsertarPrescriptor(m_Receta)
+
+            Dim ucPrescriptor = TryCast(Controls.Find("UcPrescriptor", True).FirstOrDefault(), UcSelectorUniversal)
+
+            If ucPrescriptor IsNot Nothing AndAlso ucPrescriptor.EsNuevo Then
+                InsertarPrescriptor(m_Receta)
+            End If
+
+            Dim adminRecetas As New N_AdminRecetas
+
+            If m_Receta.NumReceta = "*" Then
+
+                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
+
+                If rtas.Count = 0 Then
+                    MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Me.LimpiarFormulario()
+                    Exit Function
+                End If
+
+                Using frm As New FrmRecetasBeneficiario
+
+                    frm.RecetasBeneficiario(rtas)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+
+                        Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
+
+                        ' Descargar la receta electrónica
+                        m_Receta.NumReceta = numeroReceta
+                        adminRecetas.ConsultaRecetaElectronica(m_Receta)
+                        Close()
+                        Me.Close()
+                    End If
+
+                End Using
+            Else
+                adminRecetas.ConsultaRecetaElectronica(m_Receta)
+                Me.Close()
+            End If
+
             Return True   ' Indica que la teck1la fue procesada
+        
         End If
 
         Return MyBase.ProcessCmdKey(msg, keyData)
@@ -258,16 +322,31 @@ Public Class FrmDatosReceta
 
                         Dim uc = DirectCast(ctrl, UcSelectorUniversal)
 
-                        If uc.Id = 0 Then
+                        If ruta = "Prescriptor.IdPrescriptor" Then
+
+                            If uc.EsNuevo Then
+
+                                AsignarValor(m_Receta, ruta, "")
+
+                                AsignarValor(m_Receta, "Prescriptor.Matricula.Numero", uc.TextoIngresado)
+
+                            Else
+
+                                AsignarValor(m_Receta, ruta, uc.Id)
+
+                                AsignarValor(m_Receta, "Prescriptor.Matricula.Numero", uc.Descripcion)
+
+                            End If
 
                         Else
-                            AsignarValor(m_Receta, ruta, uc.Id)
+
+                            If uc.EsNuevo Then
+                                AsignarValor(m_Receta, ruta, uc.TextoIngresado)
+                            Else
+                                AsignarValor(m_Receta, ruta, uc.Id)
+                            End If
+
                         End If
-
-                    Case TypeOf ctrl Is ComboBox
-
-                        AsignarValor(m_Receta, ruta, DirectCast(ctrl, ComboBox).SelectedValue)
-
                 End Select
 
             Next
@@ -454,11 +533,10 @@ Public Class FrmDatosReceta
 
         If dr.Prescriptor Then
 
-            AgregarCampoMatricula()
+            AgregarCampoPrescriptor()
             AgregarCampoTipoPrescriptor()
             AgregarCampoTipoMatricula()
             AgregarCampoProvincia()
-            'AgregarCampoTexto("Número Matricula", NameOf(m_Receta.Prescriptor.Matricula.Numero), "Prescriptor.Matricula." & NameOf(m_Receta.Prescriptor.Matricula.Numero))
             AgregarCampoTexto("Apellido", NameOf(m_Receta.Prescriptor.Apellido), "Prescriptor.Apellido")
             AgregarCampoTexto("Nombre", NameOf(m_Receta.Prescriptor.Nombre), "Prescriptor.Nombre")
 
@@ -540,13 +618,88 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Private Sub ValidarMatricula(sender As Object, e As CancelEventArgs)
+    Private Sub ValidarPrescriptor(sender As Object, e As CancelEventArgs)
 
         Dim uc = DirectCast(sender, UcSelectorUniversal)
 
-        If uc.ObjetoSeleccionado IsNot Nothing Then Exit Sub
+        If uc.EsNuevo = False Then
+            CargarDatosPrescriptor(uc.Id)
 
-        If Not uc.PermitirNuevo Then Exit Sub
+        Else
+            LimpiarDatosPrescriptor()
+
+        End If
+
+    End Sub
+
+    Private Sub LimpiarDatosPrescriptor()
+
+        DirectCast(Controls.Find("UcTipoMatricula", True)(0), UcSelectorUniversal).Limpiar()
+        DirectCast(Controls.Find("UcProvincia", True)(0), UcSelectorUniversal).Limpiar()
+        DirectCast(Controls.Find("UcTipoPrescriptor", True)(0), UcSelectorUniversal).Limpiar()
+        DirectCast(Controls.Find("TxtPrescriptor_Apellido", True)(0), TextBox).Clear()
+        DirectCast(Controls.Find("TxtPrescriptor_Nombre", True)(0), TextBox).Clear()
+        DesbloquearDatosPrescriptor()
+
+    End Sub
+
+    Private Sub DesbloquearDatosPrescriptor()
+
+        DirectCast(Controls.Find("UcTipoMatricula", True)(0), UcSelectorUniversal).SoloLectura = False
+        DirectCast(Controls.Find("UcProvincia", True)(0), UcSelectorUniversal).SoloLectura = False
+        DirectCast(Controls.Find("UcTipoPrescriptor", True)(0), UcSelectorUniversal).SoloLectura = False
+
+        Dim txtApellido = DirectCast(Controls.Find("TxtPrescriptor_Apellido", True)(0), TextBox)
+        txtApellido.ReadOnly = False
+        txtApellido.BackColor = SystemColors.Window
+        txtApellido.ForeColor = SystemColors.WindowText
+
+        Dim txtNombre = DirectCast(Controls.Find("TxtPrescriptor_Nombre", True)(0), TextBox)
+        txtNombre.ReadOnly = False
+        txtNombre.BackColor = SystemColors.Window
+        txtNombre.ForeColor = SystemColors.WindowText
+
+    End Sub
+
+    Private Sub CargarDatosPrescriptor(idPrescriptor As String)
+
+        Dim adminDB As New N_AdminDB
+
+        Dim sql As String =
+        "SELECT Matricula, Apellido, Nombre " &
+        "FROM prescriptores " &
+        "WHERE IdPrescriptor = '" & idPrescriptor & "'"
+
+        Dim dt As DataTable = adminDB.ObtenerTabla(sql)
+
+        If dt.Rows.Count = 0 Then Exit Sub
+
+        Dim fila = dt.Rows(0)
+
+        DirectCast(Controls.Find("UcTipoMatricula", True)(0), UcSelectorUniversal).Id = idPrescriptor.Substring(0, 1)
+        DirectCast(Controls.Find("UcProvincia", True)(0), UcSelectorUniversal).Id = idPrescriptor.Substring(1, 1)
+        DirectCast(Controls.Find("UcTipoPrescriptor", True)(0), UcSelectorUniversal).Id = idPrescriptor.Substring(2, 1)
+        DirectCast(Controls.Find("TxtPrescriptor_Apellido", True)(0), TextBox).Text = fila("Apellido").ToString()
+        DirectCast(Controls.Find("TxtPrescriptor_Nombre", True)(0), TextBox).Text = fila("Nombre").ToString()
+        BloquearDatosPrescriptor()
+
+    End Sub
+
+    Private Sub BloquearDatosPrescriptor()
+
+        DirectCast(Controls.Find("UcTipoMatricula", True)(0), UcSelectorUniversal).SoloLectura = True
+        DirectCast(Controls.Find("UcProvincia", True)(0), UcSelectorUniversal).SoloLectura = True
+        DirectCast(Controls.Find("UcTipoPrescriptor", True)(0), UcSelectorUniversal).SoloLectura = True
+
+        Dim txtApellido = DirectCast(Controls.Find("TxtPrescriptor_Apellido", True)(0), TextBox)
+        txtApellido.ReadOnly = True
+        txtApellido.BackColor = Color.White
+        txtApellido.ForeColor = Color.Black
+
+        Dim txtNombre = DirectCast(Controls.Find("TxtPrescriptor_Nombre", True)(0), TextBox)
+        txtNombre.ReadOnly = True
+        txtNombre.BackColor = Color.White
+        txtNombre.ForeColor = Color.Black
 
     End Sub
 
@@ -555,7 +708,11 @@ Public Class FrmDatosReceta
             If argReceta.Prescriptor IsNot Nothing Then
                 Dim adminDB As New N_AdminDB
 
+                Dim ucPrescriptor = DirectCast(Controls.Find("UcPrescriptor", True)(0), UcSelectorUniversal)
+
                 Dim p = argReceta.Prescriptor
+                p.Matricula.Numero = ucPrescriptor.TextoIngresado
+
                 Dim id As String = p.Matricula.TipoMatricula.CodiTMADESFA & p.Provincia.CodiP & p.TipoPrescriptor.CodiTP & p.Matricula.Numero
 
                 Dim valores As New Dictionary(Of String, Object) From {
@@ -567,6 +724,14 @@ Public Class FrmDatosReceta
 
 
                 adminDB.InsertarRegistro("prescriptores", valores)
+
+                p.IdPrescriptor = id
+
+                Dim lista = DirectCast(ucPrescriptor.Objetos, List(Of SelectorItem))
+
+                lista.Add(New SelectorItem(id, p.Matricula.Numero))
+
+                ucPrescriptor.Asignar(id, p.Matricula.Numero)
 
             End If
 

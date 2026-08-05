@@ -75,14 +75,12 @@ Public Class FrmSelectorPlanesOS
 
             m_PlanSeleccionado = adminOS.ObtenerPlanOSPorId(CLng(UcSelectorPlanes.Id))
 
-
             If m_PlanSeleccionado IsNot Nothing Then
 
                 Me.DialogResult = DialogResult.OK
                 Me.Close()
 
             End If
-
 
         Catch ex As Exception
 

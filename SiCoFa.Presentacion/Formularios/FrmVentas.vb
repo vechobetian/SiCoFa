@@ -73,46 +73,6 @@ Public Class FrmVentas
 
     End Function
 
-    Private Sub AbrirOperacion()
-        Try
-            Dim frm As New FrmBuscaOperacionesIniciadas()
-
-            If frm.CargarVentasIniciadas(g_ParametrosTerminal.Empresa.Id, Me.Usuario.Id, "VTAM") Then
-                frm.ShowDialog()
-            Else
-                MsgBox("El Usuario " & Me.Usuario.Id & " no tiene Ventas Iniciadas", vbInformation, "SiCoFa")
-                frm.Dispose()
-            End If
-
-            If frm.IdOperacionSeleccionado > 0 Then
-                mobj_Operacion = mobj_AdminOperacion.ObtenerOperacion(frm.IdOperacionSeleccionado)
-                mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
-                mobj_Operacion.Usuario = Me.Usuario
-                mobj_Operacion.TipoOperacion = mobj_TipoOperacion
-                mobj_Cliente = mobj_AdminOperacion.ObtenerOperacionCL(mobj_Operacion.IdOperacion)
-
-                If mobj_Cliente Is Nothing Then
-                    Dim AdminClientes As New N_AdminClientes
-                    mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
-                End If
-
-
-                Dim AdminItems As New N_AdminItemsComprobante
-                Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(mobj_Operacion.IdOperacion)
-                mobj_Items = New BindingList(Of ItemComprobante)(objItems)
-                RenderItemsUC()
-                Me.ActualizarTotales()
-                Me.ActualizarDatosOperacion()
-                Me.AgregarItemVacio()
-
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
     Private Sub GuardarCambios(ByVal argTecla As Keys)
         Try
 
@@ -120,26 +80,11 @@ Public Class FrmVentas
                 Exit Sub
             End If
 
-            'If mobj_Operacion Is Nothing Then
-            'mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, "", "GUARDADO")
-            'Else
-            'mobj_Operacion.Inicio = Now
-            'mobj_Operacion.Observaciones = ""
-            'mobj_Operacion.EstadoOperacion = "GUARDADO"
-            'Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
-
-            'End If
-
-
             If mobj_Cliente Is Nothing Then
                 Dim AdminClientes As New N_AdminClientes
                 mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
-                'mobj_AdminOperacion.InsertarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
             End If
 
-            'mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
-
-            'Me.InsertarItems(mobj_Operacion.IdOperacion)
             mobj_Operacion = New Operacion(0, Date.MinValue, Date.MinValue, g_ParametrosTerminal.Empresa, g_ParametrosTerminal.IdPc, 0, Me.Usuario, mobj_TipoOperacion, "", "", "")
             If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
 
@@ -273,10 +218,7 @@ Public Class FrmVentas
 
     Private Function GetItemsOrdenados() As List(Of UcItemVenta)
 
-        Return PanelItems.Controls _
-        .OfType(Of UcItemVenta)() _
-        .Reverse() _
-        .ToList()
+        Return PanelItems.Controls.OfType(Of UcItemVenta)().Reverse().ToList()
 
     End Function
 
@@ -785,19 +727,6 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub FrmVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-
-        Try
-
-            'Me.GuardarCambios(Keys.Escape)
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.F10
@@ -869,34 +798,6 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub NuevoToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevoToolStripButton.Click
-
-        Dim nuevaVentanaVentas As New FrmVentas()
-        nuevaVentanaVentas.Usuario = Me.Usuario
-        nuevaVentanaVentas.Show()
-
-        Me.Close()
-
-    End Sub
-
-    Private Sub AbrirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AbrirToolStripMenuItem.Click
-        Me.AbrirOperacion()
-    End Sub
-
-    Private Sub AbrirToolStripButton_Click(sender As Object, e As EventArgs) Handles AbrirToolStripButton.Click
-        Me.AbrirOperacion()
-    End Sub
-
-    Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click
-        Me.GuardarCambios(Keys.Escape)
-        MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
-    End Sub
-
-    Private Sub GuardarToolStripButton_Click(sender As Object, e As EventArgs) Handles GuardarToolStripButton.Click
-        Me.GuardarCambios(Keys.Escape)
-        MsgBox("Los cambios se guardaron con exito", vbInformation, "SiCoFa")
-    End Sub
-
     Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
         Me.Close()
     End Sub
@@ -959,73 +860,6 @@ Public Class FrmVentas
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
-
-    End Sub
-
-    Private Sub NuevaRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevaRecetaToolStripButton.Click
-
-        Dim PlanOS As PlanOS = Nothing
-
-        Using frm As New FrmSelectorPlanesOS
-
-            If frm.ShowDialog() <> DialogResult.OK Then
-                Exit Sub
-            End If
-
-            PlanOS = frm.PlanSeleccionado
-
-        End Using
-
-        Dim receta As New Receta(PlanOS)
-
-        receta.IdReceta = ObtenerNuevoIdReceta()
-
-        If receta.Plan.OS.PValidacion.RecetaElectronica Then
-            Using frm As New FrmDatosReceta(receta)
-
-                If frm.ShowDialog() = DialogResult.OK Then
-                    ' receta ya fue modificada
-                End If
-
-            End Using
-        End If
-
-        Me.CargarRecetaEnPantalla(receta)
-
-    End Sub
-
-    Private Sub DatosRecetaToolStripButton_Click(sender As Object, e As EventArgs) Handles DatosRecetaToolStripButton.Click
-
-        Dim receta As Receta = Nothing
-
-        If mobj_ItemSeleccionado IsNot Nothing Then
-
-            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
-
-            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
-
-                receta = ObtenerReceta(item.Receta.IdReceta)
-
-            End If
-
-        End If
-
-        If receta IsNot Nothing Then
-
-            If receta.Plan.DatosRequeridos Is Nothing Then
-                MessageBox.Show("Datos Requeridos no establecidos", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Exit Sub
-            End If
-
-            Using frm As New FrmDatosReceta(receta)
-
-                If frm.ShowDialog() = DialogResult.OK Then
-                    ' receta ya fue modificada
-                End If
-
-            End Using
-
-        End If
 
     End Sub
 
@@ -1142,6 +976,54 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub EliminarRecetaEnPantalla(receta As Receta)
+
+        If receta Is Nothing Then Exit Sub
+
+        ' Eliminar la receta de la colección
+        mobj_Recetas.Remove(receta)
+
+        ' Eliminar todos los items asociados a la receta
+        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+            Dim item = mobj_Items(i)
+
+            If item.Receta IsNot Nothing AndAlso item.Receta.IdReceta = receta.IdReceta Then
+                mobj_Items.RemoveAt(i)
+            End If
+
+        Next
+
+        ' Debe existir un único item libre
+        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+            Dim item = mobj_Items(i)
+
+            If item.Receta Is Nothing AndAlso item.Articulo Is Nothing Then
+                mobj_Items.RemoveAt(i)
+            End If
+
+        Next
+
+        Dim itemLibre As New ItemComprobante()
+
+        itemLibre.EsNuevo = True
+
+        mobj_Items.Add(itemLibre)
+
+        ' Limpiar la receta mostrada si era la seleccionada
+        If UcReceta1.Receta IsNot Nothing AndAlso UcReceta1.Receta.IdReceta = receta.IdReceta Then
+            UcReceta1.Receta = Nothing
+        End If
+
+        mobj_ItemSeleccionado = Nothing
+
+        ActualizarTotales()
+
+        RenderItemsUC()
+
+    End Sub
+
     Private Sub AyudaToolStripButton_Click(sender As Object, e As EventArgs) Handles AyudaToolStripButton.Click
 
         Dim receta As Receta = Nothing
@@ -1188,5 +1070,98 @@ Public Class FrmVentas
 
     End Sub
 
+    Private Sub btnNuevaReceta_Click(sender As Object, e As EventArgs) Handles btnNuevaReceta.Click
+        Try
+            Dim PlanOS As PlanOS = Nothing
 
+            Using frm As New FrmSelectorPlanesOS
+
+                If frm.ShowDialog() <> DialogResult.OK Then
+                    Exit Sub
+                End If
+
+                PlanOS = frm.PlanSeleccionado
+
+            End Using
+
+            Dim receta As New Receta(PlanOS)
+
+            receta.IdReceta = ObtenerNuevoIdReceta()
+
+            If receta.Plan.OS.PValidacion.RecetaElectronica Then
+                Using frm As New FrmDatosReceta(receta)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+                        ' receta ya fue modificada
+                    End If
+
+                End Using
+            End If
+
+            Me.CargarRecetaEnPantalla(receta)
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub btnDatosReceta_Click(sender As Object, e As EventArgs) Handles btnDatosReceta.Click
+        Try
+            Dim receta As Receta = Nothing
+
+            If mobj_ItemSeleccionado IsNot Nothing Then
+
+                Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+                If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                    receta = ObtenerReceta(item.Receta.IdReceta)
+
+                End If
+
+            End If
+
+            If receta IsNot Nothing Then
+
+                If receta.Plan.DatosRequeridos Is Nothing Then
+                    MessageBox.Show("Datos Requeridos no establecidos", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Exit Sub
+                End If
+
+                Using frm As New FrmDatosReceta(receta)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+
+                    End If
+
+                End Using
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub mnuElinarReceta_Click(sender As Object, e As EventArgs) Handles mnuElinarReceta.Click
+
+        Try
+
+            If mobj_ItemSeleccionado Is Nothing Then
+
+                Exit Sub
+
+            End If
+
+            Dim receta As Receta = mobj_ItemSeleccionado.ItemVenta.Receta
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
 End Class

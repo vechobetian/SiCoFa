@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
 Imports System.Net
 Imports System.Net.WebRequestMethods
 Imports System.Runtime.Remoting.Metadata
@@ -62,7 +63,7 @@ Public Class LPAMI
 
         IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
-        Dim recetas As List(Of Receta) = ParsearRecetas(xmlResponse)
+        Dim recetas As List(Of Receta) = ParsearRecetasBeneficiario(xmlResponse)
 
         'For Each receta As Receta In recetas
 
@@ -605,7 +606,7 @@ Public Class LPAMI
 
     End Function
 
-    Private Function ParsearRecetas(xml As XmlDocument) As List(Of Receta)
+    Private Function ParsearRecetasBeneficiario(xml As XmlDocument) As List(Of Receta)
 
         Dim recetas As New List(Of Receta)
 
@@ -652,6 +653,97 @@ Public Class LPAMI
     End Function
 
     Private Function ParsearRecetaElectronica(argReceta As Receta, xml As XmlDocument) As Receta
+
+        '=========================
+        ' Encabezado de la receta
+        '=========================
+
+        Dim encabezado As XmlNode = xml.SelectSingleNode("//MensajeADESFA/EncabezadoReceta")
+
+        Dim fecha As String = encabezado.SelectSingleNode("FechaReceta")?.InnerText
+
+        If Not String.IsNullOrEmpty(fecha) Then
+            argReceta.FechaPrescripcion = DateTime.ParseExact(fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
+        End If
+
+        argReceta.NumReceta = encabezado.SelectSingleNode("Formulario/Numero")?.InnerText
+        argReceta.Tratamiento = encabezado.SelectSingleNode("TipoTratamiento")?.InnerText
+
+        If argReceta.Prescriptor Is Nothing Then
+            Dim codiTPrescriptor As String = encabezado.SelectSingleNode("Prescriptor/TipoPrescriptor")?.InnerText
+            Dim tipoPrescriptor As New TipoPrescriptor(codiTPrescriptor)
+            Dim codiTM As String = encabezado.SelectSingleNode("Prescriptor/TipoMatricula")?.InnerText
+            Dim nMatricula As String = encabezado.SelectSingleNode("Prescriptor/NroMatricula")?.InnerText
+            Dim matricula As New Matricula(codiTM, nMatricula)
+            argReceta.Prescriptor = New Prescriptor(tipoPrescriptor, Nothing, "", "", matricula)
+        End If
+
+        '=========================
+        ' Detalle
+        '=========================
+
+        argReceta.Items = New List(Of ItemComprobante)
+
+        Dim referencias As XmlNodeList = xml.SelectNodes("//MensajeADESFA/DetalleReceta/ReferenciaRx")
+
+        For Each referencia As XmlNode In referencias
+
+            Dim idItem As Long
+            Long.TryParse(referencia.SelectSingleNode("NroLinea")?.InnerText, idItem)
+
+            Dim cantidadPrescripta As Integer
+            Integer.TryParse(referencia.SelectSingleNode("CantidadPrescripta")?.InnerText, cantidadPrescripta)
+
+            Dim itemSeleccionado As XmlNode = Nothing
+
+            For Each nodoItem As XmlNode In referencia.SelectNodes("Item")
+
+                If itemSeleccionado Is Nothing Then
+                    itemSeleccionado = nodoItem
+                End If
+
+                If nodoItem.SelectSingleNode("Estado")?.InnerText = "1" Then
+                    itemSeleccionado = nodoItem
+                    Exit For
+                End If
+
+            Next
+
+
+            If itemSeleccionado IsNot Nothing Then
+
+                Dim codigo As String = ""
+                Dim idArticulo As String = ""
+                Dim codBarras As String = ""
+                Dim nTroquel As String = ""
+
+                Dim alfabeta = itemSeleccionado.SelectSingleNode("Alfabeta")?.InnerText
+
+                If Not String.IsNullOrWhiteSpace(alfabeta) Then
+                    codigo = alfabeta
+                    idArticulo = "M" & alfabeta
+                End If
+
+                codBarras = itemSeleccionado.SelectSingleNode("CodBarras")?.InnerText
+                nTroquel = itemSeleccionado.SelectSingleNode("CodTroquel")?.InnerText
+
+                Dim pUnit As Decimal
+                Decimal.TryParse(itemSeleccionado.SelectSingleNode("ImporteUnitario")?.InnerText, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, pUnit)
+
+                Dim descripcion = itemSeleccionado.SelectSingleNode("Descripcion")?.InnerText
+
+                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, codigo, nTroquel)
+
+                argReceta.Items.Add(item)
+
+            End If
+        Next
+
+        Return argReceta
+
+    End Function
+
+    Private Function ParsearRecetaElectronica1(argReceta As Receta, xml As XmlDocument) As Receta
 
         '=========================
         ' Encabezado de la receta

@@ -1,6 +1,46 @@
 ﻿Public Class Provincia
-    Public Property CodiP As String
+
+    Private m_CodiP As String
     Private m_Provincia As String
+
+    Public Property CodiP As String
+        Get
+            Return m_CodiP
+        End Get
+        Set(value As String)
+
+            m_CodiP = value.Trim().ToUpper()
+
+            Select Case m_CodiP
+                Case "A" : m_Provincia = "NEUQUEN"
+                Case "B" : m_Provincia = "BUENOS AIRES"
+                Case "C" : m_Provincia = "CABA"
+                Case "D" : m_Provincia = "LA RIOJA"
+                Case "E" : m_Provincia = "ENTRE RIOS"
+                Case "F" : m_Provincia = "FORMOSA"
+                Case "G" : m_Provincia = "SANTIAGO DEL ESTERO"
+                Case "H" : m_Provincia = "CHACO"
+                Case "I" : m_Provincia = "MISIONES"
+                Case "J" : m_Provincia = "CORRIENTES"
+                Case "K" : m_Provincia = "SAN JUAN"
+                Case "L" : m_Provincia = "LA PAMPA"
+                Case "M" : m_Provincia = "MENDOZA"
+                Case "N" : m_Provincia = "CATAMARCA"
+                Case "O" : m_Provincia = "SAN LUIS"
+                Case "P" : m_Provincia = "TUCUMAN"
+                Case "Q" : m_Provincia = "TIERRA DEL FUEGO"
+                Case "R" : m_Provincia = "RIO NEGRO"
+                Case "S" : m_Provincia = "SANTA FE"
+                Case "T" : m_Provincia = "SALTA"
+                Case "U" : m_Provincia = "CHUBUT"
+                Case "X" : m_Provincia = "CORDOBA"
+                Case "Y" : m_Provincia = "JUJUY"
+                Case "Z" : m_Provincia = "SANTA CRUZ"
+                Case Else : m_Provincia = "DESCONOCIDO"
+            End Select
+
+        End Set
+    End Property
 
     Public ReadOnly Property Provincia As String
         Get
@@ -41,38 +81,11 @@
 
     Public Sub New()
         Me.CodiP = ""
-        Me.m_Provincia = ""
     End Sub
 
     Public Sub New(ByVal argCodiP As String)
 
         Me.CodiP = argCodiP.Trim().ToUpper
 
-        Select Case argCodiP.Trim.ToUpper
-            Case "A" : m_Provincia = "NEUQUEN"
-            Case "B" : m_Provincia = "BUENOS AIRES"
-            Case "C" : m_Provincia = "CABA"
-            Case "D" : m_Provincia = "LA RIOJA"
-            Case "E" : m_Provincia = "ENTRE RIOS"
-            Case "F" : m_Provincia = "FORMOSA"
-            Case "G" : m_Provincia = "SANTIAGO DEL ESTERO"
-            Case "H" : m_Provincia = "CHACO"
-            Case "I" : m_Provincia = "MISIONES"
-            Case "J" : m_Provincia = "CORRIENTES"
-            Case "K" : m_Provincia = "SAN JUAN"
-            Case "L" : m_Provincia = "LA PAMPA"
-            Case "M" : m_Provincia = "MENDOZA"
-            Case "N" : m_Provincia = "CATAMARCA"
-            Case "O" : m_Provincia = "SAN LUIS"
-            Case "P" : m_Provincia = "TUCUMAN"
-            Case "Q" : m_Provincia = "TIERRA DEL FUEGO"
-            Case "R" : m_Provincia = "RIO NEGRO"
-            Case "S" : m_Provincia = "SANTA FE"
-            Case "T" : m_Provincia = "SALTA"
-            Case "U" : m_Provincia = "CHUBUT"
-            Case "X" : m_Provincia = "CORDOBA"
-            Case "Y" : m_Provincia = "JUJUY"
-            Case "Z" : m_Provincia = "SANTA CRUZ"
-        End Select
     End Sub
 End Class

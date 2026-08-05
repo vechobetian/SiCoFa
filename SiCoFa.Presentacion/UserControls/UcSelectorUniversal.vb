@@ -2,15 +2,16 @@
 
 Public Class UcSelectorUniversal
 
-#Region "Campos"
+#Region "Campos privados"
 
     Private m_Id As Object
-
+    Private m_EsNuevo As Boolean
     Private m_ObjetoSeleccionado As Object
+    Private m_SoloLectura As Boolean
 
 #End Region
 
-#Region "Configuración"
+#Region "Propiedades de configuración"
 
     Public Property Objetos As IEnumerable
 
@@ -26,8 +27,6 @@ Public Class UcSelectorUniversal
 
     Public Property PermitirVacio As Boolean = True
 
-    Public Property SoloLectura As Boolean = False
-
     Public Property ValorPredeterminado As Object = Nothing
 
     Public Property TextoPredeterminado As String = ""
@@ -38,12 +37,48 @@ Public Class UcSelectorUniversal
 
 #End Region
 
-#Region "Propiedades"
+#Region "Propiedades públicas"
+
+    Public Property SoloLectura As Boolean
+
+        Get
+            Return m_SoloLectura
+        End Get
+
+        Set(value As Boolean)
+
+            m_SoloLectura = value
+
+            If IsHandleCreated Then
+                ActualizarSoloLectura()
+            End If
+
+        End Set
+
+    End Property
+
+    Public ReadOnly Property TextoIngresado As String
+
+        Get
+            Return TxtSelector.Text.Trim()
+        End Get
+
+    End Property
+
+    Public ReadOnly Property EsNuevo As Boolean
+
+        Get
+            Return m_EsNuevo
+        End Get
+
+    End Property
 
     Public ReadOnly Property ObjetoSeleccionado As Object
+
         Get
             Return m_ObjetoSeleccionado
         End Get
+
     End Property
 
     Public Property Id As Object
@@ -56,9 +91,12 @@ Public Class UcSelectorUniversal
 
             m_Id = value
             m_ObjetoSeleccionado = Nothing
+            m_EsNuevo = False
+
             TxtSelector.Text = ""
 
             If Objetos Is Nothing Then Exit Property
+
 
             For Each obj In Objetos
 
@@ -78,6 +116,7 @@ Public Class UcSelectorUniversal
     End Property
 
     Public Property Descripcion As String
+
         Get
             Return TxtSelector.Text
         End Get
@@ -88,11 +127,14 @@ Public Class UcSelectorUniversal
 
             If Objetos Is Nothing Then Exit Property
 
+
             For Each obj In Objetos
 
                 If String.Equals(ObtenerDescripcion(obj), value, StringComparison.OrdinalIgnoreCase) Then
 
-                    Id = ObtenerId(obj)
+                    m_Id = ObtenerId(obj)
+                    m_ObjetoSeleccionado = obj
+
                     Exit For
 
                 End If
@@ -106,7 +148,7 @@ Public Class UcSelectorUniversal
     Public ReadOnly Property HaySeleccion As Boolean
 
         Get
-            Return Id IsNot Nothing
+            Return m_Id IsNot Nothing
         End Get
 
     End Property
@@ -123,13 +165,15 @@ Public Class UcSelectorUniversal
 
 #End Region
 
-#Region "Métodos Públicos"
+#Region "Métodos públicos"
 
     Public Sub Limpiar()
 
-        Id = Nothing
-        Descripcion = ""
+        m_Id = Nothing
         m_ObjetoSeleccionado = Nothing
+        m_EsNuevo = False
+
+        TxtSelector.Text = ""
 
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
@@ -137,19 +181,26 @@ Public Class UcSelectorUniversal
 
     Public Sub Asignar(id As Object, descripcion As String)
 
-        Me.Id = id
-        Me.Descripcion = descripcion
-
+        m_Id = id
         m_ObjetoSeleccionado = Nothing
+        m_EsNuevo = False
 
         If Objetos IsNot Nothing Then
+
             For Each obj In Objetos
+
                 If Object.Equals(ObtenerId(obj), id) Then
+
                     m_ObjetoSeleccionado = obj
                     Exit For
+
                 End If
+
             Next
+
         End If
+
+        TxtSelector.Text = descripcion
 
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
@@ -158,8 +209,10 @@ Public Class UcSelectorUniversal
     Public Sub RestablecerValorPredeterminado()
 
         If ValorPredeterminado Is Nothing Then
+
             Limpiar()
             Return
+
         End If
 
         If Objetos IsNot Nothing Then
@@ -169,7 +222,7 @@ Public Class UcSelectorUniversal
                 If Object.Equals(ObtenerId(obj), ValorPredeterminado) Then
 
                     AsignarObjeto(obj)
-                    Exit Sub
+                    Return
 
                 End If
 
@@ -177,12 +230,47 @@ Public Class UcSelectorUniversal
 
         End If
 
-        'Si no encontró el objeto
-        Id = ValorPredeterminado
-        Descripcion = TextoPredeterminado
+        'Si no existe el objeto en la lista
+        m_Id = ValorPredeterminado
         m_ObjetoSeleccionado = Nothing
+        m_EsNuevo = False
+
+        TxtSelector.Text = TextoPredeterminado
 
         RaiseEvent ValorCambiado(Me, EventArgs.Empty)
+
+    End Sub
+
+#End Region
+
+#Region "Métodos internos de selección"
+
+    Private Sub AsignarObjeto(obj As Object)
+
+        If obj Is Nothing Then
+
+            Limpiar()
+            Return
+
+        End If
+
+        m_EsNuevo = False
+        m_ObjetoSeleccionado = obj
+        m_Id = ObtenerId(obj)
+
+        TxtSelector.Text = ObtenerDescripcion(obj)
+
+        RaiseEvent ValorCambiado(Me, EventArgs.Empty)
+
+    End Sub
+
+    Private Sub IrAlSiguienteControl()
+
+        Dim frm As Form = Me.FindForm()
+
+        If frm Is Nothing Then Exit Sub
+
+        frm.SelectNextControl(TxtSelector, True, True, True, True)
 
     End Sub
 
@@ -192,46 +280,64 @@ Public Class UcSelectorUniversal
 
     Private Sub TxtSelector_KeyDown(sender As Object, e As KeyEventArgs) Handles TxtSelector.KeyDown
 
-        If SoloLectura Then Exit Sub
+        If SoloLectura Then
 
-        If e.KeyCode = Keys.Enter Then
+            If e.KeyCode = Keys.Enter Then
 
-            e.SuppressKeyPress = True
+                e.SuppressKeyPress = True
 
-            If Buscar() Then
+                IrAlSiguienteControl()
 
-                RaiseEvent Seleccionado(Me, EventArgs.Empty)
+            End If
 
-                Dim frm As Form = Me.FindForm()
+            Exit Sub
 
-                If frm IsNot Nothing Then
+        End If
 
-                    frm.SelectNextControl(Me, True, True, True, True)
+        Select Case e.KeyCode
+
+            Case Keys.Enter
+
+                e.SuppressKeyPress = True
+
+                If Buscar() Then
+
+                    RaiseEvent Seleccionado(Me, EventArgs.Empty)
+
+                    IrAlSiguienteControl()
 
                 End If
 
-            End If
+            Case Keys.Tab
 
-        ElseIf e.KeyCode = Keys.Tab Then
-            e.SuppressKeyPress = True
+                e.SuppressKeyPress = True
 
-            If ValorPredeterminado IsNot Nothing Then
-                RestablecerValorPredeterminado()
-            Else
-                Limpiar()
-            End If
 
-        ElseIf e.KeyCode = Keys.Escape Then
+                If ValorPredeterminado IsNot Nothing Then
 
-            e.SuppressKeyPress = True
+                    RestablecerValorPredeterminado()
 
-            If ValorPredeterminado IsNot Nothing Then
-                RestablecerValorPredeterminado()
-            Else
-                Limpiar()
-            End If
+                Else
 
-        End If
+                    Limpiar()
+
+                End If
+
+            Case Keys.Escape
+
+                e.SuppressKeyPress = True
+
+                If ValorPredeterminado IsNot Nothing Then
+
+                    RestablecerValorPredeterminado()
+
+                Else
+
+                    Limpiar()
+
+                End If
+
+        End Select
 
     End Sub
 
@@ -254,6 +360,7 @@ Public Class UcSelectorUniversal
             If ValorPredeterminado IsNot Nothing Then
 
                 RestablecerValorPredeterminado()
+
                 Exit Sub
 
             End If
@@ -263,6 +370,7 @@ Public Class UcSelectorUniversal
                 MessageBox.Show("Debe seleccionar un " & HeaderDescripcion & ".", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 e.Cancel = True
+
                 TxtSelector.SelectAll()
 
             End If
@@ -273,57 +381,33 @@ Public Class UcSelectorUniversal
 
 #End Region
 
+#Region "Inicialización"
+
+    Private Sub UcSelectorUniversal_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        TxtSelector.Font = Me.Font
+
+        ActualizarSoloLectura()
+
+    End Sub
+
+#End Region
+
+#Region "Estado visual"
+
+    Private Sub ActualizarSoloLectura()
+
+        TxtSelector.ReadOnly = SoloLectura
+
+        TxtSelector.BackColor = Color.White
+
+        TxtSelector.ForeColor = Color.Black
+
+    End Sub
+
+#End Region
+
 #Region "Búsqueda"
-
-    Private Function ObtenerId(obj As Object) As Object
-
-        If obj Is Nothing Then Return Nothing
-
-        ' Soporte para Dictionary (KeyValuePair)
-        If obj.GetType.IsGenericType AndAlso obj.GetType.GetGenericTypeDefinition() = GetType(KeyValuePair(Of ,)) Then
-
-            Return obj.GetType().GetProperty("Key").GetValue(obj)
-
-        End If
-
-        ' Soporte para objetos normales
-        If String.IsNullOrWhiteSpace(NombrePropiedadId) Then
-            Return Nothing
-        End If
-
-        Dim p As PropertyInfo = obj.GetType().GetProperty(NombrePropiedadId)
-
-        If p Is Nothing Then Return Nothing
-
-        Return p.GetValue(obj)
-
-    End Function
-
-    Private Function ObtenerDescripcion(obj As Object) As String
-
-        If obj Is Nothing Then Return ""
-
-        Dim descripcion As Object = Nothing
-
-        ' Dictionary
-        If obj.GetType.IsGenericType AndAlso obj.GetType.GetGenericTypeDefinition() = GetType(KeyValuePair(Of ,)) Then
-
-            descripcion = obj.GetType().GetProperty("Value").GetValue(obj)
-
-        Else
-
-            Dim p = obj.GetType().GetProperty(NombrePropiedadDescripcion)
-            If p Is Nothing Then Return ""
-
-            descripcion = p.GetValue(obj)
-
-        End If
-
-        If descripcion Is Nothing Then Return ""
-
-        Return descripcion.ToString()
-
-    End Function
 
     Private Function Buscar() As Boolean
 
@@ -331,9 +415,10 @@ Public Class UcSelectorUniversal
 
         Dim textoBuscado As String = Descripcion.Trim().ToUpper()
 
-        '----------------------------------------------------
-        ' Sin texto: aplicar valor predeterminado
-        '----------------------------------------------------
+        '--------------------------------------------------
+        ' Sin texto
+        '--------------------------------------------------
+
         If textoBuscado = "" Then
 
             If ValorPredeterminado IsNot Nothing Then
@@ -344,33 +429,27 @@ Public Class UcSelectorUniversal
 
                 Return True
 
-            Else
+            End If
 
-                If PermitirVacio = False Then
-                    Return False
-                Else
-                    Return True
-                End If
+            If PermitirVacio Then
+
+                Return True
 
             End If
+
+            Return False
+
         End If
 
-        '----------------------------------------------------
-        ' Mostrar todos los elementos
-        '----------------------------------------------------
         Dim mostrarTodos As Boolean = (textoBuscado = "*")
 
         Dim lista As New List(Of Object)
 
         For Each obj As Object In Objetos
 
-            Dim propiedad As PropertyInfo = obj.GetType().GetProperty(NombrePropiedadDescripcion)
+            Dim descripcion As String = ObtenerDescripcion(obj).ToUpper()
 
-            If propiedad Is Nothing Then Continue For
-
-            Dim valor As String = Convert.ToString(propiedad.GetValue(obj)).ToUpper()
-
-            If mostrarTodos OrElse valor.Contains(textoBuscado) Then
+            If mostrarTodos OrElse descripcion.Contains(textoBuscado) Then
 
                 lista.Add(obj)
 
@@ -384,16 +463,19 @@ Public Class UcSelectorUniversal
 
                 If PermitirNuevo Then
 
-                    ' Mantener el texto escrito por el usuario
+                    m_EsNuevo = True
+
                     m_Id = IdNuevo
+
                     m_ObjetoSeleccionado = Nothing
+
+                    TxtSelector.Text = textoBuscado
 
                     RaiseEvent ValorCambiado(Me, EventArgs.Empty)
 
                     Return True
 
                 End If
-
 
                 If PermitirVacio Then
 
@@ -404,7 +486,9 @@ Public Class UcSelectorUniversal
                     MessageBox.Show("No se encontraron coincidencias.", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                     If ValorPredeterminado IsNot Nothing Then
+
                         RestablecerValorPredeterminado()
+
                     End If
 
                 End If
@@ -427,58 +511,121 @@ Public Class UcSelectorUniversal
 
 #End Region
 
-#Region "Selección"
-
-    Private Sub AsignarObjeto(obj As Object)
-
-        m_ObjetoSeleccionado = obj
-
-        Id = ObtenerId(obj)
-        Descripcion = ObtenerDescripcion(obj)
-
-        RaiseEvent ValorCambiado(Me, EventArgs.Empty)
-
-    End Sub
+#Region "Selector"
 
     Private Function MostrarSelector(lista As List(Of Object)) As Boolean
 
         Using f As New FrmSelectorUniversal
 
             f.Text = TituloSelector
+
             f.Objetos = lista
+
             f.NombrePropiedadId = NombrePropiedadId
+
             f.NombrePropiedadDescripcion = NombrePropiedadDescripcion
+
             f.HeaderPropiedadDescripcion = HeaderDescripcion
 
             If f.ShowDialog() = DialogResult.OK Then
 
                 Asignar(f.Valor1Seleccionado, Convert.ToString(f.Valor2Seleccionado))
+
                 Return True
+
+            End If
+
+            'Cancelación
+
+            If ValorPredeterminado IsNot Nothing Then
+
+                RestablecerValorPredeterminado()
 
             Else
 
-                ' El usuario canceló la selección
-                Id = Nothing
-
-                If ValorPredeterminado IsNot Nothing Then
-                    RestablecerValorPredeterminado()
-                Else
-                    Descripcion = ""
-                End If
-
-                RaiseEvent ValorCambiado(Me, EventArgs.Empty)
-
-                Return False
+                Limpiar()
 
             End If
+
+            Return False
 
         End Using
 
     End Function
 
-    Private Sub UcSelectorUniversal_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Me.TxtSelector.Font = Me.Font
-    End Sub
+#End Region
+
+#Region "Reflexión"
+
+    Private Function ObtenerId(obj As Object) As Object
+
+        If obj Is Nothing Then Return Nothing
+
+        'Soporte KeyValuePair
+
+        If obj.GetType().IsGenericType AndAlso
+           obj.GetType().GetGenericTypeDefinition() = GetType(KeyValuePair(Of ,)) Then
+
+            Return obj.GetType().GetProperty("Key").GetValue(obj)
+
+        End If
+
+        If String.IsNullOrWhiteSpace(NombrePropiedadId) Then
+
+            Return Nothing
+
+        End If
+
+        Dim propiedad As PropertyInfo = obj.GetType().GetProperty(NombrePropiedadId)
+
+        If propiedad Is Nothing Then
+
+            Return Nothing
+
+        End If
+
+        Return propiedad.GetValue(obj)
+
+    End Function
+
+    Private Function ObtenerDescripcion(obj As Object) As String
+
+        If obj Is Nothing Then Return ""
+
+        Dim valor As Object = Nothing
+
+        'Soporte KeyValuePair
+
+        If obj.GetType().IsGenericType AndAlso
+           obj.GetType().GetGenericTypeDefinition() = GetType(KeyValuePair(Of ,)) Then
+
+            valor = obj.GetType().GetProperty("Value").GetValue(obj)
+
+        Else
+
+            If String.IsNullOrWhiteSpace(NombrePropiedadDescripcion) Then
+
+                Return ""
+
+            End If
+
+            Dim propiedad As PropertyInfo = obj.GetType().GetProperty(NombrePropiedadDescripcion)
+
+            If propiedad Is Nothing Then
+
+                Return ""
+
+            End If
+
+            valor = propiedad.GetValue(obj)
+
+        End If
+
+        If valor Is Nothing Then Return ""
+
+        Return valor.ToString()
+
+    End Function
 
 #End Region
 
