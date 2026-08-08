@@ -1164,4 +1164,9 @@ Public Class FrmVentas
 
         End Try
     End Sub
+
+    Private Sub btnEliminarReceta_Click(sender As Object, e As EventArgs) Handles btnEliminarReceta.Click
+
+    End Sub
+
 End Class
