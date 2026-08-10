@@ -671,6 +671,7 @@
     <Content Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\FondoMDI.png" />
     <None Include="Presentacion_TemporaryKey.pfx" />
     <None Include="Resources\BANK00A1.ICO" />
     <None Include="Resources\BILL00E.ICO" />

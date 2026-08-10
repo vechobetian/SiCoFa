@@ -304,4 +304,62 @@ Public Class FrmInicio
     Private Sub mnuEditarCuentasBancarias_Click(sender As Object, e As EventArgs) Handles mnuEditarCuentasBancarias.Click
 
     End Sub
+
+    Private Sub FrmInicio_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        Dim mdi As MdiClient = ObtenerMdiClient(Me)
+
+        If mdi IsNot Nothing Then
+
+            mdi.BackColor = Color.White
+            mdi.BackgroundImage = Nothing
+
+            AddHandler mdi.Paint, AddressOf Mdi_Paint
+            AddHandler mdi.Resize, AddressOf Mdi_Resize
+
+        End If
+
+    End Sub
+
+    Private Sub Mdi_Paint(sender As Object, e As PaintEventArgs)
+
+        Dim mdi As MdiClient = DirectCast(sender, MdiClient)
+
+        If My.Resources.FondoMDI IsNot Nothing Then
+
+            e.Graphics.DrawImage(My.Resources.FondoMDI, New Rectangle(0, 0, mdi.ClientSize.Width, mdi.ClientSize.Height))
+
+        End If
+
+    End Sub
+
+    Private Sub Mdi_Resize(sender As Object, e As EventArgs)
+
+        DirectCast(sender, MdiClient).Invalidate()
+
+    End Sub
+
+    Private Function ObtenerMdiClient(contenedor As Control) As MdiClient
+
+        For Each ctrl As Control In contenedor.Controls
+
+            If TypeOf ctrl Is MdiClient Then
+                Return DirectCast(ctrl, MdiClient)
+            End If
+
+            If ctrl.HasChildren Then
+
+                Dim mdi As MdiClient = ObtenerMdiClient(ctrl)
+
+                If mdi IsNot Nothing Then
+                    Return mdi
+                End If
+
+            End If
+
+        Next
+
+        Return Nothing
+
+    End Function
 End Class
