@@ -237,58 +237,6 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
-
-        If keyData = Keys.F2 Then
-            Me.ActualizarRecetaDesdeControles()
-
-            Dim ucPrescriptor = TryCast(Controls.Find("UcPrescriptor", True).FirstOrDefault(), UcSelectorUniversal)
-
-            If ucPrescriptor IsNot Nothing AndAlso ucPrescriptor.EsNuevo Then
-                InsertarPrescriptor(m_Receta)
-            End If
-
-            Dim adminRecetas As New N_AdminRecetas
-
-            If m_Receta.NumReceta = "*" Then
-
-                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
-
-                If rtas.Count = 0 Then
-                    MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Me.LimpiarFormulario()
-                    Exit Function
-                End If
-
-                Using frm As New FrmRecetasBeneficiario
-
-                    frm.RecetasBeneficiario(rtas)
-
-                    If frm.ShowDialog() = DialogResult.OK Then
-
-                        Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
-
-                        ' Descargar la receta electrónica
-                        m_Receta.NumReceta = numeroReceta
-                        adminRecetas.ConsultaRecetaElectronica(m_Receta)
-                        Close()
-                        Me.Close()
-                    End If
-
-                End Using
-            Else
-                adminRecetas.ConsultaRecetaElectronica(m_Receta)
-                Me.Close()
-            End If
-
-            Return True   ' Indica que la teck1la fue procesada
-        
-        End If
-
-        Return MyBase.ProcessCmdKey(msg, keyData)
-
-    End Function
-
     Private Sub ActualizarRecetaDesdeControles()
 
         For Each pnl As Panel In FlowLayoutPanel1.Controls
@@ -754,5 +702,60 @@ Public Class FrmDatosReceta
         Me.Height = FlowLayoutPanel1.Bottom + 50
 
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+
+        If keyData = Keys.F2 Then
+            Me.ActualizarRecetaDesdeControles()
+
+            Dim ucPrescriptor = TryCast(Controls.Find("UcPrescriptor", True).FirstOrDefault(), UcSelectorUniversal)
+
+            If ucPrescriptor IsNot Nothing AndAlso ucPrescriptor.EsNuevo Then
+                InsertarPrescriptor(m_Receta)
+            End If
+
+            Dim adminRecetas As New N_AdminRecetas
+
+            If m_Receta.NumReceta = "*" Then
+
+                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
+
+                If rtas.Count = 0 Then
+                    MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Me.LimpiarFormulario()
+                    ActualizarRecetaDesdeControles()
+                    Me.Close()
+                    Exit Function
+                End If
+
+                Using frm As New FrmRecetasBeneficiario
+
+                    frm.RecetasBeneficiario(rtas)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+
+                        Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
+
+                        ' Descargar la receta electrónica
+                        m_Receta.NumReceta = numeroReceta
+                        adminRecetas.ConsultaRecetaElectronica(m_Receta)
+                        Close()
+                        Me.Close()
+                    End If
+
+                End Using
+            Else
+
+                Dim rta As Receta = adminRecetas.ConsultaRecetaElectronica(m_Receta)
+                Me.Close()
+            End If
+
+            Return True   ' Indica que la teck1la fue procesada
+
+        End If
+
+        Return MyBase.ProcessCmdKey(msg, keyData)
+
+    End Function
 
 End Class

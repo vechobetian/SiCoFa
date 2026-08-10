@@ -1,16 +1,12 @@
-﻿Imports System.ComponentModel
-Imports System.IO
+﻿Imports System.IO
 Imports System.Net
-Imports System.Net.WebRequestMethods
-Imports System.Runtime.Remoting.Metadata
-Imports System.Security.Cryptography
 Imports System.Text
 Imports System.Xml
 Imports SiCoFa.Entidades
 Imports Vecho
 
-
 Public Class LPAMI
+
     Implements IValidador
 
     Private Const VERSION_ADESFA As String = "3.1.0"
@@ -27,12 +23,12 @@ Public Class LPAMI
 
     Public Function ConsultaRecetasBeneficiario(argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+        Try
 
-        Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argCredencial, argPValidacion, argIdMensaje, "200")
-        Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
+            Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argCredencial, argPValidacion, argIdMensaje, "200")
+            Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
 
-        Dim soap As String =
+            Dim soap As String =
                 $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
                 <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:ns1=""http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"">
                     <soap:Header>
@@ -55,29 +51,24 @@ Public Class LPAMI
                     </soap:Body>
                 </soap:Envelope>"
 
-        IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-        Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"
+            Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"
 
-        Dim xmlResponse As XmlDocument = PostWebservice(UrlRecetaElectronicaProduccion, soapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlRecetaElectronicaProduccion, soapAction, soap)
 
-        IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
-        Dim recetas As List(Of Receta) = ParsearRecetasBeneficiario(xmlResponse)
+            VerificarCodigoRespuesta(xmlResponse)
 
-        'For Each receta As Receta In recetas
+            Dim recetas As List(Of Receta) = ParsearRecetasBeneficiario(xmlResponse)
 
-        'Debug.WriteLine("Receta: " & receta.IdReceta)
-        'Debug.WriteLine("Número: " & receta.NumReceta)
-        'Debug.WriteLine("Fecha: " & receta.FechaPrescripcion.ToShortDateString())
+            Return recetas
 
-        'For Each item As ItemComprobante In receta.Items
-        'Debug.WriteLine("   " & item.Descripcion)
-        'Next
+        Catch ex As Exception
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "ConsultaRecetasBeneficiario", ex.Message))
 
-        'Next
-
-        Return recetas
+        End Try
 
     End Function
 
@@ -122,18 +113,9 @@ Public Class LPAMI
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
+            VerificarCodigoRespuesta(xmlResponse)
+
             argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
-
-            'Debug.WriteLine("Receta: " & argReceta.NumReceta)
-            'Debug.WriteLine("Fecha: " & argReceta.FechaPrescripcion)
-
-            'For Each item In argReceta.Items
-            'Debug.WriteLine(item.IdItem & " - " & item.Descripcion & " - Troquel: " & item.NTroquel & "PUnit: " & item.PrecioUnitario)
-            'Next
-
-            'Debug.WriteLine("TipoPrescriptor: " & argReceta.Prescriptor.TipoPrescriptor.CodiTP)
-            'Debug.WriteLine("TipoMatricula: " & argReceta.Prescriptor.Matricula.CodiTM)
-            'Debug.WriteLine("NMatricula: " & argReceta.Prescriptor.Matricula.Numero)
 
             Return argReceta
 
@@ -236,7 +218,6 @@ Public Class LPAMI
             'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"
 
             'Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
-
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -606,6 +587,22 @@ Public Class LPAMI
 
     End Function
 
+    Private Sub VerificarCodigoRespuesta(xml As XmlDocument)
+
+        Dim codRtaGeneral As String = xml.SelectSingleNode("//CodRtaGeneral")?.InnerText
+
+        Dim descripcion As String = xml.SelectSingleNode("//Descripcion")?.InnerText
+
+        If String.IsNullOrWhiteSpace(codRtaGeneral) Then
+            Throw New Exception("La respuesta del validador no contiene CodRtaGeneral.")
+        End If
+
+        If codRtaGeneral <> "0" Then
+            Throw New Exception(descripcion)
+        End If
+
+    End Sub
+
     Private Function ParsearRecetasBeneficiario(xml As XmlDocument) As List(Of Receta)
 
         Dim recetas As New List(Of Receta)
@@ -737,86 +734,6 @@ Public Class LPAMI
                 argReceta.Items.Add(item)
 
             End If
-        Next
-
-        Return argReceta
-
-    End Function
-
-    Private Function ParsearRecetaElectronica1(argReceta As Receta, xml As XmlDocument) As Receta
-
-        '=========================
-        ' Encabezado de la receta
-        '=========================
-
-        Dim encabezado As XmlNode = xml.SelectSingleNode("//MensajeADESFA/EncabezadoReceta")
-
-        Dim fecha As String = encabezado.SelectSingleNode("FechaReceta")?.InnerText
-
-        If Not String.IsNullOrEmpty(fecha) Then
-            argReceta.FechaPrescripcion = DateTime.ParseExact(fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
-        End If
-
-        argReceta.NumReceta = encabezado.SelectSingleNode("Formulario/Numero")?.InnerText
-        argReceta.Tratamiento = encabezado.SelectSingleNode("TipoTratamiento")?.InnerText
-
-        If argReceta.Prescriptor Is Nothing Then
-            Dim codiTPrescriptor As String = encabezado.SelectSingleNode("Prescriptor/TipoPrescriptor")?.InnerText
-            Dim tipoPrescriptor As New TipoPrescriptor(codiTPrescriptor)
-            Dim codiTM As String = encabezado.SelectSingleNode("Prescriptor/TipoMatricula")?.InnerText
-            Dim nMatricula As String = encabezado.SelectSingleNode("Prescriptor/NroMatricula")?.InnerText
-            Dim matricula As New Matricula(codiTM, nMatricula)
-            argReceta.Prescriptor = New Prescriptor(tipoPrescriptor, Nothing, "", "", matricula)
-        End If
-
-        '=========================
-        ' Detalle
-        '=========================
-
-        argReceta.Items = New List(Of ItemComprobante)
-
-        Dim referencias As XmlNodeList = xml.SelectNodes("//MensajeADESFA/DetalleReceta/ReferenciaRx")
-
-        For Each referencia As XmlNode In referencias
-
-            Dim idItem As Long = referencia.SelectSingleNode("NroLinea")?.InnerText
-            Dim idArticulo As String = ""
-            Dim codigo As String = ""
-            Dim codBarras As String = ""
-            Dim nTroquel As String = ""
-            Dim cantidadPrescripta As Integer = referencia.SelectSingleNode("CantidadPrescripta")?.InnerText
-
-            For Each nodoItem As XmlNode In referencia.SelectNodes("Item")
-
-                If nodoItem.SelectSingleNode("Estado")?.InnerText = "1" Then
-
-                    If nodoItem.SelectSingleNode("Alfabeta")?.InnerText <> "" Then
-                        codigo = nodoItem.SelectSingleNode("Alfabeta")?.InnerText
-                        idArticulo = "M" & nodoItem.SelectSingleNode("Alfabeta")?.InnerText
-                    End If
-
-                    If nodoItem.SelectSingleNode("CodBarras")?.InnerText <> "" Then
-                        codBarras = nodoItem.SelectSingleNode("CodBarras")?.InnerText
-                    End If
-
-                    If nodoItem.SelectSingleNode("CodTroquel")?.InnerText <> "" Then
-                        nTroquel = nodoItem.SelectSingleNode("CodTroquel")?.InnerText
-                    End If
-
-                    Dim pUnit As Decimal
-
-                    Decimal.TryParse(nodoItem.SelectSingleNode("ImporteUnitario")?.InnerText, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, pUnit)
-
-                    Dim descripcion As String = nodoItem.SelectSingleNode("Descripcion")?.InnerText
-
-                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, codigo, nTroquel)
-
-                    argReceta.Items.Add(item)
-
-                End If
-
-            Next
-
         Next
 
         Return argReceta

@@ -863,25 +863,6 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs)
-
-        Dim AdminOS As New N_AdminObraSociales
-        Dim PlanOS As PlanOS = AdminOS.ObtenerPlanOSPorId(1101)
-
-        Dim receta As New Receta(PlanOS)
-
-        receta.IdReceta = ObtenerNuevoIdReceta()
-
-        'Dim c As New CredencialOS("14021682880700", "")
-        'receta.Credencial = c
-        receta.NumReceta = "8263155276740"
-        Dim adminRecetas As New N_AdminRecetas
-        'adminRecetas.ConsultaRecetasBeneficiario(c, receta.Plan.OS.PValidacion)
-        adminRecetas.ConsultaRecetaElectronica(receta)
-        CargarRecetaEnPantalla(receta)
-
-    End Sub
-
     Private Sub CargarRecetaEnPantalla(receta As Receta)
 
         Dim adminArticulos As New N_AdminArticulos
@@ -976,51 +957,69 @@ Public Class FrmVentas
 
     End Sub
 
-    Private Sub EliminarRecetaEnPantalla(receta As Receta)
+    Private Sub EliminarRecetaEnPantalla()
 
-        If receta Is Nothing Then Exit Sub
+        Try
 
-        ' Eliminar la receta de la colección
-        mobj_Recetas.Remove(receta)
+            If mobj_ItemSeleccionado Is Nothing Then
 
-        ' Eliminar todos los items asociados a la receta
-        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+                Exit Sub
 
-            Dim item = mobj_Items(i)
-
-            If item.Receta IsNot Nothing AndAlso item.Receta.IdReceta = receta.IdReceta Then
-                mobj_Items.RemoveAt(i)
             End If
 
-        Next
+            Dim receta As Receta = mobj_ItemSeleccionado.ItemVenta.Receta
 
-        ' Debe existir un único item libre
-        For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+            If receta Is Nothing Then Exit Sub
 
-            Dim item = mobj_Items(i)
+            ' Eliminar la receta de la colección
+            mobj_Recetas.Remove(receta)
 
-            If item.Receta Is Nothing AndAlso item.Articulo Is Nothing Then
-                mobj_Items.RemoveAt(i)
+            ' Eliminar todos los items asociados a la receta
+            For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+                Dim item = mobj_Items(i)
+
+                If item.Receta IsNot Nothing AndAlso item.Receta.IdReceta = receta.IdReceta Then
+                    mobj_Items.RemoveAt(i)
+                End If
+
+            Next
+
+            ' Debe existir un único item libre
+            For i As Integer = mobj_Items.Count - 1 To 0 Step -1
+
+                Dim item = mobj_Items(i)
+
+                If item.Receta Is Nothing AndAlso item.Articulo Is Nothing Then
+                    mobj_Items.RemoveAt(i)
+                End If
+
+            Next
+
+            Dim itemLibre As New ItemComprobante()
+
+            itemLibre.EsNuevo = True
+
+            mobj_Items.Add(itemLibre)
+
+            ' Limpiar la receta mostrada si era la seleccionada
+            If UcReceta1.Receta IsNot Nothing AndAlso UcReceta1.Receta.IdReceta = receta.IdReceta Then
+                UcReceta1.Receta = Nothing
             End If
 
-        Next
+            mobj_ItemSeleccionado = Nothing
 
-        Dim itemLibre As New ItemComprobante()
+            ActualizarTotales()
 
-        itemLibre.EsNuevo = True
+            RenderItemsUC()
 
-        mobj_Items.Add(itemLibre)
+        Catch ex As Exception
 
-        ' Limpiar la receta mostrada si era la seleccionada
-        If UcReceta1.Receta IsNot Nothing AndAlso UcReceta1.Receta.IdReceta = receta.IdReceta Then
-            UcReceta1.Receta = Nothing
-        End If
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
 
-        mobj_ItemSeleccionado = Nothing
+        End Try
 
-        ActualizarTotales()
 
-        RenderItemsUC()
 
     End Sub
 
@@ -1146,27 +1145,9 @@ Public Class FrmVentas
         End Try
     End Sub
 
-    Private Sub mnuElinarReceta_Click(sender As Object, e As EventArgs) Handles mnuElinarReceta.Click
-
-        Try
-
-            If mobj_ItemSeleccionado Is Nothing Then
-
-                Exit Sub
-
-            End If
-
-            Dim receta As Receta = mobj_ItemSeleccionado.ItemVenta.Receta
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
     Private Sub btnEliminarReceta_Click(sender As Object, e As EventArgs) Handles btnEliminarReceta.Click
-
+        Me.EliminarRecetaEnPantalla()
+        MoverItemSeleccionado(1)
     End Sub
 
 End Class

@@ -35,6 +35,7 @@ Module ModInicio
         End Try
 
     End Sub
+
     Private Function ObtenerMacAddress() As String
         Try
             Dim nics As NetworkInterface() = NetworkInterface.GetAllNetworkInterfaces()

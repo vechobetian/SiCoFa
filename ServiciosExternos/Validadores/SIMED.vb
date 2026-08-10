@@ -5,7 +5,7 @@ Imports System.Xml
 Imports SiCoFa.Entidades
 Imports Vecho
 
-Public Class FLINK
+Public Class SIMED
 
     Implements IValidador
 

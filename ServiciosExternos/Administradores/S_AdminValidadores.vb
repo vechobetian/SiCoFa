@@ -16,6 +16,9 @@
             Case "MISV"
                 Return New MISV
 
+            Case "SIMED"
+                Return New SIMED
+
             Case Else
                 Throw New Exception("Validador no implementado: " & Validador)
 
