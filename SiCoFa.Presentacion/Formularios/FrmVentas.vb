@@ -1041,7 +1041,7 @@ Public Class FrmVentas
 
         If receta IsNot Nothing Then
             Dim adminRecetas As New N_AdminRecetas
-            adminRecetas.SolicitarAutorizacion(receta)
+            adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
         End If
 
     End Sub
@@ -1064,7 +1064,7 @@ Public Class FrmVentas
 
         If receta IsNot Nothing Then
             Dim adminRecetas As New N_AdminRecetas
-            adminRecetas.SolicitarAutorizacion(receta)
+            adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
         End If
 
     End Sub

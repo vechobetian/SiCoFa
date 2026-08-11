@@ -21,7 +21,7 @@ Public Class LPAMI
     Private Const UrlRecetaElectronicaHomologacion As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://ws.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
-    Public Function ConsultaRecetasBeneficiario(argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
+    Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
         Try
 
@@ -72,7 +72,7 @@ Public Class LPAMI
 
     End Function
 
-    Private Function ConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long) As Receta Implements IValidador.ConsultaRecetaElectronica
+    Private Function ConsultaRecetaElectronica(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As Receta Implements IValidador.ConsultaRecetaElectronica
 
         Try
 
@@ -126,7 +126,7 @@ Public Class LPAMI
 
     End Function
 
-    Public Sub SolicitarAutorizacion(argReceta As Receta, argIdMensaje As Long) Implements IValidador.SolicitarAutorizacion
+    Public Sub SolicitarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) Implements IValidador.SolicitarAutorizacion
 
         Try
 
@@ -179,7 +179,7 @@ Public Class LPAMI
 
     End Sub
 
-    Public Sub CancelarAutorizacion(argReceta As Receta, argIdMensaje As Long) Implements IValidador.CancelarAutorizacion
+    Public Sub CancelarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) Implements IValidador.CancelarAutorizacion
 
         Try
 
@@ -729,7 +729,7 @@ Public Class LPAMI
 
                 Dim descripcion = itemSeleccionado.SelectSingleNode("Descripcion")?.InnerText
 
-                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, codigo, nTroquel)
+                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, codigo, nTroquel)
 
                 argReceta.Items.Add(item)
 

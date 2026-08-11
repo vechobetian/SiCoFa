@@ -12,29 +12,37 @@ Public Class N_AdminRecetas
 
     End Function
 
-    Public Function ConsultaRecetasBeneficiario(argCredencial As CredencialOS, argPValidacion As ParametrosValidacion) As List(Of Receta)
+    Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion) As List(Of Receta)
 
         Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argPValidacion.Validador)
         Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argPValidacion.Validador)
-        Dim consultaResponse As List(Of Receta) = iVal.ConsultaRecetasBeneficiario(argCredencial, argPValidacion, idMsje)
+        Dim consultaResponse As List(Of Receta) = iVal.ConsultaRecetasBeneficiario(argIdPC, argCredencial, argPValidacion, idMsje)
         Return consultaResponse
 
     End Function
 
-    Public Function ConsultaRecetaElectronica(argReceta As Receta) As Receta
+    Public Function ConsultaRecetaElectronica(argIdPC As String, argReceta As Receta) As Receta
 
         Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argReceta.Plan.OS.PValidacion.Validador)
         Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argReceta.Plan.OS.PValidacion.Validador)
-        Dim consultaResponse As Receta = iVal.ConsultaRecetaElectronica(argReceta, idMsje)
+        Dim consultaResponse As Receta = iVal.ConsultaRecetaElectronica(argIdPC, argReceta, idMsje)
         Return consultaResponse
 
     End Function
 
-    Public Sub SolicitarAutorizacion(argReceta As Receta)
+    Public Sub SolicitarAutorizacion(argIdPC As String, argReceta As Receta)
 
         Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argReceta.Plan.OS.PValidacion.Validador)
         Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argReceta.Plan.OS.PValidacion.Validador)
-        iVal.SolicitarAutorizacion(argReceta, idMsje)
+        iVal.SolicitarAutorizacion(argIdPC, argReceta, idMsje)
+
+    End Sub
+
+    Public Sub SolicitarCancelacion(argIdPC As String, argReceta As Receta)
+
+        Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argReceta.Plan.OS.PValidacion.Validador)
+        Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argReceta.Plan.OS.PValidacion.Validador)
+        iVal.SolicitarAutorizacion(argIdPC, argReceta, idMsje)
 
     End Sub
 

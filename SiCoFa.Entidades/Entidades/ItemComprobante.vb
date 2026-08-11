@@ -10,7 +10,6 @@
     Private m_Cantidad As Integer
     Private m_PrecioCosto As Decimal
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
-    Private m_DescuentoUnitario As Decimal
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
     Private m_Receta As Receta
@@ -19,6 +18,7 @@
     Private m_PorcentajeCS As Decimal
     Private m_DescuentoCS As Decimal
     Private m_EsNuevo As Boolean = True
+    Private m_NumeroAutorizacionItem As String
 
     Public Sub New()
 
@@ -54,7 +54,6 @@
                     ByVal argAlicIVA As Decimal,
                     ByVal argPrecioCosto As Decimal,
                     ByVal argPrecioUnitario As Decimal,
-                    ByVal argDescuentoUnitario As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
                     Optional ByVal argCodigo As Long = 0,
                     Optional ByVal argNTroquel As String = ""
@@ -69,20 +68,10 @@
         m_AlicIVA = argAlicIVA
         m_PrecioCosto = argPrecioCosto
         m_PrecioUnitario = argPrecioUnitario
-        m_DescuentoUnitario = argDescuentoUnitario
         m_PorcentajeDescuento = argPorcentajeDescuento
         m_Codigo = argCodigo
         m_NTroquel = argNTroquel
     End Sub
-
-    Public Property EsNuevo() As Boolean
-        Get
-            Return m_EsNuevo
-        End Get
-        Set(value As Boolean)
-            m_EsNuevo = value
-        End Set
-    End Property
 
     ' Propiedades
     Public Property IdItem() As Long
@@ -125,12 +114,12 @@
 
     End Property
 
-    Public Property Codigo() As String
+    Public Property NTroquel() As String
         Get
-            Return m_Codigo
+            Return m_NTroquel
         End Get
         Set(value As String)
-            m_Codigo = value
+            m_NTroquel = value
         End Set
     End Property
 
@@ -143,12 +132,12 @@
         End Set
     End Property
 
-    Public Property NTroquel() As String
+    Public Property Codigo() As String
         Get
-            Return m_NTroquel
+            Return m_Codigo
         End Get
         Set(value As String)
-            m_NTroquel = value
+            m_Codigo = value
         End Set
     End Property
 
@@ -295,6 +284,24 @@
             m_DescuentoCS = DesCS
         End Set
 
+    End Property
+
+    Public Property EsNuevo() As Boolean
+        Get
+            Return m_EsNuevo
+        End Get
+        Set(value As Boolean)
+            m_EsNuevo = value
+        End Set
+    End Property
+
+    Public Property NumeroAutorizacionItem As Boolean
+        Get
+            Return m_NumeroAutorizacionItem
+        End Get
+        Set(value As Boolean)
+            m_NumeroAutorizacionItem = value
+        End Set
     End Property
 
     ' --- Propiedades ReadOnly que se calculan directamente ---

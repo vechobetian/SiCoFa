@@ -718,7 +718,7 @@ Public Class FrmDatosReceta
 
             If m_Receta.NumReceta = "*" Then
 
-                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
+                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(g_ParametrosTerminal.IdPc, m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
 
                 If rtas.Count = 0 Then
                     MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -738,7 +738,7 @@ Public Class FrmDatosReceta
 
                         ' Descargar la receta electrónica
                         m_Receta.NumReceta = numeroReceta
-                        adminRecetas.ConsultaRecetaElectronica(m_Receta)
+                        adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
                         Close()
                         Me.Close()
                     End If
@@ -746,7 +746,7 @@ Public Class FrmDatosReceta
                 End Using
             Else
 
-                Dim rta As Receta = adminRecetas.ConsultaRecetaElectronica(m_Receta)
+                Dim rta As Receta = adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
                 Me.Close()
             End If
 

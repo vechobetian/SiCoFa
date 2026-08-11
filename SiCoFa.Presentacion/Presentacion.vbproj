@@ -589,6 +589,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmCompras.resx">
       <DependentUpon>FrmCompras.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmNotaCredito.resx">
       <DependentUpon>FrmNotaCredito.vb</DependentUpon>
