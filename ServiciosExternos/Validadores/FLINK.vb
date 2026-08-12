@@ -16,9 +16,9 @@ Public Class FLINK
     Private Const COD_ACCION_CONSULTA_RECETA_ELECTRONICA As String = "490120"
     Private Const COD_ACCION_AUTORIZACION As String = "290020"
 
-    Private Const UrlVentaHomologacion As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
+    Private Const UrlVentaTest As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
     Private Const UrlVentaProduccion As String = "https://servicios.farmalink.com.ar/VentaSecureSvc?WSDL"
-    Private Const UrlRecetaElectronicaHomologacion As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
+    Private Const UrlRecetaElectronicaTest As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://servicios.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario

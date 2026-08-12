@@ -16,9 +16,9 @@ Public Class LPAMI
     Private Const COD_ACCION_CONSULTA_RECETA_ELECTRONICA As String = "490120"
     Private Const COD_ACCION_AUTORIZACION As String = "290020"
 
-    Private Const UrlVentaHomologacion As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
+    Private Const UrlVentaTest As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
     Private Const UrlVentaProduccion As String = "https://ws.farmalink.com.ar/VentaSecureSvc?WSDL"
-    Private Const UrlRecetaElectronicaHomologacion As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
+    Private Const UrlRecetaElectronicaTest As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://ws.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
@@ -740,7 +740,7 @@ Public Class LPAMI
 
     End Function
 
-    Public Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
+    Private Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
 
     End Sub
 
