@@ -1150,4 +1150,31 @@ Public Class FrmVentas
         MoverItemSeleccionado(1)
     End Sub
 
+    Private Sub btnSolicitarAutorizacionReceta_Click(sender As Object, e As EventArgs) Handles btnSolicitarAutorizacionReceta.Click
+        Try
+            Dim receta As Receta = Nothing
+
+            If mobj_ItemSeleccionado IsNot Nothing Then
+
+                Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+                If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                    receta = ObtenerReceta(item.Receta.IdReceta)
+
+                End If
+
+            End If
+
+            If receta IsNot Nothing Then
+                Dim adminRecetas As New N_AdminRecetas
+                adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
 End Class

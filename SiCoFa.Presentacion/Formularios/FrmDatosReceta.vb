@@ -472,7 +472,7 @@ Public Class FrmDatosReceta
 
         If dr.DocumentoAfiliado Then
             AgregarCampoTipoDocumento()
-            AgregarCampoTexto("Numero Documento", NameOf(m_Receta.Credencial.Documento.Numero), "Documento." & NameOf(m_Receta.Credencial.Documento.Numero))
+            AgregarCampoTexto("Numero Documento", NameOf(m_Receta.Documento.Numero), "Documento." & NameOf(m_Receta.Documento.Numero))
         End If
 
         If dr.NumeroReceta Then

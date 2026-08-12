@@ -165,7 +165,7 @@
         R6+vuAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="ImprimirToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnSolicitarAutorizacionReceta.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJRSURBVHhe7ZpNTtwwGIanbCiwQb1Du0JchAIXoD1DKSAE
@@ -378,7 +378,7 @@
   <data name="mnuAutorizarReceta.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAAAlFJREFUeF7tmk1O3DAYhqdsKLBBvUO7QlyEAhegPUMpIAQSEt3BAWj5EWyq9lL8
+        DgAACw4BQL7hQQAAAlFJREFUeF7tmk1O3DAYhqdsKLBBvUO7QlyEAhegPUMpIAQSEt3BAWj5EWyq9lL8
         LNkgATeA94FYskaZmThxEifzPdIjzViT2N8bx/PngWEYhpE2M/Kb3K0gx3OeTvJdvkSQEDoJA88rKNRD
         2UmYuhvyqKDH8lH2JoAQPsgTOVz8VARA8afSL/rBe9zrAPKu/IX85T3vbQCjimftoOheBzCueOh1AJOK
         h2gBLMh1+VPmfdKK4Y78IouQt+DxnHafygFwQgb2LP3O6vJGTqJo8VApAKbSf+l3VLeTAggpHioFwJX3
