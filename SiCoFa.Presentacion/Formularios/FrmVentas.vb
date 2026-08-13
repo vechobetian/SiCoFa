@@ -442,15 +442,15 @@ Public Class FrmVentas
 
             End If
 
+            Dim receta As Receta = Nothing
+
             If uc.ItemVenta.Receta IsNot Nothing Then
 
-                Dim receta As Receta = ObtenerReceta(uc.ItemVenta.Receta.IdReceta)
+                receta = ObtenerReceta(uc.ItemVenta.Receta.IdReceta)
 
                 If receta Is Nothing Then
-
                     MsgBox("No se encontró la receta asociada.", vbCritical, "SiCoFa")
                     Exit Sub
-
                 End If
 
                 Dim AdminRecetas As New N_AdminRecetas
@@ -485,6 +485,16 @@ Public Class FrmVentas
             Else
                 uc.HabilitarCantidad()
                 uc.EnfocarCantidad()
+
+            End If
+
+            If receta IsNot Nothing Then
+
+                If receta.Items Is Nothing Then
+                    receta.Items = New List(Of ItemComprobante)
+                End If
+
+                receta.Items.Add(item)
 
             End If
 
@@ -1162,6 +1172,10 @@ Public Class FrmVentas
 
                     receta = ObtenerReceta(item.Receta.IdReceta)
 
+                    If receta.Items Is Nothing Then
+
+                    End If
+
                 End If
 
             End If
@@ -1177,4 +1191,5 @@ Public Class FrmVentas
         End Try
 
     End Sub
+
 End Class
