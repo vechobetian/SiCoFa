@@ -10,11 +10,11 @@ Public Class MISV
 
     Implements IValidador
 
-    Private Const UrlProduccion As String = "https://servicios.farmalink.com.ar/VentaSecureSvc?WSDL"
+    Private Const UrlProduccion As String = "http://www.misvalidaciones.com.ar/wsmv"
 
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
-        Throw New NotImplementedException()
+        Throw New NotSupportedException(argPValidacion.Descripcion & " no acepta consulta de recetas por beneficiario.")
 
     End Function
 
@@ -67,8 +67,7 @@ Public Class MISV
 
             Dim xmlAUT As String = MensajeAutorizacion(argReceta)
 
-            Dim pVal As ParametrosValidacion =
-                argReceta.Plan.OS.PValidacion
+            Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
 
             Dim soap As String =
                 $"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/""
@@ -91,6 +90,11 @@ Public Class MISV
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soap)
+
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+
+
         Catch ex As Exception
 
             Throw New Exception(Funciones.MensajeError(Me.ToString, "SolicitarAutorizacion", ex.Message))
@@ -101,7 +105,40 @@ Public Class MISV
 
     Public Sub CancelarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) Implements IValidador.CancelarAutorizacion
 
-        Throw New NotImplementedException()
+        Try
+
+            Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+
+            Dim soap As String =
+                $"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/""
+                                   xmlns:tns=""tns""
+                                   xmlns:apps=""apps.wsmv"">
+                    <soapenv:Header/>
+                    <soapenv:Body>
+                        <tns:anular_receta>
+                            <tns:datos_receta>
+                                <apps:usuario>{XmlEscape(pVal.NumPrestador)}</apps:usuario>
+                                <apps:clave>{XmlEscape(pVal.Licencia)}</apps:clave>
+                                <apps:clave_id>cc12077bm687NB987si7</apps:clave_id>
+                                <apps:cuf/>
+                                <apps:cod_validacion>{XmlEscape(argReceta.NumAutorizacion)}</apps:cod_validacion>
+                            </tns:datos_receta>
+                        </tns:anular_receta>
+                    </soapenv:Body>
+                </soapenv:Envelope>"
+
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soap)
+
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+
+        Catch ex As Exception
+
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelarAutorizacion", ex.Message))
+
+        End Try
+
 
     End Sub
 
@@ -199,7 +236,6 @@ Public Class MISV
         Return SecurityElement.Escape(argValor.ToString())
 
     End Function
-
 
     Friend Function PostWebservice(Url As String, xmlBody As String) As XmlDocument
 
