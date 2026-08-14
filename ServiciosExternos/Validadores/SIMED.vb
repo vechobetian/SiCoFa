@@ -65,7 +65,7 @@ Public Class SIMED
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
             Dim xmlResponse As XmlDocument = EnviarSoap(pVal, xmlAdesfa)
 
-            VerificarCodigoRespuesta(xmlResponse)
+            VerificarRespuestaGeneral(xmlResponse)
 
             ParsearAutorizacion(argReceta, xmlResponse)
 
@@ -84,7 +84,7 @@ Public Class SIMED
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
             Dim xmlResponse As XmlDocument = EnviarSoap(pVal, xmlAdesfa)
 
-            VerificarCodigoRespuesta(xmlResponse)
+            VerificarRespuestaGeneral(xmlResponse)
 
             ParsearCancelacion(argReceta, xmlResponse)
 
@@ -472,7 +472,7 @@ Public Class SIMED
 
     End Function
 
-    Private Sub VerificarCodigoRespuesta(xml As XmlDocument)
+    Private Sub VerificarRespuestaGeneral(xml As XmlDocument)
 
         Dim codRtaGeneral As String = xml.SelectSingleNode("//CodRtaGeneral")?.InnerText
 

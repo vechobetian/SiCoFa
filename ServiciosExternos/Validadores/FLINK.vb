@@ -68,7 +68,7 @@ Public Class FLINK
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
-            VerificarCodigoRespuesta(xmlResponse)
+            VerificarRespuestaGeneral(xmlResponse)
 
             argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
 
@@ -478,7 +478,7 @@ Public Class FLINK
 
     End Function
 
-    Private Sub VerificarCodigoRespuesta(xml As XmlDocument)
+    Private Sub VerificarRespuestaGeneral(xml As XmlDocument)
 
         Dim codRtaGeneral As String = xml.SelectSingleNode("//CodRtaGeneral")?.InnerText
 

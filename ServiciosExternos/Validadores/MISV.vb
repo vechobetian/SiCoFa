@@ -51,6 +51,8 @@ Public Class MISV
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
+            VerificarRespuestaGeneral(xmlResponse)
+
             Return argReceta
 
         Catch ex As Exception
@@ -94,6 +96,7 @@ Public Class MISV
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
+            VerificarRespuestaGeneral(xmlResponse)
 
         Catch ex As Exception
 
@@ -236,6 +239,21 @@ Public Class MISV
         Return SecurityElement.Escape(argValor.ToString())
 
     End Function
+
+    Private Sub VerificarRespuestaGeneral(xml As XmlDocument)
+
+        Dim status As String = xml.SelectSingleNode("//*[local-name()='status']")?.InnerText
+        Dim data As String = xml.SelectSingleNode("//*[local-name()='data']")?.InnerText
+
+        If String.IsNullOrWhiteSpace(status) Then
+            Throw New Exception("La respuesta de MisValidaciones no contiene status.")
+        End If
+
+        If status <> "OK" Then
+            Throw New Exception(data)
+        End If
+
+    End Sub
 
     Friend Function PostWebservice(Url As String, xmlBody As String) As XmlDocument
 
