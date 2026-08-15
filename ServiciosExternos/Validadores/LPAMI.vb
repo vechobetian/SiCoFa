@@ -706,7 +706,6 @@ Public Class LPAMI
 
             Next
 
-
             If itemSeleccionado IsNot Nothing Then
 
                 Dim codigo As String = ""

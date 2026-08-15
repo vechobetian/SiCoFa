@@ -88,9 +88,9 @@ Public Class ITC
 
             VerificarRespuestaGeneral(xmlResponse)
 
-            'argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
+            argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
 
-            'Return argReceta
+            Return argReceta
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "ConsultaRecetaElectronica", ex.Message))
@@ -117,14 +117,14 @@ Public Class ITC
                         <empresa>{empresa}</empresa>
                         <actividad>01</actividad>
                         <licencia>{pVal.Licencia}</licencia>
-                        <mensaje>{xmlAdesfa}</mensaje>
+                        <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
                     </ProcesarXml>
                 </soap:Body>
                 </soap:Envelope>"
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            Dim xmlResponse As XmlDocument = PostWebservice(UrlTest, SoapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
@@ -750,19 +750,22 @@ Public Class ITC
 
     Private Sub VerificarRespuestaGeneral(xml As XmlDocument)
 
-        Dim codRtaGeneral As String =
-        xml.SelectSingleNode("//*[local-name()='CodRtaGeneral']")?.InnerText
+        Dim codRtaGeneralTexto As String = xml.SelectSingleNode("//*[local-name()='CodRtaGeneral']")?.InnerText
 
-        Dim descripcion As String =
-        xml.SelectSingleNode("//*[local-name()='Descripcion']")?.InnerText
+        Dim descripcion As String = xml.SelectSingleNode("//*[local-name()='Descripcion']")?.InnerText
 
-        If String.IsNullOrWhiteSpace(codRtaGeneral) Then
-            Throw New Exception(
-            "La respuesta del validador no contiene CodRtaGeneral.")
+        If String.IsNullOrWhiteSpace(codRtaGeneralTexto) Then
+            Throw New Exception("La respuesta del validador no contiene CodRtaGeneral.")
         End If
 
-        If codRtaGeneral <> "00" Then
-            Throw New Exception(descripcion)
+        Dim codRtaGeneral As Integer
+
+        If Not Integer.TryParse(codRtaGeneralTexto, codRtaGeneral) Then
+            Throw New Exception("El CodRtaGeneral recibido no es numérico: " & codRtaGeneralTexto)
+        End If
+
+        If codRtaGeneral <> 0 Then
+            Throw New Exception(If(String.IsNullOrWhiteSpace(descripcion), "El validador devolvió código de error " & codRtaGeneralTexto, descripcion))
         End If
 
     End Sub
@@ -869,95 +872,202 @@ Public Class ITC
 
     Private Function ParsearRecetaElectronica(argReceta As Receta, xml As XmlDocument) As Receta
 
-        '=========================
-        ' Encabezado de la receta
-        '=========================
+        Try
 
-        Dim encabezado As XmlNode = xml.SelectSingleNode("//MensajeADESFA/EncabezadoReceta")
+            '==========================================================
+            ' ENCABEZADO DE LA RECETA
+            '==========================================================
 
-        Dim fecha As String = encabezado.SelectSingleNode("FechaReceta")?.InnerText
+            Dim encabezado As XmlNode = xml.SelectSingleNode("//*[local-name()='MensajeADESFA']/*[local-name()='EncabezadoReceta']")
 
-        If Not String.IsNullOrEmpty(fecha) Then
-            argReceta.FechaPrescripcion = DateTime.ParseExact(fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
-        End If
+            If encabezado Is Nothing Then
+                Throw New Exception("La respuesta no contiene EncabezadoReceta.")
+            End If
 
-        argReceta.NumReceta = encabezado.SelectSingleNode("Formulario/Numero")?.InnerText
-        argReceta.Tratamiento = encabezado.SelectSingleNode("TipoTratamiento")?.InnerText
+            '==========================================================
+            ' FECHA DE RECETA
+            '==========================================================
 
-        If argReceta.Prescriptor Is Nothing Then
-            Dim codiTPrescriptor As String = encabezado.SelectSingleNode("Prescriptor/TipoPrescriptor")?.InnerText
-            Dim tipoPrescriptor As New TipoPrescriptor(codiTPrescriptor)
-            Dim codiTM As String = encabezado.SelectSingleNode("Prescriptor/TipoMatricula")?.InnerText
-            Dim nMatricula As String = encabezado.SelectSingleNode("Prescriptor/NroMatricula")?.InnerText
-            Dim matricula As New Matricula(codiTM, nMatricula)
-            argReceta.Prescriptor = New Prescriptor(tipoPrescriptor, Nothing, "", "", matricula)
-        End If
+            Dim fecha As String = encabezado.SelectSingleNode("./*[local-name()='FechaReceta']")?.InnerText
 
-        '=========================
-        ' Detalle
-        '=========================
+            If Not String.IsNullOrWhiteSpace(fecha) Then
 
-        argReceta.Items = New List(Of ItemComprobante)
+                Dim fechaPrescripcion As DateTime
 
-        Dim referencias As XmlNodeList = xml.SelectNodes("//MensajeADESFA/DetalleReceta/ReferenciaRx")
+                If DateTime.TryParseExact(fecha.Trim(), "yyyyMMdd", Globalization.CultureInfo.InvariantCulture, Globalization.DateTimeStyles.None, fechaPrescripcion) Then
 
-        For Each referencia As XmlNode In referencias
+                    argReceta.FechaPrescripcion = fechaPrescripcion
 
-            Dim idItem As Long
-            Long.TryParse(referencia.SelectSingleNode("NroLinea")?.InnerText, idItem)
-
-            Dim cantidadPrescripta As Integer
-            Integer.TryParse(referencia.SelectSingleNode("CantidadPrescripta")?.InnerText, cantidadPrescripta)
-
-            Dim itemSeleccionado As XmlNode = Nothing
-
-            For Each nodoItem As XmlNode In referencia.SelectNodes("Item")
-
-                If itemSeleccionado Is Nothing Then
-                    itemSeleccionado = nodoItem
                 End If
 
-                If nodoItem.SelectSingleNode("Estado")?.InnerText = "1" Then
-                    itemSeleccionado = nodoItem
-                    Exit For
+            End If
+
+            '==========================================================
+            ' NÚMERO DE RECETA
+            '==========================================================
+
+            argReceta.NumReceta = encabezado.SelectSingleNode("./*[local-name()='Formulario']/*[local-name()='Numero']")?.InnerText
+
+            '==========================================================
+            ' TIPO DE TRATAMIENTO
+            '==========================================================
+
+            argReceta.Tratamiento = encabezado.SelectSingleNode("./*[local-name()='TipoTratamiento']")?.InnerText
+
+
+            '==========================================================
+            ' PRESCRIPTOR
+            '==========================================================
+
+            If argReceta.Prescriptor Is Nothing Then
+
+                Dim codiTPrescriptor As String = encabezado.SelectSingleNode("./*[local-name()='Prescriptor']/*[local-name()='TipoPrescriptor']")?.InnerText
+
+                Dim tipoPrescriptor As New TipoPrescriptor(codiTPrescriptor)
+
+                Dim codiTM As String = encabezado.SelectSingleNode("./*[local-name()='Prescriptor']/*[local-name()='TipoMatricula']")?.InnerText
+
+                Dim nMatricula As String = encabezado.SelectSingleNode("./*[local-name()='Prescriptor']/*[local-name()='NroMatricula']")?.InnerText
+
+                Dim matricula As New Matricula(codiTM, nMatricula)
+
+                Dim apellido As String = encabezado.SelectSingleNode("./*[local-name()='Prescriptor']/*[local-name()='Apellido']")?.InnerText
+
+                Dim nombre As String = encabezado.SelectSingleNode("./*[local-name()='Prescriptor']/*[local-name()='Nombre']")?.InnerText
+
+                Dim codiP As String = encabezado.SelectSingleNode("./*[local-name()='Prescriptor']/*[local-name()='Provincia']")?.InnerText
+
+                Dim provincia As New Provincia(codiP)
+
+                argReceta.Prescriptor = New Prescriptor(tipoPrescriptor, provincia, apellido, nombre, matricula)
+
+            End If
+
+            '==========================================================
+            ' DETALLE DE LA RECETA
+            '==========================================================
+
+            argReceta.Items = New List(Of ItemComprobante)
+
+            Dim referencias As XmlNodeList = xml.SelectNodes("//*[local-name()='MensajeADESFA']" & "/*[local-name()='DetalleReceta']" & "/*[local-name()='ReferenciaRx']")
+
+            For Each referencia As XmlNode In referencias
+
+                '------------------------------------------------------
+                ' NÚMERO DE LÍNEA
+                '------------------------------------------------------
+
+                Dim idItem As Long
+
+                Long.TryParse(referencia.SelectSingleNode("./*[local-name()='NroLinea']")?.InnerText, idItem)
+
+                '------------------------------------------------------
+                ' CANTIDAD PRESCRIPTA
+                '------------------------------------------------------
+
+                Dim cantidadPrescripta As Integer
+
+                Integer.TryParse(referencia.SelectSingleNode("./*[local-name()='CantidadPrescripta']")?.InnerText, cantidadPrescripta)
+
+                '------------------------------------------------------
+                ' BUSCAR EL ITEM SELECCIONADO
+                '------------------------------------------------------
+
+                Dim itemSeleccionado As XmlNode = Nothing
+
+                Dim items As XmlNodeList = referencia.SelectNodes("./*[local-name()='Item']")
+
+                For Each nodoItem As XmlNode In items
+
+                    'Primero guardamos el primero
+                    If itemSeleccionado Is Nothing Then
+                        itemSeleccionado = nodoItem
+                    End If
+
+                    'Si hay uno autorizado/seleccionado,
+                    'Estado = 1 tiene prioridad
+                    Dim estado As String = nodoItem.SelectSingleNode("./*[local-name()='Estado']")?.InnerText
+
+                    If estado = "0" Then
+                        itemSeleccionado = nodoItem
+                        Exit For
+                    End If
+
+                Next
+
+                '------------------------------------------------------
+                ' PROCESAR ITEM
+                '------------------------------------------------------
+
+                If itemSeleccionado IsNot Nothing Then
+
+                    Dim codigo As String = ""
+                    Dim idArticulo As String = ""
+                    Dim codBarras As String = ""
+                    Dim nTroquel As String = ""
+
+                    '==================================================
+                    ' ALFABETA
+                    '==================================================
+
+                    Dim alfabeta As String = itemSeleccionado.SelectSingleNode("./*[local-name()='Alfabeta']")?.InnerText
+
+                    If Not String.IsNullOrWhiteSpace(alfabeta) Then
+
+                        codigo = alfabeta.Trim()
+
+                        idArticulo = "M" & codigo
+
+                    End If
+
+                    '==================================================
+                    ' CÓDIGO DE BARRAS
+                    '==================================================
+
+                    codBarras = itemSeleccionado.SelectSingleNode("./*[local-name()='CodBarras']")?.InnerText
+
+                    '==================================================
+                    ' TROQUEL
+                    '==================================================
+
+                    nTroquel = itemSeleccionado.SelectSingleNode("./*[local-name()='CodTroquel']")?.InnerText
+
+                    '==================================================
+                    ' DESCRIPCIÓN
+                    '==================================================
+
+                    Dim descripcion As String = itemSeleccionado.SelectSingleNode("./*[local-name()='Descripcion']")?.InnerText
+
+                    '==================================================
+                    ' PRECIO UNITARIO
+                    '==================================================
+
+                    Dim pUnit As Decimal = 0D
+
+                    Decimal.TryParse(itemSeleccionado.SelectSingleNode("./*[local-name()='ImporteUnitario']")?.InnerText, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, pUnit)
+
+                    '==================================================
+                    ' CREAR ITEM
+                    '==================================================
+
+                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), 0, cantidadPrescripta, 0, 0, pUnit, 0, codigo, nTroquel)
+
+                    argReceta.Items.Add(item)
+
                 End If
 
             Next
 
+            Return argReceta
 
-            If itemSeleccionado IsNot Nothing Then
 
-                Dim codigo As String = ""
-                Dim idArticulo As String = ""
-                Dim codBarras As String = ""
-                Dim nTroquel As String = ""
+        Catch ex As Exception
 
-                Dim alfabeta = itemSeleccionado.SelectSingleNode("Alfabeta")?.InnerText
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "ParsearRecetaElectronica", ex.Message))
 
-                If Not String.IsNullOrWhiteSpace(alfabeta) Then
-                    codigo = alfabeta
-                    idArticulo = "M" & alfabeta
-                End If
-
-                codBarras = itemSeleccionado.SelectSingleNode("CodBarras")?.InnerText
-                nTroquel = itemSeleccionado.SelectSingleNode("CodTroquel")?.InnerText
-
-                Dim pUnit As Decimal
-                Decimal.TryParse(itemSeleccionado.SelectSingleNode("ImporteUnitario")?.InnerText, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, pUnit)
-
-                Dim descripcion = itemSeleccionado.SelectSingleNode("Descripcion")?.InnerText
-
-                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, codigo, nTroquel)
-
-                argReceta.Items.Add(item)
-
-            End If
-        Next
-
-        Return argReceta
+        End Try
 
     End Function
-
     Private Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
 
     End Sub

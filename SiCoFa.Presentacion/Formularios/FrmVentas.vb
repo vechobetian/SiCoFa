@@ -488,7 +488,7 @@ Public Class FrmVentas
 
             End If
 
-            If receta IsNot Nothing Then
+            If receta IsNot Nothing AndAlso receta.Plan.OS.PValidacion.RecetaElectronica = False Then
 
                 If receta.Items Is Nothing Then
                     receta.Items = New List(Of ItemComprobante)
