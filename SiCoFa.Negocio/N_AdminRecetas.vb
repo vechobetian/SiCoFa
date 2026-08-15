@@ -63,6 +63,9 @@ Public Class N_AdminRecetas
             Case 3
                 Me.Proceso3(argArticulo, argItemComprobante)
 
+            Case 4
+                Me.Proceso4(argArticulo, argItemComprobante)
+
             Case 12
                 Me.Proceso12(argArticulo, argItemComprobante)
 

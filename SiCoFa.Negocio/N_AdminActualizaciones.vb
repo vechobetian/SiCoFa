@@ -230,7 +230,7 @@ Public Class N_AdminActualizaciones
             AdminActualizaciones.ProcesarActualizacionArticulos(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacionArticulos", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ProcesarActualizacionArticulos", ex.Message))
 
         End Try
 
@@ -243,7 +243,7 @@ Public Class N_AdminActualizaciones
             AdminActualizaciones.ProcesarActualizacionObraSociales(argIdOS, argNumeroActualizacion, argStoredProcedure, argRutaArchivo)
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "PrcesarActualizacionObraSociales", ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ProcesarActualizacionObraSociales", ex.Message))
 
         End Try
 

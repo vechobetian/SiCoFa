@@ -11,49 +11,36 @@ Public Class ITC
 
     Private Const NOMBRE_SOFTWARE As String = "SiCoFa"
     Private Const VERSION_SOFTWARE As String = "4.0.0"
-    Private Const COD_ACCION_CONSULTA_RECETAS As String = "490220"
-    Private Const COD_ACCION_CONSULTA_RECETA_ELECTRONICA As String = "490120"
-    Private Const COD_ACCION_AUTORIZACION As String = "290020"
-    Private Const COD_ACCION_CANCELACION As String = "020010"
 
     Private Const UrlTest As String = "https://tx.itcsoluciones.ar/sitelrest/v1/txs/xml?"
     Private Const UrlProduccion As String = "http://ws.itcsoluciones.com/sitelgateway/gw.asmx"
+    Private Const SoapAction As String = "http://ws.itcsoluciones.com/sitelgateway/ProcesarXml"
 
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
         Try
 
             Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argIdPC, argCredencial, argPValidacion, argIdMensaje, "200")
-            Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
+            Dim empresa As String = Strings.Left(argPValidacion.Financiador, 2)
 
             Dim soap As String =
-                $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
-                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" xmlns:ns1=""http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"">
-                    <soap:Header>
-                        <wsse:Security xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"">
-                            <wsse:UsernameToken xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" wsu:Id=""Id-288f0808-3666-49ff-a478-7ad89cfcfea7"">
-                                <wsse:Username>{argPValidacion.Usuario}</wsse:Username>
-                                <wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">{argPValidacion.Licencia}</wsse:Password>
-                                <wsu:Created>{ahora}</wsu:Created>
-                            </wsse:UsernameToken>
-                        </wsse:Security>
-                    </soap:Header>
-                    <soap:Body>
-                        <ns1:consultaAfiliadoRecetaElectRq xmlns:ns1=""http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"">
-                            <ns1:infoCabeceraRq>
-                                <ns1:idOrganizacion>{argPValidacion.IdOrganizacion}</ns1:idOrganizacion>
-                                <ns1:tipoOrganizacion>FAR</ns1:tipoOrganizacion>
-                            </ns1:infoCabeceraRq>
-                            <ns1:payload>{xmlAdesfa}</ns1:payload>
-                        </ns1:consultaAfiliadoRecetaElectRq>
-                    </soap:Body>
+            $"<soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" 
+                             xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" 
+                             xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" >
+                <soap:Body>
+                    <ProcesarXml xmlns=""http://ws.itcsoluciones.com/sitelgateway/"">
+                        <version>V251</version>
+                        <empresa>{empresa}</empresa>
+                        <actividad>01</actividad>
+                        <licencia>{argPValidacion.Licencia}</licencia>
+                        <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
+                    </ProcesarXml>
+                </soap:Body>
                 </soap:Envelope>"
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc"
-
-            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
@@ -75,47 +62,35 @@ Public Class ITC
         Try
 
             Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetaElectronica(argIdPC, argReceta, argIdMensaje, "200")
-            Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+            Dim empresa As String = Strings.Left(pVal.Financiador, 2)
 
             Dim soap As String =
-                $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
-                <soap:Envelope xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"">
-                    <soap:Header>
-                        <wsse:Security xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"">
-                            <wsse:UsernameToken xmlns:wsse=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" 
-                                xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" 
-                                wsu:Id=""Id-288f0808-3666-49ff-a478-7ad89cfcfea7"">
-                                <wsse:Username>{pVal.Usuario}</wsse:Username>
-                                <wsse:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">{pVal.Licencia}</wsse:Password>
-                                <wsu:Created>{ahora}</wsu:Created>
-                            </wsse:UsernameToken>
-                        </wsse:Security>
-                    </soap:Header>
-                    <soap:Body>
-                        <ns1:consultaRecetaElectRq xmlns:ns1=""http://farmalink.com.ar/applicationService/V1/ConsultaRecetaElectSecureOutAppSvc"">
-                            <ns1:infoCabeceraRq>
-                                <ns1:idOrganizacion>{pVal.IdOrganizacion}</ns1:idOrganizacion>
-                                <ns1:tipoOrganizacion>FAR</ns1:tipoOrganizacion>
-                            </ns1:infoCabeceraRq>
-                            <ns1:payload>{xmlAdesfa}</ns1:payload>
-                        </ns1:consultaRecetaElectRq>
-                    </soap:Body>
+            $"<soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" 
+                             xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" 
+                             xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" >
+                <soap:Body>
+                    <ProcesarXml xmlns=""http://ws.itcsoluciones.com/sitelgateway/"">
+                        <version>V251</version>
+                        <empresa>{empresa}</empresa>
+                        <actividad>01</actividad>
+                        <licencia>{pVal.Licencia}</licencia>
+                        <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
+                    </ProcesarXml>
+                </soap:Body>
                 </soap:Envelope>"
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/ConsultaRecetaElectSecureOutAppSvc"
-
-            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
-            argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
+            'argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
 
-            Return argReceta
+            'Return argReceta
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "ConsultaRecetaElectronica", ex.Message))
@@ -129,40 +104,27 @@ Public Class ITC
         Try
 
             Dim xmlAdesfa As String = MensajeAdesfaAutorizacion(argIdPC, argReceta, argIdMensaje)
-            Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+            Dim empresa As String = Strings.Left(pVal.Financiador, 2)
 
             Dim soap As String =
-                $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
-                <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" 
-                    xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" 
-                    xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" 
-                    xmlns:aut=""http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"">
-                    <soapenv:Header>
-                        <oas:Security>
-                            <oas:UsernameToken wsu:Id=""Id-288f0808-3666-49ff-a478-7ad89cfcfea7"">
-                                <oas:Username>{pVal.Usuario}</oas:Username>
-                                <oas:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">{pVal.Licencia}</oas:Password>
-                                <wsu:Created>{ahora}</wsu:Created>
-                            </oas:UsernameToken>
-                        </oas:Security>
-                    </soapenv:Header>
-                    <soapenv:Body>
-                        <aut:autorizacionRecetaVentaRq>
-                            <aut:infoCabeceraRq>
-                                <aut:idOrganizacion>{pVal.IdOrganizacion}</aut:idOrganizacion>
-                                <aut:tipoOrganizacion>FAR</aut:tipoOrganizacion>
-                            </aut:infoCabeceraRq>
-                            <aut:payload>{xmlAdesfa}</aut:payload>
-                        </aut:autorizacionRecetaVentaRq>
-                    </soapenv:Body>
-                </soapenv:Envelope>"
+            $"<soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" 
+                             xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" 
+                             xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" >
+                <soap:Body>
+                    <ProcesarXml xmlns=""http://ws.itcsoluciones.com/sitelgateway/"">
+                        <version>V251</version>
+                        <empresa>{empresa}</empresa>
+                        <actividad>01</actividad>
+                        <licencia>{pVal.Licencia}</licencia>
+                        <mensaje>{xmlAdesfa}</mensaje>
+                    </ProcesarXml>
+                </soap:Body>
+                </soap:Envelope>"
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"
-
-            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlTest, SoapAction, soap)
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
@@ -182,40 +144,31 @@ Public Class ITC
         Try
 
             Dim xmlAdesfa As String = MensajeAdesfaCancelacion(argIdPC, argReceta, argIdMensaje)
-            Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
+            Dim empresa As String = Strings.Left(pVal.Financiador, 2)
 
             Dim soap As String =
-                $"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
-                <soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" 
-                    xmlns:oas=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"" 
-                    xmlns:wsu=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"" 
-                    xmlns:aut=""http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"">
-                    <soapenv:Header>
-                        <oas:Security>
-                            <oas:UsernameToken wsu:Id=""Id-288f0808-3666-49ff-a478-7ad89cfcfea7"">
-                                <oas:Username>{pVal.Usuario}</oas:Username>
-                                <oas:Password Type=""http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"">{pVal.Licencia}</oas:Password>
-                                <wsu:Created>{ahora}</wsu:Created>
-                            </oas:UsernameToken>
-                        </oas:Security>
-                    </soapenv:Header>
-                    <soapenv:Body>
-                        <aut:cancelacionRecetaVentaRq>
-                            <aut:infoCabeceraRq>
-                                <aut:idOrganizacion>{pVal.IdOrganizacion}</aut:idOrganizacion>
-                                <aut:tipoOrganizacion>FAR</aut:tipoOrganizacion>
-                            </aut:infoCabeceraRq>
-                            <aut:payload>{xmlAdesfa}</aut:payload>
-                        </aut:cancelacionRecetaVentaRq>
-                    </soapenv:Body>
-                </soapenv:Envelope>"
+            $"<soap:Envelope xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" 
+                             xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" 
+                             xmlns:soap=""http://schemas.xmlsoap.org/soap/envelope/"" >
+                <soap:Body>
+                    <ProcesarXml xmlns=""http://ws.itcsoluciones.com/sitelgateway/"">
+                        <version>V251</version>
+                        <empresa>{empresa}</empresa>
+                        <actividad>01</actividad>
+                        <licencia>{pVal.Licencia}</licencia>
+                        <mensaje>{xmlAdesfa}</mensaje>
+                    </ProcesarXml>
+                </soap:Body>
+                </soap:Envelope>"
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"
+            'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"
 
-            'Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
+            'Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soapAction, soap)
+
+            'IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -224,83 +177,9 @@ Public Class ITC
 
     End Sub
 
-    Private Sub EncabezadoMensajeAdesfaV310(writer As XmlWriter,
-                                       argPValidacion As ParametrosValidacion,
-                                       argTipoMensaje As String,
-                                       argCodigoAccion As String,
-                                       argIdPC As String,
-                                       argIdMensaje As Long,
-                                       argFechaHora As DateTime)
+    Private Sub WriteElementStringNullSafe(writer As XmlWriter, nombre As String, valor As String)
 
-    End Sub
-
-    Private Sub EncabezadoConsultaRecetasAdesfaV310(writer As XmlWriter, argFinanciador As String, argCredencial As CredencialOS)
-
-        writer.WriteStartElement("EncabezadoReceta")
-
-        writer.WriteStartElement("Financiador")
-        writer.WriteElementString("CodigoADESFA", "")
-        writer.WriteElementString("Codigo", argFinanciador)
-        writer.WriteElementString("Cuit", "")
-        writer.WriteElementString("Sucursal", "")
-        writer.WriteEndElement()
-
-        writer.WriteStartElement("Beneficiario")
-        writer.WriteElementString("TipoDoc", "")
-        writer.WriteElementString("NroDoc", "")
-        writer.WriteElementString("Apellido", "")
-        writer.WriteElementString("Nombre", "")
-        writer.WriteElementString("Sexo", "")
-        writer.WriteElementString("FechaNacimiento", "")
-        writer.WriteElementString("Parentesco", "")
-        writer.WriteElementString("EdadUnidad", "")
-        writer.WriteElementString("Edad", "")
-        writer.WriteEndElement()
-
-        writer.WriteStartElement("Credencial")
-        writer.WriteElementString("Numero", argCredencial.Numero)
-        writer.WriteElementString("Track", "")
-        writer.WriteElementString("Version", "")
-        writer.WriteElementString("Vencimiento", "")
-        writer.WriteElementString("ModoIngreso", "")
-        writer.WriteElementString("EsProvisorio", "")
-        writer.WriteElementString("Plan", "41")
-        writer.WriteElementString("cvc2", "")
-        writer.WriteEndElement()
-
-        writer.WriteEndElement() 'EncabezadoReceta
-
-    End Sub
-
-    Private Sub EncabezadoConsultaRecetaElectronicaAdesfaV310(writer As XmlWriter, argReceta As Receta)
-
-        writer.WriteStartElement("EncabezadoReceta")
-
-        writer.WriteStartElement("Financiador")
-        writer.WriteElementString("CodigoADESFA", "")
-        writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
-        writer.WriteElementString("Cuit", "")
-        writer.WriteElementString("Sucursal", "")
-        writer.WriteEndElement()
-
-        writer.WriteStartElement("Credencial")
-        writer.WriteElementString("Numero", argReceta.Credencial.Numero)
-        writer.WriteElementString("Track", "")
-        writer.WriteElementString("Version", "")
-        writer.WriteElementString("Vencimiento", "")
-        writer.WriteElementString("ModoIngreso", "")
-        writer.WriteElementString("EsProvisorio", "")
-        writer.WriteElementString("Plan", "")
-        writer.WriteEndElement()
-
-        writer.WriteStartElement("Formulario")
-        writer.WriteElementString("Fecha", "")
-        writer.WriteElementString("Tipo", "")
-        writer.WriteElementString("Numero", argReceta.NumReceta)
-        writer.WriteElementString("Serie", "")
-        writer.WriteEndElement()
-
-        writer.WriteEndElement() 'EncabezadoReceta
+        writer.WriteElementString(nombre, If(valor, ""))
 
     End Sub
 
@@ -312,17 +191,58 @@ Public Class ITC
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
+        Dim cuitFinanciador As String = Strings.Right(argPValidacion.Financiador, 11)
 
         Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
             writer.WriteStartElement("MensajeADESFA")
             writer.WriteAttributeString("version", "3.1.0")
 
-            EncabezadoMensajeAdesfaV310(writer, argPValidacion, argTipoMensaje, COD_ACCION_CONSULTA_RECETAS, argIdPC, argIdMensaje, argFechaHora)
+            writer.WriteStartElement("EncabezadoMensaje")
 
-            EncabezadoConsultaRecetasAdesfaV310(writer, argPValidacion.Financiador, argCredencial)
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "490220")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
 
-            writer.WriteEndElement() 'MensajeADESFA
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Cuit", argPValidacion.CuitPrestador)
+            writer.WriteElementString("Codigo", argPValidacion.NumPrestador)
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoMensaje
+
+            writer.WriteStartElement("EncabezadoReceta")
+
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Codigo", cuitFinanciador)
+            writer.WriteElementString("Cuit", cuitFinanciador)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", argCredencial.Numero)
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoReceta
+
+            writer.WriteEndElement() 'MensajeAdesfa
 
         End Using
 
@@ -338,18 +258,75 @@ Public Class ITC
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
+        Dim cuitFinanciador As String = Strings.Right(argReceta.Plan.OS.PValidacion.Financiador, 11)
 
         Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
             writer.WriteStartElement("MensajeADESFA")
             writer.WriteAttributeString("version", "3.1.0")
 
-            EncabezadoMensajeAdesfaV310(writer, argReceta.Plan.OS.PValidacion, argTipoMensaje, COD_ACCION_CONSULTA_RECETA_ELECTRONICA, argIdPC, argIdMensaje, argFechaHora)
+            writer.WriteStartElement("EncabezadoMensaje")
 
-            EncabezadoConsultaRecetaElectronicaAdesfaV310(writer, argReceta)
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "490120")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
 
-            writer.WriteEndElement() 'MensajeADESFA
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
 
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Sucursal", "1")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.NumPrestador)
+            writer.WriteElementString("Vendedor", "")
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoMensaje
+
+            writer.WriteStartElement("EncabezadoReceta")
+
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Codigo", "0")
+            writer.WriteElementString("Cuit", cuitFinanciador)
+            writer.WriteElementString("Sucursal", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+            writer.WriteElementString("Track", "")
+            writer.WriteElementString("Version", "")
+            writer.WriteElementString("Vencimiento", "")
+            writer.WriteElementString("ModoIngreso", "")
+            writer.WriteElementString("EsProvisorio", "")
+            writer.WriteElementString("Plan", "")
+            writer.WriteElementString("cvc2", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Formulario")
+            writer.WriteElementString("Fecha", "")
+            writer.WriteElementString("Tipo", "")
+            writer.WriteElementString("Numero", argReceta.NumReceta)
+            writer.WriteElementString("Serie", "")
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoReceta
+
+            writer.WriteEndElement() 'MensajeAdesfa
         End Using
 
         Return sb.ToString()
@@ -358,10 +335,11 @@ Public Class ITC
 
     Private Function MensajeAdesfaAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
 
-        Dim settings As New XmlWriterSettings With {.Indent = True, .OmitXmlDeclaration = True}
+        Dim settings As New XmlWriterSettings With {.Indent = False, .OmitXmlDeclaration = True}
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
+        Dim cuitFinanciador As String = Strings.Right(argReceta.Plan.OS.PValidacion.Financiador, 11)
 
         Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
@@ -410,21 +388,21 @@ Public Class ITC
             writer.WriteStartElement("EncabezadoReceta")
 
             writer.WriteStartElement("Prescriptor")
-            writer.WriteElementString("Apellido", argReceta.Prescriptor.Apellido)
-            writer.WriteElementString("Nombre", argReceta.Prescriptor.Nombre)
-            writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.TipoMatricula.CodiTMADESFA)
-            writer.WriteElementString("Provincia", argReceta.Prescriptor.Provincia.CodiP)
-            writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
-            writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPADESFA)
+            WriteElementStringNullSafe(writer, "Apellido", argReceta.Prescriptor?.Apellido)
+            WriteElementStringNullSafe(writer, "Nombre", argReceta.Prescriptor?.Nombre)
+            WriteElementStringNullSafe(writer, "TipoMatricula", argReceta.Prescriptor?.Matricula.TipoMatricula.CodiTMADESFA)
+            WriteElementStringNullSafe(writer, "Provincia", argReceta.Prescriptor?.Provincia.CodiP)
+            WriteElementStringNullSafe(writer, "NroMatricula", argReceta.Prescriptor?.Matricula.Numero)
+            WriteElementStringNullSafe(writer, "TipoPrescriptor", argReceta.Prescriptor?.TipoPrescriptor.CodiTPADESFA)
             writer.WriteElementString("Cuit", "")
             writer.WriteElementString("Especialidad", "")
             writer.WriteEndElement()
 
             writer.WriteStartElement("Beneficiario")
-            writer.WriteElementString("TipoDoc", argReceta.Documento.TipoDocumento.CodiTDADESFA)
-            writer.WriteElementString("NroDoc", argReceta.Documento.Numero)
-            writer.WriteElementString("Apellido", argReceta.Credencial.Nombre)
-            writer.WriteElementString("Nombre", argReceta.Credencial.Nombre)
+            WriteElementStringNullSafe(writer, "TipoDoc", argReceta.Documento?.TipoDocumento?.CodiTDADESFA)
+            WriteElementStringNullSafe(writer, "NroDoc", argReceta.Documento?.Numero)
+            WriteElementStringNullSafe(writer, "Apellido", argReceta.Credencial?.Nombre)
+            WriteElementStringNullSafe(writer, "Nombre", argReceta.Credencial?.Nombre)
             writer.WriteElementString("Sexo", "")
             writer.WriteElementString("FechaNacimiento", "")
             writer.WriteElementString("Parentesco", "")
@@ -434,20 +412,20 @@ Public Class ITC
 
             writer.WriteStartElement("Financiador")
             writer.WriteElementString("Codigo", "")
-            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.Financiador)
+            writer.WriteElementString("Cuit", cuitFinanciador)
             writer.WriteElementString("Sucursal", "")
             writer.WriteEndElement()
 
             writer.WriteStartElement("Credencial")
-            writer.WriteElementString("Numero", argReceta.Credencial.Numero)
-            writer.WriteElementString("Track", argReceta.Credencial.Numero)
-            writer.WriteElementString("CSC", argReceta.Credencial.Token)
+            WriteElementStringNullSafe(writer, "Numero", argReceta.Credencial?.Numero)
+            WriteElementStringNullSafe(writer, "Track", argReceta.Credencial?.Numero)
+            WriteElementStringNullSafe(writer, "CSC", argReceta.Credencial?.Token)
             writer.WriteElementString("Version", "")
             writer.WriteElementString("Vencimiento", "")
             writer.WriteElementString("ModoIngreso", "A")
             writer.WriteElementString("EsProvisorio", "0")
             writer.WriteElementString("Plan", "")
-            writer.WriteElementString("cvc2", argReceta.Credencial.Token)
+            WriteElementStringNullSafe(writer, "cvc2", argReceta.Credencial?.Token)
             writer.WriteEndElement()
 
             writer.WriteElementString("CoberturaEspecial", "")
@@ -541,6 +519,7 @@ Public Class ITC
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
+        Dim cuitFinanciador As String = Strings.Right(argReceta.Plan.OS.PValidacion.Financiador, 11)
 
         Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
@@ -593,7 +572,7 @@ Public Class ITC
             writer.WriteEndElement()
 
             writer.WriteStartElement("Financiador")
-            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.Financiador)
+            writer.WriteElementString("Cuit", cuitFinanciador)
             writer.WriteEndElement()
 
             writer.WriteStartElement("Credencial")
@@ -617,51 +596,153 @@ Public Class ITC
         Return sb.ToString()
 
     End Function
-
     Friend Function PostWebservice(Url As String, soapAction As String, xmlBody As String) As XmlDocument
 
         Try
-            ' Crear la solicitud HTTP
-            Dim request As HttpWebRequest = CType(WebRequest.Create(Url), HttpWebRequest)
-            request.Method = "POST"
-            request.ContentType = "text/xml;charset=UTF-8"
-            request.Headers.Add("SOAPAction", soapAction)
 
-            ' Agregar el sobre SOAP al cuerpo de la solicitud
+            '==========================================================
+            ' CREAR SOLICITUD HTTP
+            '==========================================================
+
+            Dim request As HttpWebRequest = CType(WebRequest.Create(Url), HttpWebRequest)
+
+            request.Method = "POST"
+
+            ' SOAP 1.1
+            request.ProtocolVersion = HttpVersion.Version11
+
+            ' Evitar problemas de conexión persistente
+            request.KeepAlive = False
+
+            ' Headers
+            request.ContentType = "text/xml; charset=utf-8"
+            request.Accept = "text/xml"
+
+            ' SOAPAction debe enviarse entre comillas
+            request.Headers.Add("SOAPAction", """" & soapAction & """")
+
+            '==========================================================
+            ' GUARDAR EL XML EXACTO QUE SE ENVÍA
+            '==========================================================
+
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request_enviado.xml", xmlBody, Encoding.UTF8)
+
+            '==========================================================
+            ' CONVERTIR XML A BYTES
+            '==========================================================
+
             Dim data As Byte() = Encoding.UTF8.GetBytes(xmlBody)
+
             request.ContentLength = data.Length
 
+            '==========================================================
+            ' ENVIAR
+            '==========================================================
+
             Using stream As Stream = request.GetRequestStream()
+
                 stream.Write(data, 0, data.Length)
+
             End Using
 
-            ' Obtener la respuesta del servidor
+            '==========================================================
+            ' RECIBIR RESPUESTA
+            '==========================================================
+
             Using response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
-                Using reader As New StreamReader(response.GetResponseStream())
+
+                Using reader As New StreamReader(response.GetResponseStream(), Encoding.UTF8)
+
                     Dim responseString As String = reader.ReadToEnd()
 
-                    ' Convertir a XmlDocument
+                    ' Guardar respuesta
+                    IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", responseString, Encoding.UTF8)
+
+                    ' Convertir respuesta a XML
                     Dim xmlResponse As New XmlDocument()
+
                     xmlResponse.LoadXml(responseString)
+
                     Return xmlResponse
+
                 End Using
+
             End Using
 
-        Catch ex As XmlException
-            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error al procesar la respuesta XML: " & ex.Message))
 
         Catch ex As WebException
+
+            '==========================================================
+            ' ERROR HTTP
+            '==========================================================
+
+            Dim mensaje As New StringBuilder()
+
+            mensaje.AppendLine("ERROR WEB SERVICE ITC")
+            mensaje.AppendLine("----------------------------------------")
+
+            mensaje.AppendLine("URL:")
+            mensaje.AppendLine(Url)
+            mensaje.AppendLine()
+
+            mensaje.AppendLine("SOAPAction:")
+            mensaje.AppendLine(soapAction)
+            mensaje.AppendLine()
+
+            mensaje.AppendLine("WebException:")
+            mensaje.AppendLine(ex.Message)
+            mensaje.AppendLine()
+
             If ex.Response IsNot Nothing Then
-                Using reader As New StreamReader(ex.Response.GetResponseStream())
-                    Dim serverError As String = reader.ReadToEnd()
-                    Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", serverError))
+
+                Dim response As HttpWebResponse =
+                CType(ex.Response, HttpWebResponse)
+
+                mensaje.AppendLine("HTTP STATUS:")
+                mensaje.AppendLine(
+                CInt(response.StatusCode).ToString() &
+                " - " &
+                response.StatusDescription)
+
+                mensaje.AppendLine()
+
+                mensaje.AppendLine("HEADERS:")
+                mensaje.AppendLine(
+                response.Headers.ToString())
+
+                mensaje.AppendLine()
+
+                mensaje.AppendLine("RESPUESTA DEL SERVIDOR:")
+                mensaje.AppendLine()
+
+                Using reader As New StreamReader(
+                response.GetResponseStream())
+
+                    Dim serverError As String =
+                    reader.ReadToEnd()
+
+                    mensaje.AppendLine(serverError)
+
                 End Using
+
             Else
-                Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error de red: " & ex.Message))
+
+                mensaje.AppendLine("ITC NO DEVOLVIÓ RESPUESTA HTTP.")
+
             End If
 
+            ' Guardar error completo
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_error.txt", mensaje.ToString(), Encoding.UTF8)
+
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", mensaje.ToString()))
+
+        Catch ex As XmlException
+
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error al procesar la respuesta XML: " & ex.Message))
+
         Catch ex As Exception
-            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", ex.Message))
+
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", ex.ToString()))
 
         End Try
 
@@ -669,15 +750,18 @@ Public Class ITC
 
     Private Sub VerificarRespuestaGeneral(xml As XmlDocument)
 
-        Dim codRtaGeneral As String = xml.SelectSingleNode("//CodRtaGeneral")?.InnerText
+        Dim codRtaGeneral As String =
+        xml.SelectSingleNode("//*[local-name()='CodRtaGeneral']")?.InnerText
 
-        Dim descripcion As String = xml.SelectSingleNode("//Descripcion")?.InnerText
+        Dim descripcion As String =
+        xml.SelectSingleNode("//*[local-name()='Descripcion']")?.InnerText
 
         If String.IsNullOrWhiteSpace(codRtaGeneral) Then
-            Throw New Exception("La respuesta del validador no contiene CodRtaGeneral.")
+            Throw New Exception(
+            "La respuesta del validador no contiene CodRtaGeneral.")
         End If
 
-        If codRtaGeneral <> "0" Then
+        If codRtaGeneral <> "00" Then
             Throw New Exception(descripcion)
         End If
 
@@ -687,40 +771,94 @@ Public Class ITC
 
         Dim recetas As New List(Of Receta)
 
-        Dim ns As New XmlNamespaceManager(xml.NameTable)
-        ns.AddNamespace("soap", "http://schemas.xmlsoap.org/soap/envelope/")
-        ns.AddNamespace("rec", "http://farmalink.com.ar/applicationService/V1/ConsultaAfiliadoRecetaElectSecureOutAppSvc")
+        '==========================================================
+        ' OBTENER LAS RECETAS
+        '==========================================================
 
-        Dim nodosRecetas As XmlNodeList =
-        xml.SelectNodes("//MensajeADESFA/Recetas/Receta", ns)
+        Dim nodosRecetas As XmlNodeList = xml.SelectNodes("//*[local-name()='MensajeADESFA']/*[local-name()='Recetas']/*[local-name()='Receta']")
+
+        '==========================================================
+        ' RECORRER RECETAS
+        '==========================================================
 
         For Each nodo As XmlNode In nodosRecetas
 
             Dim receta As New Receta
 
-            receta.IdReceta = nodo.SelectSingleNode("NroReceta")?.InnerText
+            '======================================================
+            ' NÚMERO DE RECETA
+            '======================================================
 
-            Dim formulario As XmlNode = nodo.SelectSingleNode("Formulario")
+            receta.IdReceta = nodo.SelectSingleNode("*[local-name()='NroReceta']")?.InnerText
+
+
+            '======================================================
+            ' FORMULARIO
+            '======================================================
+
+            Dim formulario As XmlNode = nodo.SelectSingleNode("*[local-name()='Formulario']")
 
             If formulario IsNot Nothing Then
-                receta.NumReceta = formulario.SelectSingleNode("Numero")?.InnerText
 
-                Dim Fecha As String = formulario.SelectSingleNode("Fecha")?.InnerText
+                '----------------------------------------------
+                ' Número de formulario
+                '----------------------------------------------
 
-                receta.FechaPrescripcion = DateTime.ParseExact(Fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture)
+                receta.NumReceta = formulario.SelectSingleNode("*[local-name()='Numero']")?.InnerText
+
+
+                '----------------------------------------------
+                ' Fecha de receta
+                '----------------------------------------------
+
+                Dim fecha As String = formulario.SelectSingleNode("*[local-name()='Fecha']")?.InnerText
+
+                If Not String.IsNullOrWhiteSpace(fecha) Then
+
+                    Dim fechaPrescripcion As DateTime
+
+                    If DateTime.TryParseExact(fecha, "yyyyMMdd", Globalization.CultureInfo.InvariantCulture, Globalization.DateTimeStyles.None, fechaPrescripcion) Then
+
+                        receta.FechaPrescripcion = fechaPrescripcion
+
+                    End If
+
+                End If
 
             End If
 
-            ' Leer los medicamentos
+            '======================================================
+            ' DETALLE DE LA RECETA
+            '======================================================
+
             Dim itemsReceta As New List(Of ItemComprobante)
+
             Dim numItem As Integer = 0
-            For Each item As XmlNode In nodo.SelectNodes("DetalleReceta/Item")
+
+            Dim nodosItems As XmlNodeList = nodo.SelectNodes("*[local-name()='DetalleReceta']/*[local-name()='Item']")
+
+            For Each item As XmlNode In nodosItems
+
                 numItem += 1
-                Dim itemReceta As New ItemComprobante(numItem, "", "", item.InnerText.Trim(), 0, 1, 0, 1, 1, 0, 0)
+
+                Dim descripcion As String = item.InnerText.Trim()
+
+                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, 0, 1, 0, 1, 1, 0, 0)
+
                 itemsReceta.Add(itemReceta)
+
             Next
 
+            '======================================================
+            ' ASIGNAR ITEMS
+            '======================================================
+
             receta.Items = itemsReceta
+
+            '======================================================
+            ' AGREGAR RECETA
+            '======================================================
+
             recetas.Add(receta)
 
         Next

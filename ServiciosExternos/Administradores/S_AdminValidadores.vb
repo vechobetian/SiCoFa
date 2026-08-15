@@ -19,6 +19,9 @@
             Case "SIMED"
                 Return New SIMED
 
+            Case "ITCS"
+                Return New ITC
+
             Case Else
                 Throw New Exception("Validador no implementado: " & Validador)
 
