@@ -128,6 +128,8 @@ Public Class ITC
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
+            VerificarRespuestaGeneral(xmlResponse)
+
             'argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
 
             'Return argReceta
@@ -157,18 +159,18 @@ Public Class ITC
                         <empresa>{empresa}</empresa>
                         <actividad>01</actividad>
                         <licencia>{pVal.Licencia}</licencia>
-                        <mensaje>{xmlAdesfa}</mensaje>
+                        <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
                     </ProcesarXml>
                 </soap:Body>
                 </soap:Envelope>"
 
             IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-            'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            'Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soapAction, soap)
+            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
-            'IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            VerificarRespuestaGeneral(xmlResponse)
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -596,6 +598,7 @@ Public Class ITC
         Return sb.ToString()
 
     End Function
+
     Friend Function PostWebservice(Url As String, soapAction As String, xmlBody As String) As XmlDocument
 
         Try

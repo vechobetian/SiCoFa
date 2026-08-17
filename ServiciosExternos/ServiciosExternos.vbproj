@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Administradores\S_AdminValidadores.vb" />
+    <Compile Include="Validadores\COMPA.vb" />
     <Compile Include="Validadores\FLINK.vb" />
     <Compile Include="Validadores\ITC.vb" />
     <Compile Include="Validadores\LPAMI.vb" />

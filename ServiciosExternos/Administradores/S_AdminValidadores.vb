@@ -22,6 +22,9 @@
             Case "ITCS"
                 Return New ITC
 
+            Case "COMPA"
+                Return New COMPA
+
             Case Else
                 Throw New Exception("Validador no implementado: " & Validador)
 

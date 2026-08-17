@@ -40,7 +40,7 @@ Partial Class FrmDatosReceta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(14.0!, 29.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(776, 454)
+        Me.ClientSize = New System.Drawing.Size(776, 463)
         Me.ControlBox = False
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

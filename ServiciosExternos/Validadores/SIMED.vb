@@ -19,7 +19,7 @@ Public Class SIMED
     Private Const UrlTest As String = "http://test-transac.imed.com.ar/SwitchImed/SwitchClient.svc"
     Private Const SoapAction As String = "http://www.imed.com.ar/SwitchImed/SwitchClientService/Autorizar"
 
-    Private Function EnviarSoap(pVal As ParametrosValidacion, xmlAdesfa As String) As XmlDocument
+    Private Function EnviarSoap(argPVal As ParametrosValidacion, argXmlAdesfa As String) As XmlDocument
 
         Dim soap As String =
         $"<?xml version=""1.0"" encoding=""UTF-8""?>
@@ -28,9 +28,9 @@ Public Class SIMED
             <soapenv:Header/>
             <soapenv:Body>
                 <swit:Autorizar>
-                    <swit:user>{pVal.Usuario}</swit:user>
-                    <swit:pass>{pVal.Licencia}</swit:pass>
-                    <swit:mensaje><![CDATA[{xmlAdesfa}]]></swit:mensaje>
+                    <swit:user>{argPVal.Usuario}</swit:user>
+                    <swit:pass>{argPVal.Licencia}</swit:pass>
+                    <swit:mensaje><![CDATA[{argXmlAdesfa}]]></swit:mensaje>
                 </swit:Autorizar>
             </soapenv:Body>
         </soapenv:Envelope>"

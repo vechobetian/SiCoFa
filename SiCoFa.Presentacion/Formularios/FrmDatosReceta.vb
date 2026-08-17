@@ -716,45 +716,49 @@ Public Class FrmDatosReceta
 
             Dim adminRecetas As New N_AdminRecetas
 
-            If m_Receta.NumReceta = "*" Then
+            If m_Receta.Plan.OS.PValidacion.RecetaElectronica Then
+                If m_Receta.NumReceta = "*" Then
 
-                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(g_ParametrosTerminal.IdPc, m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
+                    Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(g_ParametrosTerminal.IdPc, m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
 
-                If rtas.Count = 0 Then
-                    MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Me.LimpiarFormulario()
-                    ActualizarRecetaDesdeControles()
-                    Me.Close()
-                    Exit Function
-                End If
-
-                Using frm As New FrmRecetasBeneficiario
-
-                    frm.RecetasBeneficiario(rtas)
-
-                    If frm.ShowDialog() = DialogResult.OK Then
-
-                        Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
-
-                        ' Descargar la receta electrónica
-                        m_Receta.NumReceta = numeroReceta
-                        adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
-                        Close()
+                    If rtas.Count = 0 Then
+                        MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Me.LimpiarFormulario()
+                        ActualizarRecetaDesdeControles()
                         Me.Close()
+                        Exit Function
                     End If
 
-                End Using
-            Else
+                    Using frm As New FrmRecetasBeneficiario
 
-                Dim rta As Receta = adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
-                Me.Close()
+                        frm.RecetasBeneficiario(rtas)
+
+                        If frm.ShowDialog() = DialogResult.OK Then
+
+                            Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
+
+                            ' Descargar la receta electrónica
+                            m_Receta.NumReceta = numeroReceta
+                            adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
+                            Close()
+                            Me.Close()
+                        End If
+
+                    End Using
+
+                Else
+
+                    Dim rta As Receta = adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
+                    Me.Close()
+                End If
+
             End If
 
             Return True   ' Indica que la teck1la fue procesada
 
-        End If
+            End If
 
-        Return MyBase.ProcessCmdKey(msg, keyData)
+            Return MyBase.ProcessCmdKey(msg, keyData)
 
     End Function
 
