@@ -451,6 +451,35 @@ Public Class FrmDatosReceta
 
     End Sub
 
+    Private Sub AgregarBotonAceptar()
+
+        Dim pnl As New Panel
+
+        With pnl
+            .Width = FlowLayoutPanel1.ClientSize.Width
+            .Height = 55
+            .Margin = New Padding(3)
+        End With
+
+        Dim btn As New Button
+
+        With btn
+            .Name = "BtnAceptar"
+            .Text = "Aceptar"
+            .Width = 150
+            .Height = 40
+            .Anchor = AnchorStyles.Top Or AnchorStyles.Right
+            .Location = New Point(pnl.ClientSize.Width - .Width - 10, 5)
+        End With
+
+        AddHandler btn.Click, AddressOf BtnAceptar_Click
+
+        pnl.Controls.Add(btn)
+
+        FlowLayoutPanel1.Controls.Add(pnl)
+
+    End Sub
+
     Private Sub CargarDatosRequeridos()
 
         FlowLayoutPanel1.Controls.Clear()
@@ -497,6 +526,8 @@ Public Class FrmDatosReceta
         If dr.Diagnostico Then
             AgregarCampoTexto("Diagnostico", NameOf(m_Receta.Diagnostico), NameOf(m_Receta.Diagnostico))
         End If
+
+        AgregarBotonAceptar()
 
         AjustarTamañoFormulario()
 
@@ -703,63 +734,73 @@ Public Class FrmDatosReceta
 
     End Sub
 
-    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+    Private Sub BtnAceptar_Click(sender As Object, e As EventArgs)
 
-        If keyData = Keys.F2 Then
-            Me.ActualizarRecetaDesdeControles()
+        ProcesarReceta()
 
-            Dim ucPrescriptor = TryCast(Controls.Find("UcPrescriptor", True).FirstOrDefault(), UcSelectorUniversal)
+    End Sub
 
-            If ucPrescriptor IsNot Nothing AndAlso ucPrescriptor.EsNuevo Then
-                InsertarPrescriptor(m_Receta)
-            End If
+    Private Sub ProcesarReceta()
 
-            Dim adminRecetas As New N_AdminRecetas
+        Me.ActualizarRecetaDesdeControles()
 
-            If m_Receta.Plan.OS.PValidacion.RecetaElectronica Then
-                If m_Receta.NumReceta = "*" Then
+        Dim ucPrescriptor = TryCast(Controls.Find("UcPrescriptor", True).FirstOrDefault(), UcSelectorUniversal)
 
-                    Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(g_ParametrosTerminal.IdPc, m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
+        If ucPrescriptor IsNot Nothing AndAlso ucPrescriptor.EsNuevo Then
+            InsertarPrescriptor(m_Receta)
+        End If
 
-                    If rtas.Count = 0 Then
-                        MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        Me.LimpiarFormulario()
-                        ActualizarRecetaDesdeControles()
-                        Me.Close()
-                        Exit Function
-                    End If
+        Dim adminRecetas As New N_AdminRecetas
 
-                    Using frm As New FrmRecetasBeneficiario
+        If m_Receta.Plan.OS.PValidacion.RecetaElectronica Then
 
-                        frm.RecetasBeneficiario(rtas)
+            If m_Receta.NumReceta = "*" Then
 
-                        If frm.ShowDialog() = DialogResult.OK Then
+                Dim rtas As List(Of Receta) = adminRecetas.ConsultaRecetasBeneficiario(g_ParametrosTerminal.IdPc, m_Receta.Credencial, m_Receta.Plan.OS.PValidacion)
 
-                            Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
+                If rtas.Count = 0 Then
 
-                            ' Descargar la receta electrónica
-                            m_Receta.NumReceta = numeroReceta
-                            adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
-                            Close()
-                            Me.Close()
-                        End If
+                    MessageBox.Show("Afiliado sin receta electronica", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                    End Using
-
-                Else
-
-                    Dim rta As Receta = adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
+                    Me.LimpiarFormulario()
+                    ActualizarRecetaDesdeControles()
                     Me.Close()
+
+                    Exit Sub
                 End If
 
+                Using frm As New FrmRecetasBeneficiario
+
+                    frm.RecetasBeneficiario(rtas)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+
+                        Dim numeroReceta As String = frm.NumeroRecetaSeleccionada
+
+                        m_Receta.NumReceta = numeroReceta
+
+                        adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
+
+                        Me.Close()
+
+                    End If
+
+                End Using
+
+            Else
+
+                adminRecetas.ConsultaRecetaElectronica(g_ParametrosTerminal.IdPc, m_Receta)
+
+                Me.Close()
+
             End If
 
-            Return True   ' Indica que la teck1la fue procesada
+        Else
+            Me.Close()
 
-            End If
+        End If
 
-            Return MyBase.ProcessCmdKey(msg, keyData)
+    End Sub
 
-    End Function
 
 End Class
