@@ -50,8 +50,7 @@ Public Class D_AdminActualizaciones
 
         Dim lista As New List(Of String)
 
-        Dim url As String =
-            $"https://www.sicofa.com.ar/listar.php?token={Uri.EscapeDataString(token)}"
+        Dim url As String = $"https://www.sicofa.com.ar/listar.php?token={Uri.EscapeDataString(token)}"
 
         Dim texto As String = Await http.GetStringAsync(url)
 
@@ -126,9 +125,9 @@ Public Class D_AdminActualizaciones
 
                 Try
                     ImportarAStaging(argRutaArchivo, cn, tx)
+                    InsertarDetalleActualizacion(CStr(argCodiPA & argNumeroActualizacion), cn, tx)
                     EjecutarActualizacionArticulos(argStoredProcedure, argPorcentaje, cn, tx)
                     ActualizarNumeroActualizacionProcesos(argCodiPA, argNumeroActualizacion, cn, tx)
-
 
                     tx.Commit()
 
@@ -138,20 +137,6 @@ Public Class D_AdminActualizaciones
                 End Try
 
             End Using
-
-        End Using
-
-    End Sub
-
-    Public Sub ProcesarActualizacionPami(ByVal NumActualizacion As Long,
-                                    cn As MySqlConnection,
-                                    tx As MySqlTransaction)
-
-        Using cmd As New MySqlCommand("sp_actualizar_pami", cn, tx)
-
-            cmd.CommandType = CommandType.StoredProcedure
-            cmd.CommandTimeout = 0
-            cmd.ExecuteNonQuery()
 
         End Using
 
@@ -205,6 +190,21 @@ Public Class D_AdminActualizaciones
         Using cmd As New MySqlCommand(sql, cn, tx)
             cmd.Parameters.AddWithValue("@archivo", rutaArchivo)
             cmd.ExecuteNonQuery()
+        End Using
+
+    End Sub
+
+    Public Sub InsertarDetalleActualizacion(argIdActualizacion As String, cn As MySqlConnection, tx As MySqlTransaction)
+
+        Using cmd As New MySqlCommand("sp_insertar_actualizacion_detalle", cn, tx)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandTimeout = 0
+
+            cmd.Parameters.Add("p_IdActualizacion", MySqlDbType.String).Value = argIdActualizacion
+
+            cmd.ExecuteNonQuery()
+
         End Using
 
     End Sub
