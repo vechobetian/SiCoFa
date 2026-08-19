@@ -812,7 +812,7 @@ Public Class FrmVentas
         Me.Close()
     End Sub
 
-    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
+    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
         Me.Close()
     End Sub
 
@@ -871,6 +871,84 @@ Public Class FrmVentas
 
         End Try
 
+    End Sub
+
+    Private Sub InsertarNuevaReceta()
+
+        Try
+            Dim PlanOS As PlanOS = Nothing
+
+            Using frm As New FrmSelectorPlanesOS
+
+                If frm.ShowDialog() <> DialogResult.OK Then
+                    Exit Sub
+                End If
+
+                PlanOS = frm.PlanSeleccionado
+
+            End Using
+
+            Dim receta As New Receta(PlanOS)
+
+            receta.IdReceta = ObtenerNuevoIdReceta()
+
+            If receta.Plan.OS.PValidacion.RecetaElectronica Then
+                Using frm As New FrmDatosReceta(receta)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+                        ' receta ya fue modificada
+                    End If
+
+                End Using
+            End If
+
+            Me.CargarRecetaEnPantalla(receta)
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub DatosReceta()
+        Try
+            Dim receta As Receta = Nothing
+
+            If mobj_ItemSeleccionado IsNot Nothing Then
+
+                Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+                If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                    receta = ObtenerReceta(item.Receta.IdReceta)
+
+                End If
+
+            End If
+
+            If receta IsNot Nothing Then
+
+                If receta.Plan.DatosRequeridos Is Nothing Then
+                    MessageBox.Show("Datos Requeridos no establecidos", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Exit Sub
+                End If
+
+                Using frm As New FrmDatosReceta(receta)
+
+                    If frm.ShowDialog() = DialogResult.OK Then
+
+                    End If
+
+                End Using
+
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
     End Sub
 
     Private Sub CargarRecetaEnPantalla(receta As Receta)
@@ -1029,138 +1107,9 @@ Public Class FrmVentas
 
         End Try
 
-
-
     End Sub
 
-    Private Sub AyudaToolStripButton_Click(sender As Object, e As EventArgs) Handles AyudaToolStripButton.Click
-
-        Dim receta As Receta = Nothing
-
-        If mobj_ItemSeleccionado IsNot Nothing Then
-
-            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
-
-            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
-
-                receta = ObtenerReceta(item.Receta.IdReceta)
-
-            End If
-
-        End If
-
-        If receta IsNot Nothing Then
-            Dim adminRecetas As New N_AdminRecetas
-            adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
-        End If
-
-    End Sub
-
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-
-        Dim receta As Receta = Nothing
-
-        If mobj_ItemSeleccionado IsNot Nothing Then
-
-            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
-
-            If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
-
-                receta = ObtenerReceta(item.Receta.IdReceta)
-
-            End If
-
-        End If
-
-        If receta IsNot Nothing Then
-            Dim adminRecetas As New N_AdminRecetas
-            adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
-        End If
-
-    End Sub
-
-    Private Sub btnNuevaReceta_Click(sender As Object, e As EventArgs) Handles btnNuevaReceta.Click
-        Try
-            Dim PlanOS As PlanOS = Nothing
-
-            Using frm As New FrmSelectorPlanesOS
-
-                If frm.ShowDialog() <> DialogResult.OK Then
-                    Exit Sub
-                End If
-
-                PlanOS = frm.PlanSeleccionado
-
-            End Using
-
-            Dim receta As New Receta(PlanOS)
-
-            receta.IdReceta = ObtenerNuevoIdReceta()
-
-            If receta.Plan.OS.PValidacion.RecetaElectronica Then
-                Using frm As New FrmDatosReceta(receta)
-
-                    If frm.ShowDialog() = DialogResult.OK Then
-                        ' receta ya fue modificada
-                    End If
-
-                End Using
-            End If
-
-            Me.CargarRecetaEnPantalla(receta)
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
-    Private Sub btnDatosReceta_Click(sender As Object, e As EventArgs) Handles btnDatosReceta.Click
-        Try
-            Dim receta As Receta = Nothing
-
-            If mobj_ItemSeleccionado IsNot Nothing Then
-
-                Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
-
-                If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
-
-                    receta = ObtenerReceta(item.Receta.IdReceta)
-
-                End If
-
-            End If
-
-            If receta IsNot Nothing Then
-
-                If receta.Plan.DatosRequeridos Is Nothing Then
-                    MessageBox.Show("Datos Requeridos no establecidos", "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    Exit Sub
-                End If
-
-                Using frm As New FrmDatosReceta(receta)
-
-                    If frm.ShowDialog() = DialogResult.OK Then
-
-                    End If
-
-                End Using
-
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
-    Private Sub btnEliminarReceta_Click(sender As Object, e As EventArgs) Handles btnEliminarReceta.Click
-        Me.EliminarRecetaEnPantalla()
-        MoverItemSeleccionado(1)
-    End Sub
-
-    Private Sub btnSolicitarAutorizacionReceta_Click(sender As Object, e As EventArgs) Handles btnSolicitarAutorizacionReceta.Click
+    Private Sub SolicitarAutorizacionReceta()
         Try
             Dim receta As Receta = Nothing
 
@@ -1189,7 +1138,23 @@ Public Class FrmVentas
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+    End Sub
 
+    Private Sub btnNuevaReceta_Click(sender As Object, e As EventArgs) Handles btnNuevaReceta.Click
+        Me.InsertarNuevaReceta()
+    End Sub
+
+    Private Sub btnDatosReceta_Click(sender As Object, e As EventArgs) Handles btnDatosReceta.Click
+        Me.DatosReceta()
+    End Sub
+
+    Private Sub btnEliminarReceta_Click(sender As Object, e As EventArgs) Handles btnEliminarReceta.Click
+        Me.EliminarRecetaEnPantalla()
+        MoverItemSeleccionado(1)
+    End Sub
+
+    Private Sub btnSolicitarAutorizacionReceta_Click(sender As Object, e As EventArgs) Handles btnSolicitarAutorizacionReceta.Click
+        Me.SolicitarAutorizacionReceta()
     End Sub
 
 End Class

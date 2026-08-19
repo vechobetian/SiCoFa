@@ -120,7 +120,25 @@
   <metadata name="ToolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
+  <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="mnuGuardar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAElJREFUOE9joBb4TyaGg/8NDZiCOABMDUUGYKglyQBsaoeLAUgSODGaOjiASxCL
+        QXogWiEAXQIvJtcAGBikBoAAsmJiMaWAgQEAlnKxdcuJCusAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="mnuSalir.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAGlJREFUOE+ljgEKwCAMA/v0/tyRqGOtxZb1IDBdciiLkSSFxYj1L2WoxhLcsWHQ
+        446CSIIzGy8YXwRegm82yB5/MykIojEyKQhAWwDscGPGyGadHRdB/oITlrwgSYgX/KItAG0BaAuKiDwV
+        Q+k8Ty1uRwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="btnNuevaReceta.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -279,32 +297,6 @@
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABpSURBVDhPpY4BCsAgDAP79P7ckahjrcWW9SAwXXIoi5Ek
         hcWI9S9lqMYS3LFh0OOOgkiCMxsvGF8EXoJvNsgefzMpCKIxMikIQFsA7HBjxshmnR0XQf6CE5a8IEmI
         F/yiLQBtAWgLiog8FUPpPE8tbkcAAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="AbrirToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAF1JREFUOE/NjgEKwCAMxHy6P+8IcmWu4tTCWOAo6qVYvsJu2eYp6Xy0TITf6GJl
-        a+iaGYHucZQhLs8mvVaPeGk26bV6xEua3G0EsZdrfY9kSMmQkiElgx5W8jtKuQAbX+81FoduwAAAAABJ
-        RU5ErkJggg==
-</value>
-  </data>
-  <data name="GuardarToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAElJREFUOE9joBb4TyaGg/8NDZiCOABMDUUGYKglyQBsaoeLAUgSODGaOjiASxCL
-        QXogWiEAXQIvJtcAGBikBoAAsmJiMaWAgQEAlnKxdcuJCusAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="SalirToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAGlJREFUOE+ljgEKwCAMA/v0/tyRqGOtxZb1IDBdciiLkSSFxYj1L2WoxhLcsWHQ
-        446CSIIzGy8YXwRegm82yB5/MykIojEyKQhAWwDscGPGyGadHRdB/oITlrwgSYgX/KItAG0BaAuKiDwV
-        Q+k8Ty1uRwAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="mnuEditarElimininarItemSeleccionado.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
