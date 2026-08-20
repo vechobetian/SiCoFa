@@ -125,7 +125,7 @@ Public Class D_AdminActualizaciones
 
                 Try
                     ImportarAStaging(argRutaArchivo, cn, tx)
-                    InsertarDetalleActualizacion(CStr(argCodiPA & argNumeroActualizacion), cn, tx)
+                    RegistrarActualizacion(CStr(argCodiPA & argNumeroActualizacion), cn, tx)
                     EjecutarActualizacionArticulos(argStoredProcedure, argPorcentaje, cn, tx)
                     ActualizarNumeroActualizacionProcesos(argCodiPA, argNumeroActualizacion, cn, tx)
 
@@ -194,9 +194,9 @@ Public Class D_AdminActualizaciones
 
     End Sub
 
-    Public Sub InsertarDetalleActualizacion(argIdActualizacion As String, cn As MySqlConnection, tx As MySqlTransaction)
+    Public Sub RegistrarActualizacion(argIdActualizacion As String, cn As MySqlConnection, tx As MySqlTransaction)
 
-        Using cmd As New MySqlCommand("sp_insertar_actualizacion_detalle", cn, tx)
+        Using cmd As New MySqlCommand("sp_registrar_actualizacion", cn, tx)
 
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandTimeout = 0
