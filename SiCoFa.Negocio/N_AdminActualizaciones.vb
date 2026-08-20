@@ -18,8 +18,8 @@ Public Class N_AdminActualizaciones
                      ListarArchivosServidorAsync(token)
 
         Catch ex As Exception
-            Throw New Exception(
-            Vecho.MensajeError(Me.ToString(), NameOf(ListarArchivosServidorAsync), ex.Message), ex)
+            Throw New Exception(Vecho.MensajeError(Me.ToString(), NameOf(ListarArchivosServidorAsync), ex.Message), ex)
+
         End Try
 
     End Function
@@ -34,8 +34,8 @@ Public Class N_AdminActualizaciones
             Return Await mAdminActualizaciones.ListarArchivosOSServidorAsync(token)
 
         Catch ex As Exception
-            Throw New Exception(
-            Vecho.MensajeError(Me.ToString(), NameOf(ListarArchivosOSServidorAsync), ex.Message), ex)
+            Throw New Exception(Vecho.MensajeError(Me.ToString(), NameOf(ListarArchivosOSServidorAsync), ex.Message), ex)
+
         End Try
 
     End Function
@@ -66,8 +66,8 @@ Public Class N_AdminActualizaciones
             Return rutaDestino
 
         Catch ex As Exception
-            Throw New Exception(
-            Vecho.MensajeError(Me.ToString(), NameOf(DescargarArchivoAsync), ex.Message), ex)
+            Throw New Exception(Vecho.MensajeError(Me.ToString(), NameOf(DescargarArchivoAsync), ex.Message), ex)
+
         End Try
 
     End Function
@@ -114,11 +114,9 @@ Public Class N_AdminActualizaciones
                 Dim nombreBase =
                 Path.GetFileNameWithoutExtension(entry.Name)
 
-                Dim extension =
-                Path.GetExtension(entry.Name).ToLower()
+                Dim extension = Path.GetExtension(entry.Name).ToLower()
 
-                Dim extensionFinal =
-                If(extension = ".dat", ".txt", extension)
+                Dim extensionFinal = If(extension = ".dat", ".txt", extension)
 
                 Dim nombreFinal As String
 
@@ -134,14 +132,11 @@ Public Class N_AdminActualizaciones
 
                 Else
                     ' múltiples → usar nombre del archivo
-                    nombreFinal =
-                    nombreBase &
-                    nroActualizacion &
-                    extensionFinal
+                    nombreFinal = nombreBase & nroActualizacion & extensionFinal
+
                 End If
 
-                Dim destino As String =
-                Path.Combine(rutaTxt, nombreFinal)
+                Dim destino As String = Path.Combine(rutaTxt, nombreFinal)
 
                 If File.Exists(destino) Then
                     File.Delete(destino)
@@ -181,28 +176,22 @@ Public Class N_AdminActualizaciones
                 '------------------------------------
                 If entry.Length = 0 Then Continue For
 
-                Dim nombreOriginal As String =
-                Path.GetFileName(entry.FullName)
+                Dim nombreOriginal As String = Path.GetFileName(entry.FullName)
 
                 If String.IsNullOrWhiteSpace(nombreOriginal) Then Continue For
 
                 '------------------------------------
                 ' CONVERTIR DAT -> TXT
                 '------------------------------------
-                Dim nombreBase =
-                Path.GetFileNameWithoutExtension(nombreOriginal)
+                Dim nombreBase = Path.GetFileNameWithoutExtension(nombreOriginal)
 
-                Dim extension =
-                Path.GetExtension(nombreOriginal).ToLower()
+                Dim extension = Path.GetExtension(nombreOriginal).ToLower()
 
-                Dim extensionFinal =
-                If(extension = ".dat", ".txt", extension)
+                Dim extensionFinal = If(extension = ".dat", ".txt", extension)
 
-                Dim nombreFinal =
-                nombreBase & extensionFinal
+                Dim nombreFinal = nombreBase & extensionFinal
 
-                Dim destino As String =
-                Path.Combine(rutaTxt, nombreFinal)
+                Dim destino As String = Path.Combine(rutaTxt, nombreFinal)
 
                 '------------------------------------
                 ' SOBRESCRIBIR SI EXISTE

@@ -68,7 +68,7 @@ Public Class FrmActualizaciones
     Private Async Function ActualizarArticulos(progreso As IProgress(Of ProgresoActualizacion)) As Task
 
         Dim adminPA As New N_AdminProcesosActualizacion
-        Dim procesos = adminPA.ObtenerProcesosActualizacion()
+        Dim procesos As List(Of ProcesoActualizacion) = adminPA.ObtenerProcesosActualizacion()
 
         Dim mapProcesos = procesos.ToDictionary(Function(x) x.CodiPA, StringComparer.OrdinalIgnoreCase)
 
@@ -79,11 +79,10 @@ Public Class FrmActualizaciones
         '------------------------------------------
         Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync(mToken)
 
-        Dim archivosOrdenados =
-        archivos.OrderBy(Function(a)
-                             Dim n = Path.GetFileNameWithoutExtension(a)
-                             Return CLng(n.Substring(2))
-                         End Function).ToList()
+        Dim archivosOrdenados = archivos.OrderBy(Function(a)
+                                                     Dim n = Path.GetFileNameWithoutExtension(a)
+                                                     Return CLng(n.Substring(2))
+                                                 End Function).ToList()
 
         '------------------------------------------
         ' PRECALCULO TOTAL TXT
@@ -236,15 +235,15 @@ Public Class FrmActualizaciones
         '------------------------------------------
         Dim archivos = Await mAdminActualizaciones.ListarArchivosOSServidorAsync(mToken)
 
-        Dim archivosOrdenados =
-        archivos.OrderBy(Function(a)
-                             Dim n = Path.GetFileNameWithoutExtension(a)
-                             Return CLng(n.Substring(2))
-                         End Function).ToList()
+        Dim archivosOrdenados = archivos.OrderBy(Function(a)
+                                                     Dim n = Path.GetFileNameWithoutExtension(a)
+                                                     Return CLng(n.Substring(2))
+                                                 End Function).ToList()
 
         '------------------------------------------
         ' ARMAR LISTA DE ZIP A PROCESAR
         '------------------------------------------
+
         Dim listaProcesamiento As New List(Of (Zip As String, RutaZip As String))
 
         For Each archivoZip In archivosOrdenados
@@ -257,10 +256,7 @@ Public Class FrmActualizaciones
 
                 Dim os = mapOS(idOS)
 
-                nroActual =
-                If(os.NumeroActualizacion.HasValue,
-                   os.NumeroActualizacion.Value,
-                   0)
+                nroActual = If(os.NumeroActualizacion.HasValue, os.NumeroActualizacion.Value, 0)
 
             End If
 
@@ -277,10 +273,7 @@ Public Class FrmActualizaciones
             .Mensaje = "Descargando " & archivoZip
         })
 
-            Dim rutaZip =
-            Await mAdminActualizaciones.DescargarArchivoAsync(
-                mToken,
-                archivoZip)
+            Dim rutaZip = Await mAdminActualizaciones.DescargarArchivoAsync(mToken, archivoZip)
 
             listaProcesamiento.Add((archivoZip, rutaZip))
 
@@ -303,8 +296,7 @@ Public Class FrmActualizaciones
         '------------------------------------------
         ' TOTAL DE TRABAJOS
         '------------------------------------------
-        Dim trabajosTotales As Integer =
-        listaProcesamiento.Count * 4
+        Dim trabajosTotales As Integer = listaProcesamiento.Count * 4
 
         Dim trabajosRealizados As Integer = 0
 
@@ -329,28 +321,22 @@ Public Class FrmActualizaciones
                 '==========================================
                 ' EXTRAER TXT DEL ZIP ACTUAL
                 '==========================================
-                Dim rutasTxt =
-                mAdminActualizaciones.NormalizarArchivoZipOS(
-                    Path.GetFileName(item.RutaZip))
+                Dim rutasTxt = mAdminActualizaciones.NormalizarArchivoZipOS(Path.GetFileName(item.RutaZip))
 
                 '==========================================
                 ' ORDENAR TXT
                 '==========================================
-                Dim txtOrdenados =
-                rutasTxt.
-                OrderBy(Function(t)
+                Dim txtOrdenados = rutasTxt.OrderBy(Function(t)
 
-                            Dim nombre =
-                                Path.GetFileNameWithoutExtension(t)
+                                                        Dim nombre = Path.GetFileNameWithoutExtension(t)
 
-                            If OrdenProcesamiento.ContainsKey(nombre) Then
-                                Return OrdenProcesamiento(nombre)
-                            Else
-                                Return 999
-                            End If
+                                                        If OrdenProcesamiento.ContainsKey(nombre) Then
+                                                            Return OrdenProcesamiento(nombre)
+                                                        Else
+                                                            Return 999
+                                                        End If
 
-                        End Function).
-                ToList()
+                                                    End Function).ToList()
 
                 '==========================================
                 ' PROCESAR TXT
@@ -359,8 +345,7 @@ Public Class FrmActualizaciones
 
                     Try
 
-                        Dim nombreTxt =
-                        Path.GetFileNameWithoutExtension(rutaTxt)
+                        Dim nombreTxt = Path.GetFileNameWithoutExtension(rutaTxt)
 
                         Dim os As ObraSocial = Nothing
 
@@ -370,29 +355,20 @@ Public Class FrmActualizaciones
 
                         If os IsNot Nothing Then
 
-                            nroActual =
-                            If(os.NumeroActualizacion.HasValue,
-                               os.NumeroActualizacion.Value,
-                               0)
+                            nroActual = If(os.NumeroActualizacion.HasValue, os.NumeroActualizacion.Value, 0)
 
                         End If
 
                         If nroActualizacionZip <= nroActual Then Continue For
 
-                        Dim sp As String =
-                        ObtenerProcedureOS(nombreTxt)
+                        Dim sp As String = ObtenerProcedureOS(nombreTxt)
 
                         If sp = "NO APLICA" Then Continue For
 
                         Await Task.Run(
                         Sub()
 
-                            mAdminActualizaciones.
-                            ProcesarActualizacionObraSociales(
-                                idOS,
-                                nroActualizacionZip,
-                                sp,
-                                rutaTxt)
+                            mAdminActualizaciones.ProcesarActualizacionObraSociales(idOS, nroActualizacionZip, sp, rutaTxt)
 
                         End Sub)
 
@@ -404,11 +380,7 @@ Public Class FrmActualizaciones
 
                         errorEnZip = True
 
-                        MessageBox.Show(
-                        "Error procesando " &
-                        Path.GetFileName(rutaTxt) &
-                        Environment.NewLine &
-                        ex.Message)
+                        MessageBox.Show("Error procesando " & Path.GetFileName(rutaTxt) & Environment.NewLine & ex.Message)
 
                     End Try
 
