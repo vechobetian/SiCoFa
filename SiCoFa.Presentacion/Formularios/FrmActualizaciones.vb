@@ -692,10 +692,16 @@ Public Class FrmActualizaciones
             Await DescargarActualizacionesArticulos()
             Await DescargarActualizacionesOS()
 
-            lblEstado.Text = "Descarga finalizada"
+            If mItemsActualizacion.Count = 0 Then
+                lblEstado.Text = "No hay actualizaciones para procesar"
 
-            btnDescargar.Visible = False
-            btnProcesar.Visible = True
+            Else
+                lblEstado.Text = "Descarga finalizada"
+                btnDescargar.Visible = False
+                btnProcesar.Visible = True
+
+            End If
+
 
         Catch ex As Exception
 
@@ -719,11 +725,7 @@ Public Class FrmActualizaciones
 
         If mItemsActualizacion.Count = 0 Then
 
-            MessageBox.Show(
-            "No hay actualizaciones pendientes para procesar.",
-            "Actualizaciones",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Information)
+            MessageBox.Show("No hay actualizaciones pendientes para procesar.", "Actualizaciones", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Return
 
@@ -735,7 +737,7 @@ Public Class FrmActualizaciones
 
             Await ProcesarActualizaciones()
 
-            lblEstado.Text = "Procesamiento finalizado"
+            lblEstado.Text = "Actualización finalizada"
 
         Catch ex As Exception
 
@@ -749,7 +751,8 @@ Public Class FrmActualizaciones
 
         Finally
 
-            btnProcesar.Enabled = True
+            btnProcesar.Visible = False
+            btnDescargar.Enabled = True
 
         End Try
 

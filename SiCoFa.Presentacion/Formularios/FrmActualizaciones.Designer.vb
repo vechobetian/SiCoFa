@@ -32,7 +32,7 @@ Partial Class FrmActualizaciones
         'lblEstado
         '
         Me.lblEstado.AutoSize = True
-        Me.lblEstado.Location = New System.Drawing.Point(28, 9)
+        Me.lblEstado.Location = New System.Drawing.Point(12, 24)
         Me.lblEstado.Name = "lblEstado"
         Me.lblEstado.Size = New System.Drawing.Size(39, 13)
         Me.lblEstado.TabIndex = 3
@@ -40,15 +40,21 @@ Partial Class FrmActualizaciones
         '
         'dgvActualizaciones
         '
+        Me.dgvActualizaciones.BackgroundColor = System.Drawing.Color.White
+        Me.dgvActualizaciones.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.dgvActualizaciones.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None
         Me.dgvActualizaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvActualizaciones.Location = New System.Drawing.Point(31, 54)
+        Me.dgvActualizaciones.Location = New System.Drawing.Point(12, 53)
         Me.dgvActualizaciones.Name = "dgvActualizaciones"
+        Me.dgvActualizaciones.RowHeadersVisible = False
         Me.dgvActualizaciones.Size = New System.Drawing.Size(543, 337)
         Me.dgvActualizaciones.TabIndex = 4
         '
         'btnDescargar
         '
-        Me.btnDescargar.Location = New System.Drawing.Point(454, 412)
+        Me.btnDescargar.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.btnDescargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDescargar.Location = New System.Drawing.Point(424, 396)
         Me.btnDescargar.Name = "btnDescargar"
         Me.btnDescargar.Size = New System.Drawing.Size(120, 26)
         Me.btnDescargar.TabIndex = 5
@@ -57,23 +63,29 @@ Partial Class FrmActualizaciones
         '
         'btnProcesar
         '
-        Me.btnProcesar.Location = New System.Drawing.Point(454, 412)
+        Me.btnProcesar.BackColor = System.Drawing.Color.Transparent
+        Me.btnProcesar.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.btnProcesar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnProcesar.Location = New System.Drawing.Point(424, 396)
         Me.btnProcesar.Name = "btnProcesar"
         Me.btnProcesar.Size = New System.Drawing.Size(120, 26)
         Me.btnProcesar.TabIndex = 6
         Me.btnProcesar.Text = "Procesar"
-        Me.btnProcesar.UseVisualStyleBackColor = True
+        Me.btnProcesar.UseVisualStyleBackColor = False
         '
         'FrmActualizaciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(601, 450)
+        Me.BackColor = System.Drawing.Color.White
+        Me.ClientSize = New System.Drawing.Size(568, 426)
         Me.Controls.Add(Me.btnProcesar)
         Me.Controls.Add(Me.btnDescargar)
         Me.Controls.Add(Me.dgvActualizaciones)
         Me.Controls.Add(Me.lblEstado)
+        Me.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Name = "FrmActualizaciones"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FrmActualizaciones"
         CType(Me.dgvActualizaciones, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
