@@ -7,165 +7,368 @@ Public Class FrmActualizaciones
 
     Private ReadOnly mAdminActualizaciones As New N_AdminActualizaciones()
     Private mToken As String
+    Private mItemsActualizacion As New List(Of ItemActualizacion)
 
-    '==============================================
-    ' CLASE PROGRESO
-    '==============================================
-    Private Class ProgresoActualizacion
-        Public Property Valor As Integer
-        Public Property Mensaje As String
-    End Class
+    Private Sub ConfigurarGrillaActualizaciones()
 
-    '==============================================
-    ' LOAD
-    '==============================================
-    Private Sub FrmActualizaciones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dgvActualizaciones.AutoGenerateColumns = False
+        dgvActualizaciones.AllowUserToAddRows = False
+        dgvActualizaciones.AllowUserToDeleteRows = False
+        dgvActualizaciones.AllowUserToResizeRows = False
+        dgvActualizaciones.ReadOnly = True
+        dgvActualizaciones.MultiSelect = False
+        dgvActualizaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
-        mToken = ObtenerToken()
-        pbActualizacion.Minimum = 0
-        pbActualizacion.Maximum = 100
-        pbActualizacion.Value = 0
+        dgvActualizaciones.Columns.Clear()
 
-        lblEstado.Text = "Preparado..."
+        dgvActualizaciones.Columns.Add(
+        New DataGridViewTextBoxColumn With {
+            .Name = "Descripcion",
+            .HeaderText = "Descripción",
+            .AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        })
 
-        CrearCarpetas()
-        LimpiarCarpetas()
+        dgvActualizaciones.Columns.Add(
+        New DataGridViewTextBoxColumn With {
+            .Name = "NumeroActualizacion",
+            .HeaderText = "Actualización",
+            .Width = 100
+        })
 
-    End Sub
-
-    '==============================================
-    ' BOTON ACTUALIZAR
-    '==============================================
-    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        Button1.Enabled = False
-
-        Dim progreso =
-            New Progress(Of ProgresoActualizacion)(
-                Sub(p)
-                    pbActualizacion.Value = p.Valor
-                    lblEstado.Text = p.Mensaje
-                End Sub)
-
-        Try
-
-            Await ActualizarArticulos(progreso)
-            Await ActualizarOS(progreso)
-
-            lblEstado.Text = "Actualización finalizada"
-
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-        Finally
-            Button1.Enabled = True
-        End Try
+        dgvActualizaciones.Columns.Add(
+        New DataGridViewTextBoxColumn With {
+            .Name = "Estado",
+            .HeaderText = "Estado",
+            .Width = 100
+        })
 
     End Sub
 
-    '==============================================
-    ' ACTUALIZAR
-    '==============================================
-    Private Async Function ActualizarArticulos(progreso As IProgress(Of ProgresoActualizacion)) As Task
+    Private Sub AgregarItemActualizacion(item As ItemActualizacion)
+
+        mItemsActualizacion.Add(item)
+
+        Dim fila As Integer = dgvActualizaciones.Rows.Add()
+
+        'Guardar el objeto asociado a la fila
+        dgvActualizaciones.Rows(fila).Tag = item
+
+        If item.Proceso IsNot Nothing Then
+
+            dgvActualizaciones.Rows(fila).Cells("Descripcion").Value = item.Proceso.Descripcion
+
+        ElseIf item.ObraSocial IsNot Nothing Then
+
+            dgvActualizaciones.Rows(fila).Cells("Descripcion").Value = item.ObraSocial.NombreOS
+
+        End If
+
+        dgvActualizaciones.Rows(fila).Cells("NumeroActualizacion").Value = item.NumeroActualizacion
+
+        dgvActualizaciones.Rows(fila).Cells("Estado").Value = item.Estado
+
+    End Sub
+
+    Private Async Function DescargarActualizacionesArticulos() As Task
 
         Dim adminPA As New N_AdminProcesosActualizacion
+
         Dim procesos As List(Of ProcesoActualizacion) = adminPA.ObtenerProcesosActualizacion()
 
         Dim mapProcesos = procesos.ToDictionary(Function(x) x.CodiPA, StringComparer.OrdinalIgnoreCase)
 
-        progreso.Report(New ProgresoActualizacion With {.Valor = 0, .Mensaje = "Consultando servidor..."})
+        lblEstado.Text = "Consultando servidor..."
 
         '------------------------------------------
         ' LISTAR ZIP
         '------------------------------------------
+
         Dim archivos = Await mAdminActualizaciones.ListarArchivosServidorAsync(mToken)
 
-        Dim archivosOrdenados = archivos.OrderBy(Function(a)
-                                                     Dim n = Path.GetFileNameWithoutExtension(a)
-                                                     Return CLng(n.Substring(2))
-                                                 End Function).ToList()
+        Dim archivosOrdenados =
+            archivos.OrderBy(
+            Function(a)
+                Dim n = Path.GetFileNameWithoutExtension(a)
+                Return CLng(n.Substring(2))
+            End Function).ToList()
 
         '------------------------------------------
-        ' PRECALCULO TOTAL TXT
+        ' DESCARGAR
         '------------------------------------------
-        Dim trabajosTotales As Integer = 0
-
-        Dim listaProcesamiento As New List(Of (Zip As String, Txt As List(Of String), RutaZip As String))
 
         For Each archivoZip In archivosOrdenados
 
             Dim codigoPA = archivoZip.Substring(0, 2)
 
-            If Not mapProcesos.ContainsKey(codigoPA) Then Continue For
+            If Not mapProcesos.ContainsKey(codigoPA) Then
+                Continue For
+            End If
 
             Dim proceso = mapProcesos(codigoPA)
 
-            Dim nroActual = If(proceso.NumeroActualizacion.HasValue, proceso.NumeroActualizacion.Value, 0)
+            Dim nroActual =
+            If(proceso.NumeroActualizacion.HasValue,
+               proceso.NumeroActualizacion.Value,
+               0)
 
             Dim nombreSinExtension = Path.GetFileNameWithoutExtension(archivoZip)
+
             Dim numeroTexto = nombreSinExtension.Substring(2)
 
             Dim nroActualizacionZip As Long
-            If Not Long.TryParse(numeroTexto, nroActualizacionZip) Then Continue For
 
-            If nroActualizacionZip <= nroActual Then Continue For
+            If Not Long.TryParse(numeroTexto, nroActualizacionZip) Then
+                Continue For
+            End If
 
-            progreso.Report(New ProgresoActualizacion With {.Mensaje = "Descargando " & archivoZip})
+            If nroActualizacionZip <= nroActual Then
+                Continue For
+            End If
+
+            lblEstado.Text = "Descargando " & archivoZip
+
+            '------------------------------------------
+            ' DESCARGAR ZIP
+            '------------------------------------------
 
             Dim rutaZip = Await mAdminActualizaciones.DescargarArchivoAsync(mToken, archivoZip)
 
-            Dim rutasTxt = mAdminActualizaciones.NormalizarArchivoZip(Path.GetFileName(rutaZip))
+            '------------------------------------------
+            ' CREAR ITEM
+            '------------------------------------------
 
-            trabajosTotales += rutasTxt.Count
+            Dim itemActualizacion As New ItemActualizacion With {
+            .Archivo = archivoZip,
+            .RutaArchivo = rutaZip,
+            .NumeroActualizacion = nroActualizacionZip,
+            .Estado = "Pendiente",
+            .Proceso = proceso
+        }
 
-            listaProcesamiento.Add((archivoZip, rutasTxt, rutaZip))
+            AgregarItemActualizacion(itemActualizacion)
 
         Next
 
-        '==========================================
-        ' 🚨 NO HAY NADA PARA HACER
-        '==========================================
-        If trabajosTotales = 0 Then
+        lblEstado.Text = "Descarga de artículos finalizada"
 
-            progreso.Report(New ProgresoActualizacion With {.Valor = 0, .Mensaje = "No existen actualizaciones para procesar"})
+    End Function
 
+    Private Async Function DescargarActualizacionesOS() As Task
+
+        Dim adminPA As New N_AdminProcesosActualizacion
+
+        Dim obrasociales = adminPA.ObtenerObraSociales()
+
+        Dim mapOS = obrasociales.ToDictionary(Function(x) x.IdOS)
+
+        lblEstado.Text = "Consultando actualizaciones de obras sociales..."
+
+        '------------------------------------------
+        ' LISTAR ZIP
+        '------------------------------------------
+
+        Dim archivos = Await mAdminActualizaciones.ListarArchivosOSServidorAsync(mToken)
+
+        Dim archivosOrdenados =
+        archivos.OrderBy(
+            Function(a)
+                Dim n = Path.GetFileNameWithoutExtension(a)
+                Return CLng(n.Substring(5))
+            End Function).ToList()
+
+        '------------------------------------------
+        ' DESCARGAR
+        '------------------------------------------
+
+        For Each archivoZip In archivosOrdenados
+
+            '------------------------------------------
+            ' ID OBRA SOCIAL
+            '------------------------------------------
+
+            Dim idOSTexto = archivoZip.Substring(2, 3)
+
+            Dim idOS As Integer
+
+            If Not Integer.TryParse(idOSTexto, idOS) Then
+                Continue For
+            End If
+
+            '------------------------------------------
+            ' BUSCAR OBRA SOCIAL
+            '------------------------------------------
+
+            Dim os As ObraSocial = Nothing
+
+            If Not mapOS.TryGetValue(idOS, os) Then
+                Continue For
+            End If
+
+            '------------------------------------------
+            ' NUMERO ACTUAL
+            '------------------------------------------
+
+            Dim nroActual As Long =
+            If(os.NumeroActualizacion.HasValue,
+               os.NumeroActualizacion.Value,
+               0)
+
+            '------------------------------------------
+            ' NUMERO ACTUALIZACION DEL ZIP
+            '------------------------------------------
+
+            Dim nombreSinExtension = Path.GetFileNameWithoutExtension(archivoZip)
+
+            Dim numeroTexto = nombreSinExtension.Substring(5)
+
+            Dim nroActualizacionZip As Long
+
+            If Not Long.TryParse(numeroTexto, nroActualizacionZip) Then
+                Continue For
+            End If
+
+            If nroActualizacionZip <= nroActual Then
+                Continue For
+            End If
+
+            lblEstado.Text = "Descargando " & archivoZip
+
+            '------------------------------------------
+            ' DESCARGAR ZIP
+            '------------------------------------------
+
+            Dim rutaZip = Await mAdminActualizaciones.DescargarArchivoAsync(mToken, archivoZip)
+
+            '------------------------------------------
+            ' CREAR ITEM
+            '------------------------------------------
+
+            Dim itemActualizacion As New ItemActualizacion With {
+            .Archivo = archivoZip,
+            .RutaArchivo = rutaZip,
+            .NumeroActualizacion = nroActualizacionZip,
+            .Estado = "Pendiente",
+            .ObraSocial = os
+        }
+
+            AgregarItemActualizacion(itemActualizacion)
+
+        Next
+
+        lblEstado.Text =
+        "Descarga de obras sociales finalizada"
+
+    End Function
+
+    Private Async Function ProcesarActualizaciones() As Task
+
+        If mItemsActualizacion.Count = 0 Then
             Return
         End If
 
-        '------------------------------------------
-        ' PROCESAMIENTO REAL
-        '------------------------------------------
-        Dim trabajosRealizados As Integer = 0
+        For Each item In mItemsActualizacion
 
-        For Each item In listaProcesamiento
+            If item.Estado <> "Pendiente" Then
+                Continue For
+            End If
 
-            Dim nombreZip = Path.GetFileNameWithoutExtension(item.Zip)
-            Dim nroActualizacionZip = CLng(nombreZip.Substring(2))
+            item.Estado = "Procesando..."
+            ActualizarEstadoGrilla(item)
 
-            Dim errorEnZip As Boolean = False
+            If item.Proceso IsNot Nothing Then
 
-            For Each rutaTxt In item.Txt
+                Await ProcesarItemArticulo(item)
+
+            ElseIf item.ObraSocial IsNot Nothing Then
+
+                Await ProcesarItemObraSocial(item)
+
+            End If
+
+        Next
+
+        lblEstado.Text = "Procesamiento finalizado"
+
+    End Function
+
+    Private Async Function ProcesarItemArticulo(item As ItemActualizacion) As Task
+
+        Dim errorEnItem As Boolean = False
+
+        Try
+
+            '==========================================
+            ' OBTENER PROCESOS
+            '==========================================
+
+            Dim adminPA As New N_AdminProcesosActualizacion
+
+            Dim procesos As List(Of ProcesoActualizacion) = adminPA.ObtenerProcesosActualizacion()
+
+            Dim mapProcesos =
+            procesos.ToDictionary(
+                Function(x) x.CodiPA,
+                StringComparer.OrdinalIgnoreCase)
+
+            '==========================================
+            ' EXTRAER ZIP
+            '==========================================
+
+            lblEstado.Text = "Extrayendo " & item.Archivo
+
+            Dim rutasTxt = mAdminActualizaciones.NormalizarArchivoZip(Path.GetFileName(item.RutaArchivo))
+
+            '==========================================
+            ' PROCESAR CADA TXT
+            '==========================================
+
+            For Each rutaTxt In rutasTxt
 
                 Try
 
                     Dim nombreTxt = Path.GetFileNameWithoutExtension(rutaTxt)
+
+                    If nombreTxt.Length < 2 Then
+                        Continue For
+                    End If
+
                     Dim codigoPA = nombreTxt.Substring(0, 2)
 
-                    If Not mapProcesos.ContainsKey(codigoPA) Then Continue For
+                    '----------------------------------
+                    ' BUSCAR PROCESO SEGÚN EL TXT
+                    '----------------------------------
+
+                    If Not mapProcesos.ContainsKey(codigoPA) Then
+
+                        Throw New Exception(
+                        "No existe proceso de actualización para " &
+                        nombreTxt)
+
+                    End If
 
                     Dim proceso = mapProcesos(codigoPA)
 
-                    Dim nroActual = If(proceso.NumeroActualizacion.HasValue, proceso.NumeroActualizacion.Value, 0)
+                    lblEstado.Text = "Procesando " & proceso.Descripcion
 
-                    If nroActualizacionZip <= nroActual Then Continue For
+                    '----------------------------------
+                    ' PROCESAR
+                    '----------------------------------
 
-                    Await Task.Run(Sub()
-                                       mAdminActualizaciones.ProcesarActualizacionArticulos(
-                                       proceso.CodiPA,
-                                       nroActualizacionZip,
-                                       proceso.StoredProcedure,
-                                       proceso.PorcentajeAplicado,
-                                       rutaTxt)
-                                   End Sub)
+                    Await Task.Run(
+                    Sub()
+
+                        mAdminActualizaciones.ProcesarActualizacionArticulos(
+                            proceso.CodiPA,
+                            item.NumeroActualizacion,
+                            proceso.StoredProcedure,
+                            proceso.PorcentajeAplicado,
+                            rutaTxt)
+
+                    End Sub)
+
+                    '----------------------------------
+                    ' BORRAR TXT
+                    '----------------------------------
 
                     If File.Exists(rutaTxt) Then
                         File.Delete(rutaTxt)
@@ -173,267 +376,244 @@ Public Class FrmActualizaciones
 
                 Catch ex As Exception
 
-                    errorEnZip = True
+                    errorEnItem = True
 
-                    MessageBox.Show("Error procesando " &
-                                Path.GetFileName(rutaTxt) &
-                                Environment.NewLine &
-                                ex.Message)
+                    MessageBox.Show(
+                    "Error procesando " &
+                    Path.GetFileName(rutaTxt) &
+                    Environment.NewLine &
+                    ex.Message,
+                    "Actualizaciones",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error)
+
+                    Exit For
 
                 End Try
 
-                '------------------------------------------
-                ' PROGRESO REAL
-                '------------------------------------------
-                trabajosRealizados += 1
-
-                Dim porcentaje = CInt((trabajosRealizados / trabajosTotales) * 100)
-
-                progreso.Report(New ProgresoActualizacion With {.Valor = porcentaje, .Mensaje = "Procesando " & Path.GetFileName(rutaTxt)})
-
             Next
 
-            If Not errorEnZip Then
-                If File.Exists(item.RutaZip) Then
-                    File.Delete(item.RutaZip)
-                End If
+        Catch ex As Exception
+
+            errorEnItem = True
+
+            MessageBox.Show(
+            "Error procesando ZIP " &
+            item.Archivo &
+            Environment.NewLine &
+            ex.Message,
+            "Actualizaciones",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error)
+
+        End Try
+
+        '==========================================
+        ' RESULTADO
+        '==========================================
+
+        If Not errorEnItem Then
+
+            If File.Exists(item.RutaArchivo) Then
+                File.Delete(item.RutaArchivo)
             End If
 
-        Next
+            item.Estado = "Procesado"
 
-        '====================================================
-        ' ⭐ FIN REAL DEL PROCESO
-        '====================================================
-        progreso.Report(New ProgresoActualizacion With {.Valor = 100, .Mensaje = "Actualización finalizada"})
+        Else
 
-    End Function
-
-    Private Async Function ActualizarOS(progreso As IProgress(Of ProgresoActualizacion)) As Task
-
-        '==========================================
-        ' ORDEN OFICIAL DE PROCESAMIENTO
-        '==========================================
-        Dim OrdenProcesamiento As New Dictionary(Of String, Integer)(StringComparer.OrdinalIgnoreCase) From {
-        {"OSoc", 1},
-        {"Planes", 2},
-        {"DetVdm", 3},
-        {"DatoRequerido", 4}
-    }
-
-        Dim adminPA As New N_AdminProcesosActualizacion
-        Dim obrasociales = adminPA.ObtenerObraSociales
-
-        Dim mapOS = obrasociales.ToDictionary(Function(x) x.IdOS)
-
-        progreso.Report(New ProgresoActualizacion With {
-        .Valor = 0,
-        .Mensaje = "Consultando servidor..."
-    })
-
-        '------------------------------------------
-        ' LISTAR ZIP
-        '------------------------------------------
-        Dim archivos = Await mAdminActualizaciones.ListarArchivosOSServidorAsync(mToken)
-
-        Dim archivosOrdenados = archivos.OrderBy(Function(a)
-                                                     Dim n = Path.GetFileNameWithoutExtension(a)
-                                                     Return CLng(n.Substring(2))
-                                                 End Function).ToList()
-
-        '------------------------------------------
-        ' ARMAR LISTA DE ZIP A PROCESAR
-        '------------------------------------------
-
-        Dim listaProcesamiento As New List(Of (Zip As String, RutaZip As String))
-
-        For Each archivoZip In archivosOrdenados
-
-            Dim idOS = archivoZip.Substring(2, 3)
-
-            Dim nroActual As Long = 0
-
-            If mapOS.ContainsKey(idOS) Then
-
-                Dim os = mapOS(idOS)
-
-                nroActual = If(os.NumeroActualizacion.HasValue, os.NumeroActualizacion.Value, 0)
-
-            End If
-
-            Dim nombreSinExtension = Path.GetFileNameWithoutExtension(archivoZip)
-            Dim numeroTexto = nombreSinExtension.Substring(5)
-
-            Dim nroActualizacionZip As Long
-
-            If Not Long.TryParse(numeroTexto, nroActualizacionZip) Then Continue For
-
-            If nroActualizacionZip <= nroActual Then Continue For
-
-            progreso.Report(New ProgresoActualizacion With {
-            .Mensaje = "Descargando " & archivoZip
-        })
-
-            Dim rutaZip = Await mAdminActualizaciones.DescargarArchivoAsync(mToken, archivoZip)
-
-            listaProcesamiento.Add((archivoZip, rutaZip))
-
-        Next
-
-        '==========================================
-        ' NO HAY ACTUALIZACIONES
-        '==========================================
-        If listaProcesamiento.Count = 0 Then
-
-            progreso.Report(New ProgresoActualizacion With {
-            .Valor = 0,
-            .Mensaje = "No existen actualizaciones para procesar"
-        })
-
-            Return
+            item.Estado = "Error"
 
         End If
 
-        '------------------------------------------
-        ' TOTAL DE TRABAJOS
-        '------------------------------------------
-        Dim trabajosTotales As Integer = listaProcesamiento.Count * 4
+        ActualizarEstadoGrilla(item)
 
-        Dim trabajosRealizados As Integer = 0
+    End Function
 
-        '------------------------------------------
-        ' PROCESAMIENTO REAL
-        '------------------------------------------
-        For Each item In listaProcesamiento
+    Private Async Function ProcesarItemObraSocial(item As ItemActualizacion) As Task
 
-            Dim nombreZip =
-            Path.GetFileNameWithoutExtension(item.Zip)
+        Dim errorEnItem As Boolean = False
 
-            Dim idOS =
-            nombreZip.Substring(2, 3)
+        Dim OrdenProcesamiento As New Dictionary(Of String, Integer)(
+        StringComparer.OrdinalIgnoreCase) From {
+            {"OSoc", 1},
+            {"Planes", 2},
+            {"DetVdm", 3},
+            {"DatoRequerido", 4}
+        }
 
-            Dim nroActualizacionZip =
-            CLng(nombreZip.Substring(5))
+        Try
 
-            Dim errorEnZip As Boolean = False
+            '==========================================
+            ' ID OBRA SOCIAL
+            '==========================================
 
-            Try
+            Dim idOS As Integer = item.ObraSocial.IdOS
 
-                '==========================================
-                ' EXTRAER TXT DEL ZIP ACTUAL
-                '==========================================
-                Dim rutasTxt = mAdminActualizaciones.NormalizarArchivoZipOS(Path.GetFileName(item.RutaZip))
+            '==========================================
+            ' EXTRAER ZIP
+            '==========================================
 
-                '==========================================
-                ' ORDENAR TXT
-                '==========================================
-                Dim txtOrdenados = rutasTxt.OrderBy(Function(t)
+            lblEstado.Text = "Extrayendo " & item.Archivo
 
-                                                        Dim nombre = Path.GetFileNameWithoutExtension(t)
+            Dim rutasTxt = mAdminActualizaciones.NormalizarArchivoZipOS(Path.GetFileName(item.RutaArchivo))
 
-                                                        If OrdenProcesamiento.ContainsKey(nombre) Then
-                                                            Return OrdenProcesamiento(nombre)
-                                                        Else
-                                                            Return 999
-                                                        End If
+            '==========================================
+            ' ORDENAR TXT
+            '==========================================
 
-                                                    End Function).ToList()
+            Dim txtOrdenados =
+            rutasTxt.OrderBy(
+                Function(t)
 
-                '==========================================
-                ' PROCESAR TXT
-                '==========================================
-                For Each rutaTxt In txtOrdenados
+                    Dim nombre =
+                        Path.GetFileNameWithoutExtension(t)
 
-                    Try
+                    If OrdenProcesamiento.ContainsKey(nombre) Then
+                        Return OrdenProcesamiento(nombre)
+                    End If
 
-                        Dim nombreTxt = Path.GetFileNameWithoutExtension(rutaTxt)
+                    Return 999
 
-                        Dim os As ObraSocial = Nothing
+                End Function).ToList()
 
-                        mapOS.TryGetValue(idOS, os)
+            '==========================================
+            ' PROCESAR TXT
+            '==========================================
 
-                        Dim nroActual As Long = 0
+            For Each rutaTxt In txtOrdenados
 
-                        If os IsNot Nothing Then
+                Try
 
-                            nroActual = If(os.NumeroActualizacion.HasValue, os.NumeroActualizacion.Value, 0)
+                    Dim nombreTxt = Path.GetFileNameWithoutExtension(rutaTxt)
 
-                        End If
+                    Dim sp As String = ObtenerProcedureOS(nombreTxt)
 
-                        If nroActualizacionZip <= nroActual Then Continue For
-
-                        Dim sp As String = ObtenerProcedureOS(nombreTxt)
-
-                        If sp = "NO APLICA" Then Continue For
-
-                        Await Task.Run(
-                        Sub()
-
-                            mAdminActualizaciones.ProcesarActualizacionObraSociales(idOS, nroActualizacionZip, sp, rutaTxt)
-
-                        End Sub)
+                    If sp = "NO APLICA" Then
 
                         If File.Exists(rutaTxt) Then
                             File.Delete(rutaTxt)
                         End If
 
-                    Catch ex As Exception
+                        Continue For
 
-                        errorEnZip = True
+                    End If
 
-                        MessageBox.Show("Error procesando " & Path.GetFileName(rutaTxt) & Environment.NewLine & ex.Message)
+                    lblEstado.Text = "Procesando " & item.ObraSocial.NombreOS & " - " & nombreTxt
 
-                    End Try
+                    '----------------------------------
+                    ' PROCESAR
+                    '----------------------------------
 
-                    '------------------------------------------
-                    ' PROGRESO
-                    '------------------------------------------
-                    trabajosRealizados += 1
+                    Await Task.Run(
+                    Sub()
 
-                    Dim porcentaje As Integer =
-                    CInt((trabajosRealizados / trabajosTotales) * 100)
+                        mAdminActualizaciones.ProcesarActualizacionObraSociales(
+                            idOS,
+                            item.NumeroActualizacion,
+                            sp,
+                            rutaTxt)
 
-                    progreso.Report(New ProgresoActualizacion With {
-                    .Valor = porcentaje,
-                    .Mensaje = "Procesando " &
-                               Path.GetFileName(rutaTxt)
-                })
+                    End Sub)
 
-                Next
+                    '----------------------------------
+                    ' BORRAR TXT
+                    '----------------------------------
 
-            Catch ex As Exception
+                    If File.Exists(rutaTxt) Then
+                        File.Delete(rutaTxt)
+                    End If
 
-                errorEnZip = True
+                Catch ex As Exception
 
-                MessageBox.Show(
-                "Error procesando ZIP " &
-                item.Zip &
-                Environment.NewLine &
-                ex.Message)
+                    errorEnItem = True
 
-            End Try
+                    MessageBox.Show(
+                    "Error procesando " &
+                    Path.GetFileName(rutaTxt) &
+                    Environment.NewLine &
+                    ex.Message,
+                    "Actualizaciones",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error)
 
-            '------------------------------------------
-            ' BORRAR ZIP SOLO SI TODO OK
-            '------------------------------------------
-            If Not errorEnZip Then
+                    Exit For
 
-                If File.Exists(item.RutaZip) Then
-                    File.Delete(item.RutaZip)
-                End If
+                End Try
+
+            Next
+
+        Catch ex As Exception
+
+            errorEnItem = True
+
+            MessageBox.Show(
+            "Error procesando " &
+            item.Archivo &
+            Environment.NewLine &
+            ex.Message,
+            "Actualizaciones",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error)
+
+        End Try
+
+        '==========================================
+        ' RESULTADO
+        '==========================================
+
+        If Not errorEnItem Then
+
+            If File.Exists(item.RutaArchivo) Then
+                File.Delete(item.RutaArchivo)
+            End If
+
+            item.Estado = "Procesado"
+
+        Else
+
+            item.Estado = "Error"
+
+        End If
+
+        ActualizarEstadoGrilla(item)
+
+    End Function
+
+    Private Sub ActualizarEstadoGrilla(item As ItemActualizacion)
+
+        For Each fila As DataGridViewRow In dgvActualizaciones.Rows
+
+            If fila.IsNewRow Then Continue For
+
+            Dim itemFila = TryCast(fila.Tag, ItemActualizacion)
+
+            If itemFila Is item Then
+
+                fila.Cells("Estado").Value = item.Estado
+                Exit For
 
             End If
 
         Next
 
-        '==========================================
-        ' FIN
-        '==========================================
-        progreso.Report(New ProgresoActualizacion With {
-        .Valor = 100,
-        .Mensaje = "Actualización finalizada"
-    })
+    End Sub
 
-    End Function
+    '==============================================
+    ' LOAD
+    '==============================================
+    Private Sub FrmActualizaciones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        mToken = ObtenerToken()
+        lblEstado.Text = "Preparado..."
+        ConfigurarGrillaActualizaciones()
+        CrearCarpetas()
+        LimpiarCarpetas()
+
+        btnDescargar.Visible = True
+        btnProcesar.Visible = False
+
+    End Sub
 
     '==============================================
     ' CARPETAS
@@ -499,5 +679,80 @@ Public Class FrmActualizaciones
         Dim token As String = AdminDT.ObtenerValor(sql)
         Return token
     End Function
+
+    Private Async Sub btnDescargar_Click(sender As Object, e As EventArgs) Handles btnDescargar.Click
+
+        btnDescargar.Enabled = False
+
+        Try
+
+            mItemsActualizacion.Clear()
+            dgvActualizaciones.Rows.Clear()
+
+            Await DescargarActualizacionesArticulos()
+            Await DescargarActualizacionesOS()
+
+            lblEstado.Text = "Descarga finalizada"
+
+            btnDescargar.Visible = False
+            btnProcesar.Visible = True
+
+        Catch ex As Exception
+
+            MessageBox.Show(
+            "Error descargando actualizaciones:" &
+            Environment.NewLine &
+            ex.Message,
+            "Actualizaciones",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error)
+
+        Finally
+
+            btnDescargar.Enabled = True
+
+        End Try
+
+    End Sub
+
+    Private Async Sub btnProcesar_Click(sender As Object, e As EventArgs) Handles btnProcesar.Click
+
+        If mItemsActualizacion.Count = 0 Then
+
+            MessageBox.Show(
+            "No hay actualizaciones pendientes para procesar.",
+            "Actualizaciones",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information)
+
+            Return
+
+        End If
+
+        btnProcesar.Enabled = False
+
+        Try
+
+            Await ProcesarActualizaciones()
+
+            lblEstado.Text = "Procesamiento finalizado"
+
+        Catch ex As Exception
+
+            MessageBox.Show(
+            "Error procesando actualizaciones:" &
+            Environment.NewLine &
+            ex.Message,
+            "Actualizaciones",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error)
+
+        Finally
+
+            btnProcesar.Enabled = True
+
+        End Try
+
+    End Sub
 
 End Class
