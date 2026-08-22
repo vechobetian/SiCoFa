@@ -1,175 +1,32 @@
-﻿Imports iTextSharp.text
+﻿Imports System.IO
+Imports iTextSharp.text
 Imports iTextSharp.text.pdf
-Imports System.IO
-Imports System.Text
 
 Public Class ReporteValidacion
 
-    Public Shared Function CrearPdf(mensaje As String) As Byte()
+    Public Sub GenerarPdfTicket(ByVal textoMensaje As String, ByVal rutaSalidaPdf As String)
+        ' 1. Ancho 80mm x Alto 200mm (en puntos: 1mm = 2.83465 pt)
+        Dim anchoPt As Single = 80.0F * 2.83465F
+        Dim altoPt As Single = 200.0F * 2.83465F
+        Dim pageSize As New Rectangle(anchoPt, altoPt)
 
-        Try
+        ' Margenes: Izq, Der, Arriba, Abajo
+        Dim doc As New Document(pageSize, 10.0F, 10.0F, 10.0F, 10.0F)
 
-            Dim carpeta As String = "C:\SiCoFa_Cliente\Temp"
+        Using fs As New FileStream(rutaSalidaPdf, FileMode.Create, FileAccess.Write)
+            PdfWriter.GetInstance(doc, fs)
+            doc.Open()
 
-            If Not Directory.Exists(carpeta) Then
-                Directory.CreateDirectory(carpeta)
-            End If
+            ' 2. Fuente Courier monoespaciada
+            Dim fontCourier As Font = FontFactory.GetFont(FontFactory.COURIER, 7.5F, Font.NORMAL, BaseColor.BLACK)
 
-            Dim rutaPdf As String =
-            Path.Combine(carpeta, "ITC_Autorizacion.pdf")
+            ' 3. Agregar el mensaje
+            Dim p As New Paragraph(textoMensaje, fontCourier)
+            p.Leading = 9.0F ' Interlineado
 
-            '==========================================================
-            ' CORREGIR CARACTERES
-            '==========================================================
-
-            mensaje = mensaje.Replace("ÃƒÂ³", "ó")
-            mensaje = mensaje.Replace("ÃƒÂ©", "é")
-            mensaje = mensaje.Replace("Ã‚Â", "")
-
-            '==========================================================
-            ' ELIMINAR SALTOS EXISTENTES
-            '==========================================================
-
-            mensaje = mensaje.Replace(vbCrLf, " ")
-            mensaje = mensaje.Replace(vbCr, " ")
-            mensaje = mensaje.Replace(vbLf, " ")
-
-            '==========================================================
-            ' ARMAR LINEAS PARA 80 MM
-            '==========================================================
-
-            Dim lineas As New List(Of String)
-
-            Dim anchoCaracteres As Integer = 48
-
-            Dim texto As String = mensaje.Trim()
-
-            While texto.Length > 0
-
-                If texto.Length <= anchoCaracteres Then
-
-                    lineas.Add(texto)
-                    Exit While
-
-                End If
-
-                Dim posicion As Integer =
-                texto.LastIndexOf(" "c, anchoCaracteres)
-
-                If posicion <= 0 Then
-                    posicion = anchoCaracteres
-                End If
-
-                Dim linea As String =
-                texto.Substring(0, posicion).Trim()
-
-                lineas.Add(linea)
-
-                texto =
-                texto.Substring(posicion).Trim()
-
-            End While
-
-            '==========================================================
-            ' PAPEL 80 MM
-            '==========================================================
-
-            Dim ancho As Single =
-            80.0F / 25.4F * 72.0F
-
-            Dim alto As Single =
-            Math.Max(
-                200.0F,
-                lineas.Count * 10.0F + 20.0F
-            )
-
-            Dim rectangulo As New Rectangle(
-            ancho,
-            alto
-        )
-
-            Dim documento As New Document(
-            rectangulo,
-            5,
-            5,
-            5,
-            5
-        )
-
-            '==========================================================
-            ' CREAR PDF
-            '==========================================================
-
-            Using archivo As New FileStream(
-            rutaPdf,
-            FileMode.Create,
-            FileAccess.Write,
-            FileShare.None)
-
-                Dim writer As PdfWriter =
-                PdfWriter.GetInstance(
-                    documento,
-                    archivo
-                )
-
-                documento.Open()
-
-                '======================================================
-                ' COURIER
-                '======================================================
-
-                Dim baseFont As BaseFont =
-                BaseFont.CreateFont(
-                    BaseFont.COURIER,
-                    BaseFont.CP1252,
-                    BaseFont.NOT_EMBEDDED
-                )
-
-                Dim fuente As New Font(
-                baseFont,
-                8,
-                Font.NORMAL
-            )
-
-                '======================================================
-                ' ESCRIBIR
-                '======================================================
-
-                For Each linea As String In lineas
-
-                    Dim parrafo As New Paragraph(
-                    linea,
-                    fuente
-                )
-
-                    parrafo.Leading = 10
-                    parrafo.SpacingBefore = 0
-                    parrafo.SpacingAfter = 0
-
-                    documento.Add(parrafo)
-
-                Next
-
-                documento.Close()
-
-            End Using
-
-            '==========================================================
-            ' DEVOLVER BYTE()
-            '==========================================================
-
-            Return File.ReadAllBytes(rutaPdf)
-
-        Catch ex As Exception
-
-            Throw New Exception(
-            "Error al generar PDF del reporte ITC: " &
-            ex.Message,
-            ex
-        )
-
-        End Try
-
-    End Function
+            doc.Add(p)
+            doc.Close()
+        End Using
+    End Sub
 
 End Class

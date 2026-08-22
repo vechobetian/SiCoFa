@@ -2,6 +2,7 @@
 Imports System.Net
 Imports System.Text
 Imports System.Xml
+Imports iTextSharp.text.pdf
 Imports SiCoFa.Entidades
 Imports Vecho
 
@@ -1136,18 +1137,10 @@ Public Class ITC
 
             Dim mensajeReporte As String = xml.SelectSingleNode("//*[local-name()='Rta']/*[local-name()='Mensaje']")?.InnerText
 
-            Debug.Print("========================================")
-            Debug.Print("MENSAJE REPORTE:")
-            Debug.Print(If(mensajeReporte, "NOTHING"))
-            Debug.Print("========================================")
 
             If Not String.IsNullOrWhiteSpace(mensajeReporte) Then
-
-                argReceta.Reporte = ReporteValidacion.CrearPdf(mensajeReporte)
-                Debug.Print("========================================")
-                Debug.Print("PDF GENERADO:")
-                Debug.Print(If(argReceta.Reporte Is Nothing, "NOTHING", argReceta.Reporte.Length.ToString() & " bytes"))
-                Debug.Print("========================================")
+                Dim r As New ReporteValidacion
+                r.GenerarPdfTicket(mensajeReporte, "C:\SiCoFa_Cliente\tiket.pdf")
             End If
 
             '==========================================================
