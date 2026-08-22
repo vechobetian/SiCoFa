@@ -9,4 +9,5 @@ Public Interface IValidador
 
     Sub CancelarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long)
 
+
 End Interface

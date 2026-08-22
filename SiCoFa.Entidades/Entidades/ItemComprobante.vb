@@ -187,14 +187,6 @@
 
         Get
 
-            If m_Articulo Is Nothing Or m_Articulo.Seccion.EstablecerPrecio Then Return 0
-
-            If m_Fraccionado Then
-                m_PrecioUnitario = m_Articulo.PrecioVenta / m_Articulo.UDiv
-            Else
-                m_PrecioUnitario = m_Articulo.PrecioVenta
-            End If
-
             Return m_PrecioUnitario
 
         End Get

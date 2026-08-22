@@ -103,25 +103,13 @@ Public Class ITC
 
         Try
 
-            '==========================================================
-            ' RESPUESTA XML DE PRUEBA
-            '==========================================================
-
-            Dim xmlTexto As String = ObtenerXmlRespuestaAutorizacionPrueba()
+            Dim rutaXml As String = "C:\SiCoFa_Cliente\Temp\RespuestaOSDE.xml"
 
             Dim xmlResponse As New XmlDocument()
 
-            xmlResponse.LoadXml(xmlTexto)
-
-            '==========================================================
-            ' VERIFICAR RESPUESTA
-            '==========================================================
+            xmlResponse.Load(rutaXml)
 
             VerificarRespuestaGeneral(xmlResponse)
-
-            '==========================================================
-            ' PARSEAR AUTORIZACIÓN
-            '==========================================================
 
             ParsearAutorizacion(argReceta, xmlResponse)
 
@@ -131,12 +119,13 @@ Public Class ITC
             Funciones.MensajeError(
                 Me.ToString,
                 "AutorizacionReceta",
-                ex.Message))
+                ex.Message
+            )
+        )
 
         End Try
 
     End Sub
-
     Public Sub SolicitarAutorizacion1(argIdPC As String, argReceta As Receta, argIdMensaje As Long) 'Implements IValidador.SolicitarAutorizacion
 
         Try
@@ -168,7 +157,7 @@ Public Class ITC
 
             VerificarRespuestaGeneral(xmlResponse)
 
-            'argReceta = ParsearAutorizacion(argReceta,)
+            'argReceta = ParsearAutorizacion(argReceta)
             'Return argReceta
 
         Catch ex As Exception
@@ -1107,74 +1096,58 @@ Public Class ITC
         End Try
 
     End Function
+
     Private Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
 
         Try
 
             '==========================================================
-            ' RESPUESTA GENERAL
-            '==========================================================
-
-            Dim codRtaGeneralTexto As String = xml.SelectSingleNode("//*[local-name()='CodRtaGeneral']")?.InnerText
-
-            If String.IsNullOrWhiteSpace(codRtaGeneralTexto) Then
-                Throw New Exception("La respuesta de autorización no contiene CodRtaGeneral.")
-            End If
-
-            Dim codRtaGeneral As Integer
-
-            If Not Integer.TryParse(codRtaGeneralTexto, codRtaGeneral) Then
-                Throw New Exception("El CodRtaGeneral recibido no es numérico: " & codRtaGeneralTexto)
-            End If
-
-            '==========================================================
-            ' DESCRIPCIÓN GENERAL
-            '==========================================================
-
-            Dim descripcionGeneral As String = xml.SelectSingleNode("//*[local-name()='Descripcion']")?.InnerText
-
-            '==========================================================
-            ' REFERENCIA DE LA TRANSACCIÓN
+            ' NRO REFERENCIA
+            ' Ejemplo:
+            ' ID:2292260821-352009
+            '
+            ' Para la cancelación necesitamos:
+            ' 352009
             '==========================================================
 
             Dim nroReferencia As String = xml.SelectSingleNode("//*[local-name()='NroReferencia']")?.InnerText
 
-            '==========================================================
-            ' ENCABEZADO DE LA RECETA
-            '==========================================================
+            If String.IsNullOrWhiteSpace(nroReferencia) Then
 
-            Dim encabezado As XmlNode = xml.SelectSingleNode("//*[local-name()='MensajeADESFA']/*[local-name()='EncabezadoReceta']")
+                Throw New Exception("La respuesta de autorización no contiene NroReferencia.")
 
-            If encabezado Is Nothing Then
-                Throw New Exception("La respuesta de autorización no contiene EncabezadoReceta.")
             End If
 
-            '==========================================================
-            ' NÚMERO DE RECETA
-            '==========================================================
+            nroReferencia = nroReferencia.Trim()
 
-            Dim numeroReceta As String = encabezado.SelectSingleNode("./*[local-name()='Formulario']/*[local-name()='Numero']")?.InnerText
+            If nroReferencia.Length < 6 Then
 
-            If Not String.IsNullOrWhiteSpace(numeroReceta) Then
-                argReceta.NumReceta = numeroReceta.Trim()
+                Throw New Exception("El NroReferencia recibido no tiene 6 dígitos: " & nroReferencia)
+
             End If
 
+            'Guardar los 6 dígitos de la derecha
+            argReceta.NumAutorizacion = nroReferencia.Substring(nroReferencia.Length - 6)
+
+
             '==========================================================
-            ' FECHA DE RECETA
+            ' REPORTE DEVUELTO POR ITC
             '==========================================================
 
-            Dim fechaReceta As String = encabezado.SelectSingleNode("./*[local-name()='FechaReceta']")?.InnerText
+            Dim mensajeReporte As String = xml.SelectSingleNode("//*[local-name()='Rta']/*[local-name()='Mensaje']")?.InnerText
 
-            If Not String.IsNullOrWhiteSpace(fechaReceta) Then
+            Debug.Print("========================================")
+            Debug.Print("MENSAJE REPORTE:")
+            Debug.Print(If(mensajeReporte, "NOTHING"))
+            Debug.Print("========================================")
 
-                Dim fecha As DateTime
+            If Not String.IsNullOrWhiteSpace(mensajeReporte) Then
 
-                If DateTime.TryParseExact(fechaReceta.Trim(), "yyyyMMdd", Globalization.CultureInfo.InvariantCulture, Globalization.DateTimeStyles.None, fecha) Then
-
-                    argReceta.FechaPrescripcion = fecha
-
-                End If
-
+                argReceta.Reporte = ReporteValidacion.CrearPdf(mensajeReporte)
+                Debug.Print("========================================")
+                Debug.Print("PDF GENERADO:")
+                Debug.Print(If(argReceta.Reporte Is Nothing, "NOTHING", argReceta.Reporte.Length.ToString() & " bytes"))
+                Debug.Print("========================================")
             End If
 
             '==========================================================
@@ -1184,7 +1157,9 @@ Public Class ITC
             Dim nodosItems As XmlNodeList = xml.SelectNodes("//*[local-name()='MensajeADESFA']" & "/*[local-name()='DetalleReceta']" & "/*[local-name()='Item']")
 
             If nodosItems Is Nothing OrElse nodosItems.Count = 0 Then
+
                 Throw New Exception("La respuesta de autorización no contiene Items.")
+
             End If
 
             '==========================================================
@@ -1199,15 +1174,19 @@ Public Class ITC
 
                 Dim nroItemTexto As String = nodoItem.SelectSingleNode("./*[local-name()='NroItem']")?.InnerText
 
-                Dim nroItem As Integer
+                Dim nroItem As Integer = 0
 
                 Integer.TryParse(nroItemTexto, nroItem)
 
                 '------------------------------------------------------
-                ' CÓDIGO DE RESPUESTA DEL ITEM
+                ' CÓDIGO DE RESPUESTA
                 '------------------------------------------------------
 
                 Dim codRta As String = nodoItem.SelectSingleNode("./*[local-name()='CodRta']")?.InnerText
+
+                '------------------------------------------------------
+                ' MENSAJE DE RESPUESTA
+                '------------------------------------------------------
 
                 Dim mensajeRta As String = nodoItem.SelectSingleNode("./*[local-name()='MensajeRta']")?.InnerText
 
@@ -1223,7 +1202,7 @@ Public Class ITC
 
                 Dim cantidadAprobadaTexto As String = nodoItem.SelectSingleNode("./*[local-name()='CantidadAprobada']")?.InnerText
 
-                Dim cantidadAprobada As Integer
+                Dim cantidadAprobada As Integer = 0
 
                 Integer.TryParse(cantidadAprobadaTexto, cantidadAprobada)
 
@@ -1233,7 +1212,7 @@ Public Class ITC
 
                 Dim porcentajeTexto As String = nodoItem.SelectSingleNode("./*[local-name()='PorcentajeCobertura']")?.InnerText
 
-                Dim porcentajeCobertura As Decimal
+                Dim porcentajeCobertura As Decimal = 0D
 
                 Decimal.TryParse(porcentajeTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, porcentajeCobertura)
 
@@ -1241,10 +1220,9 @@ Public Class ITC
                 ' IMPORTE UNITARIO
                 '------------------------------------------------------
 
-                Dim importeUnitarioTexto As String =
-                nodoItem.SelectSingleNode("./*[local-name()='ImporteUnitario']")?.InnerText
+                Dim importeUnitarioTexto As String = nodoItem.SelectSingleNode("./*[local-name()='ImporteUnitario']")?.InnerText
 
-                Dim importeUnitario As Decimal
+                Dim importeUnitario As Decimal = 0D
 
                 Decimal.TryParse(importeUnitarioTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeUnitario)
 
@@ -1254,7 +1232,7 @@ Public Class ITC
 
                 Dim importeAfiliadoTexto As String = nodoItem.SelectSingleNode("./*[local-name()='ImporteACargoAfiliado']")?.InnerText
 
-                Dim importeAfiliado As Decimal
+                Dim importeAfiliado As Decimal = 0D
 
                 Decimal.TryParse(importeAfiliadoTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeAfiliado)
 
@@ -1264,7 +1242,7 @@ Public Class ITC
 
                 Dim importeCoberturaTexto As String = nodoItem.SelectSingleNode("./*[local-name()='ImporteCobertura']")?.InnerText
 
-                Dim importeCobertura As Decimal
+                Dim importeCobertura As Decimal = 0D
 
                 Decimal.TryParse(importeCoberturaTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeCobertura)
 
@@ -1286,47 +1264,52 @@ Public Class ITC
 
                 Dim codigo As String = nodoItem.SelectSingleNode("./*[local-name()='Alfabeta']")?.InnerText
 
+                If String.IsNullOrWhiteSpace(codigo) Then
+
+                    Throw New Exception("El item Nro " & nroItem.ToString() & " no contiene código Alfabeta.")
+
+                End If
+
+                codigo = codigo.Trim()
+
+                '======================================================
+                ' ID ARTICULO
+                '======================================================
+
+                Dim idArticulo As String = "M" & codigo
+
                 '======================================================
                 ' BUSCAR ITEM DE LA RECETA
+                '
+                ' NO se busca por NroItem.
+                '
+                ' Se busca por IdArticulo:
+                '
+                ' Alfabeta 35097
+                '       ↓
+                ' IdArticulo M35097
                 '======================================================
 
                 Dim itemReceta As ItemComprobante = Nothing
 
                 If argReceta.Items IsNot Nothing Then
 
-                    If nroItem > 0 AndAlso nroItem <= argReceta.Items.Count Then
-
-                        itemReceta = argReceta.Items(nroItem - 1)
-
-                    End If
+                    itemReceta = argReceta.Items.FirstOrDefault(Function(i) i.IdArticulo = idArticulo)
 
                 End If
 
                 '======================================================
-                ' ACTUALIZAR ITEM
+                ' VERIFICAR QUE EL ITEM EXISTA
                 '======================================================
 
-                If itemReceta IsNot Nothing Then
+                If itemReceta Is Nothing Then
 
-                    itemReceta.PorcentajeOS = porcentajeCobertura
-                    itemReceta.DescuentoOS = importeCobertura
-                    itemReceta.PrecioUnitario = importeUnitario
-                    itemReceta.Cantidad = cantidadAprobada
+                    Throw New Exception("No se encontró en la receta el artículo " & idArticulo & " correspondiente al Alfabeta " & codigo)
 
                 End If
 
                 '======================================================
-                ' AUTORIZACIÓN
-                '======================================================
-
-                If String.IsNullOrWhiteSpace(argReceta.NumAutorizacion) AndAlso Not String.IsNullOrWhiteSpace(codAutorizacion) Then
-
-                    argReceta.NumAutorizacion = codAutorizacion.Trim()
-
-                End If
-
-                '======================================================
-                ' SI EL ITEM FUE RECHAZADO
+                ' VERIFICAR RESPUESTA DEL ITEM
                 '======================================================
 
                 If codRta <> "0" Then
@@ -1335,7 +1318,23 @@ Public Class ITC
 
                 End If
 
+                '======================================================
+                ' ACTUALIZAR ITEM EXISTENTE
+                '======================================================
+
+                itemReceta.PrecioUnitario = importeUnitario
+
+                itemReceta.PorcentajeOS = porcentajeCobertura
+
+                itemReceta.DescuentoOS = importeCobertura
+
+                itemReceta.Cantidad = cantidadAprobada
+
+                itemReceta.NumeroAutorizacionItem = codAutorizacion
+
+
             Next
+
 
         Catch ex As Exception
 
@@ -1345,154 +1344,5 @@ Public Class ITC
 
     End Sub
 
-    Private Function ObtenerXmlRespuestaAutorizacionPrueba() As String
 
-        Dim xml As String =
-        "<soap:Envelope xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>" &
-        "<soap:Body>" &
-        "<ProcesarXmlResponse xmlns='http://ws.itcsoluciones.com/sitelgateway/'>" &
-        "<ProcesarXmlResult>" &
-        "<MensajeADESFA xmlns='' version='2.0'>" &
-        "<EncabezadoMensaje>" &
-        "<NroReferencia>ID:2292260821-352009</NroReferencia>" &
-        "<FechaReferencia/>" &
-        "<TipoMsj>210</TipoMsj>" &
-        "<CodAccion>290020</CodAccion>" &
-        "<IdMsj>66</IdMsj>" &
-        "<InicioTrx>" &
-        "<Fecha>20260821</Fecha>" &
-        "<Hora>0959</Hora>" &
-        "</InicioTrx>" &
-        "<Terminal>" &
-        "<Tipo>PC</Tipo>" &
-        "<Numero>02</Numero>" &
-        "</Terminal>" &
-        "<Prestador>" &
-        "<Cuit>27172514605</Cuit>" &
-        "<Sucursal>003004</Sucursal>" &
-        "<RazonSocial>SAN RAMON - CHACO</RazonSocial>" &
-        "<Codigo>27172514605</Codigo>" &
-        "<CodParaFinanciador>2190</CodParaFinanciador>" &
-        "</Prestador>" &
-        "<SetCaracteres/>" &
-        "<Rta>" &
-        "<CodRtaGeneral>0</CodRtaGeneral>" &
-        "<Descripcion>OK, PRESTACION REGISTRADA OK</Descripcion>" &
-        "<CodigoBarras>20260821IF352009</CodigoBarras>" &
-        "<CodigoQR/>" &
-        "</Rta>" &
-        "<Software>" &
-        "<Nombre>SiCoFa</Nombre>" &
-        "<Version>4.0.0</Version>" &
-        "</Software>" &
-        "<Validador>" &
-        "<Nombre/>" &
-        "<Version/>" &
-        "</Validador>" &
-        "</EncabezadoMensaje>" &
-        "<EncabezadoReceta>" &
-        "<Prescriptor>" &
-        "<Apellido>Gonzalez Saez</Apellido>" &
-        "<Nombre>Maxwell</Nombre>" &
-        "<TipoMatricula>N</TipoMatricula>" &
-        "<Provincia>C</Provincia>" &
-        "<NroMatricula>123456</NroMatricula>" &
-        "<TipoPrescriptor/>" &
-        "</Prescriptor>" &
-        "<Beneficiario>" &
-        "<TipoDoc/>" &
-        "<NroDoc/>" &
-        "<Apellido/>" &
-        "<Nombre>AFILIADO PRUEBA AUTORIZ.AUTOM.</Nombre>" &
-        "<Sexo>M</Sexo>" &
-        "<FechaNacimiento>19501224</FechaNacimiento>" &
-        "<Tipo>Iva Exento</Tipo>" &
-        "</Beneficiario>" &
-        "<Financiador>" &
-        "<Codigo/>" &
-        "<Cuit>30546741253</Cuit>" &
-        "<Sucursal/>" &
-        "</Financiador>" &
-        "<Credencial>" &
-        "<Numero>60671956201</Numero>" &
-        "<Version>00</Version>" &
-        "<Vencimiento/>" &
-        "<ModoIngreso>A</ModoIngreso>" &
-        "<EsProvisorio>0</EsProvisorio>" &
-        "<Plan>2210</Plan>" &
-        "<Track>60671956201</Track>" &
-        "<Cvc2>218</Cvc2>" &
-        "<CSC>218</CSC>" &
-        "</Credencial>" &
-        "<CoberturaEspecial>CRONICO</CoberturaEspecial>" &
-        "<Preautorizacion>" &
-        "<Codigo/>" &
-        "<Fecha/>" &
-        "</Preautorizacion>" &
-        "<FechaReceta>20260728</FechaReceta>" &
-        "<Formulario>" &
-        "<Fecha/>" &
-        "<Tipo>1</Tipo>" &
-        "<Numero>4276994673</Numero>" &
-        "<Serie/>" &
-        "</Formulario>" &
-        "<TipoTratamiento>N</TipoTratamiento>" &
-        "<Diagnostico/>" &
-        "<Institucion>" &
-        "<Codigo/>" &
-        "<Cuit/>" &
-        "<Sucursal/>" &
-        "</Institucion>" &
-        "<Retira>" &
-        "<Apellido/>" &
-        "<Nombre/>" &
-        "<TipoDoc/>" &
-        "<NroDoc/>" &
-        "<NroTelefono/>" &
-        "</Retira>" &
-        "<Dispensa>" &
-        "<Fecha>20260821</Fecha>" &
-        "<Hora>095901</Hora>" &
-        "</Dispensa>" &
-        "</EncabezadoReceta>" &
-        "<DetalleReceta>" &
-        "<Item>" &
-        "<NroItem>1</NroItem>" &
-        "<CodBarras>7798052710321</CodBarras>" &
-        "<CodTroquel>4280042</CodTroquel>" &
-        "<Alfabeta>35097</Alfabeta>" &
-        "<Kairos/>" &
-        "<Codigo/>" &
-        "<Descripcion>AMOXICILINA SANT GALL FRIBURG 250 MG SUS</Descripcion>" &
-        "<CodRta>0</CodRta>" &
-        "<MensajeRta>Medicamento autorizado</MensajeRta>" &
-        "<CodAutorizacion>471352009</CodAutorizacion>" &
-        "<CantidadSolicitada>1</CantidadSolicitada>" &
-        "<CantidadAprobada>1</CantidadAprobada>" &
-        "<PorcentajeCobertura>40.00</PorcentajeCobertura>" &
-        "<CodPreautorizacion/>" &
-        "<ImporteUnitario>10449.17</ImporteUnitario>" &
-        "<ImporteACargoAfiliado>6269.50</ImporteACargoAfiliado>" &
-        "<ImporteCobertura>4179.67</ImporteCobertura>" &
-        "<Generico/>" &
-        "<NroSerie/>" &
-        "<FechaVencimiento/>" &
-        "<Lote/>" &
-        "<DosisDiaria/>" &
-        "<DiasTratamiento/>" &
-        "<CodConflicto/>" &
-        "<CodIntervencion/>" &
-        "<CodAccion/>" &
-        "<ExcepcionPrescripcion/>" &
-        "</Item>" &
-        "</DetalleReceta>" &
-        "</MensajeADESFA>" &
-        "</ProcesarXmlResult>" &
-        "</ProcesarXmlResponse>" &
-        "</soap:Body>" &
-        "</soap:Envelope>"
-
-        Return xml
-
-    End Function
 End Class

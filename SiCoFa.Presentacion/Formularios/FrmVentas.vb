@@ -494,11 +494,15 @@ Public Class FrmVentas
                     receta.Items = New List(Of ItemComprobante)
                 End If
 
-                receta.Items.Add(item)
+                If Not receta.Items.Any(Function(x) x.Articulo IsNot Nothing AndAlso x.Articulo.IdArticulo = item.Articulo.IdArticulo) Then
+
+                    receta.Items.Add(item)
+
+                End If
 
             End If
 
-                ActualizarTotales()
+            ActualizarTotales()
 
         Catch ex As Exception
 
@@ -1132,7 +1136,21 @@ Public Class FrmVentas
             If receta IsNot Nothing Then
                 Dim adminRecetas As New N_AdminRecetas
                 adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
+                If receta.Reporte IsNot Nothing AndAlso receta.Reporte.Length > 0 Then
+
+                    Dim rutaPdf As String = IO.Path.Combine("C:\SiCoFa_Cliente\Temp", "ReporteAutorizacion.pdf")
+
+                    IO.File.WriteAllBytes(rutaPdf, receta.Reporte)
+
+                    Process.Start(rutaPdf)
+
+                End If
             End If
+
+            ActualizarTotales()
+
+            RenderItemsUC()
+
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
