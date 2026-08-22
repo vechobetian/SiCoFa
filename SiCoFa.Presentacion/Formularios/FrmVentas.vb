@@ -1136,15 +1136,42 @@ Public Class FrmVentas
             If receta IsNot Nothing Then
                 Dim adminRecetas As New N_AdminRecetas
                 adminRecetas.SolicitarAutorizacion(g_ParametrosTerminal.IdPc, receta)
-                If receta.Reporte IsNot Nothing AndAlso receta.Reporte.Length > 0 Then
+            End If
 
-                    Dim rutaPdf As String = IO.Path.Combine("C:\SiCoFa_Cliente\Temp", "ReporteAutorizacion.pdf")
+            ActualizarTotales()
 
-                    IO.File.WriteAllBytes(rutaPdf, receta.Reporte)
+            RenderItemsUC()
 
-                    Process.Start(rutaPdf)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+    End Sub
+
+    Private Sub SolicitarCancelacionReceta()
+        Try
+            Dim receta As Receta = Nothing
+
+            If mobj_ItemSeleccionado IsNot Nothing Then
+
+                Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+                If item IsNot Nothing AndAlso item.Receta IsNot Nothing Then
+
+                    receta = ObtenerReceta(item.Receta.IdReceta)
+
+                    If receta.Items Is Nothing Then
+
+                    End If
 
                 End If
+
+            End If
+
+            If receta IsNot Nothing Then
+                Dim adminRecetas As New N_AdminRecetas
+                adminRecetas.SolicitarCancelacion(g_ParametrosTerminal.IdPc, receta)
             End If
 
             ActualizarTotales()

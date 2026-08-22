@@ -1,7 +1,9 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Text
+Imports System.Text.RegularExpressions
 Imports System.Xml
+Imports iTextSharp.text
 Imports iTextSharp.text.pdf
 Imports SiCoFa.Entidades
 Imports Vecho
@@ -37,13 +39,14 @@ Public Class ITC
                         <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
                     </ProcesarXml>
                 </soap:Body>
-                </soap:Envelope>"
+                </soap:Envelope>
+"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -79,13 +82,14 @@ Public Class ITC
                         <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
                     </ProcesarXml>
                 </soap:Body>
-                </soap:Envelope>"
+                </soap:Envelope>
+"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -100,7 +104,7 @@ Public Class ITC
 
     End Function
 
-    Public Sub SolicitarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) Implements IValidador.SolicitarAutorizacion
+    Public Sub SolicitarAutorizacion1(argIdPC As String, argReceta As Receta, argIdMensaje As Long) 'Implements IValidador.SolicitarAutorizacion
 
         Try
 
@@ -127,7 +131,7 @@ Public Class ITC
         End Try
 
     End Sub
-    Public Sub SolicitarAutorizacion1(argIdPC As String, argReceta As Receta, argIdMensaje As Long) 'Implements IValidador.SolicitarAutorizacion
+    Public Sub SolicitarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) Implements IValidador.SolicitarAutorizacion
 
         Try
 
@@ -148,18 +152,18 @@ Public Class ITC
                         <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
                     </ProcesarXml>
                 </soap:Body>
-                </soap:Envelope>"
+                </soap:Envelope>
+"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
-            'argReceta = ParsearAutorizacion(argReceta)
-            'Return argReceta
+            ParsearAutorizacion(argReceta, xmlResponse)
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "AutorizacionReceta", ex.Message))
@@ -189,13 +193,14 @@ Public Class ITC
                         <mensaje>{System.Security.SecurityElement.Escape(xmlAdesfa)}</mensaje>
                     </ProcesarXml>
                 </soap:Body>
-                </soap:Envelope>"
+                </soap:Envelope>
+"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -655,7 +660,7 @@ Public Class ITC
             ' GUARDAR EL XML EXACTO QUE SE ENVÍA
             '==========================================================
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request_enviado.xml", xmlBody, Encoding.UTF8)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request_enviado.xml", xmlBody, Encoding.UTF8)
 
             '==========================================================
             ' CONVERTIR XML A BYTES
@@ -686,7 +691,7 @@ Public Class ITC
                     Dim responseString As String = reader.ReadToEnd()
 
                     ' Guardar respuesta
-                    IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", responseString, Encoding.UTF8)
+                    File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", responseString, Encoding.UTF8)
 
                     ' Convertir respuesta a XML
                     Dim xmlResponse As New XmlDocument()
@@ -762,7 +767,7 @@ Public Class ITC
             End If
 
             ' Guardar error completo
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_error.txt", mensaje.ToString(), Encoding.UTF8)
+            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_error.txt", mensaje.ToString(), Encoding.UTF8)
 
             Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", mensaje.ToString()))
 
@@ -1140,7 +1145,7 @@ Public Class ITC
 
             If Not String.IsNullOrWhiteSpace(mensajeReporte) Then
                 Dim r As New ReporteValidacion
-                r.GenerarPdfTicket(mensajeReporte, "C:\SiCoFa_Cliente\tiket.pdf")
+                r.GenerarPdfTicket(mensajeReporte, "C:\SiCoFa_Cliente\Temp\Tiket.pdf")
             End If
 
             '==========================================================
@@ -1336,6 +1341,5 @@ Public Class ITC
         End Try
 
     End Sub
-
 
 End Class
