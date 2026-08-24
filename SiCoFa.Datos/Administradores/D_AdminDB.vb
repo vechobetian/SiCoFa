@@ -27,6 +27,32 @@ Public Class D_AdminDB
 
     End Function
 
+    Public Function ActualizarTablaUpdate(argSql As String, Optional argDataBase As String = "FARMACIAS") As Boolean
+
+        Try
+
+            Dim objConexionDB As New D_Conexion
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion(argDataBase)
+
+                Using cmd As New MySqlCommand(argSql, cn)
+
+                    Dim FilasAfectadas As Integer = cmd.ExecuteNonQuery()
+
+                    Return FilasAfectadas > 0
+
+                End Using
+
+            End Using
+
+        Catch Ex As Exception
+
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ActualizarTablaUpdate), Ex.Message))
+
+        End Try
+
+    End Function
+
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable, Optional ByVal argDataBase As String = "FARMACIAS")
 
         Try

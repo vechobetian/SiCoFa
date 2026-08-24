@@ -69,6 +69,7 @@ Partial Class FrmInicio
         Me.ActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarFraccionables = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -263,7 +264,7 @@ Partial Class FrmInicio
         '
         'mnuEditar
         '
-        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditarArticulos, Me.mnuEditarClientes, Me.mnuEditarEmpleados, Me.mnuEditarUsuarios, Me.mnuEditarProveedores, Me.mnuEditarSecciones, Me.mnuEditarCuentasBancarias, Me.mnuEditarMedioPE, Me.mnuEditarPermisos})
+        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditarArticulos, Me.mnuEditarFraccionables, Me.mnuEditarClientes, Me.mnuEditarEmpleados, Me.mnuEditarUsuarios, Me.mnuEditarProveedores, Me.mnuEditarSecciones, Me.mnuEditarCuentasBancarias, Me.mnuEditarMedioPE, Me.mnuEditarPermisos})
         Me.mnuEditar.Name = "mnuEditar"
         Me.mnuEditar.Size = New System.Drawing.Size(49, 20)
         Me.mnuEditar.Text = "&Editar"
@@ -365,6 +366,12 @@ Partial Class FrmInicio
         Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
         Me.mnuAyuda.Text = "Ay&uda"
         '
+        'mnuEditarFraccionables
+        '
+        Me.mnuEditarFraccionables.Name = "mnuEditarFraccionables"
+        Me.mnuEditarFraccionables.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarFraccionables.Text = "Fraccionables"
+        '
         'FrmInicio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -430,4 +437,5 @@ Partial Class FrmInicio
     Friend WithEvents mnuOperacionesPresupuestos As ToolStripMenuItem
     Friend WithEvents ActualizacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ActualizarVersionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuEditarFraccionables As ToolStripMenuItem
 End Class

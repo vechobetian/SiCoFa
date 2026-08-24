@@ -101,6 +101,18 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuEditarFraccionables_Click(sender As Object, e As EventArgs) Handles mnuEditarFraccionables.Click
+
+        If ModSeguridad.ValidarUsuario(Me.mnuEditarFraccionables.Name) Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim f As New FrmFraccionables()
+        f.Show()
+
+    End Sub
+
+
     Private Sub mnuEditarClientes_Click(sender As Object, e As EventArgs) Handles mnuEditarClientes.Click
 
         If ModSeguridad.ValidarUsuario(Me.mnuEditarClientes.Name) Is Nothing Then

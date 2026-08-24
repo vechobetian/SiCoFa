@@ -18,6 +18,11 @@ Public Class N_AdminDB
 
     End Function
 
+    Public Function ActualizarTablaUpdate(argSql As String, Optional argDataBase As String = "FARMACIAS") As Boolean
+        Dim FilasAfectadas As Integer = mobj_D_AdminDB.ActualizarTablaUpdate(argSql, argDataBase)
+        Return FilasAfectadas
+    End Function
+
     Public Sub ActualizarTabla(ByVal argSql As String, ByVal argTbl As DataTable, Optional ByVal argDataBase As String = "FARMACIAS")
 
         Try
