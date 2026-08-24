@@ -123,12 +123,13 @@ Public Class FrmFraccionables
             End If
 
             Dim adminDB As New N_AdminDB
+            Dim idArt As String = CStr(Me.TxtIdArticulo.Text)
             Dim frac As Boolean = CBool(UcFraccionable.Id)
             Dim unid As Integer = CInt(Me.TxtUDiv.Text)
             Dim desc As String = CStr(TxtDFrac.Text)
             Dim rec As Decimal = CDec(TxtRecargo.Text)
 
-            Dim str As String = $"UPDATE articulos SET Fraccionable={frac},UDiv={unid},DFrac={desc},RFrac={rec}"
+            Dim str As String = $"UPDATE articulos SET Fraccionable={frac},UDiv={unid},DFrac={desc},RFrac={rec} WHERE IdArticulo={idArt}"
             Dim Actualizado As Boolean = adminDB.ActualizarTablaUpdate(str)
 
             If Actualizado = True Then
@@ -137,8 +138,6 @@ Public Class FrmFraccionables
                 MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
                 Exit Sub
             End If
-
-
 
             With Me.ControlesReadOnly
                 .Clear()
