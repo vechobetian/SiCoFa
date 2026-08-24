@@ -287,11 +287,11 @@
         End Set
     End Property
 
-    Public Property NumeroAutorizacionItem As Boolean
+    Public Property NumeroAutorizacionItem As String
         Get
             Return m_NumeroAutorizacionItem
         End Get
-        Set(value As Boolean)
+        Set(value As String)
             m_NumeroAutorizacionItem = value
         End Set
     End Property

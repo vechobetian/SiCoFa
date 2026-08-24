@@ -42,11 +42,11 @@ Public Class ITC
                 </soap:Envelope>
 "
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -85,11 +85,11 @@ Public Class ITC
                 </soap:Envelope>
 "
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -108,11 +108,16 @@ Public Class ITC
 
         Try
 
-            Dim rutaXml As String = "C:\SiCoFa_Cliente\Temp\RespuestaOSDE.xml"
+
+            Dim rutaRespuesta As String = "C:\sicofa_cliente\Temp\RespuestaOsde.xml"
 
             Dim xmlResponse As New XmlDocument()
 
-            xmlResponse.Load(rutaXml)
+            xmlResponse.Load(rutaRespuesta)
+
+            '========================================================
+            ' FIN PRUEBA LOCAL
+            '========================================================
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -131,6 +136,7 @@ Public Class ITC
         End Try
 
     End Sub
+
     Public Sub SolicitarAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) Implements IValidador.SolicitarAutorizacion
 
         Try
@@ -155,11 +161,11 @@ Public Class ITC
                 </soap:Envelope>
 "
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -196,11 +202,11 @@ Public Class ITC
                 </soap:Envelope>
 "
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -657,12 +663,6 @@ Public Class ITC
             request.Headers.Add("SOAPAction", """" & soapAction & """")
 
             '==========================================================
-            ' GUARDAR EL XML EXACTO QUE SE ENVÍA
-            '==========================================================
-
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request_enviado.xml", xmlBody, Encoding.UTF8)
-
-            '==========================================================
             ' CONVERTIR XML A BYTES
             '==========================================================
 
@@ -690,10 +690,18 @@ Public Class ITC
 
                     Dim responseString As String = reader.ReadToEnd()
 
-                    ' Guardar respuesta
-                    File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", responseString, Encoding.UTF8)
+                    '==========================================================
+                    ' GUARDAR COPIA DE LA RESPUESTA
+                    ' SOLO PARA REVISIÓN / DEBUG
+                    '==========================================================
 
-                    ' Convertir respuesta a XML
+                    Dim rutaRespuesta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml")
+
+                    File.WriteAllText(rutaRespuesta, responseString, Encoding.UTF8)
+
+                    '==========================================================
+                    ' PROCESAR LA RESPUESTA EN MEMORIA
+                    '==========================================================
                     Dim xmlResponse As New XmlDocument()
 
                     xmlResponse.LoadXml(responseString)
@@ -767,13 +775,15 @@ Public Class ITC
             End If
 
             ' Guardar error completo
-            File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_error.txt", mensaje.ToString(), Encoding.UTF8)
+            'File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_error.txt", mensaje.ToString(), Encoding.UTF8)
+
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_error.txt"), mensaje.ToString(), Encoding.UTF8)
 
             Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", mensaje.ToString()))
 
         Catch ex As XmlException
 
-            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error al procesar la respuesta XML: " & ex.Message))
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "PostWebservice", "Error al procesar la respuesta XML:      " & ex.Message))
 
         Catch ex As Exception
 
@@ -1144,8 +1154,17 @@ Public Class ITC
 
 
             If Not String.IsNullOrWhiteSpace(mensajeReporte) Then
-                Dim r As New ReporteValidacion
-                r.GenerarPdfTicket(mensajeReporte, "C:\SiCoFa_Cliente\Temp\Tiket.pdf")
+                Dim rutaTemp As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp")
+
+                If Not Directory.Exists(rutaTemp) Then
+                    Directory.CreateDirectory(rutaTemp)
+                End If
+
+                Dim nombreArchivo As String = argReceta.Plan.OS.PValidacion.Validador & argReceta.NumAutorizacion & ".pdf"
+
+                Dim ruta As String = Path.Combine(rutaTemp, nombreArchivo)
+
+                Me.GenerarPdfTicket(mensajeReporte, ruta)
             End If
 
             '==========================================================
@@ -1340,6 +1359,415 @@ Public Class ITC
 
         End Try
 
+    End Sub
+
+
+    Private Function FormatearMensajePuntoSalud1(rawText As String) As String
+        Dim sb As New StringBuilder()
+
+        ' 1. Normalizar y forzar saltos de línea en cada tira de guiones
+        Dim texto As String = Regex.Replace(rawText, "-{5,}", vbCrLf & "----------------------------------------" & vbCrLf)
+
+        ' 2. Insertar saltos de línea antes de cada palabra clave (Se excluyen las del bloque de firma para procesarlas en grupo)
+        Dim etiquetas() As String = {
+            "AUTORIZACION", "Cupón N°:", "Prestador:", "Afiliado:", "Plan:", "Tipo:",
+            "Médico Receta:", "Fecha Receta :", "Fecha Receta:", "Fecha Prestación:",
+            "Medicamentos", "Tipo Prescripción:", "TOTAL:", "A cargo O.S.", "A cargo Afil.",
+            "TOTAL A CARGO AFIL.:", "PuntoSalud.com"
+        }
+
+        For Each etq In etiquetas
+            texto = texto.Replace(etq, vbCrLf & etq)
+        Next
+
+        ' 3. Procesar el texto línea por línea
+        Dim lineas() As String = texto.Split(New String() {vbCr, vbLf}, StringSplitOptions.RemoveEmptyEntries)
+
+        For Each l As String In lineas
+            Dim linea As String = l.Trim()
+
+            ' Saltear etiquetas secundarias del bloque de firma para que no se dupliquen
+            If linea.StartsWith("Firma del Titular") OrElse linea.StartsWith("Aclaración") OrElse
+               linea.StartsWith("Documento Nro:") OrElse linea.StartsWith("Telf.y Direc.:") Then
+
+                ' Marcador especial para que el generador de PDF levante el espacio físico
+                If linea.StartsWith("Firma del Titular") Then
+                    sb.AppendLine("[BLOQUE_FIRMA_AMPLIADO]")
+                End If
+                Continue For
+            End If
+
+            ' Encabezado de la tabla de medicamentos (Se escribe una sola vez)
+            If linea.StartsWith("Medicamentos") Then
+                sb.AppendLine("Medicamentos")
+                sb.AppendLine("Can Troquel    P.Unit.  %Cob.   P.Final")
+                Continue For
+            End If
+
+            ' Ignorar la línea de títulos si el WS la vuelve a enviar suelta
+            If linea.StartsWith("Can Troquel") OrElse linea.StartsWith("P.Unit.") Then
+                Continue For
+            End If
+
+            ' Fila de importes de troquel para CUALQUIER medicamento de la lista (1, 2, 3, etc.)
+            Dim matchTroquel As Match = Regex.Match(linea, "^(\d+)\s+(\d{7})\s+(\$\d+[\d\.,]*)\s+(\d+[\d\.,]*%)\s+(\$\d+[\d\.,]*)(.*)")
+
+            If matchTroquel.Success Then
+                Dim can As String = matchTroquel.Groups(1).Value
+                Dim troquel As String = matchTroquel.Groups(2).Value
+                Dim pUnit As String = matchTroquel.Groups(3).Value
+                Dim cob As String = matchTroquel.Groups(4).Value
+                Dim pFinal As String = matchTroquel.Groups(5).Value
+                Dim restoTexto As String = matchTroquel.Groups(6).Value.Trim()
+
+                ' Imprimir valores numéricos alineados a la tabla
+                Dim det As String = String.Format("{0,2} {1,-8} {2,10} {3,6} {4,10}", can, troquel, pUnit, cob, pFinal)
+                sb.AppendLine(det)
+
+                ' Imprimir el nombre del medicamento en el renglón siguiente con sangría
+                If Not String.IsNullOrEmpty(restoTexto) Then
+                    sb.AppendLine("    " & restoTexto)
+                End If
+                Continue For
+            End If
+
+            ' Formatear totales (TOTAL, A cargo O.S., A cargo Afil.)
+            If linea.StartsWith("TOTAL:") OrElse linea.StartsWith("A cargo") OrElse linea.StartsWith("TOTAL A CARGO") Then
+                Dim matchMonto = Regex.Match(linea, "(.*?)\s*(\$\d+[\d\.,]*)")
+                If matchMonto.Success Then
+                    Dim lbl As String = matchMonto.Groups(1).Value.Trim()
+                    Dim val As String = matchMonto.Groups(2).Value.Trim()
+                    Dim espacio As Integer = Math.Max(1, 40 - lbl.Length - val.Length)
+                    sb.AppendLine(lbl & New String(" "c, espacio) & val)
+                    Continue For
+                End If
+            End If
+
+            ' Líneas estándar de texto plano
+            sb.AppendLine(linea)
+        Next
+
+        Return sb.ToString()
+    End Function
+
+    Private Function FormatearMensajePuntoSalud(rawText As String) As String
+
+        If String.IsNullOrWhiteSpace(rawText) Then
+            Return ""
+        End If
+
+        Dim sb As New StringBuilder()
+
+        '==============================================================
+        ' NORMALIZAR TEXTO
+        '==============================================================
+
+        Dim texto As String = rawText
+
+        texto = texto.Replace(vbCrLf, vbLf)
+        texto = texto.Replace(vbCr, vbLf)
+        texto = texto.Replace(ChrW(160), " "c)
+
+        'Reducir espacios consecutivos
+        texto = Regex.Replace(texto, "[ \t]+", " ")
+
+        '==============================================================
+        ' SEPARAR LAS TIRAS DE GUIONES
+        '==============================================================
+
+        texto = Regex.Replace(texto, "-{5,}", vbLf & "----------------------------------------" & vbLf)
+
+        '==============================================================
+        ' ETIQUETAS
+        '
+        ' Se acepta:
+        '
+        ' Prestador:
+        ' Prestador :
+        ' Prestador     :
+        '
+        ' y diferencias de mayúsculas/minúsculas.
+        '==============================================================
+
+        texto = Regex.Replace(texto, "(?i)\bAUTORIZACI[ÓO]N\b", vbLf & "AUTORIZACION")
+
+        texto = Regex.Replace(texto, "(?i)\bCup[oó]n\s*(N[°ºoO]\.?|Nro\.?)?\s*:", vbLf & "Cupón N°:")
+
+        texto = Regex.Replace(texto, "(?i)\bPrestador\s*:", vbLf & "Prestador:")
+
+        texto = Regex.Replace(texto, "(?i)\bAfiliado\s*:", vbLf & "Afiliado:")
+
+        texto = Regex.Replace(texto, "(?i)\bPlan\s*:", vbLf & "Plan:")
+
+        texto = Regex.Replace(texto, "(?i)\bTipo\s*:", vbLf & "Tipo:")
+
+        texto = Regex.Replace(texto, "(?i)\bM[ée]dico\s+Receta\s*:", vbLf & "Médico Receta:")
+
+        texto = Regex.Replace(texto, "(?i)\bFecha\s+Receta\s*:", vbLf & "Fecha Receta:")
+
+        texto = Regex.Replace(texto, "(?i)\bFecha\s+Prestaci[oó]n\s*:", vbLf & "Fecha Prestación:")
+
+        texto = Regex.Replace(texto, "(?i)\bMedicamentos\b", vbLf & "Medicamentos")
+
+        texto = Regex.Replace(texto, "(?i)\bTipo\s+Prescripci[oó]n\s*:", vbLf & "Tipo Prescripción:")
+
+        texto = Regex.Replace(texto, "(?i)\bTOTAL\s*:", vbLf & "TOTAL:")
+
+        texto = Regex.Replace(texto, "(?i)\bA\s+cargo\s+O\.?\s*S\.?\s*:", vbLf & "A cargo O.S.:")
+
+        texto = Regex.Replace(texto, "(?i)\bA\s+cargo\s+Afil\.?\s*:", vbLf & "A cargo Afil.:")
+
+        texto = Regex.Replace(texto, "(?i)\bTOTAL\s+A\s+CARGO\s+AFIL\.?\s*:", vbLf & "TOTAL A CARGO AFIL.:")
+
+        texto = Regex.Replace(texto, "(?i)\bPuntoSalud\.com\b", vbLf & "PuntoSalud.com")
+
+        '==============================================================
+        ' BLOQUE DE FIRMA
+        '==============================================================
+
+        texto = Regex.Replace(texto, "(?i)\bFirma\s+del\s+Titular\s*:?", vbLf & "Firma del Titular")
+
+        texto = Regex.Replace(texto, "(?i)\bAclaraci[oó]n\s*:?", vbLf & "Aclaración")
+
+        texto = Regex.Replace(texto, "(?i)\bDocumento\s+Nro\.?\s*:?", vbLf & "Documento Nro:")
+
+        texto = Regex.Replace(texto, "(?i)\bTelf\.?\s*y\s*Direc\.?\s*:?", vbLf & "Telf.y Direc.:")
+
+        '==============================================================
+        ' PROCESAR LÍNEAS
+        '==============================================================
+
+        Dim lineas() As String = texto.Split(New String() {vbLf}, StringSplitOptions.RemoveEmptyEntries)
+
+        For Each l As String In lineas
+
+            Dim linea As String = l.Trim()
+
+            If String.IsNullOrWhiteSpace(linea) Then
+                Continue For
+            End If
+
+            '==========================================================
+            ' FIRMA
+            '==========================================================
+
+            If Regex.IsMatch(linea, "(?i)^Firma\s+del\s+Titular") Then
+
+                sb.AppendLine("[BLOQUE_FIRMA_AMPLIADO]")
+                Continue For
+
+            End If
+
+            If Regex.IsMatch(linea, "(?i)^Aclaraci[oó]n") Then
+
+                Continue For
+
+            End If
+
+            If Regex.IsMatch(linea, "(?i)^Documento\s+Nro\.?") Then
+
+                Continue For
+
+            End If
+
+            If Regex.IsMatch(linea, "(?i)^Telf\.?\s*y\s*Direc\.?") Then
+
+                Continue For
+
+            End If
+
+            '==========================================================
+            ' MEDICAMENTOS
+            '==========================================================
+
+            If Regex.IsMatch(linea, "(?i)^Medicamentos\b") Then
+
+                sb.AppendLine("Medicamentos")
+                sb.AppendLine("Can Troquel    P.Unit.  %Cob.   P.Final")
+
+                Continue For
+
+            End If
+
+            '==========================================================
+            ' ENCABEZADO DE COLUMNAS
+            '==========================================================
+
+            If Regex.IsMatch(linea, "(?i)^Can\s+Troquel") Then
+
+                Continue For
+
+            End If
+
+            If Regex.IsMatch(linea, "(?i)^P\.?\s*Unit\.?") Then
+
+                Continue For
+
+            End If
+
+            '==========================================================
+            ' MEDICAMENTO
+            '
+            ' Ejemplo:
+            '
+            ' 1 1234567 $1000,00 40% $600,00 PRODUCTO
+            '
+            ' Los espacios son flexibles.
+            '==========================================================
+
+            Dim patronMedicamento As String = "^\s*" & "(\d+)" & "\s+" & "(\d{7})" & "\s+" & "(\$?\s*[\d\.,]+)" & "\s+" & "(\d+(?:[\.,]\d+)?\s*%)" & "\s+" & "(\$?\s*[\d\.,]+)" & "(?:\s+(.*))?" & "\s*$"
+            Dim matchTroquel As Match = Regex.Match(linea, patronMedicamento, RegexOptions.IgnoreCase)
+
+            If matchTroquel.Success Then
+
+                Dim can As String = matchTroquel.Groups(1).Value.Trim()
+
+                Dim troquel As String = matchTroquel.Groups(2).Value.Trim()
+
+                Dim pUnit As String = matchTroquel.Groups(3).Value.Trim()
+
+                Dim cob As String = matchTroquel.Groups(4).Value.Trim()
+
+                Dim pFinal As String = matchTroquel.Groups(5).Value.Trim()
+
+                Dim restoTexto As String = ""
+
+                If matchTroquel.Groups.Count > 6 Then
+                    restoTexto =
+                    matchTroquel.Groups(6).Value.Trim()
+                End If
+
+                pUnit = Regex.Replace(pUnit, "\$\s+", "$")
+
+                pFinal = Regex.Replace(pFinal, "\$\s+", "$")
+
+                Dim det As String = String.Format("{0,2} {1,-8} {2,10} {3,6} {4,10}", can, troquel, pUnit, cob, pFinal)
+
+                sb.AppendLine(det)
+
+                If Not String.IsNullOrWhiteSpace(restoTexto) Then
+                    sb.AppendLine("    " & restoTexto)
+                End If
+
+                Continue For
+
+            End If
+
+            '==========================================================
+            ' TOTALES
+            '==========================================================
+
+            Dim esTotal As Boolean = False
+
+            If Regex.IsMatch(linea, "(?i)^TOTAL\s*:?") Then
+
+                esTotal = True
+
+            ElseIf Regex.IsMatch(linea, "(?i)^A\s+cargo") Then
+
+                esTotal = True
+
+            End If
+
+            If esTotal Then
+
+                Dim matchMonto As Match = Regex.Match(linea, "^(.*?)\s*(\$?\s*[\d\.,]+)\s*$", RegexOptions.IgnoreCase)
+
+                If matchMonto.Success Then
+
+                    Dim lbl As String = matchMonto.Groups(1).Value.Trim()
+
+                    Dim val As String = matchMonto.Groups(2).Value.Trim()
+
+                    val = Regex.Replace(val, "\$\s+", "$")
+
+                    Dim espacio As Integer = Math.Max(1, 40 - lbl.Length - val.Length)
+
+                    sb.AppendLine(lbl & New String(" "c, espacio) & val)
+
+                    Continue For
+
+                End If
+
+            End If
+
+            '==========================================================
+            ' LÍNEA NORMAL
+            '==========================================================
+
+            sb.AppendLine(linea)
+
+        Next
+
+        Return sb.ToString()
+
+    End Function
+
+    Private Sub GenerarPdfTicket(textoTicketRaw As String, rutaPdfSalida As String)
+        Dim textoFormateado As String = FormatearMensajePuntoSalud(textoTicketRaw)
+
+        ' 1. Crear documento temporal en memoria para calcular el alto exacto ocupado
+        Using ms As New MemoryStream()
+            Dim docMedicion As New Document(New Rectangle(226.0F, 2000.0F), 6.0F, 6.0F, 8.0F, 8.0F)
+            Dim writerMedicion As PdfWriter = PdfWriter.GetInstance(docMedicion, ms)
+            docMedicion.Open()
+
+            Dim fuenteTicket As Font = FontFactory.GetFont(FontFactory.COURIER, 7.0F, Font.NORMAL, BaseColor.BLACK)
+
+            ProcesarContenidoTicket(docMedicion, textoFormateado, fuenteTicket)
+
+            Dim altoRequerido As Single = 2000.0F - writerMedicion.GetVerticalPosition(False) + 15.0F
+            docMedicion.Close()
+
+            ' 2. Generar el PDF definitivo en disco con la altura exacta obtenida
+            Dim tamanoDefinitivo As New Rectangle(226.0F, altoRequerido)
+            Dim docFinal As New Document(tamanoDefinitivo, 6.0F, 6.0F, 8.0F, 8.0F)
+
+            Try
+                PdfWriter.GetInstance(docFinal, New FileStream(rutaPdfSalida, FileMode.Create))
+                docFinal.Open()
+                ProcesarContenidoTicket(docFinal, textoFormateado, fuenteTicket)
+            Finally
+                If docFinal.IsOpen Then docFinal.Close()
+            End Try
+        End Using
+    End Sub
+
+    ''' <summary>
+    ''' Rutina auxiliar para renderizar el contenido en el documento PDF
+    ''' </summary>
+    Private Sub ProcesarContenidoTicket(doc As Document, textoFormateado As String, fuente As Font)
+        Using reader As New StringReader(textoFormateado)
+            Dim linea As String = reader.ReadLine()
+
+            While linea IsNot Nothing
+                If linea = "[BLOQUE_FIRMA_AMPLIADO]" Then
+                    doc.Add(New Paragraph("----------------------------------------", fuente) With {.Leading = 8.0F})
+                    doc.Add(New Paragraph("          Firma del Titular", fuente) With {.Leading = 8.0F})
+
+                    Dim espacioFirma As New Paragraph(" ", fuente) With {
+                        .SpacingBefore = 40.0F,
+                        .SpacingAfter = 5.0F
+                    }
+                    doc.Add(espacioFirma)
+
+                    doc.Add(New Paragraph("----------------------------------------", fuente) With {.Leading = 8.0F})
+                    doc.Add(New Paragraph("           Aclaración Firma", fuente) With {.Leading = 8.0F})
+
+                    Dim espacioAclaracion As New Paragraph("Documento Nro:" & vbCrLf & vbCrLf & "Telf.y Direc.:", fuente) With {
+                        .Leading = 16.0F,
+                        .SpacingBefore = 10.0F,
+                        .SpacingAfter = 10.0F
+                    }
+                    doc.Add(espacioAclaracion)
+                Else
+                    Dim p As New Paragraph(linea, fuente) With {.Leading = 8.0F}
+                    doc.Add(p)
+                End If
+
+                linea = reader.ReadLine()
+            End While
+        End Using
     End Sub
 
 End Class

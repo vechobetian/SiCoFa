@@ -22,15 +22,32 @@ Partial Class FrmBuscaArticulos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.lblAccionFarmacologica = New System.Windows.Forms.Label()
+        Me.lblMonodroga = New System.Windows.Forms.Label()
+        Me.lblTrazabilidad = New System.Windows.Forms.Label()
+        Me.lblTipoControl = New System.Windows.Forms.Label()
+        Me.lblTipoVenta = New System.Windows.Forms.Label()
+        Me.lblViaAdministracion = New System.Windows.Forms.Label()
+        Me.Monodroga = New System.Windows.Forms.Label()
+        Me.AccionFarmacologica = New System.Windows.Forms.Label()
+        Me.Trazabilidad = New System.Windows.Forms.Label()
+        Me.TipoControl = New System.Windows.Forms.Label()
+        Me.TipoVenta = New System.Windows.Forms.Label()
+        Me.ViaAdministracion = New System.Windows.Forms.Label()
+        Me.lblHeladera = New System.Windows.Forms.Label()
+        Me.Heladera = New System.Windows.Forms.Label()
         Me.IdArticulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Codigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Fraccionable = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaPrecio = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrecioCosto = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -46,20 +63,6 @@ Partial Class FrmBuscaArticulos
         Me.CodiLP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListaPrecios = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Laboratorio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.lblAccionFarmacologica = New System.Windows.Forms.Label()
-        Me.lblMonodroga = New System.Windows.Forms.Label()
-        Me.lblTrazabilidad = New System.Windows.Forms.Label()
-        Me.lblTipoControl = New System.Windows.Forms.Label()
-        Me.lblTipoVenta = New System.Windows.Forms.Label()
-        Me.lblViaAdministracion = New System.Windows.Forms.Label()
-        Me.Monodroga = New System.Windows.Forms.Label()
-        Me.AccionFarmacologica = New System.Windows.Forms.Label()
-        Me.Trazabilidad = New System.Windows.Forms.Label()
-        Me.TipoControl = New System.Windows.Forms.Label()
-        Me.TipoVenta = New System.Windows.Forms.Label()
-        Me.ViaAdministracion = New System.Windows.Forms.Label()
-        Me.lblHeladera = New System.Windows.Forms.Label()
-        Me.Heladera = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -70,176 +73,16 @@ Partial Class FrmBuscaArticulos
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Codigo, Me.CodBarras, Me.Nombre, Me.AlicIVA, Me.FechaPrecio, Me.PrecioCosto, Me.PrecioVenta, Me.PrecioOferta, Me.Baja, Me.IdSeccion, Me.Seccion, Me.EstablecerPrecio, Me.ActualizarPrecio, Me.StockC, Me.StockF, Me.CodiLP, Me.ListaPrecios, Me.Laboratorio})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Codigo, Me.CodBarras, Me.Nombre, Me.Fraccionable, Me.AlicIVA, Me.FechaPrecio, Me.PrecioCosto, Me.PrecioVenta, Me.PrecioOferta, Me.Baja, Me.IdSeccion, Me.Seccion, Me.EstablecerPrecio, Me.ActualizarPrecio, Me.StockC, Me.StockF, Me.CodiLP, Me.ListaPrecios, Me.Laboratorio})
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Top
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(1164, 508)
+        Me.DataGridView1.Size = New System.Drawing.Size(1187, 508)
         Me.DataGridView1.TabIndex = 3
-        '
-        'IdArticulo
-        '
-        Me.IdArticulo.DataPropertyName = "IdArticulo"
-        Me.IdArticulo.HeaderText = "IdArticulo"
-        Me.IdArticulo.Name = "IdArticulo"
-        Me.IdArticulo.ReadOnly = True
-        Me.IdArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.IdArticulo.Visible = False
-        Me.IdArticulo.Width = 5
-        '
-        'Codigo
-        '
-        Me.Codigo.DataPropertyName = "Codigo"
-        Me.Codigo.HeaderText = "Codigo"
-        Me.Codigo.Name = "Codigo"
-        Me.Codigo.ReadOnly = True
-        Me.Codigo.Visible = False
-        '
-        'CodBarras
-        '
-        Me.CodBarras.DataPropertyName = "CodBarras"
-        Me.CodBarras.FillWeight = 90.0!
-        Me.CodBarras.HeaderText = "CodBarras"
-        Me.CodBarras.Name = "CodBarras"
-        Me.CodBarras.ReadOnly = True
-        Me.CodBarras.Visible = False
-        Me.CodBarras.Width = 90
-        '
-        'Nombre
-        '
-        Me.Nombre.DataPropertyName = "Nombre"
-        Me.Nombre.HeaderText = "Articulo"
-        Me.Nombre.Name = "Nombre"
-        Me.Nombre.ReadOnly = True
-        Me.Nombre.Width = 400
-        '
-        'AlicIVA
-        '
-        Me.AlicIVA.DataPropertyName = "AlicIVA"
-        Me.AlicIVA.HeaderText = "AlicIVA"
-        Me.AlicIVA.Name = "AlicIVA"
-        Me.AlicIVA.ReadOnly = True
-        Me.AlicIVA.Visible = False
-        '
-        'FechaPrecio
-        '
-        Me.FechaPrecio.DataPropertyName = "FechaPrecio"
-        Me.FechaPrecio.HeaderText = "FechaPrecio"
-        Me.FechaPrecio.Name = "FechaPrecio"
-        Me.FechaPrecio.ReadOnly = True
-        Me.FechaPrecio.Visible = False
-        '
-        'PrecioCosto
-        '
-        Me.PrecioCosto.DataPropertyName = "PrecioCosto"
-        Me.PrecioCosto.HeaderText = "PrecioCosto"
-        Me.PrecioCosto.Name = "PrecioCosto"
-        Me.PrecioCosto.ReadOnly = True
-        Me.PrecioCosto.Visible = False
-        '
-        'PrecioVenta
-        '
-        Me.PrecioVenta.DataPropertyName = "PrecioVenta"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.PrecioVenta.DefaultCellStyle = DataGridViewCellStyle9
-        Me.PrecioVenta.HeaderText = "Pcio.Venta"
-        Me.PrecioVenta.Name = "PrecioVenta"
-        Me.PrecioVenta.ReadOnly = True
-        '
-        'PrecioOferta
-        '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        Me.PrecioOferta.DefaultCellStyle = DataGridViewCellStyle10
-        Me.PrecioOferta.HeaderText = "Pcio.Oferta"
-        Me.PrecioOferta.Name = "PrecioOferta"
-        Me.PrecioOferta.ReadOnly = True
-        '
-        'Baja
-        '
-        Me.Baja.DataPropertyName = "Baja"
-        Me.Baja.HeaderText = "Baja"
-        Me.Baja.Name = "Baja"
-        Me.Baja.ReadOnly = True
-        Me.Baja.Visible = False
-        '
-        'IdSeccion
-        '
-        Me.IdSeccion.DataPropertyName = "IdSeccion"
-        Me.IdSeccion.HeaderText = "IdSeccion"
-        Me.IdSeccion.Name = "IdSeccion"
-        Me.IdSeccion.ReadOnly = True
-        Me.IdSeccion.Visible = False
-        '
-        'Seccion
-        '
-        Me.Seccion.DataPropertyName = "Seccion"
-        Me.Seccion.HeaderText = "Seccion"
-        Me.Seccion.Name = "Seccion"
-        Me.Seccion.ReadOnly = True
-        '
-        'EstablecerPrecio
-        '
-        Me.EstablecerPrecio.DataPropertyName = "EstablecerPrecio"
-        Me.EstablecerPrecio.HeaderText = "EtablecerPrecio"
-        Me.EstablecerPrecio.Name = "EstablecerPrecio"
-        Me.EstablecerPrecio.ReadOnly = True
-        Me.EstablecerPrecio.Visible = False
-        '
-        'ActualizarPrecio
-        '
-        Me.ActualizarPrecio.DataPropertyName = "ActualizarPrecio"
-        Me.ActualizarPrecio.HeaderText = "ActualizarPrecio"
-        Me.ActualizarPrecio.Name = "ActualizarPrecio"
-        Me.ActualizarPrecio.ReadOnly = True
-        Me.ActualizarPrecio.Visible = False
-        '
-        'StockC
-        '
-        Me.StockC.DataPropertyName = "StockC"
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockC.DefaultCellStyle = DataGridViewCellStyle11
-        Me.StockC.HeaderText = "Stock C"
-        Me.StockC.Name = "StockC"
-        Me.StockC.ReadOnly = True
-        Me.StockC.Width = 70
-        '
-        'StockF
-        '
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockF.DefaultCellStyle = DataGridViewCellStyle12
-        Me.StockF.HeaderText = "Stock F"
-        Me.StockF.Name = "StockF"
-        Me.StockF.ReadOnly = True
-        Me.StockF.Width = 70
-        '
-        'CodiLP
-        '
-        Me.CodiLP.DataPropertyName = "CodiLP"
-        Me.CodiLP.HeaderText = "CodiLP"
-        Me.CodiLP.Name = "CodiLP"
-        Me.CodiLP.ReadOnly = True
-        Me.CodiLP.Visible = False
-        '
-        'ListaPrecios
-        '
-        Me.ListaPrecios.DataPropertyName = "ListaPrecios"
-        Me.ListaPrecios.HeaderText = "ListaPrecios"
-        Me.ListaPrecios.Name = "ListaPrecios"
-        Me.ListaPrecios.ReadOnly = True
-        '
-        'Laboratorio
-        '
-        Me.Laboratorio.DataPropertyName = "Laboratorio"
-        Me.Laboratorio.HeaderText = "Laboratorio"
-        Me.Laboratorio.Name = "Laboratorio"
-        Me.Laboratorio.ReadOnly = True
-        Me.Laboratorio.Width = 200
         '
         'lblAccionFarmacologica
         '
@@ -381,11 +224,184 @@ Partial Class FrmBuscaArticulos
         Me.Heladera.TabIndex = 17
         Me.Heladera.Text = "Heladera"
         '
+        'IdArticulo
+        '
+        Me.IdArticulo.DataPropertyName = "IdArticulo"
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.IdArticulo.DefaultCellStyle = DataGridViewCellStyle1
+        Me.IdArticulo.HeaderText = "IdArticulo"
+        Me.IdArticulo.Name = "IdArticulo"
+        Me.IdArticulo.ReadOnly = True
+        Me.IdArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.IdArticulo.Visible = False
+        Me.IdArticulo.Width = 5
+        '
+        'Codigo
+        '
+        Me.Codigo.DataPropertyName = "Codigo"
+        Me.Codigo.HeaderText = "Codigo"
+        Me.Codigo.Name = "Codigo"
+        Me.Codigo.ReadOnly = True
+        Me.Codigo.Visible = False
+        '
+        'CodBarras
+        '
+        Me.CodBarras.DataPropertyName = "CodBarras"
+        Me.CodBarras.FillWeight = 90.0!
+        Me.CodBarras.HeaderText = "CodBarras"
+        Me.CodBarras.Name = "CodBarras"
+        Me.CodBarras.ReadOnly = True
+        Me.CodBarras.Visible = False
+        Me.CodBarras.Width = 90
+        '
+        'Nombre
+        '
+        Me.Nombre.DataPropertyName = "Nombre"
+        Me.Nombre.HeaderText = "Articulo"
+        Me.Nombre.Name = "Nombre"
+        Me.Nombre.ReadOnly = True
+        Me.Nombre.Width = 400
+        '
+        'Fraccionable
+        '
+        Me.Fraccionable.DataPropertyName = "Fraccionable"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Fraccionable.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Fraccionable.HeaderText = "Fraccionable"
+        Me.Fraccionable.Name = "Fraccionable"
+        Me.Fraccionable.ReadOnly = True
+        Me.Fraccionable.Width = 80
+        '
+        'AlicIVA
+        '
+        Me.AlicIVA.DataPropertyName = "AlicIVA"
+        Me.AlicIVA.HeaderText = "AlicIVA"
+        Me.AlicIVA.Name = "AlicIVA"
+        Me.AlicIVA.ReadOnly = True
+        Me.AlicIVA.Visible = False
+        '
+        'FechaPrecio
+        '
+        Me.FechaPrecio.DataPropertyName = "FechaPrecio"
+        Me.FechaPrecio.HeaderText = "FechaPrecio"
+        Me.FechaPrecio.Name = "FechaPrecio"
+        Me.FechaPrecio.ReadOnly = True
+        Me.FechaPrecio.Visible = False
+        '
+        'PrecioCosto
+        '
+        Me.PrecioCosto.DataPropertyName = "PrecioCosto"
+        Me.PrecioCosto.HeaderText = "PrecioCosto"
+        Me.PrecioCosto.Name = "PrecioCosto"
+        Me.PrecioCosto.ReadOnly = True
+        Me.PrecioCosto.Visible = False
+        '
+        'PrecioVenta
+        '
+        Me.PrecioVenta.DataPropertyName = "PrecioVenta"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.PrecioVenta.DefaultCellStyle = DataGridViewCellStyle3
+        Me.PrecioVenta.HeaderText = "Pcio.Venta"
+        Me.PrecioVenta.Name = "PrecioVenta"
+        Me.PrecioVenta.ReadOnly = True
+        '
+        'PrecioOferta
+        '
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        Me.PrecioOferta.DefaultCellStyle = DataGridViewCellStyle4
+        Me.PrecioOferta.HeaderText = "Pcio.Oferta"
+        Me.PrecioOferta.Name = "PrecioOferta"
+        Me.PrecioOferta.ReadOnly = True
+        '
+        'Baja
+        '
+        Me.Baja.DataPropertyName = "Baja"
+        Me.Baja.HeaderText = "Baja"
+        Me.Baja.Name = "Baja"
+        Me.Baja.ReadOnly = True
+        Me.Baja.Visible = False
+        '
+        'IdSeccion
+        '
+        Me.IdSeccion.DataPropertyName = "IdSeccion"
+        Me.IdSeccion.HeaderText = "IdSeccion"
+        Me.IdSeccion.Name = "IdSeccion"
+        Me.IdSeccion.ReadOnly = True
+        Me.IdSeccion.Visible = False
+        '
+        'Seccion
+        '
+        Me.Seccion.DataPropertyName = "Seccion"
+        Me.Seccion.HeaderText = "Seccion"
+        Me.Seccion.Name = "Seccion"
+        Me.Seccion.ReadOnly = True
+        '
+        'EstablecerPrecio
+        '
+        Me.EstablecerPrecio.DataPropertyName = "EstablecerPrecio"
+        Me.EstablecerPrecio.HeaderText = "EtablecerPrecio"
+        Me.EstablecerPrecio.Name = "EstablecerPrecio"
+        Me.EstablecerPrecio.ReadOnly = True
+        Me.EstablecerPrecio.Visible = False
+        '
+        'ActualizarPrecio
+        '
+        Me.ActualizarPrecio.DataPropertyName = "ActualizarPrecio"
+        Me.ActualizarPrecio.HeaderText = "ActualizarPrecio"
+        Me.ActualizarPrecio.Name = "ActualizarPrecio"
+        Me.ActualizarPrecio.ReadOnly = True
+        Me.ActualizarPrecio.Visible = False
+        '
+        'StockC
+        '
+        Me.StockC.DataPropertyName = "StockC"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockC.DefaultCellStyle = DataGridViewCellStyle5
+        Me.StockC.HeaderText = "Stock C"
+        Me.StockC.Name = "StockC"
+        Me.StockC.ReadOnly = True
+        Me.StockC.Width = 70
+        '
+        'StockF
+        '
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockF.DefaultCellStyle = DataGridViewCellStyle6
+        Me.StockF.HeaderText = "Stock F"
+        Me.StockF.Name = "StockF"
+        Me.StockF.ReadOnly = True
+        Me.StockF.Width = 70
+        '
+        'CodiLP
+        '
+        Me.CodiLP.DataPropertyName = "CodiLP"
+        Me.CodiLP.HeaderText = "CodiLP"
+        Me.CodiLP.Name = "CodiLP"
+        Me.CodiLP.ReadOnly = True
+        Me.CodiLP.Visible = False
+        '
+        'ListaPrecios
+        '
+        Me.ListaPrecios.DataPropertyName = "ListaPrecios"
+        Me.ListaPrecios.HeaderText = "ListaPrecios"
+        Me.ListaPrecios.Name = "ListaPrecios"
+        Me.ListaPrecios.ReadOnly = True
+        '
+        'Laboratorio
+        '
+        Me.Laboratorio.DataPropertyName = "Laboratorio"
+        Me.Laboratorio.HeaderText = "Laboratorio"
+        Me.Laboratorio.Name = "Laboratorio"
+        Me.Laboratorio.ReadOnly = True
+        Me.Laboratorio.Width = 200
+        '
         'FrmBuscaArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1161, 631)
+        Me.ClientSize = New System.Drawing.Size(1187, 631)
         Me.ControlBox = False
         Me.Controls.Add(Me.Heladera)
         Me.Controls.Add(Me.lblHeladera)
@@ -412,10 +428,25 @@ Partial Class FrmBuscaArticulos
     End Sub
 
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents lblAccionFarmacologica As Label
+    Friend WithEvents lblMonodroga As Label
+    Friend WithEvents lblTrazabilidad As Label
+    Friend WithEvents lblTipoControl As Label
+    Friend WithEvents lblTipoVenta As Label
+    Friend WithEvents lblViaAdministracion As Label
+    Friend WithEvents Monodroga As Label
+    Friend WithEvents AccionFarmacologica As Label
+    Friend WithEvents Trazabilidad As Label
+    Friend WithEvents TipoControl As Label
+    Friend WithEvents TipoVenta As Label
+    Friend WithEvents ViaAdministracion As Label
+    Friend WithEvents lblHeladera As Label
+    Friend WithEvents Heladera As Label
     Friend WithEvents IdArticulo As DataGridViewTextBoxColumn
     Friend WithEvents Codigo As DataGridViewTextBoxColumn
     Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
+    Friend WithEvents Fraccionable As DataGridViewTextBoxColumn
     Friend WithEvents AlicIVA As DataGridViewTextBoxColumn
     Friend WithEvents FechaPrecio As DataGridViewTextBoxColumn
     Friend WithEvents PrecioCosto As DataGridViewTextBoxColumn
@@ -431,18 +462,4 @@ Partial Class FrmBuscaArticulos
     Friend WithEvents CodiLP As DataGridViewTextBoxColumn
     Friend WithEvents ListaPrecios As DataGridViewTextBoxColumn
     Friend WithEvents Laboratorio As DataGridViewTextBoxColumn
-    Friend WithEvents lblAccionFarmacologica As Label
-    Friend WithEvents lblMonodroga As Label
-    Friend WithEvents lblTrazabilidad As Label
-    Friend WithEvents lblTipoControl As Label
-    Friend WithEvents lblTipoVenta As Label
-    Friend WithEvents lblViaAdministracion As Label
-    Friend WithEvents Monodroga As Label
-    Friend WithEvents AccionFarmacologica As Label
-    Friend WithEvents Trazabilidad As Label
-    Friend WithEvents TipoControl As Label
-    Friend WithEvents TipoVenta As Label
-    Friend WithEvents ViaAdministracion As Label
-    Friend WithEvents lblHeladera As Label
-    Friend WithEvents Heladera As Label
 End Class

@@ -60,14 +60,15 @@ Partial Class FrmVentas
         Me.mnuGuardar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEditarElimininarItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEditarAplicarDescuentoItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEditarModificarPrecio = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEliminarItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAplicarDescuentoItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuModificarPrecioItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuObrasSociales = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuNuevaReceta = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDatosReceta = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuElinarReceta = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAutorizarReceta = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCancelarAutorizacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuProcesos = New System.Windows.Forms.ToolStripMenuItem()
         Me.FacturarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -117,7 +118,7 @@ Partial Class FrmVentas
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 411.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 426.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblDescuentos, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
@@ -145,7 +146,7 @@ Partial Class FrmVentas
         '
         Me.lblDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescuentos.Location = New System.Drawing.Point(376, 30)
+        Me.lblDescuentos.Location = New System.Drawing.Point(361, 30)
         Me.lblDescuentos.Name = "lblDescuentos"
         Me.lblDescuentos.Size = New System.Drawing.Size(174, 24)
         Me.lblDescuentos.TabIndex = 8
@@ -156,9 +157,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(559, 30)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(544, 30)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(405, 24)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(420, 24)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "$ 0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -167,9 +168,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(559, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(544, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(405, 24)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(420, 24)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "$ 0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -178,7 +179,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(376, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(361, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
         Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
@@ -189,7 +190,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(376, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(361, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
         Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(174, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 20
@@ -200,9 +201,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(559, 111)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(544, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(405, 68)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(420, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "$ 0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -211,7 +212,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(376, 57)
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(361, 57)
         Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
         Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteOSEtiqueta.TabIndex = 21
@@ -222,7 +223,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteCSEtiqueda.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCSEtiqueda.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(376, 84)
+        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(361, 84)
         Me.lblImporteCSEtiqueda.Name = "lblImporteCSEtiqueda"
         Me.lblImporteCSEtiqueda.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteCSEtiqueda.TabIndex = 22
@@ -233,9 +234,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOS.Location = New System.Drawing.Point(559, 57)
+        Me.lblImporteOS.Location = New System.Drawing.Point(544, 57)
         Me.lblImporteOS.Name = "lblImporteOS"
-        Me.lblImporteOS.Size = New System.Drawing.Size(405, 24)
+        Me.lblImporteOS.Size = New System.Drawing.Size(420, 24)
         Me.lblImporteOS.TabIndex = 23
         Me.lblImporteOS.Text = "$ 0,00"
         Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -244,9 +245,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCS.Location = New System.Drawing.Point(559, 84)
+        Me.lblImporteCS.Location = New System.Drawing.Point(544, 84)
         Me.lblImporteCS.Name = "lblImporteCS"
-        Me.lblImporteCS.Size = New System.Drawing.Size(405, 24)
+        Me.lblImporteCS.Size = New System.Drawing.Size(420, 24)
         Me.lblImporteCS.TabIndex = 24
         Me.lblImporteCS.Text = "$ 0,00"
         Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -261,7 +262,7 @@ Partial Class FrmVentas
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 5)
-        Me.Panel2.Size = New System.Drawing.Size(367, 176)
+        Me.Panel2.Size = New System.Drawing.Size(352, 176)
         Me.Panel2.TabIndex = 25
         '
         'UcReceta1
@@ -448,47 +449,47 @@ Partial Class FrmVentas
         '
         Me.mnuGuardar.Image = CType(resources.GetObject("mnuGuardar.Image"), System.Drawing.Image)
         Me.mnuGuardar.Name = "mnuGuardar"
-        Me.mnuGuardar.Size = New System.Drawing.Size(180, 22)
+        Me.mnuGuardar.Size = New System.Drawing.Size(116, 22)
         Me.mnuGuardar.Text = "&Guardar"
         '
         'mnuSalir
         '
         Me.mnuSalir.Image = CType(resources.GetObject("mnuSalir.Image"), System.Drawing.Image)
         Me.mnuSalir.Name = "mnuSalir"
-        Me.mnuSalir.Size = New System.Drawing.Size(180, 22)
+        Me.mnuSalir.Size = New System.Drawing.Size(116, 22)
         Me.mnuSalir.Text = "&Salir"
         '
         'mnuEditar
         '
-        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditarElimininarItemSeleccionado, Me.mnuEditarAplicarDescuentoItemSeleccionado, Me.mnuEditarModificarPrecio})
+        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEliminarItemSeleccionado, Me.mnuAplicarDescuentoItemSeleccionado, Me.mnuModificarPrecioItemSeleccionado})
         Me.mnuEditar.Name = "mnuEditar"
         Me.mnuEditar.Size = New System.Drawing.Size(49, 20)
         Me.mnuEditar.Text = "&Editar"
         '
-        'mnuEditarElimininarItemSeleccionado
+        'mnuEliminarItemSeleccionado
         '
-        Me.mnuEditarElimininarItemSeleccionado.Image = CType(resources.GetObject("mnuEditarElimininarItemSeleccionado.Image"), System.Drawing.Image)
-        Me.mnuEditarElimininarItemSeleccionado.Name = "mnuEditarElimininarItemSeleccionado"
-        Me.mnuEditarElimininarItemSeleccionado.Size = New System.Drawing.Size(269, 22)
-        Me.mnuEditarElimininarItemSeleccionado.Text = "&Elimininar Item seleccionado"
+        Me.mnuEliminarItemSeleccionado.Image = CType(resources.GetObject("mnuEliminarItemSeleccionado.Image"), System.Drawing.Image)
+        Me.mnuEliminarItemSeleccionado.Name = "mnuEliminarItemSeleccionado"
+        Me.mnuEliminarItemSeleccionado.Size = New System.Drawing.Size(269, 22)
+        Me.mnuEliminarItemSeleccionado.Text = "&Elimininar Item seleccionado"
         '
-        'mnuEditarAplicarDescuentoItemSeleccionado
+        'mnuAplicarDescuentoItemSeleccionado
         '
-        Me.mnuEditarAplicarDescuentoItemSeleccionado.Image = CType(resources.GetObject("mnuEditarAplicarDescuentoItemSeleccionado.Image"), System.Drawing.Image)
-        Me.mnuEditarAplicarDescuentoItemSeleccionado.Name = "mnuEditarAplicarDescuentoItemSeleccionado"
-        Me.mnuEditarAplicarDescuentoItemSeleccionado.Size = New System.Drawing.Size(269, 22)
-        Me.mnuEditarAplicarDescuentoItemSeleccionado.Text = "Aplicar &Descuento Item seleccionado"
+        Me.mnuAplicarDescuentoItemSeleccionado.Image = CType(resources.GetObject("mnuAplicarDescuentoItemSeleccionado.Image"), System.Drawing.Image)
+        Me.mnuAplicarDescuentoItemSeleccionado.Name = "mnuAplicarDescuentoItemSeleccionado"
+        Me.mnuAplicarDescuentoItemSeleccionado.Size = New System.Drawing.Size(269, 22)
+        Me.mnuAplicarDescuentoItemSeleccionado.Text = "Aplicar &Descuento Item seleccionado"
         '
-        'mnuEditarModificarPrecio
+        'mnuModificarPrecioItemSeleccionado
         '
-        Me.mnuEditarModificarPrecio.Image = CType(resources.GetObject("mnuEditarModificarPrecio.Image"), System.Drawing.Image)
-        Me.mnuEditarModificarPrecio.Name = "mnuEditarModificarPrecio"
-        Me.mnuEditarModificarPrecio.Size = New System.Drawing.Size(269, 22)
-        Me.mnuEditarModificarPrecio.Text = "&Modificar precio Item seleccionado"
+        Me.mnuModificarPrecioItemSeleccionado.Image = CType(resources.GetObject("mnuModificarPrecioItemSeleccionado.Image"), System.Drawing.Image)
+        Me.mnuModificarPrecioItemSeleccionado.Name = "mnuModificarPrecioItemSeleccionado"
+        Me.mnuModificarPrecioItemSeleccionado.Size = New System.Drawing.Size(269, 22)
+        Me.mnuModificarPrecioItemSeleccionado.Text = "&Modificar precio Item seleccionado"
         '
         'mnuObrasSociales
         '
-        Me.mnuObrasSociales.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevaReceta, Me.mnuDatosReceta, Me.mnuElinarReceta, Me.mnuAutorizarReceta})
+        Me.mnuObrasSociales.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevaReceta, Me.mnuDatosReceta, Me.mnuElinarReceta, Me.mnuAutorizarReceta, Me.mnuCancelarAutorizacion})
         Me.mnuObrasSociales.Name = "mnuObrasSociales"
         Me.mnuObrasSociales.Size = New System.Drawing.Size(95, 20)
         Me.mnuObrasSociales.Text = "Obras Sociales"
@@ -499,7 +500,7 @@ Partial Class FrmVentas
         Me.mnuNuevaReceta.Name = "mnuNuevaReceta"
         Me.mnuNuevaReceta.ShortcutKeyDisplayString = ""
         Me.mnuNuevaReceta.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.mnuNuevaReceta.Size = New System.Drawing.Size(187, 22)
+        Me.mnuNuevaReceta.Size = New System.Drawing.Size(190, 22)
         Me.mnuNuevaReceta.Text = "Nueva Receta"
         '
         'mnuDatosReceta
@@ -507,7 +508,7 @@ Partial Class FrmVentas
         Me.mnuDatosReceta.Image = CType(resources.GetObject("mnuDatosReceta.Image"), System.Drawing.Image)
         Me.mnuDatosReceta.Name = "mnuDatosReceta"
         Me.mnuDatosReceta.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.I), System.Windows.Forms.Keys)
-        Me.mnuDatosReceta.Size = New System.Drawing.Size(187, 22)
+        Me.mnuDatosReceta.Size = New System.Drawing.Size(190, 22)
         Me.mnuDatosReceta.Text = "Datos Receta"
         '
         'mnuElinarReceta
@@ -515,7 +516,7 @@ Partial Class FrmVentas
         Me.mnuElinarReceta.Image = CType(resources.GetObject("mnuElinarReceta.Image"), System.Drawing.Image)
         Me.mnuElinarReceta.Name = "mnuElinarReceta"
         Me.mnuElinarReceta.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T), System.Windows.Forms.Keys)
-        Me.mnuElinarReceta.Size = New System.Drawing.Size(187, 22)
+        Me.mnuElinarReceta.Size = New System.Drawing.Size(190, 22)
         Me.mnuElinarReceta.Text = "Elinar Receta"
         '
         'mnuAutorizarReceta
@@ -523,8 +524,14 @@ Partial Class FrmVentas
         Me.mnuAutorizarReceta.Image = CType(resources.GetObject("mnuAutorizarReceta.Image"), System.Drawing.Image)
         Me.mnuAutorizarReceta.Name = "mnuAutorizarReceta"
         Me.mnuAutorizarReceta.ShortcutKeys = System.Windows.Forms.Keys.F12
-        Me.mnuAutorizarReceta.Size = New System.Drawing.Size(187, 22)
+        Me.mnuAutorizarReceta.Size = New System.Drawing.Size(190, 22)
         Me.mnuAutorizarReceta.Text = "Autorizar Receta"
+        '
+        'mnuCancelarAutorizacion
+        '
+        Me.mnuCancelarAutorizacion.Name = "mnuCancelarAutorizacion"
+        Me.mnuCancelarAutorizacion.Size = New System.Drawing.Size(190, 22)
+        Me.mnuCancelarAutorizacion.Text = "Cancelar Autorizacion"
         '
         'mnuProcesos
         '
@@ -604,11 +611,11 @@ Partial Class FrmVentas
     Friend WithEvents DatosRecetaToolStripButton As ToolStripButton
     Friend WithEvents AyudaToolStripButton As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents mnuEditarElimininarItemSeleccionado As ToolStripMenuItem
-    Friend WithEvents mnuEditarAplicarDescuentoItemSeleccionado As ToolStripMenuItem
+    Friend WithEvents mnuEliminarItemSeleccionado As ToolStripMenuItem
+    Friend WithEvents mnuAplicarDescuentoItemSeleccionado As ToolStripMenuItem
     Friend WithEvents mnuGuardar As ToolStripMenuItem
     Friend WithEvents mnuSalir As ToolStripMenuItem
-    Friend WithEvents mnuEditarModificarPrecio As ToolStripMenuItem
+    Friend WithEvents mnuModificarPrecioItemSeleccionado As ToolStripMenuItem
     Friend WithEvents SalirToolStripButton As ToolStripButton
     Friend WithEvents mnuProcesos As ToolStripMenuItem
     Friend WithEvents FacturarToolStripMenuItem As ToolStripMenuItem
@@ -639,4 +646,5 @@ Partial Class FrmVentas
     Friend WithEvents mnuDatosReceta As ToolStripMenuItem
     Friend WithEvents mnuElinarReceta As ToolStripMenuItem
     Friend WithEvents mnuAutorizarReceta As ToolStripMenuItem
+    Friend WithEvents mnuCancelarAutorizacion As ToolStripMenuItem
 End Class

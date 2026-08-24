@@ -30,10 +30,38 @@ Public Class UcItemVenta
     End Sub
 
     Protected Overridable Sub OnFraccionadoConfirmado()
-        If ItemVenta IsNot Nothing Then
-            ItemVenta.Fraccionado = Val(txtFraccionado.Text)
-            RaiseEvent FraccionadoConfirmado(Me)
+
+        If ItemVenta Is Nothing Then Exit Sub
+
+        ' Los artículos de una receta NO pueden venderse fraccionados
+        If ItemVenta.Receta IsNot Nothing Then
+
+            ItemVenta.Fraccionado = False
+            txtFraccionado.Text = "0"
+
+            MsgBox("Los artículos de una receta no pueden venderse fraccionados.", vbInformation, "SiCoFa")
+
+            EnfocarCantidad()
+            Exit Sub
+
         End If
+
+        ' Validar que solamente se ingrese 0 o 1
+        If txtFraccionado.Text.Trim() <> "0" AndAlso
+       txtFraccionado.Text.Trim() <> "1" Then
+
+            MsgBox("Ingrese 0 para NO fraccionar o 1 para fraccionar.", vbInformation, "SiCoFa")
+
+            txtFraccionado.SelectAll()
+            Exit Sub
+
+        End If
+
+        ' Guardar el valor en el ItemComprobante
+        ItemVenta.Fraccionado = (txtFraccionado.Text.Trim() = "1")
+
+        RaiseEvent FraccionadoConfirmado(Me)
+
     End Sub
 
     Protected Overridable Sub OnCantidadConfirmada()
@@ -112,7 +140,7 @@ Public Class UcItemVenta
         End If
 
         btnEliminarItem.Visible = True
-        txtFraccionado.Text = CInt(item.Fraccionado).ToString
+        txtFraccionado.Text = If(item.Fraccionado, "1", "0")
         txtCantidad.Text = item.Cantidad.ToString()
         txtAlicIVA.Text = item.AlicIVA.ToString("0.00")
         txtPrecioUnitario.Text = item.PrecioUnitario.ToString("0.00")
@@ -283,6 +311,22 @@ Public Class UcItemVenta
 
     End Sub
 
+    Public Sub EnfocarSiguienteCampo()
+
+        If ItemVenta Is Nothing OrElse ItemVenta.Articulo Is Nothing Then
+            EnfocarDescripcion()
+            Exit Sub
+        End If
+
+        If ItemVenta.Articulo.Fraccionable AndAlso ItemVenta.Receta Is Nothing Then
+            EnfocarFraccionado()
+            Exit Sub
+        End If
+
+        EnfocarCantidad()
+
+    End Sub
+
     Private Sub btnEliminarItem_Click(sender As Object, e As EventArgs) Handles btnEliminarItem.Click
 
         OnItemEliminado()
@@ -291,10 +335,20 @@ Public Class UcItemVenta
 
     Private Sub txtDescripcion_KeyDown(sender As Object, e As KeyEventArgs) Handles txtDescripcion.KeyDown
 
-        If e.KeyCode = Keys.Enter Then
+        If e.KeyCode <> Keys.Enter Then Exit Sub
 
+        e.SuppressKeyPress = True
+
+        'Si ya hay un artículo cargado,
+        'Enter continúa con el siguiente campo.
+        If ItemVenta IsNot Nothing AndAlso ItemVenta.Articulo IsNot Nothing Then
+
+            EnfocarSiguienteCampo()
+
+        Else
+
+            'Si no hay artículo, Enter busca el artículo.
             OnBusquedaArticuloSolicitada()
-            e.SuppressKeyPress = True
 
         End If
 

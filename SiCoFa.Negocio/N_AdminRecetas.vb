@@ -42,7 +42,7 @@ Public Class N_AdminRecetas
 
         Dim iVal As IValidador = S_AdminValidadores.ObtenerValidador(argReceta.Plan.OS.PValidacion.Validador)
         Dim idMsje As Long = Me.ObtenerIdMensajeValidador(argReceta.Plan.OS.PValidacion.Validador)
-        iVal.SolicitarAutorizacion(argIdPC, argReceta, idMsje)
+        iVal.CancelarAutorizacion(argIdPC, argReceta, idMsje)
 
     End Sub
 

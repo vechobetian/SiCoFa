@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Imports System.IO
+Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
@@ -175,6 +176,7 @@ Public Class FrmVentas
 
                 AddHandler uc.ItemEliminado, AddressOf EliminarItem
                 AddHandler uc.BusquedaArticuloSolicitada, AddressOf BuscarArticuloDesdeUC
+                AddHandler uc.FraccionadoConfirmado, AddressOf FraccionadoConfirmado
                 AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
                 AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
                 AddHandler uc.ItemSeleccionado, AddressOf SeleccionarItem
@@ -273,6 +275,7 @@ Public Class FrmVentas
 
         AddHandler uc.ItemEliminado, AddressOf EliminarItem
         AddHandler uc.BusquedaArticuloSolicitada, AddressOf BuscarArticuloDesdeUC
+        AddHandler uc.FraccionadoConfirmado, AddressOf FraccionadoConfirmado
         AddHandler uc.CantidadConfirmada, AddressOf CantidadConfirmada
         AddHandler uc.PrecioConfirmado, AddressOf PrecioConfirmado
         AddHandler uc.ItemSeleccionado, AddressOf SeleccionarItem
@@ -509,6 +512,48 @@ Public Class FrmVentas
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
+
+    End Sub
+
+    Private Sub FraccionadoConfirmado(uc As UcItemVenta)
+
+        Dim item As ItemComprobante = uc.ItemVenta
+
+        If item Is Nothing OrElse item.Articulo Is Nothing Then Exit Sub
+
+        Dim articulo As Articulo = item.Articulo
+
+        If item.Fraccionado Then
+
+            If articulo.UDiv <= 0 Then
+                MsgBox("El artículo no tiene definida una unidad divisora válida para fraccionamiento.", vbCritical, "SiCoFa")
+                Exit Sub
+            End If
+
+            item.Descripcion = articulo.DFrac
+
+            item.PrecioUnitario =
+            Math.Round(
+                articulo.PrecioVenta /
+                articulo.UDiv *
+                (1 + articulo.RFrac / 100),
+                2,
+                MidpointRounding.ToEven
+            )
+
+        Else
+
+            item.Descripcion = articulo.Nombre
+            item.PrecioUnitario = articulo.PrecioVenta
+
+        End If
+
+        uc.Bind(item)
+
+        uc.HabilitarCantidad()
+        uc.EnfocarCantidad()
+
+        ActualizarTotales()
 
     End Sub
 
@@ -755,70 +800,11 @@ Public Class FrmVentas
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
     End Function
 
-    Private Sub ElimininarItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarElimininarItemSeleccionado.Click
-
-        If mobj_ItemSeleccionado Is Nothing Then
-
-            Exit Sub
-
-        End If
-
-        Me.EliminarItem(mobj_ItemSeleccionado.ItemVenta)
-
-    End Sub
-
-    Private Sub AplicarDescuentoItemSeleccionadoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuEditarAplicarDescuentoItemSeleccionado.Click
-
-        Try
-
-            If mobj_ItemSeleccionado Is Nothing Then
-
-                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Exit Sub
-
-            End If
-
-            Dim descuentoStr As String =
-            InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
-
-            If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
-
-            Dim descuentoPorcentaje As Decimal
-
-            If Not Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
-
-                MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-
-            End If
-
-            If descuentoPorcentaje < 0 OrElse descuentoPorcentaje > 100 Then
-
-                MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-
-            End If
-
-            mobj_ItemSeleccionado.ItemVenta.PorcentajeDescuento = descuentoPorcentaje
-
-            ActualizarTotales()
-            RenderItemsUC()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
 
     Private Sub SalirToolStripButton_Click(sender As Object, e As EventArgs) Handles SalirToolStripButton.Click
         Me.Close()
     End Sub
 
-    Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
-        Me.Close()
-    End Sub
 
     Private Sub FacturarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarToolStripMenuItem.Click
         Me.GuardarCambios(Keys.F10)
@@ -1142,6 +1128,17 @@ Public Class FrmVentas
 
             RenderItemsUC()
 
+            If Not String.IsNullOrWhiteSpace(receta.NumAutorizacion) Then
+
+                Dim rutaTicket As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", receta.Plan.OS.PValidacion.Validador & receta.NumAutorizacion & ".pdf")
+
+                If File.Exists(rutaTicket) Then
+
+                    Process.Start(New ProcessStartInfo With {.FileName = "chrome.exe", .Arguments = """" & rutaTicket & """", .UseShellExecute = True})
+
+                End If
+
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -1200,6 +1197,92 @@ Public Class FrmVentas
 
     Private Sub btnSolicitarAutorizacionReceta_Click(sender As Object, e As EventArgs) Handles btnSolicitarAutorizacionReceta.Click
         Me.SolicitarAutorizacionReceta()
+    End Sub
+
+    Private Sub mnuSalir_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
+        Me.Close()
+    End Sub
+
+    Private Sub mnuEliminarItemSeleccionado_Click(sender As Object, e As EventArgs) Handles mnuEliminarItemSeleccionado.Click
+
+        If mobj_ItemSeleccionado Is Nothing Then
+
+            Exit Sub
+
+        End If
+
+        Me.EliminarItem(mobj_ItemSeleccionado.ItemVenta)
+
+    End Sub
+
+    Private Sub mnuAplicarDescuentoItemSeleccionado_Click(sender As Object, e As EventArgs) Handles mnuAplicarDescuentoItemSeleccionado.Click
+
+        Try
+
+            If mobj_ItemSeleccionado Is Nothing Then
+
+                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            Dim descuentoStr As String =
+            InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
+
+            If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
+
+            Dim descuentoPorcentaje As Decimal
+
+            If Not Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
+
+                MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+
+            End If
+
+            If descuentoPorcentaje < 0 OrElse descuentoPorcentaje > 100 Then
+
+                MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+
+            End If
+
+            mobj_ItemSeleccionado.ItemVenta.PorcentajeDescuento = descuentoPorcentaje
+
+            ActualizarTotales()
+            RenderItemsUC()
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuModificarPrecioItemSeleccionado_Click(sender As Object, e As EventArgs) Handles mnuModificarPrecioItemSeleccionado.Click
+
+    End Sub
+
+    Private Sub mnuNuevaReceta_Click(sender As Object, e As EventArgs) Handles mnuNuevaReceta.Click
+        Me.InsertarNuevaReceta()
+    End Sub
+
+    Private Sub mnuDatosReceta_Click(sender As Object, e As EventArgs) Handles mnuDatosReceta.Click
+        Me.DatosReceta()
+    End Sub
+
+    Private Sub mnuElinarReceta_Click(sender As Object, e As EventArgs) Handles mnuElinarReceta.Click
+        Me.EliminarRecetaEnPantalla()
+        MoverItemSeleccionado(1)
+    End Sub
+
+    Private Sub mnuAutorizarReceta_Click(sender As Object, e As EventArgs) Handles mnuAutorizarReceta.Click
+        Me.SolicitarAutorizacionReceta()
+    End Sub
+
+    Private Sub mnuCancelarAutorizacion_Click(sender As Object, e As EventArgs) Handles mnuCancelarAutorizacion.Click
+        Me.SolicitarCancelacionReceta()
     End Sub
 
 End Class

@@ -1,6 +1,5 @@
 ﻿Imports SiCoFa.Negocio
 Imports SiCoFa.Entidades
-Imports SiCoFa.Entidades.Enums
 
 Public Class FrmBuscaArticulos
     Property Articulos As IEnumerable(Of Articulo)
@@ -26,6 +25,7 @@ Public Class FrmBuscaArticulos
                 .Rows(x).Cells("Codigo").Value = a.Codigo
                 .Rows(x).Cells("CodBarras").Value = a.CodBarras
                 .Rows(x).Cells("Nombre").Value = a.Nombre
+                .Rows(x).Cells("Fraccionable").Value = If(a.Fraccionable, "SI", "NO")
                 .Rows(x).Cells("AlicIVA").Value = a.AlicIVA
                 .Rows(x).Cells("FechaPrecio").Value = a.FechaPrecio
                 .Rows(x).Cells("PrecioCosto").Value = a.PrecioCosto
@@ -47,7 +47,7 @@ Public Class FrmBuscaArticulos
         Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(3)
 
     End Sub
-    Private Sub FrmBuscaPersonas_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub FrmBuscaArticulos_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.FormularioCargado = False
         Me.CargarDatosEnDataGridView()
         Me.FormularioCargado = True
