@@ -108,6 +108,7 @@ Public Class FrmFraccionables
 
     End Sub
 
+
     Private Sub Guardar_Click(sender As Object, e As EventArgs) Handles Guardar.Click
         Try
 
@@ -118,26 +119,46 @@ Public Class FrmFraccionables
             End If
 
             If Me.TxtIdArticulo.Text = "" Then
-                MsgBox("El Articulo " & Me.TxtNombre.Text & " no fue dado de Alta", vbInformation, "SiCoFa")
+                MsgBox("El Articulo " & Me.TxtNombre.Text & " no fue dado de Alta",
+                   vbInformation, "SiCoFa")
                 Exit Sub
             End If
 
             Dim adminDB As New N_AdminDB
+
             Dim idArt As String = CStr(Me.TxtIdArticulo.Text)
             Dim frac As Boolean = CBool(UcFraccionable.Id)
             Dim unid As Integer = CInt(Me.TxtUDiv.Text)
             Dim desc As String = CStr(TxtDFrac.Text).ToUpper
-            Dim rec As String = CDec(TxtRecargo.Text)
+            Dim rec As Decimal = CDec(TxtRecargo.Text)
 
+            Dim recSql As String =
+            rec.ToString(Globalization.CultureInfo.InvariantCulture)
 
-            Dim str As String = $"UPDATE articulos SET Fraccionable={frac},UDiv={unid},DFrac='{desc}',RFrac={rec} WHERE IdArticulo='{idArt}'"
-            Dim Actualizado As Boolean = adminDB.ActualizarTablaUpdate(str)
+            Dim str As String =
+            $"UPDATE articulos " &
+            $"SET Fraccionable={CInt(frac)}," &
+            $"UDiv={unid}," &
+            $"DFrac='{desc.Replace("'", "''")}'," &
+            $"RFrac={recSql} " &
+            $"WHERE IdArticulo='{idArt.Replace("'", "''")}'"
+
+            Dim Actualizado As Boolean =
+            adminDB.ActualizarTablaUpdate(str)
 
             If Actualizado = True Then
-                MsgBox("El Articulo " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
+
+                MsgBox("El Articulo " & TxtNombre.Text &
+                   " se actualizó correctamente",
+                   vbInformation, "SiCoFa")
+
             Else
-                MsgBox("Ocurrio un error, intente nuevamente", vbCritical, "SiCoFa")
+
+                MsgBox("Ocurrió un error, intente nuevamente",
+                   vbCritical, "SiCoFa")
+
                 Exit Sub
+
             End If
 
             With Me.ControlesReadOnly
@@ -150,6 +171,7 @@ Public Class FrmFraccionables
             Me.TxtNombre.Select()
 
         Catch ex As Exception
+
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
@@ -216,6 +238,14 @@ Public Class FrmFraccionables
 
         End Try
 
+    End Sub
+
+    Private Sub txtRecargo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TxtRecargo.KeyPress
+        ' Verifica si se presionó el punto
+        If e.KeyChar = "."c Then
+            ' Reemplaza por coma
+            e.KeyChar = ","c
+        End If
     End Sub
 
 End Class
