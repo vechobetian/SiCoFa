@@ -107,6 +107,7 @@ Public Class Articulo
         Me.Fraccionable = argFraccionable
         Me.DFrac = argDFrac
         Me.UDiv = argUDiv
+        Me.RFrac = argRFrac
         Me.Gravamen = argGravamen
         Me.CodiFF = argCodiFF
         Me.Potencia = argPotencia
