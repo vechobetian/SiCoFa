@@ -15,10 +15,12 @@ Public Class COMPA
     Private Const COD_ACCION_AUTORIZACION As String = "290020"
     Private Const COD_ACCION_CANCELACION As String = "20010"
 
-    Private Const UrlProduccion As String = "http://Ia.plataformacsf.com/SaludIA/services/IAService.wsdl"
-    Private Const UrlTest As String = "https://qa.plataformacsf.com/SaludIA/services/IAService.wsdl"
+    Private Const UrlVentaProduccion As String = "http://Ia.plataformacsf.com/SaludIA/services/IAService.wsdl"
+    Private Const UrlVentaTest As String = "https://qa.plataformacsf.com/SaludIA/services/IAService.wsdl"
+    Private Const UrlRecetaElectronicaTest As String = "https://qa.plataformacsf.com/services/IAService"
+    Private Const UrlRecetaElectronicaProduccion As String = "https://ws.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
-    Private Function EnviarSoap(argXmlAdesfa As String) As XmlDocument
+    Private Function EnviarSoap(url As String, argXmlAdesfa As String) As XmlDocument
 
         Dim soap As String =
         $"<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" 
@@ -35,7 +37,7 @@ Public Class COMPA
 
         IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
 
-        Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, soap)
+        Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soap)
 
         IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
 
@@ -51,7 +53,20 @@ Public Class COMPA
 
     Private Function ConsultaRecetaElectronica(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As Receta Implements IValidador.ConsultaRecetaElectronica
 
-        Throw New NotSupportedException(argReceta.Plan.OS.PValidacion.Descripcion & " no acepta consulta de receta electronica.")
+        Try
+
+            Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetaElectronica(argIdPC, argReceta, argIdMensaje)
+            Dim xmlResponse As XmlDocument = EnviarSoap(UrlRecetaElectronicaTest, xmlAdesfa)
+
+            VerificarRespuestaGeneral(xmlResponse)
+
+            ParsearAutorizacion(argReceta, xmlResponse)
+
+        Catch ex As Exception
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "AutorizacionReceta", ex.Message))
+
+        End Try
+
 
     End Function
 
@@ -60,7 +75,7 @@ Public Class COMPA
         Try
 
             Dim xmlAdesfa As String = MensajeAdesfaAutorizacion(argIdPC, argReceta, argIdMensaje)
-            Dim xmlResponse As XmlDocument = EnviarSoap(xmlAdesfa)
+            Dim xmlResponse As XmlDocument = EnviarSoap(UrlVentaProduccion, xmlAdesfa)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -78,7 +93,7 @@ Public Class COMPA
         Try
 
             Dim xmlAdesfa As String = MensajeAdesfaCancelacion(argIdPC, argReceta, argIdMensaje)
-            Dim xmlResponse As XmlDocument = EnviarSoap(xmlAdesfa)
+            Dim xmlResponse As XmlDocument = EnviarSoap(UrlVentaProduccion, xmlAdesfa)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -96,6 +111,156 @@ Public Class COMPA
         writer.WriteElementString(nombre, If(valor, ""))
 
     End Sub
+
+    Private Function MensajeAdesfaConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long, argTipoMensaje As String) As String
+
+        Dim settings As New XmlWriterSettings With {
+        .Indent = True,
+        .OmitXmlDeclaration = True}
+
+        Dim sb As New StringBuilder()
+        Dim argFechaHora As DateTime = DateTime.Now
+        Dim cuitFinanciador As String = Strings.Right(argPValidacion.Financiador, 11)
+
+        Using writer As XmlWriter = XmlWriter.Create(sb, settings)
+
+            writer.WriteStartElement("MensajeADESFA")
+            writer.WriteAttributeString("version", "3.1.0")
+
+            writer.WriteStartElement("EncabezadoMensaje")
+
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "490220")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
+
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Cuit", argPValidacion.CuitPrestador)
+            writer.WriteElementString("Codigo", argPValidacion.NumPrestador)
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoMensaje
+
+            writer.WriteStartElement("EncabezadoReceta")
+
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Codigo", cuitFinanciador)
+            writer.WriteElementString("Cuit", cuitFinanciador)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", argCredencial.Numero)
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoReceta
+
+            writer.WriteEndElement() 'MensajeAdesfa
+
+        End Using
+
+        Return sb.ToString()
+
+    End Function
+
+    Private Function MensajeAdesfaConsultaRecetaElectronica(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
+
+        Dim settings As New XmlWriterSettings With {
+        .Indent = True,
+        .OmitXmlDeclaration = True}
+
+        Dim sb As New StringBuilder()
+        Dim argFechaHora As DateTime = DateTime.Now
+        Dim cuitFinanciador As String = Strings.Right(argReceta.Plan.OS.PValidacion.Financiador, 11)
+
+        Using writer As XmlWriter = XmlWriter.Create(sb, settings)
+
+            writer.WriteStartElement("MensajeADESFA")
+            writer.WriteAttributeString("version", "3.1.0")
+
+            writer.WriteStartElement("EncabezadoMensaje")
+
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "490120")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
+
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Sucursal", "")
+            writer.WriteElementString("RazonSocial", "")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.NumPrestador)
+            writer.WriteElementString("Vendedor", "")
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoMensaje
+
+            writer.WriteStartElement("EncabezadoReceta")
+
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+            writer.WriteElementString("Cuit", "")
+            writer.WriteElementString("Sucursal", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+            writer.WriteElementString("Track", "")
+            writer.WriteElementString("Version", "")
+            writer.WriteElementString("Vencimiento", "")
+            writer.WriteElementString("ModoIngreso", "")
+            writer.WriteElementString("EsProvisorio", "")
+            writer.WriteElementString("Plan", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Formulario")
+            writer.WriteElementString("Fecha", "")
+            writer.WriteElementString("Tipo", "")
+            writer.WriteElementString("Numero", argReceta.NumReceta)
+            writer.WriteElementString("Serie", "")
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoReceta
+
+            writer.WriteEndElement() 'MensajeAdesfa
+        End Using
+
+        Return sb.ToString()
+
+    End Function
 
     Private Function MensajeAdesfaAutorizacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
 

@@ -23,7 +23,7 @@ Public Class ITC
 
         Try
 
-            Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetas(argIdPC, argCredencial, argPValidacion, argIdMensaje, "200")
+            Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetasBeneficiario(argIdPC, argCredencial, argPValidacion, argIdMensaje, "200")
             Dim empresa As String = Strings.Left(argPValidacion.Financiador, 2)
 
             Dim soap As String =
@@ -65,7 +65,7 @@ Public Class ITC
 
         Try
 
-            Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetaElectronica(argIdPC, argReceta, argIdMensaje, "200")
+            Dim xmlAdesfa As String = MensajeAdesfaConsultaRecetaElectronica(argIdPC, argReceta, argIdMensaje)
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
             Dim empresa As String = Strings.Left(pVal.Financiador, 2)
 
@@ -223,7 +223,7 @@ Public Class ITC
 
     End Sub
 
-    Private Function MensajeAdesfaConsultaRecetas(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long, argTipoMensaje As String) As String
+    Private Function MensajeAdesfaConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long, argTipoMensaje As String) As String
 
         Dim settings As New XmlWriterSettings With {
         .Indent = True,
@@ -290,7 +290,7 @@ Public Class ITC
 
     End Function
 
-    Private Function MensajeAdesfaConsultaRecetaElectronica(argIdPC As String, argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
+    Private Function MensajeAdesfaConsultaRecetaElectronica(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
 
         Dim settings As New XmlWriterSettings With {
         .Indent = True,
