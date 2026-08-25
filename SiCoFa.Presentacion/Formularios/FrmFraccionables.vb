@@ -127,9 +127,10 @@ Public Class FrmFraccionables
             Dim frac As Boolean = CBool(UcFraccionable.Id)
             Dim unid As Integer = CInt(Me.TxtUDiv.Text)
             Dim desc As String = CStr(TxtDFrac.Text).ToUpper
-            Dim rec As Decimal = CDec(TxtRecargo.Text)
+            Dim rec As String = CDec(TxtRecargo.Text)
 
-            Dim str As String = $"UPDATE articulos SET Fraccionable={frac},UDiv={unid},DFrac='{desc}',RFrac={rec.ToString(Globalization.CultureInfo.InvariantCulture)} WHERE IdArticulo='{idArt}'"
+
+            Dim str As String = $"UPDATE articulos SET Fraccionable={frac},UDiv={unid},DFrac='{desc}',RFrac={rec} WHERE IdArticulo='{idArt}'"
             Dim Actualizado As Boolean = adminDB.ActualizarTablaUpdate(str)
 
             If Actualizado = True Then
