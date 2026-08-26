@@ -101,6 +101,7 @@ Public Class D_AdminItemsComprobante
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
                     .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
+                    .Add("p_Fraccionado", MySqlDbType.Bit).Value = argItemComprobante.Fraccionado
                     .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad
                     .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
                     .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto

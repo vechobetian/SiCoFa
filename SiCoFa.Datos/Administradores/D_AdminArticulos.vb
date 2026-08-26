@@ -411,7 +411,7 @@ Public Class D_AdminArticulos
 
         Try
 
-            Using cmd As New MySqlCommand("sp_actualizar_stock_c", cn) With {.CommandType = CommandType.StoredProcedure}
+            Using cmd As New MySqlCommand("sp_actualizar_stock", cn) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                     .Add("p_EfInv", MySqlDbType.Int16).Value = argEfectoInventario
