@@ -1202,7 +1202,6 @@ Public Class FrmVentas
     Private Sub mnuSalir_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
         Me.Close()
     End Sub
-
     Private Sub mnuEliminarItemSeleccionado_Click(sender As Object, e As EventArgs) Handles mnuEliminarItemSeleccionado.Click
 
         If mobj_ItemSeleccionado Is Nothing Then
@@ -1226,8 +1225,7 @@ Public Class FrmVentas
 
             End If
 
-            Dim descuentoStr As String =
-            InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
+            Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Aplicar Descuento", "0")
 
             If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
 
@@ -1261,6 +1259,54 @@ Public Class FrmVentas
     End Sub
 
     Private Sub mnuModificarPrecioItemSeleccionado_Click(sender As Object, e As EventArgs) Handles mnuModificarPrecioItemSeleccionado.Click
+        Try
+
+            If mobj_ItemSeleccionado Is Nothing Then
+
+                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            Dim u As Usuario = ModSeguridad.ValidarUsuario("MODIFICAR_PRECIO")
+
+            If u Is Nothing Then
+
+            Else
+                Exit Sub
+            End If
+
+            Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Modificar Precio Unitario", "0")
+
+            If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
+
+            Dim descuentoPorcentaje As Decimal
+
+            If Not Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
+
+                MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+
+            End If
+
+            If descuentoPorcentaje < 0 OrElse descuentoPorcentaje > 100 Then
+
+                MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+
+            End If
+
+            mobj_ItemSeleccionado.ItemVenta.PorcentajeDescuento = descuentoPorcentaje
+
+            ActualizarTotales()
+            RenderItemsUC()
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
 
     End Sub
 

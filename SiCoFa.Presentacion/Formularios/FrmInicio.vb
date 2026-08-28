@@ -53,11 +53,13 @@ Public Class FrmInicio
 
     Private Sub mnuCajaMovimientos_Click(sender As Object, e As EventArgs) Handles mnuCajaMovimientos.Click
 
-        If ModSeguridad.ValidarUsuario(Me.mnuCajaMovimientos.Name) Is Nothing Then
+        Dim u As Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaMovimientos.Name)
+
+        If u Is Nothing Then
             Exit Sub
         End If
 
-        FrmCajas.Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaMovimientos.Name)
+        FrmCajas.Usuario = u
         FrmCajas.Show()
 
     End Sub
