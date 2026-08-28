@@ -9,12 +9,12 @@ Public Class FrmBuscaCtasCorrriente
         Dim c As New CuentaCorriente(
                             Me.DataGridView1.CurrentRow.Cells("IdCC").Value,
                             Me.DataGridView1.CurrentRow.Cells("IdCliente").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Decripcion").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Descripcion").Value,
                             Me.DataGridView1.CurrentRow.Cells("Credito").Value,
                             Me.DataGridView1.CurrentRow.Cells("FechaAlta").Value,
                             Me.DataGridView1.CurrentRow.Cells("Observaciones").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Saldo").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Estado").Value
+                            Me.DataGridView1.CurrentRow.Cells("Estado").Value,
+                            Me.DataGridView1.CurrentRow.Cells("Saldo").Value
                             )
         Me.CuentaSeleccionada = c
 
@@ -29,6 +29,7 @@ Public Class FrmBuscaCtasCorrriente
                 .Rows(x).Cells("IdCliente").Value = c.IdCliente
                 .Rows(x).Cells("Descripcion").Value = c.Descripcion
                 .Rows(x).Cells("Credito").Value = c.Credito
+                .Rows(x).Cells("FechaAlta").Value = c.FechaAlta
                 .Rows(x).Cells("Observaciones").Value = c.Observaciones
                 .Rows(x).Cells("Saldo").Value = c.Saldo
                 .Rows(x).Cells("CreditoDisponible").Value = c.CreditoDisponible
@@ -36,7 +37,7 @@ Public Class FrmBuscaCtasCorrriente
             End With
             x += 1
         Next
-        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(1)
+
     End Sub
 
     Private Sub FrmBuscaCtasCorriente_Load(sender As Object, e As EventArgs) Handles Me.Load

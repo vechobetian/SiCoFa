@@ -610,7 +610,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
+    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Long
 
         Dim objConexionDB As New D_Conexion
 
@@ -623,11 +623,11 @@ Public Class D_AdminOperaciones
                     argOperacion = IniciarOperacion(argOperacion.Empresa, argOperacion.Usuario, argOperacion.TipoOperacion, argOperacion.Observaciones, argOperacion.EstadoOperacion, cn, tx)
 
                     If argOperacionCC IsNot Nothing Then
-                        Me.InsertarOperacionCC(argOperacionCC.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, "NO CANCELADO", 0, cn, tx)
+                        Me.InsertarOperacionCC(argOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, "NO CANCELADO", 0, cn, tx)
                     End If
 
                     If argOperacionPE IsNot Nothing Then
-                        Me.InsertarOperacionPE(argOperacionPE.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
+                        Me.InsertarOperacionPE(argOperacion.IdOperacion, argOperacionPE.IdMPE, argOperacionPE.Importe, cn, tx)
                     End If
 
                     If argRecetas IsNot Nothing Then
@@ -656,7 +656,7 @@ Public Class D_AdminOperaciones
                     Me.FinalizarOperacion(argMacAddress, argOperacion, True, cn, tx)
 
                     tx.Commit()
-                    Return True
+                    Return argOperacion.IdOperacion
 
                 Catch ex As Exception
                     tx.Rollback()

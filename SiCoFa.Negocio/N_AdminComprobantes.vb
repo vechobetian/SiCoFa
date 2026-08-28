@@ -85,7 +85,7 @@ Public Class N_AdminComprobantes
                 GenerarQR(argComprobante)
                 Dim obj_D_AdminComprobantes As New D_AdminComprobantes
                 Dim Actualizado As Boolean = obj_D_AdminComprobantes.ActualizarCAE(argComprobante)
-                Return Actualizado
+                Return True
 
             Else
                 Return False

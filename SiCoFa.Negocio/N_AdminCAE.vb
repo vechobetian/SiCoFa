@@ -150,8 +150,10 @@ Public Class N_AdminCAE
                 For Each o In r.FeDetResp(0).Observaciones
                     Me.Observaciones &= String.Format("Ob: {0} ({1})", o.Msg, o.Code) & vbCrLf
                 Next
+
                 Throw New Exception(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
                 'MsgBox(Vecho.MensajeError(Me.ToString, "ObtenerCAE", Observaciones))
+
             End If
 
             If r.Errors IsNot Nothing Then

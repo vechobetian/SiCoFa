@@ -8,7 +8,7 @@ Public Class D_AdminItemsComprobante
         Dim objLI As New List(Of ItemComprobante)
 
         Try
-            Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM vw_items_comprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
+            Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Fraccionado,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM vw_items_comprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 

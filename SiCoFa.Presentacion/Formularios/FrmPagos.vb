@@ -306,6 +306,8 @@ Public Class FrmPagos
 
     Private Sub FinalizarVenta()
 
+        Dim idOperacion As Long = 0
+
         Try
 
             Dim objCC As OperacionCC = Nothing
@@ -369,7 +371,7 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC, Recetas, ItemsComprobante)
+            idOperacion = mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC, Recetas, ItemsComprobante)
 
             If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
                 Dim obj_N_AdminComprobantes As New N_AdminComprobantes
@@ -392,9 +394,9 @@ Public Class FrmPagos
             Me.Close()
 
         Catch ex As Exception
-            mobj_AdminOperacion.RegistrarError(Me.Operacion.IdOperacion, ex.ToString)
+            mobj_AdminOperacion.RegistrarError(idOperacion, ex.ToString)
             MsgBox(ex.Message, vbCritical, "SiCoFa")
-            Me.FrmOrigen.Close()
+            'Me.FrmOrigen.Close()
             Me.Close()
 
         End Try

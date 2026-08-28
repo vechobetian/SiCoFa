@@ -269,24 +269,24 @@ Public Class D_AdminClientes
     Public Function ListarCuentasCorriente(ByVal argTextoBuscado As String) As List(Of CuentaCorriente)
         Dim objConexionDB As New D_Conexion
         Dim lc As New List(Of CuentaCorriente)
-        Dim c As CuentaCorriente
 
         Try
             Dim sql As String
-            If argTextoBuscado = "*" Then
-                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente ORDER BY Descripcion"
+            If argTextoBuscado.Trim() = "*" OrElse String.IsNullOrWhiteSpace(argTextoBuscado) Then
+                sql = "SELECT IdCC, IdCliente, Descripcion, Credito, FechaAlta, Observaciones, Estado, Saldo FROM vw_cuentas_corriente ORDER BY Descripcion"
             Else
-                sql = "SELECT IdCC,IdCliente,Descripcion,Credito,FechaAlta,Observaciones,Estado,Saldo FROM vw_cuentas_corriente WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
+                sql = "SELECT IdCC, IdCliente, Descripcion, Credito, FechaAlta, Observaciones, Estado, Saldo FROM vw_cuentas_corriente WHERE Descripcion LIKE @Descripcion ORDER BY Descripcion"
             End If
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
-                Using cmd As MySqlCommand = cn.CreateCommand
+                Using cmd As MySqlCommand = cn.CreateCommand()
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
 
-                    If argTextoBuscado <> "*" Then
-                        cmd.Parameters.AddWithValue("@Descripcion", Replace(UCase(argTextoBuscado), " ", "%") & "%")
+                    If argTextoBuscado.Trim() <> "*" AndAlso Not String.IsNullOrWhiteSpace(argTextoBuscado) Then
+                        Dim patronBusqueda As String = "%" & Replace(argTextoBuscado.Trim().ToUpper(), " ", "%") & "%"
+                        cmd.Parameters.AddWithValue("@Descripcion", patronBusqueda)
                     End If
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
@@ -299,33 +299,29 @@ Public Class D_AdminClientes
                         Dim estadoOrdinal As Integer = datos.GetOrdinal("Estado")
                         Dim saldoOrdinal As Integer = datos.GetOrdinal("Saldo")
 
-                        While datos.Read
+                        While datos.Read()
                             Dim IdCCResult As Int32 = Convert.ToInt32(datos(idCCOrdinal))
                             Dim IdClienteResult As Int32 = Convert.ToInt32(datos(idClienteOrdinal))
-                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
-                            Dim CreditoResul As Decimal = Convert.ToDecimal(creditoOrdinal)
+                            Dim DescripcionResult As String = If(datos.IsDBNull(descripcionOrdinal), String.Empty, datos.GetString(descripcionOrdinal))
+                            Dim CreditoResult As Decimal = If(datos.IsDBNull(creditoOrdinal), 0D, Convert.ToDecimal(datos(creditoOrdinal)))
                             Dim FechaAltaResult As Date = Convert.ToDateTime(datos(fechaAltaOrdinal))
-                            Dim ObservacionesResult As String = datos.GetString(observacionesOrdinal)
-                            Dim EstadoResult As String = datos.GetString(estadoOrdinal)
-                            Dim SaldoResult As Decimal = Convert.ToDecimal(saldoOrdinal)
-                            c = New CuentaCorriente(IdCCResult, IdClienteResult, DescripcionResult, CreditoResul, FechaAltaResult, ObservacionesResult, EstadoResult, SaldoResult)
+                            Dim ObservacionesResult As String = If(datos.IsDBNull(observacionesOrdinal), String.Empty, datos.GetString(observacionesOrdinal))
+                            Dim EstadoResult As String = If(datos.IsDBNull(estadoOrdinal), String.Empty, datos.GetString(estadoOrdinal))
+                            Dim SaldoResult As Decimal = If(datos.IsDBNull(saldoOrdinal), 0D, Convert.ToDecimal(datos(saldoOrdinal)))
+
+                            Dim c As New CuentaCorriente(IdCCResult, IdClienteResult, DescripcionResult, CreditoResult, FechaAltaResult, ObservacionesResult, EstadoResult, SaldoResult)
                             lc.Add(c)
                         End While
 
                     End Using
-
                 End Using
-
             End Using
 
             Return lc
 
         Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarCuentasCorriente), ex.Message))
-            Return Nothing
-
+            Throw New Exception(Vecho.MensajeError(Me.ToString(), NameOf(ListarCuentasCorriente), ex.Message))
         End Try
-
     End Function
 
     Public Function InsertarCuentaCorriente(
