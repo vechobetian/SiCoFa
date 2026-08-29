@@ -205,14 +205,14 @@ Public Class D_AdminArticulos
 
     End Function
 
-    Public Function ListarArticulos(ByVal argTextoBuscado As String) As List(Of Articulo)
+    Public Function ListarArticulos(argTextoBuscado As String, Optional argBajas As Boolean = False) As List(Of Articulo)
 
         Dim objConexionDB As New D_Conexion
         Dim objLA As New List(Of Articulo)
 
         Try
 
-            Dim sql As String = "SELECT IdArticulo,
+            Dim sql As String = $"SELECT IdArticulo,
                                         Codigo,
                                         CodBarras,
                                         NTroquel,
@@ -257,7 +257,7 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE Nombre LIKE @Nombre OR Codigo = @NTroquel OR CodBarras = @CodBarras 
+                                WHERE (Nombre LIKE @Nombre OR NTroquel = @NTroquel OR CodBarras = @CodBarras) AND Baja=@Bajas
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -268,10 +268,9 @@ Public Class D_AdminArticulos
                     cmd.CommandText = sql
 
                     cmd.Parameters.AddWithValue("@Nombre", Replace(UCase(argTextoBuscado), " ", "%") & "%")
-
                     cmd.Parameters.AddWithValue("@NTroquel", argTextoBuscado)
-
                     cmd.Parameters.AddWithValue("@CodBarras", argTextoBuscado)
+                    cmd.Parameters.AddWithValue("@Bajas", argBajas)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
@@ -297,7 +296,7 @@ Public Class D_AdminArticulos
 
     End Function
 
-    Public Function ListarArticulosEquivalentes(ByVal argArticulo As Articulo) As List(Of Articulo)
+    Public Function ListarArticulosEquivalentes(ByVal argArticulo As Articulo, Optional argBajas As Boolean = False) As List(Of Articulo)
 
         Dim objConexionDB As New D_Conexion
         Dim objLA As New List(Of Articulo)
@@ -349,7 +348,7 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE CodiMon = @CodiMon AND CodiFF=@CodiFF AND Potencia=@Potencia AND CodiUP=@CodiUP AND CodiTU=@CodiTU  
+                                WHERE CodiMon = @CodiMon AND CodiFF=@CodiFF AND Potencia=@Potencia AND CodiUP=@CodiUP AND CodiTU=@CodiTU AND Baja=@Bajas
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -364,6 +363,7 @@ Public Class D_AdminArticulos
                     cmd.Parameters.AddWithValue("@Potencia", argArticulo.Potencia)
                     cmd.Parameters.AddWithValue("@CodiUP", argArticulo.CodiUP)
                     cmd.Parameters.AddWithValue("@CodiTU", argArticulo.CodiTU)
+                    cmd.Parameters.AddWithValue("@Bajas", argBajas)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
@@ -389,7 +389,7 @@ Public Class D_AdminArticulos
 
     End Function
 
-    Public Function ListarArticulosCodiAcFa(ByVal argCodiAcFa As Integer) As List(Of Articulo)
+    Public Function ListarArticulosCodiAcFa(ByVal argCodiAcFa As Integer, Optional argBajas As Boolean = False) As List(Of Articulo)
 
         Dim objConexionDB As New D_Conexion
         Dim objLA As New List(Of Articulo)
@@ -441,7 +441,7 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE CodiAcFa = @CodiAcFa 
+                                WHERE CodiAcFa = @CodiAcFa AND Baja=@Bajas
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -452,6 +452,7 @@ Public Class D_AdminArticulos
                     cmd.CommandText = sql
 
                     cmd.Parameters.AddWithValue("@CodiAcFa", argCodiAcFa)
+                    cmd.Parameters.AddWithValue("@Bajas", argBajas)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
@@ -477,7 +478,7 @@ Public Class D_AdminArticulos
 
     End Function
 
-    Public Function ListarArticulosCodiMon(ByVal argCodiMon As Integer) As List(Of Articulo)
+    Public Function ListarArticulosCodiMon(ByVal argCodiMon As Integer, Optional argBajas As Boolean = False) As List(Of Articulo)
 
         Dim objConexionDB As New D_Conexion
         Dim objLA As New List(Of Articulo)
@@ -529,7 +530,7 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE CodiMon = @CodiMon
+                                WHERE CodiMon = @CodiMon AND Baja=@Bajas
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -540,6 +541,7 @@ Public Class D_AdminArticulos
                     cmd.CommandText = sql
 
                     cmd.Parameters.AddWithValue("@CodiMon", argCodiMon)
+                    cmd.Parameters.AddWithValue("@Bajas", argBajas)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 

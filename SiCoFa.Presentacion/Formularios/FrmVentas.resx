@@ -181,18 +181,26 @@
         uHl7/JqQvr/K2u55wzCMKWMweAXoaE46+job4QAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="NuevaRecetaToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnCancelarAutorizacion.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
+        0o8AAAAASUVORK5CYII=
 </value>
   </data>
   <data name="DatosRecetaToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -326,7 +334,7 @@
   <data name="mnuPresentacionesEquivalentes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAABFFJREFUeF7tmsmKLEUUhltdOIO68qroShH1CRzwooJuXLnShbMbZwWHqy5EF4JP
+        DAAACwwBP0AiyAAABFFJREFUeF7tmsmKLEUUhltdOIO68qroShH1CRzwooJuXLnShbMbZwWHqy5EF4JP
         4CMojuAruHAWnMWVOCCIs6Cu9P8u/cNPEZmVGVFZ3dnkBx90neo6lSezIjIiMnYWFhYWFhYWajhD3i7f
         kF/Kv3bl79flbfJ0eeA4UT4pf5f/rfE3+YTkMweCs+S7slRsnx/Jc+WsOUd+J7Owj+U98hJ5/G6sy2/l
         2XKW8BP+QLqYf+Td8liZZMEl35MnyNlBm3cRf8urpLlWvil/kllsl4/LWUFvnx0eVx64+i/ILG6IdIyz
@@ -350,7 +358,7 @@
   <data name="mnuPresentacionesConIgualAccionFarmacologica.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DQAACw0B7QfALAAABFFJREFUeF7tmsmKLEUUhltdOIO68qroShH1CRzwooJuXLnShbMbZwWHqy5EF4JP
+        DAAACwwBP0AiyAAABFFJREFUeF7tmsmKLEUUhltdOIO68qroShH1CRzwooJuXLnShbMbZwWHqy5EF4JP
         4CMojuAruHAWnMWVOCCIs6Cu9P8u/cNPEZmVGVFZ3dnkBx90neo6lSezIjIiMnYWFhYWFhYWajhD3i7f
         kF/Kv3bl79flbfJ0eeA4UT4pf5f/rfE3+YTkMweCs+S7slRsnx/Jc+WsOUd+J7Owj+U98hJ5/G6sy2/l
         2XKW8BP+QLqYf+Td8liZZMEl35MnyNlBm3cRf8urpLlWvil/kllsl4/LWUFvnx0eVx64+i/ILG6IdIyz
@@ -374,7 +382,7 @@
   <data name="mnuPresentacionesConIgualMonodroga.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EQAACxEBf2RfkQAABFFJREFUeF7tmsmKLEUUhltdOIO68qroShH1CRzwooJuXLnShbMbZwWHqy5EF4JP
+        DAAACwwBP0AiyAAABFFJREFUeF7tmsmKLEUUhltdOIO68qroShH1CRzwooJuXLnShbMbZwWHqy5EF4JP
         4CMojuAruHAWnMWVOCCIs6Cu9P8u/cNPEZmVGVFZ3dnkBx90neo6lSezIjIiMnYWFhYWFhYWajhD3i7f
         kF/Kv3bl79flbfJ0eeA4UT4pf5f/rfE3+YTkMweCs+S7slRsnx/Jc+WsOUd+J7Owj+U98hJ5/G6sy2/l
         2XKW8BP+QLqYf+Td8liZZMEl35MnyNlBm3cRf8urpLlWvil/kllsl4/LWUFvnx0eVx64+i/ILG6IdIyz
