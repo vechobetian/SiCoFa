@@ -57,6 +57,50 @@ Public Class N_AdminArticulos
 
         End Try
     End Function
+
+    Public Function ListarArticulosEquivalentes(ByVal argArticulo As Articulo) As List(Of Articulo)
+        Dim AdminArticulos As New D_AdminArticulos
+        Dim la As List(Of Articulo)
+        Try
+            la = AdminArticulos.ListarArticulosEquivalentes(argArticulo)
+            Return la
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulosEquivalentes", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
+    Public Function ListarArticulosCodiAcFa(ByVal argCodiAcFa As Integer) As List(Of Articulo)
+        Dim AdminArticulos As New D_AdminArticulos
+        Dim la As List(Of Articulo)
+        Try
+            la = AdminArticulos.ListarArticulosCodiAcFa(argCodiAcFa)
+            Return la
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulosCodiAcFa", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
+    Public Function ListarArticulosCodiMon(ByVal argCodiMon As Integer) As List(Of Articulo)
+        Dim AdminArticulos As New D_AdminArticulos
+        Dim la As List(Of Articulo)
+        Try
+            la = AdminArticulos.ListarArticulosCodiMon(argCodiMon)
+            Return la
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "ListarArticulosCodiMon", ex.Message))
+            Return Nothing
+
+        End Try
+    End Function
+
+
     Public Function InsertarArticulo(
                                     argCodBarras As String,
                                     argNTroquel As String,

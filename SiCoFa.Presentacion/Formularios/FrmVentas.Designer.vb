@@ -37,7 +37,6 @@ Partial Class FrmVentas
         Me.lblImporteOS = New System.Windows.Forms.Label()
         Me.lblImporteCS = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.UcReceta1 = New SiCoFa.Presentacion.UcReceta()
         Me.lblDatosOperacion = New System.Windows.Forms.Label()
         Me.lblCantidadItems = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -59,10 +58,11 @@ Partial Class FrmVentas
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuGuardar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEliminarItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAplicarDescuentoItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuModificarPrecioItemSeleccionado = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPresentacionesConIgualAccionFarmacologica = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuObrasSociales = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuNuevaReceta = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDatosReceta = New System.Windows.Forms.ToolStripMenuItem()
@@ -74,6 +74,9 @@ Partial Class FrmVentas
         Me.RemitoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PresupuestoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelItems = New System.Windows.Forms.Panel()
+        Me.mnuPresentacionesEquivalentes = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPresentacionesConIgualMonodroga = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UcReceta1 = New SiCoFa.Presentacion.UcReceta()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
@@ -118,7 +121,7 @@ Partial Class FrmVentas
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 435.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 453.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblDescuentos, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
@@ -146,7 +149,7 @@ Partial Class FrmVentas
         '
         Me.lblDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescuentos.Location = New System.Drawing.Point(352, 30)
+        Me.lblDescuentos.Location = New System.Drawing.Point(334, 30)
         Me.lblDescuentos.Name = "lblDescuentos"
         Me.lblDescuentos.Size = New System.Drawing.Size(174, 24)
         Me.lblDescuentos.TabIndex = 8
@@ -157,9 +160,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(535, 30)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(517, 30)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(429, 24)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(447, 24)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "$ 0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -168,9 +171,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(535, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(517, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(429, 24)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(447, 24)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "$ 0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -179,7 +182,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(352, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(334, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
         Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
@@ -190,7 +193,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(352, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(334, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
         Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(174, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 20
@@ -201,9 +204,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(535, 111)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(517, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(429, 68)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(447, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "$ 0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -212,7 +215,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(352, 57)
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(334, 57)
         Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
         Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteOSEtiqueta.TabIndex = 21
@@ -223,7 +226,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteCSEtiqueda.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCSEtiqueda.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(352, 84)
+        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(334, 84)
         Me.lblImporteCSEtiqueda.Name = "lblImporteCSEtiqueda"
         Me.lblImporteCSEtiqueda.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteCSEtiqueda.TabIndex = 22
@@ -234,9 +237,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOS.Location = New System.Drawing.Point(535, 57)
+        Me.lblImporteOS.Location = New System.Drawing.Point(517, 57)
         Me.lblImporteOS.Name = "lblImporteOS"
-        Me.lblImporteOS.Size = New System.Drawing.Size(429, 24)
+        Me.lblImporteOS.Size = New System.Drawing.Size(447, 24)
         Me.lblImporteOS.TabIndex = 23
         Me.lblImporteOS.Text = "$ 0,00"
         Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -245,9 +248,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCS.Location = New System.Drawing.Point(535, 84)
+        Me.lblImporteCS.Location = New System.Drawing.Point(517, 84)
         Me.lblImporteCS.Name = "lblImporteCS"
-        Me.lblImporteCS.Size = New System.Drawing.Size(429, 24)
+        Me.lblImporteCS.Size = New System.Drawing.Size(447, 24)
         Me.lblImporteCS.TabIndex = 24
         Me.lblImporteCS.Text = "$ 0,00"
         Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -262,18 +265,8 @@ Partial Class FrmVentas
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 5)
-        Me.Panel2.Size = New System.Drawing.Size(343, 176)
+        Me.Panel2.Size = New System.Drawing.Size(325, 176)
         Me.Panel2.TabIndex = 25
-        '
-        'UcReceta1
-        '
-        Me.UcReceta1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.UcReceta1.Location = New System.Drawing.Point(294, 0)
-        Me.UcReceta1.Margin = New System.Windows.Forms.Padding(0)
-        Me.UcReceta1.Name = "UcReceta1"
-        Me.UcReceta1.Receta = Nothing
-        Me.UcReceta1.Size = New System.Drawing.Size(307, 176)
-        Me.UcReceta1.TabIndex = 31
         '
         'lblDatosOperacion
         '
@@ -431,7 +424,7 @@ Partial Class FrmVentas
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuEditar, Me.mnuObrasSociales, Me.mnuProcesos})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo, Me.mnuEditarItemSeleccionado, Me.mnuObrasSociales, Me.mnuProcesos})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(972, 24)
@@ -459,19 +452,19 @@ Partial Class FrmVentas
         Me.mnuSalir.Size = New System.Drawing.Size(116, 22)
         Me.mnuSalir.Text = "&Salir"
         '
-        'mnuEditar
+        'mnuEditarItemSeleccionado
         '
-        Me.mnuEditar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEliminarItemSeleccionado, Me.mnuAplicarDescuentoItemSeleccionado, Me.mnuModificarPrecioItemSeleccionado})
-        Me.mnuEditar.Name = "mnuEditar"
-        Me.mnuEditar.Size = New System.Drawing.Size(49, 20)
-        Me.mnuEditar.Text = "&Editar"
+        Me.mnuEditarItemSeleccionado.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEliminarItemSeleccionado, Me.mnuAplicarDescuentoItemSeleccionado, Me.mnuModificarPrecioItemSeleccionado, Me.mnuPresentacionesEquivalentes, Me.mnuPresentacionesConIgualAccionFarmacologica, Me.mnuPresentacionesConIgualMonodroga})
+        Me.mnuEditarItemSeleccionado.Name = "mnuEditarItemSeleccionado"
+        Me.mnuEditarItemSeleccionado.Size = New System.Drawing.Size(76, 20)
+        Me.mnuEditarItemSeleccionado.Text = "&Editar Item"
         '
         'mnuEliminarItemSeleccionado
         '
         Me.mnuEliminarItemSeleccionado.Image = CType(resources.GetObject("mnuEliminarItemSeleccionado.Image"), System.Drawing.Image)
         Me.mnuEliminarItemSeleccionado.Name = "mnuEliminarItemSeleccionado"
         Me.mnuEliminarItemSeleccionado.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E), System.Windows.Forms.Keys)
-        Me.mnuEliminarItemSeleccionado.Size = New System.Drawing.Size(311, 22)
+        Me.mnuEliminarItemSeleccionado.Size = New System.Drawing.Size(328, 22)
         Me.mnuEliminarItemSeleccionado.Text = "&Elimininar Item seleccionado"
         '
         'mnuAplicarDescuentoItemSeleccionado
@@ -479,7 +472,7 @@ Partial Class FrmVentas
         Me.mnuAplicarDescuentoItemSeleccionado.Image = CType(resources.GetObject("mnuAplicarDescuentoItemSeleccionado.Image"), System.Drawing.Image)
         Me.mnuAplicarDescuentoItemSeleccionado.Name = "mnuAplicarDescuentoItemSeleccionado"
         Me.mnuAplicarDescuentoItemSeleccionado.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.D), System.Windows.Forms.Keys)
-        Me.mnuAplicarDescuentoItemSeleccionado.Size = New System.Drawing.Size(311, 22)
+        Me.mnuAplicarDescuentoItemSeleccionado.Size = New System.Drawing.Size(328, 22)
         Me.mnuAplicarDescuentoItemSeleccionado.Text = "Aplicar &Descuento Item seleccionado"
         '
         'mnuModificarPrecioItemSeleccionado
@@ -487,8 +480,16 @@ Partial Class FrmVentas
         Me.mnuModificarPrecioItemSeleccionado.Image = CType(resources.GetObject("mnuModificarPrecioItemSeleccionado.Image"), System.Drawing.Image)
         Me.mnuModificarPrecioItemSeleccionado.Name = "mnuModificarPrecioItemSeleccionado"
         Me.mnuModificarPrecioItemSeleccionado.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.mnuModificarPrecioItemSeleccionado.Size = New System.Drawing.Size(311, 22)
+        Me.mnuModificarPrecioItemSeleccionado.Size = New System.Drawing.Size(328, 22)
         Me.mnuModificarPrecioItemSeleccionado.Text = "&Modificar precio Item seleccionado"
+        '
+        'mnuPresentacionesConIgualAccionFarmacologica
+        '
+        Me.mnuPresentacionesConIgualAccionFarmacologica.Image = CType(resources.GetObject("mnuPresentacionesConIgualAccionFarmacologica.Image"), System.Drawing.Image)
+        Me.mnuPresentacionesConIgualAccionFarmacologica.Name = "mnuPresentacionesConIgualAccionFarmacologica"
+        Me.mnuPresentacionesConIgualAccionFarmacologica.ShortcutKeys = System.Windows.Forms.Keys.F5
+        Me.mnuPresentacionesConIgualAccionFarmacologica.Size = New System.Drawing.Size(328, 22)
+        Me.mnuPresentacionesConIgualAccionFarmacologica.Text = "Presentaciones con igual Acc.Farmacologica"
         '
         'mnuObrasSociales
         '
@@ -573,6 +574,32 @@ Partial Class FrmVentas
         Me.PanelItems.Size = New System.Drawing.Size(972, 385)
         Me.PanelItems.TabIndex = 6
         '
+        'mnuPresentacionesEquivalentes
+        '
+        Me.mnuPresentacionesEquivalentes.Image = CType(resources.GetObject("mnuPresentacionesEquivalentes.Image"), System.Drawing.Image)
+        Me.mnuPresentacionesEquivalentes.Name = "mnuPresentacionesEquivalentes"
+        Me.mnuPresentacionesEquivalentes.ShortcutKeys = System.Windows.Forms.Keys.F2
+        Me.mnuPresentacionesEquivalentes.Size = New System.Drawing.Size(328, 22)
+        Me.mnuPresentacionesEquivalentes.Text = "Presentaciones Equivalentes"
+        '
+        'mnuPresentacionesConIgualMonodroga
+        '
+        Me.mnuPresentacionesConIgualMonodroga.Image = CType(resources.GetObject("mnuPresentacionesConIgualMonodroga.Image"), System.Drawing.Image)
+        Me.mnuPresentacionesConIgualMonodroga.Name = "mnuPresentacionesConIgualMonodroga"
+        Me.mnuPresentacionesConIgualMonodroga.ShortcutKeys = System.Windows.Forms.Keys.F6
+        Me.mnuPresentacionesConIgualMonodroga.Size = New System.Drawing.Size(328, 22)
+        Me.mnuPresentacionesConIgualMonodroga.Text = "Presentaciones con igual Monodroga"
+        '
+        'UcReceta1
+        '
+        Me.UcReceta1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.UcReceta1.Location = New System.Drawing.Point(294, 0)
+        Me.UcReceta1.Margin = New System.Windows.Forms.Padding(0)
+        Me.UcReceta1.Name = "UcReceta1"
+        Me.UcReceta1.Receta = Nothing
+        Me.UcReceta1.Size = New System.Drawing.Size(307, 176)
+        Me.UcReceta1.TabIndex = 31
+        '
         'FrmVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -603,7 +630,7 @@ Partial Class FrmVentas
     Friend WithEvents Panel1 As Panel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents mnuArchivo As ToolStripMenuItem
-    Friend WithEvents mnuEditar As ToolStripMenuItem
+    Friend WithEvents mnuEditarItemSeleccionado As ToolStripMenuItem
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents btnNuevaReceta As ToolStripButton
     Friend WithEvents btnDatosReceta As ToolStripButton
@@ -650,4 +677,7 @@ Partial Class FrmVentas
     Friend WithEvents mnuElinarReceta As ToolStripMenuItem
     Friend WithEvents mnuAutorizarReceta As ToolStripMenuItem
     Friend WithEvents mnuCancelarAutorizacion As ToolStripMenuItem
+    Friend WithEvents mnuPresentacionesConIgualAccionFarmacologica As ToolStripMenuItem
+    Friend WithEvents mnuPresentacionesEquivalentes As ToolStripMenuItem
+    Friend WithEvents mnuPresentacionesConIgualMonodroga As ToolStripMenuItem
 End Class

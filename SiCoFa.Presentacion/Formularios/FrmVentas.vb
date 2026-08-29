@@ -1,5 +1,6 @@
-﻿Imports System.IO
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
+Imports System.IO
+Imports System.Windows.Documents
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
@@ -150,7 +151,13 @@ Public Class FrmVentas
         End Try
     End Sub
 
-    Private Sub RenderItemsUC()
+    Private Sub RenderItemsUC(Optional enfocarItemSeleccionado As Boolean = False)
+
+        Dim itemSeleccionado As ItemComprobante = Nothing
+
+        If enfocarItemSeleccionado AndAlso mobj_ItemSeleccionado IsNot Nothing Then
+            itemSeleccionado = mobj_ItemSeleccionado.ItemVenta
+        End If
 
         PanelItems.SuspendLayout()
 
@@ -184,6 +191,29 @@ Public Class FrmVentas
                 PanelItems.Controls.Add(uc)
 
             Next
+
+            If itemSeleccionado IsNot Nothing Then
+
+                For Each ctrl As Control In PanelItems.Controls
+
+                    If TypeOf ctrl Is UcItemVenta Then
+
+                        Dim uc As UcItemVenta = DirectCast(ctrl, UcItemVenta)
+
+                        If uc.ItemVenta Is itemSeleccionado Then
+
+                            SeleccionarItem(uc)
+                            uc.EnfocarCantidad()
+
+                            Exit For
+
+                        End If
+
+                    End If
+
+                Next
+
+            End If
 
         Finally
 
@@ -1248,7 +1278,7 @@ Public Class FrmVentas
             mobj_ItemSeleccionado.ItemVenta.PorcentajeDescuento = descuentoPorcentaje
 
             ActualizarTotales()
-            RenderItemsUC()
+            RenderItemsUC(True)
 
         Catch ex As Exception
 
@@ -1268,38 +1298,30 @@ Public Class FrmVentas
 
             End If
 
-            Dim u As Usuario = ModSeguridad.ValidarUsuario("MODIFICAR_PRECIO")
+            Dim pUnitStr As String = InputBox("Ingrese el Precio de Venta:", "Modificar Precio Unitario", "0")
 
-            If u Is Nothing Then
+            If String.IsNullOrWhiteSpace(pUnitStr) Then Exit Sub
 
-            Else
-                Exit Sub
-            End If
+            Dim pUnitDec As Decimal
 
-            Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento a aplicar:", "Modificar Precio Unitario", "0")
+            If Not Decimal.TryParse(pUnitStr, pUnitDec) Then
 
-            If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
-
-            Dim descuentoPorcentaje As Decimal
-
-            If Not Decimal.TryParse(descuentoStr, descuentoPorcentaje) Then
-
-                MessageBox.Show("Por favor, ingrese un valor numérico para el descuento.", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Por favor, ingrese un valor numérico", "Error Precio Unitario", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
 
             End If
 
-            If descuentoPorcentaje < 0 OrElse descuentoPorcentaje > 100 Then
+            If pUnitDec < 0 Then
 
-                MessageBox.Show("Por favor, ingrese un porcentaje de descuento válido (entre 0 y 100).", "Error de Descuento", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Por favor, ingrese un Valor mayor que cero)", "Error Precio Unitario", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
 
             End If
 
-            mobj_ItemSeleccionado.ItemVenta.PorcentajeDescuento = descuentoPorcentaje
+            mobj_ItemSeleccionado.ItemVenta.PrecioUnitario = pUnitDec
 
             ActualizarTotales()
-            RenderItemsUC()
+            RenderItemsUC(True)
 
         Catch ex As Exception
 
@@ -1307,6 +1329,428 @@ Public Class FrmVentas
 
         End Try
 
+    End Sub
+
+    Private Sub mnuBuscarArticulosEquivalentes_Click(sender As Object, e As EventArgs) Handles mnuPresentacionesEquivalentes.Click
+        Try
+
+            If mobj_ItemSeleccionado Is Nothing Then
+
+                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                Exit Sub
+
+            End If
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item.Articulo Is Nothing Then
+
+                MessageBox.Show("Artículo no Establecido", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.Monodroga Is Nothing Then
+                MessageBox.Show("El artículo seleccionado no tiene Monodroga Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.Potencia = 0 Then
+                MessageBox.Show("El artículo seleccionado no tiene Potencia Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.CodiFF = 1 Then
+                MessageBox.Show("El artículo seleccionado no tiene Forma Farmacéutica Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.CodiUP = 1 Then
+                MessageBox.Show("El artículo seleccionado no tiene Unidad de Potencia Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.CodiTU = 0 Then
+                MessageBox.Show("El artículo seleccionado no tiene Unidad de Potencia Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            '==========================================================
+            ' BUSCAR ARTÍCULOS CON IGUAL ACCIÓN FARMACOLÓGICA
+            '==========================================================
+
+            Dim adminArticulos As New N_AdminArticulos
+
+            Dim listaArticulos As List(Of Articulo) = adminArticulos.ListarArticulosEquivalentes(item.Articulo)
+
+            If listaArticulos Is Nothing OrElse listaArticulos.Count = 0 Then
+
+                MsgBox("No se encontraron artículos equivalentes", vbInformation, "SiCoFa")
+
+                Exit Sub
+
+            End If
+
+            '==========================================================
+            ' SELECCIONAR ARTÍCULO
+            '==========================================================
+
+            Dim articulo As Articulo = Nothing
+
+            Select Case listaArticulos.Count
+
+                Case 1
+
+                    articulo = listaArticulos.First()
+
+                Case Else
+
+                    Using f As New FrmBuscaArticulos
+
+                        f.Articulos = listaArticulos
+
+                        If f.ShowDialog() = DialogResult.OK Then
+
+                            articulo = f.ArticuloSeleccionado
+
+                        Else
+
+                            Exit Sub
+
+                        End If
+
+                    End Using
+
+            End Select
+
+            If articulo Is Nothing Then
+                Exit Sub
+            End If
+
+            '==========================================================
+            ' VALIDAR RECETA Y COBERTURA
+            '==========================================================
+
+            Dim receta As Receta = Nothing
+
+            If item.Receta IsNot Nothing Then
+
+                receta = ObtenerReceta(item.Receta.IdReceta)
+
+                If receta Is Nothing Then
+
+                    MsgBox("No se encontró la receta asociada.", vbCritical, "SiCoFa")
+
+                    Exit Sub
+
+                End If
+
+                Dim adminRecetas As New N_AdminRecetas
+
+                '------------------------------------------------------
+                ' IMPORTANTE:
+                ' No modificar todavía el item original.
+                '------------------------------------------------------
+
+                Dim itemPrueba As New ItemComprobante
+
+                itemPrueba.Articulo = articulo
+                itemPrueba.Cantidad = 1
+                itemPrueba.Receta = item.Receta
+
+                adminRecetas.ObtenerCobertura(articulo, itemPrueba)
+
+                '------------------------------------------------------
+                ' Validar descuento sobre el item de prueba
+                '------------------------------------------------------
+
+                If itemPrueba.DescuentoOS = 0 AndAlso itemPrueba.DescuentoCS = 0 AndAlso itemPrueba.Receta.Plan.Proceso <> 0 Then
+
+                    MsgBox(articulo.Nombre & " no tiene descuento", vbInformation, "SiCoFa")
+
+                    Exit Sub
+
+                End If
+
+            End If
+
+            '==========================================================
+            ' RECIÉN AHORA MODIFICAMOS EL ITEM ORIGINAL
+            '==========================================================
+
+            item.Articulo = articulo
+            item.Cantidad = 1
+
+            'Si tiene receta, recalculamos la cobertura sobre el item real
+            If item.Receta IsNot Nothing Then
+
+                Dim adminRecetas As New N_AdminRecetas
+
+                adminRecetas.ObtenerCobertura(articulo, item)
+
+            End If
+
+            '==========================================================
+            ' ACTUALIZAR USER CONTROL
+            '==========================================================
+
+            mobj_ItemSeleccionado.Bind(item)
+
+            mobj_ItemSeleccionado.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
+
+            '==========================================================
+            ' ACTUALIZAR RECETA
+            '==========================================================
+
+            If receta IsNot Nothing Then
+
+                If receta.Items Is Nothing Then
+                    receta.Items = New List(Of ItemComprobante)
+                End If
+
+                If Not receta.Items.Any(
+                Function(x) x.Articulo IsNot Nothing AndAlso
+                            x.Articulo.IdArticulo = item.Articulo.IdArticulo) Then
+
+                    receta.Items.Add(item)
+
+                End If
+
+            End If
+
+            '==========================================================
+            ' ACTUALIZAR
+            '==========================================================
+
+            ActualizarTotales()
+
+            RenderItemsUC(True)
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuBuscarArticulosConIgualAccionFarmacologica_Click(sender As Object, e As EventArgs) Handles mnuPresentacionesConIgualAccionFarmacologica.Click
+
+        Try
+
+            If mobj_ItemSeleccionado Is Nothing Then
+
+                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item Is Nothing Then
+                MessageBox.Show("El ítem no está establecido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo Is Nothing Then
+                MessageBox.Show("Artículo no establecido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.AccionFarmacologica Is Nothing Then
+                MessageBox.Show("El artículo seleccionado no tiene Acción Farmacológica establecida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Receta IsNot Nothing Then
+                MessageBox.Show("En una receta solo se pueden reemplazar artículos equivalentes.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            '==========================================================
+            ' BUSCAR ARTÍCULOS CON IGUAL ACCIÓN FARMACOLÓGICA
+            '==========================================================
+
+            Dim adminArticulos As New N_AdminArticulos
+
+            Dim codiAcFa As Integer = item.Articulo.AccionFarmacologica.CodiAcFa
+
+            Dim listaArticulos As List(Of Articulo) = adminArticulos.ListarArticulosCodiAcFa(codiAcFa)
+
+            If listaArticulos Is Nothing OrElse listaArticulos.Count = 0 Then
+                MsgBox("No se encontraron artículos con la misma acción farmacológica.", vbInformation, "SiCoFa")
+                Exit Sub
+
+            End If
+
+            '==========================================================
+            ' SELECCIONAR ARTÍCULO
+            '==========================================================
+
+            Dim articulo As Articulo = Nothing
+
+            Select Case listaArticulos.Count
+
+                Case 1
+
+                    articulo = listaArticulos.First()
+
+                Case Else
+
+                    Using f As New FrmBuscaArticulos
+
+                        f.Articulos = listaArticulos
+
+                        If f.ShowDialog() = DialogResult.OK Then
+
+                            articulo = f.ArticuloSeleccionado
+
+                        Else
+
+                            Exit Sub
+
+                        End If
+
+                    End Using
+
+            End Select
+
+            If articulo Is Nothing Then
+                Exit Sub
+            End If
+
+            '==========================================================
+            ' REEMPLAZAR ARTÍCULO
+            '==========================================================
+
+            item.Articulo = articulo
+
+            '==========================================================
+            ' ACTUALIZAR USER CONTROL
+            '==========================================================
+
+            mobj_ItemSeleccionado.Bind(item)
+
+            mobj_ItemSeleccionado.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
+
+            '==========================================================
+            ' ACTUALIZAR
+            '==========================================================
+
+            ActualizarTotales()
+
+            RenderItemsUC(True)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub mnuPresentacionesConIgualMonodroga_Click(sender As Object, e As EventArgs) Handles mnuPresentacionesConIgualMonodroga.Click
+
+        Try
+
+            If mobj_ItemSeleccionado Is Nothing Then
+
+                MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            Dim item As ItemComprobante = mobj_ItemSeleccionado.ItemVenta
+
+            If item Is Nothing Then
+                MessageBox.Show("El ítem no está establecido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo Is Nothing Then
+                MessageBox.Show("Artículo no establecido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Articulo.Monodroga Is Nothing Then
+                MessageBox.Show("El artículo seleccionado no tiene Monodroga establecida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf item.Receta IsNot Nothing Then
+                MessageBox.Show("En una receta solo se pueden reemplazar artículos equivalentes.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            End If
+
+            '==========================================================
+            ' BUSCAR ARTÍCULOS CON IGUAL ACCIÓN FARMACOLÓGICA
+            '==========================================================
+
+            Dim adminArticulos As New N_AdminArticulos
+
+            Dim codiMon As Integer = item.Articulo.Monodroga.CodiMon
+
+            Dim listaArticulos As List(Of Articulo) = adminArticulos.ListarArticulosCodiMon(codiMon)
+
+            If listaArticulos Is Nothing OrElse listaArticulos.Count = 0 Then
+                MsgBox("No se encontraron artículos con la misma Monodroga.", vbInformation, "SiCoFa")
+                Exit Sub
+
+            End If
+
+            '==========================================================
+            ' SELECCIONAR ARTÍCULO
+            '==========================================================
+
+            Dim articulo As Articulo = Nothing
+
+            Select Case listaArticulos.Count
+
+                Case 1
+
+                    articulo = listaArticulos.First()
+
+                Case Else
+
+                    Using f As New FrmBuscaArticulos
+
+                        f.Articulos = listaArticulos
+
+                        If f.ShowDialog() = DialogResult.OK Then
+
+                            articulo = f.ArticuloSeleccionado
+
+                        Else
+
+                            Exit Sub
+
+                        End If
+
+                    End Using
+
+            End Select
+
+            If articulo Is Nothing Then
+                Exit Sub
+            End If
+
+            '==========================================================
+            ' REEMPLAZAR ARTÍCULO
+            '==========================================================
+
+            item.Articulo = articulo
+
+            '==========================================================
+            ' ACTUALIZAR USER CONTROL
+            '==========================================================
+
+            mobj_ItemSeleccionado.Bind(item)
+
+            mobj_ItemSeleccionado.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
+
+            '==========================================================
+            ' ACTUALIZAR
+            '==========================================================
+
+            ActualizarTotales()
+
+            RenderItemsUC(True)
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
 
     End Sub
 

@@ -297,6 +297,274 @@ Public Class D_AdminArticulos
 
     End Function
 
+    Public Function ListarArticulosEquivalentes(ByVal argArticulo As Articulo) As List(Of Articulo)
+
+        Dim objConexionDB As New D_Conexion
+        Dim objLA As New List(Of Articulo)
+
+        Try
+
+            Dim sql As String = "SELECT IdArticulo,
+                                        Codigo,
+                                        CodBarras,
+                                        NTroquel,
+                                        Nombre,
+                                        CodiTV,
+                                        AlicIVA,
+                                        Unidades,
+                                        CodiTE,
+                                        FechaPrecio,
+                                        PrecioCosto,
+                                        PrecioVenta,
+                                        PrecioOferta,
+                                        CodiPro,
+                                        CodiLabora,
+                                        Laboratorio,
+                                        CodiMon,
+                                        Monodroga,
+                                        CodiAcFa,
+                                        AccionFarmacologica,
+                                        Baja,
+                                        CodiTiCo,
+                                        Heladera,
+                                        IdSeccion,
+                                        Seccion,
+                                        EstablecerPrecio,
+                                        ActualizarPrecio,
+                                        StockC,
+                                        StockF,
+                                        GTIN,
+                                        CodiVia,
+                                        ViaAdministracion,
+                                        DesOferta,
+                                        Fraccionable,
+                                        UDiv,
+                                        DFrac,
+                                        RFrac,
+                                        CodiLP,
+                                        ListaPrecios,
+                                        Gravamen,
+                                        CodiFF,
+                                        Potencia,
+                                        CodiUP,
+                                        CodiTU                                        
+                                FROM vw_articulos
+                                WHERE CodiMon = @CodiMon AND CodiFF=@CodiFF AND Potencia=@Potencia AND CodiUP=@CodiUP AND CodiTU=@CodiTU  
+                                ORDER BY Nombre"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    cmd.Parameters.AddWithValue("@CodiMon", argArticulo.Monodroga.CodiMon)
+                    cmd.Parameters.AddWithValue("@CodiFF", argArticulo.CodiFF)
+                    cmd.Parameters.AddWithValue("@Potencia", argArticulo.Potencia)
+                    cmd.Parameters.AddWithValue("@CodiUP", argArticulo.CodiUP)
+                    cmd.Parameters.AddWithValue("@CodiTU", argArticulo.CodiTU)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read()
+
+                            objLA.Add(ArticuloMapper.Map(datos))
+
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objLA
+
+        Catch ex As Exception
+
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarArticulosCodiAcFa), ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ListarArticulosCodiAcFa(ByVal argCodiAcFa As Integer) As List(Of Articulo)
+
+        Dim objConexionDB As New D_Conexion
+        Dim objLA As New List(Of Articulo)
+
+        Try
+
+            Dim sql As String = "SELECT IdArticulo,
+                                        Codigo,
+                                        CodBarras,
+                                        NTroquel,
+                                        Nombre,
+                                        CodiTV,
+                                        AlicIVA,
+                                        Unidades,
+                                        CodiTE,
+                                        FechaPrecio,
+                                        PrecioCosto,
+                                        PrecioVenta,
+                                        PrecioOferta,
+                                        CodiPro,
+                                        CodiLabora,
+                                        Laboratorio,
+                                        CodiMon,
+                                        Monodroga,
+                                        CodiAcFa,
+                                        AccionFarmacologica,
+                                        Baja,
+                                        CodiTiCo,
+                                        Heladera,
+                                        IdSeccion,
+                                        Seccion,
+                                        EstablecerPrecio,
+                                        ActualizarPrecio,
+                                        StockC,
+                                        StockF,
+                                        GTIN,
+                                        CodiVia,
+                                        ViaAdministracion,
+                                        DesOferta,
+                                        Fraccionable,
+                                        UDiv,
+                                        DFrac,
+                                        RFrac,
+                                        CodiLP,
+                                        ListaPrecios,
+                                        Gravamen,
+                                        CodiFF,
+                                        Potencia,
+                                        CodiUP,
+                                        CodiTU                                        
+                                FROM vw_articulos
+                                WHERE CodiAcFa = @CodiAcFa 
+                                ORDER BY Nombre"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    cmd.Parameters.AddWithValue("@CodiAcFa", argCodiAcFa)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read()
+
+                            objLA.Add(ArticuloMapper.Map(datos))
+
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objLA
+
+        Catch ex As Exception
+
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarArticulosCodiAcFa), ex.Message))
+
+        End Try
+
+    End Function
+
+    Public Function ListarArticulosCodiMon(ByVal argCodiMon As Integer) As List(Of Articulo)
+
+        Dim objConexionDB As New D_Conexion
+        Dim objLA As New List(Of Articulo)
+
+        Try
+
+            Dim sql As String = "SELECT IdArticulo,
+                                        Codigo,
+                                        CodBarras,
+                                        NTroquel,
+                                        Nombre,
+                                        CodiTV,
+                                        AlicIVA,
+                                        Unidades,
+                                        CodiTE,
+                                        FechaPrecio,
+                                        PrecioCosto,
+                                        PrecioVenta,
+                                        PrecioOferta,
+                                        CodiPro,
+                                        CodiLabora,
+                                        Laboratorio,
+                                        CodiMon,
+                                        Monodroga,
+                                        CodiAcFa,
+                                        AccionFarmacologica,
+                                        Baja,
+                                        CodiTiCo,
+                                        Heladera,
+                                        IdSeccion,
+                                        Seccion,
+                                        EstablecerPrecio,
+                                        ActualizarPrecio,
+                                        StockC,
+                                        StockF,
+                                        GTIN,
+                                        CodiVia,
+                                        ViaAdministracion,
+                                        DesOferta,
+                                        Fraccionable,
+                                        UDiv,
+                                        DFrac,
+                                        RFrac,
+                                        CodiLP,
+                                        ListaPrecios,
+                                        Gravamen,
+                                        CodiFF,
+                                        Potencia,
+                                        CodiUP,
+                                        CodiTU                                        
+                                FROM vw_articulos
+                                WHERE CodiMon = @CodiMon
+                                ORDER BY Nombre"
+
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
+
+                Using cmd As MySqlCommand = cn.CreateCommand
+
+                    cmd.CommandType = CommandType.Text
+                    cmd.CommandText = sql
+
+                    cmd.Parameters.AddWithValue("@CodiMon", argCodiMon)
+
+                    Using datos As MySqlDataReader = cmd.ExecuteReader()
+
+                        While datos.Read()
+
+                            objLA.Add(ArticuloMapper.Map(datos))
+
+                        End While
+
+                    End Using
+
+                End Using
+
+            End Using
+
+            Return objLA
+
+        Catch ex As Exception
+
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarArticulosCodiMon), ex.Message))
+
+        End Try
+
+    End Function
+
     Public Function InsertarArticulo(
                                     argNTroquel As String,
                                     argCodBarras As String,
