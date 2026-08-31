@@ -147,86 +147,95 @@ Public Class MISV
 
     Private Function MensajeConsultaRecetaElectronica(argReceta As Receta) As String
 
+        If argReceta Is Nothing Then Return String.Empty
+
         Dim sb As New StringBuilder()
 
-        sb.AppendLine($"<apps:nro_recetario>{XmlEscape(argReceta.NumReceta)}</apps:nro_recetario>")
+        ' Manejo seguro de nulos para evitar exepciones en la capa de acceso a datos
+        Dim nroReceta As String = If(argReceta.NumReceta, String.Empty)
+        Dim nroDoc As String = If(argReceta.Documento IsNot Nothing, argReceta.Documento.Numero, String.Empty)
+        Dim nroCredencial As String = If(String.IsNullOrEmpty(argReceta.Credencial.Numero), nroDoc, argReceta.Credencial.Numero)
 
-        sb.AppendLine($"<apps:afiliado_documento>{XmlEscape(argReceta.Documento.Numero)}</apps:afiliado_documento>")
-
-        sb.AppendLine($"<apps:afiliado_credencial>{XmlEscape(argReceta.Documento.Numero)}</apps:afiliado_credencial>")
+        sb.AppendLine($"<apps:nro_recetario>{XmlEscape(nroReceta)}</apps:nro_recetario>")
+        sb.AppendLine($"<apps:afiliado_documento>{XmlEscape(nroDoc)}</apps:afiliado_documento>")
+        sb.AppendLine($"<apps:afiliado_credencial>{XmlEscape(nroCredencial)}</apps:afiliado_credencial>")
 
         Return sb.ToString()
 
     End Function
 
     Private Function MensajeAutorizacion(argReceta As Receta) As String
+        If argReceta Is Nothing Then Return String.Empty
 
         Dim sb As New StringBuilder()
 
+        ' Datos del Afiliado de forma segura
+        Dim nroDoc As String = String.Empty
+        Dim nroCredencial As String = String.Empty
+
+        If argReceta.Documento IsNot Nothing Then
+            nroDoc = If(argReceta.Documento IsNot Nothing, argReceta.Documento.Numero, String.Empty)
+        End If
+
+        If argReceta.Credencial IsNot Nothing Then
+            nroCredencial = If(String.IsNullOrEmpty(argReceta.Credencial.Numero), nroDoc, argReceta.Credencial.Numero)
+        End If
+
+        ' Datos del Prescriptor con comprobación de nulos por niveles
+        Dim tipoMatricula As String = String.Empty
+        Dim nroMatricula As String = String.Empty
+        Dim nombreMedico As String = String.Empty
+
+        If argReceta.Prescriptor IsNot Nothing Then
+            Dim medico = argReceta.Prescriptor
+            nombreMedico = $"{medico.Apellido} {medico.Nombre}".Trim()
+
+            If medico.Matricula IsNot Nothing Then
+                nroMatricula = medico.Matricula.Numero
+                If medico.Matricula.TipoMatricula IsNot Nothing Then
+                    tipoMatricula = "M" & medico.Matricula.TipoMatricula.CodiTMADESFA
+                End If
+            End If
+        End If
+
+        ' Encabezado de la solicitud
         sb.AppendLine($"<apps:nro_recetario>{XmlEscape(argReceta.NumReceta)}</apps:nro_recetario>")
-
-        sb.AppendLine($"<apps:afiliado_documento>{XmlEscape(argReceta.Documento.Numero)}</apps:afiliado_documento>")
-
-        sb.AppendLine($"<apps:afiliado_credencial>{XmlEscape(argReceta.Documento.Numero)}</apps:afiliado_credencial>")
-
+        sb.AppendLine($"<apps:afiliado_documento>{XmlEscape(nroDoc)}</apps:afiliado_documento>")
+        sb.AppendLine($"<apps:afiliado_credencial>{XmlEscape(nroCredencial)}</apps:afiliado_credencial>")
         sb.AppendLine("<apps:afiliado_nombre/>")
-
-        sb.AppendLine($"<apps:medico_tipo_mat>{XmlEscape("M" & argReceta.Prescriptor.Matricula.TipoMatricula.CodiTMADESFA)}</apps:medico_tipo_mat>")
-
-        sb.AppendLine($"<apps:medico_nro_mat>{XmlEscape(argReceta.Prescriptor.Matricula.Numero)}</apps:medico_nro_mat>")
-
-        sb.AppendLine($"<apps:medico_nombres>{XmlEscape(argReceta.Prescriptor.Apellido & " " & argReceta.Prescriptor.Nombre)}</apps:medico_nombres>")
-
+        sb.AppendLine($"<apps:medico_tipo_mat>{XmlEscape(tipoMatricula)}</apps:medico_tipo_mat>")
+        sb.AppendLine($"<apps:medico_nro_mat>{XmlEscape(nroMatricula)}</apps:medico_nro_mat>")
+        sb.AppendLine($"<apps:medico_nombres>{XmlEscape(nombreMedico)}</apps:medico_nombres>")
         sb.AppendLine("<apps:auditor_tipo_mat/>")
-
         sb.AppendLine("<apps:auditor_nro_mat>0</apps:auditor_nro_mat>")
-
         sb.AppendLine("<apps:auditor_nombres/>")
-
         sb.AppendLine("<apps:factura_nro>ND</apps:factura_nro>")
-
         sb.AppendLine($"<apps:fecha_receta>{argReceta.FechaPrescripcion:yyyyMMdd}</apps:fecha_receta>")
-
         sb.AppendLine("<apps:cod_operacion>0</apps:cod_operacion>")
 
+        ' Detalle de Items
         sb.AppendLine("<apps:items>")
-
-        Dim nroItem As Integer = 0
-
-        For Each i As ItemComprobante In argReceta.Items
-
-            If i.Articulo IsNot Nothing AndAlso i.Cantidad > 0 Then
-
-                nroItem += 1
-
-                sb.AppendLine("<apps:item_receta>")
-
-                sb.AppendLine($"<apps:nro_item>{nroItem}</apps:nro_item>")
-
-                sb.AppendLine($"<apps:codbarras>{XmlEscape(i.CodBarras)}</apps:codbarras>")
-
-                sb.AppendLine($"<apps:troquel>{XmlEscape(i.NTroquel)}</apps:troquel>")
-
-                sb.AppendLine($"<apps:alfabeta>{XmlEscape(i.Codigo)}</apps:alfabeta>")
-
-                sb.AppendLine("<apps:cod_trazabilidad/>")
-
-                sb.AppendLine($"<apps:cantidad>{i.Cantidad}</apps:cantidad>")
-
-                sb.AppendLine("<apps:precio_unitario>0</apps:precio_unitario>")
-
-                sb.AppendLine($"<apps:porc_cobertura>{CInt(i.PorcentajeOS)}</apps:porc_cobertura>")
-
-                sb.AppendLine("</apps:item_receta>")
-
-            End If
-
-        Next
-
+        If argReceta.Items IsNot Nothing Then
+            Dim nroItem As Integer = 0
+            For Each item As ItemComprobante In argReceta.Items
+                If item IsNot Nothing AndAlso item.Articulo IsNot Nothing AndAlso item.Cantidad > 0 Then
+                    nroItem += 1
+                    sb.AppendLine("<apps:item_receta>")
+                    sb.AppendLine($"<apps:nro_item>{nroItem}</apps:nro_item>")
+                    sb.AppendLine($"<apps:codbarras>{XmlEscape(item.CodBarras)}</apps:codbarras>")
+                    sb.AppendLine($"<apps:troquel>{XmlEscape(item.NTroquel)}</apps:troquel>")
+                    sb.AppendLine($"<apps:alfabeta>{XmlEscape(item.Codigo)}</apps:alfabeta>")
+                    sb.AppendLine("<apps:cod_trazabilidad/>")
+                    sb.AppendLine($"<apps:cantidad>{item.Cantidad}</apps:cantidad>")
+                    sb.AppendLine("<apps:precio_unitario>0</apps:precio_unitario>")
+                    sb.AppendLine($"<apps:porc_cobertura>{CInt(item.PorcentajeOS)}</apps:porc_cobertura>")
+                    sb.AppendLine("</apps:item_receta>")
+                End If
+            Next
+        End If
         sb.AppendLine("</apps:items>")
 
         Return sb.ToString()
-
     End Function
 
 

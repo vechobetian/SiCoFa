@@ -60,13 +60,13 @@ Public Class FLINK
                     </soap:Body>
                 </soap:Envelope>"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
             Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/ConsultaRecetaElectSecureOutAppSvc"
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlRecetaElectronicaProduccion, soapAction, soap)
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -115,13 +115,13 @@ Public Class FLINK
                     </soapenv:Body>
                 </soapenv:Envelope>"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
             Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/AutorizacionRecetaVentaSecureOutAppSvc"
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_response.xml", xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
             'argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
 
@@ -168,11 +168,13 @@ Public Class FLINK
                     </soapenv:Body>
                 </soapenv:Envelope>"
 
-            IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
-            'Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"
+            Dim soapAction As String = "http://farmalink.com.ar/applicationService/V1/CancelacionRecetaVentaSecureOutAppSvc"
 
-            'Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
+            Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
+
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -213,10 +215,10 @@ Public Class FLINK
         writer.WriteEndElement()
 
         writer.WriteStartElement("Prestador")
-        writer.WriteElementString("Cuit", argPValidacion.CuitPrestador)
+        writer.WriteElementString("Cuit", If(argPValidacion?.CuitPrestador, ""))
         writer.WriteElementString("Sucursal", "0")
         writer.WriteElementString("RazonSocial", "")
-        writer.WriteElementString("Codigo", argPValidacion.NumPrestador)
+        writer.WriteElementString("Codigo", If(argPValidacion?.NumPrestador, ""))
         writer.WriteEndElement()
 
         writer.WriteEndElement()
@@ -229,13 +231,13 @@ Public Class FLINK
 
         writer.WriteStartElement("Financiador")
         writer.WriteElementString("CodigoADESFA", "")
-        writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+        writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
         writer.WriteElementString("Cuit", "")
         writer.WriteElementString("Sucursal", "")
         writer.WriteEndElement()
 
         writer.WriteStartElement("Credencial")
-        writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+        writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
         writer.WriteElementString("Track", "")
         writer.WriteElementString("Version", "")
         writer.WriteElementString("Vencimiento", "")
@@ -270,10 +272,10 @@ Public Class FLINK
         writer.WriteStartElement("Prescriptor")
         writer.WriteElementString("Apellido", "")
         writer.WriteElementString("Nombre", "")
-        writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.TipoMatricula.CodiTMADESFA)
+        writer.WriteElementString("TipoMatricula", If(argReceta.Prescriptor?.Matricula?.TipoMatricula?.CodiTMADESFA, ""))
         writer.WriteElementString("Provincia", "")
-        writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
-        writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPADESFA)
+        writer.WriteElementString("NroMatricula", If(argReceta.Prescriptor?.Matricula?.Numero, ""))
+        writer.WriteElementString("TipoPrescriptor", If(argReceta.Prescriptor?.TipoPrescriptor?.CodiTPADESFA, ""))
         writer.WriteElementString("Cuit", "")
         writer.WriteElementString("Especialidad", "")
         writer.WriteEndElement()
@@ -281,11 +283,11 @@ Public Class FLINK
         writer.WriteElementString("Beneficiario", "")
 
         writer.WriteStartElement("Financiador")
-        writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+        writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
         writer.WriteEndElement()
 
         writer.WriteStartElement("Credencial")
-        writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+        writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
         writer.WriteElementString("Track", "")
         writer.WriteElementString("Version", "")
         writer.WriteElementString("Vencimiento", "")
@@ -346,32 +348,36 @@ Public Class FLINK
 
         Dim nroItem As Integer = 0
 
-        For Each i In argReceta.Items
+        If argReceta.Items IsNot Nothing Then
 
-            If i.Articulo IsNot Nothing Then
-                nroItem += 1
+            For Each i In argReceta.Items
 
-                writer.WriteStartElement("Item")
+                If i.Articulo IsNot Nothing Then
+                    nroItem += 1
 
-                writer.WriteElementString("NroItem", nroItem.ToString())
-                writer.WriteElementString("CodBarras", i.CodBarras)
-                writer.WriteElementString("CodTroquel", i.NTroquel)
-                writer.WriteElementString("Alfabeta", i.Codigo)
-                writer.WriteElementString("Kairos", "0")
-                writer.WriteElementString("Codigo", "0")
-                writer.WriteElementString("ImporteUnitario", "0")
-                writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
-                writer.WriteElementString("PorcentajeCobertura", "0")
-                writer.WriteElementString("CodPreautorizacion", "0")
-                writer.WriteElementString("ImporteCobertura", "0")
-                writer.WriteElementString("Diagnostico", "N")
-                writer.WriteElementString("DosisDiaria", "0")
-                writer.WriteElementString("Generico", "M")
+                    writer.WriteStartElement("Item")
 
-                writer.WriteEndElement()
-            End If
+                    writer.WriteElementString("NroItem", nroItem.ToString())
+                    writer.WriteElementString("CodBarras", i.CodBarras)
+                    writer.WriteElementString("CodTroquel", i.NTroquel)
+                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Kairos", "0")
+                    writer.WriteElementString("Codigo", "0")
+                    writer.WriteElementString("ImporteUnitario", "0")
+                    writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
+                    writer.WriteElementString("PorcentajeCobertura", "0")
+                    writer.WriteElementString("CodPreautorizacion", "0")
+                    writer.WriteElementString("ImporteCobertura", "0")
+                    writer.WriteElementString("Diagnostico", "N")
+                    writer.WriteElementString("DosisDiaria", "0")
+                    writer.WriteElementString("Generico", "M")
 
-        Next
+                    writer.WriteEndElement()
+                End If
+
+            Next
+
+        End If
 
         writer.WriteEndElement()
 

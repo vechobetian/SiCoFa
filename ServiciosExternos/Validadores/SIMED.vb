@@ -35,7 +35,7 @@ Public Class SIMED
             </soapenv:Body>
         </soapenv:Envelope>"
 
-        IO.File.WriteAllText("C:\SiCoFaFarmacias\SiCoFa.Presentacion\bin\Debug\Temp\soap_request.xml", soap)
+        File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), soap)
 
         Dim xmlResponse As XmlDocument = PostWebservice(UrlProduccion, SoapAction, soap)
 
@@ -135,10 +135,10 @@ Public Class SIMED
         writer.WriteElementString("VersionMsj", "")
 
         writer.WriteStartElement("Prestador")
-        writer.WriteElementString("Cuit", argPValidacion.CuitPrestador)
+        writer.WriteElementString("Cuit", If(argPValidacion?.CuitPrestador, ""))
         writer.WriteElementString("Sucursal", "1")
         writer.WriteElementString("RazonSocial", "")
-        writer.WriteElementString("Codigo", argPValidacion.NumPrestador)
+        writer.WriteElementString("Codigo", If(argPValidacion?.NumPrestador, ""))
         writer.WriteEndElement()
 
         writer.WriteElementString("SetCaracteres", "")
@@ -155,12 +155,12 @@ Public Class SIMED
         writer.WriteStartElement("EncabezadoReceta")
 
         writer.WriteStartElement("Prescriptor")
-        writer.WriteElementString("Apellido", argReceta.Prescriptor.Apellido)
-        writer.WriteElementString("Nombre", argReceta.Prescriptor.Nombre)
-        writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.TipoMatricula.CodiTMADESFA)
-        writer.WriteElementString("Provincia", argReceta.Prescriptor.Provincia.CodiP)
-        writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
-        writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPADESFA)
+        writer.WriteElementString("Apellido", If(argReceta.Prescriptor?.Apellido, ""))
+        writer.WriteElementString("Nombre", If(argReceta.Prescriptor?.Nombre, ""))
+        writer.WriteElementString("TipoMatricula", If(argReceta.Prescriptor?.Matricula?.TipoMatricula?.CodiTMADESFA, ""))
+        writer.WriteElementString("Provincia", If(argReceta.Prescriptor?.Provincia?.CodiP, ""))
+        writer.WriteElementString("NroMatricula", If(argReceta.Prescriptor?.Matricula?.Numero, ""))
+        writer.WriteElementString("TipoPrescriptor", If(argReceta.Prescriptor?.TipoPrescriptor?.CodiTPADESFA, ""))
         writer.WriteElementString("Cuit", "")
         writer.WriteElementString("Especialidad", "")
         writer.WriteEndElement()
@@ -178,14 +178,14 @@ Public Class SIMED
         writer.WriteEndElement()
 
         writer.WriteStartElement("Financiador")
-        writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+        writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
         writer.WriteElementString("Cuit", "")
         writer.WriteElementString("Sucursal", "")
         writer.WriteEndElement()
 
         writer.WriteStartElement("Credencial")
         writer.WriteElementString("cvc2", "")
-        writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+        writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
         writer.WriteElementString("Track", "")
         writer.WriteElementString("Version", "")
         writer.WriteElementString("Vencimiento", "")
@@ -261,14 +261,14 @@ Public Class SIMED
         writer.WriteEndElement()
 
         writer.WriteStartElement("Financiador")
-        writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+        writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
         writer.WriteElementString("Cuit", "")
         writer.WriteElementString("Sucursal", "")
         writer.WriteEndElement()
 
         writer.WriteStartElement("Credencial")
         writer.WriteElementString("cvc2", "")
-        writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+        writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
         writer.WriteElementString("Track", "")
         writer.WriteElementString("Version", "")
         writer.WriteElementString("Vencimiento", "")
@@ -302,37 +302,40 @@ Public Class SIMED
 
         Dim nroItem As Integer = 0
 
-        For Each i In argReceta.Items
+        If argReceta.Items IsNot Nothing Then
+            For Each i In argReceta.Items
 
-            If i.Articulo IsNot Nothing Then
-                nroItem += 1
+                If i.Articulo IsNot Nothing Then
+                    nroItem += 1
 
-                writer.WriteStartElement("Item")
+                    writer.WriteStartElement("Item")
 
-                writer.WriteElementString("NroItem", nroItem.ToString())
-                writer.WriteElementString("CodBarras", i.CodBarras)
-                writer.WriteElementString("CodTroquel", i.NTroquel)
-                writer.WriteElementString("Alfabeta", i.Codigo)
-                writer.WriteElementString("Kairos", "")
-                writer.WriteElementString("Codigo", "")
-                writer.WriteElementString("ImporteUnitario", Strings.Replace(Math.Round(i.PrecioUnitario, 2), ",", "."))
-                writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
-                writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS, ",", "."))
-                writer.WriteElementString("CodPreautorizacion", "")
-                writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoOS, ",", "."))
-                writer.WriteElementString("ExcepcionPrescripcion", "")
-                writer.WriteElementString("Diagnostico", "")
-                writer.WriteElementString("DosisDiaria", "")
-                writer.WriteElementString("DiasTratamiento", "")
-                writer.WriteElementString("Generico", "")
-                writer.WriteElementString("CodConflicto", "")
-                writer.WriteElementString("CodIntervencion", "")
-                writer.WriteElementString("CodAccion", "")
+                    writer.WriteElementString("NroItem", nroItem.ToString())
+                    writer.WriteElementString("CodBarras", i.CodBarras)
+                    writer.WriteElementString("CodTroquel", i.NTroquel)
+                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Kairos", "")
+                    writer.WriteElementString("Codigo", "")
+                    writer.WriteElementString("ImporteUnitario", Strings.Replace(Math.Round(i.PrecioUnitario, 2), ",", "."))
+                    writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
+                    writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS, ",", "."))
+                    writer.WriteElementString("CodPreautorizacion", "")
+                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoOS, ",", "."))
+                    writer.WriteElementString("ExcepcionPrescripcion", "")
+                    writer.WriteElementString("Diagnostico", "")
+                    writer.WriteElementString("DosisDiaria", "")
+                    writer.WriteElementString("DiasTratamiento", "")
+                    writer.WriteElementString("Generico", "")
+                    writer.WriteElementString("CodConflicto", "")
+                    writer.WriteElementString("CodIntervencion", "")
+                    writer.WriteElementString("CodAccion", "")
 
-                writer.WriteEndElement()
-            End If
+                    writer.WriteEndElement()
+                End If
 
-        Next
+            Next
+
+        End If
 
         writer.WriteEndElement()
 
@@ -347,26 +350,28 @@ Public Class SIMED
 
         Dim nroItem As Integer = 0
 
-        For Each i In argReceta.Items
+        If argReceta.Items IsNot Nothing Then
+            For Each i In argReceta.Items
 
-            If i.Articulo IsNot Nothing Then
-                nroItem += 1
+                If i.Articulo IsNot Nothing Then
+                    nroItem += 1
 
-                writer.WriteStartElement("Item")
+                    writer.WriteStartElement("Item")
 
-                writer.WriteElementString("NroItem", nroItem.ToString())
-                writer.WriteElementString("CodAutori", i.NumeroAutorizacionItem)
-                writer.WriteElementString("CodBarras", i.CodBarras)
-                writer.WriteElementString("CodTroquel", i.NTroquel)
-                writer.WriteElementString("Alfabeta", i.Codigo)
-                writer.WriteElementString("Kairos", "")
-                writer.WriteElementString("Codigo", "")
+                    writer.WriteElementString("NroItem", nroItem.ToString())
+                    writer.WriteElementString("CodAutori", i.NumeroAutorizacionItem)
+                    writer.WriteElementString("CodBarras", i.CodBarras)
+                    writer.WriteElementString("CodTroquel", i.NTroquel)
+                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Kairos", "")
+                    writer.WriteElementString("Codigo", "")
 
-                writer.WriteEndElement()
-            End If
+                    writer.WriteEndElement()
+                End If
 
-        Next
+            Next
 
+        End If
         writer.WriteEndElement()
 
     End Sub

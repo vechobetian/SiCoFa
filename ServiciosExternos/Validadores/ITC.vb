@@ -217,12 +217,6 @@ Public Class ITC
 
     End Sub
 
-    Private Sub WriteElementStringNullSafe(writer As XmlWriter, nombre As String, valor As String)
-
-        writer.WriteElementString(nombre, If(valor, ""))
-
-    End Sub
-
     Private Function MensajeAdesfaConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As String
 
         Dim settings As New XmlWriterSettings With {
@@ -262,8 +256,8 @@ Public Class ITC
 
             writer.WriteStartElement("Prestador")
             writer.WriteElementString("CodigoADESFA", "")
-            writer.WriteElementString("Cuit", argPValidacion.CuitPrestador)
-            writer.WriteElementString("Codigo", argPValidacion.NumPrestador)
+            writer.WriteElementString("Cuit", If(argPValidacion?.CuitPrestador, ""))
+            writer.WriteElementString("Codigo", If(argPValidacion?.NumPrestador, ""))
             writer.WriteEndElement()
 
             writer.WriteEndElement() 'EncabezadoMensaje
@@ -329,9 +323,9 @@ Public Class ITC
 
             writer.WriteStartElement("Prestador")
             writer.WriteElementString("CodigoADESFA", "")
-            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Cuit", If(argReceta.Plan?.OS?.PValidacion?.CuitPrestador, ""))
             writer.WriteElementString("Sucursal", "1")
-            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.NumPrestador)
+            writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.NumPrestador, ""))
             writer.WriteElementString("Vendedor", "")
             writer.WriteEndElement()
 
@@ -347,7 +341,7 @@ Public Class ITC
             writer.WriteEndElement()
 
             writer.WriteStartElement("Credencial")
-            writer.WriteElementString("Numero", argReceta.Credencial.Numero)
+            writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
             writer.WriteElementString("Track", "")
             writer.WriteElementString("Version", "")
             writer.WriteElementString("Vencimiento", "")
@@ -415,10 +409,10 @@ Public Class ITC
             writer.WriteElementString("VersionMsj", "2.0")
 
             writer.WriteStartElement("Prestador")
-            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Cuit", If(argReceta.Plan?.OS?.PValidacion?.CuitPrestador, ""))
             writer.WriteElementString("Sucursal", "1")
             writer.WriteElementString("RazonSocial", "")
-            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.NumPrestador)
+            writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.NumPrestador, ""))
             writer.WriteEndElement()
 
             writer.WriteElementString("SetCaracteres", "")
@@ -428,21 +422,21 @@ Public Class ITC
             writer.WriteStartElement("EncabezadoReceta")
 
             writer.WriteStartElement("Prescriptor")
-            WriteElementStringNullSafe(writer, "Apellido", argReceta.Prescriptor?.Apellido)
-            WriteElementStringNullSafe(writer, "Nombre", argReceta.Prescriptor?.Nombre)
-            WriteElementStringNullSafe(writer, "TipoMatricula", argReceta.Prescriptor?.Matricula.TipoMatricula.CodiTMADESFA)
-            WriteElementStringNullSafe(writer, "Provincia", argReceta.Prescriptor?.Provincia.CodiP)
-            WriteElementStringNullSafe(writer, "NroMatricula", argReceta.Prescriptor?.Matricula.Numero)
-            WriteElementStringNullSafe(writer, "TipoPrescriptor", argReceta.Prescriptor?.TipoPrescriptor.CodiTPADESFA)
+            writer.WriteElementString("Apellido", If(argReceta.Prescriptor?.Apellido, ""))
+            writer.WriteElementString("Nombre", If(argReceta.Prescriptor?.Nombre, ""))
+            writer.WriteElementString("TipoMatricula", If(argReceta.Prescriptor?.Matricula?.TipoMatricula?.CodiTMADESFA, ""))
+            writer.WriteElementString("Provincia", If(argReceta.Prescriptor?.Provincia?.CodiP, ""))
+            writer.WriteElementString("NroMatricula", If(argReceta.Prescriptor?.Matricula?.Numero, ""))
+            writer.WriteElementString("TipoPrescriptor", If(argReceta.Prescriptor?.TipoPrescriptor?.CodiTPADESFA, ""))
             writer.WriteElementString("Cuit", "")
             writer.WriteElementString("Especialidad", "")
             writer.WriteEndElement()
 
             writer.WriteStartElement("Beneficiario")
-            WriteElementStringNullSafe(writer, "TipoDoc", argReceta.Documento?.TipoDocumento?.CodiTDADESFA)
-            WriteElementStringNullSafe(writer, "NroDoc", argReceta.Documento?.Numero)
-            WriteElementStringNullSafe(writer, "Apellido", argReceta.Credencial?.Nombre)
-            WriteElementStringNullSafe(writer, "Nombre", argReceta.Credencial?.Nombre)
+            writer.WriteElementString("TipoDoc", If(argReceta.Documento?.TipoDocumento?.CodiTDADESFA, ""))
+            writer.WriteElementString("NroDoc", If(argReceta.Documento?.Numero, ""))
+            writer.WriteElementString("Apellido", If(argReceta.Credencial?.Nombre, ""))
+            writer.WriteElementString("Nombre", If(argReceta.Credencial?.Nombre, ""))
             writer.WriteElementString("Sexo", "")
             writer.WriteElementString("FechaNacimiento", "")
             writer.WriteElementString("Parentesco", "")
@@ -457,15 +451,15 @@ Public Class ITC
             writer.WriteEndElement()
 
             writer.WriteStartElement("Credencial")
-            WriteElementStringNullSafe(writer, "Numero", argReceta.Credencial?.Numero)
-            WriteElementStringNullSafe(writer, "Track", argReceta.Credencial?.Numero)
-            WriteElementStringNullSafe(writer, "CSC", argReceta.Credencial?.Token)
+            writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
+            writer.WriteElementString("Track", If(argReceta.Credencial?.Numero, ""))
+            writer.WriteElementString("CSC", If(argReceta.Credencial?.Token, ""))
             writer.WriteElementString("Version", "")
             writer.WriteElementString("Vencimiento", "")
             writer.WriteElementString("ModoIngreso", "A")
             writer.WriteElementString("EsProvisorio", "0")
             writer.WriteElementString("Plan", "")
-            WriteElementStringNullSafe(writer, "cvc2", argReceta.Credencial?.Token)
+            writer.WriteElementString("cvc2", If(argReceta.Credencial?.Token, ""))
             writer.WriteEndElement()
 
             writer.WriteElementString("CoberturaEspecial", "")
@@ -511,6 +505,10 @@ Public Class ITC
             writer.WriteStartElement("DetalleReceta")
 
             Dim nroItem As Integer = 0
+
+            If argReceta.Items Is Nothing Then
+                Return String.Empty
+            End If
 
             For Each i In argReceta.Items
 
@@ -589,7 +587,7 @@ Public Class ITC
             writer.WriteEndElement()
 
             writer.WriteStartElement("Prestador")
-            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Cuit", If(argReceta.Plan?.OS?.PValidacion?.CuitPrestador, ""))
             writer.WriteElementString("Sucursal", "1")
             writer.WriteElementString("RazonSocial", "")
             writer.WriteEndElement()
@@ -601,10 +599,10 @@ Public Class ITC
             writer.WriteStartElement("Prescriptor")
             writer.WriteElementString("Apellido", "")
             writer.WriteElementString("Nombre", "")
-            writer.WriteElementString("TipoMatricula", argReceta.Prescriptor.Matricula.TipoMatricula.CodiTMADESFA)
-            writer.WriteElementString("Provincia", argReceta.Prescriptor.Provincia.CodiP)
-            writer.WriteElementString("NroMatricula", argReceta.Prescriptor.Matricula.Numero)
-            writer.WriteElementString("TipoPrescriptor", argReceta.Prescriptor.TipoPrescriptor.CodiTPADESFA)
+            writer.WriteElementString("TipoMatricula", If(argReceta.Prescriptor?.Matricula?.TipoMatricula?.CodiTMADESFA, ""))
+            writer.WriteElementString("Provincia", If(argReceta.Prescriptor?.Provincia?.CodiP, ""))
+            writer.WriteElementString("NroMatricula", If(argReceta.Prescriptor?.Matricula?.Numero, ""))
+            writer.WriteElementString("TipoPrescriptor", If(argReceta.Prescriptor?.TipoPrescriptor?.CodiTPADESFA, ""))
             writer.WriteElementString("Cuit", "")
             writer.WriteEndElement()
 
@@ -616,7 +614,7 @@ Public Class ITC
             writer.WriteEndElement()
 
             writer.WriteStartElement("Credencial")
-            writer.WriteElementString("Track", argReceta.Credencial.Numero)
+            writer.WriteElementString("Track", If(argReceta.Credencial?.Numero, ""))
             writer.WriteElementString("ModoIngreso", "A")
             writer.WriteEndElement()
 
@@ -1360,95 +1358,6 @@ Public Class ITC
         End Try
 
     End Sub
-
-
-    Private Function FormatearMensajePuntoSalud1(rawText As String) As String
-        Dim sb As New StringBuilder()
-
-        ' 1. Normalizar y forzar saltos de línea en cada tira de guiones
-        Dim texto As String = Regex.Replace(rawText, "-{5,}", vbCrLf & "----------------------------------------" & vbCrLf)
-
-        ' 2. Insertar saltos de línea antes de cada palabra clave (Se excluyen las del bloque de firma para procesarlas en grupo)
-        Dim etiquetas() As String = {
-            "AUTORIZACION", "Cupón N°:", "Prestador:", "Afiliado:", "Plan:", "Tipo:",
-            "Médico Receta:", "Fecha Receta :", "Fecha Receta:", "Fecha Prestación:",
-            "Medicamentos", "Tipo Prescripción:", "TOTAL:", "A cargo O.S.", "A cargo Afil.",
-            "TOTAL A CARGO AFIL.:", "PuntoSalud.com"
-        }
-
-        For Each etq In etiquetas
-            texto = texto.Replace(etq, vbCrLf & etq)
-        Next
-
-        ' 3. Procesar el texto línea por línea
-        Dim lineas() As String = texto.Split(New String() {vbCr, vbLf}, StringSplitOptions.RemoveEmptyEntries)
-
-        For Each l As String In lineas
-            Dim linea As String = l.Trim()
-
-            ' Saltear etiquetas secundarias del bloque de firma para que no se dupliquen
-            If linea.StartsWith("Firma del Titular") OrElse linea.StartsWith("Aclaración") OrElse
-               linea.StartsWith("Documento Nro:") OrElse linea.StartsWith("Telf.y Direc.:") Then
-
-                ' Marcador especial para que el generador de PDF levante el espacio físico
-                If linea.StartsWith("Firma del Titular") Then
-                    sb.AppendLine("[BLOQUE_FIRMA_AMPLIADO]")
-                End If
-                Continue For
-            End If
-
-            ' Encabezado de la tabla de medicamentos (Se escribe una sola vez)
-            If linea.StartsWith("Medicamentos") Then
-                sb.AppendLine("Medicamentos")
-                sb.AppendLine("Can Troquel    P.Unit.  %Cob.   P.Final")
-                Continue For
-            End If
-
-            ' Ignorar la línea de títulos si el WS la vuelve a enviar suelta
-            If linea.StartsWith("Can Troquel") OrElse linea.StartsWith("P.Unit.") Then
-                Continue For
-            End If
-
-            ' Fila de importes de troquel para CUALQUIER medicamento de la lista (1, 2, 3, etc.)
-            Dim matchTroquel As Match = Regex.Match(linea, "^(\d+)\s+(\d{7})\s+(\$\d+[\d\.,]*)\s+(\d+[\d\.,]*%)\s+(\$\d+[\d\.,]*)(.*)")
-
-            If matchTroquel.Success Then
-                Dim can As String = matchTroquel.Groups(1).Value
-                Dim troquel As String = matchTroquel.Groups(2).Value
-                Dim pUnit As String = matchTroquel.Groups(3).Value
-                Dim cob As String = matchTroquel.Groups(4).Value
-                Dim pFinal As String = matchTroquel.Groups(5).Value
-                Dim restoTexto As String = matchTroquel.Groups(6).Value.Trim()
-
-                ' Imprimir valores numéricos alineados a la tabla
-                Dim det As String = String.Format("{0,2} {1,-8} {2,10} {3,6} {4,10}", can, troquel, pUnit, cob, pFinal)
-                sb.AppendLine(det)
-
-                ' Imprimir el nombre del medicamento en el renglón siguiente con sangría
-                If Not String.IsNullOrEmpty(restoTexto) Then
-                    sb.AppendLine("    " & restoTexto)
-                End If
-                Continue For
-            End If
-
-            ' Formatear totales (TOTAL, A cargo O.S., A cargo Afil.)
-            If linea.StartsWith("TOTAL:") OrElse linea.StartsWith("A cargo") OrElse linea.StartsWith("TOTAL A CARGO") Then
-                Dim matchMonto = Regex.Match(linea, "(.*?)\s*(\$\d+[\d\.,]*)")
-                If matchMonto.Success Then
-                    Dim lbl As String = matchMonto.Groups(1).Value.Trim()
-                    Dim val As String = matchMonto.Groups(2).Value.Trim()
-                    Dim espacio As Integer = Math.Max(1, 40 - lbl.Length - val.Length)
-                    sb.AppendLine(lbl & New String(" "c, espacio) & val)
-                    Continue For
-                End If
-            End If
-
-            ' Líneas estándar de texto plano
-            sb.AppendLine(linea)
-        Next
-
-        Return sb.ToString()
-    End Function
 
     Private Function FormatearMensajePuntoSalud(rawText As String) As String
 
