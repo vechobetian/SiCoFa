@@ -7,7 +7,7 @@ Public Module PlanOSMapper
 
         Dim pValOS As ParametrosValidacion = Nothing
 
-        If Not IsDBNull(datos("ValidadorOS")) Then
+        If String.IsNullOrWhiteSpace(datos("ValidadorOS")) = False Then
             pValOS = New ParametrosValidacion(
                 If(IsDBNull(datos("ValidadorOS")), Nothing, datos("ValidadorOS").ToString()),
                 If(IsDBNull(datos("DescripcionValidadorOS")), Nothing, datos("DescripcionValidadorOS").ToString()),

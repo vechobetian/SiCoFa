@@ -47,9 +47,9 @@ Partial Class FrmVentas
         Me.btnSolicitarAutorizacionReceta = New System.Windows.Forms.ToolStripButton()
         Me.btnCancelarAutorizacion = New System.Windows.Forms.ToolStripButton()
         Me.toolStripSeparator = New System.Windows.Forms.ToolStripSeparator()
+        Me.btnDescuentoGeneral = New System.Windows.Forms.ToolStripButton()
         Me.DatosRecetaToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ClienteToolStripButton = New System.Windows.Forms.ToolStripButton()
-        Me.btnDescuentoGeneral = New System.Windows.Forms.ToolStripButton()
         Me.AyudaToolStripButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -122,7 +122,7 @@ Partial Class FrmVentas
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 486.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 504.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblDescuentos, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
@@ -150,7 +150,7 @@ Partial Class FrmVentas
         '
         Me.lblDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescuentos.Location = New System.Drawing.Point(301, 30)
+        Me.lblDescuentos.Location = New System.Drawing.Point(283, 30)
         Me.lblDescuentos.Name = "lblDescuentos"
         Me.lblDescuentos.Size = New System.Drawing.Size(174, 24)
         Me.lblDescuentos.TabIndex = 8
@@ -161,9 +161,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(484, 30)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(466, 30)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(480, 24)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(498, 24)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "$ 0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -172,9 +172,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(484, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(466, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(480, 24)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(498, 24)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "$ 0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -183,7 +183,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(301, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(283, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
         Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
@@ -194,7 +194,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(301, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(283, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
         Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(174, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 20
@@ -205,9 +205,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(484, 111)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(466, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(480, 68)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(498, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "$ 0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -216,7 +216,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(301, 57)
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(283, 57)
         Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
         Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteOSEtiqueta.TabIndex = 21
@@ -227,7 +227,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteCSEtiqueda.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCSEtiqueda.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(301, 84)
+        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(283, 84)
         Me.lblImporteCSEtiqueda.Name = "lblImporteCSEtiqueda"
         Me.lblImporteCSEtiqueda.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteCSEtiqueda.TabIndex = 22
@@ -238,9 +238,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOS.Location = New System.Drawing.Point(484, 57)
+        Me.lblImporteOS.Location = New System.Drawing.Point(466, 57)
         Me.lblImporteOS.Name = "lblImporteOS"
-        Me.lblImporteOS.Size = New System.Drawing.Size(480, 24)
+        Me.lblImporteOS.Size = New System.Drawing.Size(498, 24)
         Me.lblImporteOS.TabIndex = 23
         Me.lblImporteOS.Text = "$ 0,00"
         Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -249,9 +249,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCS.Location = New System.Drawing.Point(484, 84)
+        Me.lblImporteCS.Location = New System.Drawing.Point(466, 84)
         Me.lblImporteCS.Name = "lblImporteCS"
-        Me.lblImporteCS.Size = New System.Drawing.Size(480, 24)
+        Me.lblImporteCS.Size = New System.Drawing.Size(498, 24)
         Me.lblImporteCS.TabIndex = 24
         Me.lblImporteCS.Text = "$ 0,00"
         Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -266,7 +266,7 @@ Partial Class FrmVentas
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
         Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 5)
-        Me.Panel2.Size = New System.Drawing.Size(292, 176)
+        Me.Panel2.Size = New System.Drawing.Size(274, 176)
         Me.Panel2.TabIndex = 25
         '
         'lblDatosOperacion
@@ -364,6 +364,15 @@ Partial Class FrmVentas
         Me.toolStripSeparator.Name = "toolStripSeparator"
         Me.toolStripSeparator.Size = New System.Drawing.Size(6, 38)
         '
+        'btnDescuentoGeneral
+        '
+        Me.btnDescuentoGeneral.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnDescuentoGeneral.Image = CType(resources.GetObject("btnDescuentoGeneral.Image"), System.Drawing.Image)
+        Me.btnDescuentoGeneral.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnDescuentoGeneral.Name = "btnDescuentoGeneral"
+        Me.btnDescuentoGeneral.Size = New System.Drawing.Size(23, 35)
+        Me.btnDescuentoGeneral.Text = "Descuento General"
+        '
         'DatosRecetaToolStripButton
         '
         Me.DatosRecetaToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -381,15 +390,6 @@ Partial Class FrmVentas
         Me.ClienteToolStripButton.Name = "ClienteToolStripButton"
         Me.ClienteToolStripButton.Size = New System.Drawing.Size(23, 35)
         Me.ClienteToolStripButton.Text = "&Cliente"
-        '
-        'btnDescuentoGeneral
-        '
-        Me.btnDescuentoGeneral.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDescuentoGeneral.Image = CType(resources.GetObject("btnDescuentoGeneral.Image"), System.Drawing.Image)
-        Me.btnDescuentoGeneral.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnDescuentoGeneral.Name = "btnDescuentoGeneral"
-        Me.btnDescuentoGeneral.Size = New System.Drawing.Size(23, 35)
-        Me.btnDescuentoGeneral.Text = "Descuento General"
         '
         'AyudaToolStripButton
         '

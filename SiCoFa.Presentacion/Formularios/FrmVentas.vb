@@ -276,6 +276,31 @@ Public Class FrmVentas
 
     End Function
 
+    Private Sub BotonesValidacionActualizar(argReceta As Receta)
+
+        If argReceta Is Nothing Then
+            Me.btnSolicitarAutorizacionReceta.Enabled = False
+            Me.btnCancelarAutorizacion.Enabled = False
+            Exit Sub
+        End If
+
+        If argReceta.Plan.OS.PValidacion Is Nothing Then
+            Me.btnSolicitarAutorizacionReceta.Enabled = False
+            Me.btnCancelarAutorizacion.Enabled = False
+        End If
+
+        If argReceta.Plan.OS.PValidacion IsNot Nothing AndAlso argReceta.NumAutorizacion = "" Then
+            Me.btnSolicitarAutorizacionReceta.Enabled = True
+            Me.btnCancelarAutorizacion.Enabled = False
+        End If
+
+        If argReceta.Plan.OS.PValidacion IsNot Nothing AndAlso argReceta.NumAutorizacion <> "" Then
+            Me.btnSolicitarAutorizacionReceta.Enabled = False
+            Me.btnCancelarAutorizacion.Enabled = True
+        End If
+
+    End Sub
+
     Private Sub ActualizarDatosReceta()
 
         Dim receta As Receta = Nothing
@@ -297,6 +322,8 @@ Public Class FrmVentas
         If receta IsNot Nothing Then
             UcReceta1.AplicarColor(mobj_ItemSeleccionado.BackColor)
         End If
+
+        Me.BotonesValidacionActualizar(receta)
 
     End Sub
 
@@ -534,7 +561,7 @@ Public Class FrmVentas
 
             item.Cantidad = 1
 
-                uc.Bind(item)
+            uc.Bind(item)
 
             uc.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
 
@@ -939,7 +966,7 @@ Public Class FrmVentas
 
             receta.IdReceta = ObtenerNuevoIdReceta()
 
-            If receta.Plan.OS.PValidacion.RecetaElectronica Then
+            If receta.Plan.OS.PValidacion IsNot Nothing AndAlso receta.Plan.OS.PValidacion.RecetaElectronica Then
                 Using frm As New FrmDatosReceta(receta)
 
                     If frm.ShowDialog() = DialogResult.OK Then
