@@ -1268,7 +1268,6 @@ Public Class COMPA
 
             Return argReceta
 
-
         Catch ex As Exception
 
             Throw New Exception(Funciones.MensajeError(Me.ToString, "ParsearRecetaElectronica", ex.Message))

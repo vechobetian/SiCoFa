@@ -48,6 +48,10 @@ Public Class FrmVentas
 
     End Function
 
+    Private Sub AplicarDescuentoGeneral()
+
+    End Sub
+
     Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
 
         Try
@@ -1229,6 +1233,10 @@ Public Class FrmVentas
         Me.SolicitarAutorizacionReceta()
     End Sub
 
+    Private Sub btnCancelarAutorizacion_Click(sender As Object, e As EventArgs) Handles btnCancelarAutorizacion.Click
+        Me.SolicitarCancelacionReceta()
+    End Sub
+
     Private Sub mnuSalir_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
         Me.Close()
     End Sub
@@ -1775,4 +1783,7 @@ Public Class FrmVentas
         Me.SolicitarCancelacionReceta()
     End Sub
 
+    Private Sub DesRecToolStripButton1_Click(sender As Object, e As EventArgs) Handles DesRecToolStripButton1.Click
+
+    End Sub
 End Class
