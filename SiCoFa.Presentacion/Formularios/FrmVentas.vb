@@ -1,6 +1,5 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
-Imports System.Windows.Documents
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
@@ -32,7 +31,8 @@ Public Class FrmVentas
     Private mdec_ImporteSinDescuentos As Decimal = 0
     Private mdec_ImporteDescuentos As Decimal = 0
     Private mdec_ImporteConDescuentos As Decimal = 0
-    Private mdec_PorcentaDescuentos As Decimal = 0
+    Private mdec_PorcentajeDescuentos As Decimal = 0
+    Private mdec_PorcentajeDescuentoGeneral As Decimal = 0
     Private mdec_ImporteExento As Decimal = 0
     Private mdec_ImporteGravado1 As Decimal = 0
     Private mdec_ImporteGravado2 As Decimal = 0
@@ -50,8 +50,48 @@ Public Class FrmVentas
 
     Private Sub AplicarDescuentoGeneral()
 
-    End Sub
+        Try
 
+            Dim descuentoStr As String = InputBox("Ingrese el porcentaje de descuento general:", "Descuento General", mdec_PorcentajeDescuentoGeneral.ToString("0.00"))
+
+            If String.IsNullOrWhiteSpace(descuentoStr) Then Exit Sub
+
+            Dim descuento As Decimal
+
+            If Not Decimal.TryParse(descuentoStr, descuento) Then
+                MessageBox.Show("Ingrese un porcentaje válido.", "Descuento General", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            If descuento < 0 OrElse descuento > 100 Then
+                MessageBox.Show("El descuento debe estar entre 0 y 100%.", "Descuento General", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            ' Guardar para los próximos artículos
+            mdec_PorcentajeDescuentoGeneral = descuento
+
+            ' Aplicar a los artículos ya cargados
+            For Each i As ItemComprobante In mobj_Items
+
+                If i.Articulo Is Nothing Then Continue For
+
+                If i.Receta Is Nothing Then
+                    i.PorcentajeDescuento = descuento
+                End If
+
+            Next
+
+            ActualizarTotales()
+            RenderItemsUC(True)
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
     Private Function SeleccionarClienteListado(ByVal Id As Int32, ByVal ListaClientes As List(Of Cliente)) As Cliente
 
         Try
@@ -126,28 +166,6 @@ Public Class FrmVentas
                 End Using
 
             End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-    End Sub
-
-    Private Sub InsertarItems(ByVal argIdOperacion As Long)
-        Try
-            Dim AdminItems As New N_AdminItemsComprobante
-            For Each i As ItemComprobante In mobj_Items
-
-                If i.Articulo Is Nothing Then Continue For
-
-                If i.IdItem = 0 Then
-                    'i.IdItem = AdminItems.InsertarItemComprobanteVenta(argIdOperacion, i)
-
-                Else
-                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.Articulo.PrecioCosto, i.PrecioUnitario, i.DescuentoUnitario)
-
-                End If
-            Next
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -509,9 +527,14 @@ Public Class FrmVentas
             Dim item As ItemComprobante = uc.ItemVenta
 
             item.Articulo = articulo
+
+            If item.Receta Is Nothing Then
+                item.PorcentajeDescuento = mdec_PorcentajeDescuentoGeneral
+            End If
+
             item.Cantidad = 1
 
-            uc.Bind(item)
+                uc.Bind(item)
 
             uc.ModoItemCargado(articulo.Fraccionable, articulo.Seccion.EstablecerPrecio)
 
@@ -661,7 +684,7 @@ Public Class FrmVentas
             mdec_ImporteSinDescuentos = 0
             mdec_ImporteDescuentos = 0
             mdec_ImporteConDescuentos = 0
-            mdec_PorcentaDescuentos = 0
+            mdec_PorcentajeDescuentos = 0
             mdec_ImporteExento = 0
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
@@ -699,15 +722,15 @@ Public Class FrmVentas
             Next
 
             If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
             Else
-                mdec_PorcentaDescuentos = 0
+                mdec_PorcentajeDescuentos = 0
             End If
 
             Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = mdec_ImporteSinDescuentos.ToString("$ #,##0.00")
             'Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
-            Me.lblDescuentos.Text = "Descuentos (" & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%)"
+            Me.lblDescuentos.Text = "Descuentos (" & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%)"
             Me.lblImporteDescuentos.Text = mdec_ImporteDescuentos.ToString("$ #,##0.00")
             Me.lblImporteOS.Text = mdec_ImporteOS.ToString("$ #,##0.00")
             Me.lblImporteCS.Text = mdec_ImporteCS.ToString("$ #,##0.00")
@@ -1237,6 +1260,10 @@ Public Class FrmVentas
         Me.SolicitarCancelacionReceta()
     End Sub
 
+    Private Sub btnDescuentoGeneral_Click(sender As Object, e As EventArgs) Handles btnDescuentoGeneral.Click
+        Me.AplicarDescuentoGeneral()
+    End Sub
+
     Private Sub mnuSalir_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click
         Me.Close()
     End Sub
@@ -1259,6 +1286,9 @@ Public Class FrmVentas
             If mobj_ItemSeleccionado Is Nothing Then
 
                 MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+            ElseIf mobj_ItemSeleccionado.ItemVenta.Receta IsNot Nothing Then
+                MessageBox.Show("El Item corresponde a una receta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
 
             End If
@@ -1300,8 +1330,11 @@ Public Class FrmVentas
         Try
 
             If mobj_ItemSeleccionado Is Nothing Then
-
                 MessageBox.Show("Por favor, seleccione un ítem.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Exit Sub
+
+            ElseIf mobj_ItemSeleccionado.ItemVenta.Receta IsNot Nothing Then
+                MessageBox.Show("El Item corresponde a una receta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
 
             End If
@@ -1783,7 +1816,4 @@ Public Class FrmVentas
         Me.SolicitarCancelacionReceta()
     End Sub
 
-    Private Sub DesRecToolStripButton1_Click(sender As Object, e As EventArgs) Handles DesRecToolStripButton1.Click
-
-    End Sub
 End Class
