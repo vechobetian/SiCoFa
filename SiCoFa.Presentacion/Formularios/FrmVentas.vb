@@ -1843,4 +1843,8 @@ Public Class FrmVentas
         Me.SolicitarCancelacionReceta()
     End Sub
 
+    Private Sub mnuDescuentoGeneral_Click(sender As Object, e As EventArgs) Handles mnuDescuentoGeneral.Click
+        Me.AplicarDescuentoGeneral()
+    End Sub
+
 End Class
