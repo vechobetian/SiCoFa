@@ -33,6 +33,7 @@ Public Class FrmVentas
     Private mdec_ImporteConDescuentos As Decimal = 0
     Private mdec_PorcentajeDescuentos As Decimal = 0
     Private mdec_PorcentajeDescuentoGeneral As Decimal = 0
+    Private mdec_PorcentajeRecargoGeneral As Decimal = 0
     Private mdec_ImporteExento As Decimal = 0
     Private mdec_ImporteGravado1 As Decimal = 0
     Private mdec_ImporteGravado2 As Decimal = 0
@@ -78,6 +79,51 @@ Public Class FrmVentas
 
                 If i.Receta Is Nothing Then
                     i.PorcentajeDescuento = descuento
+                End If
+
+            Next
+
+            ActualizarTotales()
+            RenderItemsUC(True)
+
+        Catch ex As Exception
+
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
+
+    Private Sub AplicarRecargoGeneral()
+
+        Try
+
+            Dim recargoStr As String = InputBox("Ingrese el porcentaje de recargo general:", "Recargo General", mdec_PorcentajeRecargoGeneral.ToString("0.00"))
+
+            If String.IsNullOrWhiteSpace(recargoStr) Then Exit Sub
+
+            Dim recargo As Decimal
+
+            If Not Decimal.TryParse(recargoStr, recargo) Then
+                MessageBox.Show("Ingrese un porcentaje válido.", "Recargo General", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            If recargo < 0 OrElse recargo > 100 Then
+                MessageBox.Show("El recargo debe estar entre 0 y 100%.", "Descuento General", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            ' Guardar para los próximos artículos
+            mdec_PorcentajeRecargoGeneral = recargo
+
+            ' Aplicar a los artículos ya cargados
+            For Each i As ItemComprobante In mobj_Items
+
+                If i.Articulo Is Nothing Then Continue For
+
+                If i.Receta Is Nothing AndAlso i.IdArticulo <> "0" Then
+                    i.PrecioUnitario = i.Articulo.PrecioVenta * (1 + recargo / 100)
                 End If
 
             Next
@@ -1847,4 +1893,7 @@ Public Class FrmVentas
         Me.AplicarDescuentoGeneral()
     End Sub
 
+    Private Sub btnRecargoGeneral_Click(sender As Object, e As EventArgs) Handles btnRecargoGeneral.Click
+        Me.AplicarRecargoGeneral()
+    End Sub
 End Class
