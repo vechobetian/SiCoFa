@@ -203,38 +203,6 @@
         0o8AAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="btnDescuentoGeneral.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJhSURBVDhPjZBrSJNhGIZH9CP60Q+RCBmCnURNUMuKIYhG
-        m1JhSAd1Vmqemjk7SIqug04s0ym0Asm1oMIjS11oMOpH5g8ppNByCtWUTJ2iSyE1VK62LyfMZXXDzfe+
-        7/fc1/O+j0itVpGTnURWZiLZWUko7N+yMhUF+QouKpNRXb1AevoJwalnj5OWFkdGRjyZ9jpHVgBYx0Zd
-        rC7KQ19TRbPhAZqKG27/nV4BDFuHmFucZnp+kg/mNxyLOUhjXTWNtTVkpiZgsfQxMW51sQtg3DpGQ+1j
-        +s0faX/WiCQ0mPr6R2huX+ewLBxjSx3fRoYxNt2jq60EU3ujK2BiYhRjcxOWLwPo9Q+JlPjT0V5OtVZD
-        UMAOnhoahMDS+wiqcsUknJQLTVcANtsUTn3qNcL3cpi6QkO1BJFIJIQXeuT8GJCzN8RX2LvcQHu3gjva
-        EjSVlSwOK+jpiOBd53n7ulAA1D3RgP08KzkUaZSMolt55F279BuwWkymEBywgejITfA1TQD0vYymTRvC
-        +nUb3QOrxaAMda4PLTov5swylKfFLFjikIZ5o0zd92/AdLcvi2+9mO8Sc1nuga03Bn2xD+ocfxg6xZI5
-        ni7dHmG/HHGXrtSPxKgtPNfvYvZzCsqjnvbBFtJ6M5AGVRB0HkCr2C6AliN/1mxPhNBJLvWxdz5EitST
-        M0cCmTXtx1S8VXjecqm7Zl5spvu+hwCoyd8GfbGOYs7F7sRm3M2rUvtM1gI4wg47wo7rO85+vg5n0Cih
-        3xDGTGsAuhzvtedgM/kK3Z1hp0YMQVib/DAUiP8+xP+XSPQL/On1oKHGXXcAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="DatosRecetaToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJSSURBVDhPtZJrSJNRGMdf6IN9KbpQn/pUEH2JIoLqQ0Zh
-        FqYZRmJG1iKmUqKyLB2pqSm6vC1Nm5GXoeatEsVJ0RASR3eNzegikRq5lrV3857Fr/d9ddlICoL+8OfA
-        Oef/e57zcIT/os7WLMw302muSGJ2689qqi7A44q8IzjtNYzarzHQm8tZtT8FmRqu6LToMxN+B8qhCbGR
-        KVcDE85ajKUaxoaryEuL4UVXIudPB5Ko2oy98xjDptXERuz3hsgAOTzlqqMk6yjdllzE90UM9Wp5azlB
-        S1kwkeG+1CSv4mmBQPThfd6Ahqq8GYB4A11yBKmaMLQxoZyLDkGjDiZOFUhUuB+FsWsUQFiArzegtlzH
-        pFjPpMPA2GA2jucx2KqWK7ZWLqO7dBGP9D5KWLbfto3eAKMhi3FHBeP9GYy9PMXos4OIrYvJrzSRbWjm
-        wuV6EnVG4tLLiEzSExGf4w0oL05nZEDPaK+akceBuO9v4uPtFUrYo6npbzhdE/QPOQmNSiPouHYOUpaf
-        gvgqA/dDf9wd63G1r2SgUlAqyyq/1anYUGfG2mdXwne7bOwJUc1AinOS+NxzBpd5HWLbUhyNPvRdF5S2
-        v05/54tbqvzBifWNHUvPOwLC4/CXwrv2HsB3+w6EwosJOB5ESeElfGpayGD1AmwlArHSm+W2PR1clToo
-        MrbT0mFTVtlbN6xFuJQar3wQz5Q9VksD+7XyPctrJdx4p5s605M5gKz8lJPSDwtGFbKboJ1blAN52vKb
-        PdXm80/AfDokTVu+8DfPXv9XCcIPTvjvLQ8YoakAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="ClienteToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -483,22 +451,6 @@
         AOE0gOFvKKQDdcZvFYawD8887OHhQY7WHKUAOIzQbDYjHdpk+/v7qQ9MUCgFAOgAp0PD6fDXhrDHzOfh
         PEgUwAc1AYURFZc647cKQ9+vr6+Zcz4OS4B1ZiOAvJaWjQDyWlKE+A9krznTuuDSjwAAAABJRU5ErkJg
         gg==
-</value>
-  </data>
-  <data name="mnuDescuentoGeneral.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wgAADsIBFShKgAAAAmFJREFUOE+NkGtIk2EYhkf0I/rRD5EIGYKdRE1Qy4ohiEabUmFIB3VWap6aOTtI
-        iq6DTizTKbQCybWgwiNLXWgw6kfmDymk0HIK1ZRMnaJLITVUrrYvJ8xldcPN977v99zX876PSK1WkZOd
-        RFZmItlZSSjs37IyFQX5Ci4qk1FdvUB6+gnBqWePk5YWR0ZGPJn2OkdWAFjHRl2sLspDX1NFs+EBmoob
-        bv+dXgEMW4eYW5xmen6SD+Y3HIs5SGNdNY21NWSmJmCx9DExbnWxC2DcOkZD7WP6zR9pf9aIJDSY+vpH
-        aG5f57AsHGNLHd9GhjE23aOrrQRTe6MrYGJiFGNzE5YvA+j1D4mU+NPRXk61VkNQwA6eGhqEwNL7CKpy
-        xSSclAtNVwA22xROfeo1wvdymLpCQ7UEkUgkhBd65PwYkLM3xFfYu9xAe7eCO9oSNJWVLA4r6OmI4F3n
-        efu6UADUPdGA/TwrORRplIyiW3nkXbv0G7BaTKYQHLCB6MhN8DVNAPS9jKZNG8L6dRvdA6vFoAx1rg8t
-        Oi/mzDKUp8UsWOKQhnmjTN33b8B0ty+Lb72Y7xJzWe6BrTcGfbEP6hx/GDrFkjmeLt0eYb8ccZeu1I/E
-        qC081+9i9nMKyqOe9sEW0nozkAZVEHQeQKvYLoCWI3/WbE+E0Eku9bF3PkSK1JMzRwKZNe3HVLxVeN5y
-        qbtmXmym+76HAKjJ3wZ9sY5izsXuxGbczatS+0zWAjjCDjvCjus7zn6+DmfQKKHfEMZMawC6HO+152Az
-        +QrdnWGnRgxBWJv8MBSI/z7E/5dI9Av86fWgocZddwAAAABJRU5ErkJggg==
 </value>
   </data>
 </root>
