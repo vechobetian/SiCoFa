@@ -128,6 +128,8 @@ Public Class FrmVentas
 
             Next
 
+            Me.lblRecargoGeneral.Text = "- Recargo: " & Format(mdec_PorcentajeRecargoGeneral, "#,##0.00") & "%"
+
             ActualizarTotales()
             RenderItemsUC(True)
 
@@ -601,8 +603,9 @@ Public Class FrmVentas
 
             item.Articulo = articulo
 
-            If item.Receta Is Nothing Then
+            If item.Receta Is Nothing AndAlso item.IdArticulo <> "0" Then
                 item.PorcentajeDescuento = mdec_PorcentajeDescuentoGeneral
+                item.PrecioUnitario = item.Articulo.PrecioVenta * (1 + mdec_PorcentajeRecargoGeneral / 100)
             End If
 
             item.Cantidad = 1

@@ -254,7 +254,7 @@ Public Class D_AdminComprobantes
             End Using
 
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarComprobante", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "EmitirComprobante", Ex.Message))
             Return Nothing
         End Try
 

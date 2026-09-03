@@ -365,7 +365,8 @@ Public Class FrmCajas
                 Exit Sub
             End If
 
-            Dim objCliente As New Cliente(0, "", "", "", "", "", "", Nothing, Date.Now, "", "")
+            Dim objDocumento As New Documento("NA", 0)
+            Dim objCliente As New Cliente(0, "", "", "", "", "", "", objDocumento, Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")
 

@@ -16,6 +16,23 @@ Public Class FrmMovimientosCC
     Private mSaldoAdeudadoCuentaCorriente As Decimal = 0
     Private mSaldoAdeudadoItemsSeleccinados As Decimal = 0
 
+    Private Sub ActualizarTotales()
+        mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaCorriente.IdCC}")
+        mSaldoAdeudadoItemsSeleccinados = 0
+
+        If String.IsNullOrWhiteSpace(Me.ResumenSeleccionado) Then
+            mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
+
+        Else
+            mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
+
+        End If
+
+        Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: " & mSaldoAdeudadoCuentaCorriente.ToString("N2")
+        Me.lblImporteAdeudadoItemsSeleccionados.Text = "Importe Adeudado Items Seleccionados: " & mSaldoAdeudadoItemsSeleccinados.ToString("N2")
+
+    End Sub
+
     Private Sub ActualizarMenus()
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
@@ -103,20 +120,8 @@ Public Class FrmMovimientosCC
             Me.AjustarAnchoColumnasComprobantes()
             Me.AjustarAnchoColumnasDetalle()
 
-            mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaCorriente.IdCC}")
-            mSaldoAdeudadoItemsSeleccinados = 0
-
-            If String.IsNullOrWhiteSpace(Me.ResumenSeleccionado) Then
-                mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
-
-            Else
-                mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
-
-            End If
-
             Me.lblDescripcionCuentaCorriente.Text = "Cuenta Corriente: " & Me.DescripcionCuentaCorriente
-            Me.lblSaldoCuentaCorriente.Text = "Saldo Cuenta Corriente: " & mSaldoAdeudadoCuentaCorriente.ToString("N2")
-            Me.lblImporteAdeudadoItemsSeleccionados.Text = "Importe Adeudado Items Seleccionados: " & mSaldoAdeudadoItemsSeleccinados.ToString("N2")
+            Me.ActualizarTotales()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
