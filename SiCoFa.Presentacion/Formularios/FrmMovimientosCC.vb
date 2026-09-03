@@ -395,6 +395,7 @@ Public Class FrmMovimientosCC
 
             Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.DataSource = comprobantes
+            Me.ActualizarTotales()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -433,6 +434,7 @@ Public Class FrmMovimientosCC
 
             Dim comprobantes As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
             Me.DataGridView1.DataSource = comprobantes
+            Me.ActualizarTotales()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -468,6 +470,8 @@ Public Class FrmMovimientosCC
                     Exit For
                 End If
             Next
+
+            Me.ActualizarTotales()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
