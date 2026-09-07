@@ -169,7 +169,7 @@ Public Class FrmArticulos
 
         Try
 
-            Dim la As List(Of Articulo) = mobj_AdminArticulos.ListarArticulos(argTextoBuscado)
+            Dim la As List(Of Articulo) = mobj_AdminArticulos.ListarArticulos(argTextoBuscado, True)
             Dim a As Articulo = Nothing
 
             If la Is Nothing Then

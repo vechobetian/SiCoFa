@@ -54,6 +54,7 @@ Partial Class FrmInicio
         Me.RankingDeVentaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarArticulos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuEditarFraccionables = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarClientes = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarEmpleados = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarUsuarios = New System.Windows.Forms.ToolStripMenuItem()
@@ -62,6 +63,7 @@ Partial Class FrmInicio
         Me.mnuEditarCuentasBancarias = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarMedioPE = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarPermisos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuObraSociales = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHerramientas = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPTerminal = New System.Windows.Forms.ToolStripMenuItem()
@@ -69,13 +71,12 @@ Partial Class FrmInicio
         Me.ActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuEditarFraccionables = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuContabilidad, Me.mnuAuditoria, Me.mnuEditar, Me.mnuHerramientas, Me.mnuSistema, Me.mnuAyuda})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuContabilidad, Me.mnuAuditoria, Me.mnuEditar, Me.mnuObraSociales, Me.mnuHerramientas, Me.mnuSistema, Me.mnuAyuda})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -272,56 +273,68 @@ Partial Class FrmInicio
         'mnuEditarArticulos
         '
         Me.mnuEditarArticulos.Name = "mnuEditarArticulos"
-        Me.mnuEditarArticulos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarArticulos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarArticulos.Text = "Artículos"
+        '
+        'mnuEditarFraccionables
+        '
+        Me.mnuEditarFraccionables.Name = "mnuEditarFraccionables"
+        Me.mnuEditarFraccionables.Size = New System.Drawing.Size(159, 22)
+        Me.mnuEditarFraccionables.Text = "Fraccionables"
         '
         'mnuEditarClientes
         '
         Me.mnuEditarClientes.Name = "mnuEditarClientes"
-        Me.mnuEditarClientes.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarClientes.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarClientes.Text = "Clientes"
         '
         'mnuEditarEmpleados
         '
         Me.mnuEditarEmpleados.Name = "mnuEditarEmpleados"
-        Me.mnuEditarEmpleados.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarEmpleados.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarEmpleados.Text = "Empleados"
         '
         'mnuEditarUsuarios
         '
         Me.mnuEditarUsuarios.Name = "mnuEditarUsuarios"
-        Me.mnuEditarUsuarios.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarUsuarios.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarUsuarios.Text = "Usuarios"
         '
         'mnuEditarProveedores
         '
         Me.mnuEditarProveedores.Name = "mnuEditarProveedores"
-        Me.mnuEditarProveedores.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarProveedores.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarProveedores.Text = "Proveedores"
         '
         'mnuEditarSecciones
         '
         Me.mnuEditarSecciones.Name = "mnuEditarSecciones"
-        Me.mnuEditarSecciones.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarSecciones.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarSecciones.Text = "Secciones"
         '
         'mnuEditarCuentasBancarias
         '
         Me.mnuEditarCuentasBancarias.Name = "mnuEditarCuentasBancarias"
-        Me.mnuEditarCuentasBancarias.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarCuentasBancarias.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarCuentasBancarias.Text = "Cuentas Banco"
         '
         'mnuEditarMedioPE
         '
         Me.mnuEditarMedioPE.Name = "mnuEditarMedioPE"
-        Me.mnuEditarMedioPE.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarMedioPE.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarMedioPE.Text = "Medios de Pago"
         '
         'mnuEditarPermisos
         '
         Me.mnuEditarPermisos.Name = "mnuEditarPermisos"
-        Me.mnuEditarPermisos.Size = New System.Drawing.Size(180, 22)
+        Me.mnuEditarPermisos.Size = New System.Drawing.Size(159, 22)
         Me.mnuEditarPermisos.Text = "Permisos"
+        '
+        'mnuObraSociales
+        '
+        Me.mnuObraSociales.Name = "mnuObraSociales"
+        Me.mnuObraSociales.Size = New System.Drawing.Size(95, 20)
+        Me.mnuObraSociales.Text = "O&bras Sociales"
         '
         'mnuHerramientas
         '
@@ -365,12 +378,6 @@ Partial Class FrmInicio
         Me.mnuAyuda.Name = "mnuAyuda"
         Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
         Me.mnuAyuda.Text = "Ay&uda"
-        '
-        'mnuEditarFraccionables
-        '
-        Me.mnuEditarFraccionables.Name = "mnuEditarFraccionables"
-        Me.mnuEditarFraccionables.Size = New System.Drawing.Size(180, 22)
-        Me.mnuEditarFraccionables.Text = "Fraccionables"
         '
         'FrmInicio
         '
@@ -438,4 +445,5 @@ Partial Class FrmInicio
     Friend WithEvents ActualizacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ActualizarVersionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuEditarFraccionables As ToolStripMenuItem
+    Friend WithEvents mnuObraSociales As ToolStripMenuItem
 End Class

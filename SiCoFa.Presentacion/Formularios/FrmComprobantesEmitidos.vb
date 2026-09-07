@@ -74,6 +74,7 @@ Public Class FrmComprobantesEmitidos
             Dim impEf As String = Me.DataGridView1.CurrentRow.Cells("ImpEf").Value
             Dim impCC As String = Me.DataGridView1.CurrentRow.Cells("ImpCC").Value
             Dim impPE As String = Me.DataGridView1.CurrentRow.Cells("ImpPE").Value
+            Dim impOS As String = Me.DataGridView1.CurrentRow.Cells("ImpOS").Value
 
             Me.lblImpBto.Text = impBto
             Me.lblImpDes.Text = impDes
@@ -81,6 +82,7 @@ Public Class FrmComprobantesEmitidos
             Me.lblImpEf.Text = impEf
             Me.lblImpCC.Text = impCC
             Me.lblImpPE.Text = impPE
+            Me.lblImpOS.Text = impOS
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -91,11 +93,11 @@ Public Class FrmComprobantesEmitidos
     Private Sub AjustarAnchoColumnasComprobantes()
         Try
 
-            If DataGridView1.ColumnCount = 21 Then
+            If DataGridView1.ColumnCount = 22 Then
                 Dim totalAncho As Integer = DataGridView1.Width - 41
-                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.17R, 0.06R, 0.14R, 0.07R, 0.05R, 0.07R, 0.2R, 0.1R, 0.1R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R}
+                Dim proporciones As Double() = {0.0R, 0.0R, 0.05R, 0.17R, 0.06R, 0.14R, 0.07R, 0.05R, 0.07R, 0.2R, 0.1R, 0.1R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R, 0.0R}
 
-                For i As Integer = 0 To 20
+                For i As Integer = 0 To 21
                     DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
 

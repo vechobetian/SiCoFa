@@ -44,11 +44,11 @@ Public Class N_AdminArticulos
         End Try
     End Function
 
-    Public Function ListarArticulos(ByVal argTextoBuscado As String) As List(Of Articulo)
+    Public Function ListarArticulos(ByVal argTextoBuscado As String, Optional argBajas As Boolean = False) As List(Of Articulo)
         Dim AdminArticulos As New D_AdminArticulos
         Dim la As List(Of Articulo)
         Try
-            la = AdminArticulos.ListarArticulos(argTextoBuscado)
+            la = AdminArticulos.ListarArticulos(argTextoBuscado, argBajas)
             Return la
 
         Catch ex As Exception
@@ -58,11 +58,11 @@ Public Class N_AdminArticulos
         End Try
     End Function
 
-    Public Function ListarArticulosEquivalentes(ByVal argArticulo As Articulo) As List(Of Articulo)
+    Public Function ListarArticulosEquivalentes(ByVal argArticulo As Articulo, Optional argBajas As Boolean = False) As List(Of Articulo)
         Dim AdminArticulos As New D_AdminArticulos
         Dim la As List(Of Articulo)
         Try
-            la = AdminArticulos.ListarArticulosEquivalentes(argArticulo)
+            la = AdminArticulos.ListarArticulosEquivalentes(argArticulo, argBajas)
             Return la
 
         Catch ex As Exception
@@ -72,11 +72,11 @@ Public Class N_AdminArticulos
         End Try
     End Function
 
-    Public Function ListarArticulosCodiAcFa(ByVal argCodiAcFa As Integer) As List(Of Articulo)
+    Public Function ListarArticulosCodiAcFa(ByVal argCodiAcFa As Integer, Optional argBajas As Boolean = False) As List(Of Articulo)
         Dim AdminArticulos As New D_AdminArticulos
         Dim la As List(Of Articulo)
         Try
-            la = AdminArticulos.ListarArticulosCodiAcFa(argCodiAcFa)
+            la = AdminArticulos.ListarArticulosCodiAcFa(argCodiAcFa, argBajas)
             Return la
 
         Catch ex As Exception
@@ -86,11 +86,11 @@ Public Class N_AdminArticulos
         End Try
     End Function
 
-    Public Function ListarArticulosCodiMon(ByVal argCodiMon As Integer) As List(Of Articulo)
+    Public Function ListarArticulosCodiMon(ByVal argCodiMon As Integer, Optional argBajas As Boolean = False) As List(Of Articulo)
         Dim AdminArticulos As New D_AdminArticulos
         Dim la As List(Of Articulo)
         Try
-            la = AdminArticulos.ListarArticulosCodiMon(argCodiMon)
+            la = AdminArticulos.ListarArticulosCodiMon(argCodiMon, argBajas)
             Return la
 
         Catch ex As Exception

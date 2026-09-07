@@ -147,6 +147,7 @@
   <ItemGroup>
     <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ReporteComprobantes.vb" />
+    <Compile Include="Clases\ReporteValidaciones.vb" />
     <Compile Include="Clases\Ticket58.vb" />
     <Compile Include="Clases\Ticket80.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
@@ -156,6 +157,12 @@
       <DependentUpon>FrmFraccionables.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmFraccionables.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaOSDetalle.Designer.vb">
+      <DependentUpon>FrmMoviCajaOSDetalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmMoviCajaOSDetalle.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmRecetasBeneficiario.Designer.vb">
@@ -504,6 +511,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmFraccionables.resx">
       <DependentUpon>FrmFraccionables.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmMoviCajaOSDetalle.resx">
+      <DependentUpon>FrmMoviCajaOSDetalle.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmRecetasBeneficiario.resx">
       <DependentUpon>FrmRecetasBeneficiario.vb</DependentUpon>

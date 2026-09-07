@@ -14,47 +14,64 @@ Public Class FrmCajas
     Private Sub AjustarAnchoColumnasProporcional()
         Try
 
-            If DataGridView2.ColumnCount = 3 Then
-                Dim totalAncho As Integer = DataGridView2.Width - 45
+            If dgvOperacionesEfectivo.ColumnCount = 3 Then
+                Dim totalAncho As Integer = dgvOperacionesEfectivo.Width - 45
                 Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
 
                 For i As Integer = 0 To 2
-                    DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))
+                    dgvOperacionesEfectivo.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
-                Me.DataGridView2.Columns("ImporteEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.DataGridView2.Columns("CantOperacionesEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                Me.dgvOperacionesEfectivo.Columns("ImporteEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                Me.dgvOperacionesEfectivo.Columns("CantOperacionesEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
             Else
                 MessageBox.Show("El DataGridEfectivo no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If DataGridView3.ColumnCount = 4 Then
-                Dim totalAncho As Integer = DataGridView3.Width - 45
+            If dgvOperacionesMediosPagoElectronico.ColumnCount = 4 Then
+                Dim totalAncho As Integer = dgvOperacionesMediosPagoElectronico.Width - 45
                 Dim proporciones As Double() = {0.5R, 0.1R, 0.2R, 0.2R}
 
                 For i As Integer = 0 To 3
-                    DataGridView3.Columns(i).Width = CInt(totalAncho * proporciones(i))
+                    dgvOperacionesMediosPagoElectronico.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
-                Me.DataGridView3.Columns("ImportePE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.DataGridView3.Columns("CantOperacionesPE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                Me.dgvOperacionesMediosPagoElectronico.Columns("ImportePE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                Me.dgvOperacionesMediosPagoElectronico.Columns("CantOperacionesPE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
             Else
                 MessageBox.Show("El DataGridOperacionesPE no tiene 4 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
-            If DataGridView4.ColumnCount = 3 Then
-                Dim totalAncho As Integer = DataGridView4.Width - 45
+            If dgvOperacionesCuentaCorriente.ColumnCount = 3 Then
+                Dim totalAncho As Integer = dgvOperacionesCuentaCorriente.Width - 45
                 Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
 
                 For i As Integer = 0 To 2
-                    DataGridView4.Columns(i).Width = CInt(totalAncho * proporciones(i))
+                    dgvOperacionesCuentaCorriente.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
-                Me.DataGridView4.Columns("ImporteCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.DataGridView4.Columns("CantOperacionesCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                Me.dgvOperacionesCuentaCorriente.Columns("ImporteCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                Me.dgvOperacionesCuentaCorriente.Columns("CantOperacionesCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
 
             Else
                 MessageBox.Show("El DataGridOperacoinesCC no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
+
+            If dgvOperacionesObraSociales.ColumnCount = 5 Then
+                Dim totalAncho As Integer = dgvOperacionesCuentaCorriente.Width - 45
+                Dim proporciones As Double() = {0.5R, 0.05R, 0.15R, 0.15R, 0.15R}
+
+                For i As Integer = 0 To 4
+                    dgvOperacionesObraSociales.Columns(i).Width = CInt(totalAncho * proporciones(i))
+                Next
+                Me.dgvOperacionesObraSociales.Columns("CantRecetas").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
+                Me.dgvOperacionesObraSociales.Columns("ImporteTotal").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                Me.dgvOperacionesObraSociales.Columns("ImporteOS").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+                Me.dgvOperacionesObraSociales.Columns("ImporteAf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
+
+            Else
+                MessageBox.Show("El DataGridOperacoinesCC no tiene 5 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -64,9 +81,9 @@ Public Class FrmCajas
     End Sub
 
     Private Sub ActualizarOperacionesEfectivo()
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
 
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
@@ -74,9 +91,9 @@ Public Class FrmCajas
         Dim sql As String = "SELECT TipoOperacion, CantOperaciones, Importe FROM vw_movimientos_caja_ef WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
-        Me.DataGridView2.DataSource = dt
+        Me.dgvOperacionesEfectivo.DataSource = dt
 
-        Me.DataGridView2.ClearSelection()
+        Me.dgvOperacionesEfectivo.ClearSelection()
         Dim totalImporte As Decimal = 0D
         For Each row As DataRow In dt.Rows
             If Not IsDBNull(row("Importe")) Then
@@ -89,9 +106,9 @@ Public Class FrmCajas
     End Sub
 
     Private Sub ActualizarOperacionesPE()
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
 
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
@@ -99,9 +116,9 @@ Public Class FrmCajas
         Dim sql As String = "SELECT MedioPE, CantOperaciones, Importe,EstadoTransaccion FROM vw_movimientos_caja_pe WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
-        Me.DataGridView3.DataSource = dt
+        Me.dgvOperacionesMediosPagoElectronico.DataSource = dt
 
-        Me.DataGridView3.ClearSelection()
+        Me.dgvOperacionesMediosPagoElectronico.ClearSelection()
         Dim totalImporte As Decimal = 0D
         Dim totalImporteAnulados As Decimal = 0D
         For Each row As DataRow In dt.Rows
@@ -121,9 +138,9 @@ Public Class FrmCajas
     End Sub
 
     Private Sub ActualizarOperacionesCC()
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
 
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
@@ -131,9 +148,9 @@ Public Class FrmCajas
         Dim sql As String = "SELECT TipoOperacion, CantOperaciones, Importe FROM vw_movimientos_caja_cc WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
-        Me.DataGridView4.DataSource = dt
+        Me.dgvOperacionesCuentaCorriente.DataSource = dt
 
-        Me.DataGridView4.ClearSelection()
+        Me.dgvOperacionesCuentaCorriente.ClearSelection()
         Dim totalImporte As Decimal = 0D
         For Each row As DataRow In dt.Rows
             If Not IsDBNull(row("Importe")) Then
@@ -145,21 +162,51 @@ Public Class FrmCajas
         Me.lblImporteCC.Text = "Total Cuenta Corriente: $" & totalImporte.ToString("N2")
     End Sub
 
+    Private Sub ActualizarOperacionesOS()
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
+
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
+
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+        Dim idCaja As Integer = CInt(valor)
+        Dim sql As String = "SELECT Descripcion,CantRecetas, ImporteTotal,ImporteOS,ImporteAf FROM vw_movimientos_caja_os WHERE IdCaja = " & idCaja
+
+        Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
+        Me.dgvOperacionesObraSociales.DataSource = dt
+
+        Me.dgvOperacionesObraSociales.ClearSelection()
+        Dim totalImporte As Decimal = 0D
+        Dim totalOs As Decimal = 0D
+        Dim totalAf As Decimal = 0D
+
+        For Each row As DataRow In dt.Rows
+            If Not IsDBNull(row("ImporteTotal")) Then
+                totalImporte += Convert.ToDecimal(row("ImporteTotal"))
+                totalOs += Convert.ToDecimal(row("ImporteOS"))
+                totalAf += Convert.ToDecimal(row("ImporteAf"))
+            End If
+        Next
+
+        Me.lblImporteRecetas.Text = "Importe Total: $" & totalImporte.ToString("N2") & "  |  Importe OS: $" & totalOs.ToString("N2") & "  |   Importe Af: $" & totalAf.ToString("N2")
+    End Sub
+
     Private Sub FrmCajas_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
 
             Dim sql As String = "SELECT * FROM cajas ORDER BY IdCaja"
             Dim cajas As DataTable = mAdminDB.ObtenerTabla(sql)
-            Me.DataGridView1.DataSource = cajas
+            Me.dgvCajas.DataSource = cajas
 
-            If Me.DataGridView1.Rows.Count > 0 Then
-                Dim lastRowIndex As Integer = Me.DataGridView1.Rows.Count - 1
-                Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(lastRowIndex).Cells(0)
-                Me.DataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex
+            If Me.dgvCajas.Rows.Count > 0 Then
+                Dim lastRowIndex As Integer = Me.dgvCajas.Rows.Count - 1
+                Me.dgvCajas.CurrentCell = Me.dgvCajas.Rows(lastRowIndex).Cells(0)
+                Me.dgvCajas.FirstDisplayedScrollingRowIndex = lastRowIndex
                 Me.ActualizarOperacionesEfectivo()
                 Me.ActualizarOperacionesPE()
                 Me.ActualizarOperacionesCC()
+                Me.ActualizarOperacionesOS()
             End If
 
             Me.StartPosition = FormStartPosition.Manual
@@ -175,17 +222,18 @@ Public Class FrmCajas
 
     End Sub
 
-    Private Sub DataGridView1_SelectionChanged(sender As Object, e As EventArgs) Handles DataGridView1.SelectionChanged
+    Private Sub dgvCajas_SelectionChanged(sender As Object, e As EventArgs) Handles dgvCajas.SelectionChanged
 
         Try
-            If Me.DataGridView1.CurrentRow Is Nothing Then
-                Me.DataGridView1.DataSource = Nothing
+            If Me.dgvCajas.CurrentRow Is Nothing Then
+                Me.dgvCajas.DataSource = Nothing
                 Exit Sub
             End If
 
             Me.ActualizarOperacionesEfectivo()
             Me.ActualizarOperacionesPE()
             Me.ActualizarOperacionesCC()
+            Me.ActualizarOperacionesOS()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -196,9 +244,9 @@ Public Class FrmCajas
 
     Private Sub DetalleEF_Click(sender As Object, e As EventArgs) Handles mnuDetalleEF.Click
 
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
 
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
@@ -210,9 +258,9 @@ Public Class FrmCajas
 
     Private Sub DetallePE_Click(sender As Object, e As EventArgs) Handles mnuDetallePE.Click
 
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
 
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
@@ -224,15 +272,29 @@ Public Class FrmCajas
 
     Private Sub DetalleCC_Click(sender As Object, e As EventArgs) Handles mnuDetalleCC.Click
 
-        If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
-        Dim valor = Me.DataGridView1.CurrentRow.Cells(0).Value
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
 
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
         FrmMoviCajaCCDetalle.IdCaja = idCaja
         FrmMoviCajaCCDetalle.Show()
+
+    End Sub
+
+    Private Sub mnuDetalleOS_Click(sender As Object, e As EventArgs) Handles mnuDetalleOS.Click
+
+        If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
+
+        Dim valor = Me.dgvCajas.CurrentRow.Cells(0).Value
+
+        If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+        Dim idCaja As Integer = CInt(valor)
+        FrmMoviCajaOSDetalle.IdCaja = idCaja
+        FrmMoviCajaOSDetalle.Show()
 
     End Sub
 
@@ -244,7 +306,7 @@ Public Class FrmCajas
                 Exit Sub
             End If
 
-            If Me.DataGridView1.CurrentRow.Cells("Estado").Value = "CERRADA" Then
+            If Me.dgvCajas.CurrentRow.Cells("Estado").Value = "CERRADA" Then
                 MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
                 Exit Sub
             End If
@@ -282,24 +344,24 @@ Public Class FrmCajas
                                                   argDetalle:=Nothing)
 
 
-            Dim IdCaja As Long = Me.DataGridView1.CurrentRow.Cells(0).Value
-            Dim Apertura As Date = Me.DataGridView1.CurrentRow.Cells(1).Value
+            Dim IdCaja As Long = Me.dgvCajas.CurrentRow.Cells(0).Value
+            Dim Apertura As Date = Me.dgvCajas.CurrentRow.Cells(1).Value
             Dim Cierre As Date = Date.MinValue
-            Dim Estado As String = Me.DataGridView1.CurrentRow.Cells(3).Value
-            Dim NCaja As String = Me.DataGridView1.CurrentRow.Cells(4).Value
+            Dim Estado As String = Me.dgvCajas.CurrentRow.Cells(3).Value
+            Dim NCaja As String = Me.dgvCajas.CurrentRow.Cells(4).Value
             Dim objCaja As New Caja(IdCaja, Apertura, Cierre, Estado, NCaja)
             Dim AdminCajas As New N_AdminCajas
             AdminCajas.CierreCajaTransaccion(g_ParametrosTerminal.MacAddress, objCaja, g_ParametrosTerminal.Empresa, Me.Usuario, objComprobante)
 
             Dim sql As String = "SELECT * FROM cajas ORDER BY IdCaja"
             Dim cajas As DataTable = mAdminDB.ObtenerTabla(sql)
-            Me.DataGridView1.DataSource = cajas
+            Me.dgvCajas.DataSource = cajas
 
             ' Opcional: Seleccionar la última caja (la recién abierta)
-            If Me.DataGridView1.Rows.Count > 0 Then
-                Dim lastRowIndex As Integer = Me.DataGridView1.Rows.Count - 1
-                Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(lastRowIndex).Cells(0)
-                Me.DataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex
+            If Me.dgvCajas.Rows.Count > 0 Then
+                Dim lastRowIndex As Integer = Me.dgvCajas.Rows.Count - 1
+                Me.dgvCajas.CurrentCell = Me.dgvCajas.Rows(lastRowIndex).Cells(0)
+                Me.dgvCajas.FirstDisplayedScrollingRowIndex = lastRowIndex
             End If
 
             Me.ActualizarOperacionesEfectivo()
@@ -319,7 +381,7 @@ Public Class FrmCajas
                 Exit Sub
             End If
 
-            If Me.DataGridView1.CurrentRow.Cells("Estado").Value = "CERRADA" Then
+            If Me.dgvCajas.CurrentRow.Cells("Estado").Value = "CERRADA" Then
                 MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
                 Exit Sub
             End If
