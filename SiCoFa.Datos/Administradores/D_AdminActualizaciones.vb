@@ -146,7 +146,7 @@ Public Class D_AdminActualizaciones
 
         Dim objConexionDB As New D_Conexion
 
-        Using cn As MySqlConnection = objConexionDB.ObtenerConexion("OS")
+        Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
             Using tx = cn.BeginTransaction()
 

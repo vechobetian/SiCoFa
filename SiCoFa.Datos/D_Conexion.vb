@@ -8,9 +8,10 @@ Public Class D_Conexion
 
     Public Sub New()
         cadenaFarmacias = ConfigurationManager.ConnectionStrings("Conexion_sicofaco_farmacias").ConnectionString
-        cadenaOS = ConfigurationManager.ConnectionStrings("Conexion_sicofaco_os").ConnectionString
+        'cadenaOS = ConfigurationManager.ConnectionStrings("Conexion_sicofaco_os").ConnectionString
         cadenaContratos = ConfigurationManager.ConnectionStrings("Conexion_sicofaco_contratos").ConnectionString
     End Sub
+
     Public Function ObtenerConexion(Optional ByVal argDataBase As String = "FARMACIAS") As MySqlConnection
 
         Dim cadena As String
@@ -23,8 +24,8 @@ Public Class D_Conexion
             Case "CONTRATOS"
                 cadena = cadenaContratos
 
-            Case "OS"
-                cadena = cadenaOS
+                'Case "OS"
+                'cadena = cadenaOS
 
             Case Else
                 Throw New Exception("Base de datos inválida")

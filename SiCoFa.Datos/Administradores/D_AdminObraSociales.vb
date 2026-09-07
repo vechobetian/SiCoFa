@@ -14,7 +14,7 @@ Public Class D_AdminObraSociales
 
             Dim sql As String = "SELECT * FROM vw_planes_os WHERE IdPlan = @IdPlan"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion("OS")
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
                 Using cmd As MySqlCommand = cn.CreateCommand
 
@@ -67,7 +67,7 @@ Public Class D_AdminObraSociales
 
             Dim sql As String = "SELECT * FROM datos_requeridos WHERE IdPlan = @IdPlan"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion("OS")
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
                 Using cmd As MySqlCommand = cn.CreateCommand
 
@@ -118,7 +118,7 @@ Public Class D_AdminObraSociales
 
             Dim sql As String = "SELECT IdVdm, Codigo, Descuento FROM vademecum WHERE IdVdm = @IdVdm"
 
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion("OS")
+            Using cn As MySqlConnection = objConexionDB.ObtenerConexion()
 
                 Using cmd As MySqlCommand = cn.CreateCommand
 

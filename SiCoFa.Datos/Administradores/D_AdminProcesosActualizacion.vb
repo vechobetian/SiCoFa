@@ -63,7 +63,7 @@ Public Class D_AdminProcesosActualizacion
         Dim lista As New List(Of ObraSocial)
 
         Try
-            Using cn = objConexionDB.ObtenerConexion("OS")
+            Using cn = objConexionDB.ObtenerConexion()
 
                 Const sql As String =
                 "SELECT 

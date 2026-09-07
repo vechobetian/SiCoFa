@@ -19,7 +19,7 @@ Public Class FrmSelectorPlanesOS
 
             Dim sql As String = "SELECT IdPlan, Descripcion FROM planes_os"
 
-            Dim dt As DataTable = adminDB.ObtenerTabla(sql, "OS")
+            Dim dt As DataTable = adminDB.ObtenerTabla(sql)
 
             Dim lista As New List(Of SelectorItem)
 
