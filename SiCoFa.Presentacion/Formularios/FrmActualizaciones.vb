@@ -723,15 +723,16 @@ Public Class FrmActualizaciones
 
     Private Async Sub btnProcesar_Click(sender As Object, e As EventArgs) Handles btnProcesar.Click
 
+
         If mItemsActualizacion.Count = 0 Then
 
-            MessageBox.Show("No hay actualizaciones pendientes para procesar.", "Actualizaciones", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show("No hay actualizaciones pendientes para procesar.", "Actualizaciones", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            Return
+                Return
 
-        End If
+            End If
 
-        btnProcesar.Enabled = False
+            btnProcesar.Enabled = False
 
         Try
 
@@ -741,13 +742,7 @@ Public Class FrmActualizaciones
 
         Catch ex As Exception
 
-            MessageBox.Show(
-            "Error procesando actualizaciones:" &
-            Environment.NewLine &
-            ex.Message,
-            "Actualizaciones",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Error)
+            MessageBox.Show("Error procesando actualizaciones:" & Environment.NewLine & ex.Message, "Actualizaciones", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         Finally
 

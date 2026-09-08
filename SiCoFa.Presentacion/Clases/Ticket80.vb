@@ -113,7 +113,7 @@ Public Class Ticket80
 
         For Each Item As ItemComprobante In Comprobante.Detalle
 
-            If Item.Articulo Is Nothing Then Continue For
+            If Item.IdArticulo Is Nothing Then Continue For
 
             Dim strDescripcion As String = Left(Item.Descripcion, 42)
             Dim strAlicIVA As String = "(" & Format(Item.AlicIVA, "Fixed") & ")"

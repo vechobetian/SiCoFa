@@ -44,7 +44,7 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub ActualizarDetalle()
+    Private Sub ActualizarDetalle1()
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
             Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
@@ -62,6 +62,36 @@ Public Class FrmComprobantesEmitidos
             MsgBox(ex.Message, vbCritical, "SiCoFa")
         End Try
 
+    End Sub
+
+    Private Sub ActualizarDetalle()
+        Try
+            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
+
+            Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
+
+            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
+
+            Dim idOperacion As Long = Convert.ToInt64(valor)
+
+            'Dim sql As String = "SELECT * ,
+            'Cantidad*PrecioUnitario AS ImporteSinDescuento,
+            'Descuento/PrecioUnitario*100 AS PorcentajeDescuento,
+            'Cantidad*Descuento AS ImporteDescuento,
+            'Cantidad*(PrecioUnitario-Descuento) AS ImporteConDescuento
+            'FROM vw_items_comprobante WHERE IdOperacion = " & idOperacion
+
+            Dim sql As String = "SELECT * FROM vw_items_comprobante WHERE IdOperacion = " & idOperacion
+
+            Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
+
+            Me.DataGridView2.AutoGenerateColumns = False
+            Me.DataGridView2.DataSource = dt
+            Me.DataGridView2.ClearSelection()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
     End Sub
 
     Private Sub ActulizarImportes()
@@ -115,15 +145,15 @@ Public Class FrmComprobantesEmitidos
     Private Sub AjustarAnchoColumnasDetalle()
         Try
 
-            If DataGridView2.ColumnCount = 10 Then
+            If DataGridView2.ColumnCount = 12 Then
                 Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.08R, 0.3R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
+                Dim proporciones As Double() = {0.0R, 0.08R, 0.24R, 0.03R, 0.03R, 0.06R, 0.06R, 0.04R, 0.06R, 0.06R, 0.06R, 0.06R}
 
-                For i As Integer = 0 To 9 ' Itera a través de las 9 columnas
+                For i As Integer = 0 To 11 ' Itera a través de las 9 columnas
                     DataGridView2.Columns(i).Width = CInt(totalAncho * proporciones(i))
                 Next
             Else
-                MessageBox.Show("El DataGridView2 no tiene 9 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("El DataGridView2 no tiene 12 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
         Catch ex As Exception

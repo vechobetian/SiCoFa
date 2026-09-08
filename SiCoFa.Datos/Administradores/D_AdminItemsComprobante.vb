@@ -50,14 +50,14 @@ Public Class D_AdminItemsComprobante
                             Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
                             Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
                             Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
-                            Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
+                            Dim PorcentajeDescuentoResult = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
 
                             ' Crear objetos anidados
                             'Dim AdminArticulos As New D_AdminArticulos
                             'Dim objSeccionResult As Seccion = New Seccion(IdSeccionResult, SeccionResult, EstablecerPrecioResult)
                             'Dim objArticuloResult As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
 
-                            Dim objIC As New ItemComprobante(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, FraccionadoResult, CantidadResult, PrecioCostoResult, PrecioUnitarioResult, AlicIVAResult, DescuentoResult, PorcentajeDescuento)
+                            Dim objIC As New ItemComprobante(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, FraccionadoResult, CantidadResult, AlicIVAResult, PrecioCostoResult, PrecioUnitarioResult, PorcentajeDescuentoResult)
                             objIC.IdItem = IdItemResult
                             objLI.Add(objIC)
                         End While
