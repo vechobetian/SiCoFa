@@ -101,9 +101,9 @@ Public Class N_AdminRecetas
 
             With argItemComprobante
                 .PorcentajeOS = POS
-                .DescuentoOS = DOS
+                .DescuentoUnitarioOS = DOS
                 .PorcentajeCS = PCS
-                .DescuentoCS = DCS
+                .DescuentoUnitarioCS = DCS
             End With
 
         End If
@@ -134,9 +134,9 @@ Public Class N_AdminRecetas
 
             With argItemComprobante
                 .PorcentajeOS = POS
-                .DescuentoOS = DOS
+                .DescuentoUnitarioOS = DOS
                 .PorcentajeCS = PCS
-                .DescuentoCS = DCS
+                .DescuentoUnitarioCS = DCS
             End With
 
         End If
@@ -174,9 +174,9 @@ Public Class N_AdminRecetas
 
             With argItemComprobante
                 .PorcentajeOS = POS
-                .DescuentoOS = DOS
+                .DescuentoUnitarioOS = DOS
                 .PorcentajeCS = PCS
-                .DescuentoCS = DCS
+                .DescuentoUnitarioCS = DCS
             End With
 
         End If
@@ -197,9 +197,9 @@ Public Class N_AdminRecetas
 
         With argItemComprobante
             .PorcentajeOS = POS
-            .DescuentoOS = DOS
+            .DescuentoUnitarioOS = DOS
             .PorcentajeCS = PCS
-            .DescuentoCS = DCS
+            .DescuentoUnitarioCS = DCS
         End With
 
     End Sub
@@ -232,9 +232,9 @@ Public Class N_AdminRecetas
 
         With argItemComprobante
             .PorcentajeOS = POS
-            .DescuentoOS = DOS
+            .DescuentoUnitarioOS = DOS
             .PorcentajeCS = PCS
-            .DescuentoCS = DCS
+            .DescuentoUnitarioCS = DCS
         End With
 
     End Sub
@@ -254,9 +254,9 @@ Public Class N_AdminRecetas
 
         With argItemComprobante
             .PorcentajeOS = POS
-            .DescuentoOS = DOS
+            .DescuentoUnitarioOS = DOS
             .PorcentajeCS = PCS
-            .DescuentoCS = DCS
+            .DescuentoUnitarioCS = DCS
         End With
 
     End Sub
@@ -293,9 +293,9 @@ Public Class N_AdminRecetas
 
             With argItemComprobante
                 .PorcentajeOS = POS
-                .DescuentoOS = DOS
+                .DescuentoUnitarioOS = DOS
                 .PorcentajeCS = PCS
-                .DescuentoCS = DCS
+                .DescuentoUnitarioCS = DCS
             End With
 
         End If

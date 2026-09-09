@@ -44,7 +44,7 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub ActualizarDetalle1()
+    Private Sub ActualizarDetalle()
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
             Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
@@ -64,7 +64,7 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub ActualizarDetalle()
+    Private Sub ActualizarDetalle2()
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 

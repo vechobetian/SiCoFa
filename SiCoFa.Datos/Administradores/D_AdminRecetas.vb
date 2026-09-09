@@ -3,6 +3,15 @@ Imports SiCoFa.Entidades
 
 Public Class D_AdminRecetas
 
+    Public Function ObtenerRecetaPorIdReceta(argIdReceta As Long) As Receta
+        Try
+
+        Catch ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ObtenerRecetaPorIdReceta), ex.Message))
+
+        End Try
+    End Function
+
     Public Function ObtenerIdMensajeValidador(ByVal argValidador As String) As Long
 
         Try

@@ -526,7 +526,7 @@ Public Class ITC
                     writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
                     writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS, ",", "."))
                     writer.WriteElementString("CodPreautorizacion", "")
-                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoOS, ",", "."))
+                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoUnitarioOS, ",", "."))
                     writer.WriteElementString("ExcepcionPrescripcion", "")
                     writer.WriteElementString("Diagnostico", "")
                     writer.WriteElementString("DosisDiaria", "")
@@ -889,7 +889,7 @@ Public Class ITC
 
                 Dim descripcion As String = item.InnerText.Trim()
 
-                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, 0, 1, 0, 1, 1, 0, 0)
+                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0)
 
                 itemsReceta.Add(itemReceta)
 
@@ -1092,7 +1092,7 @@ Public Class ITC
                     ' CREAR ITEM
                     '==================================================
 
-                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), 0, cantidadPrescripta, 0, 0, pUnit, 0, codigo, nTroquel)
+                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
 
                     argReceta.Items.Add(item)
 
@@ -1341,7 +1341,7 @@ Public Class ITC
 
                 itemReceta.PorcentajeOS = porcentajeCobertura
 
-                itemReceta.DescuentoOS = importeCobertura
+                itemReceta.DescuentoUnitarioOS = importeCobertura
 
                 itemReceta.Cantidad = cantidadAprobada
 

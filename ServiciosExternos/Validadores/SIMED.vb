@@ -320,7 +320,7 @@ Public Class SIMED
                     writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
                     writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS, ",", "."))
                     writer.WriteElementString("CodPreautorizacion", "")
-                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoOS, ",", "."))
+                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoUnitarioOS, ",", "."))
                     writer.WriteElementString("ExcepcionPrescripcion", "")
                     writer.WriteElementString("Diagnostico", "")
                     writer.WriteElementString("DosisDiaria", "")

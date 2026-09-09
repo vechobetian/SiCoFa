@@ -14,9 +14,9 @@
     Private m_PorcentajeDescuento As Decimal
     Private m_Receta As Receta
     Private m_PorcentajeOS As Decimal
-    Private m_DescuentoOS As Decimal
+    Private m_DescuentoUnitarioOS As Decimal
     Private m_PorcentajeCS As Decimal
-    Private m_DescuentoCS As Decimal
+    Private m_DescuentoUnitarioCS As Decimal
     Private m_EsNuevo As Boolean = True
     Private m_NumeroAutorizacionItem As String
 
@@ -55,6 +55,10 @@
                     ByVal argPrecioCosto As Decimal,
                     ByVal argPrecioUnitario As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
+                    ByVal argPorcentajeOS As Decimal,
+                    ByVal argDecuentoUnitarioOS As Decimal,
+                    ByVal argPorcentajeCS As Decimal,
+                    ByVal argDescuentoUnitarioCS As Decimal,
                     Optional ByVal argCodigo As Long = 0,
                     Optional ByVal argNTroquel As String = ""
                    )
@@ -69,6 +73,10 @@
         m_PrecioCosto = argPrecioCosto
         m_PrecioUnitario = argPrecioUnitario
         m_PorcentajeDescuento = argPorcentajeDescuento
+        m_PorcentajeOS = argPorcentajeOS
+        m_DescuentoUnitarioOS = argDecuentoUnitarioOS
+        m_PorcentajeCS = argPorcentajeCS
+        m_DescuentoUnitarioCS = argDescuentoUnitarioCS
         m_Codigo = argCodigo
         m_NTroquel = argNTroquel
     End Sub
@@ -243,14 +251,14 @@
 
     End Property
 
-    Public Property DescuentoOS() As Decimal
+    Public Property DescuentoUnitarioOS() As Decimal
 
         Get
-            Return m_DescuentoOS
+            Return m_DescuentoUnitarioOS
         End Get
 
         Set(DesOS As Decimal)
-            m_DescuentoOS = DesOS
+            m_DescuentoUnitarioOS = DesOS
         End Set
 
     End Property
@@ -267,13 +275,13 @@
 
     End Property
 
-    Public Property DescuentoCS() As Decimal
+    Public Property DescuentoUnitarioCS() As Decimal
         Get
-            Return m_DescuentoCS
+            Return m_DescuentoUnitarioCS
         End Get
 
         Set(DesCS As Decimal)
-            m_DescuentoCS = DesCS
+            m_DescuentoUnitarioCS = DesCS
         End Set
 
     End Property
@@ -375,13 +383,13 @@
 
     Public ReadOnly Property ImporteOS() As Decimal
         Get
-            Return Math.Round(m_Cantidad * m_DescuentoOS, 2, MidpointRounding.ToEven)
+            Return Math.Round(m_Cantidad * m_DescuentoUnitarioOS, 2, MidpointRounding.ToEven)
         End Get
     End Property
 
     Public ReadOnly Property ImporteCS() As Decimal
         Get
-            Return Math.Round(m_Cantidad * m_DescuentoCS, 2, MidpointRounding.ToEven)
+            Return Math.Round(m_Cantidad * m_DescuentoUnitarioCS, 2, MidpointRounding.ToEven)
         End Get
     End Property
 

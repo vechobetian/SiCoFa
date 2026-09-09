@@ -587,7 +587,7 @@ Public Class FrmVentas
 
                 AdminRecetas.ObtenerCobertura(articulo, uc.ItemVenta)
 
-                If uc.ItemVenta.DescuentoOS = 0 AndAlso uc.ItemVenta.DescuentoCS = 0 AndAlso uc.ItemVenta.Receta.Plan.Proceso <> 0 Then
+                If uc.ItemVenta.DescuentoUnitarioOS = 0 AndAlso uc.ItemVenta.DescuentoUnitarioCS = 0 AndAlso uc.ItemVenta.Receta.Plan.Proceso <> 0 Then
 
                     MsgBox(articulo.Nombre & " no tiene descuento", vbInformation, "SiCoFa")
 
@@ -1577,7 +1577,7 @@ Public Class FrmVentas
                 ' Validar descuento sobre el item de prueba
                 '------------------------------------------------------
 
-                If itemPrueba.DescuentoOS = 0 AndAlso itemPrueba.DescuentoCS = 0 AndAlso itemPrueba.Receta.Plan.Proceso <> 0 Then
+                If itemPrueba.DescuentoUnitarioOS = 0 AndAlso itemPrueba.DescuentoUnitarioCS = 0 AndAlso itemPrueba.Receta.Plan.Proceso <> 0 Then
 
                     MsgBox(articulo.Nombre & " no tiene descuento", vbInformation, "SiCoFa")
 
