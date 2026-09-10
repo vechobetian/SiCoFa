@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("SiCoFa_CompE")>
+<Assembly: AssemblyTitle("SiCoFa")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("Genesis Software Design")>
 <Assembly: AssemblyProduct("SiCoFa")>

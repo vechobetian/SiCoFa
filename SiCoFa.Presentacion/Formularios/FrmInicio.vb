@@ -6,7 +6,29 @@ Imports SiCoFa.Negocio
 
 Public Class FrmInicio
 
+    ' Variables para seguimiento de progreso
     Private mActualizacionEnCurso As Boolean = False
+    Private mTotalArchivos As Integer = 0
+    Private mArchivosProcesados As Integer = 0
+    Private mPorcentajeAvance As Integer = 0
+    Private mNotifyIcon As NotifyIcon
+
+    Private Sub InicializarNotificador()
+        If mNotifyIcon Is Nothing Then
+            mNotifyIcon = New NotifyIcon()
+            mNotifyIcon.Icon = Me.Icon ' Usa el mismo ícono del formulario principal
+            mNotifyIcon.Visible = True
+            mNotifyIcon.Text = "SiCoFa - Sistema de Gestión"
+        End If
+    End Sub
+
+    Private Sub NotificarProgreso(ByVal titulo As String, ByVal mensaje As String)
+        If mNotifyIcon IsNot Nothing Then
+            mNotifyIcon.Text = $"SiCoFa: {mPorcentajeAvance}% completado"
+            ' Muestra el globo flotante en el reloj de Windows
+            mNotifyIcon.ShowBalloonTip(3000, titulo, mensaje, ToolTipIcon.Info)
+        End If
+    End Sub
 
     Private Async Function EjecutarActualizacionAutomatica() As Task
 
@@ -17,28 +39,39 @@ Public Class FrmInicio
         mActualizacionEnCurso = True
 
         Try
+            ' Notificación inicial al lado del reloj
+            NotificarProgreso("Actualización Automática", "Buscando novedades de datos...")
 
             Dim frmActualizaciones As New FrmActualizaciones()
 
-            Try
+            ' Suscripción al evento de progreso para mostrar las notificaciones flotantes
+            frmActualizaciones.OnProgresoCambiado = Sub(porcentaje As Integer, mensaje As String)
+                                                        mPorcentajeAvance = porcentaje
+                                                        ' Usamos Invoke por si viene de otro hilo de ejecución
+                                                        If Me.InvokeRequired Then
+                                                            Me.Invoke(Sub() NotificarProgreso($"Actualizando ({porcentaje}%)", mensaje))
+                                                        Else
+                                                            NotificarProgreso($"Actualizando ({porcentaje}%)", mensaje)
+                                                        End If
+                                                    End Sub
 
+            Try
                 Await frmActualizaciones.ActualizarAutomaticamente()
 
+                ' Notificación de éxito
+                NotificarProgreso("SiCoFa", "El sistema se encuentra totalmente actualizado.")
+
             Finally
-
                 frmActualizaciones.Dispose()
-
             End Try
 
         Catch ex As Exception
-
-            'Por ahora no mostramos ningún mensaje.
-            'La actualización automática no debe interrumpir el inicio de SiCoFa.
-
+            ' Muestra error de actualización de forma discreta sin interrumpir
+            If mNotifyIcon IsNot Nothing Then
+                mNotifyIcon.ShowBalloonTip(4000, "SiCoFa", "No se pudo completar la actualización automática.", ToolTipIcon.Warning)
+            End If
         Finally
-
             mActualizacionEnCurso = False
-
         End Try
 
     End Function
@@ -152,7 +185,6 @@ Public Class FrmInicio
         f.Show()
 
     End Sub
-
 
     Private Sub mnuEditarClientes_Click(sender As Object, e As EventArgs) Handles mnuEditarClientes.Click
 
@@ -337,7 +369,6 @@ Public Class FrmInicio
 
         End Try
 
-
     End Sub
 
     Private Sub ActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizacionesToolStripMenuItem.Click
@@ -360,6 +391,9 @@ Public Class FrmInicio
 
     Private Async Sub FrmInicio_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+        ' Inicializamos el notificador del reloj
+        InicializarNotificador()
+
         Dim mdi As MdiClient = ObtenerMdiClient(Me)
 
         If mdi IsNot Nothing Then
@@ -373,6 +407,31 @@ Public Class FrmInicio
         End If
 
         Await EjecutarActualizacionAutomatica()
+
+    End Sub
+
+    Private Sub FrmInicio_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+
+        ' Si la actualización está activa, impedimos el cierre de forma absoluta
+        If mActualizacionEnCurso Then
+
+            MessageBox.Show(
+                "Se está ejecutando una actualización automática de datos en segundo plano." & vbCrLf &
+                "Por seguridad del sistema, no es posible cerrar SiCoFa hasta que el proceso finalice." & vbCrLf & vbCrLf &
+                "Por favor, aguarde unos momentos.",
+                "Actualización en curso - SiCoFa",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information)
+
+            ' Cancelamos el cierre de la aplicación
+            e.Cancel = True
+        Else
+            ' Limpiamos el NotifyIcon para que no quede huérfano en la bandeja del sistema
+            If mNotifyIcon IsNot Nothing Then
+                mNotifyIcon.Visible = False
+                mNotifyIcon.Dispose()
+            End If
+        End If
 
     End Sub
 

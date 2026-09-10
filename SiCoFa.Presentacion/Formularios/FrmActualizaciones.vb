@@ -5,6 +5,9 @@ Imports SiCoFa.Entidades
 
 Public Class FrmActualizaciones
 
+    ' Evento para notificar el progreso a FrmInicio (Porcentaje actual, Mensaje descriptivo)
+    Public OnProgresoCambiado As Action(Of Integer, String)
+
     Private ReadOnly mAdminActualizaciones As New N_AdminActualizaciones()
     Private mToken As String
     Private mItemsActualizacion As New List(Of ItemActualizacion)
@@ -131,6 +134,7 @@ Public Class FrmActualizaciones
             End If
 
             lblEstado.Text = "Descargando " & archivoZip
+            OnProgresoCambiado?.Invoke(15, $"Descargando artículos: {archivoZip}...")
 
             '------------------------------------------
             ' DESCARGAR ZIP
@@ -237,6 +241,7 @@ Public Class FrmActualizaciones
             End If
 
             lblEstado.Text = "Descargando " & archivoZip
+            OnProgresoCambiado?.Invoke(35, $"Descargando Obra Social: {archivoZip}...")
 
             '------------------------------------------
             ' DESCARGAR ZIP
@@ -260,8 +265,7 @@ Public Class FrmActualizaciones
 
         Next
 
-        lblEstado.Text =
-        "Descarga de obras sociales finalizada"
+        lblEstado.Text = "Descarga de obras sociales finalizada"
 
     End Function
 
@@ -271,11 +275,22 @@ Public Class FrmActualizaciones
             Return
         End If
 
+        Dim totalItems As Integer = mItemsActualizacion.Count
+        Dim contador As Integer = 0
+
         For Each item In mItemsActualizacion
 
             If item.Estado <> "Pendiente" Then
                 Continue For
             End If
+
+            contador += 1
+
+            ' Calcula un porcentaje progresivo entre el 50% y el 95%
+            Dim porcentajeProceso As Integer = 50 + CInt((contador / totalItems) * 45)
+
+            Dim desc As String = If(item.Proceso IsNot Nothing, item.Proceso.Descripcion, item.ObraSocial.NombreOS)
+            OnProgresoCambiado?.Invoke(porcentajeProceso, $"Procesando ({contador}/{totalItems}): {desc}")
 
             item.Estado = "Procesando..."
             ActualizarEstadoGrilla(item)
@@ -792,22 +807,31 @@ Public Class FrmActualizaciones
 
             mModoAutomatico = True
 
+            OnProgresoCambiado?.Invoke(5, "Iniciando proceso de actualización...")
+
             mToken = ObtenerToken()
 
             mItemsActualizacion.Clear()
 
+            OnProgresoCambiado?.Invoke(10, "Preparando carpetas...")
             CrearCarpetas()
             LimpiarCarpetas()
 
+            OnProgresoCambiado?.Invoke(15, "Buscando y descargando actualizaciones de artículos...")
             Await DescargarActualizacionesArticulos()
 
+            OnProgresoCambiado?.Invoke(30, "Buscando y descargando actualizaciones de Obras Sociales...")
             Await DescargarActualizacionesOS()
 
             If mItemsActualizacion.Count = 0 Then
+                OnProgresoCambiado?.Invoke(100, "No hay actualizaciones pendientes.")
                 Return
             End If
 
+            OnProgresoCambiado?.Invoke(50, "Procesando e insertando actualizaciones en la base de datos...")
             Await ProcesarActualizaciones()
+
+            OnProgresoCambiado?.Invoke(100, "¡Actualización completada!")
 
         Finally
 
