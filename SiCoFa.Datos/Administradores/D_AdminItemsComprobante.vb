@@ -20,7 +20,7 @@ Public Class D_AdminItemsComprobante
                                     AlicIVA, 
                                     PrecioCosto, 
                                     PrecioUnitario, 
-                                    PDescuento, 
+                                    PorcentajeDescuento, 
                                     CodBarras, 
                                     PrecioVenta, 
                                     IdSeccion, 
