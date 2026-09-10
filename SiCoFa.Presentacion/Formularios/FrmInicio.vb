@@ -1,9 +1,48 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports System.Threading.Tasks
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
 Public Class FrmInicio
+
+    Private mActualizacionEnCurso As Boolean = False
+
+    Private Async Function EjecutarActualizacionAutomatica() As Task
+
+        If mActualizacionEnCurso Then
+            Return
+        End If
+
+        mActualizacionEnCurso = True
+
+        Try
+
+            Dim frmActualizaciones As New FrmActualizaciones()
+
+            Try
+
+                Await frmActualizaciones.ActualizarAutomaticamente()
+
+            Finally
+
+                frmActualizaciones.Dispose()
+
+            End Try
+
+        Catch ex As Exception
+
+            'Por ahora no mostramos ningún mensaje.
+            'La actualización automática no debe interrumpir el inicio de SiCoFa.
+
+        Finally
+
+            mActualizacionEnCurso = False
+
+        End Try
+
+    End Function
+
     Private Sub mnuOperacionesFacturacion_Click(sender As Object, e As EventArgs) Handles mnuOperacionesFacturacion.Click
 
         Dim u As Usuario = ModSeguridad.ValidarUsuario(mnuOperacionesFacturacion.Name)
@@ -319,7 +358,7 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub FrmInicio_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Async Sub FrmInicio_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Dim mdi As MdiClient = ObtenerMdiClient(Me)
 
@@ -332,6 +371,8 @@ Public Class FrmInicio
             AddHandler mdi.Resize, AddressOf Mdi_Resize
 
         End If
+
+        Await EjecutarActualizacionAutomatica()
 
     End Sub
 

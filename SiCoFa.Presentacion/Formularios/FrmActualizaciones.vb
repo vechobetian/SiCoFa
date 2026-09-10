@@ -8,6 +8,7 @@ Public Class FrmActualizaciones
     Private ReadOnly mAdminActualizaciones As New N_AdminActualizaciones()
     Private mToken As String
     Private mItemsActualizacion As New List(Of ItemActualizacion)
+    Private mModoAutomatico As Boolean = False
 
     Private Sub ConfigurarGrillaActualizaciones()
 
@@ -47,6 +48,10 @@ Public Class FrmActualizaciones
     Private Sub AgregarItemActualizacion(item As ItemActualizacion)
 
         mItemsActualizacion.Add(item)
+
+        If mModoAutomatico Then
+            Return
+        End If
 
         Dim fila As Integer = dgvActualizaciones.Rows.Add()
 
@@ -378,14 +383,20 @@ Public Class FrmActualizaciones
 
                     errorEnItem = True
 
-                    MessageBox.Show(
-                    "Error procesando " &
-                    Path.GetFileName(rutaTxt) &
-                    Environment.NewLine &
-                    ex.Message,
-                    "Actualizaciones",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error)
+                    If Not mModoAutomatico Then
+                        MessageBox.Show(
+                                        "Error procesando " &
+                                        Path.GetFileName(rutaTxt) &
+                                        Environment.NewLine &
+                                        ex.Message,
+                                        "Actualizaciones",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
+                    End If
+
+                    If mModoAutomatico Then
+                        Throw
+                    End If
 
                     Exit For
 
@@ -397,14 +408,20 @@ Public Class FrmActualizaciones
 
             errorEnItem = True
 
-            MessageBox.Show(
-            "Error procesando ZIP " &
-            item.Archivo &
-            Environment.NewLine &
-            ex.Message,
-            "Actualizaciones",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Error)
+            If Not mModoAutomatico Then
+                MessageBox.Show(
+                "Error procesando ZIP " &
+                item.Archivo &
+                Environment.NewLine &
+                ex.Message,
+                "Actualizaciones",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error)
+            End If
+
+            If mModoAutomatico Then
+                Throw
+            End If
 
         End Try
 
@@ -528,14 +545,20 @@ Public Class FrmActualizaciones
 
                     errorEnItem = True
 
-                    MessageBox.Show(
-                    "Error procesando " &
-                    Path.GetFileName(rutaTxt) &
-                    Environment.NewLine &
-                    ex.Message,
-                    "Actualizaciones",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error)
+                    If Not mModoAutomatico Then
+                        MessageBox.Show(
+                        "Error procesando " &
+                        Path.GetFileName(rutaTxt) &
+                        Environment.NewLine &
+                        ex.Message,
+                        "Actualizaciones",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error)
+                    End If
+
+                    If mModoAutomatico Then
+                        Throw
+                    End If
 
                     Exit For
 
@@ -547,14 +570,20 @@ Public Class FrmActualizaciones
 
             errorEnItem = True
 
-            MessageBox.Show(
-            "Error procesando " &
-            item.Archivo &
-            Environment.NewLine &
-            ex.Message,
-            "Actualizaciones",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Error)
+            If Not mModoAutomatico Then
+                MessageBox.Show(
+                "Error procesando " &
+                item.Archivo &
+                Environment.NewLine &
+                ex.Message,
+                "Actualizaciones",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error)
+            End If
+
+            If mModoAutomatico Then
+                Throw
+            End If
 
         End Try
 
@@ -581,6 +610,10 @@ Public Class FrmActualizaciones
     End Function
 
     Private Sub ActualizarEstadoGrilla(item As ItemActualizacion)
+
+        If mModoAutomatico Then
+            Return
+        End If
 
         For Each fila As DataGridViewRow In dgvActualizaciones.Rows
 
@@ -726,13 +759,13 @@ Public Class FrmActualizaciones
 
         If mItemsActualizacion.Count = 0 Then
 
-                MessageBox.Show("No hay actualizaciones pendientes para procesar.", "Actualizaciones", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("No hay actualizaciones pendientes para procesar.", "Actualizaciones", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                Return
+            Return
 
-            End If
+        End If
 
-            btnProcesar.Enabled = False
+        btnProcesar.Enabled = False
 
         Try
 
@@ -752,5 +785,36 @@ Public Class FrmActualizaciones
         End Try
 
     End Sub
+
+    Public Async Function ActualizarAutomaticamente() As Task
+
+        Try
+
+            mModoAutomatico = True
+
+            mToken = ObtenerToken()
+
+            mItemsActualizacion.Clear()
+
+            CrearCarpetas()
+            LimpiarCarpetas()
+
+            Await DescargarActualizacionesArticulos()
+
+            Await DescargarActualizacionesOS()
+
+            If mItemsActualizacion.Count = 0 Then
+                Return
+            End If
+
+            Await ProcesarActualizaciones()
+
+        Finally
+
+            mModoAutomatico = False
+
+        End Try
+
+    End Function
 
 End Class
