@@ -92,7 +92,8 @@ Public Class D_AdminItemsComprobante
                     .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
                     .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto
                     .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
-                    .Add("p_Descuento", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
+                    .Add("p_PorcentajeDescuento", MySqlDbType.Decimal).Value = argItemComprobante.PorcentajeDescuento
+                    .Add("p_DescuentoUnitario", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
                     .Add("p_IdItem", MySqlDbType.Int64)
                 End With
 
