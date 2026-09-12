@@ -48,6 +48,7 @@ Public Class FrmEdicionTabla
         End Try
 
     End Sub
+
     Public Sub New()
         ' Configurar KeyPreview para que el formulario capture las teclas
         Me.KeyPreview = True
@@ -61,7 +62,7 @@ Public Class FrmEdicionTabla
         Dim alignRightMenuItem As New ToolStripMenuItem("Alinear a la Derecha")
 
         ' Agregar manejadores de eventos para los ítems del menú
-        AddHandler copyMenuItem.Click, AddressOf CopyDataGridViewToClipboard
+        AddHandler copyMenuItem.Click, Sub(sender, e) CopyDataGridViewToClipboard()
         AddHandler alignLeftMenuItem.Click, AddressOf AlignLeftMenuItem_Click
         AddHandler alignRightMenuItem.Click, AddressOf AlignRightMenuItem_Click
         AddHandler filterMenuItem.Click, AddressOf ApplyFilter_Click
@@ -191,11 +192,11 @@ Public Class FrmEdicionTabla
             checkedListBox.Top = 10
 
             ' Posicionar los botones en la parte inferior del panel
-            btnAceptar.Width = (panel.Width / 2) - 15
+            btnAceptar.Width = CInt((panel.Width / 2)) - 15
             btnAceptar.Top = checkedListBox.Bottom + 5
             btnAceptar.Left = 10
 
-            btnCancelar.Width = (panel.Width / 2) - 15
+            btnCancelar.Width = CInt((panel.Width / 2)) - 15
             btnCancelar.Top = checkedListBox.Bottom + 5
             btnCancelar.Left = btnAceptar.Right + 10
 

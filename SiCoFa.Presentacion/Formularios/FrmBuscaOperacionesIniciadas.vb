@@ -45,7 +45,7 @@ Public Class FrmBuscaOperacionesIniciadas
             Exit Sub
         End If
 
-        Dim sql As String = "SELECT IdItem,Descripcion,Cantidad,PrecioUnitario,(Cantidad*PrecioUnitario) AS Importe FROM items_comprobante WHERE IdOperacion='" & Me.dgvOperacionesIniciadas.CurrentRow.Cells(0).Value & "' ORDER BY IdItem"
+        Dim sql As String = "SELECT IdItem,Descripcion,Cantidad,PrecioUnitario,(Cantidad*PrecioUnitario) AS Importe FROM items_comprobante WHERE IdOperacion='" & CLng(Me.dgvOperacionesIniciadas.CurrentRow.Cells(0).Value) & "' ORDER BY IdItem"
 
         Dim Items As DataTable = mobj_AdminDB.ObtenerTabla(sql)
         Me.dgvItemsOperacion.DataSource = Items
@@ -77,13 +77,13 @@ Public Class FrmBuscaOperacionesIniciadas
                 Me.Close()
 
             Case Keys.Enter
-                Me.IdOperacionSeleccionado = Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value
+                Me.IdOperacionSeleccionado = CLng(Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value)
                 Me.DialogResult = DialogResult.OK
                 Me.Hide()
 
             Case Keys.Delete
                 Dim sql As String = $"DELETE FROM operaciones WHERE IdOperacion= {Me.dgvOperacionesIniciadas.CurrentRow.Cells("IdOperacion").Value } "
-                Dim eliminado As Boolean = mobj_AdminDB.EliminarRegistros(sql)
+                Dim eliminado As Boolean = CBool(mobj_AdminDB.EliminarRegistros(sql))
 
                 If eliminado Then
                     dgvOperacionesIniciadas.Rows.Remove(dgvOperacionesIniciadas.CurrentRow)

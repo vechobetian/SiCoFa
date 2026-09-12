@@ -18,25 +18,25 @@ Public Class FrmComprobantesEmitidos
             Me.mnuOperacionesRecuperarComprobante.Visible = False
         End If
 
-        If Me.DataGridView1.CurrentRow.Cells("CodiTO").Value = "VTAM" Then
+        If Me.DataGridView1.CurrentRow.Cells("CodiTO").Value.ToString = "VTAM" Then
             Me.mnuOperacionesNC.Visible = True
         Else
             Me.mnuOperacionesNC.Visible = False
         End If
 
-        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "RTOX" Then
+        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value.ToString = "RTOX" Then
             Me.mnuOperacionesFacturarRemito.Visible = True
         Else
             Me.mnuOperacionesFacturarRemito.Visible = False
         End If
 
-        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "PRESU" Then
+        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value.ToString = "PRESU" Then
             Me.mnuOperacionesFacturarPresupuesto.Visible = True
         Else
             Me.mnuOperacionesFacturarPresupuesto.Visible = False
         End If
 
-        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "REC" Then
+        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value.ToString = "REC" Then
             Me.mnuOperacionesAnularReciboDePago.Visible = True
         Else
             Me.mnuOperacionesAnularReciboDePago.Visible = False
@@ -98,13 +98,13 @@ Public Class FrmComprobantesEmitidos
 
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim impBto As String = Me.DataGridView1.CurrentRow.Cells("ImpBto").Value
-            Dim impDes As String = Me.DataGridView1.CurrentRow.Cells("ImpDes").Value
-            Dim impNeto As String = Me.DataGridView1.CurrentRow.Cells("ImpNeto").Value
-            Dim impEf As String = Me.DataGridView1.CurrentRow.Cells("ImpEf").Value
-            Dim impCC As String = Me.DataGridView1.CurrentRow.Cells("ImpCC").Value
-            Dim impPE As String = Me.DataGridView1.CurrentRow.Cells("ImpPE").Value
-            Dim impOS As String = Me.DataGridView1.CurrentRow.Cells("ImpOS").Value
+            Dim impBto As String = Me.DataGridView1.CurrentRow.Cells("ImpBto").Value.ToString
+            Dim impDes As String = Me.DataGridView1.CurrentRow.Cells("ImpDes").Value.ToString
+            Dim impNeto As String = Me.DataGridView1.CurrentRow.Cells("ImpNeto").Value.ToString
+            Dim impEf As String = Me.DataGridView1.CurrentRow.Cells("ImpEf").Value.ToString
+            Dim impCC As String = Me.DataGridView1.CurrentRow.Cells("ImpCC").Value.ToString
+            Dim impPE As String = Me.DataGridView1.CurrentRow.Cells("ImpPE").Value.ToString
+            Dim impOS As String = Me.DataGridView1.CurrentRow.Cells("ImpOS").Value.ToString
 
             Me.lblImpBto.Text = impBto
             Me.lblImpDes.Text = impDes
@@ -221,7 +221,7 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub ImprimirComprobante(ByVal argNumCopias As Integer)
+    Private Sub ImprimirComprobante(ByVal argNumCopias As Short)
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
             Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
@@ -325,7 +325,7 @@ Public Class FrmComprobantesEmitidos
 
         Try
 
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
+            If objCb.TipoComprobante.CodiTC_ARCA <> 0 Then
                 Dim obj_N_AdminComprobantes As New N_AdminComprobantes
                 If obj_N_AdminComprobantes.GenerarFacturaElectronica(objCb) = False Then
                     Throw New Exception("Error al generar la factura electrónica.")
@@ -379,7 +379,7 @@ Public Class FrmComprobantesEmitidos
         Try
             AdminOperaciones.FacturacionRemitoTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, User, objCb, "")
 
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
+            If objCb.TipoComprobante.CodiTC_ARCA <> 0 Then
                 Dim AdminComprobants As New N_AdminComprobantes
                 If AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
                     'aca hay que cambiar el estado de la operacion y salir
@@ -492,7 +492,7 @@ Public Class FrmComprobantesEmitidos
     Private Sub mnuOperacionesAnularReciboDePago_Click(sender As Object, e As EventArgs) Handles mnuOperacionesAnularReciboDePago.Click
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
-        Dim estadoOperacion As String = Me.DataGridView1.CurrentRow.Cells("EstadoOperacion").Value
+        Dim estadoOperacion As String = Me.DataGridView1.CurrentRow.Cells("EstadoOperacion").Value.ToString
 
         If estadoOperacion <> "FINALIZADO" Then
             MsgBox("Solo se puede anular pagos con estado FINALIZADO", vbInformation, "SiCoFa")
@@ -504,7 +504,7 @@ Public Class FrmComprobantesEmitidos
             Exit Sub
         End If
 
-        Dim NComp As String = Me.DataGridView1.CurrentRow.Cells("NumComp").Value
+        Dim NComp As String = Me.DataGridView1.CurrentRow.Cells("NumComp").Value.ToString
 
         If MessageBox.Show("Esta por anular el Recibo N° " & NComp,
                    "SiCoFa",
@@ -521,7 +521,7 @@ Public Class FrmComprobantesEmitidos
         Dim AdminOperaciones As New N_AdminOperaciones
 
         Try
-            Dim codiTO As String = Me.DataGridView1.CurrentRow.Cells("CodiTO").Value
+            Dim codiTO As String = Me.DataGridView1.CurrentRow.Cells("CodiTO").Value.ToString
 
             AdminOperaciones.AnularPagoTransaccion(idOperacion, User, codiTO)
 

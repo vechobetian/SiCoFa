@@ -252,7 +252,7 @@ Public Class FrmPagos
                         f.NombrePropiedadDescripcion = "Descripcion"
                         f.HeaderPropiedadDescripcion = "Descripcion"
                         If f.ShowDialog() = DialogResult.OK Then
-                            mpe = Me.SeleccionarMedioPE(f.Valor1Seleccionado, lmpe)
+                            mpe = Me.SeleccionarMedioPE(f.Valor1Seleccionado.ToString, lmpe)
                         End If
                         f.Close()
                     End Using ' <- aquí se libera completamente
@@ -332,7 +332,7 @@ Public Class FrmPagos
 
             Dim importePE As Decimal = 0
             If MedioPE IsNot Nothing AndAlso Decimal.TryParse(Me.txtImportePagoElectronico.Text, importePE) AndAlso importePE > 0 Then
-                objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
+                objPE = New OperacionPE(Me.Operacion.IdOperacion, "0", 1, CInt(Me.MedioPE.IdMPE), importePE, "EN CAJA")
             End If
 
             objCb = New Comprobante(
@@ -373,7 +373,7 @@ Public Class FrmPagos
 
             idOperacion = mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC, Recetas, ItemsComprobante)
 
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
+            If objCb.TipoComprobante.CodiTC_ARCA <> 0 Then
                 Dim obj_N_AdminComprobantes As New N_AdminComprobantes
                 If obj_N_AdminComprobantes.GenerarFacturaElectronica(objCb) = False Then
                     Throw New Exception("Error al generar la factura electrónica.")
@@ -413,7 +413,7 @@ Public Class FrmPagos
 
             Dim importePE As Decimal = 0
             If MedioPE IsNot Nothing AndAlso Decimal.TryParse(Me.txtImportePagoElectronico.Text, importePE) AndAlso importePE > 0 Then
-                objPE = New OperacionPE(Me.Operacion.IdOperacion, 0, 1, Me.MedioPE.IdMPE, importePE, "EN CAJA")
+                objPE = New OperacionPE(Me.Operacion.IdOperacion, "0", 1, CInt(Me.MedioPE.IdMPE), importePE, "EN CAJA")
             End If
 
             objCb = New Comprobante(
@@ -495,7 +495,7 @@ Public Class FrmPagos
 
         If Convert.ToDecimal(Me.txtImporteEfectivo.Text) < 0 Then
             MsgBox("El importe ingresado es mayor que el Importe a Pagar", vbCritical, "SiCoFa")
-            Me.txtImporteCuentaCorriente.Text = Me.ImporteAPagar - Me.MediosDePago.ImportePagoElectronico
+            Me.txtImporteCuentaCorriente.Text = (Me.ImporteAPagar - Me.MediosDePago.ImportePagoElectronico).ToString
             Me.txtImporteCuentaCorriente.Select()
             Me.txtImporteCuentaCorriente.SelectAll()
             e.Cancel = True
@@ -507,7 +507,7 @@ Public Class FrmPagos
 
         If Convert.ToDecimal(Me.txtImporteEfectivo.Text) < 0 Then
             MsgBox("El importe ingresado es mayor que el Importe a Pagar", vbCritical, "SiCoFa")
-            Me.txtImportePagoElectronico.Text = Me.ImporteAPagar - Me.MediosDePago.ImporteCuentaCorriente
+            Me.txtImportePagoElectronico.Text = (Me.ImporteAPagar - Me.MediosDePago.ImporteCuentaCorriente).ToString
             Me.txtImportePagoElectronico.Select()
             Me.txtImportePagoElectronico.SelectAll()
             e.Cancel = True

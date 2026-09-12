@@ -67,7 +67,7 @@ Public Class UcItemVenta
     Protected Overridable Sub OnCantidadConfirmada()
 
         If ItemVenta IsNot Nothing Then
-            ItemVenta.Cantidad = Val(txtCantidad.Text)
+            ItemVenta.Cantidad = CInt(Val(txtCantidad.Text))
             RaiseEvent CantidadConfirmada(Me)
         End If
 
@@ -76,7 +76,7 @@ Public Class UcItemVenta
     Protected Overridable Sub OnPrecioConfirmado()
 
         If ItemVenta IsNot Nothing Then
-            ItemVenta.PrecioUnitario = Val(txtPrecioUnitario.Text)
+            ItemVenta.PrecioUnitario = CDec(Val(txtPrecioUnitario.Text))
             txtPrecioUnitario.Text = ItemVenta.PrecioUnitario.ToString("0.00")
             RaiseEvent PrecioConfirmado(Me)
         End If
@@ -174,7 +174,7 @@ Public Class UcItemVenta
 
     Private Function ObtenerColorReceta(idReceta As Long) As Color
 
-        Return ColoresReceta((idReceta - 1) Mod ColoresReceta.Length)
+        Return ColoresReceta(Convert.ToInt32((idReceta - 1) Mod ColoresReceta.Length))
 
     End Function
 

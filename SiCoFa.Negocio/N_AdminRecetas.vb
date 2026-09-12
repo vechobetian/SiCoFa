@@ -222,7 +222,7 @@ Public Class N_AdminRecetas
                 Exit Do
             End If
 
-            MsgBox("Debe ingresar un porcentaje válido (mayor que 0 y menor o igual a 100)", vbOK, "SiCoFa")
+            MsgBox("Debe ingresar un porcentaje válido (mayor que 0 y menor o igual a 100)", vbOKOnly, "SiCoFa")
 
         Loop
 

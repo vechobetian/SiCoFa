@@ -29,7 +29,7 @@ Public Class D_AdminAccionesFarmacologicas
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            a = New AccionFarmacologica(datos("CodiAcFa"), datos("AccionFarmacologica"))
+                            a = New AccionFarmacologica(CInt(datos("CodiAcFa")), datos("AccionFarmacologica").ToString)
                             ls.Add(a)
                         End While
 

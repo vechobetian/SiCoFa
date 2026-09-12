@@ -17,12 +17,12 @@
     Public ReadOnly Property Descripcion As String
         Get
             Select Case CodiTD
-                Case "DNI" : Return "DOCUMENTO NACIONAL DE IDENTIDAD"
-                Case "CUIT" : Return "CLAVE ÚNICA DE IDENTIFICACIÓN TRIBUTARIA"
-                Case "CUIL" : Return "CÓDIGO ÚNICO DE IDENTIFICACIÓN LABORAL"
-                Case "LC" : Return "LIBRETA CÍVICA"
-                Case "LE" : Return "LIBRETA DE ENROLAMIENTO"
-                Case "CI" : Return "CÉDULA DE IDENTIDAD"
+                Case "DNI" : Return "DNI"
+                Case "CUIT" : Return "CUIT"
+                Case "CUIL" : Return "CUIL"
+                Case "LC" : Return "LC"
+                Case "LE" : Return "LE"
+                Case "CI" : Return "CI"
                 Case "PAS" : Return "PASAPORTE"
                 Case "SI" : Return "SIN IDENTIFICACIÓN"
                 Case Else : Return "SIN INFORMAR"
@@ -30,15 +30,15 @@
         End Get
     End Property
 
-    Public ReadOnly Property CodiTDAFIP As String
+    Public ReadOnly Property CodiTDAFIP As Integer
         Get
             Select Case CodiTD
-                Case "CUIT" : Return "80"
-                Case "CUIL" : Return "86"
-                Case "LC" : Return "90"
-                Case "DNI" : Return "96"
-                Case "SI" : Return "99"
-                Case Else : Return "99"
+                Case "CUIT" : Return 80
+                Case "CUIL" : Return 86
+                Case "LC" : Return 90
+                Case "DNI" : Return 96
+                Case "SI" : Return 99
+                Case Else : Return 99
             End Select
         End Get
     End Property

@@ -56,7 +56,7 @@ Public Class FrmSecciones
                         f.NombrePropiedadDescripcion = "Seccion"
                         f.HeaderPropiedadDescripcion = "Seccion"
                         If f.ShowDialog() = DialogResult.OK Then
-                            s = Me.SeleccionarSeccionListado(f.Valor1Seleccionado, ls)
+                            s = Me.SeleccionarSeccionListado(f.Valor1Seleccionado.ToString, ls)
                         End If
                         f.Close()
                     End Using ' <- aquí se libera completamente

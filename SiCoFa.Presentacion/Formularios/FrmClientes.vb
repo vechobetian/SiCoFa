@@ -97,7 +97,7 @@ Public Class FrmClientes
 
         Try
             With Me
-                .TxtId.Text = argCliente.Id
+                .TxtId.Text = argCliente.Id.ToString
                 .TxtNombre.Text = argCliente.Nombre
                 .TxtDomicilio.Text = argCliente.Domicilio
                 .TxtLocalidad.Text = argCliente.Localidad
@@ -106,7 +106,7 @@ Public Class FrmClientes
                 .TxtEmail.Text = argCliente.Email
                 .UcTipoDoc.Asignar(argCliente.Documento.TipoDocumento.CodiTD, argCliente.Documento.TipoDocumento.Descripcion)
                 .TxtNumDoc.Text = argCliente.Documento.Numero
-                .TxtFechaAlta.Text = argCliente.FechaAlta
+                .TxtFechaAlta.Text = argCliente.FechaAlta.ToString("dd/MM/yyyy")
                 .UcEstado.Descripcion = argCliente.Estado
                 .IVA.Text = argCliente.IVA.Descripcion
             End With
@@ -128,9 +128,9 @@ Public Class FrmClientes
 
             If Me.NuevaPersona = True Then
 
-                Dim Id As Integer = mAdminClientes.InsertarCliente(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.IVA.SelectedValue)
+                Dim Id As Integer = mAdminClientes.InsertarCliente(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text, Me.IVA.SelectedValue.ToString)
                 If Id > 0 Then
-                    Me.TxtId.Text = Id
+                    Me.TxtId.Text = Id.ToString
                     Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
                     MsgBox("Se dio de alta el Cliente " & TxtNombre.Text,, "SiCoFa")
                 Else
@@ -145,12 +145,12 @@ Public Class FrmClientes
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminClientes.ActualizarCliente(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.IVA.SelectedValue, Me.UcEstado.Descripcion)
+                Dim Actualizado As Boolean = mAdminClientes.ActualizarCliente(CInt(Me.TxtId.Text), Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text, Me.IVA.SelectedValue.ToString, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
                     MsgBox("El Cliente " & TxtNombre.Text & " se acutalizo correctamente",, "SiCoFa")
                 Else
-                    MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
+                    MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
             End If

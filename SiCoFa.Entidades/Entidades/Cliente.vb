@@ -3,7 +3,7 @@
     Property IVA As TipoIVA
     Property CuentaCorriente As CuentaCorriente
     Public Sub New(
-                ByVal argIdCliente As Int32,
+                ByVal argIdCliente As Integer,
                 ByVal argNombre As String,
                 ByVal argDomicilio As String,
                 ByVal argLocalidad As String,

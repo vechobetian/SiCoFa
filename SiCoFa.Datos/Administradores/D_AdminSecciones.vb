@@ -22,9 +22,9 @@ Public Class D_AdminSecciones
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read Then
-                            Dim IdSeccion As String = datos("IdSeccion")
-                            Dim Seccion As String = datos("Seccion")
-                            Dim EstablecerPrecio As String = datos("EstablecerPrecio")
+                            Dim IdSeccion As String = datos("IdSeccion").ToString
+                            Dim Seccion As String = datos("Seccion").ToString
+                            Dim EstablecerPrecio As Boolean = CBool(datos("EstablecerPrecio"))
                             objSec = New Seccion(IdSeccion, Seccion, EstablecerPrecio)
                         Else
                             objSec = Nothing
@@ -71,7 +71,7 @@ Public Class D_AdminSecciones
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            s = New Seccion(datos("IdSeccion"), datos("Seccion"), datos("EstablecerPrecio"))
+                            s = New Seccion(datos("IdSeccion").ToString, datos("Seccion").ToString, CBool(datos("EstablecerPrecio")))
                             ls.Add(s)
                         End While
 

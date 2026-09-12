@@ -4,7 +4,7 @@ Public Class FrmPlanCuentas
     Private mobj_AdminPlanCuentas As New N_AdminPlanCuentas
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim nodo_raiz As TreeNode
-        nodo_raiz = Me.TreeView1.Nodes.Add(0, "Rubros Contables")
+        nodo_raiz = Me.TreeView1.Nodes.Add("0", "Rubros Contables")
 
         For Each r As RubroContabilidad In mobj_AdminPlanCuentas.Rubros
             Dim nodo_segundo_nivel As TreeNode = Me.TreeView1.Nodes(0).Nodes.Add(r.CodiRub, r.NombreRub)

@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 
 Public Class N_AdminSecciones
 
-    Public Function ObtenerSeccionPorId(ByVal argIdSeccion As Int32) As Seccion
+    Public Function ObtenerSeccionPorId(ByVal argIdSeccion As String) As Seccion
 
         Dim AdminSecciones As New D_AdminSecciones
         Dim objSec As Seccion

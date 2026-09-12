@@ -9,7 +9,7 @@ Public Class Ticket58
         Dim printFont As Font = New Font("consolas", 7)
         Dim fuenteLinea As Font = New Font("arial", 8)
         Dim topMargin As Double = e.MarginBounds.Top
-        Dim yPos As Double
+        Dim yPos As Single
         Dim strLinea2Item As String
         Dim strCantPUnit As String
         Dim strImpItem As String
@@ -30,7 +30,7 @@ Public Class Ticket58
         Const IncrementoYPreTexto As Integer = 15
         Const IncrementoYPreLinea As Integer = 5
         Const IncrementoYPreItem As Integer = 20
-        Const MargenIzquierdo As Integer = 0
+        Const MargenIzquierdo As Single = 0
         Const Linea As String = "____________________________"
 
         e.Graphics.DrawString(Copia, printFont, Brushes.Black, MargenIzquierdo, 5)
@@ -262,7 +262,7 @@ Public Class Ticket58
         Dim printFont As Font = New Font("consolas", 7)
         Dim fuenteLinea As Font = New Font("consolas", 8)
         Dim topMargin As Double = e.MarginBounds.Top
-        Dim yPos As Double
+        Dim yPos As Single
         Dim strTotal As String
         Dim strTar As String
         Dim strEf As String
@@ -270,7 +270,7 @@ Public Class Ticket58
         Const IncrementoYPreTexto As Integer = 15
         Const IncrementoYPreLinea As Integer = 5
         Const IncrementoYPreItem As Integer = 20
-        Const MargenIzquierdo As Integer = 0
+        Const MargenIzquierdo As Single = 0
         Const Linea As String = "____________________________"
 
         e.Graphics.DrawString(Copia, printFont, Brushes.Black, MargenIzquierdo, 5)

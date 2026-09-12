@@ -35,7 +35,7 @@ Public Class D_AdminClientes
                                                 datos.GetString("Estado"),
                                                 datos.GetString("CodIVA")
                                                 )
-                            Dim objCC As CuentaCorriente = ObtenerCuentaCorrientePorIdCliente(datos("IdCliente"))
+                            Dim objCC As CuentaCorriente = ObtenerCuentaCorrientePorIdCliente(CInt(datos("IdCliente")))
 
                             If objCC IsNot Nothing Then
                                 objCli.CuentaCorriente = objCC
@@ -239,14 +239,14 @@ Public Class D_AdminClientes
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read Then
-                            Dim IdCC As Long = datos("IdCC")
-                            Dim IdCliente As Int32 = datos("IdCliente")
-                            Dim Descripcion As String = datos("Descripcion")
-                            Dim Credito As String = datos("Credito")
-                            Dim FechaAlta As String = datos("FechaAlta")
-                            Dim Estado As String = datos("Estado")
-                            Dim Observaciones As String = datos("Observaciones")
-                            Dim Saldo As Decimal = datos("Saldo")
+                            Dim IdCC As Integer = CInt(datos("IdCC"))
+                            Dim IdCliente As Integer = CInt(datos("IdCliente"))
+                            Dim Descripcion As String = datos("Descripcion").ToString
+                            Dim Credito As Decimal = CDec(datos("Credito"))
+                            Dim FechaAlta As Date = CDate(datos("FechaAlta"))
+                            Dim Estado As String = datos("Estado").ToString
+                            Dim Observaciones As String = datos("Observaciones").ToString
+                            Dim Saldo As Decimal = CDec(datos("Saldo"))
                             objCC = New CuentaCorriente(IdCC, argIdCliente, Descripcion, Credito, FechaAlta, Observaciones, Estado, Saldo)
                         End If
 

@@ -3,9 +3,9 @@
     Property TipoComprobanteCLetra As String
     Property Letra As String
     Property TipoComprobanteSLetra As String
-    Property CodiTC_ARCA As String
+    Property CodiTC_ARCA As Integer
 
-    Public Sub New(ByVal argCodiTC_SiCoFa As String, ByVal argTipoComprobanteCLetra As String, ByVal argLetra As String, ByVal argTipoComprobanteSLetra As String, ByVal argCodiTCARCA As String)
+    Public Sub New(ByVal argCodiTC_SiCoFa As String, ByVal argTipoComprobanteCLetra As String, ByVal argLetra As String, ByVal argTipoComprobanteSLetra As String, ByVal argCodiTCARCA As Integer)
         Me.CodiTC_SiCoFa = argCodiTC_SiCoFa
         Me.TipoComprobanteCLetra = argTipoComprobanteCLetra
         Me.Letra = argLetra

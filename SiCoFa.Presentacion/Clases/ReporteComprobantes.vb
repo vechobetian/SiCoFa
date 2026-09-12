@@ -5,7 +5,7 @@ Public Class ReporteComprobantes
 
     Public AdminComprobantes As New N_AdminComprobantes
 
-    Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante, ByVal argNumCopias As Int16)
+    Public Sub ImprimirComprobante(ByVal argComprobante As Comprobante, ByVal argNumCopias As Integer)
 
         Select Case g_ParametrosTerminal.Papel
             Case "A4"

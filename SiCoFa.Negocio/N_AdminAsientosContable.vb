@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 
 Public Class N_AdminAsientosContable
 
-    Public Function ObtenerCuentaImputablePorCodiCta(ByVal argCodiCta) As CuentaImputable
+    Public Function ObtenerCuentaImputablePorCodiCta(argCodiCta As String) As CuentaImputable
         Dim AdminAsientosContable As New D_AdminAsientosContable
 
         Try

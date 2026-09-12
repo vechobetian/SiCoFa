@@ -27,10 +27,10 @@ Public Class D_AdminMediosPE
                             Dim objCB As CuentaBancaria = AdminCuentasBancarias.ObtenerCuentaBancariaPorId(datos.GetInt32("IdCB"))
 
                             objMPE = New MedioPE(
-                                                 datos.GetInt32("IdMPE"),
+                                                 datos.GetInt32("IdMPE").ToString,
                                                  datos.GetString("Descripcion"),
                                                  objCB,
-                                                 datos.GetString("Baja")
+                                                 CBool(datos.GetString("Baja"))
                                                  )
 
                         End If
@@ -87,7 +87,7 @@ Public Class D_AdminMediosPE
                             Dim AdminCuentasBancarias As New D_AdminCuentasBancarias
                             Dim objCB As CuentaBancaria = AdminCuentasBancarias.ObtenerCuentaBancariaPorId(IdCBResult)
 
-                            mpe = New MedioPE(IdMPEResult, DescripcionResult, objCB, BajaResult)
+                            mpe = New MedioPE(IdMPEResult.ToString, DescripcionResult, objCB, BajaResult)
                             lmpe.Add(mpe)
                         End While
 
@@ -106,7 +106,7 @@ Public Class D_AdminMediosPE
         End Try
 
     End Function
-    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Int32) As Int32
+    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Int32) As Integer
 
         Try
             Dim objConexionDB As New D_Conexion

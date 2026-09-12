@@ -724,7 +724,7 @@ Public Class FrmActualizaciones
     Private Function ObtenerToken() As String
         Dim AdminDT As New N_AdminDB
         Dim sql As String = "SELECT Token FROM parametros_actualizacion"
-        Dim token As String = AdminDT.ObtenerValor(sql)
+        Dim token As String = AdminDT.ObtenerValor(sql).ToString
         Return token
     End Function
 
@@ -804,39 +804,32 @@ Public Class FrmActualizaciones
     Public Async Function ActualizarAutomaticamente() As Task
 
         Try
-
             mModoAutomatico = True
 
-            OnProgresoCambiado?.Invoke(5, "Iniciando proceso de actualización...")
-
             mToken = ObtenerToken()
-
             mItemsActualizacion.Clear()
 
-            OnProgresoCambiado?.Invoke(10, "Preparando carpetas...")
+            ' Preparamos las carpetas localmente en silencio
             CrearCarpetas()
             LimpiarCarpetas()
 
-            OnProgresoCambiado?.Invoke(15, "Buscando y descargando actualizaciones de artículos...")
+            ' Buscamos y descargamos actualizaciones (DescargarActualizacionesArticulos y DescargarActualizacionesOS
+            ' solo dispararán OnProgresoCambiado si encuentran un zip válido para bajar)
             Await DescargarActualizacionesArticulos()
-
-            OnProgresoCambiado?.Invoke(30, "Buscando y descargando actualizaciones de Obras Sociales...")
             Await DescargarActualizacionesOS()
 
+            ' Si no se encontró ningún archivo para descargar, terminamos en absoluto silencio
             If mItemsActualizacion.Count = 0 Then
-                OnProgresoCambiado?.Invoke(100, "No hay actualizaciones pendientes.")
                 Return
             End If
 
-            OnProgresoCambiado?.Invoke(50, "Procesando e insertando actualizaciones en la base de datos...")
+            ' Si llegó hasta acá, es porque SÍ hay actualizaciones reales para aplicar
             Await ProcesarActualizaciones()
 
-            OnProgresoCambiado?.Invoke(100, "¡Actualización completada!")
+            OnProgresoCambiado?.Invoke(100, "¡Actualización de datos completada!")
 
         Finally
-
             mModoAutomatico = False
-
         End Try
 
     End Function

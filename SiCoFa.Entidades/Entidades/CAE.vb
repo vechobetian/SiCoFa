@@ -12,7 +12,7 @@ Public Class CAE
 
         Me.NumComp = argNumComp
         Me.NumCAE = argNumCAE
-        Me.VtoCAE = argVtoCAE.ToString("dd-MM-yyyy")
+        Me.VtoCAE = CDate(argVtoCAE.ToString("dd-MM-yyyy"))
     End Sub
 
 End Class

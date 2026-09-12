@@ -29,7 +29,7 @@ Public Class FrmArticulos
 
         With UcAlicuotaIVA
             .Objetos = AlicuotaIVA.Lista
-            .NombrePropiedadId = "AlicIVA"
+            .NombrePropiedadId = "CodIVA"
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Alicuotas IVA"
             .HeaderDescripcion = "Alicuota IVA"
@@ -227,8 +227,7 @@ Public Class FrmArticulos
                 .TxtNTroquel.Text = argArticulo.NTroquel
                 .TxtCodBarras.Text = argArticulo.CodBarras
                 .UcTipoVenta.Asignar(argArticulo.TipoVenta.CodiTV, argArticulo.TipoVenta.Descripcion)
-                Dim alicIVA As New AlicuotaIVA(argArticulo.AlicIVA)
-                .UcAlicuotaIVA.Asignar(alicIVA.AlicIVA, alicIVA.Descripcion)
+                .UcAlicuotaIVA.Asignar(argArticulo.AlicuotaIVA.CodIVA, argArticulo.AlicuotaIVA.Descripcion)
                 .UcTamanioEnvase.Asignar(argArticulo.TamanioEnvase.CodiTE, argArticulo.TamanioEnvase.Descripcion)
                 .UcLaboratorio.Asignar(argArticulo.Laboratorio.CodiLabora, argArticulo.Laboratorio.Laboratorio)
                 .UcMonodroga.Asignar(argArticulo.Monodroga.CodiMon, argArticulo.Monodroga.Monodroga)
@@ -283,15 +282,15 @@ Public Class FrmArticulos
                                                                                 Me.TxtCodBarras.Text,
                                                                                 Me.TxtNTroquel.Text,
                                                                                 Me.TxtNombre.Text,
-                                                                                Me.UcTipoVenta.Id,
-                                                                                Me.UcAlicuotaIVA.Id,
-                                                                                Me.UcTamanioEnvase.Id,
-                                                                                Me.UcLaboratorio.Id,
-                                                                                Me.UcMonodroga.Id,
-                                                                                Me.UcAccionFarmacologica.Id,
-                                                                                Me.UcTipoControl.Id,
-                                                                                Me.UcHeladera.Id,
-                                                                                Me.UcSeccion.Id
+                                                                                Me.UcTipoVenta.Id.ToString,
+                                                                                CDec(Me.UcAlicuotaIVA.Id),
+                                                                                Me.UcTamanioEnvase.Id.ToString,
+                                                                                CInt(Me.UcLaboratorio.Id),
+                                                                                CInt(Me.UcMonodroga.Id),
+                                                                                CInt(Me.UcAccionFarmacologica.Id),
+                                                                                Me.UcTipoControl.Id.ToString,
+                                                                                CBool(Me.UcHeladera.Id),
+                                                                                Me.UcSeccion.Id.ToString
                                                                                 )
 
                 If IdArticulo <> "" Then
@@ -316,16 +315,16 @@ Public Class FrmArticulos
                                                                                     Me.TxtCodBarras.Text,
                                                                                     Me.TxtNTroquel.Text,
                                                                                     Me.TxtNombre.Text,
-                                                                                    Me.UcTipoVenta.Id,
-                                                                                    Me.UcAlicuotaIVA.Id,
-                                                                                    Me.UcTamanioEnvase.Id,
-                                                                                    Me.UcLaboratorio.Id,
-                                                                                    Me.UcMonodroga.Id,
-                                                                                    Me.UcAccionFarmacologica.Id,
-                                                                                    Me.UcTipoControl.Id,
-                                                                                    Me.UcHeladera.Id,
-                                                                                    Me.UcBaja.Id,
-                                                                                    Me.UcSeccion.Id
+                                                                                    Me.UcTipoVenta.Id.ToString,
+                                                                                    CDec(Me.UcAlicuotaIVA.Id),
+                                                                                    Me.UcTamanioEnvase.Id.ToString,
+                                                                                    CInt(Me.UcLaboratorio.Id),
+                                                                                    CInt(Me.UcMonodroga.Id),
+                                                                                    CInt(Me.UcAccionFarmacologica.Id),
+                                                                                    Me.UcTipoControl.Id.ToString,
+                                                                                    CBool(Me.UcHeladera.Id),
+                                                                                    CBool(Me.UcBaja.Id),
+                                                                                    Me.UcSeccion.Id.ToString
                                                                                     )
 
                 If Actualizado = True Then

@@ -97,7 +97,7 @@ Public Class ItemComprobanteCompra
 
     Public ReadOnly Property AlicIVA() As Decimal
         Get
-            Return Articulo.AlicIVA
+            Return Articulo.AlicuotaIVA.AlicIva
         End Get
     End Property
 
@@ -112,7 +112,7 @@ Public Class ItemComprobanteCompra
     Public ReadOnly Property ImporteNeto() As Decimal
         Get
             If m_IVAIncluido Then
-                Return Me.Importe / (1 + Me.Articulo.AlicIVA / 100)
+                Return Me.Importe / (1 + Me.Articulo.AlicuotaIVA.AlicIva / 100)
             Else
                 Return Me.Importe
             End If
@@ -122,7 +122,7 @@ Public Class ItemComprobanteCompra
     <Newtonsoft.Json.JsonIgnore>
     Public ReadOnly Property ImporteIVA() As Decimal
         Get
-            Return Me.ImporteNeto * (Me.Articulo.AlicIVA / 100)
+            Return Me.ImporteNeto * (Me.Articulo.AlicuotaIVA.AlicIva / 100)
         End Get
     End Property
 
@@ -163,9 +163,9 @@ Public Class ItemComprobanteCompra
 
     Public Sub RecalcularPrecioVenta()
         If m_IVAIncluido Then
-            m_PrecioVenta = Math.Round(m_PrecioCosto * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100), 2, MidpointRounding.ToEven)
+            m_PrecioVenta = Math.Round(CDec(m_PrecioCosto * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100)), 2, MidpointRounding.ToEven)
         Else
-            m_PrecioVenta = Math.Round(m_PrecioCosto * (1 + Me.Articulo.AlicIVA / 100) * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100), 2, MidpointRounding.ToEven)
+            m_PrecioVenta = Math.Round(CDec(m_PrecioCosto * (1 + Me.Articulo.AlicuotaIVA.AlicIva / 100) * (1 + Me.Articulo.ListaPrecios.PorcentajeAplicado / 100)), 2, MidpointRounding.ToEven)
         End If
     End Sub
 

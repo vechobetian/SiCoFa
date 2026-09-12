@@ -13,6 +13,9 @@ Public Class FrmInicio
     Private mPorcentajeAvance As Integer = 0
     Private mNotifyIcon As NotifyIcon
 
+    ' Variable para el timer declarada a nivel de formulario
+    Private WithEvents mTimerActualizaciones As System.Windows.Forms.Timer
+
     Private Sub InicializarNotificador()
         If mNotifyIcon Is Nothing Then
             mNotifyIcon = New NotifyIcon()
@@ -25,12 +28,18 @@ Public Class FrmInicio
     Private Sub NotificarProgreso(ByVal titulo As String, ByVal mensaje As String)
         If mNotifyIcon IsNot Nothing Then
             mNotifyIcon.Text = $"SiCoFa: {mPorcentajeAvance}% completado"
-            ' Muestra el globo flotante en el reloj de Windows
-            mNotifyIcon.ShowBalloonTip(3000, titulo, mensaje, ToolTipIcon.Info)
+            mNotifyIcon.BalloonTipTitle = titulo
+            mNotifyIcon.BalloonTipText = mensaje
+            mNotifyIcon.BalloonTipIcon = ToolTipIcon.Info
+            mNotifyIcon.ShowBalloonTip(3000)
         End If
     End Sub
 
     Private Async Function EjecutarActualizacionAutomatica() As Task
+
+        If g_ParametrosTerminal.Actualizar = 0 Then
+            Return
+        End If
 
         If mActualizacionEnCurso Then
             Return
@@ -39,36 +48,40 @@ Public Class FrmInicio
         mActualizacionEnCurso = True
 
         Try
-            ' Notificación inicial al lado del reloj
-            NotificarProgreso("Actualización Automática", "Buscando novedades de datos...")
-
             Dim frmActualizaciones As New FrmActualizaciones()
 
-            ' Suscripción al evento de progreso para mostrar las notificaciones flotantes
+            ' Suscripción al evento: SOLO se disparará cuando FrmActualizaciones 
+            ' empiece a descargar o procesar archivos reales.
             frmActualizaciones.OnProgresoCambiado = Sub(porcentaje As Integer, mensaje As String)
                                                         mPorcentajeAvance = porcentaje
-                                                        ' Usamos Invoke por si viene de otro hilo de ejecución
+
+                                                        ' Si la actualización notifica que no hay novedades, no mostramos globo
+                                                        If mensaje.Contains("No hay actualizaciones") Then
+                                                            Return
+                                                        End If
+
                                                         If Me.InvokeRequired Then
-                                                            Me.Invoke(Sub() NotificarProgreso($"Actualizando ({porcentaje}%)", mensaje))
+                                                            Me.Invoke(Sub() NotificarProgreso($"SiCoFa ({porcentaje}%)", mensaje))
                                                         Else
-                                                            NotificarProgreso($"Actualizando ({porcentaje}%)", mensaje)
+                                                            NotificarProgreso($"SiCoFa ({porcentaje}%)", mensaje)
                                                         End If
                                                     End Sub
 
             Try
+                ' Ejecuta la búsqueda y actualización en segundo plano silenciosamente
                 Await frmActualizaciones.ActualizarAutomaticamente()
-
-                ' Notificación de éxito
-                NotificarProgreso("SiCoFa", "El sistema se encuentra totalmente actualizado.")
 
             Finally
                 frmActualizaciones.Dispose()
             End Try
 
         Catch ex As Exception
-            ' Muestra error de actualización de forma discreta sin interrumpir
+            ' Si ocurre un error real, notificamos discretamente
             If mNotifyIcon IsNot Nothing Then
-                mNotifyIcon.ShowBalloonTip(4000, "SiCoFa", "No se pudo completar la actualización automática.", ToolTipIcon.Warning)
+                mNotifyIcon.BalloonTipTitle = "SiCoFa"
+                mNotifyIcon.BalloonTipText = "No se pudo completar la actualización de datos."
+                mNotifyIcon.BalloonTipIcon = ToolTipIcon.Warning
+                mNotifyIcon.ShowBalloonTip(4000)
             End If
         Finally
             mActualizacionEnCurso = False
@@ -389,48 +402,60 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Async Sub FrmInicio_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Sub ConfigurarFondoMDI()
+        Dim mdiClient As MdiClient = ObtenerMdiClient(Me)
+        If mdiClient IsNot Nothing Then
+            AddHandler mdiClient.Paint, AddressOf Mdi_Paint
+            AddHandler mdiClient.Resize, AddressOf Mdi_Resize
+        End If
+    End Sub
 
-        ' Inicializamos el notificador del reloj
+    Private Async Sub FrmInicio_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        ' 1. Configuramos el fondo MDI y el notificador
+        ConfigurarFondoMDI()
         InicializarNotificador()
 
-        Dim mdi As MdiClient = ObtenerMdiClient(Me)
+        ' 1. Validamos si la terminal actual está autorizada (g_ParametrosTerminal.Actualizar > 0)
+        If g_ParametrosTerminal IsNot Nothing AndAlso g_ParametrosTerminal.Actualizar > 0 Then
 
-        If mdi IsNot Nothing Then
+            ' 2. Ejecutar la primera comprobación al iniciar de forma asíncrona
+            Await EjecutarActualizacionAutomatica()
 
-            mdi.BackColor = Color.White
-            mdi.BackgroundImage = Nothing
+            ' 3. Configurar e iniciar el Timer para las revisiones periódicas
+            mTimerActualizaciones = New System.Windows.Forms.Timer()
 
-            AddHandler mdi.Paint, AddressOf Mdi_Paint
-            AddHandler mdi.Resize, AddressOf Mdi_Resize
+            ' Convertimos el valor de la BD (asumiendo minutos) a milisegundos
+            ' Si g_ParametrosTerminal.Actualizar ya viene en milisegundos, quitar "* 60 * 1000"
+            Dim intervaloMs As Integer = CInt(g_ParametrosTerminal.Actualizar) * 60 * 1000
+
+            mTimerActualizaciones.Interval = intervaloMs
+            mTimerActualizaciones.Start()
 
         End If
 
-        Await EjecutarActualizacionAutomatica()
-
     End Sub
 
-    Private Sub FrmInicio_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    ' Evento que se dispara periódicamente según la configuración
+    Private Async Sub mTimerActualizaciones_Tick(sender As Object, e As EventArgs) Handles mTimerActualizaciones.Tick
+        Await EjecutarActualizacionAutomatica()
+    End Sub
 
-        ' Si la actualización está activa, impedimos el cierre de forma absoluta
+    ' Limpieza de recursos al cerrar el formulario
+    Private Sub FrmInicio_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+        ' Prevenimos el cierre si hay una actualización aplicando cambios en la BD
         If mActualizacionEnCurso Then
-
-            MessageBox.Show(
-                "Se está ejecutando una actualización automática de datos en segundo plano." & vbCrLf &
-                "Por seguridad del sistema, no es posible cerrar SiCoFa hasta que el proceso finalice." & vbCrLf & vbCrLf &
-                "Por favor, aguarde unos momentos.",
-                "Actualización en curso - SiCoFa",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information)
-
-            ' Cancelamos el cierre de la aplicación
+            MessageBox.Show("Hay una actualización de datos en proceso. Por favor, aguarde a que finalice.",
+                        "SiCoFa", MessageBoxButtons.OK, MessageBoxIcon.Information)
             e.Cancel = True
-        Else
-            ' Limpiamos el NotifyIcon para que no quede huérfano en la bandeja del sistema
-            If mNotifyIcon IsNot Nothing Then
-                mNotifyIcon.Visible = False
-                mNotifyIcon.Dispose()
-            End If
+            Return
+        End If
+
+        ' Detenemos y liberamos el timer
+        If mTimerActualizaciones IsNot Nothing Then
+            mTimerActualizaciones.Stop()
+            mTimerActualizaciones.Dispose()
         End If
 
     End Sub

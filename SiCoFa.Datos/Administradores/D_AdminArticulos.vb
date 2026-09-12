@@ -9,15 +9,16 @@ Public Class D_AdminArticulos
 
         Dim a As Articulo = Nothing
         Dim la As New List(Of Articulo)
-        Dim TipoVenta As New TipoVenta("7")
-        Dim TipoControl As New TipoControl("0")
-        Dim TamanioEnvase As New TamanioEnvase("0")
-        Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
-        Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
-        Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
-        Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
-        Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
-        Dim TipoPromocion As New TipoPromocion("0")
+        Dim tipoVenta As New TipoVenta("7")
+        Dim alicuotaIva As New AlicuotaIVA(0)
+        Dim tipoControl As New TipoControl("0")
+        Dim tamanioEnvase As New TamanioEnvase("0")
+        Dim laboratorio As Laboratorio = New Laboratorio("0", "NO ESTABLECIDO")
+        Dim monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
+        Dim accionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
+        Dim seccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
+        Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
+        Dim tipoPromocion As New TipoPromocion("0")
 
         a = New Articulo(
                          "0",
@@ -25,28 +26,28 @@ Public Class D_AdminArticulos
                           "",
                           "",
                           UCase(argDescripcion.Substring(1)),
-                          TipoVenta,
-                          0,
+                          tipoVenta,
+                          alicuotaIva,
                           1,
-                          TamanioEnvase,
+                          tamanioEnvase,
                           Now.Date,
                           0,
                           0,
                           0,
-                          Laboratorio,
-                          Monodroga,
-                          AccionFarmacologica,
-                          0,
-                          TipoControl,
+                          laboratorio,
+                          monodroga,
+                          accionFarmacologica,
                           False,
-                          SeccionItem,
+                          tipoControl,
+                          False,
+                          seccionItem,
                           True,
                           0,
                           0,
                           "",
-                          ViaAdministracion,
+                          viaAdministracion,
                           0,
-                          TipoPromocion,
+                          tipoPromocion,
                           False,
                           "NO APLICA",
                           1,
@@ -66,15 +67,16 @@ Public Class D_AdminArticulos
 
         Dim a As Articulo = Nothing
         Dim la As New List(Of Articulo)
-        Dim TipoVenta As New TipoVenta("7")
-        Dim TipoControl As New TipoControl("0")
-        Dim TamanioEnvase As New TamanioEnvase("0")
-        Dim Laboratorio As Laboratorio = New Laboratorio(0, "NO ESTABLECIDO")
-        Dim Monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
-        Dim AccionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
-        Dim SeccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
-        Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
-        Dim TipoPromocion As New TipoPromocion("0")
+        Dim tipoVenta As New TipoVenta("7")
+        Dim alicuotaIVA As New AlicuotaIVA(1)
+        Dim tipoControl As New TipoControl("0")
+        Dim tamanioEnvase As New TamanioEnvase("0")
+        Dim laboratorio As Laboratorio = New Laboratorio("0", "NO ESTABLECIDO")
+        Dim monodroga As Monodroga = New Monodroga(0, "NO ESTABLECIDA")
+        Dim accionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
+        Dim seccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
+        Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
+        Dim tipoPromocion As New TipoPromocion("0")
 
         a = New Articulo(
                          "0",
@@ -82,28 +84,28 @@ Public Class D_AdminArticulos
                           "",
                           "",
                           UCase(argDescripcion.Substring(1)),
-                          TipoVenta,
-                          21,
+                          tipoVenta,
+                          alicuotaIVA,
                           1,
-                          TamanioEnvase,
+                          tamanioEnvase,
                           Now.Date,
                           0,
                           0,
                           0,
-                          Laboratorio,
-                          Monodroga,
-                          AccionFarmacologica,
-                          0,
-                          TipoControl,
+                          laboratorio,
+                          monodroga,
+                          accionFarmacologica,
                           False,
-                          SeccionItem,
+                          tipoControl,
+                          False,
+                          seccionItem,
                           True,
                           0,
                           0,
                           "",
-                          ViaAdministracion,
+                          viaAdministracion,
                           0,
-                          TipoPromocion,
+                          tipoPromocion,
                           False,
                           "NO APLICA",
                           1,
@@ -131,7 +133,7 @@ Public Class D_AdminArticulos
                                         NTroquel,
                                         Nombre,
                                         CodiTV,
-                                        AlicIVA,
+                                        CodIVA,
                                         Unidades,
                                         CodiTE,
                                         FechaPrecio,
@@ -213,52 +215,55 @@ Public Class D_AdminArticulos
         Try
 
             Dim sql As String = $"SELECT IdArticulo,
-                                        Codigo,
-                                        CodBarras,
-                                        NTroquel,
-                                        Nombre,
-                                        CodiTV,
-                                        AlicIVA,
-                                        Unidades,
-                                        CodiTE,
-                                        FechaPrecio,
-                                        PrecioCosto,
-                                        PrecioVenta,
-                                        PrecioOferta,
-                                        CodiPro,
-                                        CodiLabora,
-                                        Laboratorio,
-                                        CodiMon,
-                                        Monodroga,
-                                        CodiAcFa,
-                                        AccionFarmacologica,
-                                        Baja,
-                                        CodiTiCo,
-                                        Heladera,
-                                        IdSeccion,
-                                        Seccion,
-                                        EstablecerPrecio,
-                                        ActualizarPrecio,
-                                        StockC,
-                                        StockF,
-                                        GTIN,
-                                        CodiVia,
-                                        ViaAdministracion,
-                                        DesOferta,
-                                        Fraccionable,
-                                        UDiv,
-                                        DFrac,
-                                        RFrac,
-                                        CodiLP,
-                                        ListaPrecios,
-                                        Gravamen,
-                                        CodiFF,
-                                        Potencia,
-                                        CodiUP,
-                                        CodiTU                                        
-                                FROM vw_articulos
-                                WHERE (Nombre LIKE @Nombre OR NTroquel = @NTroquel OR CodBarras = @CodBarras) AND Baja=@Bajas
-                                ORDER BY Nombre"
+                                     Codigo,
+                                     CodBarras,
+                                     NTroquel,
+                                     Nombre,
+                                     CodiTV,
+                                     CodIVA,
+                                     Unidades,
+                                     CodiTE,
+                                     FechaPrecio,
+                                     PrecioCosto,
+                                     PrecioVenta,
+                                     PrecioOferta,
+                                     CodiPro,
+                                     CodiLabora,
+                                     Laboratorio,
+                                     CodiMon,
+                                     Monodroga,
+                                     CodiAcFa,
+                                     AccionFarmacologica,
+                                     Baja,
+                                     CodiTiCo,
+                                     Heladera,
+                                     IdSeccion,
+                                     Seccion,
+                                     EstablecerPrecio,
+                                     ActualizarPrecio,
+                                     StockC,
+                                     StockF,
+                                     GTIN,
+                                     CodiVia,
+                                     ViaAdministracion,
+                                     DesOferta,
+                                     Fraccionable,
+                                     UDiv,
+                                     DFrac,
+                                     RFrac,
+                                     CodiLP,
+                                     ListaPrecios,
+                                     Gravamen,
+                                     CodiFF,
+                                     Potencia,
+                                     CodiUP,
+                                     CodiTU
+                              FROM vw_articulos
+                              WHERE (Nombre LIKE @Nombre 
+                                     OR NTroquel = @NTroquel 
+                                     OR CodBarras = @CodBarras)
+                                AND (@Bajas = 1 OR Baja = 0)
+                              ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -304,52 +309,57 @@ Public Class D_AdminArticulos
         Try
 
             Dim sql As String = "SELECT IdArticulo,
-                                        Codigo,
-                                        CodBarras,
-                                        NTroquel,
-                                        Nombre,
-                                        CodiTV,
-                                        AlicIVA,
-                                        Unidades,
-                                        CodiTE,
-                                        FechaPrecio,
-                                        PrecioCosto,
-                                        PrecioVenta,
-                                        PrecioOferta,
-                                        CodiPro,
-                                        CodiLabora,
-                                        Laboratorio,
-                                        CodiMon,
-                                        Monodroga,
-                                        CodiAcFa,
-                                        AccionFarmacologica,
-                                        Baja,
-                                        CodiTiCo,
-                                        Heladera,
-                                        IdSeccion,
-                                        Seccion,
-                                        EstablecerPrecio,
-                                        ActualizarPrecio,
-                                        StockC,
-                                        StockF,
-                                        GTIN,
-                                        CodiVia,
-                                        ViaAdministracion,
-                                        DesOferta,
-                                        Fraccionable,
-                                        UDiv,
-                                        DFrac,
-                                        RFrac,
-                                        CodiLP,
-                                        ListaPrecios,
-                                        Gravamen,
-                                        CodiFF,
-                                        Potencia,
-                                        CodiUP,
-                                        CodiTU                                        
-                                FROM vw_articulos
-                                WHERE CodiMon = @CodiMon AND CodiFF=@CodiFF AND Potencia=@Potencia AND CodiUP=@CodiUP AND CodiTU=@CodiTU AND Baja=@Bajas
-                                ORDER BY Nombre"
+                                    Codigo,
+                                    CodBarras,
+                                    NTroquel,
+                                    Nombre,
+                                    CodiTV,
+                                    AlicIVA,
+                                    Unidades,
+                                    CodiTE,
+                                    FechaPrecio,
+                                    PrecioCosto,
+                                    PrecioVenta,
+                                    PrecioOferta,
+                                    CodiPro,
+                                    CodiLabora,
+                                    Laboratorio,
+                                    CodiMon,
+                                    Monodroga,
+                                    CodiAcFa,
+                                    AccionFarmacologica,
+                                    Baja,
+                                    CodiTiCo,
+                                    Heladera,
+                                    IdSeccion,
+                                    Seccion,
+                                    EstablecerPrecio,
+                                    ActualizarPrecio,
+                                    StockC,
+                                    StockF,
+                                    GTIN,
+                                    CodiVia,
+                                    ViaAdministracion,
+                                    DesOferta,
+                                    Fraccionable,
+                                    UDiv,
+                                    DFrac,
+                                    RFrac,
+                                    CodiLP,
+                                    ListaPrecios,
+                                    Gravamen,
+                                    CodiFF,
+                                    Potencia,
+                                    CodiUP,
+                                    CodiTU
+                            FROM vw_articulos
+                            WHERE CodiMon = @CodiMon
+                              AND CodiFF = @CodiFF
+                              AND Potencia = @Potencia
+                              AND CodiUP = @CodiUP
+                              AND CodiTU = @CodiTU
+                              AND (@Bajas = 1 OR Baja = 0)
+                            ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -383,7 +393,7 @@ Public Class D_AdminArticulos
 
         Catch ex As Exception
 
-            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarArticulosCodiAcFa), ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(ListarArticulosEquivalentes), ex.Message))
 
         End Try
 
@@ -441,7 +451,8 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE CodiAcFa = @CodiAcFa AND Baja=@Bajas
+                                WHERE CodiAcFa = @CodiAcFa                                
+                                    AND (@Bajas = 1 OR Baja = 0)                   
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
@@ -530,7 +541,8 @@ Public Class D_AdminArticulos
                                         CodiUP,
                                         CodiTU                                        
                                 FROM vw_articulos
-                                WHERE CodiMon = @CodiMon AND Baja=@Bajas
+                                WHERE CodiMon = @CodiMon
+                                    AND (@Bajas = 1 OR Baja = 0) 
                                 ORDER BY Nombre"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion

@@ -21,7 +21,7 @@
     Property ImpPE As Decimal
     Property ImpOS As Decimal
     Property CAE As CAE
-    Property IdCliente As Long
+    Property IdCliente As Integer
     Property Cliente As Cliente
     Property IdOperAsoc As Long
     Property CompAsoc As Comprobante
@@ -49,7 +49,7 @@
         ByVal argImpPE As Decimal,
         ByVal argImpOS As Decimal,
         ByVal argCAE As CAE,
-        ByVal argIdCliente As Long,
+        ByVal argIdCliente As Integer,
         ByVal argCliente As Cliente,
         ByVal argIdOperAsoc As Long,
         ByVal argCompAsoc As Comprobante,
@@ -92,7 +92,7 @@
         ByVal argImpPE As Decimal,
         ByVal argImpOS As Decimal,
         ByVal argCAE As CAE,
-        ByVal argIdCliente As Long,
+        ByVal argIdCliente As Integer,
         ByVal argCliente As Cliente,
         ByVal argIdOperAsoc As Long,
         ByVal argCompAsoc As Comprobante,
@@ -130,7 +130,7 @@
         ByVal impPE As Decimal,
         ByVal impOS As Decimal,
         ByVal cae As CAE,
-        ByVal idCliente As Long,
+        ByVal idCliente As Integer,
         ByVal cliente As Cliente,
         ByVal idOperAsoc As Long,
         ByVal compAsoc As Comprobante,

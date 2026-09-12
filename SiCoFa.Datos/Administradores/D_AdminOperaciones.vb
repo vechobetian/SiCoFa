@@ -65,7 +65,7 @@ Public Class D_AdminOperaciones
 
                         If datos.HasRows Then
                             While datos.Read()
-                                top = New TipoOperacion(datos.ToString("CodiTO"), datos.ToString("TipoOperacion"), Convert.ToInt16(datos("EfFin")), Convert.ToBoolean(datos("AfectaCajaAbierta")), Convert.ToInt16(datos("EfFin")))
+                                top = New TipoOperacion(datos("CodiTO").ToString, datos("TipoOperacion").ToString, Convert.ToInt16(datos("EfFin")), Convert.ToBoolean(datos("AfectaCajaAbierta")), Convert.ToInt16(datos("EfFin")))
                                 lto.Add(top)
                             End While
                         Else
@@ -156,7 +156,7 @@ Public Class D_AdminOperaciones
                                                      argInicio:=Now,
                                                      argFin:=Now,
                                                      argEmpresa:=argEmpresa,
-                                                     argIdPC:=0,
+                                                     argIdPC:="0",
                                                      argIdCaja:=0,
                                                      argUsuario:=argUsuario,
                                                      argTipoOperacion:=argTipoOperacion,
@@ -947,7 +947,7 @@ Public Class D_AdminOperaciones
                 Try
 
                     Dim AdminDB As New D_AdminDB
-                    Dim EstadoOperacionCC As String = AdminDB.ObtenerValor($"SELECT EstadoOperacionCC FROM operaciones_cc WHERE IdOperacion={argIdOperacion}")
+                    Dim EstadoOperacionCC As String = Convert.ToString(AdminDB.ObtenerValor($"SELECT EstadoOperacionCC FROM operaciones_cc WHERE IdOperacion={argIdOperacion}"))
 
                     If argCodiTO = "PCC" And EstadoOperacionCC = "CANCELADO" Then
                         Throw New Exception("La operacion seleccionada es un Pago a cuenta de un Resumen Cancelado")

@@ -6,47 +6,48 @@ Public Module ArticuloMapper
 
     Public Function Map(datos As MySqlDataReader) As Articulo
 
-        Dim TipoVenta As New TipoVenta(datos("CodiTV").ToString())
-        Dim TamanioEnvase As New TamanioEnvase(datos("CodiTE").ToString)
-        Dim TipoControlResult As New TipoControl(datos("CodiTiCo").ToString())
-        Dim Laboratorio As New Laboratorio(Convert.ToInt32(datos("CodiLabora")), datos("Laboratorio").ToString())
-        Dim Monodroga As New Monodroga(Convert.ToInt32(datos("CodiMon")), datos("Monodroga").ToString())
-        Dim AccionFarmacologica As New AccionFarmacologica(Convert.ToInt32(datos("CodiAcFa")), datos("AccionFarmacologica").ToString())
-        Dim Seccion As New Seccion(datos("IdSeccion").ToString(), datos("Seccion").ToString(), Convert.ToBoolean(datos("EstablecerPrecio")))
-        Dim ViaAdministracion As ViaAdministracion = New ViaAdministracion(Convert.ToInt32(datos("CodiVia")), datos("ViaAdministracion").ToString)
-        Dim TipoPromocion As New TipoPromocion(datos("CodiPro").ToString)
-        Dim ListaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios"))
+        Dim tipoVenta As New TipoVenta(datos("CodiTV").ToString())
+        Dim alicuotaIVA As New AlicuotaIVA(CInt(datos("CodIVA")))
+        Dim tamanioEnvase As New TamanioEnvase(datos("CodiTE").ToString)
+        Dim tipoControlResult As New TipoControl(datos("CodiTiCo").ToString())
+        Dim laboratorio As New Laboratorio(datos("CodiLabora").ToString, datos("Laboratorio").ToString())
+        Dim monodroga As New Monodroga(CInt(datos("CodiMon")), datos("Monodroga").ToString())
+        Dim accionFarmacologica As New AccionFarmacologica(CInt(datos("CodiAcFa")), datos("AccionFarmacologica").ToString())
+        Dim seccion As New Seccion(datos("IdSeccion").ToString(), datos("Seccion").ToString(), Convert.ToBoolean(datos("EstablecerPrecio")))
+        Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(CInt(datos("CodiVia")), datos("ViaAdministracion").ToString)
+        Dim tipoPromocion As New TipoPromocion(datos("CodiPro").ToString)
+        Dim listaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios").ToString)
 
 
         Return New Articulo(
                             datos("IdArticulo").ToString(),
-                            datos("Codigo").ToString(),
+                            CInt(datos("Codigo").ToString()),
                             datos("CodBarras").ToString(),
                             datos("NTroquel").ToString,
                             datos("Nombre").ToString(),
-                            TipoVenta,
-                            Convert.ToDecimal(datos("AlicIVA")),
+                            tipoVenta,
+                            alicuotaIVA,
                             Convert.ToInt32(datos("Unidades")),
-                            TamanioEnvase,
+                            tamanioEnvase,
                             Convert.ToDateTime(datos("FechaPrecio")),
                             Convert.ToDecimal(datos("PrecioCosto")),
                             Convert.ToDecimal(datos("PrecioVenta")),
                             Convert.ToDecimal(datos("PrecioOferta")),
-                            Laboratorio,
-                            Monodroga,
-                            AccionFarmacologica,
+                            laboratorio,
+                            monodroga,
+                            accionFarmacologica,
                             Convert.ToBoolean(datos("Baja")),
-                            TipoControlResult,
+                            tipoControlResult,
                             Convert.ToBoolean(datos("Heladera")),
-                            Seccion,
+                            seccion,
                             Convert.ToBoolean(datos("ActualizarPrecio")),
                             Convert.ToInt32(datos("StockC")),
                             Convert.ToInt32(datos("StockF")),
                             datos("GTIN").ToString,
-                            ViaAdministracion,
+                            viaAdministracion,
                             Convert.ToDecimal(datos("DesOferta")),
-                            TipoPromocion,
-                            datos("Fraccionable"),
+                            tipoPromocion,
+                            CBool(datos("Fraccionable")),
                             datos("DFrac").ToString,
                             Convert.ToInt32(datos("UDiv")),
                             Convert.ToDecimal(datos("RFrac")),
@@ -55,7 +56,7 @@ Public Module ArticuloMapper
                             datos("Potencia").ToString,
                             Convert.ToInt32(datos("CodiUP")),
                             Convert.ToInt32(datos("CodiTU")),
-                            ListaPrecios
+                            listaPrecios
                             )
 
     End Function

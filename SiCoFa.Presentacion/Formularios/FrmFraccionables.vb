@@ -84,9 +84,9 @@ Public Class FrmFraccionables
                 .TxtNombre.Text = argArticulo.Nombre
                 Dim blnFraccionable As Buleano = New Buleano(argArticulo.Fraccionable)
                 .UcFraccionable.Asignar(blnFraccionable.Valor, blnFraccionable.Descripcion)
-                .TxtUDiv.Text = argArticulo.UDiv
+                .TxtUDiv.Text = argArticulo.UDiv.ToString
                 .TxtDFrac.Text = argArticulo.DFrac
-                .TxtRecargo.Text = argArticulo.RFrac
+                .TxtRecargo.Text = argArticulo.RFrac.ToString
             End With
 
         Catch ex As Exception

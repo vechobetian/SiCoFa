@@ -33,7 +33,7 @@ Public Class N_AdminCAE
 
             mvarLogin = objN_AdminLT.TicketAcceso
             mvarAuthRequest = New FEAuthRequest()
-            mvarAuthRequest.Cuit = Replace(argComprobante.Empresa.Documento.Numero, "-", "")
+            mvarAuthRequest.Cuit = CLng(Replace(argComprobante.Empresa.Documento.Numero, "-", ""))
             mvarAuthRequest.Sign = mvarLogin.Sign
             mvarAuthRequest.Token = mvarLogin.Token
 
@@ -45,7 +45,7 @@ Public Class N_AdminCAE
             Dim det As New FECAEDetRequest
 
             cab.CantReg = 1
-            cab.PtoVta = argComprobante.PVenta
+            cab.PtoVta = CInt(argComprobante.PVenta)
             cab.CbteTipo = argComprobante.TipoComprobante.CodiTC_ARCA
 
             req.FeCabReq = cab
@@ -56,7 +56,7 @@ Public Class N_AdminCAE
                 '.FchServHasta = Now.ToString("yyyyMMdd") 'Esto solo se informa si concepto=2 o 3
                 '.FchVtoPago = Now.ToString("yyyyMMdd")   'Esto solo se informa si concepto=2 o 3
                 .DocTipo = argComprobante.Cliente.Documento.TipoDocumento.CodiTDAFIP
-                .DocNro = argComprobante.Cliente.Documento.Numero
+                .DocNro = CLng(argComprobante.Cliente.Documento.Numero)
 
                 Dim lastRes As FERecuperaLastCbteResponse = service.FECompUltimoAutorizado(mvarAuthRequest, CInt(argComprobante.PVenta), argComprobante.TipoComprobante.CodiTC_ARCA)
                 Dim last As Integer = lastRes.CbteNro
@@ -71,8 +71,8 @@ Public Class N_AdminCAE
                     Dim cbteAsoc As New CbteAsoc
                     With cbteAsoc
                         .Tipo = argComprobante.CompAsoc.TipoComprobante.CodiTC_ARCA
-                        .PtoVta = argComprobante.CompAsoc.PVenta
-                        .Nro = argComprobante.CompAsoc.NumComp
+                        .PtoVta = CInt(argComprobante.CompAsoc.PVenta)
+                        .Nro = CLng(argComprobante.CompAsoc.NumComp)
                         '.Cuit = Replace(cbteOrigen.Empresa.CUIT, "-", "") por ahora no requerido
                         '.CbteFch = cbteOrigen.FechaComp por ahora no requerido
                     End With

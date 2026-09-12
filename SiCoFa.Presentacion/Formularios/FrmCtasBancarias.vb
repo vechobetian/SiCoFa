@@ -99,7 +99,7 @@ Public Class FrmCtasBancarias
                         f.NombrePropiedadDescripcion = "Descripcion"
                         f.HeaderPropiedadDescripcion = "Cuenta"
                         If f.ShowDialog() = DialogResult.OK Then
-                            cb = Me.SeleccionarCuentaListado(f.Valor1Seleccionado, lcb)
+                            cb = Me.SeleccionarCuentaListado(CInt(f.Valor1Seleccionado), lcb)
                         Else
                             Me.DescripcionTextBox.Text = ""
                             Me.DescripcionTextBox.Select()
@@ -151,7 +151,7 @@ Public Class FrmCtasBancarias
                 Dim Idcb As Int32 = mAdminCuentasBancarias.InsertarCuentaBancaria(mobj_CuentaBancaria.Descripcion, mobj_CuentaBancaria.NumCuenta)
 
                 If Idcb > 0 Then
-                    Me.IdCBTextBox.Text = Idcb
+                    Me.IdCBTextBox.Text = Idcb.ToString
                     mobj_CuentaBancaria.IdCB = Idcb
                     Me.DescripcionTextBox.Text = UCase(Me.DescripcionTextBox.Text)
                     VincularControles()

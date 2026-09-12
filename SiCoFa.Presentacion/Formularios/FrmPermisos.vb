@@ -62,7 +62,7 @@ Public Class FrmPermisos
                     f.NombrePropiedadDescripcion = "Nombre"
                     f.HeaderPropiedadDescripcion = "Usuario"
                     If f.ShowDialog() = DialogResult.OK Then
-                        u = lu.FirstOrDefault(Function(x) x.Id = f.Valor1Seleccionado)
+                        u = lu.FirstOrDefault(Function(x) x.Id = CInt(f.Valor1Seleccionado))
                     Else
                         Exit Sub
                     End If

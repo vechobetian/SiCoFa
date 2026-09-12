@@ -8,11 +8,11 @@ Module RecetaMapper
         Dim documento As Documento = Nothing
         Dim credencial As CredencialOS = Nothing
 
-        If Not String.IsNullOrEmpty(dr("CodiTD")) AndAlso Not String.IsNullOrEmpty(dr("NumDoc")) Then
-            documento = New Documento(dr("CodiTD"), dr("NumDoc"))
+        If Not String.IsNullOrEmpty(dr("CodiTD").ToString) AndAlso Not String.IsNullOrEmpty(dr("NumDoc").ToString) Then
+            documento = New Documento(dr("CodiTD").ToString, dr("NumDoc").ToString)
         End If
 
-        If Not String.IsNullOrEmpty(dr("Credencial")) Then
+        If Not String.IsNullOrEmpty(dr("Credencial").ToString) Then
             credencial = New CredencialOS()
             credencial.Numero = dr("Credencial").ToString
         End If

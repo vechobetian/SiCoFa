@@ -29,7 +29,7 @@ Public Class D_AdminMonodrogas
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            m = New Monodroga(datos("CodiMon"), datos("Monodroga"))
+                            m = New Monodroga(CInt(datos("CodiMon")), datos("Monodroga").ToString)
                             ls.Add(m)
                         End While
 

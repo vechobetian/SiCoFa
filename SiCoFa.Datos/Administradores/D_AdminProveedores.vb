@@ -94,10 +94,10 @@ Public Class D_AdminProveedores
                             Dim ProvinciaResult As String = If(datos.IsDBNull(provinciaOrdinal), "", datos(provinciaOrdinal).ToString())
                             Dim TelefonoResult As String = If(datos.IsDBNull(telefonoOrdinal), "", datos(telefonoOrdinal).ToString())
                             Dim EmailResult As String = If(datos.IsDBNull(emailOrdinal), "", datos(emailOrdinal).ToString())
-                            Dim CodiTDResult As String = datos(codiTDOrdinal)
-                            Dim NumDocResult As String = datos(numDocOrdinal)
-                            Dim FechaAltaResult As Date = datos(fechaAltaOrdinal)
-                            Dim EstadoResult As String = datos(estadoOrdinal)
+                            Dim CodiTDResult As String = datos(codiTDOrdinal).ToString
+                            Dim NumDocResult As String = datos(numDocOrdinal).ToString
+                            Dim FechaAltaResult As Date = CDate(datos(fechaAltaOrdinal))
+                            Dim EstadoResult As String = datos(estadoOrdinal).ToString
 
                             Dim d As New Documento(CodiTDResult, NumDocResult)
                             p = New Proveedor(IdProveedorResult, NombreResult, DomicilioResult, LocalidadResult, ProvinciaResult, TelefonoResult, EmailResult, d, FechaAltaResult, EstadoResult)

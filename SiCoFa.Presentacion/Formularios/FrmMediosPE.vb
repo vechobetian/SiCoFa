@@ -92,7 +92,7 @@ Public Class FrmMediosPE
                         f.NombrePropiedadDescripcion = "Descripcion"
                         f.HeaderPropiedadDescripcion = "Descripcion"
                         If f.ShowDialog() = DialogResult.OK Then
-                            mpe = Me.SeleccionarMedioPE(f.Valor1Seleccionado, lmpe)
+                            mpe = Me.SeleccionarMedioPE(f.Valor1Seleccionado.ToString, lmpe)
                         End If
                         f.Close()
                     End Using ' <- aquí se libera completamente
@@ -123,7 +123,7 @@ Public Class FrmMediosPE
                 .txtIdMPE.Text = argMedioPE.IdMPE
                 .txtDescripcion.Text = argMedioPE.Descripcion
                 .cmbCuentaBancaria.Text = argMedioPE.CuentaBancaria.Descripcion
-                .cmbBaja.SelectedIndex = argMedioPE.Baja
+                .cmbBaja.SelectedIndex = CInt(argMedioPE.Baja)
             End With
 
         Catch ex As Exception
@@ -143,9 +143,9 @@ Public Class FrmMediosPE
             End If
 
             If Me.NuevoMedioPE = True Then
-                Dim IdMPE As String = mAdminMediosPE.InsertarMedioPE(Me.txtDescripcion.Text, Me.cmbCuentaBancaria.SelectedValue)
-                If IdMPE <> "" Then
-                    Me.txtIdMPE.Text = IdMPE
+                Dim IdMPE As Integer = mAdminMediosPE.InsertarMedioPE(Me.txtDescripcion.Text, CInt(Me.cmbCuentaBancaria.SelectedValue))
+                If IdMPE > 0 Then
+                    Me.txtIdMPE.Text = IdMPE.ToString
                     Me.txtDescripcion.Text = UCase(Me.txtDescripcion.Text)
                     MsgBox("Se dio de alta " & Me.txtDescripcion.Text, vbInformation, "SiCoFa")
                 Else
@@ -161,7 +161,7 @@ Public Class FrmMediosPE
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminMediosPE.ActualizarMedioPE(Me.txtIdMPE.Text, Me.cmbCuentaBancaria.SelectedValue, cmbBaja.SelectedValue)
+                Dim Actualizado As Boolean = mAdminMediosPE.ActualizarMedioPE(CInt(Me.txtIdMPE.Text), CInt(Me.cmbCuentaBancaria.SelectedValue), CBool(cmbBaja.SelectedValue))
 
                 If Actualizado = True Then
                     MsgBox(Me.txtDescripcion.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")

@@ -11,7 +11,7 @@ Public Class FrmBuscaArticulos
         'Dim AdminListaPrecios As New N_AdminListaPrecios
         Dim AdminArticulos As New N_AdminArticulos
         'Dim listaPrecios As ListaPrecios = AdminListaPrecios.ObtenerListaPreciosPorCodiLP(Me.DataGridView1.CurrentRow.Cells("CodiLP").Value)
-        Dim IdArticulo As String = Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value
+        Dim IdArticulo As String = Me.DataGridView1.CurrentRow.Cells("IdArticulo").Value.ToString
         Dim a As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticulo)
         Me.ArticuloSeleccionado = a
 
@@ -26,7 +26,7 @@ Public Class FrmBuscaArticulos
                 .Rows(x).Cells("CodBarras").Value = a.CodBarras
                 .Rows(x).Cells("Nombre").Value = a.Nombre
                 .Rows(x).Cells("Fraccionable").Value = If(a.Fraccionable, "SI", "NO")
-                .Rows(x).Cells("AlicIVA").Value = a.AlicIVA
+                .Rows(x).Cells("AlicIVA").Value = a.AlicuotaIVA.AlicIva
                 .Rows(x).Cells("FechaPrecio").Value = a.FechaPrecio
                 .Rows(x).Cells("PrecioCosto").Value = a.PrecioCosto
                 .Rows(x).Cells("PrecioVenta").Value = a.PrecioVenta

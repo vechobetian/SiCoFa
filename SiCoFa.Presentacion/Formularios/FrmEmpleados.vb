@@ -58,7 +58,7 @@ Public Class FrmEmpleados
 
         Try
             With Me
-                .TxtId.Text = argEmpleado.Id
+                .TxtId.Text = argEmpleado.Id.ToString
                 .TxtNombre.Text = argEmpleado.Nombre
                 .TxtDomicilio.Text = argEmpleado.Domicilio
                 .TxtLocalidad.Text = argEmpleado.Localidad
@@ -67,7 +67,7 @@ Public Class FrmEmpleados
                 .TxtEmail.Text = argEmpleado.Email
                 .UcTipoDoc.Id = argEmpleado.Documento.TipoDocumento.CodiTD
                 .TxtNumDoc.Text = argEmpleado.Documento.Numero
-                .TxtFechaAlta.Text = argEmpleado.FechaAlta
+                .TxtFechaAlta.Text = argEmpleado.FechaAlta.ToString("dd/MM/yyy")
                 .UcEstado.Descripcion = argEmpleado.Estado
             End With
 
@@ -87,9 +87,9 @@ Public Class FrmEmpleados
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminEmpleados.InsertarEmpleado(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text)
+                Dim Id As Integer = mAdminEmpleados.InsertarEmpleado(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text)
                 If Id > 0 Then
-                    Me.TxtId.Text = Id
+                    Me.TxtId.Text = Id.ToString
                     Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
                     MsgBox("Se dio de alta el Empleado " & TxtNombre.Text, vbInformation, "SiCoFa")
                 Else
@@ -104,12 +104,12 @@ Public Class FrmEmpleados
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminEmpleados.ActualizarEmpleado(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcEstado.Descripcion)
+                Dim Actualizado As Boolean = mAdminEmpleados.ActualizarEmpleado(CInt(Me.TxtId.Text), Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
                     MsgBox("El Empleado " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
                 Else
-                    MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
+                    MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
             End If

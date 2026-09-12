@@ -100,7 +100,7 @@ Public Class N_AdminLoginTicket
 
         ' PASO 1: Genero el Login Ticket Request
         Try
-            _globalUniqueID += 1
+            _globalUniqueID += 1UI
 
             XmlLoginTicketRequest = New XmlDocument()
             XmlLoginTicketRequest.LoadXml(XmlStrLoginTicketRequestTemplate)

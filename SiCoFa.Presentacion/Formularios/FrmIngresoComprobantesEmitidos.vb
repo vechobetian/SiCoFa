@@ -168,7 +168,7 @@ Public Class FrmIngresoComprobantesEmitidos
                         f.HeaderPropiedadDescripcion = "Comprobante"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado, ltc)
+                            tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado.ToString, ltc)
                         Else
                             Me.txtTipoComprobante.Tag = ""
                             Me.txtTipoComprobante.Text = ""

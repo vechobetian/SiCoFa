@@ -17,14 +17,14 @@ Public Class FrmMovimientosCC
     Private mSaldoAdeudadoItemsSeleccinados As Decimal = 0
 
     Private Sub ActualizarTotales()
-        mSaldoAdeudadoCuentaCorriente = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaCorriente.IdCC}")
+        mSaldoAdeudadoCuentaCorriente = CDec(mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={Me.CuentaCorriente.IdCC}"))
         mSaldoAdeudadoItemsSeleccinados = 0
 
         If String.IsNullOrWhiteSpace(Me.ResumenSeleccionado) Then
             mSaldoAdeudadoItemsSeleccinados = mSaldoAdeudadoCuentaCorriente
 
         Else
-            mSaldoAdeudadoItemsSeleccinados = mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'")
+            mSaldoAdeudadoItemsSeleccinados = CDec(mAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={Me.CuentaCorriente.IdCC} AND Resu='{Me.ResumenSeleccionado}'"))
 
         End If
 
@@ -37,7 +37,7 @@ Public Class FrmMovimientosCC
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
 
-        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value = "RTOX" Then
+        If Me.DataGridView1.CurrentRow.Cells("CodiTC").Value.ToString = "RTOX" Then
             Me.mnuOperacionesFacturarRemito.Visible = True
         Else
             Me.mnuOperacionesFacturarRemito.Visible = False
@@ -509,7 +509,7 @@ Public Class FrmMovimientosCC
         Try
             AdminOperaciones.FacturacionRemitoTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, User, objCb, "")
 
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
+            If objCb.TipoComprobante.CodiTC_ARCA <> 0 Then
                 Dim AdminComprobants As New N_AdminComprobantes
                 If AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
                     'aca hay que cambiar el estado de la operacion y salir

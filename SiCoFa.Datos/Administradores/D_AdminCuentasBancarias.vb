@@ -25,7 +25,7 @@ Public Class D_AdminCuentasBancarias
                             Dim IdCB As Int32 = datos.GetInt32("IdCB")
                             Dim Descripcion As String = datos.GetString("Descripcion")
                             Dim NumCuenta As String = datos.GetString("NumCuenta")
-                            Dim FechaAlta As String = datos.GetDateTime("FechaAlta")
+                            Dim FechaAlta As Date = CDate(datos.GetDateTime("FechaAlta"))
                             Dim Baja As Boolean = datos.GetBoolean("Baja")
 
                             objCB = New CuentaBancaria(

@@ -17,10 +17,10 @@ Public Class FrmMovimientosCB
     Private Sub ActualizarMenus()
 
         If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-        Dim importe As Decimal = Me.DataGridView1.CurrentRow.Cells("Importe").Value
+        Dim importe As Decimal = CDec(Me.DataGridView1.CurrentRow.Cells("Importe").Value)
 
-        If Me.DataGridView1.CurrentRow.Cells("CodiTO").Value = "TCB" Then
-            If Importe < 0 Then
+        If Me.DataGridView1.CurrentRow.Cells("CodiTO").Value.ToString = "TCB" Then
+            If importe < 0 Then
                 Me.mnuVerCuenta.Text = "&Ver Cuenta Destino"
             Else
                 Me.mnuVerCuenta.Text = "&Ver Cuenta Origen"
@@ -33,14 +33,14 @@ Public Class FrmMovimientosCB
 
         End If
 
-        Dim codiTO As String = Me.DataGridView1.CurrentRow.Cells("CodiTO").Value
+        Dim codiTO As String = Me.DataGridView1.CurrentRow.Cells("CodiTO").Value.ToString
 
         Dim comprobanteAsociado As String = ""
         Dim valor = Me.DataGridView1.CurrentRow.Cells("ComprobanteAsociado").Value
 
         If valor IsNot Nothing AndAlso Not IsDBNull(valor) Then
             comprobanteAsociado = valor.ToString()
-            comprobanteAsociado = Strings.Left(comprobanteAsociado, "5")
+            comprobanteAsociado = Strings.Left(comprobanteAsociado, 5)
         End If
 
         If comprobanteAsociado <> "ANUOP" AndAlso (codiTO = "REFCB" OrElse codiTO = "DEFCB" OrElse (codiTO = "TCB" And importe < 0)) Then
@@ -86,7 +86,7 @@ Public Class FrmMovimientosCB
             Me.ActualizarMenus()
             Me.AjustarAnchoColumnasComprobantes()
 
-            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            mSaldoActual = CDec(mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}"))
 
             Me.lblDescripcionCuentaBancaria.Text = "Cuenta Bancaria: " & Me.DescripcionCuentaBancaria
             Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
@@ -164,7 +164,7 @@ Public Class FrmMovimientosCB
                 f.ShowDialog()
             End If
 
-            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            mSaldoActual = CDec(mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}"))
             Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
 
             Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
@@ -203,7 +203,7 @@ Public Class FrmMovimientosCB
                 f.ShowDialog()
             End If
 
-            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            mSaldoActual = CDec(mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}"))
             Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
 
             Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
@@ -241,7 +241,7 @@ Public Class FrmMovimientosCB
                 f.ShowDialog()
             End If
 
-            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            mSaldoActual = CDec(mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}"))
             Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
 
             Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
@@ -302,7 +302,7 @@ Public Class FrmMovimientosCB
 
                 Case "TCB"
 
-                    Dim idCB As Int32 = mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}")
+                    Dim idCB As Integer = CInt(mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}"))
 
                     objOperacionCBOrigen = New OperacionCB(0, Me.CuentaBancaria.IdCB, "", -importe, "")
                     objOperacionCBDestino = New OperacionCB(0, idCB, "", importe, "")
@@ -345,7 +345,7 @@ Public Class FrmMovimientosCB
 
             AdminOperaciones.OperacionCBTransaccion(g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, objTO, u, objOperacionCBOrigen, objOperacionCBDestino, objComprobante, objAsCon, "")
 
-            mSaldoActual = mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}")
+            mSaldoActual = CDec(mAdminDB.ObtenerValor($"SELECT SaldoActual FROM cuentas_bancarias WHERE IdCB={Me.CuentaBancaria.IdCB}"))
             Me.lblSaldoActual.Text = "Saldo Cuenta Bancaria: $" & mSaldoActual.ToString("N2")
 
             Dim operaciones_cb As DataTable = mAdminDB.ObtenerTabla(Me.SQL)
@@ -376,7 +376,7 @@ Public Class FrmMovimientosCB
         Dim valor = Me.DataGridView1.CurrentRow.Cells("IdOperacion").Value
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
         Dim idOperacion As Long = Convert.ToInt64(valor)
-        Dim idCB As Int32 = mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}")
+        Dim idCB As Integer = CInt(mAdminDB.ObtenerValor($"SELECT IdCB FROM operaciones_cb WHERE IdOperacion={idOperacion} AND IdCB<>{Me.CuentaBancaria.IdCB}"))
         Dim AdminCB As New N_AdminCuentasBancarias
         Dim CB As CuentaBancaria = AdminCB.ObtenerCuentaBancariaPorId(idCB)
         MsgBox("Entidad: " & CB.Descripcion & vbCrLf & "N° Cuenta: " & CB.NumCuenta, vbInformation, "SiCoFa")

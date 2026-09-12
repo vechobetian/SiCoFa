@@ -14,7 +14,7 @@ Public Class FrmIngresoMomientosCB
         MyBase.WndProc(m)
     End Sub
 
-    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As String, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
+    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As Integer, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
 
         Try
             Dim CBSeleccionada As CuentaBancaria = Nothing
@@ -70,7 +70,7 @@ Public Class FrmIngresoMomientosCB
                         f.HeaderPropiedadDescripcion = "Cuenta Bancaria"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            cb = Me.SeleccionarCuentaBancariaListado(f.Valor1Seleccionado, lcb)
+                            cb = Me.SeleccionarCuentaBancariaListado(CInt(f.Valor1Seleccionado), lcb)
                         Else
                             Me.txtCuentaBancaria.Tag = Nothing
                             Me.txtCuentaBancaria.Text = ""

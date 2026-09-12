@@ -30,7 +30,7 @@ Public Class D_AdminLaboratorios
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            l = New Laboratorio(datos("CodiLabora"), datos("Laboratorio"))
+                            l = New Laboratorio(datos("CodiLabora").ToString, datos("Laboratorio").ToString)
                             ls.Add(l)
                         End While
 

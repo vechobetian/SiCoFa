@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 
 Public Class N_AdminMediosPE
 
-    Public Function ObtenerMedioPEPorId(ByVal argIdMPE As Long) As MedioPE
+    Public Function ObtenerMedioPEPorId(ByVal argIdMPE As Integer) As MedioPE
 
         Try
             Dim AdminMediosPE As New D_AdminMediosPE
@@ -32,11 +32,11 @@ Public Class N_AdminMediosPE
 
     End Function
 
-    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Int32) As String
+    Public Function InsertarMedioPE(ByVal argDescripcion As String, ByVal argIdCB As Integer) As Integer
 
         Try
             Dim AdminMediosPE As New D_AdminMediosPE
-            Dim IdMPE As String = AdminMediosPE.InsertarMedioPE(argDescripcion, argIdCB)
+            Dim IdMPE As Integer = AdminMediosPE.InsertarMedioPE(argDescripcion, argIdCB)
             Return IdMPE
 
         Catch Ex As Exception
@@ -45,7 +45,7 @@ Public Class N_AdminMediosPE
         End Try
 
     End Function
-    Public Function ActualizarMedioPE(ByVal argIdMPE As String, ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
+    Public Function ActualizarMedioPE(ByVal argIdMPE As Integer, ByVal argIdCB As Int32, ByVal argBaja As Boolean) As Boolean
 
         Try
             Dim AdminMediosPE As New D_AdminMediosPE

@@ -3,7 +3,7 @@ Imports SiCoFa.Entidades
 
 Public Class N_AdminCuentasBancarias
 
-    Public Function ObtenerCuentaBancariaPorId(ByVal argIdCB As Long) As CuentaBancaria
+    Public Function ObtenerCuentaBancariaPorId(ByVal argIdCB As Integer) As CuentaBancaria
 
         Try
             Dim AdminCuentasBancarias As New D_AdminCuentasBancarias

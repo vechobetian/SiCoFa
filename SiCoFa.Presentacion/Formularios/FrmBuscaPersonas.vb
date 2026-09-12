@@ -5,18 +5,18 @@ Public Class FrmBuscaPersonas
     Property PersonaSeleccionado As Persona
     Private Sub SeleccionarPersona()
 
-        Dim d As New Documento(Me.DataGridView1.CurrentRow.Cells("CodiTD").Value, Me.DataGridView1.CurrentRow.Cells("NumDoc").Value)
+        Dim d As New Documento(Me.DataGridView1.CurrentRow.Cells("CodiTD").Value.ToString, Me.DataGridView1.CurrentRow.Cells("NumDoc").Value.ToString)
         Dim p As New Persona(
-                            Me.DataGridView1.CurrentRow.Cells("Id").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Nombre").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Domicilio").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Localidad").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Provincia").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Telefono").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Email").Value,
+                            CInt(Me.DataGridView1.CurrentRow.Cells("Id").Value),
+                            Me.DataGridView1.CurrentRow.Cells("Nombre").Value.ToString,
+                            Me.DataGridView1.CurrentRow.Cells("Domicilio").Value.ToString,
+                            Me.DataGridView1.CurrentRow.Cells("Localidad").Value.ToString,
+                            Me.DataGridView1.CurrentRow.Cells("Provincia").Value.ToString,
+                            Me.DataGridView1.CurrentRow.Cells("Telefono").Value.ToString,
+                            Me.DataGridView1.CurrentRow.Cells("Email").Value.ToString,
                             d,
-                            Me.DataGridView1.CurrentRow.Cells("FechaAlta").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Estado").Value
+                            CDate(Me.DataGridView1.CurrentRow.Cells("FechaAlta").Value),
+                            Me.DataGridView1.CurrentRow.Cells("Estado").Value.ToString
                             )
         Me.PersonaSeleccionado = p
 

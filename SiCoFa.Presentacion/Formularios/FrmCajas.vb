@@ -122,10 +122,10 @@ Public Class FrmCajas
         Dim totalImporte As Decimal = 0D
         Dim totalImporteAnulados As Decimal = 0D
         For Each row As DataRow In dt.Rows
-            If Not IsDBNull(row("Importe")) And row("EstadoTransaccion") = "EN CAJA" Then
+            If Not IsDBNull(row("Importe")) And row("EstadoTransaccion").ToString = "EN CAJA" Then
                 totalImporte += Convert.ToDecimal(row("Importe"))
 
-            ElseIf Not IsDBNull(row("Importe")) And row("EstadoTransaccion") = "ANULADO" Then
+            ElseIf Not IsDBNull(row("Importe")) And row("EstadoTransaccion").ToString = "ANULADO" Then
                 totalImporteAnulados += Convert.ToDecimal(row("Importe"))
 
             End If
@@ -306,12 +306,12 @@ Public Class FrmCajas
                 Exit Sub
             End If
 
-            If Me.dgvCajas.CurrentRow.Cells("Estado").Value = "CERRADA" Then
+            If Me.dgvCajas.CurrentRow.Cells("Estado").Value.ToString = "CERRADA" Then
                 MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
                 Exit Sub
             End If
 
-            Dim objDocumento As New Documento("NA", 0)
+            Dim objDocumento As New Documento("NA", "0")
             Dim objCliente As New Cliente(0, "", "", "", "", "", "", objDocumento, Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")
@@ -345,11 +345,11 @@ Public Class FrmCajas
                                                   argDetalle:=Nothing)
 
 
-            Dim IdCaja As Long = Me.dgvCajas.CurrentRow.Cells(0).Value
-            Dim Apertura As Date = Me.dgvCajas.CurrentRow.Cells(1).Value
+            Dim IdCaja As Long = CInt(Me.dgvCajas.CurrentRow.Cells(0).Value)
+            Dim Apertura As Date = CDate(Me.dgvCajas.CurrentRow.Cells(1).Value)
             Dim Cierre As Date = Date.MinValue
-            Dim Estado As String = Me.dgvCajas.CurrentRow.Cells(3).Value
-            Dim NCaja As String = Me.dgvCajas.CurrentRow.Cells(4).Value
+            Dim Estado As String = Me.dgvCajas.CurrentRow.Cells(3).Value.ToString
+            Dim NCaja As String = Me.dgvCajas.CurrentRow.Cells(4).Value.ToString
             Dim objCaja As New Caja(IdCaja, Apertura, Cierre, Estado, NCaja)
             Dim AdminCajas As New N_AdminCajas
             AdminCajas.CierreCajaTransaccion(g_ParametrosTerminal.MacAddress, objCaja, g_ParametrosTerminal.Empresa, Me.Usuario, objComprobante)
@@ -382,7 +382,7 @@ Public Class FrmCajas
                 Exit Sub
             End If
 
-            If Me.dgvCajas.CurrentRow.Cells("Estado").Value = "CERRADA" Then
+            If Me.dgvCajas.CurrentRow.Cells("Estado").Value.ToString = "CERRADA" Then
                 MsgBox("La caja seleccionada esta cerrada", vbInformation, "SiCoFa")
                 Exit Sub
             End If
@@ -423,12 +423,12 @@ Public Class FrmCajas
                 Exit Do
             Loop
 
-            If MsgBox("Se registrará un Retiro de Efectivo por un importe de $" & Format(Importe, "Standard"), vbOKCancel + vbDefaultButton2 + vbQuestion, "SiCoFa") = vbCancel Then
+            If MsgBox("Se registrará un Retiro de Efectivo por un importe de $" & Format(Importe, "Standard"), vbOKCancel Or vbDefaultButton2 Or vbQuestion, "SiCoFa") = vbCancel Then
                 MsgBox("Operación cancelada", vbInformation, "SiCoFa")
                 Exit Sub
             End If
 
-            Dim objDocumento As New Documento("NA", 0)
+            Dim objDocumento As New Documento("NA", "0")
             Dim objCliente As New Cliente(0, "", "", "", "", "", "", objDocumento, Date.Now, "", "")
             Dim AdminComprobantes As New N_AdminComprobantes
             Dim objTC As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("DI")

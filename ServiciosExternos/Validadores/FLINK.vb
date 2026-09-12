@@ -302,7 +302,7 @@ Public Class FLINK
         writer.WriteElementString("Fecha", "")
         writer.WriteEndElement()
 
-        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.ToString("yyyyMMdd"))
+        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
 
         writer.WriteStartElement("Dispensa")
         writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
@@ -360,7 +360,7 @@ Public Class FLINK
                     writer.WriteElementString("NroItem", nroItem.ToString())
                     writer.WriteElementString("CodBarras", i.CodBarras)
                     writer.WriteElementString("CodTroquel", i.NTroquel)
-                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Alfabeta", i.Codigo.ToString)
                     writer.WriteElementString("Kairos", "0")
                     writer.WriteElementString("Codigo", "0")
                     writer.WriteElementString("ImporteUnitario", "0")
@@ -560,15 +560,15 @@ Public Class FLINK
 
             If itemSeleccionado IsNot Nothing Then
 
-                Dim codigo As String = ""
+                Dim codigo As Integer = 0
                 Dim idArticulo As String = ""
                 Dim codBarras As String = ""
                 Dim nTroquel As String = ""
 
-                Dim alfabeta = itemSeleccionado.SelectSingleNode("Alfabeta")?.InnerText
+                Dim alfabeta As String = itemSeleccionado.SelectSingleNode("Alfabeta")?.InnerText
 
                 If Not String.IsNullOrWhiteSpace(alfabeta) Then
-                    codigo = alfabeta
+                    codigo = CInt(alfabeta)
                     idArticulo = "M" & alfabeta
                 End If
 
@@ -580,7 +580,7 @@ Public Class FLINK
 
                 Dim descripcion = itemSeleccionado.SelectSingleNode("Descripcion")?.InnerText
 
-                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
+                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
 
                 argReceta.Items.Add(item)
 

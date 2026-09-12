@@ -199,7 +199,7 @@ Public Class SIMED
         writer.WriteElementString("Fecha", "")
         writer.WriteEndElement()
 
-        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.ToString("yyyyMMdd"))
+        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
 
         writer.WriteStartElement("Dispensa")
         writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
@@ -277,7 +277,7 @@ Public Class SIMED
         writer.WriteElementString("Plan", "")
         writer.WriteEndElement()
 
-        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.ToString("yyyyMMdd"))
+        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
 
         writer.WriteStartElement("Dispensa")
         writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
@@ -313,14 +313,14 @@ Public Class SIMED
                     writer.WriteElementString("NroItem", nroItem.ToString())
                     writer.WriteElementString("CodBarras", i.CodBarras)
                     writer.WriteElementString("CodTroquel", i.NTroquel)
-                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Alfabeta", i.Codigo.ToString)
                     writer.WriteElementString("Kairos", "")
                     writer.WriteElementString("Codigo", "")
-                    writer.WriteElementString("ImporteUnitario", Strings.Replace(Math.Round(i.PrecioUnitario, 2), ",", "."))
+                    writer.WriteElementString("ImporteUnitario", Strings.Replace(Math.Round(i.PrecioUnitario, 2).ToString, ",", "."))
                     writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
-                    writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS, ",", "."))
+                    writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS.ToString, ",", "."))
                     writer.WriteElementString("CodPreautorizacion", "")
-                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoUnitarioOS, ",", "."))
+                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoUnitarioOS.ToString, ",", "."))
                     writer.WriteElementString("ExcepcionPrescripcion", "")
                     writer.WriteElementString("Diagnostico", "")
                     writer.WriteElementString("DosisDiaria", "")
@@ -362,7 +362,7 @@ Public Class SIMED
                     writer.WriteElementString("CodAutori", i.NumeroAutorizacionItem)
                     writer.WriteElementString("CodBarras", i.CodBarras)
                     writer.WriteElementString("CodTroquel", i.NTroquel)
-                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Alfabeta", i.Codigo.ToString)
                     writer.WriteElementString("Kairos", "")
                     writer.WriteElementString("Codigo", "")
 

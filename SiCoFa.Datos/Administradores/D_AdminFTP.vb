@@ -88,7 +88,7 @@ Public Class D_AdminFTP
                 .Size = Long.Parse(parts(4)) ' Tamaño del archivo
 
                 Dim fechaStr As String = parts(5) & " " & parts(6) & " " & parts(7)
-                .ModificationDate = Me.ObtenerFecha(fechaStr)
+                .ModificationDate = CDate(Me.ObtenerFecha(fechaStr))
                 .Name = String.Join(" ", parts.Skip(8)) ' Nombre del archivo
             End With
 

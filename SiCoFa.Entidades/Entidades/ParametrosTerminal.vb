@@ -7,6 +7,8 @@
     Property MenuCaja As Boolean
     Property Impresora As String
     Property Papel As String
+    Property Actualizar As Integer
+
 
     Public Sub New(ByVal argMacAddress As String,
                    ByVal argEmpresa As Empresa,
@@ -15,7 +17,8 @@
                    ByVal argNCaja As String,
                    ByVal argMenuCaja As Boolean,
                    ByVal argImpresora As String,
-                   ByVal argPapel As String
+                   ByVal argPapel As String,
+                   ByRef argActualizar As Integer
                    )
 
         Me.MacAddress = argMacAddress
@@ -26,6 +29,7 @@
         Me.MenuCaja = argMenuCaja
         Me.Impresora = argImpresora
         Me.Papel = argPapel
+        Me.Actualizar = argActualizar
 
     End Sub
 

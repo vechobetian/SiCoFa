@@ -19,7 +19,7 @@ Public Class N_AdminDB
     End Function
 
     Public Function ActualizarTablaUpdate(argSql As String, Optional argDataBase As String = "FARMACIAS") As Boolean
-        Dim FilasAfectadas As Integer = mobj_D_AdminDB.ActualizarTablaUpdate(argSql, argDataBase)
+        Dim FilasAfectadas As Boolean = mobj_D_AdminDB.ActualizarTablaUpdate(argSql, argDataBase)
         Return FilasAfectadas
     End Function
 

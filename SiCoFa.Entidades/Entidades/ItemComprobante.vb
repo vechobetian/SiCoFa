@@ -4,7 +4,7 @@
     Private m_Articulo As Articulo ' Asumo que la clase Articulo existe
     Private m_NTroquel As String
     Private m_CodBarras As String
-    Private m_Codigo As Long
+    Private m_Codigo As Integer
     Private m_Descripcion As String
     Private m_Fraccionado As Boolean
     Private m_Cantidad As Integer
@@ -59,7 +59,7 @@
                     ByVal argDecuentoUnitarioOS As Decimal,
                     ByVal argPorcentajeCS As Decimal,
                     ByVal argDescuentoUnitarioCS As Decimal,
-                    Optional ByVal argCodigo As Long = 0,
+                    Optional ByVal argCodigo As Integer = 0,
                     Optional ByVal argNTroquel As String = ""
                    )
 
@@ -115,7 +115,7 @@
                 m_Descripcion = a.Nombre
                 m_PrecioCosto = a.PrecioCosto
                 m_PrecioUnitario = a.PrecioVenta
-                m_AlicIVA = a.AlicIVA
+                m_AlicIVA = a.AlicuotaIVA.AlicIva
             End If
 
         End Set
@@ -140,11 +140,11 @@
         End Set
     End Property
 
-    Public Property Codigo() As String
+    Public Property Codigo() As Integer
         Get
             Return m_Codigo
         End Get
-        Set(value As String)
+        Set(value As Integer)
             m_Codigo = value
         End Set
     End Property

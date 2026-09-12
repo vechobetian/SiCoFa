@@ -20,11 +20,11 @@ Public Class D_AdminComprobantes
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read Then
-                            Dim CodiTC As String = datos("CodiTC")
-                            Dim TipoComprobanteCLetra As String = datos("TipoComprobanteCLetra")
-                            Dim Letra As String = datos("Letra")
-                            Dim TipoComprobanteSLetra = datos("TipoComprobanteSLetra")
-                            Dim CodiTCARCA As String = datos("CodiTCARCA")
+                            Dim CodiTC As String = datos("CodiTC").ToString
+                            Dim TipoComprobanteCLetra As String = datos("TipoComprobanteCLetra").ToString
+                            Dim Letra As String = datos("Letra").ToString
+                            Dim TipoComprobanteSLetra As String = datos("TipoComprobanteSLetra").ToString
+                            Dim CodiTCARCA As Integer = CInt(datos("CodiTCARCA"))
                             objTC = New TipoComprobante(CodiTC, TipoComprobanteCLetra, Letra, TipoComprobanteSLetra, CodiTCARCA)
                         End If
 
@@ -71,7 +71,7 @@ Public Class D_AdminComprobantes
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            tc = New TipoComprobante(datos("CodiTC"), datos("TipoComprobanteCLetra"), datos("Letra"), datos("TipoComprobanteSLetra"), datos("CodiTCARCA"))
+                            tc = New TipoComprobante(datos("CodiTC").ToString, datos("TipoComprobanteCLetra").ToString, datos("Letra").ToString, datos("TipoComprobanteSLetra").ToString, CInt(datos("CodiTCARCA")))
                             ltc.Add(tc)
                         End While
 
@@ -243,11 +243,11 @@ Public Class D_AdminComprobantes
                     cmd.Parameters.Add("p_FechaComp", MySqlDbType.VarChar)
                     cmd.Parameters("p_FechaComp").Direction = ParameterDirection.Output
 
-                    Dim Insertado As Boolean = cmd.ExecuteNonQuery()
+                    Dim Insertado As Boolean = CBool(cmd.ExecuteNonQuery())
 
-                    argComprobante.PVenta = cmd.Parameters("p_PVenta").Value
-                    argComprobante.NumComp = cmd.Parameters("p_NumComp").Value
-                    argComprobante.FechaComp = cmd.Parameters("p_FechaComp").Value
+                    argComprobante.PVenta = cmd.Parameters("p_PVenta").Value.ToString
+                    argComprobante.NumComp = cmd.Parameters("p_NumComp").Value.ToString
+                    argComprobante.FechaComp = CDate(cmd.Parameters("p_FechaComp").Value)
                     Return Insertado
                 End With
 
@@ -329,7 +329,7 @@ Public Class D_AdminComprobantes
                     .AddWithValue("p_ImpCC", argComprobante.ImpCC)
                     .AddWithValue("p_ImpPE", argComprobante.ImpPE)
 
-                    Dim Insertado As Boolean = cmd.ExecuteNonQuery()
+                    Dim Insertado As Boolean = CBool(cmd.ExecuteNonQuery())
 
                     Return Insertado
                 End With

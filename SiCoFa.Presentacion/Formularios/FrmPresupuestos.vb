@@ -437,7 +437,7 @@ Public Class FrmPresupuestos
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
                 Select Case i.AlicIVA
-                    Case 10.5
+                    Case 10.5D
                         mdec_ImporteGravado1 += i.ImporteConDescuento
                     Case 21
                         mdec_ImporteGravado2 += i.ImporteConDescuento

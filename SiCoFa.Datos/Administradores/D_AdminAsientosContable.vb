@@ -21,9 +21,9 @@ Public Class D_AdminAsientosContable
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         If datos.Read Then
-                            Dim CodiCta As String = datos("CodiCta")
-                            Dim CodiCtaCol As String = datos("CodiCtaCol")
-                            Dim NombreCta As String = datos("CuentaImputable")
+                            Dim CodiCta As String = datos("CodiCta").ToString
+                            Dim CodiCtaCol As String = datos("CodiCtaCol").ToString
+                            Dim NombreCta As String = datos("CuentaImputable").ToString
                             objCI = New CuentaImputable(CodiCta, CodiCtaCol, NombreCta)
                         End If
 
@@ -70,7 +70,7 @@ Public Class D_AdminAsientosContable
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read
-                            c = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("CuentaImputable"))
+                            c = New CuentaImputable(datos("CodiCta").ToString, datos("CodiCtaCol").ToString, datos("CuentaImputable").ToString)
                             lc.Add(c)
                         End While
 
@@ -112,7 +112,7 @@ Public Class D_AdminAsientosContable
                 cmd.Parameters.Add("p_NumAsiento", MySqlDbType.Int64)
                 cmd.Parameters("p_NumAsiento").Direction = ParameterDirection.Output
                 cmd.ExecuteNonQuery()
-                NumAsiento = cmd.Parameters("p_NumAsiento").Value
+                NumAsiento = CLng(cmd.Parameters("p_NumAsiento").Value)
             End Using
 
             For Each iac As ItemAsientoContable In argAsiento.DetalleCuentas

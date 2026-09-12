@@ -24,7 +24,7 @@ Public Module ItemComprobanteMapper
         Dim idArticulo As String = datos.GetString(idArticuloOrdinal)
         Dim descripcion As String = datos.GetString(descripcionOrdinal)
         Dim fraccionado As Boolean = datos.GetBoolean(fraccionadoOrdinal)
-        Dim cantidad As Decimal = Convert.ToDecimal(datos.GetValue(cantidadOrdinal))
+        Dim cantidad As Integer = CInt(datos.GetValue(cantidadOrdinal))
         Dim alicIVA As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
         Dim precioCosto As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0D, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
         Dim precioUnitario As Decimal = Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal))

@@ -83,7 +83,7 @@ Public Class FrmNotaCredito
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
                 Select Case i.AlicIVA
-                    Case 10.5
+                    Case 10.5D
                         mdec_ImporteGravado1 += i.ImporteConDescuento
                     Case 21
                         mdec_ImporteGravado2 += i.ImporteConDescuento
@@ -128,7 +128,7 @@ Public Class FrmNotaCredito
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
                 Select Case i.AlicIVA
-                    Case 10.5
+                    Case 10.5D
                         mdec_ImporteGravado1 += i.ImporteConDescuento
                     Case 21
                         mdec_ImporteGravado2 += i.ImporteConDescuento
@@ -202,7 +202,7 @@ Public Class FrmNotaCredito
             End If
 
             If impPE > 0 Then
-                objPE = New OperacionPE(0, 0, 1, 0, 0, "ANULADO")
+                objPE = New OperacionPE(0, "0", 1, 0, 0, "ANULADO")
             End If
 
             Dim CodiTC As String = ""
@@ -259,7 +259,7 @@ Public Class FrmNotaCredito
 
             AdminOperacion.NotaCreditoTransaccion(objTipoOperacion, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objCC, objPE, objCb, objAC, "")
 
-            If objCb.TipoComprobante.CodiTC_ARCA <> "00" Then
+            If objCb.TipoComprobante.CodiTC_ARCA <> 0 Then
                 Dim AdminComprobants As New N_AdminComprobantes
                 If AdminComprobants.GenerarFacturaElectronica(objCb) = False Then
                     'aca hay que cambiar el estado de la operacion y salir
@@ -341,7 +341,7 @@ Public Class FrmNotaCredito
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
                 Select Case i.AlicIVA
-                    Case 10.5
+                    Case 10.5D
                         mdec_ImporteGravado1 += i.ImporteConDescuento
                     Case 21
                         mdec_ImporteGravado2 += i.ImporteConDescuento

@@ -234,7 +234,7 @@ Public Class FrmPanelClientes
 
         Try
             With Me
-                .TxtId.Text = argCliente.Id
+                .TxtId.Text = argCliente.Id.ToString
                 .TxtNombre.Text = argCliente.Nombre
                 .TxtDomicilio.Text = argCliente.Domicilio
                 .TxtLocalidad.Text = argCliente.Localidad
@@ -243,7 +243,7 @@ Public Class FrmPanelClientes
                 .TxtEmail.Text = argCliente.Email
                 .UcTipoDoc.Id = argCliente.Documento.TipoDocumento.CodiTD
                 .TxtNumDoc.Text = argCliente.Documento.Numero
-                .TxtFechaAltaCliente.Text = argCliente.FechaAlta
+                .TxtFechaAltaCliente.Text = argCliente.FechaAlta.ToString("dd/MM/yyyy")
                 .UcEstado.Descripcion = argCliente.Estado
                 .UcIVA.Id = argCliente.IVA.CodIVA
             End With
@@ -259,10 +259,10 @@ Public Class FrmPanelClientes
         Try
             Dim cc As CuentaCorriente = mobj_AdminClientes.ObtenerCuentaCorrientePorIdCliente(argIdCliente)
             If cc IsNot Nothing Then
-                Me.TxtIdCC.Text = cc.IdCC
+                Me.TxtIdCC.Text = cc.IdCC.ToString
                 Me.TxtDescripcion.Text = cc.Descripcion
-                Me.TxtCredito.Text = cc.Credito
-                Me.TxtFechaAltaCuentaCorriente.Text = cc.FechaAlta
+                Me.TxtCredito.Text = cc.Credito.ToString
+                Me.TxtFechaAltaCuentaCorriente.Text = cc.FechaAlta.ToString("dd/MM/yyyy")
                 Me.UcEstadoCC.Descripcion = cc.Estado
                 Me.TxtObservaciones.Text = cc.Observaciones
                 Me.MostrarPestanaCuentaCorriente()
@@ -294,9 +294,9 @@ Public Class FrmPanelClientes
 
             If Me.NuevaPersona = True Then
 
-                Dim IdCliente As Integer = mobj_AdminClientes.InsertarCliente(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcIVA.Id)
+                Dim IdCliente As Integer = mobj_AdminClientes.InsertarCliente(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text, Me.UcIVA.Id.ToString)
                 If IdCliente > 0 Then
-                    Me.TxtId.Text = IdCliente
+                    Me.TxtId.Text = IdCliente.ToString
                     Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
                     MsgBox("Se dio de alta el Cliente " & TxtNombre.Text,, "SiCoFa")
                 Else
@@ -313,12 +313,12 @@ Public Class FrmPanelClientes
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCliente(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcIVA.Id, Me.UcEstado.Descripcion)
+                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCliente(CInt(Me.TxtId.Text), Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text, Me.UcIVA.Id.ToString, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
                     MsgBox("El Cliente " & TxtNombre.Text & " se acutalizo correctamente",, "SiCoFa")
                 Else
-                    MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
+                    MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
             End If
@@ -334,9 +334,9 @@ Public Class FrmPanelClientes
 
             If Me.NuevaCtaCte = True Then
 
-                Dim IdCC As Integer = mobj_AdminClientes.InsertarCuentaCorriente(Me.TxtId.Text, UCase(Me.TxtDescripcion.Text), Convert.ToDecimal(Me.TxtCredito.Text), Me.TxtObservaciones.Text)
+                Dim IdCC As Integer = mobj_AdminClientes.InsertarCuentaCorriente(CInt(Me.TxtId.Text), UCase(Me.TxtDescripcion.Text), Convert.ToDecimal(Me.TxtCredito.Text), Me.TxtObservaciones.Text)
                 If IdCC > 0 Then
-                    Me.TxtIdCC.Text = IdCC
+                    Me.TxtIdCC.Text = IdCC.ToString
                 Else
                     MsgBox("No se pudo crear la cuenta corriente, intente nuevamente",, "SiCoFa")
                     Exit Sub
@@ -347,10 +347,10 @@ Public Class FrmPanelClientes
 
             ElseIf Me.TxtIdCC.Text <> "" Then
 
-                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCuentaCorriente(Me.TxtIdCC.Text, Me.TxtCredito.Text, Me.TxtObservaciones.Text, Me.UcEstadoCC.Descripcion)
+                Dim Actualizado As Boolean = mobj_AdminClientes.ActualizarCuentaCorriente(CInt(Me.TxtIdCC.Text), CDec(Me.TxtCredito.Text), Me.TxtObservaciones.Text, Me.UcEstadoCC.Descripcion)
 
                 If Actualizado = False Then
-                    MsgBox("No se pudo actualizar la cuenta corriente, intente nuevamente", "SiCoFa")
+                    MsgBox("No se pudo actualizar la cuenta corriente, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
             End If

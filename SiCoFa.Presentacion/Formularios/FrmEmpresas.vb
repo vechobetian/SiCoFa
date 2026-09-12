@@ -87,7 +87,7 @@ Public Class FrmEmpresas
 
         Try
             With Me
-                .TxtId.Text = argEmpresa.Id
+                .TxtId.Text = argEmpresa.Id.ToString
                 .TxtNombre.Text = argEmpresa.Nombre
                 .TxtDomicilio.Text = argEmpresa.Domicilio
                 .TxtLocalidad.Text = argEmpresa.Localidad
@@ -96,7 +96,7 @@ Public Class FrmEmpresas
                 .TxtEmail.Text = argEmpresa.Email
                 .UcTipoDoc.Text = argEmpresa.Documento.TipoDocumento.CodiTD
                 .TxtNumDoc.Text = argEmpresa.Documento.Numero
-                .TxtFechaAlta.Text = argEmpresa.FechaAlta
+                .TxtFechaAlta.Text = argEmpresa.FechaAlta.ToString("dd/MM/yyyy")
                 .UcEstado.Descripcion = argEmpresa.Estado
                 .IVA.Text = argEmpresa.IVA.Descripcion
                 .IB.Text = argEmpresa.IB
@@ -118,9 +118,9 @@ Public Class FrmEmpresas
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminEmpresas.InsertarEmpresa(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.TxtNumDoc.Text, Me.TxtFechaAlta.Text, Me.IVA.SelectedValue, Me.IB.Text)
+                Dim Id As Integer = mAdminEmpresas.InsertarEmpresa(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.TxtNumDoc.Text, CDate(Me.TxtFechaAlta.Text), Me.IVA.SelectedValue.ToString, Me.IB.Text)
                 If Id > 0 Then
-                    Me.TxtId.Text = Id
+                    Me.TxtId.Text = Id.ToString
                     Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
                     MsgBox("Se dio de alta la Empresa " & TxtNombre.Text,, "SiCoFa")
                 Else
@@ -135,12 +135,12 @@ Public Class FrmEmpresas
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminEmpresas.ActualizarEmpresa(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.TxtNumDoc.Text, Me.TxtFechaAlta.Text, Me.IVA.SelectedValue, Me.UcEstado.Descripcion, Me.IB.Text)
+                Dim Actualizado As Boolean = mAdminEmpresas.ActualizarEmpresa(CInt(Me.TxtId.Text), Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.TxtNumDoc.Text, CDate(Me.TxtFechaAlta.Text), Me.IVA.SelectedValue.ToString, Me.UcEstado.Descripcion, Me.IB.Text)
 
                 If Actualizado = True Then
                     MsgBox("La Empresa " & TxtNombre.Text & " se acutalizo correctamente",, "SiCoFa")
                 Else
-                    MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
+                    MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
             End If

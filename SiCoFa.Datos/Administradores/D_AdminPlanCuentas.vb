@@ -19,7 +19,7 @@ Public Class D_AdminPlanCuentas
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read()
-                            rb = New RubroContabilidad(datos("CodiRub"), datos("NombreRub"))
+                            rb = New RubroContabilidad(datos("CodiRub").ToString, datos("NombreRub").ToString)
                             lr.Add(rb)
                         End While
 
@@ -55,7 +55,7 @@ Public Class D_AdminPlanCuentas
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read()
-                            srb = New SubRubroContabilidad(datos("CodiSubRub"), datos("CodiRub"), datos("NombreSubRubro"))
+                            srb = New SubRubroContabilidad(datos("CodiSubRub").ToString, datos("CodiRub").ToString, datos("NombreSubRubro").ToString)
                             lsr.Add(srb)
                         End While
 
@@ -92,7 +92,7 @@ Public Class D_AdminPlanCuentas
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read()
-                            cc = New CuentaColectiva(datos("CodiCtaCol"), datos("CodiSubRub"), datos("NombreCtaCol"))
+                            cc = New CuentaColectiva(datos("CodiCtaCol").ToString, datos("CodiSubRub").ToString, datos("NombreCtaCol").ToString)
                             lcc.Add(cc)
                         End While
 
@@ -129,7 +129,7 @@ Public Class D_AdminPlanCuentas
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
                         While datos.Read()
-                            ci = New CuentaImputable(datos("CodiCta"), datos("CodiCtaCol"), datos("NombreCta"))
+                            ci = New CuentaImputable(datos("CodiCta").ToString, datos("CodiCtaCol").ToString, datos("NombreCta").ToString)
                             lci.Add(ci)
                         End While
 

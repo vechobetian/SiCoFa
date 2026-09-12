@@ -2,12 +2,12 @@
 
 Public Class Articulo
     Property IdArticulo As String
-    Property Codigo As Long
+    Property Codigo As Integer
     Property CodBarras As String
     Property NTroquel As String
     Property Nombre As String
     Property TipoVenta As TipoVenta
-    Property AlicIVA As Decimal
+    Property AlicuotaIVA As AlicuotaIVA
     Property Unidades As Integer
     Property TamanioEnvase As TamanioEnvase
     Property FechaPrecio As Date
@@ -40,12 +40,12 @@ Public Class Articulo
     Property ListaPrecios As ListaPrecios
 
     Public Sub New(ByVal argIdArticulo As String,
-                   ByVal argCodigo As String,
+                   ByVal argCodigo As Integer,
                    ByVal argCodBarras As String,
                    ByVal argNTroquel As String,
                    ByVal argNombre As String,
                    ByVal argTipoVenta As TipoVenta,
-                   ByVal argAlicIVA As Decimal,
+                   ByVal argAlicuotaIVA As AlicuotaIVA,
                    ByVal argUnidades As Integer,
                    ByVal argTamanioEnvase As TamanioEnvase,
                    ByVal argFechaPrecio As Date,
@@ -84,7 +84,7 @@ Public Class Articulo
         Me.NTroquel = argNTroquel
         Me.Nombre = argNombre
         Me.TipoVenta = argTipoVenta
-        Me.AlicIVA = argAlicIVA
+        Me.AlicuotaIVA = argAlicuotaIVA
         Me.Unidades = argUnidades
         Me.TamanioEnvase = argTamanioEnvase
         Me.FechaPrecio = argFechaPrecio

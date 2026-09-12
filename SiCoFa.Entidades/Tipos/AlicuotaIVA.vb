@@ -1,38 +1,47 @@
-﻿Namespace Enums
-    Public Class AlicuotaIVA
+﻿Option Strict On
 
-        Property AlicIVA As Decimal
-        Private m_Descripcion As String
+Public Class AlicuotaIVA
 
-        Public ReadOnly Property Descripcion As String
-            Get
-                Return m_Descripcion
-            End Get
-        End Property
+    Property CodIVA As Integer
 
-        Public Shared ReadOnly Property Lista As List(Of AlicuotaIVA)
+    Public Sub New(argCodIVA As Integer)
 
-            Get
-                Return New List(Of AlicuotaIVA) From {
-                New AlicuotaIVA(0),
-                New AlicuotaIVA(10.5),
-                New AlicuotaIVA(21)
-            }
-            End Get
-        End Property
+        CodIVA = argCodIVA
 
-        Public Sub New(ByVal argAlicIVA As Decimal)
+    End Sub
 
-            Me.AlicIVA = argAlicIVA
-
-            Select Case argAlicIVA
-                Case 0 : m_Descripcion = "0.00%"
-                Case 10.5 : m_Descripcion = "10.50%"
-                Case 21 : m_Descripcion = "21.00%"
-
+    Public ReadOnly Property Descripcion As String
+        Get
+            Select Case CodIVA
+                Case 0 : Return "IVA 0%"
+                Case 1 : Return "IVA 21%"
+                Case 2 : Return "IVA 10,5%"
+                Case Else : Return "DESCONOCIDO"
             End Select
-        End Sub
+        End Get
+    End Property
 
-    End Class
+    Public ReadOnly Property AlicIva As Decimal
+        Get
+            Select Case CodIVA
+                Case 0 : Return 0D
+                Case 1 : Return 21D
+                Case 2 : Return 10.5D
+                Case Else : Return 21D
+            End Select
+        End Get
+    End Property
 
-End Namespace
+    Public Shared ReadOnly Property Lista As List(Of AlicuotaIVA)
+        Get
+            Return New List(Of AlicuotaIVA) From {
+                New AlicuotaIVA(0),
+                New AlicuotaIVA(1),
+                New AlicuotaIVA(2)
+                }
+        End Get
+
+    End Property
+
+
+End Class

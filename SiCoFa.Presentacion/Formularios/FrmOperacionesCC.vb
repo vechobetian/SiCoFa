@@ -131,13 +131,13 @@ Public Class FrmOperacionesCC
         Me.txtOperacion.Tag = "PCC"
         Me.txtOperacion.Text = mobjTOperacion.TipoOperacion
 
-        mdecSaldoCC = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={mobjCuentaCorriente.IdCC}")
+        mdecSaldoCC = CDec(mobjAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc WHERE IdCC={mobjCuentaCorriente.IdCC}"))
 
         If Me.Resumen = "" Then
             Exit Sub
         End If
 
-        mdecSaldoResumen = mobjAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'")
+        mdecSaldoResumen = CDec(mobjAdminDB.ObtenerValor($"SELECT Saldo FROM vw_saldos_idcc_resu WHERE IdCC={mobjCuentaCorriente.IdCC} And Resu='{Me.Resumen}'"))
 
         If Me.Resumen <> "" AndAlso mdecSaldoResumen <= 0 Then
             MsgBox("El saldo del resumen ingresado es $" & mdecSaldoResumen, vbInformation, "SiCoFa")
@@ -326,7 +326,7 @@ Public Class FrmOperacionesCC
 
             Me.BuscarCuentaCorriente(Me.txtCuentaCorriente.Text)
 
-            Select Case Me.txtOperacion.Tag
+            Select Case Me.txtOperacion.Tag.ToString
                 Case "CCC"
                     Me.txtResumenImputado.Text = "0000"
                     Me.txtResumenImputado.Enabled = False
@@ -352,7 +352,7 @@ Public Class FrmOperacionesCC
 
             Dim idCC As Int32 = 0
 
-            If String.IsNullOrWhiteSpace(Me.txtCuentaCorriente.Text) OrElse String.IsNullOrWhiteSpace(Me.txtCuentaCorriente.Tag) Then
+            If String.IsNullOrWhiteSpace(Me.txtCuentaCorriente.Text) OrElse String.IsNullOrWhiteSpace(Me.txtCuentaCorriente.Tag.ToString) Then
                 MsgBox("Cuenta Corriente no establecida", vbCritical, "SiCoFa")
                 Me.txtCuentaCorriente.Select()
                 Exit Sub
@@ -448,7 +448,7 @@ Public Class FrmOperacionesCC
                 Exit Sub
             End If
 
-            Select Case Me.txtOperacion.Tag
+            Select Case Me.txtOperacion.Tag.ToString
                 Case "CRC"
                     Me.txtImporte.Text = mdecSaldoResumen.ToString("N2")
                     Me.txtImporte.Enabled = False

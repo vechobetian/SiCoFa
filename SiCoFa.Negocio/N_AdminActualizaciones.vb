@@ -85,14 +85,12 @@ Public Class N_AdminActualizaciones
 
         Dim archivosGenerados As New List(Of String)
 
-        Dim nombreSinExt As String =
-        Path.GetFileNameWithoutExtension(nombreZip)
+        Dim nombreSinExt As String = Path.GetFileNameWithoutExtension(nombreZip)
 
         If nombreSinExt.Length < 3 Then
             Throw New Exception("Nombre ZIP inválido")
         End If
 
-        ' me26051101.zip
         Dim codigoZip As String = nombreSinExt.Substring(0, 2)
         Dim nroActualizacion As String = nombreSinExt.Substring(2)
 
@@ -111,8 +109,7 @@ Public Class N_AdminActualizaciones
 
             For Each entry As ZipArchiveEntry In entries
 
-                Dim nombreBase =
-                Path.GetFileNameWithoutExtension(entry.Name)
+                Dim nombreBase = Path.GetFileNameWithoutExtension(entry.Name)
 
                 Dim extension = Path.GetExtension(entry.Name).ToLower()
 
@@ -125,10 +122,7 @@ Public Class N_AdminActualizaciones
                 '====================================
                 If entries.Count = 1 Then
 
-                    nombreFinal =
-                    codigoZip &
-                    nroActualizacion &
-                    extensionFinal
+                    nombreFinal = codigoZip & nroActualizacion & extensionFinal
 
                 Else
                     ' múltiples → usar nombre del archivo

@@ -602,7 +602,7 @@ Public Class FrmDatosReceta
         Dim uc = DirectCast(sender, UcSelectorUniversal)
 
         If uc.EsNuevo = False Then
-            CargarDatosPrescriptor(uc.Id)
+            CargarDatosPrescriptor(uc.Id.ToString)
 
         Else
             LimpiarDatosPrescriptor()

@@ -232,7 +232,7 @@ Public Class D_AdminItemsComprobante
                             Dim IdItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
-                            Dim CantidadResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadOrdinal))
+                            Dim CantidadResult As Integer = CInt(datos.GetValue(cantidadOrdinal))
                             Dim AlicIVA As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
@@ -248,7 +248,7 @@ Public Class D_AdminItemsComprobante
                             Dim AdminArticulos As New D_AdminArticulos
                             Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(IdArticuloResult)
 
-                            Dim objIC As New ItemComprobanteCompra(objArticulo, CantidadResult, PrecioCostoResult, PrecioUnitarioResult, objArticulo.ListaPrecios.PorcentajeAplicado, True)
+                            Dim objIC As New ItemComprobanteCompra(objArticulo, CantidadResult, PrecioCostoResult, PrecioUnitarioResult, CDec(objArticulo.ListaPrecios.PorcentajeAplicado), True)
                             objIC.IdItem = IdItemResult
                             objLI.Add(objIC)
                         End While
@@ -336,8 +336,8 @@ Public Class D_AdminItemsComprobante
                             Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
                             Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
                             Dim FraccionadoResult As Boolean = datos.GetBoolean(fraccionadoOrdinal)
-                            Dim CantidadFResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadFOrdinal))
-                            Dim CantidadAResult As Decimal = Convert.ToDecimal(datos.GetValue(cantidadAOrdinal))
+                            Dim CantidadFResult As Integer = CInt(datos.GetValue(cantidadFOrdinal))
+                            Dim CantidadAResult As Integer = CInt(datos.GetValue(cantidadAOrdinal))
                             Dim AlicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
@@ -386,7 +386,7 @@ Public Class D_AdminItemsComprobante
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarItemComprobanteNC), Ex.Message))
-            Return 0
+            Return False
 
         End Try
 

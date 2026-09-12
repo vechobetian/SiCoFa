@@ -51,20 +51,20 @@ Public Class D_AdminRecetas
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argReceta.IdOperacion
                     .Add("p_IdOS", MySqlDbType.Int32).Value = argReceta.Plan.OS.IdOS
                     .Add("p_IdPlan", MySqlDbType.Int32).Value = argReceta.Plan.IdPlan
-                    .Add("p_FechaPrescripcion", MySqlDbType.Date).Value = If(argReceta.FechaPrescripcion = Date.MinValue, DBNull.Value, argReceta.FechaPrescripcion)
-                    .Add("p_NumReceta", MySqlDbType.VarChar).Value = If(String.IsNullOrEmpty(argReceta.NumReceta), DBNull.Value, argReceta.NumReceta)
-                    .Add("p_CodiTD", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, DBNull.Value, argReceta.Documento.TipoDocumento.CodiTD)
-                    .Add("p_NumDoc", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, DBNull.Value, argReceta.Documento.Numero)
-                    .Add("p_Credencial", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Numero)
-                    .Add("p_Nombre", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, DBNull.Value, argReceta.Credencial.Nombre)
-                    .Add("p_CodiTM", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.TipoMatricula.CodiTM)
-                    .Add("p_CodiP", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Provincia.CodiP)
-                    .Add("p_CodiTP", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.TipoPrescriptor.CodiTP)
-                    .Add("p_NumMatricula", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, DBNull.Value, argReceta.Prescriptor.Matricula.Numero)
+                    .Add("p_FechaPrescripcion", MySqlDbType.Date).Value = If(argReceta.FechaPrescripcion = Date.MinValue, CObj(DBNull.Value), argReceta.FechaPrescripcion)
+                    .Add("p_NumReceta", MySqlDbType.VarChar).Value = If(String.IsNullOrEmpty(argReceta.NumReceta), CObj(DBNull.Value), argReceta.NumReceta)
+                    .Add("p_CodiTD", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, CObj(DBNull.Value), CObj(argReceta.Documento.TipoDocumento.CodiTD))
+                    .Add("p_NumDoc", MySqlDbType.VarChar).Value = If(argReceta.Documento Is Nothing, CObj(DBNull.Value), argReceta.Documento.Numero)
+                    .Add("p_Credencial", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, CObj(DBNull.Value), argReceta.Credencial.Numero)
+                    .Add("p_Nombre", MySqlDbType.VarChar).Value = If(argReceta.Credencial Is Nothing, CObj(DBNull.Value), argReceta.Credencial.Nombre)
+                    .Add("p_CodiTM", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, CObj(DBNull.Value), argReceta.Prescriptor.Matricula.TipoMatricula.CodiTM)
+                    .Add("p_CodiP", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, CObj(DBNull.Value), argReceta.Prescriptor.Provincia.CodiP)
+                    .Add("p_CodiTP", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, CObj(DBNull.Value), argReceta.Prescriptor.TipoPrescriptor.CodiTP)
+                    .Add("p_NumMatricula", MySqlDbType.VarChar).Value = If(argReceta.Prescriptor Is Nothing, CObj(DBNull.Value), argReceta.Prescriptor.Matricula.Numero)
                     .Add("p_ImporteTotal", MySqlDbType.Decimal).Value = argReceta.ImporteTotal
                     .Add("p_ImporteOS", MySqlDbType.Decimal).Value = argReceta.ImporteOS
                     .Add("p_ImporteAf", MySqlDbType.Decimal).Value = argReceta.ImporteAf
-                    .Add("p_NumAutorizacion", MySqlDbType.VarChar).Value = If(String.IsNullOrEmpty(argReceta.NumAutorizacion), DBNull.Value, argReceta.NumAutorizacion)
+                    .Add("p_NumAutorizacion", MySqlDbType.VarChar).Value = If(String.IsNullOrEmpty(argReceta.NumAutorizacion), CObj(DBNull.Value), argReceta.NumAutorizacion)
                     .Add("p_IdReceta", MySqlDbType.Int64)
                 End With
 

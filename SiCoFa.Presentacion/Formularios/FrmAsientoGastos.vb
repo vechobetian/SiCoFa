@@ -97,7 +97,7 @@ Public Class FrmAsientoGastos
         cmbCajaAbierta.FlatStyle = FlatStyle.Standard ' Vuelve al borde estándar
     End Sub
 
-    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As String, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
+    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As Integer, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
 
         Try
             Dim CBSeleccionada As CuentaBancaria = Nothing
@@ -151,7 +151,7 @@ Public Class FrmAsientoGastos
                         f.HeaderPropiedadDescripcion = "Cuenta Bancaria"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            cb = Me.SeleccionarCuentaBancariaListado(f.Valor1Seleccionado, lcb)
+                            cb = Me.SeleccionarCuentaBancariaListado(CInt(f.Valor1Seleccionado), lcb)
                         Else
                             Me.txtCuentaBancaria.Tag = ""
                             Me.txtCuentaBancaria.Text = ""
@@ -299,7 +299,7 @@ Public Class FrmAsientoGastos
                         f.HeaderPropiedadDescripcion = "Comprobante"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado, ltc)
+                            tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado.ToString, ltc)
                         Else
                             Me.txtTipoComprobante.Tag = ""
                             Me.txtTipoComprobante.Text = ""
@@ -494,7 +494,7 @@ Public Class FrmAsientoGastos
             Dim impCB As Decimal = 0
             Dim impEF As Decimal = 0
 
-            objAsCon.InsertarItem(Me.txtCuentaImputable.Tag, Convert.ToDecimal(Me.txtImporte.Text))
+            objAsCon.InsertarItem(Me.txtCuentaImputable.Tag.ToString, Convert.ToDecimal(Me.txtImporte.Text))
 
             If Me.cmbFPago.Text = "TRANSFERENCIA" Then
                 impCB = Convert.ToDecimal(Me.txtImporte.Text)
@@ -503,7 +503,7 @@ Public Class FrmAsientoGastos
             End If
 
             If Me.cmbFPago.Text = "CONTADO" Then
-                AfectaCajaAbierta = Me.cmbCajaAbierta.SelectedValue
+                AfectaCajaAbierta = CBool(Me.cmbCajaAbierta.SelectedValue)
                 impEF = Convert.ToDecimal(Me.txtImporte.Text)
                 objAsCon.InsertarItem("1.01.01.001", -impEF)
             End If
@@ -543,7 +543,7 @@ Public Class FrmAsientoGastos
                                                   )
 
             Dim AdminOperacion As New N_AdminOperaciones
-            AdminOperacion.AsientoGastoTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
+            AdminOperacion.AsientoGastoTransaccion(CBool(Me.cmbCajaAbierta.SelectedValue), g_ParametrosTerminal.MacAddress, g_ParametrosTerminal.Empresa, Me.Usuario, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
             Dim nuevoAsientoGastos As New FrmAsientoGastos
             nuevoAsientoGastos.Usuario = Me.Usuario

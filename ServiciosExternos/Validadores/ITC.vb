@@ -469,7 +469,7 @@ Public Class ITC
             writer.WriteElementString("Fecha", "")
             writer.WriteEndElement()
 
-            writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.ToString("yyyyMMdd"))
+            writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
 
             writer.WriteStartElement("Dispensa")
             writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
@@ -519,14 +519,14 @@ Public Class ITC
                     writer.WriteElementString("NroItem", nroItem.ToString())
                     writer.WriteElementString("CodBarras", i.CodBarras)
                     writer.WriteElementString("CodTroquel", i.NTroquel)
-                    writer.WriteElementString("Alfabeta", i.Codigo)
+                    writer.WriteElementString("Alfabeta", i.Codigo.ToString)
                     writer.WriteElementString("Kairos", "")
                     writer.WriteElementString("Codigo", "")
-                    writer.WriteElementString("ImporteUnitario", Strings.Replace(Math.Round(i.PrecioUnitario, 2), ",", "."))
+                    writer.WriteElementString("ImporteUnitario", Strings.Replace(Math.Round(i.PrecioUnitario, 2).ToString, ",", "."))
                     writer.WriteElementString("CantidadSolicitada", i.Cantidad.ToString())
-                    writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS, ",", "."))
+                    writer.WriteElementString("PorcentajeCobertura", Strings.Replace(i.PorcentajeOS.ToString, ",", "."))
                     writer.WriteElementString("CodPreautorizacion", "")
-                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoUnitarioOS, ",", "."))
+                    writer.WriteElementString("ImporteCobertura", Strings.Replace(i.DescuentoUnitarioOS.ToString, ",", "."))
                     writer.WriteElementString("ExcepcionPrescripcion", "")
                     writer.WriteElementString("Diagnostico", "")
                     writer.WriteElementString("DosisDiaria", "")
@@ -618,7 +618,7 @@ Public Class ITC
             writer.WriteElementString("ModoIngreso", "A")
             writer.WriteEndElement()
 
-            writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.ToString("yyyyMMdd"))
+            writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
 
             writer.WriteStartElement("Dispensa")
             writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
@@ -835,7 +835,7 @@ Public Class ITC
             ' NÚMERO DE RECETA
             '======================================================
 
-            receta.IdReceta = nodo.SelectSingleNode("*[local-name()='NroReceta']")?.InnerText
+            receta.Credencial.Numero = nodo.SelectSingleNode("*[local-name()='NroReceta']")?.InnerText
 
 
             '======================================================
@@ -889,7 +889,7 @@ Public Class ITC
 
                 Dim descripcion As String = item.InnerText.Trim()
 
-                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0)
+                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, False, 1, 0, 1, 1, 0, 0, 0, 0, 0)
 
                 itemsReceta.Add(itemReceta)
 
@@ -1043,7 +1043,7 @@ Public Class ITC
 
                 If itemSeleccionado IsNot Nothing Then
 
-                    Dim codigo As String = ""
+                    Dim codigo As Integer = 0
                     Dim idArticulo As String = ""
                     Dim codBarras As String = ""
                     Dim nTroquel As String = ""
@@ -1056,7 +1056,7 @@ Public Class ITC
 
                     If Not String.IsNullOrWhiteSpace(alfabeta) Then
 
-                        codigo = alfabeta.Trim()
+                        codigo = CInt(alfabeta.Trim())
 
                         idArticulo = "M" & codigo
 
@@ -1092,7 +1092,7 @@ Public Class ITC
                     ' CREAR ITEM
                     '==================================================
 
-                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), 0, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
+                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
 
                     argReceta.Items.Add(item)
 

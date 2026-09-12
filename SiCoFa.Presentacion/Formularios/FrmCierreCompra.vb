@@ -100,7 +100,7 @@ Public Class FrmCierreCompra
         cmbCajaAbierta.FlatStyle = FlatStyle.Standard ' Vuelve al borde estándar
     End Sub
 
-    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As String, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
+    Private Function SeleccionarCuentaBancariaListado(ByVal argIdCB As Integer, ByVal argLista As List(Of CuentaBancaria)) As CuentaBancaria
 
         Try
             Dim CBSeleccionada As CuentaBancaria = Nothing
@@ -154,7 +154,7 @@ Public Class FrmCierreCompra
                         f.HeaderPropiedadDescripcion = "Cuenta Bancaria"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            cb = Me.SeleccionarCuentaBancariaListado(f.Valor1Seleccionado, lcb)
+                            cb = Me.SeleccionarCuentaBancariaListado(CInt(f.Valor1Seleccionado), lcb)
                         Else
                             Me.txtCuentaBancaria.Tag = ""
                             Me.txtCuentaBancaria.Text = ""
@@ -302,7 +302,7 @@ Public Class FrmCierreCompra
                         f.HeaderPropiedadDescripcion = "Comprobante"
 
                         If f.ShowDialog() = DialogResult.OK Then
-                            tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado, ltc)
+                            tc = Me.SeleccionarTipoComprobanteListado(f.Valor1Seleccionado.ToString, ltc)
                         Else
                             Me.txtTipoComprobante.Tag = ""
                             Me.txtTipoComprobante.Text = ""
@@ -433,21 +433,21 @@ Public Class FrmCierreCompra
 
             If Me.cmbFPago.Text = "TRANSFERENCIA" Then
                 impCB = Convert.ToDecimal(Me.txtImporte.Text)
-                objOperacionCB = New OperacionCB(0, Me.cmbCajaAbierta.SelectedValue, "", impCB, "INICIADO")
+                objOperacionCB = New OperacionCB(0, CInt(Me.cmbCajaAbierta.SelectedValue), "", impCB, "INICIADO")
                 objAsCon.InsertarItem("1.01.03.001", -impCB)
             End If
 
             If Me.cmbFPago.Text = "CONTADO" Then
-                AfectaCajaAbierta = Me.cmbCajaAbierta.SelectedValue
+                AfectaCajaAbierta = CBool(Me.cmbCajaAbierta.SelectedValue)
                 impEF = Convert.ToDecimal(Me.txtImporte.Text)
                 objAsCon.InsertarItem("1.01.01.001", -impEF)
             End If
 
             If Me.cmbFPago.Text = "CREDITO" Then
-                objOperacionCP = New OperacionCP(0, Me.txtProveedor.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "NO CANCELADO", 0)
+                objOperacionCP = New OperacionCP(0, CInt(Me.txtProveedor.Tag), "", Convert.ToDecimal(Me.txtImporte.Text), "NO CANCELADO", 0)
                 objAsCon.InsertarItem("2.01.01.001", Convert.ToDecimal(Me.txtImporte.Text))
             Else
-                objOperacionCP = New OperacionCP(0, Me.txtProveedor.Tag, "", Convert.ToDecimal(Me.txtImporte.Text), "CANCELADO", 0)
+                objOperacionCP = New OperacionCP(0, CInt(Me.txtProveedor.Tag), "", Convert.ToDecimal(Me.txtImporte.Text), "CANCELADO", 0)
             End If
 
             Dim objComprobante As New Comprobante(
@@ -478,7 +478,7 @@ Public Class FrmCierreCompra
                                                   )
 
             Dim AdminOperacion As New N_AdminOperaciones
-            AdminOperacion.FinalizarCompraTransaccion(Me.cmbCajaAbierta.SelectedValue, g_ParametrosTerminal.MacAddress, Me.Operacion, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
+            AdminOperacion.FinalizarCompraTransaccion(CBool(Me.cmbCajaAbierta.SelectedValue), g_ParametrosTerminal.MacAddress, Me.Operacion, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
             Dim nuevaVentanaCompras As New FrmCompras()
             nuevaVentanaCompras.Usuario = Me.Operacion.Usuario

@@ -330,10 +330,10 @@ Public Class FrmCompras
                     Dim i As ItemComprobanteCompra
                     Dim precioCosto As Decimal
                     If Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked Then
-                        i = New ItemComprobanteCompra(a, 1, a.PrecioCosto, a.PrecioVenta, a.ListaPrecios.PorcentajeAplicado, True)
+                        i = New ItemComprobanteCompra(a, 1, a.PrecioCosto, a.PrecioVenta, CDec(a.ListaPrecios.PorcentajeAplicado), True)
                     Else
-                        precioCosto = a.PrecioCosto / (1 + a.AlicIVA / 100)
-                        i = New ItemComprobanteCompra(a, 1, precioCosto, a.PrecioVenta, a.ListaPrecios.PorcentajeAplicado, False)
+                        precioCosto = a.PrecioCosto / (1 + a.AlicuotaIVA.AlicIva / 100)
+                        i = New ItemComprobanteCompra(a, 1, precioCosto, a.PrecioVenta, CDec(a.ListaPrecios.PorcentajeAplicado), False)
                     End If
 
                     mobj_Items.Add(i)

@@ -39,7 +39,7 @@ Public Class FrmVentas
     Private mdec_ImporteGravado2 As Decimal = 0
     Private mdec_ImporteOS As Decimal = 0
     Private mdec_ImporteCS As Decimal = 0
-    Private mint_NextIdReceta = 0
+    Private mint_NextIdReceta As Integer = 0
 
     Private Function ObtenerNuevoIdReceta() As Long
 
@@ -697,7 +697,7 @@ Public Class FrmVentas
             Exit Sub
         End If
 
-        uc.ItemVenta.Cantidad = Val(uc.txtCantidad.Text)
+        uc.ItemVenta.Cantidad = CInt(Val(uc.txtCantidad.Text))
         uc.Bind(uc.ItemVenta)
         ActualizarTotales()
 
@@ -732,7 +732,7 @@ Public Class FrmVentas
             Exit Sub
         End If
 
-        uc.ItemVenta.PrecioUnitario = Val(uc.txtPrecioUnitario.Text)
+        uc.ItemVenta.PrecioUnitario = CDec(Val(uc.txtPrecioUnitario.Text))
 
         ActualizarTotales()
 
@@ -756,69 +756,73 @@ Public Class FrmVentas
 
         Try
             mint_CantidadItems = 0
-            mdec_ImporteCosto = 0
-            mdec_ImporteSinDescuentos = 0
-            mdec_ImporteDescuentos = 0
-            mdec_ImporteConDescuentos = 0
-            mdec_PorcentajeDescuentos = 0
-            mdec_ImporteExento = 0
-            mdec_ImporteGravado1 = 0
-            mdec_ImporteGravado2 = 0
-            mdec_ImporteOS = 0
-            mdec_ImporteCS = 0
+            mdec_ImporteCosto = 0D
+            mdec_ImporteSinDescuentos = 0D
+            mdec_ImporteDescuentos = 0D
+            mdec_ImporteConDescuentos = 0D
+            mdec_PorcentajeDescuentos = 0D
+            mdec_ImporteExento = 0D
+            mdec_ImporteGravado1 = 0D
+            mdec_ImporteGravado2 = 0D
+            mdec_ImporteOS = 0D
+            mdec_ImporteCS = 0D
 
             For Each i As ItemComprobante In Me.mobj_Items
 
                 If i.Articulo Is Nothing Then Continue For
 
                 mint_CantidadItems += 1
-                mdec_ImporteCosto += (i.Articulo.PrecioCosto * i.Cantidad)
+                ' Asegurar tipos Decimal explícitos
+                mdec_ImporteCosto += (i.Articulo.PrecioCosto * CDec(i.Cantidad))
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
                 mdec_ImporteOS += i.ImporteOS
                 mdec_ImporteCS += i.ImporteCS
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
 
+                ' Evaluación estricta de alícuotas usando literales Decimal (D)
                 Select Case i.AlicIVA
-                    Case 0
-
+                    Case 0D
                         If i.Receta Is Nothing Then
                             mdec_ImporteExento += i.ImporteConDescuento
                         Else
                             mdec_ImporteExento += i.ImporteSinDescuento
                         End If
 
-                    Case 10.5
+                    Case 10.5D
                         mdec_ImporteGravado1 += i.ImporteConDescuento
 
-                    Case 21
+                    Case 21D
+                        mdec_ImporteGravado2 += i.ImporteConDescuento
+
+                    Case Else
+                        ' Opcional: Acumular cualquier otra alícuota no estándar (ej. 27%)
                         mdec_ImporteGravado2 += i.ImporteConDescuento
 
                 End Select
             Next
 
-            If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+            ' Cálculo del porcentaje global de descuento
+            If mdec_ImporteSinDescuentos > 0D Then
+                mdec_PorcentajeDescuentos = Math.Round((mdec_ImporteDescuentos / mdec_ImporteSinDescuentos) * 100D, 2, MidpointRounding.ToEven)
             Else
-                mdec_PorcentajeDescuentos = 0
+                mdec_PorcentajeDescuentos = 0D
             End If
 
-            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems
+            ' Actualización de Interfaz
+            Me.lblCantidadItems.Text = "- Items: " & mint_CantidadItems.ToString()
             Me.lblImporteSinDescuentos.Text = mdec_ImporteSinDescuentos.ToString("$ #,##0.00")
-            'Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
-            Me.lblDescuentos.Text = "Descuentos (" & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%)"
+            Me.lblDescuentos.Text = String.Format("Descuentos ({0:#,##0.00}%)", mdec_PorcentajeDescuentos)
             Me.lblImporteDescuentos.Text = mdec_ImporteDescuentos.ToString("$ #,##0.00")
             Me.lblImporteOS.Text = mdec_ImporteOS.ToString("$ #,##0.00")
             Me.lblImporteCS.Text = mdec_ImporteCS.ToString("$ #,##0.00")
             Me.lblImporteConDescuentos.Text = mdec_ImporteConDescuentos.ToString("$ #,##0.00")
 
         Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "SiCoFa")
         End Try
 
     End Sub
-
     Private Sub CalcularTotalesPorReceta()
 
         ' Reset
@@ -1470,7 +1474,7 @@ Public Class FrmVentas
                 MessageBox.Show("El artículo seleccionado no tiene Monodroga Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
 
-            ElseIf item.Articulo.Potencia = 0 Then
+            ElseIf item.Articulo.Potencia = "0" Then
                 MessageBox.Show("El artículo seleccionado no tiene Potencia Establecida", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Exit Sub
 

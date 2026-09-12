@@ -5,13 +5,13 @@ Public Class N_AdminFTP
     Private mobj_D_AdminFTP As New D_AdminFTP
 
 
-    Public Function UploadFile(remotePath As String, localFilePath As String) As String
+    Public Function UploadFile(remotePath As String, localFilePath As String) As Boolean
         Try
             Return mobj_D_AdminFTP.UploadFile(remotePath, localFilePath)
 
         Catch ex As Exception
-            Throw New Exception(vecho.MensajeError(Me.ToString, "UploadFile", ex.Message))
-            Return "ERROR"
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "UploadFile", ex.Message))
+            Return False
         End Try
 
     End Function

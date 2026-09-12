@@ -20,7 +20,7 @@ Public Class D_AdminCuentasEmail
                         datos.Read()
 
                         If datos.HasRows Then
-                            objCEmail = New CuentaEmail(datos("IdCEmail"), datos("Port"), datos("Host"), datos("User"), datos("Psw"), datos("Mail"))
+                            objCEmail = New CuentaEmail(CInt(datos("IdCEmail")), CInt(datos("Port")), datos("Host").ToString, datos("User").ToString, datos("Psw").ToString, datos("Mail").ToString)
                         End If
                     End Using
 

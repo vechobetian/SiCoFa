@@ -97,7 +97,8 @@ Module ModInicio
                                                 argNCaja:=Convert.ToString(registroPaTer("NCaja")),
                                                 argMenuCaja:=Convert.ToBoolean(registroPaTer("MenuCaja")),
                                                 argImpresora:=Convert.ToString(registroPaTer("Impresora")),
-                                                argPapel:=Convert.ToString(registroPaTer("Papel"))
+                                                argPapel:=Convert.ToString(registroPaTer("Papel")),
+                                                argActualizar:=CInt(registroPaTer("Actualizar"))
                                                 )
 
             Return parametros

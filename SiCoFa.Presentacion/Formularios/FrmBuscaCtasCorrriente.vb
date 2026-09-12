@@ -7,14 +7,14 @@ Public Class FrmBuscaCtasCorrriente
     Private Sub SeleccionarCuenta()
 
         Dim c As New CuentaCorriente(
-                            Me.DataGridView1.CurrentRow.Cells("IdCC").Value,
-                            Me.DataGridView1.CurrentRow.Cells("IdCliente").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Descripcion").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Credito").Value,
-                            Me.DataGridView1.CurrentRow.Cells("FechaAlta").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Observaciones").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Estado").Value,
-                            Me.DataGridView1.CurrentRow.Cells("Saldo").Value
+                            CInt(Me.DataGridView1.CurrentRow.Cells("IdCC").Value),
+                            CInt(Me.DataGridView1.CurrentRow.Cells("IdCliente").Value),
+                            Me.DataGridView1.CurrentRow.Cells("Descripcion").Value.ToString,
+                            CDec(Me.DataGridView1.CurrentRow.Cells("Credito").Value),
+                            CDate(Me.DataGridView1.CurrentRow.Cells("FechaAlta").Value),
+                            Me.DataGridView1.CurrentRow.Cells("Observaciones").Value.ToString,
+                            Me.DataGridView1.CurrentRow.Cells("Estado").Value.ToString,
+                            CDec(Me.DataGridView1.CurrentRow.Cells("Saldo").Value)
                             )
         Me.CuentaSeleccionada = c
 

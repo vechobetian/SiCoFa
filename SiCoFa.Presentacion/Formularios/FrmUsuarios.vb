@@ -58,7 +58,7 @@ Public Class FrmUsuarios
 
         Try
             With Me
-                .TxtId.Text = argUsuario.Id
+                .TxtId.Text = argUsuario.Id.ToString
                 .TxtNombre.Text = argUsuario.Nombre
                 .TxtDomicilio.Text = argUsuario.Domicilio
                 .TxtLocalidad.Text = argUsuario.Localidad
@@ -67,7 +67,7 @@ Public Class FrmUsuarios
                 .TxtEmail.Text = argUsuario.Email
                 .UcTipoDoc.Asignar(argUsuario.Documento.TipoDocumento.CodiTD, argUsuario.Documento.TipoDocumento.Descripcion)
                 .TxtNumDoc.Text = argUsuario.Documento.Numero
-                .TxtFechaAlta.Text = argUsuario.FechaAlta
+                .TxtFechaAlta.Text = argUsuario.FechaAlta.ToString("dd/MM/yyyy")
                 .UcEstado.Descripcion = argUsuario.Estado
             End With
 
@@ -88,9 +88,9 @@ Public Class FrmUsuarios
             End If
 
             If Me.NuevaPersona = True Then
-                Dim Id As Integer = mAdminUsuarios.InsertarUsuario(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text)
+                Dim Id As Integer = mAdminUsuarios.InsertarUsuario(Me.TxtNombre.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text)
                 If Id > 0 Then
-                    Me.TxtId.Text = Id
+                    Me.TxtId.Text = Id.ToString
                     Me.TxtNombre.Text = UCase(Me.TxtNombre.Text)
                     MsgBox("Se dio de alta el Usuario " & TxtNombre.Text, vbInformation, "SiCoFa")
                 Else
@@ -105,12 +105,12 @@ Public Class FrmUsuarios
                     Exit Sub
                 End If
 
-                Dim Actualizado As Boolean = mAdminUsuarios.ActualizarUsuario(Me.TxtId.Text, Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id, Me.TxtNumDoc.Text, Me.UcEstado.Descripcion)
+                Dim Actualizado As Boolean = mAdminUsuarios.ActualizarUsuario(CInt(Me.TxtId.Text), Me.TxtDomicilio.Text, Me.TxtLocalidad.Text, Me.UcProvincia.Descripcion, Me.TxtTelefono.Text, Me.TxtEmail.Text, Me.UcTipoDoc.Id.ToString, Me.TxtNumDoc.Text, Me.UcEstado.Descripcion)
 
                 If Actualizado = True Then
                     MsgBox("El Usuario " & TxtNombre.Text & " se acutalizo correctamente", vbInformation, "SiCoFa")
                 Else
-                    MsgBox("Ocurrio un error, intente nuevamente", "SiCoFa")
+                    MsgBox("Ocurrio un error, intente nuevamente",, "SiCoFa")
                     Exit Sub
                 End If
             End If
