@@ -584,9 +584,9 @@ Public Class D_AdminArticulos
                                     argCodBarras As String,
                                     argNombre As String,
                                     argCodiTV As String,
-                                    argAlicIVA As Decimal,
+                                    argCodIVA As Integer,
                                     argCodiTE As String,
-                                    argCodiLabora As Integer,
+                                    argCodiLabora As String,
                                     argCodiMon As Integer,
                                     argCodiAcFa As Integer,
                                     argCodiTiCo As String,
@@ -606,7 +606,7 @@ Public Class D_AdminArticulos
                         .Add("p_NTroquel", MySqlDbType.VarChar).Value = argNTroquel
                         .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("p_CodiTV", MySqlDbType.VarChar).Value = argCodiTV
-                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
+                        .Add("p_CodIVA", MySqlDbType.Decimal).Value = argCodIVA
                         .Add("p_CodiTE", MySqlDbType.VarChar).Value = argCodiTE
                         .Add("p_CodiLabora", MySqlDbType.Int32).Value = argCodiLabora
                         .Add("p_CodiMon", MySqlDbType.Int32).Value = argCodiMon
@@ -639,9 +639,9 @@ Public Class D_AdminArticulos
                                         argNTroquel As String,
                                         argNombre As String,
                                         argCodiTV As String,
-                                        argAlicIVA As Decimal,
+                                        argCodIVA As Integer,
                                         argCodiTE As String,
-                                        argCodiLabora As Integer,
+                                        argCodiLabora As String,
                                         argCodiMon As Integer,
                                         argCodiAcFa As Integer,
                                         argCodiTiCo As String,
@@ -663,7 +663,7 @@ Public Class D_AdminArticulos
                         .Add("p_NTroquel", MySqlDbType.VarChar).Value = argNTroquel
                         .Add("p_Nombre", MySqlDbType.VarChar).Value = argNombre
                         .Add("p_CodiTV", MySqlDbType.VarChar).Value = argCodiTV
-                        .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argAlicIVA
+                        .Add("p_CodIVA", MySqlDbType.Decimal).Value = argCodIVA
                         .Add("p_CodiTE", MySqlDbType.VarChar).Value = argCodiTE
                         .Add("p_CodiLabora", MySqlDbType.VarChar).Value = argCodiLabora
                         .Add("p_CodiMon", MySqlDbType.VarChar).Value = argCodiMon

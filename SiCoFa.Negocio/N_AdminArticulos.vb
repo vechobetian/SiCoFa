@@ -106,9 +106,9 @@ Public Class N_AdminArticulos
                                     argNTroquel As String,
                                     argNombre As String,
                                     argCodiTV As String,
-                                    argAlicIVA As Decimal,
+                                    argCodIVA As Integer,
                                     argCodiTE As String,
-                                    argCodiLabora As Integer,
+                                    argCodiLabora As String,
                                     argCodiMon As Integer,
                                     argCodiAcFa As Integer,
                                     argCodiTiCo As String,
@@ -123,7 +123,7 @@ Public Class N_AdminArticulos
                                                                         UCase(argNTroquel),
                                                                         UCase(argNombre),
                                                                         argCodiTV,
-                                                                        argAlicIVA,
+                                                                        argCodIVA,
                                                                         argCodiTE,
                                                                         argCodiLabora,
                                                                         argCodiMon,
@@ -147,9 +147,9 @@ Public Class N_AdminArticulos
                                         argNTroquel As String,
                                         argNombre As String,
                                         argCodiTV As String,
-                                        argAlicIVA As Decimal,
+                                        argCodIVA As Integer,
                                         argCodiTE As String,
-                                        argCodiLabora As Integer,
+                                        argCodiLabora As String,
                                         argCodiMon As Integer,
                                         argCodiAcFa As Integer,
                                         argCodiTiCo As String,
@@ -160,13 +160,13 @@ Public Class N_AdminArticulos
 
 
         Dim AdminArticulos As New D_AdminArticulos
-            Dim Actualizado As Boolean = AdminArticulos.ActualizarArticulo(
+        Dim Actualizado As Boolean = AdminArticulos.ActualizarArticulo(
                                                                            argIdArticulo,
                                                                            UCase(argCodBarras),
                                                                            UCase(argNTroquel),
                                                                            UCase(argNombre),
                                                                            argCodiTV,
-                                                                           argAlicIVA,
+                                                                           argCodIVA,
                                                                            argCodiTE,
                                                                            argCodiLabora,
                                                                            argCodiMon,
@@ -176,7 +176,7 @@ Public Class N_AdminArticulos
                                                                            argBaja,
                                                                            argIdSeccion
                                                                            )
-            Return Actualizado
+        Return Actualizado
 
     End Function
 
