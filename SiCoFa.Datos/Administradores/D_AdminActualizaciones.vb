@@ -152,7 +152,7 @@ Public Class D_AdminActualizaciones
 
                 Try
                     ImportarAStaging(argRutaArchivo, cn, tx)
-                    EjecutarActualizacionObraSociales(argStoredProcedure, argNumeroActualizacion, cn, tx)
+                    EjecutarActualizacionObraSociales(argIdOS, argStoredProcedure, argNumeroActualizacion, cn, tx)
 
                     tx.Commit()
 
@@ -224,14 +224,36 @@ Public Class D_AdminActualizaciones
 
     End Sub
 
-    Public Sub EjecutarActualizacionObraSociales(ByVal sp As String, ByVal NumActualizacion As Long, cn As MySqlConnection, tx As MySqlTransaction)
+    Public Sub EjecutarActualizacionObraSociales(ByVal IdOS As Integer, ByVal sp As String, ByVal NumActualizacion As Long, cn As MySqlConnection, tx As MySqlTransaction)
 
         Using cmd As New MySqlCommand(sp, cn, tx)
 
             cmd.CommandType = CommandType.StoredProcedure
             cmd.CommandTimeout = 0
 
-            cmd.Parameters.Add("p_NumActualizacion", MySqlDbType.Int64).Value = NumActualizacion
+            Select Case sp
+
+                Case "sp_actualizar_os"
+
+                    cmd.Parameters.Add("p_NumActualizacion", MySqlDbType.Int64).Value = NumActualizacion
+
+                Case "sp_actualizar_vademecum"
+
+                    cmd.Parameters.Add("p_IdOS", MySqlDbType.Int32).Value = IdOS
+
+                Case "sp_actualizar_planes_os"
+
+                ' No recibe parámetros
+
+                Case "sp_actualizar_datos_requeridos"
+
+                    ' No recibe parámetros
+
+                Case Else
+
+                    Throw New Exception("Stored Procedure no reconocido: " & sp)
+
+            End Select
 
             cmd.ExecuteNonQuery()
 

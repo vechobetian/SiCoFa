@@ -125,7 +125,7 @@ Public Class D_AdminObraSociales
                     cmd.CommandType = CommandType.Text
                     cmd.CommandText = sql
 
-                    cmd.Parameters.AddWithValue("@IdVdm", argIdVdm)
+                    cmd.Parameters.Add("@IdVdm", MySqlDbType.Int32).Value = argIdVdm
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
 
