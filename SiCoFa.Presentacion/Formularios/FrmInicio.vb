@@ -402,6 +402,39 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub mnuDatosRequeridosValidacionOS_Click(sender As Object, e As EventArgs) Handles mnuDatosRequeridosValidacionOS.Click
+        Try
+            ' 1. Seleccionar el Plan de Obra Social
+            Dim planSeleccionado As PlanOS = Nothing
+
+            Using frmSelector As New FrmSelectorPlanesOS()
+                If frmSelector.ShowDialog() <> DialogResult.OK Then
+                    Exit Sub
+                End If
+                planSeleccionado = frmSelector.PlanSeleccionado
+            End Using
+
+            ' Validación por seguridad
+            If planSeleccionado Is Nothing Then
+                Exit Sub
+            End If
+
+            ' 2. Abrir el formulario de configuración y mostrar los datos
+            Using frmDatos As New FrmDatosRequeridos()
+
+                ' Al asignar esta propiedad, el formulario carga automáticamente los CheckBoxes
+                frmDatos.PlanOS = planSeleccionado
+
+                ' Mostramos el formulario de forma modal
+                frmDatos.ShowDialog()
+
+            End Using
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+    End Sub
+
     Private Sub ConfigurarFondoMDI()
         Dim mdiClient As MdiClient = ObtenerMdiClient(Me)
         If mdiClient IsNot Nothing Then

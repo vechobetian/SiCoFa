@@ -71,6 +71,7 @@ Partial Class FrmInicio
         Me.ActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDatosRequeridosValidacionOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -332,6 +333,7 @@ Partial Class FrmInicio
         '
         'mnuObraSociales
         '
+        Me.mnuObraSociales.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuDatosRequeridosValidacionOS})
         Me.mnuObraSociales.Name = "mnuObraSociales"
         Me.mnuObraSociales.Size = New System.Drawing.Size(95, 20)
         Me.mnuObraSociales.Text = "O&bras Sociales"
@@ -378,6 +380,12 @@ Partial Class FrmInicio
         Me.mnuAyuda.Name = "mnuAyuda"
         Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
         Me.mnuAyuda.Text = "Ay&uda"
+        '
+        'mnuDatosRequeridosValidacionOS
+        '
+        Me.mnuDatosRequeridosValidacionOS.Name = "mnuDatosRequeridosValidacionOS"
+        Me.mnuDatosRequeridosValidacionOS.Size = New System.Drawing.Size(223, 22)
+        Me.mnuDatosRequeridosValidacionOS.Text = "Datos Requeridos Validación"
         '
         'FrmInicio
         '
@@ -446,4 +454,5 @@ Partial Class FrmInicio
     Friend WithEvents ActualizarVersionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuEditarFraccionables As ToolStripMenuItem
     Friend WithEvents mnuObraSociales As ToolStripMenuItem
+    Friend WithEvents mnuDatosRequeridosValidacionOS As ToolStripMenuItem
 End Class

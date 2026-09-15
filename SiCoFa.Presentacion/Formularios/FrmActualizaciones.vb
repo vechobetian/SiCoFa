@@ -179,11 +179,11 @@ Public Class FrmActualizaciones
         Dim archivos = Await mAdminActualizaciones.ListarArchivosOSServidorAsync(mToken)
 
         Dim archivosOrdenados =
-        archivos.OrderBy(
-            Function(a)
-                Dim n = Path.GetFileNameWithoutExtension(a)
-                Return CLng(n.Substring(5))
-            End Function).ToList()
+                                archivos.OrderBy(
+                                Function(a)
+                                    Dim n = Path.GetFileNameWithoutExtension(a)
+                                    Return CLng(n.Substring(5))
+                                End Function).ToList()
 
         '------------------------------------------
         ' DESCARGAR
@@ -209,18 +209,22 @@ Public Class FrmActualizaciones
 
             Dim os As ObraSocial = Nothing
 
-            If Not mapOS.TryGetValue(idOS, os) Then
-                Continue For
-            End If
+            ' Si no existe en la BD, TryGetValue retorna False, pero 'os' queda en Nothing
+            ' y permitimos que continúe el flujo para descargarla.
+            mapOS.TryGetValue(idOS, os)
 
             '------------------------------------------
             ' NUMERO ACTUAL
             '------------------------------------------
 
-            Dim nroActual As Long =
-            If(os.NumeroActualizacion.HasValue,
-               os.NumeroActualizacion.Value,
-               0)
+            ' Si la obra social no existe localmente, asumimos versión 0 para que descargue la actualización
+            Dim nroActual As Long = 0
+
+            If os IsNot Nothing AndAlso os.NumeroActualizacion.HasValue Then
+                nroActual = os.NumeroActualizacion.Value
+            Else
+                os = New ObraSocial(idOS, "Nueva Obra Social", "", Nothing, False, nroActual)
+            End If
 
             '------------------------------------------
             ' NUMERO ACTUALIZACION DEL ZIP
@@ -236,6 +240,7 @@ Public Class FrmActualizaciones
                 Continue For
             End If
 
+            ' Como nroActual es 0 para las nuevas, cualquier número válido (> 0) pasará
             If nroActualizacionZip <= nroActual Then
                 Continue For
             End If
@@ -254,12 +259,12 @@ Public Class FrmActualizaciones
             '------------------------------------------
 
             Dim itemActualizacion As New ItemActualizacion With {
-            .Archivo = archivoZip,
-            .RutaArchivo = rutaZip,
-            .NumeroActualizacion = nroActualizacionZip,
-            .Estado = "Pendiente",
-            .ObraSocial = os
-        }
+                                                                .Archivo = archivoZip,
+                                                                .RutaArchivo = rutaZip,
+                                                                .NumeroActualizacion = nroActualizacionZip,
+                                                                .Estado = "Pendiente",
+                                                                .ObraSocial = os ' Puede ser Nothing si la obra social es nueva o no está registrada
+                                                                }
 
             AgregarItemActualizacion(itemActualizacion)
 
@@ -289,7 +294,10 @@ Public Class FrmActualizaciones
             ' Calcula un porcentaje progresivo entre el 50% y el 95%
             Dim porcentajeProceso As Integer = 50 + CInt((contador / totalItems) * 45)
 
-            Dim desc As String = If(item.Proceso IsNot Nothing, item.Proceso.Descripcion, item.ObraSocial.NombreOS)
+            ' Obtenemos un texto descriptivo seguro en caso de que ObraSocial sea Nothing
+            Dim nombreOS As String = If(item.ObraSocial IsNot Nothing, item.ObraSocial.NombreOS, $"Nueva OS (ID: {item.Archivo.Substring(2, 3)})")
+            Dim desc As String = If(item.Proceso IsNot Nothing, item.Proceso.Descripcion, nombreOS)
+
             OnProgresoCambiado?.Invoke(porcentajeProceso, $"Procesando ({contador}/{totalItems}): {desc}")
 
             item.Estado = "Procesando..."
@@ -303,6 +311,14 @@ Public Class FrmActualizaciones
 
                 Await ProcesarItemObraSocial(item)
 
+            Else
+                ' CASO: La obra social NO existe en la base de datos local (ObraSocial es Nothing)
+                ' Aquí debes decidir cómo procesarla (por ejemplo, darla de alta automáticamente o registrarla).
+                ' Si 'ProcesarItemObraSocial' soporta ítems sin ObraSocial (o manejas la creación dentro), puedes llamarlo directamente:
+                ' Await ProcesarItemObraSocial(item)
+
+                ' O bien, crear un método específico para dar de alta/procesar obras sociales nuevas:
+                ' Await ProcesarItemObraSocialNueva(item)
             End If
 
         Next
