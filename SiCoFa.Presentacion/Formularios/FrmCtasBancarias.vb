@@ -13,13 +13,8 @@ Public Class FrmCtasBancarias
 
     Private Sub ObtenerOpcionesBoolean()
 
-        Dim listaBooleanos As New List(Of OpcionBoolean) From {
-            New OpcionBoolean("No", False),
-            New OpcionBoolean("Sí", True)
-        }
-
-        BajaComboBox.DataSource = listaBooleanos
-        BajaComboBox.DisplayMember = "Texto"
+        BajaComboBox.DataSource = Buleano.Lista()
+        BajaComboBox.DisplayMember = "Descripcion"
         BajaComboBox.ValueMember = "Valor"
 
     End Sub

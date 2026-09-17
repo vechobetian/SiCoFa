@@ -826,30 +826,6 @@ Public Class FrmPresupuestos
         Me.GuardarCambios(Keys.F10)
     End Sub
 
-    Private Sub CopiarToolStripButton_Click(sender As Object, e As EventArgs) Handles CopiarToolStripButton.Click
-
-        PortapapelesVenta.Operacion = ClonarObjeto(mobj_Operacion)
-        PortapapelesVenta.Items = ClonarObjeto(mobj_Items)
-        PortapapelesVenta.Cliente = ClonarObjeto(mobj_Cliente)
-
-    End Sub
-
-    Private Sub PegarToolStripButton_Click(sender As Object, e As EventArgs) Handles PegarToolStripButton.Click
-        If PortapapelesVenta.Operacion IsNot Nothing Then
-            mobj_Items = ClonarObjeto(PortapapelesVenta.Items)
-            mobj_Cliente = ClonarObjeto(PortapapelesVenta.Cliente)
-
-            ' Actualizar la fuente de datos del DataGridView
-            Me.DataGridView1.DataSource = Nothing
-            Me.DataGridView1.DataSource = mobj_Items
-            Me.DataGridView1.ClearSelection()
-
-            ' Actualizar cualquier dato visual relacionado, por ejemplo:
-            Me.ActualizarDatosOperacion()
-            Me.ActualizarTotales()
-        End If
-    End Sub
-
     Private Sub ClienteToolStripButton_Click(sender As Object, e As EventArgs) Handles ClienteToolStripButton.Click
 
         Try

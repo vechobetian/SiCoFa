@@ -17,13 +17,8 @@ Public Class FrmAsientoGastos
 
     Private Sub ObtenerOpcionesBoolean()
 
-        Dim listaBooleanos As New List(Of OpcionBoolean) From {
-            New OpcionBoolean("No", False),
-            New OpcionBoolean("Sí", True)
-        }
-
-        cmbCajaAbierta.DataSource = listaBooleanos
-        cmbCajaAbierta.DisplayMember = "Texto"
+        cmbCajaAbierta.DataSource = Buleano.Lista()
+        cmbCajaAbierta.DisplayMember = "Descripcion"
         cmbCajaAbierta.ValueMember = "Valor"
         cmbCajaAbierta.SelectedIndex = -1
 

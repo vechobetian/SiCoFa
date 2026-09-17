@@ -117,7 +117,7 @@ Public Class FrmArticulos
     Private Sub CargarSelectorHeladera()
 
         With UcHeladera
-            .Objetos = Buleano.Lista
+            .Objetos = Buleano.Lista()
             .NombrePropiedadId = "Valor"
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Cadena de Frío"
@@ -132,7 +132,7 @@ Public Class FrmArticulos
     Private Sub CargarSelectorBaja()
 
         With UcBaja
-            .Objetos = Buleano.Lista
+            .Objetos = Buleano.Lista()
             .NombrePropiedadId = "Valor"
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Baja de Producto"

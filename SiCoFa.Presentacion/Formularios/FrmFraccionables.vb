@@ -11,7 +11,7 @@ Public Class FrmFraccionables
     Private Sub CargarSelectorFraccionable()
 
         With UcFraccionable
-            .Objetos = Buleano.Lista
+            .Objetos = Buleano.Lista()
             .NombrePropiedadId = "Valor"
             .NombrePropiedadDescripcion = "Descripcion"
             .TituloSelector = "Articulo Fraccionable"

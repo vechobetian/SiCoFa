@@ -147,14 +147,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\PortapapelesVenta.vb" />
     <Compile Include="Clases\ReporteComprobantes.vb" />
     <Compile Include="Clases\ReporteValidaciones.vb" />
     <Compile Include="Clases\Ticket58.vb" />
     <Compile Include="Clases\Ticket80.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
-    <Compile Include="Clases\OpcionBoolean.vb" />
     <Compile Include="Formularios\FrmDatosRequeridos.Designer.vb">
       <DependentUpon>FrmDatosRequeridos.vb</DependentUpon>
     </Compile>

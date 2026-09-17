@@ -22,29 +22,18 @@ Public Class FrmBuscaArticulos
             With Me.DataGridView1
                 .Rows.Add()
                 .Rows(x).Cells("IdArticulo").Value = a.IdArticulo
-                .Rows(x).Cells("Codigo").Value = a.Codigo
-                .Rows(x).Cells("CodBarras").Value = a.CodBarras
                 .Rows(x).Cells("Nombre").Value = a.Nombre
-                .Rows(x).Cells("Fraccionable").Value = If(a.Fraccionable, "SI", "NO")
-                .Rows(x).Cells("AlicIVA").Value = a.AlicuotaIVA.AlicIva
-                .Rows(x).Cells("FechaPrecio").Value = a.FechaPrecio
-                .Rows(x).Cells("PrecioCosto").Value = a.PrecioCosto
+                .Rows(x).Cells("Fraccionable").Value = If(a.Fraccionable, "SI", "")
                 .Rows(x).Cells("PrecioVenta").Value = a.PrecioVenta
-                .Rows(x).Cells("PrecioOferta").Value = a.PrecioOferta
-                .Rows(x).Cells("Baja").Value = a.Baja
-                .Rows(x).Cells("IdSeccion").Value = a.Seccion.IdSeccion
-                .Rows(x).Cells("Seccion").Value = a.Seccion.Seccion
-                .Rows(x).Cells("EstablecerPrecio").Value = a.Seccion.EstablecerPrecio
-                .Rows(x).Cells("ActualizarPrecio").Value = a.ActualizarPrecio
+                .Rows(x).Cells("Promocion").Value = If(a.TipoPromocion Is Nothing, "", a.TipoPromocion.Descripcion)
                 .Rows(x).Cells("StockC").Value = a.StockC
                 .Rows(x).Cells("StockF").Value = a.StockF
-                .Rows(x).Cells("CodiLP").Value = a.ListaPrecios.CodiLP
                 .Rows(x).Cells("ListaPrecios").Value = a.ListaPrecios.ListaPrecios
                 .Rows(x).Cells("Laboratorio").Value = a.Laboratorio.Laboratorio
             End With
             x += 1
         Next
-        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(3)
+        Me.DataGridView1.CurrentCell = Me.DataGridView1.Rows(0).Cells(2)
 
     End Sub
     Private Sub FrmBuscaArticulos_Load(sender As Object, e As EventArgs) Handles Me.Load

@@ -27,7 +27,6 @@ Partial Class FrmBuscaArticulos
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.lblAccionFarmacologica = New System.Windows.Forms.Label()
         Me.lblMonodroga = New System.Windows.Forms.Label()
@@ -44,23 +43,12 @@ Partial Class FrmBuscaArticulos
         Me.lblHeladera = New System.Windows.Forms.Label()
         Me.Heladera = New System.Windows.Forms.Label()
         Me.IdArticulo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Codigo = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodBarras = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fraccionable = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.AlicIVA = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.FechaPrecio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PrecioCosto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PrecioVenta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.PrecioOferta = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Baja = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.IdSeccion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Seccion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.EstablecerPrecio = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ActualizarPrecio = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Promocion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StockC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StockF = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CodiLP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ListaPrecios = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Laboratorio = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -73,7 +61,7 @@ Partial Class FrmBuscaArticulos
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Codigo, Me.CodBarras, Me.Nombre, Me.Fraccionable, Me.AlicIVA, Me.FechaPrecio, Me.PrecioCosto, Me.PrecioVenta, Me.PrecioOferta, Me.Baja, Me.IdSeccion, Me.Seccion, Me.EstablecerPrecio, Me.ActualizarPrecio, Me.StockC, Me.StockF, Me.CodiLP, Me.ListaPrecios, Me.Laboratorio})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdArticulo, Me.Nombre, Me.Fraccionable, Me.PrecioVenta, Me.Promocion, Me.StockC, Me.StockF, Me.ListaPrecios, Me.Laboratorio})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Top
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
@@ -236,31 +224,13 @@ Partial Class FrmBuscaArticulos
         Me.IdArticulo.Visible = False
         Me.IdArticulo.Width = 5
         '
-        'Codigo
-        '
-        Me.Codigo.DataPropertyName = "Codigo"
-        Me.Codigo.HeaderText = "Codigo"
-        Me.Codigo.Name = "Codigo"
-        Me.Codigo.ReadOnly = True
-        Me.Codigo.Visible = False
-        '
-        'CodBarras
-        '
-        Me.CodBarras.DataPropertyName = "CodBarras"
-        Me.CodBarras.FillWeight = 90.0!
-        Me.CodBarras.HeaderText = "CodBarras"
-        Me.CodBarras.Name = "CodBarras"
-        Me.CodBarras.ReadOnly = True
-        Me.CodBarras.Visible = False
-        Me.CodBarras.Width = 90
-        '
         'Nombre
         '
+        Me.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.Nombre.DataPropertyName = "Nombre"
         Me.Nombre.HeaderText = "Articulo"
         Me.Nombre.Name = "Nombre"
         Me.Nombre.ReadOnly = True
-        Me.Nombre.Width = 400
         '
         'Fraccionable
         '
@@ -271,30 +241,6 @@ Partial Class FrmBuscaArticulos
         Me.Fraccionable.Name = "Fraccionable"
         Me.Fraccionable.ReadOnly = True
         Me.Fraccionable.Width = 80
-        '
-        'AlicIVA
-        '
-        Me.AlicIVA.DataPropertyName = "AlicIVA"
-        Me.AlicIVA.HeaderText = "AlicIVA"
-        Me.AlicIVA.Name = "AlicIVA"
-        Me.AlicIVA.ReadOnly = True
-        Me.AlicIVA.Visible = False
-        '
-        'FechaPrecio
-        '
-        Me.FechaPrecio.DataPropertyName = "FechaPrecio"
-        Me.FechaPrecio.HeaderText = "FechaPrecio"
-        Me.FechaPrecio.Name = "FechaPrecio"
-        Me.FechaPrecio.ReadOnly = True
-        Me.FechaPrecio.Visible = False
-        '
-        'PrecioCosto
-        '
-        Me.PrecioCosto.DataPropertyName = "PrecioCosto"
-        Me.PrecioCosto.HeaderText = "PrecioCosto"
-        Me.PrecioCosto.Name = "PrecioCosto"
-        Me.PrecioCosto.ReadOnly = True
-        Me.PrecioCosto.Visible = False
         '
         'PrecioVenta
         '
@@ -307,59 +253,18 @@ Partial Class FrmBuscaArticulos
         Me.PrecioVenta.Name = "PrecioVenta"
         Me.PrecioVenta.ReadOnly = True
         '
-        'PrecioOferta
+        'Promocion
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        Me.PrecioOferta.DefaultCellStyle = DataGridViewCellStyle4
-        Me.PrecioOferta.HeaderText = "Pcio.Oferta"
-        Me.PrecioOferta.Name = "PrecioOferta"
-        Me.PrecioOferta.ReadOnly = True
-        '
-        'Baja
-        '
-        Me.Baja.DataPropertyName = "Baja"
-        Me.Baja.HeaderText = "Baja"
-        Me.Baja.Name = "Baja"
-        Me.Baja.ReadOnly = True
-        Me.Baja.Visible = False
-        '
-        'IdSeccion
-        '
-        Me.IdSeccion.DataPropertyName = "IdSeccion"
-        Me.IdSeccion.HeaderText = "IdSeccion"
-        Me.IdSeccion.Name = "IdSeccion"
-        Me.IdSeccion.ReadOnly = True
-        Me.IdSeccion.Visible = False
-        '
-        'Seccion
-        '
-        Me.Seccion.DataPropertyName = "Seccion"
-        Me.Seccion.HeaderText = "Seccion"
-        Me.Seccion.Name = "Seccion"
-        Me.Seccion.ReadOnly = True
-        '
-        'EstablecerPrecio
-        '
-        Me.EstablecerPrecio.DataPropertyName = "EstablecerPrecio"
-        Me.EstablecerPrecio.HeaderText = "EtablecerPrecio"
-        Me.EstablecerPrecio.Name = "EstablecerPrecio"
-        Me.EstablecerPrecio.ReadOnly = True
-        Me.EstablecerPrecio.Visible = False
-        '
-        'ActualizarPrecio
-        '
-        Me.ActualizarPrecio.DataPropertyName = "ActualizarPrecio"
-        Me.ActualizarPrecio.HeaderText = "ActualizarPrecio"
-        Me.ActualizarPrecio.Name = "ActualizarPrecio"
-        Me.ActualizarPrecio.ReadOnly = True
-        Me.ActualizarPrecio.Visible = False
+        Me.Promocion.HeaderText = "Promocion"
+        Me.Promocion.Name = "Promocion"
+        Me.Promocion.ReadOnly = True
+        Me.Promocion.Width = 150
         '
         'StockC
         '
         Me.StockC.DataPropertyName = "StockC"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockC.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockC.DefaultCellStyle = DataGridViewCellStyle4
         Me.StockC.HeaderText = "Stock C"
         Me.StockC.Name = "StockC"
         Me.StockC.ReadOnly = True
@@ -367,20 +272,12 @@ Partial Class FrmBuscaArticulos
         '
         'StockF
         '
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockF.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockF.DefaultCellStyle = DataGridViewCellStyle5
         Me.StockF.HeaderText = "Stock F"
         Me.StockF.Name = "StockF"
         Me.StockF.ReadOnly = True
         Me.StockF.Width = 70
-        '
-        'CodiLP
-        '
-        Me.CodiLP.DataPropertyName = "CodiLP"
-        Me.CodiLP.HeaderText = "CodiLP"
-        Me.CodiLP.Name = "CodiLP"
-        Me.CodiLP.ReadOnly = True
-        Me.CodiLP.Visible = False
         '
         'ListaPrecios
         '
@@ -443,23 +340,12 @@ Partial Class FrmBuscaArticulos
     Friend WithEvents lblHeladera As Label
     Friend WithEvents Heladera As Label
     Friend WithEvents IdArticulo As DataGridViewTextBoxColumn
-    Friend WithEvents Codigo As DataGridViewTextBoxColumn
-    Friend WithEvents CodBarras As DataGridViewTextBoxColumn
     Friend WithEvents Nombre As DataGridViewTextBoxColumn
     Friend WithEvents Fraccionable As DataGridViewTextBoxColumn
-    Friend WithEvents AlicIVA As DataGridViewTextBoxColumn
-    Friend WithEvents FechaPrecio As DataGridViewTextBoxColumn
-    Friend WithEvents PrecioCosto As DataGridViewTextBoxColumn
     Friend WithEvents PrecioVenta As DataGridViewTextBoxColumn
-    Friend WithEvents PrecioOferta As DataGridViewTextBoxColumn
-    Friend WithEvents Baja As DataGridViewTextBoxColumn
-    Friend WithEvents IdSeccion As DataGridViewTextBoxColumn
-    Friend WithEvents Seccion As DataGridViewTextBoxColumn
-    Friend WithEvents EstablecerPrecio As DataGridViewTextBoxColumn
-    Friend WithEvents ActualizarPrecio As DataGridViewTextBoxColumn
+    Friend WithEvents Promocion As DataGridViewTextBoxColumn
     Friend WithEvents StockC As DataGridViewTextBoxColumn
     Friend WithEvents StockF As DataGridViewTextBoxColumn
-    Friend WithEvents CodiLP As DataGridViewTextBoxColumn
     Friend WithEvents ListaPrecios As DataGridViewTextBoxColumn
     Friend WithEvents Laboratorio As DataGridViewTextBoxColumn
 End Class

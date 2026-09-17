@@ -56,7 +56,7 @@
                     ByVal argPrecioUnitario As Decimal,
                     ByVal argPorcentajeDescuento As Decimal,
                     ByVal argPorcentajeOS As Decimal,
-                    ByVal argDecuentoUnitarioOS As Decimal,
+                    ByVal argDescuentoUnitarioOS As Decimal,
                     ByVal argPorcentajeCS As Decimal,
                     ByVal argDescuentoUnitarioCS As Decimal,
                     Optional ByVal argCodigo As Integer = 0,
@@ -74,7 +74,7 @@
         m_PrecioUnitario = argPrecioUnitario
         m_PorcentajeDescuento = argPorcentajeDescuento
         m_PorcentajeOS = argPorcentajeOS
-        m_DescuentoUnitarioOS = argDecuentoUnitarioOS
+        m_DescuentoUnitarioOS = argDescuentoUnitarioOS
         m_PorcentajeCS = argPorcentajeCS
         m_DescuentoUnitarioCS = argDescuentoUnitarioCS
         m_Codigo = argCodigo
@@ -172,11 +172,7 @@
             Return m_Cantidad
         End Get
         Set(value As Integer)
-            If m_Cantidad <> value Then ' Solo recalcula si el valor cambia
-                m_Cantidad = value
-                ' Aquí no necesitamos recalcular todas las propiedades
-                ' porque son ReadOnly y se calcularán al accederlas.
-            End If
+            m_Cantidad = value
         End Set
     End Property
 
@@ -194,17 +190,10 @@
     Public Property PrecioUnitario() As Decimal
 
         Get
-
             Return m_PrecioUnitario
-
         End Get
-
         Set(value As Decimal)
-
-            If m_PrecioUnitario <> value Then ' Solo recalcula si el valor cambia
-                m_PrecioUnitario = value
-            End If
-
+            m_PrecioUnitario = value
         End Set
 
     End Property
@@ -214,9 +203,7 @@
             Return m_AlicIVA
         End Get
         Set(value As Decimal)
-            If m_AlicIVA <> value Then ' Solo recalcula si el valor cambia
-                m_AlicIVA = value
-            End If
+            m_AlicIVA = value
         End Set
     End Property
 
@@ -225,9 +212,7 @@
             Return m_PorcentajeDescuento
         End Get
         Set(value As Decimal)
-            If m_PorcentajeDescuento <> value Then ' Solo recalcula si el valor cambia
-                m_PorcentajeDescuento = value
-            End If
+            m_PorcentajeDescuento = value
         End Set
     End Property
 
@@ -256,7 +241,6 @@
         Get
             Return m_DescuentoUnitarioOS
         End Get
-
         Set(DesOS As Decimal)
             m_DescuentoUnitarioOS = DesOS
         End Set
@@ -268,7 +252,6 @@
         Get
             Return m_PorcentajeCS
         End Get
-
         Set(PCS As Decimal)
             m_PorcentajeCS = PCS
         End Set
@@ -279,7 +262,6 @@
         Get
             Return m_DescuentoUnitarioCS
         End Get
-
         Set(DesCS As Decimal)
             m_DescuentoUnitarioCS = DesCS
         End Set
@@ -392,7 +374,5 @@
             Return Math.Round(m_Cantidad * m_DescuentoUnitarioCS, 2, MidpointRounding.ToEven)
         End Get
     End Property
-
-
 
 End Class

@@ -12,13 +12,8 @@ Public Class FrmMediosPE
 
     Private Sub ObtenerOpcionesBoolean()
 
-        Dim listaBooleanos As New List(Of OpcionBoolean) From {
-            New OpcionBoolean("No", False),
-            New OpcionBoolean("Sí", True)
-        }
-
-        cmbBaja.DataSource = listaBooleanos
-        cmbBaja.DisplayMember = "Texto"
+        cmbBaja.DataSource = Buleano.Lista()
+        cmbBaja.DisplayMember = "Descripcion"
         cmbBaja.ValueMember = "Valor"
         cmbBaja.SelectedIndex = -1
 
