@@ -117,7 +117,7 @@
                 m_PrecioCosto = a.PrecioCosto
                 m_PrecioUnitario = a.PrecioVenta
                 m_AlicIVA = a.AlicuotaIVA.AlicIva
-                m_PorcentajeDescuento = CalcularPorcentajeDescuentoPromocion()
+                m_TipoPromocion = a.TipoPromocion
             End If
 
         End Set
@@ -212,6 +212,7 @@
         End Get
         Set(value As Integer)
             m_Cantidad = value
+            Me.PorcentajeDescuento = Me.CalcularPorcentajeDescuentoPromocion()
         End Set
     End Property
 
