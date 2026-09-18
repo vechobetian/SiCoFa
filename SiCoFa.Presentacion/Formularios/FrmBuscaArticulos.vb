@@ -19,13 +19,14 @@ Public Class FrmBuscaArticulos
     Private Sub CargarDatosEnDataGridView()
         Dim x As Integer
         For Each a As Articulo In Me.Articulos
+
             With Me.DataGridView1
                 .Rows.Add()
                 .Rows(x).Cells("IdArticulo").Value = a.IdArticulo
                 .Rows(x).Cells("Nombre").Value = a.Nombre
                 .Rows(x).Cells("Fraccionable").Value = If(a.Fraccionable, "SI", "")
                 .Rows(x).Cells("PrecioVenta").Value = a.PrecioVenta
-                .Rows(x).Cells("Promocion").Value = If(a.TipoPromocion Is Nothing, "", a.TipoPromocion.Descripcion)
+                .Rows(x).Cells("Promocion").Value = If(a.TipoPromocion Is Nothing Or a.TipoPromocion.CodiPro = "0", "", a.TipoPromocion.Descripcion)
                 .Rows(x).Cells("StockC").Value = a.StockC
                 .Rows(x).Cells("StockF").Value = a.StockF
                 .Rows(x).Cells("ListaPrecios").Value = a.ListaPrecios.ListaPrecios

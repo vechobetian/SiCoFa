@@ -1,6 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports SiCoFa.Entidades
-Imports SiCoFa.Entidades.Enums
 
 Public Module ArticuloMapper
 
@@ -15,9 +14,8 @@ Public Module ArticuloMapper
         Dim accionFarmacologica As New AccionFarmacologica(CInt(datos("CodiAcFa")), datos("AccionFarmacologica").ToString())
         Dim seccion As New Seccion(datos("IdSeccion").ToString(), datos("Seccion").ToString(), Convert.ToBoolean(datos("EstablecerPrecio")))
         Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(CInt(datos("CodiVia")), datos("ViaAdministracion").ToString)
-        Dim tipoPromocion As New TipoPromocion(datos("CodiPro").ToString)
+        Dim tipoPromocion As New TipoPromocion(datos("CodiPro").ToString, CDec(datos("DesOferta")))
         Dim listaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios").ToString)
-
 
         Return New Articulo(
                             datos("IdArticulo").ToString(),

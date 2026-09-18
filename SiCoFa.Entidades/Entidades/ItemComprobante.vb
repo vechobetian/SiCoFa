@@ -10,6 +10,7 @@
     Private m_Cantidad As Integer
     Private m_PrecioCosto As Decimal
     Private m_PrecioUnitario As Decimal ' Precio con IVA (si esa es la convención)
+    Private m_TipoPromocion As TipoPromocion
     Private m_AlicIVA As Decimal
     Private m_PorcentajeDescuento As Decimal
     Private m_Receta As Receta
@@ -116,10 +117,48 @@
                 m_PrecioCosto = a.PrecioCosto
                 m_PrecioUnitario = a.PrecioVenta
                 m_AlicIVA = a.AlicuotaIVA.AlicIva
+                m_PorcentajeDescuento = CalcularPorcentajeDescuentoPromocion()
             End If
 
         End Set
 
+    End Property
+
+    Private Function CalcularPorcentajeDescuentoPromocion() As Decimal
+        If m_TipoPromocion Is Nothing Or m_Articulo Is Nothing Or m_Receta IsNot Nothing Then Return 0D
+
+        If m_TipoPromocion.CodiPro <> "D1U" Then
+            If m_Cantidad Mod m_TipoPromocion.UnidadesCombo <> 0 Then
+                Return 0D
+            End If
+        End If
+
+        Select Case m_TipoPromocion.CodiPro
+            Case "2X1"
+                Return 50D
+
+            Case "3X2"
+                Return 33.33D
+
+            Case "D2U"
+                Return m_Articulo.DesOferta / 2D
+
+            Case "D1U"
+                Return m_Articulo.DesOferta
+
+            Case Else
+                Return 0D
+        End Select
+
+    End Function
+
+    Public Property TipoPromocion() As TipoPromocion
+        Get
+            Return m_TipoPromocion
+        End Get
+        Set(value As TipoPromocion)
+            m_TipoPromocion = value
+        End Set
     End Property
 
     Public Property NTroquel() As String

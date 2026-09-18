@@ -3,6 +3,7 @@
     Public Property CodiPro As String
 
     Private m_Descripcion As String
+    Private m_PorcentajeDescuento As Decimal
 
     Public ReadOnly Property Descripcion As String
         Get
@@ -10,7 +11,17 @@
         End Get
     End Property
 
-    Public Property CantidadPredeterminada As Integer
+    Public Property PorcentajeDescuento As Decimal
+        Get
+            Return m_PorcentajeDescuento
+        End Get
+        Set(value As Decimal)
+            m_PorcentajeDescuento = value
+        End Set
+
+    End Property
+
+    Public Property UnidadesCombo As Integer
 
     Public Shared ReadOnly Property Lista As List(Of TipoPromocion)
         Get
@@ -23,31 +34,36 @@
         End Get
     End Property
 
-    Public Sub New(ByVal argCodiPro As String)
+    Public Sub New(argCodiPro As String, Optional argPorcentajeDescuento As Decimal = 0)
 
         Me.CodiPro = argCodiPro.Trim().ToUpper()
 
         Select Case Me.CodiPro
 
             Case "2X1"
+                m_PorcentajeDescuento = argPorcentajeDescuento
                 m_Descripcion = "DOS POR UNO"
-                CantidadPredeterminada = 2
+                UnidadesCombo = 2
 
             Case "3X2"
+                m_PorcentajeDescuento = argPorcentajeDescuento
                 m_Descripcion = "TRES POR DOS"
-                CantidadPredeterminada = 3
+                UnidadesCombo = 3
 
             Case "D1U"
-                m_Descripcion = "DESCUENTO OFERTA"
-                CantidadPredeterminada = 1
+                m_PorcentajeDescuento = argPorcentajeDescuento
+                m_Descripcion = m_PorcentajeDescuento & "% DESC.OFERTA"
+                UnidadesCombo = 1
 
             Case "D2U"
-                m_Descripcion = "DESCUENTO SEGUNDA UNIDAD"
-                CantidadPredeterminada = 2
+                m_PorcentajeDescuento = argPorcentajeDescuento
+                m_Descripcion = m_PorcentajeDescuento & "% DESC.2° UNIDAD"
+                UnidadesCombo = 2
 
             Case Else
+                m_PorcentajeDescuento = argPorcentajeDescuento
                 m_Descripcion = "DESCONOCIDA"
-                CantidadPredeterminada = 1
+                UnidadesCombo = 1
 
         End Select
 

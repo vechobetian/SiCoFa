@@ -1,5 +1,4 @@
-﻿Imports SiCoFa.Entidades.Enums
-
+﻿
 Public Class Articulo
     Property IdArticulo As String
     Property Codigo As Integer
@@ -104,6 +103,7 @@ Public Class Articulo
         Me.GTIN = argGTIN
         Me.ViaAdministracion = argViaAdministracion
         Me.DesOferta = argDesOferta
+        Me.TipoPromocion = argTipoPromocion
         Me.Fraccionable = argFraccionable
         Me.DFrac = argDFrac
         Me.UDiv = argUDiv
