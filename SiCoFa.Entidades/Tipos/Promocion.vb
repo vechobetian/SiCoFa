@@ -1,4 +1,4 @@
-﻿Public Class TipoPromocion
+﻿Public Class Promocion
 
     Public Property CodiPro As String
 
@@ -23,13 +23,13 @@
 
     Public Property UnidadesCombo As Integer
 
-    Public Shared ReadOnly Property Lista As List(Of TipoPromocion)
+    Public Shared ReadOnly Property Lista As List(Of Promocion)
         Get
-            Return New List(Of TipoPromocion) From {
-                New TipoPromocion("2X1"),
-                New TipoPromocion("3X2"),
-                New TipoPromocion("D1U"),
-                New TipoPromocion("D2U")
+            Return New List(Of Promocion) From {
+                New Promocion("2X1"),
+                New Promocion("3X2"),
+                New Promocion("D1U"),
+                New Promocion("D2U")
             }
         End Get
     End Property

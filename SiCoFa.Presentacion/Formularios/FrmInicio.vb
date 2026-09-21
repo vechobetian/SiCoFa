@@ -125,17 +125,6 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub mnuOperacionesPresupuestos_Click(sender As Object, e As EventArgs) Handles mnuOperacionesPresupuestos.Click
-        Dim u As Usuario = ModSeguridad.ValidarUsuario(Me.mnuOperacionesPresupuestos.Name)
-
-        If u IsNot Nothing Then
-            Dim nuevoVentanaPresupuestos As New FrmPresupuestos()
-            nuevoVentanaPresupuestos.Usuario = u
-            nuevoVentanaPresupuestos.Show()
-        End If
-
-    End Sub
-
     Private Sub mnuCajaMovimientos_Click(sender As Object, e As EventArgs) Handles mnuCajaMovimientos.Click
 
         Dim u As Usuario = ModSeguridad.ValidarUsuario(Me.mnuCajaMovimientos.Name)

@@ -670,7 +670,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarPresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante) As Boolean
+    Public Function FinalizarPresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante, ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -680,7 +680,15 @@ Public Class D_AdminOperaciones
 
                 Try
 
+                    argOperacion = IniciarOperacion(argOperacion.Empresa, argOperacion.Usuario, argOperacion.TipoOperacion, argOperacion.Observaciones, argOperacion.EstadoOperacion, cn, tx)
+
+                    If argItemsComprobante IsNot Nothing Then
+                        Dim AdminItemsComprobante As New D_AdminItemsComprobante
+                        AdminItemsComprobante.InsertarItemsComprobanteVenta(argOperacion.IdOperacion, argItemsComprobante, cn, tx)
+                    End If
+
                     Dim AdminComprobantes As New D_AdminComprobantes
+                    argComprobante.Operacion = argOperacion
                     AdminComprobantes.EmitirComprobante(argComprobante, cn, tx)
 
                     Me.FinalizarOperacion(argMacAddress, argOperacion, True, cn, tx)

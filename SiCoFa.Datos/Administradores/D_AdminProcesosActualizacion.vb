@@ -16,7 +16,8 @@ Public Class D_AdminProcesosActualizacion
         argDescripcion:=dr("Descripcion").ToString(),
         argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
         argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
-        argStoredProcedure:=If(IsDBNull(dr("StoredProcedure")), Nothing, dr("StoredProcedure").ToString())
+        argStoredProcedure:=If(IsDBNull(dr("StoredProcedure")), Nothing, dr("StoredProcedure").ToString()),
+        argCodiLP:=If(IsDBNull(dr("CodiLP")), Nothing, Convert.ToInt32(dr("CodiLP")))
     )
 
     End Function
@@ -34,7 +35,8 @@ Public Class D_AdminProcesosActualizacion
                     Descripcion,
                     PorcentajeAplicado,
                     NumeroActualizacion,
-                    StoredProcedure
+                    StoredProcedure,
+                    CodiLP
                  FROM procesos_actualizacion                 
                  ORDER BY Descripcion"
 

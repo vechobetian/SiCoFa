@@ -1,7 +1,6 @@
 ﻿Public Class ItemComprobanteNC
     Private ReadOnly m_IdItem As Long
     Private ReadOnly m_IdArticulo As String
-    Private ReadOnly m_CodBarras As String
     Private ReadOnly m_Descripcion As String
     Private ReadOnly m_Fraccionado As Boolean
     Private ReadOnly m_CantidadF As Integer
@@ -10,12 +9,13 @@
     Private ReadOnly m_PrecioCosto As Decimal
     Private ReadOnly m_PrecioUnitario As Decimal
     Private ReadOnly m_AlicIVA As Decimal
+    Private ReadOnly m_PorcentajeDescuento As Decimal
     Private ReadOnly m_DescuentoUnitario As Decimal
+    Private ReadOnly m_CodiPro As String
 
     Public Sub New(
         ByVal argIdItem As Long,
         ByVal argIdArticulo As String,
-        ByVal argCodBarras As String,
         ByVal argDescripcion As String,
         ByVal argFraccionado As Boolean,
         ByVal argCantidadF As Integer,
@@ -23,10 +23,11 @@
         ByVal argPrecioCosto As Decimal,
         ByVal argPrecioUnitario As Decimal,
         ByVal argAlicIVA As Decimal,
-        ByVal argDescuentoUnitario As Decimal
+        ByVal argPorcentajeDescuento As Decimal,
+        ByVal argDescuentoUnitario As Decimal,
+        ByVal argCodiPro As String
     )
         m_IdItem = argIdItem
-        m_CodBarras = argCodBarras
         m_IdArticulo = argIdArticulo
         m_Descripcion = argDescripcion
         m_Fraccionado = argFraccionado
@@ -35,7 +36,9 @@
         m_PrecioCosto = argPrecioCosto
         m_PrecioUnitario = argPrecioUnitario
         m_AlicIVA = argAlicIVA
+        m_PorcentajeDescuento = argPorcentajeDescuento
         m_DescuentoUnitario = argDescuentoUnitario
+        m_CodiPro = argCodiPro
     End Sub
 
     Public ReadOnly Property IdItem() As Long
@@ -47,12 +50,6 @@
     Public ReadOnly Property IdArticulo() As String
         Get
             Return m_IdArticulo
-        End Get
-    End Property
-
-    Public ReadOnly Property CodBarras() As String
-        Get
-            Return m_CodBarras
         End Get
     End Property
 
@@ -109,11 +106,7 @@
 
     Public ReadOnly Property PorcentajeDescuento() As Decimal
         Get
-            If m_DescuentoUnitario = 0 OrElse m_PrecioUnitario = 0 Then
-                Return 0
-            Else
-                Return Math.Round(m_DescuentoUnitario / m_PrecioUnitario * 100, 2, MidpointRounding.ToEven)
-            End If
+            Return m_PorcentajeDescuento
         End Get
     End Property
 
@@ -186,4 +179,11 @@
             Return Me.ImporteNetoConDescuento + Me.ImporteIVA
         End Get
     End Property
+
+    Public ReadOnly Property CodiPro() As String
+        Get
+            Return m_CodiPro
+        End Get
+    End Property
+
 End Class

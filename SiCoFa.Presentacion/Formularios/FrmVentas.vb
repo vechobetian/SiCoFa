@@ -15,13 +15,12 @@ Public Class FrmVentas
         Set(value As Cliente)
             mobj_Cliente = value
             Me.ActualizarDatosOperacion()
-            mobj_AdminOperacion.ActualizarOperacionCL(mobj_Operacion.IdOperacion, mobj_Cliente.Id)
         End Set
     End Property
 
-    Private mobj_AdminOperacion As New N_AdminOperaciones
-    Private mobj_Operacion As Operacion
-    Private mobj_TipoOperacion As TipoOperacion
+    'Private mobj_AdminOperacion As New N_AdminOperaciones
+    'Private mobj_Operacion As Operacion
+    'Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
     Private mobj_Recetas As New List(Of Receta)
     Private mobj_Items As New BindingList(Of ItemComprobante)
@@ -167,7 +166,7 @@ Public Class FrmVentas
 
     End Function
 
-    Private Sub GuardarCambios(ByVal argTecla As Keys)
+    Private Sub FinalizarVenta(ByVal argTecla As Keys)
         Try
 
             If Me.mdec_ImporteSinDescuentos = 0 Then
@@ -179,14 +178,17 @@ Public Class FrmVentas
                 mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
             End If
 
-            mobj_Operacion = New Operacion(0, Date.MinValue, Date.MinValue, g_ParametrosTerminal.Empresa, g_ParametrosTerminal.IdPc, 0, Me.Usuario, mobj_TipoOperacion, "", "", "")
+            Dim adminOperaciones As New N_AdminOperaciones
+            Dim objTipoOperacion As TipoOperacion = adminOperaciones.ObtenerTipoOperacionPorCodiTO("VTAM")
+            Dim objOperacion As New Operacion(0, Date.MinValue, Date.MinValue, g_ParametrosTerminal.Empresa, g_ParametrosTerminal.IdPc, 0, Me.Usuario, objTipoOperacion, "", "", "")
+
             If argTecla = Keys.F9 OrElse argTecla = Keys.F10 Then
 
                 Using FPagos As New FrmPagos
                     Dim AdminComprobantes As New N_AdminComprobantes
                     With FPagos
                         .FrmOrigen = Me
-                        .Operacion = mobj_Operacion
+                        .Operacion = objOperacion
                         .Cliente = mobj_Cliente
                         .Recetas = mobj_Recetas
 
@@ -212,6 +214,8 @@ Public Class FrmVentas
                         .ShowDialog()
                     End With
                 End Using
+            ElseIf argTecla = Keys.F8 Then
+                FinalizarPresupuesto()
 
             End If
 
@@ -221,6 +225,74 @@ Public Class FrmVentas
         End Try
     End Sub
 
+    Private Sub FinalizarPresupuesto()
+
+        Dim adminOperaciones As New N_AdminOperaciones
+        Dim objTipoOperacion As TipoOperacion = adminOperaciones.ObtenerTipoOperacionPorCodiTO("VTAM")
+        Dim objOperacion As New Operacion(0, Date.MinValue, Date.MinValue, g_ParametrosTerminal.Empresa, g_ParametrosTerminal.IdPc, 0, Me.Usuario, objTipoOperacion, "", "", "")
+
+        Try
+
+            If Me.mdec_ImporteSinDescuentos = 0 Then
+                Exit Sub
+            End If
+
+            If mobj_Cliente Is Nothing Then
+                Dim AdminClientes As New N_AdminClientes
+                mobj_Cliente = AdminClientes.ObtenerClientePorId(1)
+            End If
+
+            Dim AdminComprobantes As New N_AdminComprobantes
+            Dim objTipoComprobante As TipoComprobante = AdminComprobantes.ObtenerTipoComprobantePorCodiTC("PRESU")
+            Dim objCb As Comprobante = Nothing
+
+            objCb = New Comprobante(
+                                    argIdOperacion:=objOperacion.IdOperacion,
+                                    argOperacion:=objOperacion,
+                                    argTipoComprobante:=objTipoComprobante,
+                                    argPVenta:=g_ParametrosTerminal.PVenta,
+                                    argNumComp:="",
+                                    argFechaComp:=Now.Date,
+                                    argImpBto:=mdec_ImporteSinDescuentos,
+                                    argImpDes:=mdec_ImporteDescuentos,
+                                    argImpNeto:=mdec_ImporteConDescuentos,
+                                    argImpEx:=0,
+                                    argImpGrav1:=mdec_ImporteGravado1,
+                                    argImpGrav2:=mdec_ImporteGravado2,
+                                    argImpCB:=0,
+                                    argImpEf:=0,
+                                    argImpCC:=0,
+                                    argImpPE:=0,
+                                    argImpOS:=0,
+                                    argCAE:=Nothing,
+                                    argIdCliente:=Me.Cliente.Id,
+                                    argCliente:=Me.Cliente,
+                                    argIdOperAsoc:=0,
+                                    argCompAsoc:=Nothing,
+                                    argEmpresa:=g_ParametrosTerminal.Empresa,
+                                    argDetalle:=mobj_Items.ToList
+                                    )
+
+            adminOperaciones.FinalizarPresupuestoTransaccion(g_ParametrosTerminal.MacAddress, objOperacion, objCb, mobj_Items.ToList)
+
+            Dim objAdminReporteComprobantes As New ReporteComprobantes
+            objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
+
+            Dim nuevaVentanaVentas As New FrmVentas
+
+            nuevaVentanaVentas.Usuario = Me.Usuario
+
+            nuevaVentanaVentas.Show()
+
+            Me.Close()
+
+        Catch ex As Exception
+            adminOperaciones.RegistrarError(objOperacion.IdOperacion, ex.ToString)
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+
+        End Try
+
+    End Sub
     Private Sub RenderItemsUC(Optional enfocarItemSeleccionado As Boolean = False)
 
         Dim itemSeleccionado As ItemComprobante = Nothing
@@ -608,7 +680,11 @@ Public Class FrmVentas
                 item.PrecioUnitario = item.Articulo.PrecioVenta * (1 + mdec_PorcentajeRecargoGeneral / 100)
             End If
 
-            item.Cantidad = 1
+            If item.Promocion IsNot Nothing And item.Receta Is Nothing Then
+                item.Cantidad = item.Promocion.UnidadesCombo
+            Else
+                item.Cantidad = 1
+            End If
 
             uc.Bind(item)
 
@@ -861,6 +937,7 @@ Public Class FrmVentas
     End Sub
 
     Private Sub ActualizarDatosOperacion()
+
         Dim NombreCliente As String
         If mobj_Cliente Is Nothing Then
             NombreCliente = "CONSUMIDOR FINAL S/IDENTIFICAR"
@@ -868,20 +945,11 @@ Public Class FrmVentas
             NombreCliente = mobj_Cliente.Nombre
         End If
 
-        Dim UltimaActualizacion As String
-
-        If mobj_Operacion Is Nothing Then
-            Me.Text = "Nueva venta iniciada el " & Now & " por el usuario " & Me.Usuario.Nombre
-            UltimaActualizacion = "- Inicio Operación: " & Now
-        Else
-            Me.Text = "Venta actualizada el " & mobj_Operacion.Inicio & " por el usuario " & Me.Usuario.Nombre
-            UltimaActualizacion = "- Ultima Actualizacion: " & mobj_Operacion.Inicio
-        End If
-
-        Dim Datos As String = UltimaActualizacion & vbCrLf &
+        Dim Datos As String =
                               "- Usuario: " & Me.Usuario.Nombre & vbCrLf &
                               "- Cliente: " & NombreCliente
         Me.lblDatosOperacion.Text = Datos
+
     End Sub
 
     Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -889,8 +957,6 @@ Public Class FrmVentas
         Try
             Me.MaximizedBounds = Screen.FromHandle(Me.Handle).WorkingArea
             Me.WindowState = FormWindowState.Maximized
-
-            mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("VTAM")
 
             Me.ActualizarDatosOperacion()
 
@@ -926,11 +992,11 @@ Public Class FrmVentas
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
             Case Keys.F10
-                Me.GuardarCambios(Keys.F10)
+                Me.FinalizarVenta(Keys.F10)
             Case Keys.F9
-                Me.GuardarCambios(Keys.F10)
+                Me.FinalizarVenta(Keys.F9)
             Case Keys.F8
-
+                Me.FinalizarPresupuesto()
             Case Else
                 Return MyBase.ProcessCmdKey(msg, keyData)
         End Select
@@ -944,19 +1010,24 @@ Public Class FrmVentas
 
 
     Private Sub FacturarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarToolStripMenuItem.Click
-        Me.GuardarCambios(Keys.F10)
+        Me.FinalizarVenta(Keys.F10)
     End Sub
 
     Private Sub RemitoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RemitoToolStripMenuItem.Click
-        Me.GuardarCambios(Keys.F9)
+        Me.FinalizarVenta(Keys.F9)
     End Sub
 
     Private Sub ClienteToolStripButton_Click(sender As Object, e As EventArgs) Handles ClienteToolStripButton.Click
 
         Try
-            Dim str = InputBox("Ingrese la Persona", "SiCoFa")
+
+            Dim clienteSeleccionado As String = If(mobj_Cliente?.Nombre, String.Empty)
+
+            Dim str = InputBox("Ingrese el Cliente", "SiCoFa", clienteSeleccionado)
 
             If str = "" Then
+                mobj_Cliente = Nothing
+                Me.ActualizarDatosOperacion()
                 Exit Sub
             End If
 
@@ -1903,4 +1974,5 @@ Public Class FrmVentas
     Private Sub btnRecargoGeneral_Click(sender As Object, e As EventArgs) Handles btnRecargoGeneral.Click
         Me.AplicarRecargoGeneral()
     End Sub
+
 End Class

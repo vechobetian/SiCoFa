@@ -102,7 +102,7 @@
     <Compile Include="Tipos\TipoMatricula.vb" />
     <Compile Include="Tipos\TipoPrescriptor.vb" />
     <Compile Include="Tipos\AlicuotaIVA.vb" />
-    <Compile Include="Tipos\TipoPromocion.vb" />
+    <Compile Include="Tipos\Promocion.vb" />
     <Compile Include="Tipos\TamanioEnvase.vb" />
     <Compile Include="Tipos\TipoControl.vb" />
     <Compile Include="Tipos\TipoTratamiento.vb" />

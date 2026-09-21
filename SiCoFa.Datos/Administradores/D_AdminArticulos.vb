@@ -18,7 +18,7 @@ Public Class D_AdminArticulos
         Dim accionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
         Dim seccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
         Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
-        Dim tipoPromocion As New TipoPromocion("0")
+        Dim tipoPromocion As New Promocion("0")
 
         a = New Articulo(
                          "0",
@@ -76,7 +76,7 @@ Public Class D_AdminArticulos
         Dim accionFarmacologica As AccionFarmacologica = New AccionFarmacologica(0, "NO ESTABLECIDA")
         Dim seccionItem As Seccion = New Seccion("0", "GENERICO 1", True)
         Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(1, "NO CLASIFICADA")
-        Dim tipoPromocion As New TipoPromocion("0")
+        Dim tipoPromocion As New Promocion("0")
 
         a = New Articulo(
                          "0",

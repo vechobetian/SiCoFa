@@ -23,9 +23,9 @@ Partial Class FrmVentas
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmVentas))
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlyGeneral = New System.Windows.Forms.TableLayoutPanel()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlyImportes = New System.Windows.Forms.TableLayoutPanel()
         Me.lblDescuentos = New System.Windows.Forms.Label()
         Me.lblImporteDescuentos = New System.Windows.Forms.Label()
         Me.lblImporteSinDescuentos = New System.Windows.Forms.Label()
@@ -80,80 +80,95 @@ Partial Class FrmVentas
         Me.mnuDescuentoGeneral = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuRecargoGeneral = New System.Windows.Forms.ToolStripMenuItem()
         Me.PanelItems = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblDescripcion = New System.Windows.Forms.Label()
+        Me.lblCodigo = New System.Windows.Forms.Label()
         Me.UcReceta1 = New SiCoFa.Presentacion.UcReceta()
-        Me.TableLayoutPanel1.SuspendLayout()
+        Me.tlyGeneral.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.TableLayoutPanel3.SuspendLayout()
+        Me.tlyImportes.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'TableLayoutPanel1
+        'tlyGeneral
         '
-        Me.TableLayoutPanel1.BackColor = System.Drawing.SystemColors.Window
-        Me.TableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
-        Me.TableLayoutPanel1.ColumnCount = 1
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.Panel3, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Panel1, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PanelItems, 0, 1)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 190.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(984, 661)
-        Me.TableLayoutPanel1.TabIndex = 0
+        Me.tlyGeneral.BackColor = System.Drawing.SystemColors.Window
+        Me.tlyGeneral.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
+        Me.tlyGeneral.ColumnCount = 1
+        Me.tlyGeneral.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlyGeneral.Controls.Add(Me.Panel3, 0, 3)
+        Me.tlyGeneral.Controls.Add(Me.Panel1, 0, 0)
+        Me.tlyGeneral.Controls.Add(Me.PanelItems, 0, 2)
+        Me.tlyGeneral.Controls.Add(Me.TableLayoutPanel1, 0, 1)
+        Me.tlyGeneral.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlyGeneral.Location = New System.Drawing.Point(0, 0)
+        Me.tlyGeneral.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlyGeneral.Name = "tlyGeneral"
+        Me.tlyGeneral.RowCount = 4
+        Me.tlyGeneral.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlyGeneral.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
+        Me.tlyGeneral.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlyGeneral.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 190.0!))
+        Me.tlyGeneral.Size = New System.Drawing.Size(984, 661)
+        Me.tlyGeneral.TabIndex = 0
         '
         'Panel3
         '
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel3.Controls.Add(Me.TableLayoutPanel3)
+        Me.Panel3.Controls.Add(Me.tlyImportes)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(6, 471)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(972, 184)
         Me.Panel3.TabIndex = 5
         '
-        'TableLayoutPanel3
+        'tlyImportes
         '
-        Me.TableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
-        Me.TableLayoutPanel3.ColumnCount = 3
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 570.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.lblDescuentos, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteSinDescuentosEtiqueta, 1, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentosEtiqueta, 1, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteConDescuentos, 2, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteOSEtiqueta, 1, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteCSEtiqueda, 1, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteOS, 2, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblImporteCS, 2, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.Panel2, 0, 0)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 5
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(970, 182)
-        Me.TableLayoutPanel3.TabIndex = 7
+        Me.tlyImportes.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
+        Me.tlyImportes.ColumnCount = 3
+        Me.tlyImportes.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlyImportes.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
+        Me.tlyImportes.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 642.0!))
+        Me.tlyImportes.Controls.Add(Me.lblDescuentos, 1, 1)
+        Me.tlyImportes.Controls.Add(Me.lblImporteDescuentos, 2, 1)
+        Me.tlyImportes.Controls.Add(Me.lblImporteSinDescuentos, 2, 0)
+        Me.tlyImportes.Controls.Add(Me.lblImporteSinDescuentosEtiqueta, 1, 0)
+        Me.tlyImportes.Controls.Add(Me.lblImporteConDescuentosEtiqueta, 1, 4)
+        Me.tlyImportes.Controls.Add(Me.lblImporteConDescuentos, 2, 4)
+        Me.tlyImportes.Controls.Add(Me.lblImporteOSEtiqueta, 1, 2)
+        Me.tlyImportes.Controls.Add(Me.lblImporteCSEtiqueda, 1, 3)
+        Me.tlyImportes.Controls.Add(Me.lblImporteOS, 2, 2)
+        Me.tlyImportes.Controls.Add(Me.lblImporteCS, 2, 3)
+        Me.tlyImportes.Controls.Add(Me.Panel2, 0, 0)
+        Me.tlyImportes.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlyImportes.Location = New System.Drawing.Point(0, 0)
+        Me.tlyImportes.Name = "tlyImportes"
+        Me.tlyImportes.RowCount = 5
+        Me.tlyImportes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.tlyImportes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.tlyImportes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.tlyImportes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.0!))
+        Me.tlyImportes.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40.0!))
+        Me.tlyImportes.Size = New System.Drawing.Size(970, 182)
+        Me.tlyImportes.TabIndex = 7
         '
         'lblDescuentos
         '
         Me.lblDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDescuentos.Location = New System.Drawing.Point(217, 30)
+        Me.lblDescuentos.Location = New System.Drawing.Point(145, 30)
         Me.lblDescuentos.Name = "lblDescuentos"
         Me.lblDescuentos.Size = New System.Drawing.Size(174, 24)
         Me.lblDescuentos.TabIndex = 8
@@ -164,9 +179,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(400, 30)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(328, 30)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(564, 24)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(636, 24)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "$ 0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -175,9 +190,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(400, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(328, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(564, 24)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(636, 24)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "$ 0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -186,7 +201,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(217, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(145, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
         Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
@@ -197,7 +212,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(217, 111)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(145, 111)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
         Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(174, 68)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 20
@@ -208,9 +223,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(400, 111)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(328, 111)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(564, 68)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(636, 68)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "$ 0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -219,7 +234,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteOSEtiqueta.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOSEtiqueta.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(217, 57)
+        Me.lblImporteOSEtiqueta.Location = New System.Drawing.Point(145, 57)
         Me.lblImporteOSEtiqueta.Name = "lblImporteOSEtiqueta"
         Me.lblImporteOSEtiqueta.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteOSEtiqueta.TabIndex = 21
@@ -230,7 +245,7 @@ Partial Class FrmVentas
         '
         Me.lblImporteCSEtiqueda.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCSEtiqueda.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(217, 84)
+        Me.lblImporteCSEtiqueda.Location = New System.Drawing.Point(145, 84)
         Me.lblImporteCSEtiqueda.Name = "lblImporteCSEtiqueda"
         Me.lblImporteCSEtiqueda.Size = New System.Drawing.Size(174, 24)
         Me.lblImporteCSEtiqueda.TabIndex = 22
@@ -241,9 +256,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteOS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteOS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteOS.Location = New System.Drawing.Point(400, 57)
+        Me.lblImporteOS.Location = New System.Drawing.Point(328, 57)
         Me.lblImporteOS.Name = "lblImporteOS"
-        Me.lblImporteOS.Size = New System.Drawing.Size(564, 24)
+        Me.lblImporteOS.Size = New System.Drawing.Size(636, 24)
         Me.lblImporteOS.TabIndex = 23
         Me.lblImporteOS.Text = "$ 0,00"
         Me.lblImporteOS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -252,9 +267,9 @@ Partial Class FrmVentas
         '
         Me.lblImporteCS.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteCS.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteCS.Location = New System.Drawing.Point(400, 84)
+        Me.lblImporteCS.Location = New System.Drawing.Point(328, 84)
         Me.lblImporteCS.Name = "lblImporteCS"
-        Me.lblImporteCS.Size = New System.Drawing.Size(564, 24)
+        Me.lblImporteCS.Size = New System.Drawing.Size(636, 24)
         Me.lblImporteCS.TabIndex = 24
         Me.lblImporteCS.Text = "$ 0,00"
         Me.lblImporteCS.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -269,8 +284,8 @@ Partial Class FrmVentas
         Me.Panel2.Location = New System.Drawing.Point(3, 3)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
-        Me.TableLayoutPanel3.SetRowSpan(Me.Panel2, 5)
-        Me.Panel2.Size = New System.Drawing.Size(208, 176)
+        Me.tlyImportes.SetRowSpan(Me.Panel2, 5)
+        Me.Panel2.Size = New System.Drawing.Size(136, 176)
         Me.Panel2.TabIndex = 25
         '
         'lblRecargoGeneral
@@ -625,10 +640,151 @@ Partial Class FrmVentas
         '
         Me.PanelItems.BackColor = System.Drawing.SystemColors.Window
         Me.PanelItems.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelItems.Location = New System.Drawing.Point(6, 77)
+        Me.PanelItems.Location = New System.Drawing.Point(6, 110)
         Me.PanelItems.Name = "PanelItems"
-        Me.PanelItems.Size = New System.Drawing.Size(972, 385)
+        Me.PanelItems.Size = New System.Drawing.Size(972, 352)
         Me.PanelItems.TabIndex = 6
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.ColumnCount = 10
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.Label8, 4, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 9, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label6, 8, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 7, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 6, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 5, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblDescripcion, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblCodigo, 0, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(6, 77)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(972, 24)
+        Me.TableLayoutPanel1.TabIndex = 7
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label8.Location = New System.Drawing.Point(480, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(39, 24)
+        Me.Label8.TabIndex = 9
+        Me.Label8.Text = "Iva"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label7.Location = New System.Drawing.Point(875, 0)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(94, 24)
+        Me.Label7.TabIndex = 8
+        Me.Label7.Text = "Imp. Cliente"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label6.Location = New System.Drawing.Point(775, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(94, 24)
+        Me.Label6.TabIndex = 7
+        Me.Label6.Text = "Imp. Descuento"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label5.Location = New System.Drawing.Point(725, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(44, 24)
+        Me.Label5.TabIndex = 6
+        Me.Label5.Text = "% Desc"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label4.Location = New System.Drawing.Point(625, 0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(94, 24)
+        Me.Label4.TabIndex = 5
+        Me.Label4.Text = "Importe"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label3.Location = New System.Drawing.Point(525, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(94, 24)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = "Prec. Unit."
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label2.Location = New System.Drawing.Point(435, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(39, 24)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Cant"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Label1.Location = New System.Drawing.Point(390, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 24)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Frac"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'lblDescripcion
+        '
+        Me.lblDescripcion.AutoSize = True
+        Me.lblDescripcion.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblDescripcion.Location = New System.Drawing.Point(153, 0)
+        Me.lblDescripcion.Name = "lblDescripcion"
+        Me.lblDescripcion.Size = New System.Drawing.Size(231, 24)
+        Me.lblDescripcion.TabIndex = 1
+        Me.lblDescripcion.Text = "Descripción"
+        Me.lblDescripcion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblCodigo
+        '
+        Me.lblCodigo.AutoSize = True
+        Me.lblCodigo.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblCodigo.Location = New System.Drawing.Point(3, 0)
+        Me.lblCodigo.Name = "lblCodigo"
+        Me.lblCodigo.Size = New System.Drawing.Size(144, 24)
+        Me.lblCodigo.TabIndex = 0
+        Me.lblCodigo.Text = "Código"
+        Me.lblCodigo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'UcReceta1
         '
@@ -645,15 +801,15 @@ Partial Class FrmVentas
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 661)
-        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.tlyGeneral)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "FrmVentas"
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
+        Me.tlyGeneral.ResumeLayout(False)
+        Me.tlyGeneral.PerformLayout()
         Me.Panel3.ResumeLayout(False)
-        Me.TableLayoutPanel3.ResumeLayout(False)
+        Me.tlyImportes.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -662,11 +818,13 @@ Partial Class FrmVentas
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents tlyGeneral As TableLayoutPanel
     Friend WithEvents Panel1 As Panel
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents mnuArchivo As ToolStripMenuItem
@@ -694,7 +852,7 @@ Partial Class FrmVentas
     Friend WithEvents ClienteToolStripButton As ToolStripButton
     Friend WithEvents btnDescuentoGeneral As ToolStripButton
     Friend WithEvents Panel3 As Panel
-    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
+    Friend WithEvents tlyImportes As TableLayoutPanel
     Friend WithEvents lblDescuentos As Label
     Friend WithEvents lblImporteDescuentos As Label
     Friend WithEvents lblImporteSinDescuentos As Label
@@ -724,4 +882,15 @@ Partial Class FrmVentas
     Friend WithEvents mnuDescuentoGeneral As ToolStripMenuItem
     Friend WithEvents mnuRecargoGeneral As ToolStripMenuItem
     Friend WithEvents lblRecargoGeneral As Label
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
+    Friend WithEvents lblDescripcion As Label
+    Friend WithEvents lblCodigo As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
 End Class

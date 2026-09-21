@@ -27,7 +27,6 @@ Partial Class FrmInicio
         Me.mnuOperacionesFacturacion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesCC = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuOperacionesCompras = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuOperacionesPresupuestos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCaja = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCajaMovimientos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCajaAsientoGastos = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,6 +63,7 @@ Partial Class FrmInicio
         Me.mnuEditarMedioPE = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarPermisos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuObraSociales = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDatosRequeridosValidacionOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHerramientas = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPTerminal = New System.Windows.Forms.ToolStripMenuItem()
@@ -71,7 +71,6 @@ Partial Class FrmInicio
         Me.ActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ActualizarVersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuDatosRequeridosValidacionOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -86,7 +85,7 @@ Partial Class FrmInicio
         '
         'mnuOperaciones
         '
-        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion, Me.mnuOperacionesCC, Me.mnuOperacionesCompras, Me.mnuOperacionesPresupuestos})
+        Me.mnuOperaciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperacionesFacturacion, Me.mnuOperacionesCC, Me.mnuOperacionesCompras})
         Me.mnuOperaciones.Name = "mnuOperaciones"
         Me.mnuOperaciones.Size = New System.Drawing.Size(85, 20)
         Me.mnuOperaciones.Text = "&Operaciones"
@@ -108,12 +107,6 @@ Partial Class FrmInicio
         Me.mnuOperacionesCompras.Name = "mnuOperacionesCompras"
         Me.mnuOperacionesCompras.Size = New System.Drawing.Size(233, 22)
         Me.mnuOperacionesCompras.Text = "Com&pras"
-        '
-        'mnuOperacionesPresupuestos
-        '
-        Me.mnuOperacionesPresupuestos.Name = "mnuOperacionesPresupuestos"
-        Me.mnuOperacionesPresupuestos.Size = New System.Drawing.Size(233, 22)
-        Me.mnuOperacionesPresupuestos.Text = "Pre&supuestos"
         '
         'mnuCaja
         '
@@ -338,6 +331,12 @@ Partial Class FrmInicio
         Me.mnuObraSociales.Size = New System.Drawing.Size(95, 20)
         Me.mnuObraSociales.Text = "O&bras Sociales"
         '
+        'mnuDatosRequeridosValidacionOS
+        '
+        Me.mnuDatosRequeridosValidacionOS.Name = "mnuDatosRequeridosValidacionOS"
+        Me.mnuDatosRequeridosValidacionOS.Size = New System.Drawing.Size(223, 22)
+        Me.mnuDatosRequeridosValidacionOS.Text = "Datos Requeridos Validación"
+        '
         'mnuHerramientas
         '
         Me.mnuHerramientas.Name = "mnuHerramientas"
@@ -380,12 +379,6 @@ Partial Class FrmInicio
         Me.mnuAyuda.Name = "mnuAyuda"
         Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
         Me.mnuAyuda.Text = "Ay&uda"
-        '
-        'mnuDatosRequeridosValidacionOS
-        '
-        Me.mnuDatosRequeridosValidacionOS.Name = "mnuDatosRequeridosValidacionOS"
-        Me.mnuDatosRequeridosValidacionOS.Size = New System.Drawing.Size(223, 22)
-        Me.mnuDatosRequeridosValidacionOS.Text = "Datos Requeridos Validación"
         '
         'FrmInicio
         '
@@ -449,7 +442,6 @@ Partial Class FrmInicio
     Friend WithEvents mnuEditarPermisos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesEmitidos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesRecibidos As ToolStripMenuItem
-    Friend WithEvents mnuOperacionesPresupuestos As ToolStripMenuItem
     Friend WithEvents ActualizacionesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ActualizarVersionToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents mnuEditarFraccionables As ToolStripMenuItem

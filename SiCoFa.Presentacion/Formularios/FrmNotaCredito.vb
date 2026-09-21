@@ -281,7 +281,7 @@ Public Class FrmNotaCredito
             For Each i As ItemComprobanteNC In mobj_ItemsComprobanteOrigen
                 If i.CantidadNC > 0 Then
                     Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(i.IdArticulo)
-                    Dim objItemComprobante As New ItemComprobante(i.IdItem, i.IdArticulo, i.CodBarras, i.Descripcion, i.Fraccionado, i.CantidadNC, i.AlicIVA, i.PrecioCosto, i.PrecioUnitario, i.PorcentajeDescuento, 0, 0, 0, 0)
+                    Dim objItemComprobante As New ItemComprobante(i.IdItem, i.IdArticulo, "", i.Descripcion, i.Fraccionado, i.CantidadNC, i.AlicIVA, i.PrecioCosto, i.PrecioUnitario, i.PorcentajeDescuento, 0, 0, 0, 0)
                     objItemComprobante.IdItem = i.IdItem
                     objItemComprobante.Articulo.PrecioCosto = i.PrecioCosto
                     mobj_ItemsComprobante.Add(objItemComprobante)

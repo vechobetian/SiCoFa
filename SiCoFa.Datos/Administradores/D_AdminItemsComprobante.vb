@@ -94,6 +94,7 @@ Public Class D_AdminItemsComprobante
                     .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
                     .Add("p_PorcentajeDescuento", MySqlDbType.Decimal).Value = argItemComprobante.PorcentajeDescuento
                     .Add("p_DescuentoUnitario", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
+                    .Add("p_CodiPro", MySqlDbType.VarChar).Value = argItemComprobante.Promocion.CodiPro
                     .Add("p_IdItem", MySqlDbType.Int64)
                 End With
 
@@ -307,7 +308,23 @@ Public Class D_AdminItemsComprobante
         Dim objLI As New List(Of ItemComprobanteNC)
 
         Try
-            Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion, CantidadF, CantidadA, AlicIVA, PrecioCosto, PrecioUnitario, Descuento, CodBarras FROM vw_items_nota_credito WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
+            Dim sql As String = "SELECT 
+                                    IdItem,
+                                    IdOperacion,
+                                    IdArticulo,
+                                    Descripcion,
+                                    Fraccionado,
+                                    CantidadF,
+                                    CantidadA,
+                                    AlicIVA,
+                                    PrecioCosto,
+                                    PrecioUnitario,
+                                    PorcentajeDescuento,
+                                    DescuentoUnitario,
+                                    CodiPro
+                                FROM vw_items_nota_credito 
+                                WHERE IdOperacion = @IdOperacion 
+                                ORDER BY IdItem"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -327,25 +344,26 @@ Public Class D_AdminItemsComprobante
                         Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
                         Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
                         Dim precioUnitarioOrdinal As Integer = datos.GetOrdinal("PrecioUnitario")
-                        Dim descuentoOrdinal As Integer = datos.GetOrdinal("Descuento")
-                        Dim codBarrasOrdinal As Integer = datos.GetOrdinal("CodBarras")
+                        Dim porcentajeDescuentoOrdinal As Integer = datos.GetOrdinal("PorcentajeDescuento")
+                        Dim descuentoUnitarioOrdinal As Integer = datos.GetOrdinal("DescuentoUnitario")
+                        Dim codiProOrdinal As Integer = datos.GetOrdinal("CodiPro")
 
                         While datos.Read
                             ' Manejo explícito de DBNull y conversión a tipos de datos .NET
-                            Dim IdItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
-                            Dim IdArticuloResult As String = datos.GetString(idArticuloOrdinal)
-                            Dim DescripcionResult As String = datos.GetString(descripcionOrdinal)
-                            Dim FraccionadoResult As Boolean = datos.GetBoolean(fraccionadoOrdinal)
-                            Dim CantidadFResult As Integer = CInt(datos.GetValue(cantidadFOrdinal))
-                            Dim CantidadAResult As Integer = CInt(datos.GetValue(cantidadAOrdinal))
-                            Dim AlicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
-                            Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
-                            Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
-                            Dim DescuentoResult As Decimal = If(datos.IsDBNull(descuentoOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoOrdinal)))
-                            Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
+                            Dim idItemResult As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
+                            Dim idArticuloResult As String = datos.GetString(idArticuloOrdinal)
+                            Dim descripcionResult As String = datos.GetString(descripcionOrdinal)
+                            Dim fraccionadoResult As Boolean = datos.GetBoolean(fraccionadoOrdinal)
+                            Dim cantidadFResult As Integer = CInt(datos.GetValue(cantidadFOrdinal))
+                            Dim cantidadAResult As Integer = CInt(datos.GetValue(cantidadAOrdinal))
+                            Dim alicIVAResult As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
+                            Dim precioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
+                            Dim precioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
+                            Dim porcentajeDescuentoResult As Decimal = CDec(datos("PorcentajeDescuento"))
+                            Dim descuentoUnitarioResult As Decimal = If(datos.IsDBNull(descuentoUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoUnitarioOrdinal)))
+                            Dim codiProResult As String = datos.GetString("CodiPro")
 
-
-                            Dim objINC As New ItemComprobanteNC(IdItemResult, IdArticuloResult, CodBarrasResult, DescripcionResult, FraccionadoResult, CantidadFResult, CantidadAResult, PrecioCostoResult, PrecioUnitarioResult, AlicIVAResult, DescuentoResult)
+                            Dim objINC As New ItemComprobanteNC(idItemResult, idArticuloResult, descripcionResult, fraccionadoResult, cantidadFResult, cantidadAResult, precioCostoResult, precioUnitarioResult, alicIVAResult, porcentajeDescuentoResult, descuentoUnitarioResult, codiProResult)
                             objLI.Add(objINC)
                         End While
                     End Using
@@ -375,7 +393,7 @@ Public Class D_AdminItemsComprobante
                     .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
                     .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto
                     .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
-                    .Add("p_Descuento", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
+                    .Add("p_DescuentoUnitario", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
                     .Add("p_IdItemOrigen", MySqlDbType.Int64).Value = argItemComprobante.IdItem
                 End With
 

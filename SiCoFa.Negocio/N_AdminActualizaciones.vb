@@ -206,11 +206,11 @@ Public Class N_AdminActualizaciones
 
     End Function
 
-    Public Sub ProcesarActualizacionArticulos(argCodiPA As String, argNumeroActualizacion As Long, argStoredProcedure As String, argPorcentaje As Decimal, argRutaArchivo As String)
+    Public Sub ProcesarActualizacionArticulos(argCodiPA As String, argNumeroActualizacion As Long, argStoredProcedure As String, argPorcentaje As Decimal, argCodiLP As Integer, argRutaArchivo As String)
         Dim AdminActualizaciones As New D_AdminActualizaciones
 
         Try
-            AdminActualizaciones.ProcesarActualizacionArticulos(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argRutaArchivo)
+            AdminActualizaciones.ProcesarActualizacionArticulos(argCodiPA, argNumeroActualizacion, argStoredProcedure, argPorcentaje, argCodiLP, argRutaArchivo)
 
         Catch ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, "ProcesarActualizacionArticulos", ex.Message))
