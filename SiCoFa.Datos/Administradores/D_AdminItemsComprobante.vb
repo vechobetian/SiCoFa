@@ -308,26 +308,7 @@ Public Class D_AdminItemsComprobante
         Dim objLI As New List(Of ItemComprobanteNC)
 
         Try
-            Dim sql As String = "SELECT 
-                                    IdItem,
-                                    IdOperacion,
-                                    IdArticulo,
-                                    Descripcion,
-                                    Fraccionado,
-                                    CantidadF,
-                                    CantidadA,
-                                    AlicIVA,
-                                    PrecioCosto,
-                                    PrecioUnitario,
-                                    PorcentajeDescuento,
-                                    DescuentoUnitario,
-                                    CodiPro,
-                                    DescuentoUnitarioOS,
-                                    DescuentoUnitarioCS,
-                                    PlanOS
-                                FROM vw_items_nota_credito 
-                                WHERE IdOperacion = @IdOperacion 
-                                ORDER BY IdItem"
+            Dim sql As String = "SELECT * FROM vw_items_nota_credito WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
@@ -353,6 +334,7 @@ Public Class D_AdminItemsComprobante
                         Dim descuentoUnitarioOSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioOS")
                         Dim descuentoUnitarioCSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioCS")
                         Dim planOSOrdinal As Integer = datos.GetOrdinal("PlanOS")
+                        Dim idRecetaOrdinal As Integer = datos.GetOrdinal("IdReceta")
 
                         While datos.Read
                             ' Manejo explícito de DBNull y conversión a tipos de datos .NET
@@ -371,6 +353,7 @@ Public Class D_AdminItemsComprobante
                             Dim descuentoUnitarioOSResult As Decimal = CDec(datos(descuentoUnitarioOSOrdinal))
                             Dim descuentoUnitarioCSResult As Decimal = CDec(datos(descuentoUnitarioCSOrdinal))
                             Dim planOSResult As String = If(datos.IsDBNull(planOSOrdinal), Nothing, datos.GetString(planOSOrdinal))
+                            Dim idRecetaResult As Long = If(datos.IsDBNull(idRecetaOrdinal), 0, CLng(datos.GetValue(idRecetaOrdinal)))
 
                             Dim objINC As New ItemComprobanteNC(
                                                                 idItemResult,
@@ -387,7 +370,8 @@ Public Class D_AdminItemsComprobante
                                                                 codiProResult,
                                                                 descuentoUnitarioOSResult,
                                                                 descuentoUnitarioCSResult,
-                                                                planOSResult
+                                                                planOSResult,
+                                                                idRecetaResult
                                                                 )
                             objLI.Add(objINC)
                         End While

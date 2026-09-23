@@ -18,9 +18,6 @@ Public Class FrmVentas
         End Set
     End Property
 
-    'Private mobj_AdminOperacion As New N_AdminOperaciones
-    'Private mobj_Operacion As Operacion
-    'Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Cliente As Cliente
     Private mobj_Recetas As New List(Of Receta)
     Private mobj_Items As New BindingList(Of ItemComprobante)

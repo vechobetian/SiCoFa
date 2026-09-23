@@ -15,6 +15,7 @@
     Private ReadOnly m_DescuentoUnitarioOS As Decimal
     Private ReadOnly m_DescuentoUnitarioCS As Decimal
     Private ReadOnly m_PlanOS As String
+    Private ReadOnly m_IdReceta As Long
 
     Public Sub New(
         ByVal argIdItem As Long,
@@ -31,7 +32,8 @@
         ByVal argCodiPro As String,
         ByVal argDescuentoUnitarioOS As Decimal,
         ByVal argDescuentoUnitarioCS As Decimal,
-        ByVal argPlanOS As String
+        ByVal argPlanOS As String,
+        ByVal argIdReceta As Long
     )
         m_IdItem = argIdItem
         m_IdArticulo = argIdArticulo
@@ -48,6 +50,7 @@
         m_DescuentoUnitarioOS = argDescuentoUnitarioOS
         m_DescuentoUnitarioCS = argDescuentoUnitarioCS
         m_PlanOS = argPlanOS
+        m_IdReceta = argIdReceta
     End Sub
 
     Public ReadOnly Property IdItem() As Long
@@ -141,6 +144,12 @@
         End Get
     End Property
 
+    Public ReadOnly Property ImporteCosto As Decimal
+        Get
+            Return Math.Round(m_CantidadNC * m_PrecioCosto, 2, MidpointRounding.ToEven)
+        End Get
+    End Property
+
     Public ReadOnly Property ImporteSinDescuento() As Decimal
         Get
             Return Math.Round(m_CantidadNC * m_PrecioUnitario, 2, MidpointRounding.ToEven)
@@ -210,6 +219,12 @@
     Public ReadOnly Property PlanOS As String
         Get
             Return m_PlanOS
+        End Get
+    End Property
+
+    Public ReadOnly Property IdReceta As Long
+        Get
+            Return m_IdReceta
         End Get
     End Property
 

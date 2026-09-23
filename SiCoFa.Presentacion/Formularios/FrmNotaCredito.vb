@@ -10,15 +10,18 @@ Public Class FrmNotaCredito
     Private mobj_ItemsComprobanteOrigen As New BindingList(Of ItemComprobanteNC)
     Private mobj_ItemsComprobante As New List(Of ItemComprobante) 'Esta lista es para el objeto comprobante
     Private mint_CantidadItems As Integer = 0
-    Private mdec_CantidadFacturado As Decimal = 0
-    Private mdec_CantidadAcreditado As Decimal = 0
-    Private mdec_ImporteCosto As Decimal = 0
-    Private mdec_ImporteSinDescuentos As Decimal = 0
-    Private mdec_ImporteDescuentos As Decimal = 0
-    Private mdec_ImporteConDescuentos As Decimal = 0
-    Private mdec_PorcentaDescuentos As Decimal = 0
-    Private mdec_ImporteGravado1 As Decimal = 0
-    Private mdec_ImporteGravado2 As Decimal = 0
+    Private mdec_CantidadFacturado As Decimal = 0D
+    Private mdec_CantidadAcreditado As Decimal = 0D
+    Private mdec_ImporteCosto As Decimal = 0D
+    Private mdec_ImporteSinDescuentos As Decimal = 0D
+    Private mdec_ImporteDescuentos As Decimal = 0D
+    Private mdec_ImporteConDescuentos As Decimal = 0D
+    Private mdec_PorcentajeDescuentos As Decimal = 0D
+    Private mdec_ImporteExento As Decimal = 0D
+    Private mdec_ImporteGravado1 As Decimal = 0D
+    Private mdec_ImporteGravado2 As Decimal = 0D
+    Private mdec_ImporteOS As Decimal = 0D
+    Private mdec_ImporteCS As Decimal = 0D
 
     Public Sub ObtenerComprobanteOrigen(ByVal argIdOperacion As Long)
         Try
@@ -62,13 +65,16 @@ Public Class FrmNotaCredito
     Private Sub AcreditacionCompleta()
         Try
             mint_CantidadItems = 0
-            mdec_ImporteCosto = 0
-            mdec_ImporteSinDescuentos = 0
-            mdec_ImporteDescuentos = 0
-            mdec_ImporteConDescuentos = 0
-            mdec_PorcentaDescuentos = 0
-            mdec_ImporteGravado1 = 0
-            mdec_ImporteGravado2 = 0
+            mdec_ImporteCosto = 0D
+            mdec_ImporteSinDescuentos = 0D
+            mdec_ImporteDescuentos = 0D
+            mdec_ImporteConDescuentos = 0D
+            mdec_PorcentajeDescuentos = 0D
+            mdec_ImporteExento = 0D
+            mdec_ImporteGravado1 = 0D
+            mdec_ImporteGravado2 = 0D
+            mdec_ImporteOS = 0D
+            mdec_ImporteCS = 0D
 
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
                 i.CantidadNC = i.CantidadF - i.CantidadA
@@ -91,14 +97,14 @@ Public Class FrmNotaCredito
             Next
 
             If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
             Else
-                mdec_PorcentaDescuentos = 0
+                mdec_PorcentajeDescuentos = 0D
             End If
 
             Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
             Me.DataGridView1.Refresh()
@@ -115,12 +121,12 @@ Public Class FrmNotaCredito
             mdec_ImporteSinDescuentos = 0
             mdec_ImporteDescuentos = 0
             mdec_ImporteConDescuentos = 0
-            mdec_PorcentaDescuentos = 0
+            mdec_PorcentajeDescuentos = 0
             mdec_ImporteGravado1 = 0
             mdec_ImporteGravado2 = 0
+            mint_CantidadItems = 0
 
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
-                mint_CantidadItems = 0
                 i.CantidadNC = 0
                 mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
@@ -136,14 +142,14 @@ Public Class FrmNotaCredito
             Next
 
             If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
             Else
-                mdec_PorcentaDescuentos = 0
+                mdec_PorcentajeDescuentos = 0
             End If
 
             Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
             Me.DataGridView1.Refresh()
@@ -276,11 +282,11 @@ Public Class FrmNotaCredito
 
     Private Sub InsertarItems()
         Try
-            Dim AdminArticulos As New N_AdminArticulos
+            'Dim AdminArticulos As New N_AdminArticulos
 
             For Each i As ItemComprobanteNC In mobj_ItemsComprobanteOrigen
                 If i.CantidadNC > 0 Then
-                    Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(i.IdArticulo)
+                    'Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(i.IdArticulo)
                     Dim objItemComprobante As New ItemComprobante(i.IdItem, i.IdArticulo, "", i.Descripcion, i.Fraccionado, i.CantidadNC, i.AlicIVA, i.PrecioCosto, i.PrecioUnitario, i.PorcentajeDescuento, 0, 0, 0, 0)
                     objItemComprobante.IdItem = i.IdItem
                     objItemComprobante.Articulo.PrecioCosto = i.PrecioCosto
@@ -298,13 +304,16 @@ Public Class FrmNotaCredito
 
         Try
             mint_CantidadItems = 0
-            mdec_ImporteCosto = 0
-            mdec_ImporteSinDescuentos = 0
-            mdec_ImporteDescuentos = 0
-            mdec_ImporteConDescuentos = 0
-            mdec_PorcentaDescuentos = 0
-            mdec_ImporteGravado1 = 0
-            mdec_ImporteGravado2 = 0
+            mdec_ImporteCosto = 0D
+            mdec_ImporteSinDescuentos = 0D
+            mdec_ImporteDescuentos = 0D
+            mdec_ImporteConDescuentos = 0D
+            mdec_PorcentajeDescuentos = 0D
+            mdec_ImporteExento = 0D
+            mdec_ImporteGravado1 = 0D
+            mdec_ImporteGravado2 = 0D
+            mdec_ImporteOS = 0D
+            mdec_ImporteCS = 0D
 
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
 
@@ -314,7 +323,7 @@ Public Class FrmNotaCredito
 
                 mdec_CantidadAcreditado += i.CantidadA
                 mdec_CantidadFacturado += i.CantidadF
-                mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
+                mdec_ImporteCosto += i.ImporteCosto
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
@@ -328,14 +337,14 @@ Public Class FrmNotaCredito
             Next
 
             If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentaDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
+                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
             Else
-                mdec_PorcentaDescuentos = 0
+                mdec_PorcentajeDescuentos = 0
             End If
 
             Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
             Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentaDescuentos, "#,##0.00") & "%"
+            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%"
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
 
@@ -389,6 +398,26 @@ Public Class FrmNotaCredito
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
 
     End Function
+
+    Private Sub EstablecerCantidadNCReceta(argIdReceta As Long, argAcreditar As Boolean)
+
+        If argIdReceta <= 0 Then Exit Sub
+
+        For Each item As ItemComprobanteNC In mobj_ItemsComprobanteOrigen
+
+            If item.IdReceta = argIdReceta Then
+
+                If argAcreditar Then
+                    item.CantidadNC = item.CantidadF
+                Else
+                    item.CantidadNC = 0
+                End If
+
+            End If
+
+        Next
+
+    End Sub
 
     ' Variable de control para no mostrar MsgBox repetidos
     Private ajustarCantidad As Boolean = False
@@ -447,6 +476,11 @@ Public Class FrmNotaCredito
                     ' Actualizar totales
                     If String.IsNullOrEmpty(DataGridView1.Rows(e.RowIndex).ErrorText) Then
                         Dim itemComprobante As ItemComprobanteNC = mobj_ItemsComprobanteOrigen(e.RowIndex)
+
+                        If itemComprobante.IdReceta > 0 Then
+                            Me.EstablecerCantidadNCReceta(itemComprobante.IdReceta, CBool(itemComprobante.CantidadNC))
+                        End If
+
                         Me.DataGridView1.Refresh()
                         Me.ActualizarTotales()
                     End If

@@ -54,6 +54,7 @@ Partial Class FrmNotaCredito
         Me.mnuFinalizar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.IdItem = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IdReceta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.PlanOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CantidadF = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -111,7 +112,7 @@ Partial Class FrmNotaCredito
         Me.TableLayoutPanel3.ColumnCount = 3
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.43767!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.56233!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 338.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 342.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentosEtiqueta, 1, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblImporteDescuentos, 2, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblPorcentajeAplicado, 0, 1)
@@ -135,9 +136,9 @@ Partial Class FrmNotaCredito
         '
         Me.lblImporteDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(827, 58)
+        Me.lblImporteDescuentosEtiqueta.Location = New System.Drawing.Point(824, 58)
         Me.lblImporteDescuentosEtiqueta.Name = "lblImporteDescuentosEtiqueta"
-        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(180, 52)
+        Me.lblImporteDescuentosEtiqueta.Size = New System.Drawing.Size(179, 52)
         Me.lblImporteDescuentosEtiqueta.TabIndex = 8
         Me.lblImporteDescuentosEtiqueta.Text = "Importe Descuentos:"
         Me.lblImporteDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -146,9 +147,9 @@ Partial Class FrmNotaCredito
         '
         Me.lblImporteDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteDescuentos.Location = New System.Drawing.Point(1016, 58)
+        Me.lblImporteDescuentos.Location = New System.Drawing.Point(1012, 58)
         Me.lblImporteDescuentos.Name = "lblImporteDescuentos"
-        Me.lblImporteDescuentos.Size = New System.Drawing.Size(333, 52)
+        Me.lblImporteDescuentos.Size = New System.Drawing.Size(337, 52)
         Me.lblImporteDescuentos.TabIndex = 13
         Me.lblImporteDescuentos.Text = "0,00"
         Me.lblImporteDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -179,9 +180,9 @@ Partial Class FrmNotaCredito
         '
         Me.lblImporteSinDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteSinDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(1016, 3)
+        Me.lblImporteSinDescuentos.Location = New System.Drawing.Point(1012, 3)
         Me.lblImporteSinDescuentos.Name = "lblImporteSinDescuentos"
-        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(333, 52)
+        Me.lblImporteSinDescuentos.Size = New System.Drawing.Size(337, 52)
         Me.lblImporteSinDescuentos.TabIndex = 11
         Me.lblImporteSinDescuentos.Text = "0,00"
         Me.lblImporteSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -190,9 +191,9 @@ Partial Class FrmNotaCredito
         '
         Me.lblImporteSinDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteSinDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(827, 3)
+        Me.lblImporteSinDescuentosEtiqueta.Location = New System.Drawing.Point(824, 3)
         Me.lblImporteSinDescuentosEtiqueta.Name = "lblImporteSinDescuentosEtiqueta"
-        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(180, 52)
+        Me.lblImporteSinDescuentosEtiqueta.Size = New System.Drawing.Size(179, 52)
         Me.lblImporteSinDescuentosEtiqueta.TabIndex = 6
         Me.lblImporteSinDescuentosEtiqueta.Text = "Total sin Descuentos:"
         Me.lblImporteSinDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -201,9 +202,9 @@ Partial Class FrmNotaCredito
         '
         Me.lblImporteConDescuentos.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblImporteConDescuentos.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1016, 113)
+        Me.lblImporteConDescuentos.Location = New System.Drawing.Point(1012, 113)
         Me.lblImporteConDescuentos.Name = "lblImporteConDescuentos"
-        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(333, 71)
+        Me.lblImporteConDescuentos.Size = New System.Drawing.Size(337, 71)
         Me.lblImporteConDescuentos.TabIndex = 14
         Me.lblImporteConDescuentos.Text = "0,00"
         Me.lblImporteConDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -212,9 +213,9 @@ Partial Class FrmNotaCredito
         '
         Me.lblImporteConDescuentosEtiqueta.Dock = System.Windows.Forms.DockStyle.Right
         Me.lblImporteConDescuentosEtiqueta.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(827, 113)
+        Me.lblImporteConDescuentosEtiqueta.Location = New System.Drawing.Point(824, 113)
         Me.lblImporteConDescuentosEtiqueta.Name = "lblImporteConDescuentosEtiqueta"
-        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(180, 71)
+        Me.lblImporteConDescuentosEtiqueta.Size = New System.Drawing.Size(179, 71)
         Me.lblImporteConDescuentosEtiqueta.TabIndex = 9
         Me.lblImporteConDescuentosEtiqueta.Text = "Imp. a pagar:  "
         Me.lblImporteConDescuentosEtiqueta.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -225,7 +226,7 @@ Partial Class FrmNotaCredito
         Me.lblDatosOperacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDatosOperacion.Location = New System.Drawing.Point(6, 113)
         Me.lblDatosOperacion.Name = "lblDatosOperacion"
-        Me.lblDatosOperacion.Size = New System.Drawing.Size(812, 71)
+        Me.lblDatosOperacion.Size = New System.Drawing.Size(809, 71)
         Me.lblDatosOperacion.TabIndex = 17
         '
         'DataGridView1
@@ -244,7 +245,7 @@ Partial Class FrmNotaCredito
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.PlanOS, Me.Descripcion, Me.CantidadF, Me.CantidadA, Me.CantidadNC, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento, Me.ImporteOS, Me.ImporteCS})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdItem, Me.IdReceta, Me.PlanOS, Me.Descripcion, Me.CantidadF, Me.CantidadA, Me.CantidadNC, Me.AlicIVA, Me.PrecioUnitario, Me.ImporteSinDescuento, Me.PorcentajeDescuento, Me.ImporteDescuento, Me.ImporteConDescuento, Me.ImporteOS, Me.ImporteCS})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(6, 39)
         Me.DataGridView1.Name = "DataGridView1"
@@ -309,6 +310,13 @@ Partial Class FrmNotaCredito
         Me.IdItem.HeaderText = "IdItem"
         Me.IdItem.Name = "IdItem"
         Me.IdItem.Visible = False
+        '
+        'IdReceta
+        '
+        Me.IdReceta.DataPropertyName = "IdReceta"
+        Me.IdReceta.HeaderText = "IdReceta"
+        Me.IdReceta.Name = "IdReceta"
+        Me.IdReceta.Visible = False
         '
         'PlanOS
         '
@@ -516,6 +524,7 @@ Partial Class FrmNotaCredito
     Friend WithEvents mnuSalir As ToolStripMenuItem
     Friend WithEvents chkAcreditarTodo As CheckBox
     Friend WithEvents IdItem As DataGridViewTextBoxColumn
+    Friend WithEvents IdReceta As DataGridViewTextBoxColumn
     Friend WithEvents PlanOS As DataGridViewTextBoxColumn
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents CantidadF As DataGridViewTextBoxColumn
