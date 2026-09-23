@@ -294,27 +294,6 @@ Public Class FrmNotaCredito
         End Try
     End Sub
 
-    Private Sub AjustarAnchoColumnasProporcional()
-        Try
-
-            If DataGridView1.ColumnCount = 12 Then
-                Dim totalAncho As Integer = DataGridView1.Width
-                Dim proporciones As Double() = {0.0R, 0.08R, 0.3R, 0.05R, 0.05R, 0.05R, 0.05R, 0.08R, 0.08R, 0.05R, 0.08R, 0.08R}
-
-                For i As Integer = 0 To 11 ' Itera a través de las 9 columnas
-                    DataGridView1.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
-            Else
-                MessageBox.Show("El DataGridView no tiene 12 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
     Private Sub ActualizarTotales()
 
         Try
@@ -396,19 +375,6 @@ Public Class FrmNotaCredito
 
     End Sub
 
-    Private Sub FrmNotaCredito_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-
-        Try
-            Me.AjustarAnchoColumnasProporcional()
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, ByVal keyData As System.Windows.Forms.Keys) As Boolean
         Select Case keyData
 
@@ -423,10 +389,6 @@ Public Class FrmNotaCredito
         Return True ' Asegúrate de devolver True para que la tecla se procese correctamente
 
     End Function
-
-    Private Sub FrmNotaCredito_Resize(sender As Object, e As EventArgs) Handles Me.Resize
-        Me.AjustarAnchoColumnasProporcional()
-    End Sub
 
     ' Variable de control para no mostrar MsgBox repetidos
     Private ajustarCantidad As Boolean = False

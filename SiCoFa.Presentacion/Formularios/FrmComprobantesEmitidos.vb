@@ -44,26 +44,6 @@ Public Class FrmComprobantesEmitidos
 
     End Sub
 
-    Private Sub ActualizarDetalle1()
-        Try
-            If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
-            Dim valor = Me.DataGridView1.CurrentRow.Cells(2).Value
-            If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
-            Dim idOperacion As Long = Convert.ToInt64(valor)
-
-            Dim AdminItems As New N_AdminItemsComprobante
-            Dim objItems As List(Of ItemComprobante) = AdminItems.ListarItemsPorIdOperacion(idOperacion)
-
-            Me.DataGridView2.AutoGenerateColumns = False
-            Me.DataGridView2.DataSource = objItems
-            Me.DataGridView2.ClearSelection()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-
-    End Sub
-
     Private Sub ActualizarDetalle()
         Try
             If Me.DataGridView1.CurrentRow Is Nothing Then Exit Sub
@@ -73,13 +53,6 @@ Public Class FrmComprobantesEmitidos
             If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
             Dim idOperacion As Long = Convert.ToInt64(valor)
-
-            'Dim sql As String = "SELECT * ,
-            'Cantidad*PrecioUnitario AS ImporteSinDescuento,
-            'Descuento/PrecioUnitario*100 AS PorcentajeDescuento,
-            'Cantidad*Descuento AS ImporteDescuento,
-            'Cantidad*(PrecioUnitario-Descuento) AS ImporteConDescuento
-            'FROM vw_items_comprobante WHERE IdOperacion = " & idOperacion
 
             Dim sql As String = "SELECT * FROM vw_items_comprobante WHERE IdOperacion = " & idOperacion
 

@@ -321,7 +321,10 @@ Public Class D_AdminItemsComprobante
                                     PrecioUnitario,
                                     PorcentajeDescuento,
                                     DescuentoUnitario,
-                                    CodiPro
+                                    CodiPro,
+                                    DescuentoUnitarioOS,
+                                    DescuentoUnitarioCS,
+                                    PlanOS
                                 FROM vw_items_nota_credito 
                                 WHERE IdOperacion = @IdOperacion 
                                 ORDER BY IdItem"
@@ -347,6 +350,9 @@ Public Class D_AdminItemsComprobante
                         Dim porcentajeDescuentoOrdinal As Integer = datos.GetOrdinal("PorcentajeDescuento")
                         Dim descuentoUnitarioOrdinal As Integer = datos.GetOrdinal("DescuentoUnitario")
                         Dim codiProOrdinal As Integer = datos.GetOrdinal("CodiPro")
+                        Dim descuentoUnitarioOSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioOS")
+                        Dim descuentoUnitarioCSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioCS")
+                        Dim planOSOrdinal As Integer = datos.GetOrdinal("PlanOS")
 
                         While datos.Read
                             ' Manejo explícito de DBNull y conversión a tipos de datos .NET
@@ -362,8 +368,27 @@ Public Class D_AdminItemsComprobante
                             Dim porcentajeDescuentoResult As Decimal = CDec(datos("PorcentajeDescuento"))
                             Dim descuentoUnitarioResult As Decimal = If(datos.IsDBNull(descuentoUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoUnitarioOrdinal)))
                             Dim codiProResult As String = datos.GetString("CodiPro")
+                            Dim descuentoUnitarioOSResult As Decimal = CDec(datos(descuentoUnitarioOSOrdinal))
+                            Dim descuentoUnitarioCSResult As Decimal = CDec(datos(descuentoUnitarioCSOrdinal))
+                            Dim planOSResult As String = If(datos.IsDBNull(planOSOrdinal), Nothing, datos.GetString(planOSOrdinal))
 
-                            Dim objINC As New ItemComprobanteNC(idItemResult, idArticuloResult, descripcionResult, fraccionadoResult, cantidadFResult, cantidadAResult, precioCostoResult, precioUnitarioResult, alicIVAResult, porcentajeDescuentoResult, descuentoUnitarioResult, codiProResult)
+                            Dim objINC As New ItemComprobanteNC(
+                                                                idItemResult,
+                                                                idArticuloResult,
+                                                                descripcionResult,
+                                                                fraccionadoResult,
+                                                                cantidadFResult,
+                                                                cantidadAResult,
+                                                                precioCostoResult,
+                                                                precioUnitarioResult,
+                                                                alicIVAResult,
+                                                                porcentajeDescuentoResult,
+                                                                descuentoUnitarioResult,
+                                                                codiProResult,
+                                                                descuentoUnitarioOSResult,
+                                                                descuentoUnitarioCSResult,
+                                                                planOSResult
+                                                                )
                             objLI.Add(objINC)
                         End While
                     End Using
