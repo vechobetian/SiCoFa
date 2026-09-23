@@ -64,50 +64,9 @@ Public Class FrmNotaCredito
 
     Private Sub AcreditacionCompleta()
         Try
-            mint_CantidadItems = 0
-            mdec_ImporteCosto = 0D
-            mdec_ImporteSinDescuentos = 0D
-            mdec_ImporteDescuentos = 0D
-            mdec_ImporteConDescuentos = 0D
-            mdec_PorcentajeDescuentos = 0D
-            mdec_ImporteExento = 0D
-            mdec_ImporteGravado1 = 0D
-            mdec_ImporteGravado2 = 0D
-            mdec_ImporteOS = 0D
-            mdec_ImporteCS = 0D
-
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
                 i.CantidadNC = i.CantidadF - i.CantidadA
-
-                If i.CantidadNC > 0 Then
-                    mint_CantidadItems += 1
-                End If
-
-                mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
-                mdec_ImporteSinDescuentos += i.ImporteSinDescuento
-                mdec_ImporteDescuentos += i.ImporteDescuento
-                mdec_ImporteConDescuentos += i.ImporteConDescuento
-
-                Select Case i.AlicIVA
-                    Case 10.5D
-                        mdec_ImporteGravado1 += i.ImporteConDescuento
-                    Case 21
-                        mdec_ImporteGravado2 += i.ImporteConDescuento
-                End Select
             Next
-
-            If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
-            Else
-                mdec_PorcentajeDescuentos = 0D
-            End If
-
-            Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
-            Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%"
-            Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
-            Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
-            Me.DataGridView1.Refresh()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -116,43 +75,9 @@ Public Class FrmNotaCredito
 
     Private Sub PonerEnCeroCantNC()
         Try
-            mint_CantidadItems = 0
-            mdec_ImporteCosto = 0
-            mdec_ImporteSinDescuentos = 0
-            mdec_ImporteDescuentos = 0
-            mdec_ImporteConDescuentos = 0
-            mdec_PorcentajeDescuentos = 0
-            mdec_ImporteGravado1 = 0
-            mdec_ImporteGravado2 = 0
-            mint_CantidadItems = 0
-
             For Each i As ItemComprobanteNC In Me.mobj_ItemsComprobanteOrigen
                 i.CantidadNC = 0
-                mdec_ImporteCosto += (i.PrecioCosto * i.CantidadA)
-                mdec_ImporteSinDescuentos += i.ImporteSinDescuento
-                mdec_ImporteDescuentos += i.ImporteDescuento
-                mdec_ImporteConDescuentos += i.ImporteConDescuento
-
-                Select Case i.AlicIVA
-                    Case 10.5D
-                        mdec_ImporteGravado1 += i.ImporteConDescuento
-                    Case 21
-                        mdec_ImporteGravado2 += i.ImporteConDescuento
-                End Select
             Next
-
-            If mdec_ImporteSinDescuentos > 0 Then
-                mdec_PorcentajeDescuentos = Math.Round(mdec_ImporteDescuentos / mdec_ImporteSinDescuentos * 100, 2, MidpointRounding.ToEven)
-            Else
-                mdec_PorcentajeDescuentos = 0
-            End If
-
-            Me.lblCantidadItems.Text = "- Items Nota de Crédito: " & mint_CantidadItems
-            Me.lblImporteSinDescuentos.Text = "$ " & Format(mdec_ImporteSinDescuentos, "#,##0.00")
-            Me.lblPorcentajeAplicado.Text = "- Porcentaje Descuentos: " & Format(mdec_PorcentajeDescuentos, "#,##0.00") & "%"
-            Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
-            Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
-            Me.DataGridView1.Refresh()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -327,8 +252,16 @@ Public Class FrmNotaCredito
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
                 mdec_ImporteConDescuentos += i.ImporteConDescuento
+                mdec_ImporteOS += i.ImporteOS
+                mdec_ImporteCS += i.ImporteCS
 
                 Select Case i.AlicIVA
+                    Case 0D
+                        If i.IdReceta > 0 Then
+                            mdec_ImporteExento += i.ImporteSinDescuento
+                        Else
+                            mdec_ImporteExento += i.ImporteConDescuento
+                        End If
                     Case 10.5D
                         mdec_ImporteGravado1 += i.ImporteConDescuento
                     Case 21
@@ -505,6 +438,10 @@ Public Class FrmNotaCredito
         Else
             Me.PonerEnCeroCantNC()
         End If
+
+        Me.ActualizarTotales()
+        Me.DataGridView1.Refresh()
+
     End Sub
 
     Private Sub mnuSalir_Click(sender As Object, e As EventArgs) Handles mnuSalir.Click

@@ -176,7 +176,7 @@
 
     Public ReadOnly Property ImporteConDescuento() As Decimal
         Get
-            Return Me.ImporteSinDescuento - Me.ImporteDescuento
+            Return Me.ImporteSinDescuento - Me.ImporteDescuento - Me.ImporteOS - Me.ImporteCS
         End Get
     End Property
 
