@@ -19,6 +19,7 @@ Public Module ItemComprobanteMapper
         Dim descuentoUnitarioOSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioOS")
         Dim porcentajeCSOrdinal As Integer = datos.GetOrdinal("PorcentajeCS")
         Dim descuentoUnitarioCSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioCS")
+        Dim codiProOrdinal As Integer = datos.GetOrdinal("CodiPro")
 
         Dim idItem As Long = Convert.ToInt64(datos.GetValue(idItemOrdinal))
         Dim idArticulo As String = datos.GetString(idArticuloOrdinal)
@@ -34,6 +35,7 @@ Public Module ItemComprobanteMapper
         Dim descuentoUnitarioOS As Decimal = If(datos.IsDBNull(descuentoUnitarioOSOrdinal), 0D, Convert.ToDecimal(datos.GetValue(descuentoUnitarioOSOrdinal)))
         Dim porcentajeCS As Decimal = If(datos.IsDBNull(porcentajeCSOrdinal), 0D, Convert.ToDecimal(datos.GetValue(porcentajeCSOrdinal)))
         Dim descuentoUnitarioCS As Decimal = If(datos.IsDBNull(descuentoUnitarioCSOrdinal), 0D, Convert.ToDecimal(datos.GetValue(descuentoUnitarioCSOrdinal)))
+        Dim codiPro As String = If(datos.IsDBNull(codiProOrdinal), String.Empty, datos.GetString(codiProOrdinal))
 
         Return New ItemComprobante(
                                     idItem,
@@ -49,7 +51,8 @@ Public Module ItemComprobanteMapper
                                     porcentajeOS,
                                     descuentoUnitarioOS,
                                     porcentajeCS,
-                                    descuentoUnitarioCS
+                                    descuentoUnitarioCS,
+                                    codiPro
                                     )
 
     End Function

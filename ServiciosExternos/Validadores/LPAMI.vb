@@ -642,7 +642,7 @@ Public Class LPAMI
             Dim numItem As Integer = 0
             For Each item As XmlNode In nodo.SelectNodes("DetalleReceta/Item")
                 numItem += 1
-                Dim itemReceta As New ItemComprobante(numItem, "", "", item.InnerText.Trim(), False, 1, 0, 1, 1, 0, 0, 0, 0, 0)
+                Dim itemReceta As New ItemComprobante(numItem, "", "", item.InnerText.Trim(), False, 1, 0, 1, 1, 0, 0, 0, 0, 0, "0")
                 itemsReceta.Add(itemReceta)
             Next
 
@@ -734,7 +734,7 @@ Public Class LPAMI
 
                 Dim descripcion = itemSeleccionado.SelectSingleNode("Descripcion")?.InnerText
 
-                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
+                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, "0", codigo, nTroquel)
 
                 argReceta.Items.Add(item)
 

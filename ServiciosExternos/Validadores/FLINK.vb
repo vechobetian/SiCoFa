@@ -580,7 +580,7 @@ Public Class FLINK
 
                 Dim descripcion = itemSeleccionado.SelectSingleNode("Descripcion")?.InnerText
 
-                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
+                Dim item As New ItemComprobante(idItem, idArticulo, codBarras, descripcion, False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, "0", codigo, nTroquel)
 
                 argReceta.Items.Add(item)
 

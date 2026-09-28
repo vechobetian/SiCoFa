@@ -34,7 +34,7 @@ Partial Class FrmMoviCajaPEDetalle
         Me.Usuario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Operacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Comprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NumComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ComprobanteAsociado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EstadoTransaccion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -77,11 +77,12 @@ Partial Class FrmMoviCajaPEDetalle
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MedioPE, Me.NumTransaccion, Me.Fecha, Me.Usuario, Me.Operacion, Me.Comprobante, Me.NumComprobante, Me.Importe, Me.EstadoTransaccion})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.MedioPE, Me.NumTransaccion, Me.Fecha, Me.Usuario, Me.Operacion, Me.Comprobante, Me.ComprobanteAsociado, Me.Importe, Me.EstadoTransaccion})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(6, 6)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(1150, 460)
         Me.DataGridView1.TabIndex = 1
@@ -99,11 +100,11 @@ Partial Class FrmMoviCajaPEDetalle
         '
         'MedioPE
         '
+        Me.MedioPE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.MedioPE.DataPropertyName = "MedioPE"
         Me.MedioPE.HeaderText = "Medio de Pago"
         Me.MedioPE.Name = "MedioPE"
         Me.MedioPE.ReadOnly = True
-        Me.MedioPE.Width = 110
         '
         'NumTransaccion
         '
@@ -140,18 +141,18 @@ Partial Class FrmMoviCajaPEDetalle
         '
         'Comprobante
         '
-        Me.Comprobante.DataPropertyName = "TipoComprobante"
+        Me.Comprobante.DataPropertyName = "Comprobante"
         Me.Comprobante.HeaderText = "Comprobante"
         Me.Comprobante.Name = "Comprobante"
         Me.Comprobante.ReadOnly = True
         Me.Comprobante.Width = 150
         '
-        'NumComprobante
+        'ComprobanteAsociado
         '
-        Me.NumComprobante.DataPropertyName = "NumComp"
-        Me.NumComprobante.HeaderText = "Num.Comprobante"
-        Me.NumComprobante.Name = "NumComprobante"
-        Me.NumComprobante.ReadOnly = True
+        Me.ComprobanteAsociado.DataPropertyName = "ComprobanteAsociado"
+        Me.ComprobanteAsociado.HeaderText = "Comp. Asoc."
+        Me.ComprobanteAsociado.Name = "ComprobanteAsociado"
+        Me.ComprobanteAsociado.ReadOnly = True
         '
         'Importe
         '
@@ -198,7 +199,7 @@ Partial Class FrmMoviCajaPEDetalle
     Friend WithEvents Usuario As DataGridViewTextBoxColumn
     Friend WithEvents Operacion As DataGridViewTextBoxColumn
     Friend WithEvents Comprobante As DataGridViewTextBoxColumn
-    Friend WithEvents NumComprobante As DataGridViewTextBoxColumn
+    Friend WithEvents ComprobanteAsociado As DataGridViewTextBoxColumn
     Friend WithEvents Importe As DataGridViewTextBoxColumn
     Friend WithEvents EstadoTransaccion As DataGridViewTextBoxColumn
 End Class

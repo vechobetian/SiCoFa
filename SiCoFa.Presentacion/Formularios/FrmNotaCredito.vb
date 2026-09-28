@@ -10,8 +10,8 @@ Public Class FrmNotaCredito
     Private mobj_ItemsComprobanteOrigen As New BindingList(Of ItemComprobanteNC)
     Private mobj_ItemsComprobante As New List(Of ItemComprobante) 'Esta lista es para el objeto comprobante
     Private mint_CantidadItems As Integer = 0
-    Private mdec_CantidadFacturado As Decimal = 0D
-    Private mdec_CantidadAcreditado As Decimal = 0D
+    Private mint_CantidadFacturado As Integer = 0
+    Private mint_CantidadAcreditado As Integer = 0
     Private mdec_ImporteCosto As Decimal = 0D
     Private mdec_ImporteSinDescuentos As Decimal = 0D
     Private mdec_ImporteDescuentos As Decimal = 0D
@@ -209,12 +209,32 @@ Public Class FrmNotaCredito
         Try
             'Dim AdminArticulos As New N_AdminArticulos
 
+            mobj_ItemsComprobante.Clear()
+
             For Each i As ItemComprobanteNC In mobj_ItemsComprobanteOrigen
                 If i.CantidadNC > 0 Then
-                    'Dim objArticulo As Articulo = AdminArticulos.ObtenerArticuloPorId(i.IdArticulo)
-                    Dim objItemComprobante As New ItemComprobante(i.IdItem, i.IdArticulo, "", i.Descripcion, i.Fraccionado, i.CantidadNC, i.AlicIVA, i.PrecioCosto, i.PrecioUnitario, i.PorcentajeDescuento, 0, 0, 0, 0)
-                    objItemComprobante.IdItem = i.IdItem
-                    objItemComprobante.Articulo.PrecioCosto = i.PrecioCosto
+                    Dim objItemComprobante As New ItemComprobante(
+                                                                    i.IdItem,
+                                                                    i.IdArticulo,
+                                                                    "",
+                                                                    i.Descripcion,
+                                                                    i.Fraccionado,
+                                                                    i.CantidadNC,
+                                                                    i.AlicIVA,
+                                                                    i.PrecioCosto,
+                                                                    i.PrecioUnitario,
+                                                                    i.PorcentajeDescuento,
+                                                                    i.PorcentajeOS,
+                                                                    i.DescuentoUnitarioOS,
+                                                                    i.PorcentajeCS,
+                                                                    i.DescuentoUnitarioCS,
+                                                                    i.Promocion.CodiPro
+                                                                    )
+
+                    If i.IdReceta > 0 Then
+                        objItemComprobante.Receta = New Receta(i.IdReceta, 0, Nothing, Date.Now, Date.Now, "0", Nothing, Nothing, Nothing, 0, 0, 0, "0", "")
+                    End If
+
                     mobj_ItemsComprobante.Add(objItemComprobante)
                 End If
             Next
@@ -229,6 +249,8 @@ Public Class FrmNotaCredito
 
         Try
             mint_CantidadItems = 0
+            mint_CantidadFacturado = 0
+            mint_CantidadAcreditado = 0
             mdec_ImporteCosto = 0D
             mdec_ImporteSinDescuentos = 0D
             mdec_ImporteDescuentos = 0D
@@ -246,8 +268,8 @@ Public Class FrmNotaCredito
                     mint_CantidadItems += 1
                 End If
 
-                mdec_CantidadAcreditado += i.CantidadA
-                mdec_CantidadFacturado += i.CantidadF
+                mint_CantidadAcreditado += i.CantidadA
+                mint_CantidadFacturado += i.CantidadF
                 mdec_ImporteCosto += i.ImporteCosto
                 mdec_ImporteSinDescuentos += i.ImporteSinDescuento
                 mdec_ImporteDescuentos += i.ImporteDescuento
@@ -281,7 +303,7 @@ Public Class FrmNotaCredito
             Me.lblImporteDescuentos.Text = "$ " & Format(mdec_ImporteDescuentos, "#,##0.00")
             Me.lblImporteConDescuentos.Text = "$ " & Format(mdec_ImporteConDescuentos, "#,##0.00")
 
-            If mdec_CantidadFacturado - mdec_CantidadAcreditado = 0 Then
+            If mint_CantidadFacturado - mint_CantidadAcreditado = 0 Then
                 Me.chkAcreditarTodo.Checked = False
                 Me.chkAcreditarTodo.Enabled = False
             End If
@@ -352,6 +374,14 @@ Public Class FrmNotaCredito
 
     End Sub
 
+    Private Function ValidarCantidadPromocion(argPromocion As Promocion, argCantidadNC As Integer) As Boolean
+        If argCantidadNC Mod argPromocion.UnidadesCombo <> 0 Then
+            Return False
+        End If
+
+        Return True
+    End Function
+
     ' Variable de control para no mostrar MsgBox repetidos
     Private ajustarCantidad As Boolean = False
     Private valorMaximo As Decimal = 0
@@ -360,10 +390,10 @@ Public Class FrmNotaCredito
         Try
             If DataGridView1.Columns(e.ColumnIndex).Name.Equals("CantidadNC", StringComparison.OrdinalIgnoreCase) Then
                 Dim valorIngresado As String = e.FormattedValue.ToString().Trim()
-                Dim cantidadNC As Decimal
+                Dim cantidadNC As Integer
 
                 ' Validación básica
-                If String.IsNullOrWhiteSpace(valorIngresado) OrElse Not Decimal.TryParse(valorIngresado, cantidadNC) OrElse cantidadNC < 0 Then
+                If String.IsNullOrWhiteSpace(valorIngresado) OrElse Not Integer.TryParse(valorIngresado, cantidadNC) OrElse cantidadNC < 0 Then
                     MsgBox("Cantidad debe ser un valor mayor que cero", vbCritical, "SiCoFa")
                     e.Cancel = True
                     Exit Sub
@@ -371,13 +401,13 @@ Public Class FrmNotaCredito
 
                 ' Obtener cantidades
                 Dim fila As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
-                Dim cantidadA As Decimal = 0
-                Dim cantidadF As Decimal = 0
+                Dim cantidadA As Integer = 0
+                Dim cantidadF As Integer = 0
 
-                Decimal.TryParse(fila.Cells("CantidadA").Value?.ToString(), cantidadA)
-                Decimal.TryParse(fila.Cells("CantidadF").Value?.ToString(), cantidadF)
+                Integer.TryParse(fila.Cells("CantidadA").Value?.ToString(), cantidadA)
+                Integer.TryParse(fila.Cells("CantidadF").Value?.ToString(), cantidadF)
 
-                Dim maxPermitido As Decimal = cantidadF - cantidadA
+                Dim maxPermitido As Integer = cantidadF - cantidadA
 
                 ' Si excede el máximo, marcar para corrección
                 If cantidadNC > maxPermitido Then
@@ -414,6 +444,13 @@ Public Class FrmNotaCredito
                             Me.EstablecerCantidadNCReceta(itemComprobante.IdReceta, CBool(itemComprobante.CantidadNC))
                         End If
 
+                        If itemComprobante.Promocion IsNot Nothing Then
+                            If Not Me.ValidarCantidadPromocion(itemComprobante.Promocion, itemComprobante.CantidadNC) Then
+                                MsgBox("El Item tiene promoción " & itemComprobante.Promocion.Descripcion & vbCrLf &
+                                       "La cantidad NC debe ser múltiplo de " & itemComprobante.Promocion.UnidadesCombo, vbCritical, "SiCoFa")
+                                itemComprobante.CantidadNC = 0
+                            End If
+                        End If
                         Me.DataGridView1.Refresh()
                         Me.ActualizarTotales()
                     End If

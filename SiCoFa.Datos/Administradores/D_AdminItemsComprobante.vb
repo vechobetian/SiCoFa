@@ -29,7 +29,8 @@ Public Class D_AdminItemsComprobante
                                     PorcentajeOS,
                                     DescuentoUnitarioOS,
                                     PorcentajeCS,
-                                    DescuentoUnitarioCS
+                                    DescuentoUnitarioCS,
+                                    CodiPro
                                  FROM vw_items_comprobante 
                                  WHERE IdOperacion = @IdOperacion 
                                  ORDER BY IdItem"
@@ -85,12 +86,12 @@ Public Class D_AdminItemsComprobante
             Using cmd As New MySqlCommand("sp_insertar_item_comprobante", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                    .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
+                    .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.IdArticulo
                     .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
                     .Add("p_Fraccionado", MySqlDbType.Bit).Value = argItemComprobante.Fraccionado
                     .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad
                     .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
-                    .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto
+                    .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.PrecioCosto
                     .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
                     .Add("p_PorcentajeDescuento", MySqlDbType.Decimal).Value = argItemComprobante.PorcentajeDescuento
                     .Add("p_DescuentoUnitario", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
@@ -331,6 +332,8 @@ Public Class D_AdminItemsComprobante
                         Dim porcentajeDescuentoOrdinal As Integer = datos.GetOrdinal("PorcentajeDescuento")
                         Dim descuentoUnitarioOrdinal As Integer = datos.GetOrdinal("DescuentoUnitario")
                         Dim codiProOrdinal As Integer = datos.GetOrdinal("CodiPro")
+                        Dim porcentajeOSOrdinal As Integer = datos.GetOrdinal("PorcentajeOS")
+                        Dim porcentajeCSOrdinal As Integer = datos.GetOrdinal("PorcentajeCS")
                         Dim descuentoUnitarioOSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioOS")
                         Dim descuentoUnitarioCSOrdinal As Integer = datos.GetOrdinal("DescuentoUnitarioCS")
                         Dim planOSOrdinal As Integer = datos.GetOrdinal("PlanOS")
@@ -350,6 +353,8 @@ Public Class D_AdminItemsComprobante
                             Dim porcentajeDescuentoResult As Decimal = CDec(datos("PorcentajeDescuento"))
                             Dim descuentoUnitarioResult As Decimal = If(datos.IsDBNull(descuentoUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoUnitarioOrdinal)))
                             Dim codiProResult As String = datos.GetString("CodiPro")
+                            Dim porcentajeOSResult As Decimal = CDec(datos(porcentajeOSOrdinal))
+                            Dim porcentajeCSResult As Decimal = CDec(datos(porcentajeCSOrdinal))
                             Dim descuentoUnitarioOSResult As Decimal = CDec(datos(descuentoUnitarioOSOrdinal))
                             Dim descuentoUnitarioCSResult As Decimal = CDec(datos(descuentoUnitarioCSOrdinal))
                             Dim planOSResult As String = If(datos.IsDBNull(planOSOrdinal), Nothing, datos.GetString(planOSOrdinal))
@@ -368,7 +373,9 @@ Public Class D_AdminItemsComprobante
                                                                 porcentajeDescuentoResult,
                                                                 descuentoUnitarioResult,
                                                                 codiProResult,
+                                                                porcentajeOSResult,
                                                                 descuentoUnitarioOSResult,
+                                                                porcentajeCSResult,
                                                                 descuentoUnitarioCSResult,
                                                                 planOSResult,
                                                                 idRecetaResult
@@ -388,34 +395,25 @@ Public Class D_AdminItemsComprobante
         End Try
     End Function
 
-    Friend Function InsertarItemComprobanteNC(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Sub InsertarItemComprobanteNC(ByVal argIdOperacion As Long, ByVal argItemComprobante As ItemComprobante, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction)
 
         Try
-            Dim objConexionDB As New D_Conexion
 
-            Using cmd As New MySqlCommand("sp_insertar_item_comprobante_nc", cn, tx) With {.CommandType = CommandType.StoredProcedure}
+            Dim idItem As Long = Me.InsertarItemComprobante(argIdOperacion, argItemComprobante, cn, tx)
+
+            Using cmd As New MySqlCommand("sp_insertar_item_nc", cn, tx) With {.CommandType = CommandType.StoredProcedure}
                 With cmd.Parameters
+                    .Add("p_IdItem", MySqlDbType.Int64).Value = argItemComprobante.IdItem
                     .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                    .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
-                    .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
                     .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad
-                    .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
-                    .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto
-                    .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioUnitario
-                    .Add("p_DescuentoUnitario", MySqlDbType.Decimal).Value = argItemComprobante.DescuentoUnitario
-                    .Add("p_IdItemOrigen", MySqlDbType.Int64).Value = argItemComprobante.IdItem
                 End With
-
-                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
-
+                cmd.ExecuteNonQuery()
             End Using
 
         Catch Ex As Exception
             Throw New Exception(Vecho.MensajeError(Me.ToString, NameOf(InsertarItemComprobanteNC), Ex.Message))
-            Return False
 
         End Try
 
-    End Function
+    End Sub
 End Class

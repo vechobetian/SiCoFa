@@ -12,7 +12,9 @@
     Private ReadOnly m_PorcentajeDescuento As Decimal
     Private ReadOnly m_DescuentoUnitario As Decimal
     Private ReadOnly m_CodiPro As String
+    Private ReadOnly m_PorcentajeOS As Decimal
     Private ReadOnly m_DescuentoUnitarioOS As Decimal
+    Private ReadOnly m_PorcentajeCS As Decimal
     Private ReadOnly m_DescuentoUnitarioCS As Decimal
     Private ReadOnly m_PlanOS As String
     Private ReadOnly m_IdReceta As Long
@@ -30,7 +32,9 @@
         ByVal argPorcentajeDescuento As Decimal,
         ByVal argDescuentoUnitario As Decimal,
         ByVal argCodiPro As String,
+        ByVal argPorcentajeOS As Decimal,
         ByVal argDescuentoUnitarioOS As Decimal,
+        ByVal argPorcentajeCS As Decimal,
         ByVal argDescuentoUnitarioCS As Decimal,
         ByVal argPlanOS As String,
         ByVal argIdReceta As Long
@@ -47,7 +51,9 @@
         m_PorcentajeDescuento = argPorcentajeDescuento
         m_DescuentoUnitario = argDescuentoUnitario
         m_CodiPro = argCodiPro
+        m_PorcentajeOS = argPorcentajeOS
         m_DescuentoUnitarioOS = argDescuentoUnitarioOS
+        m_PorcentajeCS = argPorcentajeCS
         m_DescuentoUnitarioCS = argDescuentoUnitarioCS
         m_PlanOS = argPlanOS
         m_IdReceta = argIdReceta
@@ -198,15 +204,39 @@
         End Get
     End Property
 
-    Public ReadOnly Property CodiPro() As String
+    Public ReadOnly Property Promocion() As Promocion
         Get
-            Return m_CodiPro
+            Return New Promocion(m_CodiPro, m_PorcentajeDescuento)
+        End Get
+    End Property
+
+    Public ReadOnly Property PorcentajeOS As Decimal
+        Get
+            Return m_PorcentajeOS
+        End Get
+    End Property
+
+    Public ReadOnly Property DescuentoUnitarioOS As Decimal
+        Get
+            Return m_DescuentoUnitarioOS
         End Get
     End Property
 
     Public ReadOnly Property ImporteOS As Decimal
         Get
             Return Math.Round(m_CantidadNC * m_DescuentoUnitarioOS, 2, MidpointRounding.ToEven)
+        End Get
+    End Property
+
+    Public ReadOnly Property PorcentajeCS As Decimal
+        Get
+            Return m_PorcentajeCS
+        End Get
+    End Property
+
+    Public ReadOnly Property DescuentoUnitarioCS As Decimal
+        Get
+            Return m_DescuentoUnitarioCS
         End Get
     End Property
 

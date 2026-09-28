@@ -114,11 +114,11 @@ Partial Class FrmMoviCajaCCDetalle
         '
         'Operacion
         '
+        Me.Operacion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.Operacion.DataPropertyName = "TipoOperacion"
         Me.Operacion.HeaderText = "Operacion"
         Me.Operacion.Name = "Operacion"
         Me.Operacion.ReadOnly = True
-        Me.Operacion.Width = 200
         '
         'Comprobante
         '

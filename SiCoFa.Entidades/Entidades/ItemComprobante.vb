@@ -60,6 +60,7 @@
                     ByVal argDescuentoUnitarioOS As Decimal,
                     ByVal argPorcentajeCS As Decimal,
                     ByVal argDescuentoUnitarioCS As Decimal,
+                    ByRef argCodiPro As String,
                     Optional ByVal argCodigo As Integer = 0,
                     Optional ByVal argNTroquel As String = ""
                    )
@@ -78,6 +79,7 @@
         m_DescuentoUnitarioOS = argDescuentoUnitarioOS
         m_PorcentajeCS = argPorcentajeCS
         m_DescuentoUnitarioCS = argDescuentoUnitarioCS
+        m_Promocion = New Promocion(argCodiPro)
         m_Codigo = argCodigo
         m_NTroquel = argNTroquel
     End Sub
@@ -131,7 +133,13 @@
 
         If m_Articulo Is Nothing Then Exit Sub
         If m_Promocion Is Nothing Then Exit Sub
-        If m_Receta IsNot Nothing Then Exit Sub
+
+        If m_Receta IsNot Nothing Then
+            m_PorcentajeDescuento = 0D
+            m_Promocion.CodiPro = "0"
+            Exit Sub
+        End If
+
         If m_Cantidad <= 0 Then Exit Sub
 
         If m_Promocion.CodiPro <> "D1U" Then

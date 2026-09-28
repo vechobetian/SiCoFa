@@ -29,16 +29,17 @@ Partial Class FrmMoviCajaOSDetalle
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Usuario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Operacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Comprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NumComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ComprobanteAsociado = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImporteOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImporteAf = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EstadoReceta = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -79,33 +80,23 @@ Partial Class FrmMoviCajaOSDetalle
         Me.DataGridView1.AllowUserToResizeColumns = False
         Me.DataGridView1.AllowUserToResizeRows = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Descripcion, Me.Fecha, Me.Usuario, Me.Operacion, Me.Comprobante, Me.NumComprobante, Me.ImporteTotal, Me.ImporteOS, Me.ImporteAf})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Descripcion, Me.Fecha, Me.Usuario, Me.Operacion, Me.Comprobante, Me.ComprobanteAsociado, Me.ImporteTotal, Me.ImporteOS, Me.ImporteAf, Me.EstadoReceta})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(6, 6)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DataGridView1.Size = New System.Drawing.Size(1150, 460)
         Me.DataGridView1.TabIndex = 1
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label1.Location = New System.Drawing.Point(6, 472)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 27)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Label1"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'Descripcion
         '
+        Me.Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.Descripcion.DataPropertyName = "Descripcion"
         Me.Descripcion.HeaderText = "Descripcion"
         Me.Descripcion.Name = "Descripcion"
         Me.Descripcion.ReadOnly = True
-        Me.Descripcion.Width = 110
         '
         'Fecha
         '
@@ -113,7 +104,7 @@ Partial Class FrmMoviCajaOSDetalle
         Me.Fecha.HeaderText = "Fecha"
         Me.Fecha.Name = "Fecha"
         Me.Fecha.ReadOnly = True
-        Me.Fecha.Width = 150
+        Me.Fecha.Width = 130
         '
         'Usuario
         '
@@ -131,22 +122,23 @@ Partial Class FrmMoviCajaOSDetalle
         Me.Operacion.HeaderText = "Operacion"
         Me.Operacion.Name = "Operacion"
         Me.Operacion.ReadOnly = True
-        Me.Operacion.Width = 200
+        Me.Operacion.Width = 150
         '
         'Comprobante
         '
-        Me.Comprobante.DataPropertyName = "TipoComprobante"
+        Me.Comprobante.DataPropertyName = "Comprobante"
         Me.Comprobante.HeaderText = "Comprobante"
         Me.Comprobante.Name = "Comprobante"
         Me.Comprobante.ReadOnly = True
-        Me.Comprobante.Width = 150
+        Me.Comprobante.Width = 120
         '
-        'NumComprobante
+        'ComprobanteAsociado
         '
-        Me.NumComprobante.DataPropertyName = "NumComp"
-        Me.NumComprobante.HeaderText = "Num.Comprobante"
-        Me.NumComprobante.Name = "NumComprobante"
-        Me.NumComprobante.ReadOnly = True
+        Me.ComprobanteAsociado.DataPropertyName = "ComprobanteAsociado"
+        Me.ComprobanteAsociado.HeaderText = "Comp.Asoc."
+        Me.ComprobanteAsociado.Name = "ComprobanteAsociado"
+        Me.ComprobanteAsociado.ReadOnly = True
+        Me.ComprobanteAsociado.Width = 120
         '
         'ImporteTotal
         '
@@ -178,7 +170,24 @@ Partial Class FrmMoviCajaOSDetalle
         Me.ImporteAf.HeaderText = "Importe Af"
         Me.ImporteAf.Name = "ImporteAf"
         Me.ImporteAf.ReadOnly = True
-        Me.ImporteAf.Width = 130
+        '
+        'EstadoReceta
+        '
+        Me.EstadoReceta.DataPropertyName = "EstadoReceta"
+        Me.EstadoReceta.HeaderText = "EstadoReceta"
+        Me.EstadoReceta.Name = "EstadoReceta"
+        Me.EstadoReceta.ReadOnly = True
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label1.Location = New System.Drawing.Point(6, 472)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 27)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Label1"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'FrmMoviCajaOSDetalle
         '
@@ -205,8 +214,9 @@ Partial Class FrmMoviCajaOSDetalle
     Friend WithEvents Usuario As DataGridViewTextBoxColumn
     Friend WithEvents Operacion As DataGridViewTextBoxColumn
     Friend WithEvents Comprobante As DataGridViewTextBoxColumn
-    Friend WithEvents NumComprobante As DataGridViewTextBoxColumn
+    Friend WithEvents ComprobanteAsociado As DataGridViewTextBoxColumn
     Friend WithEvents ImporteTotal As DataGridViewTextBoxColumn
     Friend WithEvents ImporteOS As DataGridViewTextBoxColumn
     Friend WithEvents ImporteAf As DataGridViewTextBoxColumn
+    Friend WithEvents EstadoReceta As DataGridViewTextBoxColumn
 End Class

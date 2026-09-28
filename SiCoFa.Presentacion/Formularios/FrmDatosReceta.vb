@@ -489,7 +489,7 @@ Public Class FrmDatosReceta
             AgregarCampoTratamiento()
         End If
 
-        Dim dr = m_Receta.Plan.DatosRequeridos
+        Dim dr As DatosRequeridos = m_Receta.Plan.DatosRequeridos
 
         If dr.NumeroAfiliado Then
             AgregarCampoTexto("Número Afiliado", NameOf(m_Receta.Credencial.Numero), "Credencial." & NameOf(m_Receta.Credencial.Numero))

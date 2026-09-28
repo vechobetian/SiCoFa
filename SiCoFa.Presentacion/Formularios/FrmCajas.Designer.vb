@@ -26,12 +26,14 @@ Partial Class FrmCajas
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.tlpCajas = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvCajas = New System.Windows.Forms.DataGridView()
@@ -48,14 +50,10 @@ Partial Class FrmCajas
         Me.mnuDetalleEF = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDetallePE = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDetalleCC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDetalleOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.tlpDetalleCaja = New System.Windows.Forms.TableLayoutPanel()
         Me.lblImporteRecetas = New System.Windows.Forms.Label()
         Me.dgvOperacionesObraSociales = New System.Windows.Forms.DataGridView()
-        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CantRecetas = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteAf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblTituloRecetas = New System.Windows.Forms.Label()
         Me.lblImporteCC = New System.Windows.Forms.Label()
         Me.lblTituloOperacionesCuentaCorriente = New System.Windows.Forms.Label()
@@ -63,20 +61,25 @@ Partial Class FrmCajas
         Me.lblTituloOperacionesMediosPagoElectronico = New System.Windows.Forms.Label()
         Me.lblImporteEfectivo = New System.Windows.Forms.Label()
         Me.dgvOperacionesEfectivo = New System.Windows.Forms.DataGridView()
-        Me.TipoOperacionEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.CantOperacionesEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ImporteEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dgvOperacionesCuentaCorriente = New System.Windows.Forms.DataGridView()
+        Me.dgvOperacionesMediosPagoElectronico = New System.Windows.Forms.DataGridView()
+        Me.lblTituloOperacionesEfectivo = New System.Windows.Forms.Label()
+        Me.Descripcion = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CantRecetas = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteTotal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteAf = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.EstadoReceta = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TipoOperacionCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CantOperacionesCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImporteCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.dgvOperacionesMediosPagoElectronico = New System.Windows.Forms.DataGridView()
+        Me.TipoOperacionEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.CantOperacionesEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImporteEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MedioPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.CantOperacionesPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImportePE = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.EstadoTransaccion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.lblTituloOperacionesEfectivo = New System.Windows.Forms.Label()
-        Me.mnuDetalleOS = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -235,6 +238,12 @@ Partial Class FrmCajas
         Me.mnuDetalleCC.Size = New System.Drawing.Size(224, 22)
         Me.mnuDetalleCC.Text = "Detalle Cuenta Corriente"
         '
+        'mnuDetalleOS
+        '
+        Me.mnuDetalleOS.Name = "mnuDetalleOS"
+        Me.mnuDetalleOS.Size = New System.Drawing.Size(224, 22)
+        Me.mnuDetalleOS.Text = "Detalle Recetas"
+        '
         'tlpDetalleCaja
         '
         Me.tlpDetalleCaja.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble
@@ -291,7 +300,7 @@ Partial Class FrmCajas
         Me.dgvOperacionesObraSociales.AllowUserToResizeRows = False
         Me.dgvOperacionesObraSociales.BackgroundColor = System.Drawing.Color.White
         Me.dgvOperacionesObraSociales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOperacionesObraSociales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Descripcion, Me.CantRecetas, Me.ImporteTotal, Me.ImporteOS, Me.ImporteAf})
+        Me.dgvOperacionesObraSociales.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Descripcion, Me.CantRecetas, Me.ImporteTotal, Me.ImporteOS, Me.ImporteAf, Me.EstadoReceta})
         Me.dgvOperacionesObraSociales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOperacionesObraSociales.Location = New System.Drawing.Point(6, 682)
         Me.dgvOperacionesObraSociales.Name = "dgvOperacionesObraSociales"
@@ -300,58 +309,6 @@ Partial Class FrmCajas
         Me.dgvOperacionesObraSociales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvOperacionesObraSociales.Size = New System.Drawing.Size(621, 151)
         Me.dgvOperacionesObraSociales.TabIndex = 11
-        '
-        'Descripcion
-        '
-        Me.Descripcion.DataPropertyName = "Descripcion"
-        Me.Descripcion.HeaderText = "Descripcion"
-        Me.Descripcion.Name = "Descripcion"
-        Me.Descripcion.ReadOnly = True
-        Me.Descripcion.Width = 300
-        '
-        'CantRecetas
-        '
-        Me.CantRecetas.DataPropertyName = "CantRecetas"
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantRecetas.DefaultCellStyle = DataGridViewCellStyle1
-        Me.CantRecetas.HeaderText = "Recetas"
-        Me.CantRecetas.Name = "CantRecetas"
-        Me.CantRecetas.ReadOnly = True
-        Me.CantRecetas.Width = 50
-        '
-        'ImporteTotal
-        '
-        Me.ImporteTotal.DataPropertyName = "ImporteTotal"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.ImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
-        Me.ImporteTotal.HeaderText = "Imp.Total"
-        Me.ImporteTotal.Name = "ImporteTotal"
-        Me.ImporteTotal.ReadOnly = True
-        Me.ImporteTotal.Width = 80
-        '
-        'ImporteOS
-        '
-        Me.ImporteOS.DataPropertyName = "ImporteOS"
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "N2"
-        Me.ImporteOS.DefaultCellStyle = DataGridViewCellStyle3
-        Me.ImporteOS.HeaderText = "Imp. OS."
-        Me.ImporteOS.Name = "ImporteOS"
-        Me.ImporteOS.ReadOnly = True
-        Me.ImporteOS.Width = 80
-        '
-        'ImporteAf
-        '
-        Me.ImporteAf.DataPropertyName = "ImporteAf"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        Me.ImporteAf.DefaultCellStyle = DataGridViewCellStyle4
-        Me.ImporteAf.HeaderText = "Imp. Af."
-        Me.ImporteAf.Name = "ImporteAf"
-        Me.ImporteAf.ReadOnly = True
-        Me.ImporteAf.Width = 80
         '
         'lblTituloRecetas
         '
@@ -443,34 +400,6 @@ Partial Class FrmCajas
         Me.dgvOperacionesEfectivo.Size = New System.Drawing.Size(621, 151)
         Me.dgvOperacionesEfectivo.TabIndex = 1
         '
-        'TipoOperacionEf
-        '
-        Me.TipoOperacionEf.DataPropertyName = "TipoOperacion"
-        Me.TipoOperacionEf.HeaderText = "TipoOperacion"
-        Me.TipoOperacionEf.Name = "TipoOperacionEf"
-        Me.TipoOperacionEf.ReadOnly = True
-        Me.TipoOperacionEf.Width = 300
-        '
-        'CantOperacionesEf
-        '
-        Me.CantOperacionesEf.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesEf.DefaultCellStyle = DataGridViewCellStyle5
-        Me.CantOperacionesEf.HeaderText = "Operaciones"
-        Me.CantOperacionesEf.Name = "CantOperacionesEf"
-        Me.CantOperacionesEf.ReadOnly = True
-        '
-        'ImporteEf
-        '
-        Me.ImporteEf.DataPropertyName = "Importe"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle6.Format = "N2"
-        DataGridViewCellStyle6.NullValue = Nothing
-        Me.ImporteEf.DefaultCellStyle = DataGridViewCellStyle6
-        Me.ImporteEf.HeaderText = "Importe"
-        Me.ImporteEf.Name = "ImporteEf"
-        Me.ImporteEf.ReadOnly = True
-        '
         'dgvOperacionesCuentaCorriente
         '
         Me.dgvOperacionesCuentaCorriente.AllowUserToAddRows = False
@@ -488,34 +417,6 @@ Partial Class FrmCajas
         Me.dgvOperacionesCuentaCorriente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvOperacionesCuentaCorriente.Size = New System.Drawing.Size(621, 151)
         Me.dgvOperacionesCuentaCorriente.TabIndex = 3
-        '
-        'TipoOperacionCC
-        '
-        Me.TipoOperacionCC.DataPropertyName = "TipoOperacion"
-        Me.TipoOperacionCC.HeaderText = "TipoOperacion"
-        Me.TipoOperacionCC.Name = "TipoOperacionCC"
-        Me.TipoOperacionCC.ReadOnly = True
-        Me.TipoOperacionCC.Width = 300
-        '
-        'CantOperacionesCC
-        '
-        Me.CantOperacionesCC.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesCC.DefaultCellStyle = DataGridViewCellStyle7
-        Me.CantOperacionesCC.HeaderText = "Operaciones"
-        Me.CantOperacionesCC.Name = "CantOperacionesCC"
-        Me.CantOperacionesCC.ReadOnly = True
-        '
-        'ImporteCC
-        '
-        Me.ImporteCC.DataPropertyName = "Importe"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImporteCC.DefaultCellStyle = DataGridViewCellStyle8
-        Me.ImporteCC.HeaderText = "Importe"
-        Me.ImporteCC.Name = "ImporteCC"
-        Me.ImporteCC.ReadOnly = True
         '
         'dgvOperacionesMediosPagoElectronico
         '
@@ -535,41 +436,6 @@ Partial Class FrmCajas
         Me.dgvOperacionesMediosPagoElectronico.Size = New System.Drawing.Size(621, 151)
         Me.dgvOperacionesMediosPagoElectronico.TabIndex = 2
         '
-        'MedioPE
-        '
-        Me.MedioPE.DataPropertyName = "MedioPE"
-        Me.MedioPE.HeaderText = "Medio de Pago"
-        Me.MedioPE.Name = "MedioPE"
-        Me.MedioPE.ReadOnly = True
-        Me.MedioPE.Width = 300
-        '
-        'CantOperacionesPE
-        '
-        Me.CantOperacionesPE.DataPropertyName = "CantOperaciones"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.CantOperacionesPE.DefaultCellStyle = DataGridViewCellStyle9
-        Me.CantOperacionesPE.HeaderText = "Operaciones"
-        Me.CantOperacionesPE.Name = "CantOperacionesPE"
-        Me.CantOperacionesPE.ReadOnly = True
-        '
-        'ImportePE
-        '
-        Me.ImportePE.DataPropertyName = "Importe"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.ImportePE.DefaultCellStyle = DataGridViewCellStyle10
-        Me.ImportePE.HeaderText = "Importe"
-        Me.ImportePE.Name = "ImportePE"
-        Me.ImportePE.ReadOnly = True
-        '
-        'EstadoTransaccion
-        '
-        Me.EstadoTransaccion.DataPropertyName = "EstadoTransaccion"
-        Me.EstadoTransaccion.HeaderText = "EstadoTransaccion"
-        Me.EstadoTransaccion.Name = "EstadoTransaccion"
-        Me.EstadoTransaccion.ReadOnly = True
-        '
         'lblTituloOperacionesEfectivo
         '
         Me.lblTituloOperacionesEfectivo.AutoSize = True
@@ -582,11 +448,159 @@ Partial Class FrmCajas
         Me.lblTituloOperacionesEfectivo.Text = "Operaciones en Efectivo"
         Me.lblTituloOperacionesEfectivo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'mnuDetalleOS
+        'Descripcion
         '
-        Me.mnuDetalleOS.Name = "mnuDetalleOS"
-        Me.mnuDetalleOS.Size = New System.Drawing.Size(224, 22)
-        Me.mnuDetalleOS.Text = "Detalle Recetas"
+        Me.Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Descripcion.DataPropertyName = "Descripcion"
+        Me.Descripcion.HeaderText = "Descripcion"
+        Me.Descripcion.Name = "Descripcion"
+        Me.Descripcion.ReadOnly = True
+        '
+        'CantRecetas
+        '
+        Me.CantRecetas.DataPropertyName = "CantRecetas"
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantRecetas.DefaultCellStyle = DataGridViewCellStyle1
+        Me.CantRecetas.HeaderText = "Recetas"
+        Me.CantRecetas.Name = "CantRecetas"
+        Me.CantRecetas.ReadOnly = True
+        Me.CantRecetas.Width = 50
+        '
+        'ImporteTotal
+        '
+        Me.ImporteTotal.DataPropertyName = "ImporteTotal"
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.ImporteTotal.DefaultCellStyle = DataGridViewCellStyle2
+        Me.ImporteTotal.HeaderText = "Imp.Total"
+        Me.ImporteTotal.Name = "ImporteTotal"
+        Me.ImporteTotal.ReadOnly = True
+        Me.ImporteTotal.Width = 80
+        '
+        'ImporteOS
+        '
+        Me.ImporteOS.DataPropertyName = "ImporteOS"
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N2"
+        Me.ImporteOS.DefaultCellStyle = DataGridViewCellStyle3
+        Me.ImporteOS.HeaderText = "Imp. OS."
+        Me.ImporteOS.Name = "ImporteOS"
+        Me.ImporteOS.ReadOnly = True
+        Me.ImporteOS.Width = 80
+        '
+        'ImporteAf
+        '
+        Me.ImporteAf.DataPropertyName = "ImporteAf"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        Me.ImporteAf.DefaultCellStyle = DataGridViewCellStyle4
+        Me.ImporteAf.HeaderText = "Imp. Af."
+        Me.ImporteAf.Name = "ImporteAf"
+        Me.ImporteAf.ReadOnly = True
+        Me.ImporteAf.Width = 80
+        '
+        'EstadoReceta
+        '
+        Me.EstadoReceta.DataPropertyName = "EstadoReceta"
+        Me.EstadoReceta.HeaderText = "EstadoReceta"
+        Me.EstadoReceta.Name = "EstadoReceta"
+        Me.EstadoReceta.ReadOnly = True
+        '
+        'TipoOperacionCC
+        '
+        Me.TipoOperacionCC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.TipoOperacionCC.DataPropertyName = "TipoOperacion"
+        Me.TipoOperacionCC.HeaderText = "TipoOperacion"
+        Me.TipoOperacionCC.Name = "TipoOperacionCC"
+        Me.TipoOperacionCC.ReadOnly = True
+        '
+        'CantOperacionesCC
+        '
+        Me.CantOperacionesCC.DataPropertyName = "CantOperaciones"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesCC.DefaultCellStyle = DataGridViewCellStyle8
+        Me.CantOperacionesCC.HeaderText = "Operaciones"
+        Me.CantOperacionesCC.Name = "CantOperacionesCC"
+        Me.CantOperacionesCC.ReadOnly = True
+        '
+        'ImporteCC
+        '
+        Me.ImporteCC.DataPropertyName = "Importe"
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "N2"
+        DataGridViewCellStyle9.NullValue = Nothing
+        Me.ImporteCC.DefaultCellStyle = DataGridViewCellStyle9
+        Me.ImporteCC.HeaderText = "Importe"
+        Me.ImporteCC.Name = "ImporteCC"
+        Me.ImporteCC.ReadOnly = True
+        '
+        'TipoOperacionEf
+        '
+        Me.TipoOperacionEf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.TipoOperacionEf.DataPropertyName = "TipoOperacion"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.TipoOperacionEf.DefaultCellStyle = DataGridViewCellStyle5
+        Me.TipoOperacionEf.HeaderText = "TipoOperacion"
+        Me.TipoOperacionEf.Name = "TipoOperacionEf"
+        Me.TipoOperacionEf.ReadOnly = True
+        '
+        'CantOperacionesEf
+        '
+        Me.CantOperacionesEf.DataPropertyName = "CantOperaciones"
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesEf.DefaultCellStyle = DataGridViewCellStyle6
+        Me.CantOperacionesEf.HeaderText = "Operaciones"
+        Me.CantOperacionesEf.Name = "CantOperacionesEf"
+        Me.CantOperacionesEf.ReadOnly = True
+        '
+        'ImporteEf
+        '
+        Me.ImporteEf.DataPropertyName = "Importe"
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle7.Format = "N2"
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.ImporteEf.DefaultCellStyle = DataGridViewCellStyle7
+        Me.ImporteEf.HeaderText = "Importe"
+        Me.ImporteEf.Name = "ImporteEf"
+        Me.ImporteEf.ReadOnly = True
+        '
+        'MedioPE
+        '
+        Me.MedioPE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.MedioPE.DataPropertyName = "MedioPE"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        Me.MedioPE.DefaultCellStyle = DataGridViewCellStyle10
+        Me.MedioPE.HeaderText = "Medio de Pago"
+        Me.MedioPE.Name = "MedioPE"
+        Me.MedioPE.ReadOnly = True
+        '
+        'CantOperacionesPE
+        '
+        Me.CantOperacionesPE.DataPropertyName = "CantOperaciones"
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.CantOperacionesPE.DefaultCellStyle = DataGridViewCellStyle11
+        Me.CantOperacionesPE.HeaderText = "Operaciones"
+        Me.CantOperacionesPE.Name = "CantOperacionesPE"
+        Me.CantOperacionesPE.ReadOnly = True
+        '
+        'ImportePE
+        '
+        Me.ImportePE.DataPropertyName = "Importe"
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.ImportePE.DefaultCellStyle = DataGridViewCellStyle12
+        Me.ImportePE.HeaderText = "Importe"
+        Me.ImportePE.Name = "ImportePE"
+        Me.ImportePE.ReadOnly = True
+        '
+        'EstadoTransaccion
+        '
+        Me.EstadoTransaccion.DataPropertyName = "EstadoTransaccion"
+        Me.EstadoTransaccion.HeaderText = "EstadoTransaccion"
+        Me.EstadoTransaccion.Name = "EstadoTransaccion"
+        Me.EstadoTransaccion.ReadOnly = True
         '
         'FrmCajas
         '
@@ -624,13 +638,7 @@ Partial Class FrmCajas
     Friend WithEvents lblTituloOperacionesMediosPagoElectronico As Label
     Friend WithEvents lblImporteEfectivo As Label
     Friend WithEvents dgvOperacionesEfectivo As DataGridView
-    Friend WithEvents TipoOperacionEf As DataGridViewTextBoxColumn
-    Friend WithEvents CantOperacionesEf As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteEf As DataGridViewTextBoxColumn
     Friend WithEvents dgvOperacionesCuentaCorriente As DataGridView
-    Friend WithEvents TipoOperacionCC As DataGridViewTextBoxColumn
-    Friend WithEvents CantOperacionesCC As DataGridViewTextBoxColumn
-    Friend WithEvents ImporteCC As DataGridViewTextBoxColumn
     Friend WithEvents dgvOperacionesMediosPagoElectronico As DataGridView
     Friend WithEvents lblTituloOperacionesEfectivo As Label
     Friend WithEvents tlpCajas As TableLayoutPanel
@@ -640,10 +648,6 @@ Partial Class FrmCajas
     Friend WithEvents Cierre As DataGridViewTextBoxColumn
     Friend WithEvents Estado As DataGridViewTextBoxColumn
     Friend WithEvents NCaja As DataGridViewTextBoxColumn
-    Friend WithEvents MedioPE As DataGridViewTextBoxColumn
-    Friend WithEvents CantOperacionesPE As DataGridViewTextBoxColumn
-    Friend WithEvents ImportePE As DataGridViewTextBoxColumn
-    Friend WithEvents EstadoTransaccion As DataGridViewTextBoxColumn
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents mnuVer As ToolStripMenuItem
     Friend WithEvents mnuDetalleEF As ToolStripMenuItem
@@ -655,10 +659,21 @@ Partial Class FrmCajas
     Friend WithEvents lblTituloRecetas As Label
     Friend WithEvents lblImporteRecetas As Label
     Friend WithEvents dgvOperacionesObraSociales As DataGridView
+    Friend WithEvents mnuDetalleOS As ToolStripMenuItem
     Friend WithEvents Descripcion As DataGridViewTextBoxColumn
     Friend WithEvents CantRecetas As DataGridViewTextBoxColumn
     Friend WithEvents ImporteTotal As DataGridViewTextBoxColumn
     Friend WithEvents ImporteOS As DataGridViewTextBoxColumn
     Friend WithEvents ImporteAf As DataGridViewTextBoxColumn
-    Friend WithEvents mnuDetalleOS As ToolStripMenuItem
+    Friend WithEvents EstadoReceta As DataGridViewTextBoxColumn
+    Friend WithEvents TipoOperacionCC As DataGridViewTextBoxColumn
+    Friend WithEvents CantOperacionesCC As DataGridViewTextBoxColumn
+    Friend WithEvents ImporteCC As DataGridViewTextBoxColumn
+    Friend WithEvents TipoOperacionEf As DataGridViewTextBoxColumn
+    Friend WithEvents CantOperacionesEf As DataGridViewTextBoxColumn
+    Friend WithEvents ImporteEf As DataGridViewTextBoxColumn
+    Friend WithEvents MedioPE As DataGridViewTextBoxColumn
+    Friend WithEvents CantOperacionesPE As DataGridViewTextBoxColumn
+    Friend WithEvents ImportePE As DataGridViewTextBoxColumn
+    Friend WithEvents EstadoTransaccion As DataGridViewTextBoxColumn
 End Class

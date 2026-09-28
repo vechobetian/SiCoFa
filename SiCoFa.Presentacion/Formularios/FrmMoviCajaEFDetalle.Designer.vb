@@ -22,18 +22,18 @@ Partial Class FrmMoviCajaEFDetalle
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Usuario = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Operacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Comprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NumComprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -56,6 +56,17 @@ Partial Class FrmMoviCajaEFDetalle
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(824, 537)
         Me.TableLayoutPanel1.TabIndex = 0
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label2.Location = New System.Drawing.Point(6, 502)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(39, 32)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Label2"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'DataGridView1
         '
         Me.DataGridView1.AllowUserToAddRows = False
@@ -72,6 +83,17 @@ Partial Class FrmMoviCajaEFDetalle
         Me.DataGridView1.Size = New System.Drawing.Size(812, 460)
         Me.DataGridView1.TabIndex = 1
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Label1.Location = New System.Drawing.Point(6, 472)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 27)
+        Me.Label1.TabIndex = 2
+        Me.Label1.Text = "Label1"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'Fecha
         '
         Me.Fecha.DataPropertyName = "Fin"
@@ -83,8 +105,8 @@ Partial Class FrmMoviCajaEFDetalle
         'Usuario
         '
         Me.Usuario.DataPropertyName = "IdUsuario"
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.Usuario.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Usuario.DefaultCellStyle = DataGridViewCellStyle1
         Me.Usuario.HeaderText = "Usuario"
         Me.Usuario.Name = "Usuario"
         Me.Usuario.ReadOnly = True
@@ -92,11 +114,11 @@ Partial Class FrmMoviCajaEFDetalle
         '
         'Operacion
         '
+        Me.Operacion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.Operacion.DataPropertyName = "TipoOperacion"
         Me.Operacion.HeaderText = "Operacion"
         Me.Operacion.Name = "Operacion"
         Me.Operacion.ReadOnly = True
-        Me.Operacion.Width = 200
         '
         'Comprobante
         '
@@ -116,43 +138,21 @@ Partial Class FrmMoviCajaEFDetalle
         'Importe
         '
         Me.Importe.DataPropertyName = "ImpEf"
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle14.Format = "N2"
-        DataGridViewCellStyle14.NullValue = Nothing
-        Me.Importe.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Importe.DefaultCellStyle = DataGridViewCellStyle2
         Me.Importe.HeaderText = "Importe"
         Me.Importe.Name = "Importe"
         Me.Importe.ReadOnly = True
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label1.Location = New System.Drawing.Point(6, 472)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(39, 27)
-        Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Label1"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label2.Location = New System.Drawing.Point(6, 502)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 32)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Label2"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'FrmMoviCajaEfectivoDetalle
+        'FrmMoviCajaEFDetalle
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(824, 537)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Name = "FrmMoviCajaEfectivoDetalle"
+        Me.Name = "FrmMoviCajaEFDetalle"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Detalle Operaciones en Efectivo"
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -164,12 +164,12 @@ Partial Class FrmMoviCajaEFDetalle
 
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
     Friend WithEvents Fecha As DataGridViewTextBoxColumn
     Friend WithEvents Usuario As DataGridViewTextBoxColumn
     Friend WithEvents Operacion As DataGridViewTextBoxColumn
     Friend WithEvents Comprobante As DataGridViewTextBoxColumn
     Friend WithEvents NumComprobante As DataGridViewTextBoxColumn
     Friend WithEvents Importe As DataGridViewTextBoxColumn
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
 End Class

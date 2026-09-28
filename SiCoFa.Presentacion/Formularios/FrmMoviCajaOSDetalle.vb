@@ -2,8 +2,8 @@
 Public Class FrmMoviCajaOSDetalle
     Property IdCaja As Long
 
-    Private Sub FrmMoviCajaEfectivoDetalle_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim sql As String = $"SELECT Descripcion,Fin,IdUsuario,TipoOperacion,TipoComprobante,NumComp,ImporteTotal,ImporteOS,ImporteAf FROM vw_movimientos_caja_os_detalle WHERE IdCaja={Me.IdCaja}"
+    Private Sub FrmMoviCajaOSDetalle_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim sql As String = $"SELECT Descripcion,Fin,IdUsuario,TipoOperacion,Comprobante,ImporteTotal,ImporteOS,ImporteAf,EstadoReceta,ComprobanteAsociado FROM vw_movimientos_caja_os_detalle WHERE IdCaja={Me.IdCaja}"
         Dim dTable As DataTable = Nothing
         Dim obj_ADminDB As New N_AdminDB
 
@@ -25,7 +25,7 @@ Public Class FrmMoviCajaOSDetalle
         Dim numItems As Integer = 0
         For Each row As DataRow In dTable.Rows
             numItems += 1
-            If Not IsDBNull(row("ImporteTotal")) Then
+            If Not IsDBNull(row("ImporteTotal")) AndAlso row("EstadoReceta").ToString = "FINALIZADO" Then
                 totalImporte += Convert.ToDecimal(row("ImporteTotal"))
                 totalOS += Convert.ToDecimal(row("ImporteOS"))
                 totalAf += Convert.ToDecimal(row("ImporteAf"))

@@ -588,7 +588,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Friend Function AnularOperacionPE(ByVal argIdOperacion As Long, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
+    Friend Sub AnularOperacionPE(ByVal argIdOperacion As Long, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction)
 
         Try
 
@@ -597,18 +597,33 @@ Public Class D_AdminOperaciones
             Using cmd As New MySqlCommand(sql, cn, tx)
                 cmd.CommandType = CommandType.Text
                 cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
-
-                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
+                cmd.ExecuteNonQuery()
             End Using
 
-
         Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionPE", Ex.Message))
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "AnularOperacionPE", Ex.Message))
 
         End Try
 
-    End Function
+    End Sub
+
+    Friend Sub AnularReceta(ByVal argIdReceta As Long, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction)
+
+        Try
+
+            Dim sql As String = "UPDATE recetas SET EstadoReceta = 'ANULADO' WHERE IdReceta = @IdReceta"
+
+            Using cmd As New MySqlCommand(sql, cn, tx)
+                cmd.CommandType = CommandType.Text
+                cmd.Parameters.AddWithValue("@IdReceta", argIdReceta)
+                cmd.ExecuteNonQuery()
+            End Using
+
+        Catch Ex As Exception
+            Throw New Exception(Vecho.MensajeError(Me.ToString, "AnularReceta", Ex.Message))
+        End Try
+
+    End Sub
 
     Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Long
 
@@ -808,8 +823,18 @@ Public Class D_AdminOperaciones
 
                     Dim AdminItems As New D_AdminItemsComprobante
 
+                    Dim recetasAnuladas As New HashSet(Of Long) ' Para almacenar los IdReceta de las recetas anuladas
+
                     For Each i As ItemComprobante In argComprobante.Detalle
                         AdminItems.InsertarItemComprobanteNC(objOperacion.IdOperacion, i, cn, tx)
+
+                        If i.Receta IsNot Nothing Then
+                            Dim idReceta As Long = i.Receta.IdReceta
+                            If Not recetasAnuladas.Contains(idReceta) Then
+                                Me.AnularReceta(i.Receta.IdReceta, cn, tx)
+                                recetasAnuladas.Add(idReceta) ' Agregar el IdReceta al HashSet para evitar duplicados           
+                            End If
+                        End If
                     Next
 
                     Me.InsertarOperacionCL(objOperacion.IdOperacion, argComprobante.IdCliente, cn, tx)

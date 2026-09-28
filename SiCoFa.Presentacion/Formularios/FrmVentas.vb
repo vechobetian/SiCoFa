@@ -1087,7 +1087,7 @@ Public Class FrmVentas
 
             receta.IdReceta = ObtenerNuevoIdReceta()
 
-            If receta.Plan.OS.PValidacion IsNot Nothing AndAlso receta.Plan.OS.PValidacion.RecetaElectronica Then
+            If receta.Plan.OS.PValidacion IsNot Nothing AndAlso receta.Plan.OS.PValidacion.RecetaElectronica AndAlso receta.Plan.DatosRequeridos IsNot Nothing Then
                 Using frm As New FrmDatosReceta(receta)
 
                     If frm.ShowDialog() = DialogResult.OK Then

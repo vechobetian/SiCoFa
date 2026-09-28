@@ -889,7 +889,7 @@ Public Class ITC
 
                 Dim descripcion As String = item.InnerText.Trim()
 
-                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, False, 1, 0, 1, 1, 0, 0, 0, 0, 0)
+                Dim itemReceta As New ItemComprobante(numItem, "", "", descripcion, False, 1, 0, 1, 1, 0, 0, 0, 0, 0, "0")
 
                 itemsReceta.Add(itemReceta)
 
@@ -1092,7 +1092,7 @@ Public Class ITC
                     ' CREAR ITEM
                     '==================================================
 
-                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, codigo, nTroquel)
+                    Dim item As New ItemComprobante(idItem, idArticulo, codBarras, If(descripcion, "").Trim(), False, cantidadPrescripta, 0, 0, pUnit, 0, 0, 0, 0, 0, "0", codigo, nTroquel)
 
                     argReceta.Items.Add(item)
 

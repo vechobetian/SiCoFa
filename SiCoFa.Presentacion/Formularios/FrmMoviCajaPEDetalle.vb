@@ -3,7 +3,7 @@ Public Class FrmMoviCajaPEDetalle
     Property IdCaja As Long
 
     Private Sub FrmMoviCajaEfectivoDetalle_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim sql As String = $"SELECT MedioPE,NumTransaccion,Fin,IdUsuario,TipoOperacion,TipoComprobante,NumComp,Importe,EstadoTransaccion FROM vw_movimientos_caja_pe_detalle WHERE IdCaja={Me.IdCaja}"
+        Dim sql As String = $"SELECT MedioPE,NumTransaccion,Fin,IdUsuario,TipoOperacion,Comprobante,ComprobanteAsociado,Importe,EstadoTransaccion FROM vw_movimientos_caja_pe_detalle WHERE IdCaja={Me.IdCaja}"
         Dim dTable As DataTable = Nothing
         Dim obj_ADminDB As New N_AdminDB
 
@@ -23,7 +23,7 @@ Public Class FrmMoviCajaPEDetalle
         Dim numItems As Integer = 0
         For Each row As DataRow In dTable.Rows
             numItems += 1
-            If Not IsDBNull(row("Importe")) Then
+            If Not IsDBNull(row("Importe")) AndAlso row("EstadoTransaccion").ToString = "EN CAJA" Then
                 totalImporte += Convert.ToDecimal(row("Importe"))
             End If
         Next

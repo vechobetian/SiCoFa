@@ -11,75 +11,6 @@ Public Class FrmCajas
     Private mdecImporteCC As Decimal
     Private mAdminDB As New N_AdminDB
 
-    Private Sub AjustarAnchoColumnasProporcional()
-        Try
-
-            If dgvOperacionesEfectivo.ColumnCount = 3 Then
-                Dim totalAncho As Integer = dgvOperacionesEfectivo.Width - 45
-                Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
-
-                For i As Integer = 0 To 2
-                    dgvOperacionesEfectivo.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
-                Me.dgvOperacionesEfectivo.Columns("ImporteEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.dgvOperacionesEfectivo.Columns("CantOperacionesEf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-            Else
-                MessageBox.Show("El DataGridEfectivo no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-            If dgvOperacionesMediosPagoElectronico.ColumnCount = 4 Then
-                Dim totalAncho As Integer = dgvOperacionesMediosPagoElectronico.Width - 45
-                Dim proporciones As Double() = {0.5R, 0.1R, 0.2R, 0.2R}
-
-                For i As Integer = 0 To 3
-                    dgvOperacionesMediosPagoElectronico.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
-                Me.dgvOperacionesMediosPagoElectronico.Columns("ImportePE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.dgvOperacionesMediosPagoElectronico.Columns("CantOperacionesPE").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-            Else
-                MessageBox.Show("El DataGridOperacionesPE no tiene 4 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-            If dgvOperacionesCuentaCorriente.ColumnCount = 3 Then
-                Dim totalAncho As Integer = dgvOperacionesCuentaCorriente.Width - 45
-                Dim proporciones As Double() = {0.7R, 0.1R, 0.2R}
-
-                For i As Integer = 0 To 2
-                    dgvOperacionesCuentaCorriente.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
-                Me.dgvOperacionesCuentaCorriente.Columns("ImporteCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.dgvOperacionesCuentaCorriente.Columns("CantOperacionesCC").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-
-            Else
-                MessageBox.Show("El DataGridOperacoinesCC no tiene 3 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-            If dgvOperacionesObraSociales.ColumnCount = 5 Then
-                Dim totalAncho As Integer = dgvOperacionesCuentaCorriente.Width - 45
-                Dim proporciones As Double() = {0.5R, 0.05R, 0.15R, 0.15R, 0.15R}
-
-                For i As Integer = 0 To 4
-                    dgvOperacionesObraSociales.Columns(i).Width = CInt(totalAncho * proporciones(i))
-                Next
-                Me.dgvOperacionesObraSociales.Columns("CantRecetas").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-                Me.dgvOperacionesObraSociales.Columns("ImporteTotal").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.dgvOperacionesObraSociales.Columns("ImporteOS").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-                Me.dgvOperacionesObraSociales.Columns("ImporteAf").HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight
-
-            Else
-                MessageBox.Show("El DataGridOperacoinesCC no tiene 5 columnas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End If
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
     Private Sub ActualizarOperacionesEfectivo()
         If Me.dgvCajas.CurrentRow Is Nothing Then Exit Sub
 
@@ -170,7 +101,7 @@ Public Class FrmCajas
         If valor Is Nothing OrElse Not IsNumeric(valor) Then Exit Sub
 
         Dim idCaja As Integer = CInt(valor)
-        Dim sql As String = "SELECT Descripcion,CantRecetas, ImporteTotal,ImporteOS,ImporteAf FROM vw_movimientos_caja_os WHERE IdCaja = " & idCaja
+        Dim sql As String = "SELECT Descripcion,CantRecetas, ImporteTotal,ImporteOS,ImporteAf,EstadoReceta FROM vw_movimientos_caja_os WHERE IdCaja = " & idCaja
 
         Dim dt As DataTable = mAdminDB.ObtenerTabla(sql)
         Me.dgvOperacionesObraSociales.DataSource = dt
@@ -181,7 +112,7 @@ Public Class FrmCajas
         Dim totalAf As Decimal = 0D
 
         For Each row As DataRow In dt.Rows
-            If Not IsDBNull(row("ImporteTotal")) Then
+            If Not IsDBNull(row("ImporteTotal")) And row("EstadoReceta").ToString = "FINALIZADO" Then
                 totalImporte += Convert.ToDecimal(row("ImporteTotal"))
                 totalOs += Convert.ToDecimal(row("ImporteOS"))
                 totalAf += Convert.ToDecimal(row("ImporteAf"))
@@ -212,8 +143,6 @@ Public Class FrmCajas
             Me.StartPosition = FormStartPosition.Manual
             Me.Location = Screen.PrimaryScreen.WorkingArea.Location
             Me.Size = Screen.PrimaryScreen.WorkingArea.Size
-
-            Me.AjustarAnchoColumnasProporcional()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
