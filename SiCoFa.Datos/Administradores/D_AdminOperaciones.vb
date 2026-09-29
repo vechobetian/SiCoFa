@@ -370,69 +370,6 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
-        Try
-            Dim objConexionDB As New D_Conexion
-
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-                Return InsertarOperacionCL(argIdOperacion, argIdCliente, cn, Nothing)
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", Ex.Message))
-        End Try
-    End Function
-
-    Friend Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32, ByVal cn As MySqlConnection, ByVal tx As MySqlTransaction) As Boolean
-
-        Try
-            Dim objConexionDB As New D_Conexion
-
-            Using cmd As New MySqlCommand("sp_insertar_operacion_cl", cn, tx) With {.CommandType = CommandType.StoredProcedure}
-                With cmd.Parameters
-                    .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                    .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
-                End With
-
-                Dim filasAfectadas As Integer = cmd.ExecuteNonQuery()
-                Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
-
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", Ex.Message))
-
-        End Try
-
-    End Function
-
-    Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
-        Try
-            Dim objConexionDB As New D_Conexion
-
-            Using cn As MySqlConnection = objConexionDB.ObtenerConexion
-
-                Using cmd As New MySqlCommand("sp_actualizar_operacion_cl", cn) With {.CommandType = CommandType.StoredProcedure}
-                    With cmd.Parameters
-                        .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
-                        .Add("p_IdCliente", MySqlDbType.Int32).Value = argIdCliente
-                    End With
-
-                    Dim filasAfectadas As Int32 = cmd.ExecuteNonQuery()
-                    Return (filasAfectadas > 0) ' Devuelve True si se actualizó al menos una fila
-
-                End Using
-
-            End Using
-
-        Catch Ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacionCL", Ex.Message))
-            Return False
-
-        End Try
-
-    End Function
-
     Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argEstadoOperacionCC As String, ByVal argIdOperaCancel As Int64) As Boolean
         Try
             Dim objConexionDB As New D_Conexion
@@ -625,7 +562,7 @@ Public Class D_AdminOperaciones
 
     End Sub
 
-    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Long
+    Public Function VentaTransaccion(ByVal argMacAddress As String, ByRef argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Long
 
         Dim objConexionDB As New D_Conexion
 
@@ -685,7 +622,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarPresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante, ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
+    Public Function PresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante, ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -766,7 +703,7 @@ Public Class D_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarCompraTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+    Public Function CompraTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
 
         Dim objConexionDB As New D_Conexion
 
@@ -837,8 +774,6 @@ Public Class D_AdminOperaciones
                         End If
                     Next
 
-                    Me.InsertarOperacionCL(objOperacion.IdOperacion, argComprobante.IdCliente, cn, tx)
-
                     If argOperacionCC IsNot Nothing Then
                         Me.InsertarOperacionCC(objOperacion.IdOperacion, argOperacionCC.IdCC, "", argOperacionCC.Importe, "NO CANCELADO", 0, cn, tx)
                     End If
@@ -893,8 +828,6 @@ Public Class D_AdminOperaciones
                     For Each i As ItemComprobante In argComprobante.Detalle
                         AdminItems.InsertarItemComprobante(objOperacion.IdOperacion, i, cn, tx)
                     Next
-
-                    Me.InsertarOperacionCL(objOperacion.IdOperacion, argComprobante.IdCliente, cn, tx)
 
                     Dim AdminComprobantes As New D_AdminComprobantes
                     argComprobante.IdOperacion = objOperacion.IdOperacion

@@ -153,6 +153,18 @@
     <Compile Include="Clases\Ticket80.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
+    <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.Designer.vb">
+      <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmKardex.Designer.vb">
+      <DependentUpon>FrmKardex.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmKardex.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmDatosRequeridos.Designer.vb">
       <DependentUpon>FrmDatosRequeridos.vb</DependentUpon>
     </Compile>
@@ -169,6 +181,12 @@
       <DependentUpon>FrmMoviCajaOSDetalle.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmMoviCajaOSDetalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmRangoFechas.Designer.vb">
+      <DependentUpon>FrmRangoFechas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmRangoFechas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmRecetasBeneficiario.Designer.vb">
@@ -235,12 +253,6 @@
       <DependentUpon>FrmOperacionesCC.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmOperacionesCC.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.Designer.vb">
-      <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmIngresoComprobantesRecibidos.Designer.vb">
@@ -503,6 +515,12 @@
       <DependentUpon>clsFrmBase.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmIngresoComprobantesEmitidos.resx">
+      <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmKardex.resx">
+      <DependentUpon>FrmKardex.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmDatosRequeridos.resx">
       <DependentUpon>FrmDatosRequeridos.vb</DependentUpon>
     </EmbeddedResource>
@@ -511,6 +529,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmMoviCajaOSDetalle.resx">
       <DependentUpon>FrmMoviCajaOSDetalle.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmRangoFechas.resx">
+      <DependentUpon>FrmRangoFechas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmRecetasBeneficiario.resx">
       <DependentUpon>FrmRecetasBeneficiario.vb</DependentUpon>
@@ -544,9 +565,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmOperacionesCC.resx">
       <DependentUpon>FrmOperacionesCC.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmIngresoComprobantesEmitidos.resx">
-      <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmIngresoComprobantesRecibidos.resx">
       <DependentUpon>FrmIngresoComprobantesRecibidos.vb</DependentUpon>

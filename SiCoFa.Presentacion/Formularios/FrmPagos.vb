@@ -371,7 +371,7 @@ Public Class FrmPagos
                 .InsertarItem("4.01.01.001", ImporteAPagar)
             End With
 
-            idOperacion = mobj_AdminOperacion.FinalizarVentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC, Recetas, ItemsComprobante)
+            idOperacion = mobj_AdminOperacion.VentaTransaccion(g_ParametrosTerminal.MacAddress, Me.Operacion, objCC, objPE, objCb, objAC, Recetas, ItemsComprobante)
 
             If objCb.TipoComprobante.CodiTC_ARCA <> 0 Then
                 Dim obj_N_AdminComprobantes As New N_AdminComprobantes

@@ -1,5 +1,4 @@
 ﻿Imports System.ComponentModel
-Imports HasarArgentina
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 

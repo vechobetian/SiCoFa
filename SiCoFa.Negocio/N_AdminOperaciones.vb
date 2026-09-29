@@ -121,38 +121,6 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function InsertarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
-        Try
-
-            Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Insertado As Boolean = AdminOperaciones.InsertarOperacionCL(argIdOperacion, argIdCliente)
-
-            Return Insertado
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "InsertarOperacionCL", ex.Message))
-            Return False
-
-        End Try
-
-    End Function
-
-    Public Function ActualizarOperacionCL(ByVal argIdOperacion As Long, ByVal argIdCliente As Int32) As Boolean
-        Try
-
-            Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Actualizado As Boolean = AdminOperaciones.ActualizarOperacionCL(argIdOperacion, argIdCliente)
-
-            Return Actualizado
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarOperacionCL", ex.Message))
-            Return False
-
-        End Try
-
-    End Function
-
     Public Function InsertarOperacionCC(ByVal argIdOperacion As Long, ByVal argIdCC As Int32, ByVal argResu As String, ByVal argImporte As Decimal, ByVal argEstadoOperacionCC As String, ByVal argIdOperaCancel As Int64) As Boolean
 
         Try
@@ -185,12 +153,12 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarVentaTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Long
+    Public Function VentaTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCC As OperacionCC, ByVal argOperacionPE As OperacionPE, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByRef argRecetas As List(Of Receta), ByRef argItemsComprobante As List(Of ItemComprobante)) As Long
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim idOperacion As Long = AdminOperaciones.FinalizarVentaTransaccion(argMacAddress, argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento, argRecetas, argItemsComprobante)
+            Dim idOperacion As Long = AdminOperaciones.VentaTransaccion(argMacAddress, argOperacion, argOperacionCC, argOperacionPE, argComprobante, argAsiento, argRecetas, argItemsComprobante)
             Return idOperacion
 
         Catch ex As Exception
@@ -200,12 +168,12 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarPresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante, ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
+    Public Function PresupuestoTransaccion(ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByRef argComprobante As Comprobante, ByRef argItemsComprobante As List(Of ItemComprobante)) As Boolean
 
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Finalizado As Boolean = AdminOperaciones.FinalizarPresupuestoTransaccion(argMacAddress, argOperacion, argComprobante, argItemsComprobante)
+            Dim Finalizado As Boolean = AdminOperaciones.PresupuestoTransaccion(argMacAddress, argOperacion, argComprobante, argItemsComprobante)
             Return Finalizado
 
         Catch ex As Exception
@@ -230,11 +198,11 @@ Public Class N_AdminOperaciones
 
     End Function
 
-    Public Function FinalizarCompraTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
+    Public Function CompraTransaccion(ByVal argCajaAbierta As Boolean, ByVal argMacAddress As String, ByVal argOperacion As Operacion, ByVal argOperacionCP As OperacionCP, ByVal argOperacionCB As OperacionCB, ByRef argComprobante As Comprobante, ByVal argAsiento As AsientoContable, ByVal argObservacion As String) As Boolean
         Try
 
             Dim AdminOperaciones As New D_AdminOperaciones
-            Dim Finalizado As Boolean = AdminOperaciones.FinalizarCompraTransaccion(argCajaAbierta, argMacAddress, argOperacion, argOperacionCP, argOperacionCB, argComprobante, argAsiento, argObservacion)
+            Dim Finalizado As Boolean = AdminOperaciones.CompraTransaccion(argCajaAbierta, argMacAddress, argOperacion, argOperacionCP, argOperacionCB, argComprobante, argAsiento, argObservacion)
             Return Finalizado
 
         Catch ex As Exception

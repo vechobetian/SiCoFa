@@ -473,7 +473,7 @@ Public Class FrmCierreCompra
                                                   )
 
             Dim AdminOperacion As New N_AdminOperaciones
-            AdminOperacion.FinalizarCompraTransaccion(CBool(Me.cmbCajaAbierta.SelectedValue), g_ParametrosTerminal.MacAddress, Me.Operacion, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
+            AdminOperacion.CompraTransaccion(CBool(Me.cmbCajaAbierta.SelectedValue), g_ParametrosTerminal.MacAddress, Me.Operacion, objOperacionCP, objOperacionCB, objComprobante, objAsCon, Me.txtObservaciones.Text)
 
             Dim nuevaVentanaCompras As New FrmCompras()
             nuevaVentanaCompras.Usuario = Me.Operacion.Usuario

@@ -270,7 +270,7 @@ Public Class FrmVentas
                                     argDetalle:=mobj_Items.ToList
                                     )
 
-            adminOperaciones.FinalizarPresupuestoTransaccion(g_ParametrosTerminal.MacAddress, objOperacion, objCb, mobj_Items.ToList)
+            adminOperaciones.PresupuestoTransaccion(g_ParametrosTerminal.MacAddress, objOperacion, objCb, mobj_Items.ToList)
 
             Dim objAdminReporteComprobantes As New ReporteComprobantes
             objAdminReporteComprobantes.ImprimirComprobante(objCb, 1)
