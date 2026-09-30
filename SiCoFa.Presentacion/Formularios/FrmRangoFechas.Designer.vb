@@ -102,6 +102,7 @@ Partial Class FrmRangoFechas
         Me.Controls.Add(Me.txtFechaDesde)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "FrmRangoFechas"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

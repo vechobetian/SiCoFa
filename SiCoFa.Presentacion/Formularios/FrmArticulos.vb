@@ -336,7 +336,7 @@ Public Class FrmArticulos
             End If
 
 
-                With Me.ControlesReadOnly
+            With Me.ControlesReadOnly
                 .Clear()
                 .Add("IdArticulo")
             End With
@@ -435,7 +435,7 @@ Public Class FrmArticulos
 
     End Sub
 
-    Private Sub Nombre_Validating(sender As Object, e As CancelEventArgs) Handles TxtNombre.Validating
+    Private Sub TxtNombre_Validating(sender As Object, e As CancelEventArgs) Handles TxtNombre.Validating
         Try
             If Me.TxtNombre.Text = "" Or Me.NuevoArticulo = True Or Me.TxtIdArticulo.Text <> "" Then
                 Exit Sub
@@ -450,4 +450,7 @@ Public Class FrmArticulos
 
     End Sub
 
+    Private Sub TxtNombre_TextChanged(sender As Object, e As EventArgs) Handles TxtNombre.TextChanged
+
+    End Sub
 End Class

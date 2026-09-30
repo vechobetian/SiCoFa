@@ -354,6 +354,22 @@ Public Class FrmInicio
 
     End Sub
 
+    Private Sub MovimientoDeProductosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MovimientoDeProductosToolStripMenuItem.Click
+        Try
+            Dim user As Usuario = ModSeguridad.ValidarUsuario(Me.MovimientoDeProductosToolStripMenuItem.Name)
+
+            If user Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmKardex
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+    End Sub
+
     Private Sub CuentasBancariaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaCuentasBancarias.Click
         Try
 
