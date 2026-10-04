@@ -49,8 +49,8 @@ Partial Class FrmInicio
         Me.mnuAuditoriaCuentasProveedores = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaCuentasBancarias = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAuditoriaCuentasEmpleados = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MovimientoDeProductosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RankingDeVentaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaMovimientoDeProductos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuAuditoriaRankingDeVentas = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarArticulos = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuEditarFraccionables = New System.Windows.Forms.ToolStripMenuItem()
@@ -68,8 +68,8 @@ Partial Class FrmInicio
         Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPTerminal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPSistema = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ActualizacionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ActualizarVersionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSistemaActualizaciones = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSistemaActualizarVersion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -137,19 +137,19 @@ Partial Class FrmInicio
         'mnuFiscalLibroIVA
         '
         Me.mnuFiscalLibroIVA.Name = "mnuFiscalLibroIVA"
-        Me.mnuFiscalLibroIVA.Size = New System.Drawing.Size(180, 22)
+        Me.mnuFiscalLibroIVA.Size = New System.Drawing.Size(158, 22)
         Me.mnuFiscalLibroIVA.Text = "&Libro IVA"
         '
         'mnuFiscalIVADigital
         '
         Me.mnuFiscalIVADigital.Name = "mnuFiscalIVADigital"
-        Me.mnuFiscalIVADigital.Size = New System.Drawing.Size(180, 22)
+        Me.mnuFiscalIVADigital.Size = New System.Drawing.Size(158, 22)
         Me.mnuFiscalIVADigital.Text = "Libro IVA &Digital"
         '
         'mnuFiscalIVAExcel
         '
         Me.mnuFiscalIVAExcel.Name = "mnuFiscalIVAExcel"
-        Me.mnuFiscalIVAExcel.Size = New System.Drawing.Size(180, 22)
+        Me.mnuFiscalIVAExcel.Size = New System.Drawing.Size(158, 22)
         Me.mnuFiscalIVAExcel.Text = "Libro IVA &Excel"
         '
         'mnuContabilidad
@@ -191,7 +191,7 @@ Partial Class FrmInicio
         '
         'mnuAuditoria
         '
-        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAuditoriaCuentasCorrientes, Me.mnuAuditoriaComprobantes, Me.mnuAuditoriaReporteVentas, Me.mnuAuditoriaCuentasProveedores, Me.mnuAuditoriaCuentasBancarias, Me.mnuAuditoriaCuentasEmpleados, Me.MovimientoDeProductosToolStripMenuItem, Me.RankingDeVentaToolStripMenuItem})
+        Me.mnuAuditoria.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAuditoriaCuentasCorrientes, Me.mnuAuditoriaComprobantes, Me.mnuAuditoriaReporteVentas, Me.mnuAuditoriaCuentasProveedores, Me.mnuAuditoriaCuentasBancarias, Me.mnuAuditoriaCuentasEmpleados, Me.mnuAuditoriaMovimientoDeProductos, Me.mnuAuditoriaRankingDeVentas})
         Me.mnuAuditoria.Name = "mnuAuditoria"
         Me.mnuAuditoria.Size = New System.Drawing.Size(68, 20)
         Me.mnuAuditoria.Text = "&Auditoría"
@@ -245,17 +245,17 @@ Partial Class FrmInicio
         Me.mnuAuditoriaCuentasEmpleados.Size = New System.Drawing.Size(205, 22)
         Me.mnuAuditoriaCuentasEmpleados.Text = "Cuenta &Empleados"
         '
-        'MovimientoDeProductosToolStripMenuItem
+        'mnuAuditoriaMovimientoDeProductos
         '
-        Me.MovimientoDeProductosToolStripMenuItem.Name = "MovimientoDeProductosToolStripMenuItem"
-        Me.MovimientoDeProductosToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.MovimientoDeProductosToolStripMenuItem.Text = "Movimiento de &Articulos"
+        Me.mnuAuditoriaMovimientoDeProductos.Name = "mnuAuditoriaMovimientoDeProductos"
+        Me.mnuAuditoriaMovimientoDeProductos.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaMovimientoDeProductos.Text = "Movimiento de &Articulos"
         '
-        'RankingDeVentaToolStripMenuItem
+        'mnuAuditoriaRankingDeVentas
         '
-        Me.RankingDeVentaToolStripMenuItem.Name = "RankingDeVentaToolStripMenuItem"
-        Me.RankingDeVentaToolStripMenuItem.Size = New System.Drawing.Size(205, 22)
-        Me.RankingDeVentaToolStripMenuItem.Text = "Ranking de &Venta"
+        Me.mnuAuditoriaRankingDeVentas.Name = "mnuAuditoriaRankingDeVentas"
+        Me.mnuAuditoriaRankingDeVentas.Size = New System.Drawing.Size(205, 22)
+        Me.mnuAuditoriaRankingDeVentas.Text = "Ranking de &Ventas"
         '
         'mnuEditar
         '
@@ -345,7 +345,7 @@ Partial Class FrmInicio
         '
         'mnuSistema
         '
-        Me.mnuSistema.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSistemaPTerminal, Me.mnuSistemaPSistema, Me.ActualizacionesToolStripMenuItem, Me.ActualizarVersionToolStripMenuItem})
+        Me.mnuSistema.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSistemaPTerminal, Me.mnuSistemaPSistema, Me.mnuSistemaActualizaciones, Me.mnuSistemaActualizarVersion})
         Me.mnuSistema.Name = "mnuSistema"
         Me.mnuSistema.Size = New System.Drawing.Size(60, 20)
         Me.mnuSistema.Text = "&Sistema"
@@ -362,17 +362,17 @@ Partial Class FrmInicio
         Me.mnuSistemaPSistema.Size = New System.Drawing.Size(194, 22)
         Me.mnuSistemaPSistema.Text = "Parametros de &Sistema"
         '
-        'ActualizacionesToolStripMenuItem
+        'mnuSistemaActualizaciones
         '
-        Me.ActualizacionesToolStripMenuItem.Name = "ActualizacionesToolStripMenuItem"
-        Me.ActualizacionesToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
-        Me.ActualizacionesToolStripMenuItem.Text = "Actualizaciones"
+        Me.mnuSistemaActualizaciones.Name = "mnuSistemaActualizaciones"
+        Me.mnuSistemaActualizaciones.Size = New System.Drawing.Size(194, 22)
+        Me.mnuSistemaActualizaciones.Text = "Actualizaciones"
         '
-        'ActualizarVersionToolStripMenuItem
+        'mnuSistemaActualizarVersion
         '
-        Me.ActualizarVersionToolStripMenuItem.Name = "ActualizarVersionToolStripMenuItem"
-        Me.ActualizarVersionToolStripMenuItem.Size = New System.Drawing.Size(194, 22)
-        Me.ActualizarVersionToolStripMenuItem.Text = "Actualizar Version"
+        Me.mnuSistemaActualizarVersion.Name = "mnuSistemaActualizarVersion"
+        Me.mnuSistemaActualizarVersion.Size = New System.Drawing.Size(194, 22)
+        Me.mnuSistemaActualizarVersion.Text = "Actualizar Version"
         '
         'mnuAyuda
         '
@@ -435,15 +435,15 @@ Partial Class FrmInicio
     Friend WithEvents mnuAuditoriaCuentasProveedores As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaCuentasBancarias As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaCuentasEmpleados As ToolStripMenuItem
-    Friend WithEvents MovimientoDeProductosToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents RankingDeVentaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaMovimientoDeProductos As ToolStripMenuItem
+    Friend WithEvents mnuAuditoriaRankingDeVentas As ToolStripMenuItem
     Friend WithEvents mnuSistemaPTerminal As ToolStripMenuItem
     Friend WithEvents mnuSistemaPSistema As ToolStripMenuItem
     Friend WithEvents mnuEditarPermisos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesEmitidos As ToolStripMenuItem
     Friend WithEvents mnuAuditoriaComprobantesRecibidos As ToolStripMenuItem
-    Friend WithEvents ActualizacionesToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ActualizarVersionToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents mnuSistemaActualizaciones As ToolStripMenuItem
+    Friend WithEvents mnuSistemaActualizarVersion As ToolStripMenuItem
     Friend WithEvents mnuEditarFraccionables As ToolStripMenuItem
     Friend WithEvents mnuObraSociales As ToolStripMenuItem
     Friend WithEvents mnuDatosRequeridosValidacionOS As ToolStripMenuItem

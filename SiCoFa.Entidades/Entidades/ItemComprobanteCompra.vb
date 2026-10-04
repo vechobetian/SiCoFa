@@ -1,6 +1,4 @@
-﻿Imports SiCoFa.Entidades.Enums
-
-Public Class ItemComprobanteCompra
+﻿Public Class ItemComprobanteCompra
 
     Private m_IdItem As Long
     Private m_Articulo As Articulo

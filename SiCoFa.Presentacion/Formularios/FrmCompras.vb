@@ -409,7 +409,7 @@ Public Class FrmCompras
         Me.lblDatosOperacion.Text = Datos
     End Sub
 
-    Private Sub FrmVentas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmCompras_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -436,7 +436,7 @@ Public Class FrmCompras
 
     End Sub
 
-    Private Sub FrmVentas_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    Private Sub FrmCompras_Shown(sender As Object, e As EventArgs) Handles Me.Shown
 
         Try
             Me.AjustarAnchoColumnasProporcional()
@@ -455,7 +455,7 @@ Public Class FrmCompras
 
     End Sub
 
-    Private Sub FrmVentas_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub FrmCompras_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
         Try
 

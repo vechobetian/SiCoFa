@@ -21,9 +21,6 @@ Public Class FrmRangoFechas
 
         Me.KeyPreview = True
 
-        txtFechaDesde.Text = Today.ToString("dd/MM/yyyy")
-        txtFechaHasta.Text = Today.ToString("dd/MM/yyyy")
-
         txtFechaDesde.Focus()
         txtFechaDesde.SelectAll()
 

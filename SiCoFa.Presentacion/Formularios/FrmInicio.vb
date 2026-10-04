@@ -354,23 +354,7 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub MovimientoDeProductosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MovimientoDeProductosToolStripMenuItem.Click
-        Try
-            Dim user As Usuario = ModSeguridad.ValidarUsuario(Me.MovimientoDeProductosToolStripMenuItem.Name)
-
-            If user Is Nothing Then
-                Exit Sub
-            End If
-
-            Dim frm As New FrmKardex
-            frm.Show()
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-        End Try
-    End Sub
-
-    Private Sub CuentasBancariaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaCuentasBancarias.Click
+    Private Sub mnuAuditoriaCuentasBancaria_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaCuentasBancarias.Click
         Try
 
             Dim User As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaCuentasBancarias.Name)
@@ -389,8 +373,37 @@ Public Class FrmInicio
 
     End Sub
 
-    Private Sub ActualizacionesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizacionesToolStripMenuItem.Click
-        FrmActualizaciones.Show()
+    Private Sub mnuAuditoriaMovimientoDeProductos_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaMovimientoDeProductos.Click
+        Try
+            Dim user As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaMovimientoDeProductos.Name)
+
+            If user Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmKardex
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+    End Sub
+
+    Private Sub mnuAuditoriaRankingDeVentas_Click(sender As Object, e As EventArgs) Handles mnuAuditoriaRankingDeVentas.Click
+        Try
+            Dim user As Usuario = ModSeguridad.ValidarUsuario(Me.mnuAuditoriaRankingDeVentas.Name)
+
+            If user Is Nothing Then
+                Exit Sub
+            End If
+
+            Dim frm As New FrmRankingVentas
+            frm.Show()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical, "SiCoFa")
+        End Try
+
     End Sub
 
     Private Sub mnuEditarSecciones_Click(sender As Object, e As EventArgs) Handles mnuEditarSecciones.Click
@@ -438,6 +451,10 @@ Public Class FrmInicio
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
         End Try
+    End Sub
+
+    Private Sub mnuSistemaActualizaciones_Click(sender As Object, e As EventArgs) Handles mnuSistemaActualizaciones.Click
+        FrmActualizaciones.Show()
     End Sub
 
     Private Sub ConfigurarFondoMDI()

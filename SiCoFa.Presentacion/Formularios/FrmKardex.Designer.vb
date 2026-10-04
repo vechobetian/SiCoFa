@@ -29,6 +29,7 @@ Partial Class FrmKardex
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.dgvKardex = New System.Windows.Forms.DataGridView()
         Me.IdOperacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -38,6 +39,7 @@ Partial Class FrmKardex
         Me.Comprobante = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FechaComp = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Fraccionado = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Cantidad = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StockFA = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SockFP = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StockCA = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -70,7 +72,7 @@ Partial Class FrmKardex
         Me.dgvKardex.AllowUserToResizeRows = False
         Me.dgvKardex.BackgroundColor = System.Drawing.Color.White
         Me.dgvKardex.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvKardex.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.Operacion, Me.FechaOperacion, Me.IdUsuario, Me.Comprobante, Me.FechaComp, Me.Fraccionado, Me.StockFA, Me.SockFP, Me.StockCA, Me.StockCP})
+        Me.dgvKardex.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.IdOperacion, Me.Operacion, Me.FechaOperacion, Me.IdUsuario, Me.Comprobante, Me.FechaComp, Me.Fraccionado, Me.Cantidad, Me.StockFA, Me.SockFP, Me.StockCA, Me.StockCP})
         Me.dgvKardex.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvKardex.Location = New System.Drawing.Point(3, 3)
         Me.dgvKardex.Name = "dgvKardex"
@@ -144,11 +146,21 @@ Partial Class FrmKardex
         Me.Fraccionado.ReadOnly = True
         Me.Fraccionado.Width = 80
         '
+        'Cantidad
+        '
+        Me.Cantidad.DataPropertyName = "Cantidad"
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.Cantidad.DefaultCellStyle = DataGridViewCellStyle4
+        Me.Cantidad.HeaderText = "Cantidad"
+        Me.Cantidad.Name = "Cantidad"
+        Me.Cantidad.ReadOnly = True
+        Me.Cantidad.Width = 60
+        '
         'StockFA
         '
         Me.StockFA.DataPropertyName = "StockFA"
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockFA.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockFA.DefaultCellStyle = DataGridViewCellStyle5
         Me.StockFA.HeaderText = "Stock Frac.Ant."
         Me.StockFA.Name = "StockFA"
         Me.StockFA.ReadOnly = True
@@ -157,8 +169,8 @@ Partial Class FrmKardex
         'SockFP
         '
         Me.SockFP.DataPropertyName = "StockFP"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.SockFP.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.SockFP.DefaultCellStyle = DataGridViewCellStyle6
         Me.SockFP.HeaderText = "Stock Frac.Post."
         Me.SockFP.Name = "SockFP"
         Me.SockFP.ReadOnly = True
@@ -167,8 +179,8 @@ Partial Class FrmKardex
         'StockCA
         '
         Me.StockCA.DataPropertyName = "StockCA"
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockCA.DefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockCA.DefaultCellStyle = DataGridViewCellStyle7
         Me.StockCA.HeaderText = "Stock Cerr.Ant."
         Me.StockCA.Name = "StockCA"
         Me.StockCA.ReadOnly = True
@@ -177,8 +189,8 @@ Partial Class FrmKardex
         'StockCP
         '
         Me.StockCP.DataPropertyName = "StockCP"
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.StockCP.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.StockCP.DefaultCellStyle = DataGridViewCellStyle8
         Me.StockCP.HeaderText = "Stock Cerr.Post."
         Me.StockCP.Name = "StockCP"
         Me.StockCP.ReadOnly = True
@@ -200,7 +212,7 @@ Partial Class FrmKardex
         Me.ClientSize = New System.Drawing.Size(1180, 700)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmKardex"
-        Me.Text = "Form1"
+        Me.Text = "Kardex"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
@@ -211,6 +223,7 @@ Partial Class FrmKardex
 
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents dgvKardex As DataGridView
+    Friend WithEvents txtSelectorArticulo As TextBox
     Friend WithEvents IdOperacion As DataGridViewTextBoxColumn
     Friend WithEvents Operacion As DataGridViewTextBoxColumn
     Friend WithEvents FechaOperacion As DataGridViewTextBoxColumn
@@ -218,9 +231,9 @@ Partial Class FrmKardex
     Friend WithEvents Comprobante As DataGridViewTextBoxColumn
     Friend WithEvents FechaComp As DataGridViewTextBoxColumn
     Friend WithEvents Fraccionado As DataGridViewTextBoxColumn
+    Friend WithEvents Cantidad As DataGridViewTextBoxColumn
     Friend WithEvents StockFA As DataGridViewTextBoxColumn
     Friend WithEvents SockFP As DataGridViewTextBoxColumn
     Friend WithEvents StockCA As DataGridViewTextBoxColumn
     Friend WithEvents StockCP As DataGridViewTextBoxColumn
-    Friend WithEvents txtSelectorArticulo As TextBox
 End Class

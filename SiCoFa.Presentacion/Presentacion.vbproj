@@ -153,6 +153,18 @@
     <Compile Include="Clases\Ticket80.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />
     <Compile Include="Clases\ComprobantesRdlc.vb" />
+    <Compile Include="Formularios\FrmBuscaOperacionesIniciadas.Designer.vb">
+      <DependentUpon>FrmBuscaOperacionesIniciadas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmBuscaOperacionesIniciadas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmRankingVentas.Designer.vb">
+      <DependentUpon>FrmRankingVentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmRankingVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Formularios\FrmIngresoComprobantesEmitidos.Designer.vb">
       <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>
     </Compile>
@@ -514,6 +526,12 @@
     <EmbeddedResource Include="Formularios\clsFrmBase.resx">
       <DependentUpon>clsFrmBase.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmBuscaOperacionesIniciadas.resx">
+      <DependentUpon>FrmBuscaOperacionesIniciadas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmRankingVentas.resx">
+      <DependentUpon>FrmRankingVentas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmIngresoComprobantesEmitidos.resx">
       <DependentUpon>FrmIngresoComprobantesEmitidos.vb</DependentUpon>

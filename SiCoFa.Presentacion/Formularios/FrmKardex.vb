@@ -1,5 +1,4 @@
-﻿Imports System.ComponentModel
-Imports SiCoFa.Entidades
+﻿Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
 
 Public Class FrmKardex
@@ -68,11 +67,9 @@ Public Class FrmKardex
 
     End Sub
 
-    Private Sub dgvKardex_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs)
+    Private Sub dgvKardex_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvKardex.CellFormatting
 
-        If dgvKardex.Columns(e.ColumnIndex).Name = "Fraccionado" AndAlso
-           e.Value IsNot Nothing AndAlso
-           e.Value IsNot DBNull.Value Then
+        If dgvKardex.Columns(e.ColumnIndex).Name = "Fraccionado" AndAlso e.Value IsNot Nothing AndAlso e.Value IsNot DBNull.Value Then
 
             e.Value = If(Convert.ToBoolean(e.Value), "SI", "NO")
             e.FormattingApplied = True
@@ -111,6 +108,7 @@ Public Class FrmKardex
 
                 'Cargar Kardex
                 CargarKardex(idArticulo, fechaDesde, fechaHasta)
+                Me.txtSelectorArticulo.Text = ""
 
             End Using
 
@@ -122,10 +120,17 @@ Public Class FrmKardex
 
     Private Sub CargarKardex(ByVal argIdArticulo As String, ByVal argFechaDesde As Date, ByVal argFechaHasta As Date)
         Try
-            Dim sql As String = $"SELECT * FROM vw_kardex WHERE IdArticulo = '{argIdArticulo}' AND Fecha BETWEEN '{argFechaDesde:yyyy-MM-dd}' AND '{argFechaHasta:yyyy-MM-dd}'"
+            Dim sql As String =
+            $"SELECT * FROM vw_kardex " &
+            $"WHERE IdArticulo = '{argIdArticulo}' " &
+            $"AND FechaOperacion >= '{argFechaDesde:yyyy-MM-dd} 00:00:00' " &
+            $"AND FechaOperacion < '{argFechaHasta.AddDays(1):yyyy-MM-dd} 00:00:00'"
+
             Dim kardex As DataTable = mAdminDB.ObtenerTabla(sql)
+
             Me.dgvKardex.AutoGenerateColumns = False
             Me.dgvKardex.DataSource = kardex
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
         End Try
