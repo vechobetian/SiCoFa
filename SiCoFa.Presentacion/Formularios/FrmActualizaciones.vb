@@ -398,7 +398,7 @@ Public Class FrmActualizaciones
                             item.NumeroActualizacion,
                             proceso.StoredProcedure,
                             proceso.PorcentajeAplicado,
-                            proceso.CodiLP,
+                            CInt(proceso.ListaPrecios.CodiLP),
                             rutaTxt)
 
                     End Sub)

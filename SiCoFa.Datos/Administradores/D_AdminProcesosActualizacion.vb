@@ -11,13 +11,16 @@ Public Class D_AdminProcesosActualizacion
     '-------------------------------------------------------
     Private Function MapProcesoActualizacion(dr As MySqlDataReader) As ProcesoActualizacion
 
+        Dim adminListaPrecios As New D_AdminListaPrecios()
+        Dim lp As ListaPrecios = adminListaPrecios.ObtenerListaPreciosPorCodiLP(CStr(If(IsDBNull(dr("CodiLP")), Nothing, Convert.ToInt32(dr("CodiLP")))))
+
         Return New ProcesoActualizacion(
         argCodiPA:=dr("CodiPA").ToString(),
         argDescripcion:=dr("Descripcion").ToString(),
         argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
         argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
         argStoredProcedure:=If(IsDBNull(dr("StoredProcedure")), Nothing, dr("StoredProcedure").ToString()),
-        argCodiLP:=If(IsDBNull(dr("CodiLP")), Nothing, Convert.ToInt32(dr("CodiLP")))
+        argListaPrecios:=lp
     )
 
     End Function
