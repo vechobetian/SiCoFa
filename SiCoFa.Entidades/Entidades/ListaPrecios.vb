@@ -8,7 +8,7 @@ Public Class ListaPrecios
     Property PorcentajeAplicado As Decimal?
     Property NumeroActualizacion As Long?
     Property Baja As Boolean?
-    Property SP As String
+    Property Prioridad As Integer?
 
     Public Sub New()
         ' Constructor vacío para Newtonsoft.Json
@@ -20,14 +20,14 @@ Public Class ListaPrecios
                    ByVal argPorcentajeAplicado As Decimal?,
                    ByVal argNumeroActualizacion As Long?,
                    ByVal argBaja As Boolean?,
-                   ByVal argSP As String)
+                   ByVal argPrioridad As Integer?)
         Me.CodiLP = argCodiLP
         Me.ListaPrecios = argListaPrecios
         Me.PrecioReferencia = argPrecioReferencia
         Me.PorcentajeAplicado = argPorcentajeAplicado
         Me.NumeroActualizacion = argNumeroActualizacion
         Me.Baja = argBaja
-        Me.SP = argSP
+        Me.Prioridad = argPrioridad
     End Sub
 
     Public Sub New(ByVal argCodiLP As String, ByVal argListaPrecios As String)
@@ -37,7 +37,7 @@ Public Class ListaPrecios
         Me.PorcentajeAplicado = Nothing
         Me.NumeroActualizacion = Nothing
         Me.Baja = Nothing
-        Me.SP = Nothing
+        Me.Prioridad = Nothing
     End Sub
 
 End Class

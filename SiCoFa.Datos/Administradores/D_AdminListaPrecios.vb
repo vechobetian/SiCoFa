@@ -18,7 +18,7 @@ Public Class D_AdminListaPrecios
         argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
         argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
         argBaja:=If(IsDBNull(dr("Baja")), Nothing, Convert.ToBoolean(dr("Baja"))),
-        argSP:=If(IsDBNull(dr("SP")), Nothing, dr("SP").ToString())
+        argPrioridad:=If(IsDBNull(dr("Prioridad")), Nothing, CInt(dr("Prioridad")))
     )
 
     End Function
@@ -39,7 +39,7 @@ Public Class D_AdminListaPrecios
                     PorcentajeAplicado,
                     NumeroActualizacion,
                     Baja,
-                    SP
+                    Prioridad
                  FROM lista_precios
                  WHERE CodiLP = @CodiLP
                  LIMIT 1"
@@ -87,7 +87,7 @@ Public Class D_AdminListaPrecios
                     PorcentajeAplicado,
                     NumeroActualizacion,
                     Baja,
-                    SP
+                    Prioridad
                  FROM lista_precios
                  WHERE Baja = 0
                  ORDER BY ListaPrecios"
