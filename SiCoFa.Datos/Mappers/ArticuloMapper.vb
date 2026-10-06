@@ -15,7 +15,7 @@ Public Module ArticuloMapper
         Dim seccion As New Seccion(datos("IdSeccion").ToString(), datos("Seccion").ToString(), Convert.ToBoolean(datos("EstablecerPrecio")))
         Dim viaAdministracion As ViaAdministracion = New ViaAdministracion(CInt(datos("CodiVia")), datos("ViaAdministracion").ToString)
         Dim tipoPromocion As New Promocion(datos("CodiPro").ToString, CDec(datos("DesOferta")))
-        Dim listaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios").ToString)
+        Dim listaPrecios As New ListaPrecios(datos("CodiLP").ToString, datos("ListaPrecios").ToString, datos("PrecioReferencia").ToString, CDec(datos("PorcentajeAplicado")), False, Nothing)
 
         Return New Articulo(
                             datos("IdArticulo").ToString(),
