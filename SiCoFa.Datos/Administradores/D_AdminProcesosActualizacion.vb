@@ -17,7 +17,6 @@ Public Class D_AdminProcesosActualizacion
         Return New ProcesoActualizacion(
         argCodiPA:=dr("CodiPA").ToString(),
         argDescripcion:=dr("Descripcion").ToString(),
-        argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
         argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
         argStoredProcedure:=If(IsDBNull(dr("StoredProcedure")), Nothing, dr("StoredProcedure").ToString()),
         argListaPrecios:=lp
@@ -35,8 +34,7 @@ Public Class D_AdminProcesosActualizacion
                 Const sql As String =
                 "SELECT 
                     CodiPA,
-                    Descripcion,
-                    PorcentajeAplicado,
+                    Descripcion,                    
                     NumeroActualizacion,
                     StoredProcedure,
                     CodiLP

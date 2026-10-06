@@ -16,7 +16,6 @@ Public Class D_AdminListaPrecios
         argListaPrecios:=dr("ListaPrecios").ToString(),
         argPrecioReferencia:=dr("PrecioReferencia").ToString(),
         argPorcentajeAplicado:=If(IsDBNull(dr("PorcentajeAplicado")), Nothing, Convert.ToDecimal(dr("PorcentajeAplicado"))),
-        argNumeroActualizacion:=If(IsDBNull(dr("NumeroActualizacion")), Nothing, Convert.ToInt64(dr("NumeroActualizacion"))),
         argBaja:=If(IsDBNull(dr("Baja")), Nothing, Convert.ToBoolean(dr("Baja"))),
         argPrioridad:=If(IsDBNull(dr("Prioridad")), Nothing, CInt(dr("Prioridad")))
     )
@@ -36,8 +35,7 @@ Public Class D_AdminListaPrecios
                     CodiLP,
                     ListaPrecios,
                     PrecioReferencia,
-                    PorcentajeAplicado,
-                    NumeroActualizacion,
+                    PorcentajeAplicado,                    
                     Baja,
                     Prioridad
                  FROM lista_precios
@@ -62,9 +60,7 @@ Public Class D_AdminListaPrecios
 
         Catch ex As Exception
             Throw New Exception(
-                Vecho.MensajeError(Me.ToString,
-                                   NameOf(ObtenerListaPreciosPorCodiLP),
-                                   ex.Message))
+                Vecho.MensajeError(Me.ToString, NameOf(ObtenerListaPreciosPorCodiLP), ex.Message))
         End Try
 
     End Function
@@ -84,8 +80,7 @@ Public Class D_AdminListaPrecios
                     CodiLP,
                     ListaPrecios,
                     PrecioReferencia,
-                    PorcentajeAplicado,
-                    NumeroActualizacion,
+                    PorcentajeAplicado,                    
                     Baja,
                     Prioridad
                  FROM lista_precios
@@ -108,9 +103,7 @@ Public Class D_AdminListaPrecios
 
         Catch ex As Exception
             Throw New Exception(
-                Vecho.MensajeError(Me.ToString,
-                                   NameOf(ObtenerListasPreciosActivas),
-                                   ex.Message))
+                Vecho.MensajeError(Me.ToString, NameOf(ObtenerListasPreciosActivas), ex.Message))
         End Try
 
     End Function

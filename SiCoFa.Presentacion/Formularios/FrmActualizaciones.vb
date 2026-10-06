@@ -397,7 +397,7 @@ Public Class FrmActualizaciones
                             proceso.CodiPA,
                             item.NumeroActualizacion,
                             proceso.StoredProcedure,
-                            proceso.PorcentajeAplicado,
+                            CDec(proceso.ListaPrecios.PorcentajeAplicado),
                             CInt(proceso.ListaPrecios.CodiLP),
                             rutaTxt)
 
