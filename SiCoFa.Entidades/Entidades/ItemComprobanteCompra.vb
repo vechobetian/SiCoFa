@@ -8,9 +8,6 @@
     Private m_PorcentajeAplicado As Decimal
     Private m_IVAIncluido As Boolean
 
-    <Newtonsoft.Json.JsonIgnore>
-    Public Property EvitarRecalculo As Boolean = False
-
     ' Constructor
     Public Sub New(
         ByVal argArticulo As Articulo,
@@ -72,12 +69,8 @@
             Return m_PrecioCosto
         End Get
         Set(value As Decimal)
-            If m_PrecioCosto <> value Then
-                m_PrecioCosto = value
-                If Not EvitarRecalculo Then
-                    RecalcularPrecioVenta()
-                End If
-            End If
+            m_PrecioCosto = value
+            RecalcularPrecioVenta()
         End Set
     End Property
 
@@ -155,7 +148,7 @@
         End Get
         Set(value As Boolean)
             m_IVAIncluido = value
-            ' Ya NO recalcula automáticamente
+            RecalcularPrecioVenta()
         End Set
     End Property
 

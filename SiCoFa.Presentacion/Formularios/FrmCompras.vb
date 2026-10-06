@@ -688,14 +688,14 @@ Public Class FrmCompras
 
         For Each i As ItemComprobanteCompra In Me.mobj_Items
 
-            If Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked Then
-                i.PrecioCosto = i.PrecioCosto * (1 + i.AlicIVA / 100)
-                Me.lblIVAIncluido.Text = "-Precio Costo con IVA Incluido"
-            Else
-                Dim precioCosto As Decimal = i.PrecioCosto / (1 + i.AlicIVA / 100)
-                i.PrecioCosto = precioCosto
-                Me.lblIVAIncluido.Text = "-Precio Costo sin IVA"
-            End If
+            'If Me.mnuOpcionesIVAIncluidoEnPrecioCosto.Checked Then
+            'i.PrecioCosto = i.PrecioCosto * (1 + i.AlicIVA / 100)
+            'Me.lblIVAIncluido.Text = "-Precio Costo con IVA Incluido"
+            'Else
+            'Dim precioCosto As Decimal = i.PrecioCosto / (1 + i.AlicIVA / 100)
+            'i.PrecioCosto = precioCosto
+            'Me.lblIVAIncluido.Text = "-Precio Costo sin IVA"
+            'End If
 
             i.IVAIncluido = IVA
         Next

@@ -204,19 +204,43 @@ Public Class D_AdminItemsComprobante
         Dim objLI As New List(Of ItemComprobanteCompra)
 
         Try
-            Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM vw_items_comprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
+            'Dim sql As String = "SELECT IdItem, IdOperacion, IdArticulo, Descripcion,Cantidad, AlicIVA, PrecioCosto,PrecioUnitario,Descuento,CodBarras, PrecioVenta,IdSeccion,Seccion,EstablecerPrecio FROM vw_items_comprobante WHERE IdOperacion = @IdOperacion ORDER BY IdItem"
+            Dim sql As String = "SELECT 
+                                    IdItem, 
+                                    IdOperacion, 
+                                    IdArticulo, 
+                                    Descripcion, 
+                                    Fraccionado, 
+                                    Cantidad, 
+                                    AlicIVA, 
+                                    PrecioCosto, 
+                                    PrecioUnitario, 
+                                    PorcentajeDescuento, 
+                                    CodBarras, 
+                                    PrecioVenta, 
+                                    IdSeccion, 
+                                    Seccion, 
+                                    EstablecerPrecio,
+                                    PorcentajeOS,
+                                    DescuentoUnitarioOS,
+                                    PorcentajeCS,
+                                    DescuentoUnitarioCS,
+                                    CodiPro
+                                 FROM vw_items_comprobante 
+                                 WHERE IdOperacion = @IdOperacion 
+                                 ORDER BY IdItem"
 
             Using cn As MySqlConnection = objConexionDB.ObtenerConexion
 
                 Using cmd As MySqlCommand = cn.CreateCommand
                     cmd.CommandType = CommandType.Text
-                    cmd.CommandText = sql
+                    cmd.CommandText = Sql
 
                     cmd.Parameters.AddWithValue("@IdOperacion", argIdOperacion)
 
                     Using datos As MySqlDataReader = cmd.ExecuteReader()
                         Dim idItemOrdinal As Integer = datos.GetOrdinal("IdItem")
-                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("Idarticulo")
+                        Dim idArticuloOrdinal As Integer = datos.GetOrdinal("IdArticulo")
                         Dim descripcionOrdinal As Integer = datos.GetOrdinal("Descripcion")
                         Dim cantidadOrdinal As Integer = datos.GetOrdinal("Cantidad")
                         Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")

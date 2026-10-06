@@ -26,7 +26,12 @@
         End Get
     End Property
 
+    Public Sub New()
+    End Sub
+
     Public Sub New(ByVal argCodIVA As String)
+
+        If String.IsNullOrEmpty(argCodIVA) Then Exit Sub
 
         Me.CodIVA = argCodIVA.Trim().ToUpper
 
