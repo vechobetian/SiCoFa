@@ -246,7 +246,7 @@ Public Class D_AdminItemsComprobante
                         Dim alicIVAOrdinal As Integer = datos.GetOrdinal("AlicIVA")
                         Dim precioCostoOrdinal As Integer = datos.GetOrdinal("PrecioCosto")
                         Dim precioUnitarioOrdinal As Integer = datos.GetOrdinal("PrecioUnitario")
-                        Dim descuentoOrdinal As Integer = datos.GetOrdinal("Descuento")
+                        'Dim descuentoOrdinal As Integer = datos.GetOrdinal("DescuentoUnitario")
                         Dim codBarrasOrdinal As Integer = datos.GetOrdinal("CodBarras")
                         Dim precioVentaOrdinal As Integer = datos.GetOrdinal("PrecioVenta")
                         Dim idSeccionOrdinal As Integer = datos.GetOrdinal("IdSeccion")
@@ -262,13 +262,13 @@ Public Class D_AdminItemsComprobante
                             Dim AlicIVA As Decimal = Convert.ToDecimal(datos.GetValue(alicIVAOrdinal))
                             Dim PrecioCostoResult As Decimal = If(datos.IsDBNull(precioCostoOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioCostoOrdinal)))
                             Dim PrecioUnitarioResult As Decimal = If(datos.IsDBNull(precioUnitarioOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioUnitarioOrdinal)))
-                            Dim DescuentoResult As Decimal = If(datos.IsDBNull(descuentoOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoOrdinal)))
+                            'Dim DescuentoResult As Decimal = If(datos.IsDBNull(descuentoOrdinal), 0, Convert.ToDecimal(datos.GetValue(descuentoOrdinal)))
                             Dim CodBarrasResult As String = datos.GetString(codBarrasOrdinal)
                             Dim PrecioVentaResult As Decimal = If(datos.IsDBNull(precioVentaOrdinal), 0, Convert.ToDecimal(datos.GetValue(precioVentaOrdinal)))
                             Dim IdSeccionResult As String = datos.GetString(idSeccionOrdinal)
                             Dim SeccionResult As String = datos.GetString(seccionNombreOrdinal)
                             Dim EstablecerPrecioResult As Boolean = datos.GetBoolean(establecerPrecioOrdinal)
-                            Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
+                            'Dim PorcentajeDescuento = Math.Round(DescuentoResult / PrecioUnitarioResult * 100, 2, MidpointRounding.ToEven)
 
                             ' Crear objetos anidados
                             Dim AdminArticulos As New D_AdminArticulos
