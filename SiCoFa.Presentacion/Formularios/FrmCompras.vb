@@ -2,7 +2,6 @@
 Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
-Imports SiCoFa.Entidades.Enums
 
 
 Public Class FrmCompras
@@ -91,16 +90,6 @@ Public Class FrmCompras
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
         End Try
-    End Sub
-
-    Private Sub Serializar()
-        Dim json1 = JsonConvert.SerializeObject(mobj_Items, Formatting.Indented)
-        Dim json2 = JsonConvert.SerializeObject(mobj_ItemsOriginal, Formatting.Indented)
-
-        ' Guardalos en archivo o mostralos en consola para comparar:
-        Debug.WriteLine(json1)
-        Debug.WriteLine("-----")
-        Debug.WriteLine(json2)
     End Sub
 
     Private Sub GuardarCambios(ByVal argTecla As Keys, ByVal argDescripcion As String)
@@ -498,7 +487,7 @@ Public Class FrmCompras
 
     End Function
 
-    Private Sub FrmVentas_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+    Private Sub FrmCompras_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.AjustarAnchoColumnasProporcional()
         Me.AjustarAnchoToolStripTextBox()
     End Sub
@@ -635,9 +624,9 @@ Public Class FrmCompras
 
     Private Sub NuevoToolStripButton_Click(sender As Object, e As EventArgs) Handles NuevoToolStripButton.Click
 
-        Dim nuevaVentanaVentas As New FrmCompras()
-        nuevaVentanaVentas.Usuario = Me.Usuario
-        nuevaVentanaVentas.Show()
+        Dim nuevaVentanaCompras As New FrmCompras()
+        nuevaVentanaCompras.Usuario = Me.Usuario
+        nuevaVentanaCompras.Show()
 
         Me.Close()
 

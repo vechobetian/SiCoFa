@@ -33,6 +33,8 @@
 
     Public Sub New(argCodiTiCo As String)
 
+        If String.IsNullOrEmpty(argCodiTiCo) Then Exit Sub
+
         Me.CodiTiCo = argCodiTiCo.Trim().ToUpper
 
         Select Case argCodiTiCo.Trim().ToUpper()

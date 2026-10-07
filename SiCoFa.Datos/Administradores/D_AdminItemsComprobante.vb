@@ -304,11 +304,14 @@ Public Class D_AdminItemsComprobante
                         .Add("p_IdOperacion", MySqlDbType.Int64).Value = argIdOperacion
                         .Add("p_IdArticulo", MySqlDbType.VarChar).Value = argItemComprobante.Articulo.IdArticulo
                         .Add("p_Descripcion", MySqlDbType.VarChar).Value = argItemComprobante.Descripcion
+                        .Add("p_Fraccionado", MySqlDbType.Bit).Value = False
                         .Add("p_Cantidad", MySqlDbType.Decimal).Value = argItemComprobante.Cantidad
                         .Add("p_AlicIVA", MySqlDbType.Decimal).Value = argItemComprobante.AlicIVA
-                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.Articulo.PrecioCosto
+                        .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argItemComprobante.PrecioCosto
                         .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argItemComprobante.PrecioVenta
-                        .Add("p_Descuento", MySqlDbType.Decimal).Value = 0
+                        .Add("p_PorcentajeDescuento", MySqlDbType.Decimal).Value = 0D
+                        .Add("p_DescuentoUnitario", MySqlDbType.Decimal).Value = 0D
+                        .Add("p_CodiPro", MySqlDbType.VarChar).Value = "0"
                         .Add("p_IdItem", MySqlDbType.Int64)
                     End With
 

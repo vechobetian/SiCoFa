@@ -32,6 +32,8 @@
 
     Public Sub New(argCodiTE As String)
 
+        If String.IsNullOrEmpty(argCodiTE) Then Exit Sub
+
         Me.CodiTE = argCodiTE
 
         Select Case argCodiTE.Trim.ToUpper

@@ -32,6 +32,8 @@
 
     Public Sub New(argCodiTV As String)
 
+        If String.IsNullOrEmpty(argCodiTV) Then Exit Sub
+
         Me.CodiTV = argCodiTV.Trim().ToUpper
 
         Select Case argCodiTV.Trim().ToUpper

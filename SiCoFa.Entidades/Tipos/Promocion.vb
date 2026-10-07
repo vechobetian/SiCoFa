@@ -36,6 +36,8 @@
 
     Public Sub New(argCodiPro As String, Optional argPorcentajeDescuento As Decimal = 0)
 
+        If String.IsNullOrEmpty(argCodiPro) Then Exit Sub
+
         Me.CodiPro = argCodiPro.Trim().ToUpper()
 
         Select Case Me.CodiPro
