@@ -86,6 +86,7 @@ Public Class FrmCompras
             Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = Me.mobj_Items
             Me.DataGridView1.ClearSelection()
+
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
 
