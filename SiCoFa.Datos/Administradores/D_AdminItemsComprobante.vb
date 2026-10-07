@@ -143,8 +143,7 @@ Public Class D_AdminItemsComprobante
                                             ByVal argIdItem As Long,
                                             ByVal argCantidad As Decimal,
                                             ByVal argPrecioCosto As Decimal,
-                                            ByVal argPrecioUnitario As Decimal,
-                                            ByVal argDescuento As Decimal
+                                            ByVal argPrecioUnitario As Decimal
                                             ) As Boolean
 
 
@@ -159,7 +158,6 @@ Public Class D_AdminItemsComprobante
                         .Add("p_Cantidad", MySqlDbType.Decimal).Value = argCantidad
                         .Add("p_PrecioCosto", MySqlDbType.Decimal).Value = argPrecioCosto
                         .Add("p_PrecioUnitario", MySqlDbType.Decimal).Value = argPrecioUnitario
-                        .Add("p_Descuento", MySqlDbType.Decimal).Value = argDescuento
                     End With
 
                     Dim FilasAfectadas As Int32 = Convert.ToInt32(cmd.ExecuteNonQuery())

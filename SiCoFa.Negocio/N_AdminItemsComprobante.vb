@@ -31,34 +31,6 @@ Public Class N_AdminItemsComprobante
 
     End Function
 
-    Public Function ActualizarItemComprobante(
-                                            ByVal argIdItem As Long,
-                                            ByVal argCantidad As Decimal,
-                                            ByVal argPrecioCosto As Decimal,
-                                            ByVal argPrecioUnitario As Decimal,
-                                            ByVal argDescuento As Decimal
-                                            ) As Boolean
-
-        Try
-
-            Dim AdminItems As New D_AdminItemsComprobante
-            Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(
-                                                                              argIdItem,
-                                                                              argCantidad,
-                                                                              argPrecioCosto,
-                                                                              argPrecioUnitario,
-                                                                              argDescuento
-                                                                              )
-            Return Actualizado
-
-        Catch ex As Exception
-            Throw New Exception(Vecho.MensajeError(Me.ToString, "ActualizarItemComprobante", ex.Message))
-            Return False
-
-        End Try
-
-    End Function
-
     Public Function EliminarItemComprobante(ByVal argIdItem As Long) As Boolean
 
         Try
@@ -104,7 +76,7 @@ Public Class N_AdminItemsComprobante
 
     End Function
 
-    Public Function ActualizarItemComprobanteCompra(
+    Public Function ActualizarItemComprobante(
                                                     ByVal argIdItem As Long,
                                                     ByVal argCantidad As Decimal,
                                                     ByVal argPrecioCosto As Decimal,
@@ -118,8 +90,7 @@ Public Class N_AdminItemsComprobante
                                                                               argIdItem,
                                                                               argCantidad,
                                                                               argPrecioCosto,
-                                                                              argPrecioVenta,
-                                                                              0
+                                                                              argPrecioVenta
                                                                               )
             Return Actualizado
 

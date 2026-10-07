@@ -1,27 +1,22 @@
-﻿Imports Newtonsoft.Json
-Imports System.ComponentModel
+﻿Imports System.ComponentModel
 Imports SiCoFa.Entidades
 Imports SiCoFa.Negocio
-
 
 Public Class FrmCompras
     Property Usuario As Usuario
 
     Private mobj_AdminOperacion As New N_AdminOperaciones
     Private mobj_Operacion As Operacion
-    Private mobj_OperacionOriginal As Operacion
     Private mobj_TipoOperacion As TipoOperacion
     Private mobj_Items As New BindingList(Of ItemComprobanteCompra)
-    Private mobj_ItemsOriginal As BindingList(Of ItemComprobanteCompra)
+    Private mint_CantidadItemsInicial As Integer = 0
+    Private mdec_ImporteNetoInicial As Decimal = 0
+    Private mdec_ImporteIvaInicial As Decimal = 0
+    Private mdec_ImporteTotalInicial As Decimal = 0
     Private mint_CantidadItems As Integer = 0
     Private mdec_ImporteNeto As Decimal = 0
     Private mdec_ImporteIva As Decimal = 0
     Private mdec_ImporteTotal As Decimal = 0
-
-    Private Function ClonarObjeto(Of T)(obj As T) As T
-        Dim json As String = JsonConvert.SerializeObject(obj)
-        Return JsonConvert.DeserializeObject(Of T)(json)
-    End Function
 
     Private Sub BuscarCompraIniciada()
 
@@ -68,23 +63,33 @@ Public Class FrmCompras
 
     End Sub
 
+    Private Sub CapturarEstadoInicial()
+        ' Guardamos una "fotografía" de los totales al momento de arrancar
+        mint_CantidadItemsInicial = mint_CantidadItems
+        mdec_ImporteNetoInicial = mdec_ImporteNeto
+        mdec_ImporteIvaInicial = mdec_ImporteIva
+        mdec_ImporteTotalInicial = mdec_ImporteTotal
+    End Sub
+
     Private Sub AbrirCompra(ByVal argIdOperaciones As Long)
         Try
             mobj_Operacion = mobj_AdminOperacion.ObtenerOperacion(argIdOperaciones)
             mobj_Operacion.Empresa = g_ParametrosTerminal.Empresa
             mobj_Operacion.Usuario = Me.Usuario
             mobj_Operacion.TipoOperacion = mobj_TipoOperacion
-            mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
 
             Dim AdminItems As New N_AdminItemsComprobante
             Dim objItems As List(Of ItemComprobanteCompra) = AdminItems.ListarItemsCompraPorIdOperacion(mobj_Operacion.IdOperacion)
             mobj_Items = New BindingList(Of ItemComprobanteCompra)(objItems)
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
+
             Me.ActualizarTotales()
             Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = Me.mobj_Items
             Me.DataGridView1.ClearSelection()
+
+            ' >>> AQUÍ CAPTURAS EL ESTADO INICIAL DE LA COMPRA EXISTENTE <<<
+            Me.CapturarEstadoInicial()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -112,10 +117,6 @@ Public Class FrmCompras
 
                 mobj_Operacion = mobj_AdminOperacion.IniciarOperacion(argEmpresa:=g_ParametrosTerminal.Empresa, Me.Usuario, mobj_TipoOperacion, descripcion, "GUARDADO")
 
-                If mobj_Operacion IsNot Nothing Then
-                    mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                End If
-
             Else
 
                 mobj_Operacion.Inicio = Now
@@ -128,10 +129,6 @@ Public Class FrmCompras
 
                 mobj_Operacion.EstadoOperacion = "GUARDADO"
                 Dim Actualizado As Boolean = mobj_AdminOperacion.ActualizarOperacion(mobj_Operacion)
-
-                If Actualizado = True Then
-                    mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-                End If
 
             End If
 
@@ -163,11 +160,9 @@ Public Class FrmCompras
                 If i.IdItem = 0 Then
                     i.IdItem = AdminItems.InsertarItemComprobanteCompra(argIdOperacion, i)
                 Else
-                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobanteCompra(i.IdItem, i.Cantidad, i.PrecioCosto, i.PrecioVenta)
+                    Dim Actualizado As Boolean = AdminItems.ActualizarItemComprobante(i.IdItem, i.Cantidad, i.PrecioCosto, i.PrecioVenta)
                 End If
             Next
-
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")
@@ -407,13 +402,17 @@ Public Class FrmCompras
             Me.WindowState = FormWindowState.Maximized
 
             mobj_TipoOperacion = mobj_AdminOperacion.ObtenerTipoOperacionPorCodiTO("COMPM")
-            mobj_OperacionOriginal = ClonarObjeto(mobj_Operacion)
-            mobj_ItemsOriginal = ClonarObjeto(mobj_Items)
 
             Me.ActualizarDatosOperacion()
             Me.DataGridView1.AutoGenerateColumns = False
             Me.DataGridView1.DataSource = Me.mobj_Items
             Me.DataGridView1.ClearSelection()
+
+            ' Aseguramos que los totales arranquen calculados en 0 para una compra nueva
+            Me.ActualizarTotales()
+
+            ' >>> AQUÍ CAPTURAS EL ESTADO INICIAL VACÍO <<<
+            Me.CapturarEstadoInicial()
 
             For Each item As ToolStripItem In ToolStrip1.Items
                 item.Overflow = ToolStripItemOverflow.Never
@@ -449,10 +448,12 @@ Public Class FrmCompras
 
         Try
 
-            Dim operacionCambio = Not JsonConvert.SerializeObject(mobj_Operacion).Equals(JsonConvert.SerializeObject(mobj_OperacionOriginal))
-            Dim itemsCambio = Not JsonConvert.SerializeObject(mobj_Items).Equals(JsonConvert.SerializeObject(mobj_ItemsOriginal))
+            Dim huboCambios As Boolean = (mint_CantidadItems <> mint_CantidadItemsInicial) OrElse
+                                     (mdec_ImporteNeto <> mdec_ImporteNetoInicial) OrElse
+                                     (mdec_ImporteTotal <> mdec_ImporteTotalInicial) OrElse
+                                     mobj_Items.Any(Function(i) i.IdItem = 0)
 
-            If operacionCambio OrElse itemsCambio Then
+            If huboCambios Then
                 Dim resultado = MessageBox.Show("Hay cambios sin guardar. ¿Desea guardar los cambios?", "Confirmar", MessageBoxButtons.YesNoCancel)
 
                 If resultado = DialogResult.Cancel Then

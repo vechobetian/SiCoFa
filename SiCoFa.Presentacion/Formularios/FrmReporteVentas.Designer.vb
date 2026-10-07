@@ -32,6 +32,10 @@ Partial Class FrmReporteVentas
         Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mnuArchivo = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,9 +46,13 @@ Partial Class FrmReporteVentas
         Me.ImpBto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpDes = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpNeto = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpEx = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpGrav1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpGrav2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpEf = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpCC = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ImpPE = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ImpOS = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -64,7 +72,7 @@ Partial Class FrmReporteVentas
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(984, 661)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(1291, 661)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'MenuStrip1
@@ -72,7 +80,7 @@ Partial Class FrmReporteVentas
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuArchivo})
         Me.MenuStrip1.Location = New System.Drawing.Point(2, 2)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(980, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1287, 24)
         Me.MenuStrip1.TabIndex = 9
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -98,7 +106,7 @@ Partial Class FrmReporteVentas
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Fecha, Me.NOperac, Me.ImpMedioTiket, Me.ImpBto, Me.ImpDes, Me.ImpNeto, Me.ImpEf, Me.ImpCC, Me.ImpPE})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Fecha, Me.NOperac, Me.ImpMedioTiket, Me.ImpBto, Me.ImpDes, Me.ImpNeto, Me.ImpEx, Me.ImpGrav1, Me.ImpGrav2, Me.ImpEf, Me.ImpCC, Me.ImpPE, Me.ImpOS})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(5, 32)
         Me.DataGridView1.Name = "DataGridView1"
@@ -106,18 +114,18 @@ Partial Class FrmReporteVentas
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowHeadersWidth = 20
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(974, 624)
+        Me.DataGridView1.Size = New System.Drawing.Size(1281, 624)
         Me.DataGridView1.TabIndex = 1
         '
         'Fecha
         '
+        Me.Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
         Me.Fecha.DataPropertyName = "Fecha"
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         Me.Fecha.DefaultCellStyle = DataGridViewCellStyle2
         Me.Fecha.HeaderText = "Fecha"
         Me.Fecha.Name = "Fecha"
         Me.Fecha.ReadOnly = True
-        Me.Fecha.Width = 80
         '
         'NOperac
         '
@@ -151,6 +159,7 @@ Partial Class FrmReporteVentas
         Me.ImpBto.HeaderText = "Importe Bruto"
         Me.ImpBto.Name = "ImpBto"
         Me.ImpBto.ReadOnly = True
+        Me.ImpBto.Width = 130
         '
         'ImpDes
         '
@@ -175,24 +184,58 @@ Partial Class FrmReporteVentas
         Me.ImpNeto.Name = "ImpNeto"
         Me.ImpNeto.ReadOnly = True
         '
+        'ImpEx
+        '
+        Me.ImpEx.DataPropertyName = "ImpEx"
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle8.Format = "N2"
+        Me.ImpEx.DefaultCellStyle = DataGridViewCellStyle8
+        Me.ImpEx.HeaderText = "Imp.Exento"
+        Me.ImpEx.Name = "ImpEx"
+        Me.ImpEx.ReadOnly = True
+        Me.ImpEx.Width = 130
+        '
+        'ImpGrav1
+        '
+        Me.ImpGrav1.DataPropertyName = "ImpGrav1"
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle9.Format = "N2"
+        Me.ImpGrav1.DefaultCellStyle = DataGridViewCellStyle9
+        Me.ImpGrav1.HeaderText = "Imp.Gravado 21%"
+        Me.ImpGrav1.Name = "ImpGrav1"
+        Me.ImpGrav1.ReadOnly = True
+        Me.ImpGrav1.Width = 130
+        '
+        'ImpGrav2
+        '
+        Me.ImpGrav2.DataPropertyName = "ImpGrav2"
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle10.Format = "N2"
+        Me.ImpGrav2.DefaultCellStyle = DataGridViewCellStyle10
+        Me.ImpGrav2.HeaderText = "Imp.Gravado 10.5%"
+        Me.ImpGrav2.Name = "ImpGrav2"
+        Me.ImpGrav2.ReadOnly = True
+        Me.ImpGrav2.Width = 130
+        '
         'ImpEf
         '
         Me.ImpEf.DataPropertyName = "ImpEf"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle8.Format = "N2"
-        DataGridViewCellStyle8.NullValue = Nothing
-        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle11.Format = "N2"
+        DataGridViewCellStyle11.NullValue = Nothing
+        Me.ImpEf.DefaultCellStyle = DataGridViewCellStyle11
         Me.ImpEf.HeaderText = "Efectivo"
         Me.ImpEf.Name = "ImpEf"
         Me.ImpEf.ReadOnly = True
+        Me.ImpEf.Width = 130
         '
         'ImpCC
         '
         Me.ImpCC.DataPropertyName = "ImpCC"
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle9.Format = "N2"
-        DataGridViewCellStyle9.NullValue = Nothing
-        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle12.Format = "N2"
+        DataGridViewCellStyle12.NullValue = Nothing
+        Me.ImpCC.DefaultCellStyle = DataGridViewCellStyle12
         Me.ImpCC.HeaderText = "Cuenta Corriente"
         Me.ImpCC.Name = "ImpCC"
         Me.ImpCC.ReadOnly = True
@@ -201,20 +244,31 @@ Partial Class FrmReporteVentas
         'ImpPE
         '
         Me.ImpPE.DataPropertyName = "ImpPE"
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle10.Format = "N2"
-        DataGridViewCellStyle10.NullValue = Nothing
-        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle13.Format = "N2"
+        DataGridViewCellStyle13.NullValue = Nothing
+        Me.ImpPE.DefaultCellStyle = DataGridViewCellStyle13
         Me.ImpPE.HeaderText = "Pago Electronico"
         Me.ImpPE.Name = "ImpPE"
         Me.ImpPE.ReadOnly = True
         Me.ImpPE.Width = 120
         '
+        'ImpOS
+        '
+        Me.ImpOS.DataPropertyName = "ImpOS"
+        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle14.Format = "N2"
+        Me.ImpOS.DefaultCellStyle = DataGridViewCellStyle14
+        Me.ImpOS.HeaderText = "Obras Sociales"
+        Me.ImpOS.Name = "ImpOS"
+        Me.ImpOS.ReadOnly = True
+        Me.ImpOS.Width = 120
+        '
         'FrmReporteVentas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(984, 661)
+        Me.ClientSize = New System.Drawing.Size(1291, 661)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Name = "FrmReporteVentas"
         Me.Text = "Análisis de Ventas"
@@ -238,7 +292,11 @@ Partial Class FrmReporteVentas
     Friend WithEvents ImpBto As DataGridViewTextBoxColumn
     Friend WithEvents ImpDes As DataGridViewTextBoxColumn
     Friend WithEvents ImpNeto As DataGridViewTextBoxColumn
+    Friend WithEvents ImpEx As DataGridViewTextBoxColumn
+    Friend WithEvents ImpGrav1 As DataGridViewTextBoxColumn
+    Friend WithEvents ImpGrav2 As DataGridViewTextBoxColumn
     Friend WithEvents ImpEf As DataGridViewTextBoxColumn
     Friend WithEvents ImpCC As DataGridViewTextBoxColumn
     Friend WithEvents ImpPE As DataGridViewTextBoxColumn
+    Friend WithEvents ImpOS As DataGridViewTextBoxColumn
 End Class
