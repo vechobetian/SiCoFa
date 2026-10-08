@@ -1333,6 +1333,8 @@ Public Class FrmVentas
 
             RenderItemsUC()
 
+            ActualizarDatosReceta()
+
             If Not String.IsNullOrWhiteSpace(receta.NumAutorizacion) Then
 
                 Dim rutaTicket As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", receta.Plan.OS.PValidacion.Validador & receta.NumAutorizacion & ".pdf")
