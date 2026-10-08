@@ -736,31 +736,24 @@ Public Class ITC
 
             If ex.Response IsNot Nothing Then
 
-                Dim response As HttpWebResponse =
-                CType(ex.Response, HttpWebResponse)
+                Dim response As HttpWebResponse = CType(ex.Response, HttpWebResponse)
 
                 mensaje.AppendLine("HTTP STATUS:")
-                mensaje.AppendLine(
-                CInt(response.StatusCode).ToString() &
-                " - " &
-                response.StatusDescription)
+                mensaje.AppendLine(CInt(response.StatusCode).ToString() & " - " & response.StatusDescription)
 
                 mensaje.AppendLine()
 
                 mensaje.AppendLine("HEADERS:")
-                mensaje.AppendLine(
-                response.Headers.ToString())
+                mensaje.AppendLine(response.Headers.ToString())
 
                 mensaje.AppendLine()
 
                 mensaje.AppendLine("RESPUESTA DEL SERVIDOR:")
                 mensaje.AppendLine()
 
-                Using reader As New StreamReader(
-                response.GetResponseStream())
+                Using reader As New StreamReader(response.GetResponseStream())
 
-                    Dim serverError As String =
-                    reader.ReadToEnd()
+                    Dim serverError As String = reader.ReadToEnd()
 
                     mensaje.AppendLine(serverError)
 
@@ -836,7 +829,6 @@ Public Class ITC
             '======================================================
 
             receta.Credencial.Numero = nodo.SelectSingleNode("*[local-name()='NroReceta']")?.InnerText
-
 
             '======================================================
             ' FORMULARIO
