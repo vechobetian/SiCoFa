@@ -1382,6 +1382,7 @@ Public Class FrmVentas
 
             RenderItemsUC()
 
+            ActualizarDatosReceta()
 
         Catch ex As Exception
             MsgBox(ex.Message, vbCritical, "SiCoFa")

@@ -148,7 +148,7 @@ Public Class SIMED
 
             VerificarRespuestaGeneral(xmlAdesfa)
 
-            ParsearAutorizacion(argReceta, xmlAdesfa)
+            ParsearCancelacion(argReceta)
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -581,9 +581,7 @@ Public Class SIMED
 
         ' IMED devuelve "00" cuando la transacción fue aprobada.
         If codRtaGeneral <> "00" Then
-
             Throw New Exception(If(String.IsNullOrWhiteSpace(descripcion), "Transacción rechazada por el validador.", descripcion))
-
         End If
 
     End Sub
@@ -827,11 +825,22 @@ Public Class SIMED
 
         End Try
 
-End Sub
+    End Sub
 
+    Private Sub ParsearCancelacion(argReceta As Receta)
+        Try
 
-    Private Sub ParsearCancelacion(argReceta As Receta, xml As XmlDocument)
+            argReceta.NumAutorizacion = ""
 
+            For Each i As ItemComprobante In argReceta.Items
+                i.NumeroAutorizacionItem = ""
+            Next
+
+        Catch ex As Exception
+
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "ParsearCancelacion", ex.Message))
+
+        End Try
     End Sub
 
 
