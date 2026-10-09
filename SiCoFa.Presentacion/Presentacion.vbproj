@@ -148,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\ReporteComprobantes.vb" />
-    <Compile Include="Clases\ReporteValidaciones.vb" />
     <Compile Include="Clases\Ticket58.vb" />
     <Compile Include="Clases\Ticket80.vb" />
     <Compile Include="Clases\MediosPagoBinding.vb" />

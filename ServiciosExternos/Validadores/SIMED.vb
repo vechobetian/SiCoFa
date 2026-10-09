@@ -107,15 +107,11 @@ Public Class SIMED
 
         Try
 
-            'Dim xmlAdesfa As String = MensajeAdesfaAutorizacion(argIdPC, argReceta, argIdMensaje, "200")
-            'Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
-            'Dim xmlResponse As XmlDocument = EnviarSoap(pVal, xmlAdesfa)
+            Dim strAdesfa As String = MensajeAdesfaAutorizacion(argIdPC, argReceta, argIdMensaje)
 
-            'VerificarRespuestaGeneral(xmlResponse)
+            Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
 
-            'ParsearAutorizacion(argReceta, xmlResponse)
-
-            Dim xmlResponse As XmlDocument = LeerRespuestaAutorizacion()
+            Dim xmlResponse As XmlDocument = EnviarSoap(pVal, strAdesfa)
 
             Dim xmlAdesfa As XmlDocument = ObtenerXmlAdesfa(xmlResponse)
 
@@ -134,15 +130,11 @@ Public Class SIMED
 
         Try
 
-            'Dim xmlAdesfa As String = MensajeAdesfaCancelacion(argIdPC, argReceta, argIdMensaje)
-            'Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
-            'Dim xmlResponse As XmlDocument = EnviarSoap(pVal, xmlAdesfa)
+            Dim strAdesfa As String = MensajeAdesfaCancelacion(argIdPC, argReceta, argIdMensaje)
 
-            'VerificarRespuestaGeneral(xmlResponse)
+            Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
 
-            'ParsearCancelacion(argReceta, xmlResponse)
-
-            Dim xmlResponse As XmlDocument = LeerRespuestaCancelacion()
+            Dim xmlResponse As XmlDocument = EnviarSoap(pVal, strAdesfa)
 
             Dim xmlAdesfa As XmlDocument = ObtenerXmlAdesfa(xmlResponse)
 
@@ -606,7 +598,6 @@ Public Class SIMED
 
             argReceta.NumAutorizacion = nroReferencia
 
-
             '==========================================================
             ' DETALLE DE LA RECETA
             '==========================================================
@@ -668,7 +659,6 @@ Public Class SIMED
 
                 Integer.TryParse(cantidadAprobadaTexto, cantidadAprobada)
 
-
                 '------------------------------------------------------
                 ' PORCENTAJE DE COBERTURA
                 '------------------------------------------------------
@@ -715,7 +705,6 @@ Public Class SIMED
 
                 End If
 
-
                 '------------------------------------------------------
                 ' CÓDIGO DE BARRAS
                 '------------------------------------------------------
@@ -724,7 +713,6 @@ Public Class SIMED
 
                 codBarras = If(codBarras, "").Trim()
 
-
                 '------------------------------------------------------
                 ' TROQUEL
                 '------------------------------------------------------
@@ -732,7 +720,6 @@ Public Class SIMED
                 Dim nTroquel As String = nodoItem.SelectSingleNode("./*[local-name()='CodTroquel']")?.InnerText
 
                 nTroquel = If(nTroquel, "").Trim()
-
 
                 '------------------------------------------------------
                 ' ALFABETA
@@ -760,7 +747,6 @@ Public Class SIMED
                     itemReceta = argReceta.Items.FirstOrDefault(Function(i) i.IdArticulo = idArticulo)
 
                 End If
-
 
                 '======================================================
                 ' VERIFICAR QUE EL ITEM EXISTA
@@ -796,10 +782,15 @@ Public Class SIMED
 
                 itemReceta.PorcentajeOS = porcentajeCobertura
 
+                If importeCobertura = 0 AndAlso porcentajeCobertura > 0 Then
+                    importeCobertura = Math.Round(importeUnitario * porcentajeCobertura / 100, 2)
+                End If
+
+                itemReceta.DescuentoUnitarioOS = importeCobertura
+
                 itemReceta.Cantidad = cantidadAprobada
 
                 itemReceta.NumeroAutorizacionItem = codAutorizacion
-
 
                 '------------------------------------------------------
                 ' IMPORTANTE:
@@ -817,7 +808,6 @@ Public Class SIMED
                 End If
 
             Next
-
 
         Catch ex As Exception
 

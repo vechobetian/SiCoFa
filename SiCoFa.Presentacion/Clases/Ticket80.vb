@@ -4,6 +4,7 @@ Public Class Ticket80
     Property Impresora As String
     Property Comprobante As Comprobante
     Property Copia As String
+
     Private Sub FACTURA(ByVal sender As Object, ByVal e As PrintPageEventArgs)
         ' 1. Tipos Font y Coordenadas unificados en Single para GDI+
         Dim fuenteGrande As New Font("consolas", 15.0F)

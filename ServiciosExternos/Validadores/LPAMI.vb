@@ -21,6 +21,30 @@ Public Class LPAMI
     Private Const UrlRecetaElectronicaTest As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://ws.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
+    Private Function LeerRespuestaAutorizacion() As XmlDocument
+
+        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_autor.xml")
+
+        If Not File.Exists(ruta) Then
+            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
+        End If
+
+        Dim xmlResponse As New XmlDocument()
+
+        Try
+
+            xmlResponse.Load(ruta)
+
+        Catch ex As XmlException
+
+            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
+
+        End Try
+
+        Return xmlResponse
+
+    End Function
+
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
         Try
