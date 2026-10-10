@@ -144,8 +144,21 @@ Public Class FrmDatosRequeridos
 
         If m_PlanOS Is Nothing Then Return
 
-        If m_PlanOS.DatosRequeridos Is Nothing Then Return
+        Dim adminDB As New N_AdminDB
 
+        If m_PlanOS.DatosRequeridos Is Nothing Then
+
+            ' Insertar el registro usando el diccionario columna/valor
+            Dim valoresColumnas As New Dictionary(Of String, Object) From {
+                                                                            {"IdPlan", m_PlanOS.IdPlan}
+                                                                          }
+
+            adminDB.InsertarRegistro("datos_requeridos", valoresColumnas)
+
+            ' Crear el objeto en memoria para evitar NullReferenceException
+            m_PlanOS.DatosRequeridos = New DatosRequeridos(m_PlanOS.IdPlan, False, False, False, False, False, False, False)
+
+        End If
 
         '----------------------------------------------------------
         ' 1. Actualizar el objeto DatosRequeridos
@@ -191,7 +204,6 @@ Public Class FrmDatosRequeridos
         ' 3. Actualizar la base de datos
         '----------------------------------------------------------
 
-        Dim adminDB As New N_AdminDB
         adminDB.ActualizarCampo("datos_requeridos", argCampo, valorBD, $"IdPlan = {m_PlanOS.IdPlan}")
 
     End Sub

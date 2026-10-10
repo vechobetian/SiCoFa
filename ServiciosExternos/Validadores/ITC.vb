@@ -220,8 +220,8 @@ Public Class ITC
     Private Function MensajeAdesfaConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As String
 
         Dim settings As New XmlWriterSettings With {
-        .Indent = True,
-        .OmitXmlDeclaration = True}
+            .Indent = True,
+            .OmitXmlDeclaration = True}
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now

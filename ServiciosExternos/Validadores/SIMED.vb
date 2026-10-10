@@ -582,204 +582,79 @@ Public Class SIMED
 
         Try
 
-            '==========================================================
-            ' NRO REFERENCIA
-            '==========================================================
-
             Dim nroReferencia As String = xml.SelectSingleNode("//*[local-name()='NroReferencia']")?.InnerText
 
             If String.IsNullOrWhiteSpace(nroReferencia) Then
-
                 Throw New Exception("La respuesta de autorización no contiene NroReferencia.")
-
             End If
 
-            nroReferencia = nroReferencia.Trim()
+            argReceta.NumAutorizacion = nroReferencia.Trim()
 
-            argReceta.NumAutorizacion = nroReferencia
-
-            '==========================================================
-            ' DETALLE DE LA RECETA
-            '==========================================================
-
-            Dim nodosItems As XmlNodeList = xml.SelectNodes("//*[local-name()='MensajeADESFA']" & "/*[local-name()='DetalleReceta']" & "/*[local-name()='Item']")
+            Dim nodosItems As XmlNodeList = xml.SelectNodes("//*[local-name()='MensajeADESFA']//*[local-name()='DetalleReceta']//*[local-name()='Item']")
 
             If nodosItems Is Nothing OrElse nodosItems.Count = 0 Then
-
                 Throw New Exception("La respuesta de autorización no contiene Items.")
-
             End If
-
-            '==========================================================
-            ' PROCESAR ITEMS
-            '==========================================================
 
             For Each nodoItem As XmlNode In nodosItems
 
-                '------------------------------------------------------
-                ' NÚMERO DE ITEM
-                '------------------------------------------------------
-
-                Dim nroItemTexto As String = nodoItem.SelectSingleNode("./*[local-name()='NroItem']")?.InnerText
-
+                Dim nroItemTexto As String = ObtenerTextoNodo(nodoItem, "NroItem")
                 Dim nroItem As Integer = 0
-
                 Integer.TryParse(nroItemTexto, nroItem)
 
-                '------------------------------------------------------
-                ' CÓDIGO DE RESPUESTA
-                '------------------------------------------------------
+                Dim codRta As String = ObtenerTextoNodo(nodoItem, "CodRta")
+                Dim mensajeRta As String = ObtenerTextoNodo(nodoItem, "MensajeRta")
+                Dim codAutorizacion As String = ObtenerTextoNodo(nodoItem, "CodAutorizacion")
 
-                Dim codRta As String = nodoItem.SelectSingleNode("./*[local-name()='CodRta']")?.InnerText
-                codRta = If(codRta, "").Trim()
-
-                '------------------------------------------------------
-                ' MENSAJE DE RESPUESTA
-                '------------------------------------------------------
-
-                Dim mensajeRta As String = nodoItem.SelectSingleNode("./*[local-name()='MensajeRta']")?.InnerText
-
-                mensajeRta = If(mensajeRta, "").Trim()
-
-                '------------------------------------------------------
-                ' CÓDIGO DE AUTORIZACIÓN
-                '------------------------------------------------------
-
-                Dim codAutorizacion As String = nodoItem.SelectSingleNode("./*[local-name()='CodAutorizacion']")?.InnerText
-
-                codAutorizacion = If(codAutorizacion, "").Trim()
-
-                '------------------------------------------------------
-                ' CANTIDAD APROBADA
-                '------------------------------------------------------
-
-                Dim cantidadAprobadaTexto As String = nodoItem.SelectSingleNode("./*[local-name()='CantidadAprobada']")?.InnerText
-
+                Dim cantidadAprobadaTexto As String = ObtenerTextoNodo(nodoItem, "CantidadAprobada")
                 Dim cantidadAprobada As Integer = 0
-
                 Integer.TryParse(cantidadAprobadaTexto, cantidadAprobada)
 
-                '------------------------------------------------------
-                ' PORCENTAJE DE COBERTURA
-                '------------------------------------------------------
-
-                Dim porcentajeTexto As String = nodoItem.SelectSingleNode("./*[local-name()='PorcentajeCobertura']")?.InnerText
-
+                Dim porcentajeTexto As String = ObtenerTextoNodo(nodoItem, "PorcentajeCobertura")
                 Dim porcentajeCobertura As Decimal = 0D
-
                 Decimal.TryParse(porcentajeTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, porcentajeCobertura)
 
-                '------------------------------------------------------
-                ' IMPORTE UNITARIO
-                '------------------------------------------------------
-
-                Dim importeUnitarioTexto As String = nodoItem.SelectSingleNode("./*[local-name()='ImporteUnitario']")?.InnerText
-
+                Dim importeUnitarioTexto As String = ObtenerTextoNodo(nodoItem, "ImporteUnitario")
                 Dim importeUnitario As Decimal = 0D
-
                 Decimal.TryParse(importeUnitarioTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeUnitario)
 
-                '------------------------------------------------------
-                ' IMPORTE A CARGO DEL AFILIADO
-                '------------------------------------------------------
-
-                Dim importeAfiliadoTexto As String = nodoItem.SelectSingleNode("./*[local-name()='ImporteACargoAfiliado']")?.InnerText
-
+                Dim importeAfiliadoTexto As String = ObtenerTextoNodo(nodoItem, "ImporteACargoAfiliado")
                 Dim importeAfiliado As Decimal = 0D
-
                 Decimal.TryParse(importeAfiliadoTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeAfiliado)
 
-                '------------------------------------------------------
-                ' IMPORTE DE COBERTURA
-                '------------------------------------------------------
-
-                Dim importeCoberturaTexto As String = nodoItem.SelectSingleNode("./*[local-name()='ImporteCobertura']")?.InnerText
-
+                Dim importeCoberturaTexto As String = ObtenerTextoNodo(nodoItem, "ImporteCobertura")
                 Dim importeCobertura As Decimal = 0D
-
                 Dim tieneImporteCobertura As Boolean = Not String.IsNullOrWhiteSpace(importeCoberturaTexto)
 
                 If tieneImporteCobertura Then
-
                     Decimal.TryParse(importeCoberturaTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeCobertura)
-
                 End If
 
-                '------------------------------------------------------
-                ' CÓDIGO DE BARRAS
-                '------------------------------------------------------
-
-                Dim codBarras As String = nodoItem.SelectSingleNode("./*[local-name()='CodBarras']")?.InnerText
-
-                codBarras = If(codBarras, "").Trim()
-
-                '------------------------------------------------------
-                ' TROQUEL
-                '------------------------------------------------------
-
-                Dim nTroquel As String = nodoItem.SelectSingleNode("./*[local-name()='CodTroquel']")?.InnerText
-
-                nTroquel = If(nTroquel, "").Trim()
-
-                '------------------------------------------------------
-                ' ALFABETA
-                '------------------------------------------------------
-
-                Dim codigo As String = nodoItem.SelectSingleNode("./*[local-name()='Alfabeta']")?.InnerText
+                Dim codBarras As String = ObtenerTextoNodo(nodoItem, "CodBarras")
+                Dim nTroquel As String = ObtenerTextoNodo(nodoItem, "CodTroquel")
+                Dim codigo As String = ObtenerTextoNodo(nodoItem, "Alfabeta")
 
                 If String.IsNullOrWhiteSpace(codigo) Then
                     Throw New Exception("El item Nro " & nroItem.ToString() & " no contiene código Alfabeta.")
-
                 End If
-
-                codigo = codigo.Trim()
-
-                '======================================================
-                ' ID ARTICULO
-                '======================================================
 
                 Dim idArticulo As String = "M" & codigo
 
                 Dim itemReceta As ItemComprobante = Nothing
 
                 If argReceta.Items IsNot Nothing Then
-
                     itemReceta = argReceta.Items.FirstOrDefault(Function(i) i.IdArticulo = idArticulo)
-
                 End If
-
-                '======================================================
-                ' VERIFICAR QUE EL ITEM EXISTA
-                '======================================================
 
                 If itemReceta Is Nothing Then
-
                     Throw New Exception("No se encontró en la receta el artículo " & idArticulo & " correspondiente al Alfabeta " & codigo)
-
                 End If
-
-                '======================================================
-                ' VERIFICAR RESPUESTA DEL ITEM
-                '======================================================
-                '
-                ' SIMED devuelve:
-                '
-                ' <CodRta>00</CodRta>
-                '
-                '======================================================
 
                 If codRta <> "00" Then
-
-                    Throw New Exception("Item " & nroItem.ToString() & " rechazado por SIMED. Código: " & codRta & ". " & If(String.IsNullOrWhiteSpace(mensajeRta), "", mensajeRta))
-
+                    Throw New Exception("Item " & nroItem.ToString() & " rechazado. Código: " & codRta & ". " & If(String.IsNullOrWhiteSpace(mensajeRta), "", mensajeRta))
                 End If
 
-                '======================================================
-                ' ACTUALIZAR ITEM EXISTENTE
-                '======================================================
-
                 itemReceta.PrecioUnitario = importeUnitario
-
                 itemReceta.PorcentajeOS = porcentajeCobertura
 
                 If importeCobertura = 0 AndAlso porcentajeCobertura > 0 Then
@@ -787,25 +662,8 @@ Public Class SIMED
                 End If
 
                 itemReceta.DescuentoUnitarioOS = importeCobertura
-
                 itemReceta.Cantidad = cantidadAprobada
-
                 itemReceta.NumeroAutorizacionItem = codAutorizacion
-
-                '------------------------------------------------------
-                ' IMPORTANTE:
-                '
-                ' SIMED puede devolver ImporteCobertura vacío.
-                '
-                ' En ese caso NO ponemos 0 porque estaríamos
-                ' pisando un valor que ya pudiera tener el item.
-                '------------------------------------------------------
-
-                If tieneImporteCobertura Then
-
-                    itemReceta.DescuentoUnitarioOS = importeCobertura
-
-                End If
 
             Next
 
@@ -816,6 +674,16 @@ Public Class SIMED
         End Try
 
     End Sub
+
+    Private Function ObtenerTextoNodo(nodo As XmlNode, nombreCampo As String) As String
+
+        Dim campo As XmlNode = nodo.SelectSingleNode("./*[local-name()='" & nombreCampo & "']")
+
+        If campo Is Nothing Then Return String.Empty
+
+        Return campo.InnerText.Trim()
+
+    End Function
 
     Private Sub ParsearCancelacion(argReceta As Receta)
         Try
