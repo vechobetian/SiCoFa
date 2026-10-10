@@ -12,14 +12,36 @@ Public Class FLINK
     Private Const VERSION_ADESFA As String = "3.1.0"
     Private Const NOMBRE_SOFTWARE As String = "SiCoFa"
     Private Const VERSION_SOFTWARE As String = "4.0.0"
-    Private Const COD_ACCION_CONSULTA_RECETAS As String = "490220"
-    Private Const COD_ACCION_CONSULTA_RECETA_ELECTRONICA As String = "490120"
     Private Const COD_ACCION_AUTORIZACION As String = "290020"
 
     Private Const UrlVentaTest As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
     Private Const UrlVentaProduccion As String = "https://servicios.farmalink.com.ar/VentaSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaTest As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://servicios.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
+
+    Private Function LeerRespuestaAutorizacion() As XmlDocument
+
+        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_autor.xml")
+
+        If Not File.Exists(ruta) Then
+            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
+        End If
+
+        Dim xmlResponse As New XmlDocument()
+
+        Try
+
+            xmlResponse.Load(ruta)
+
+        Catch ex As XmlException
+
+            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
+
+        End Try
+
+        Return xmlResponse
+
+    End Function
 
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
@@ -183,172 +205,212 @@ Public Class FLINK
 
     End Sub
 
-    '=========================================================
-    ' ENCABEZADO MENSAJE
-    '=========================================================
-    Private Sub EncabezadoMensajeAdesfa(writer As XmlWriter,
-                                       argPValidacion As ParametrosValidacion,
-                                       argTipoMensaje As String,
-                                       argCodigoAccion As String,
-                                       argIdMensaje As Long,
-                                       argFechaHora As DateTime)
+    Private Function MensajeAdesfaConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
 
-        writer.WriteStartElement("EncabezadoMensaje")
+        Dim settings As New XmlWriterSettings With {
+        .Indent = True,
+        .OmitXmlDeclaration = True}
 
-        writer.WriteElementString("TipoMsj", argTipoMensaje)
-        writer.WriteElementString("CodAccion", argCodigoAccion)
-        writer.WriteElementString("IdMsj", argIdMensaje.ToString())
+        Dim sb As New StringBuilder()
+        Dim argFechaHora As DateTime = DateTime.Now
 
-        writer.WriteStartElement("InicioTrx")
-        writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
-        writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
-        writer.WriteEndElement()
+        Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
-        writer.WriteStartElement("Software")
-        writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
-        writer.WriteElementString("Version", VERSION_SOFTWARE)
-        writer.WriteEndElement()
+            writer.WriteStartElement("MensajeADESFA")
+            writer.WriteAttributeString("version", "3.1.0")
 
-        writer.WriteStartElement("Validador")
-        writer.WriteElementString("CodigoADESFA", "0")
-        writer.WriteElementString("Nombre", "IMED")
-        writer.WriteEndElement()
+            writer.WriteStartElement("EncabezadoMensaje")
 
-        writer.WriteStartElement("Prestador")
-        writer.WriteElementString("Cuit", If(argPValidacion?.CuitPrestador, ""))
-        writer.WriteElementString("Sucursal", "0")
-        writer.WriteElementString("RazonSocial", "")
-        writer.WriteElementString("Codigo", If(argPValidacion?.NumPrestador, ""))
-        writer.WriteEndElement()
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "490120")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
 
-        writer.WriteEndElement()
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
 
-    End Sub
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
 
-    Private Sub EncabezadoConsultaRecetaElectronicaAdesfa(writer As XmlWriter, argReceta As Receta)
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "0")
+            writer.WriteElementString("Nombre", "IMED")
+            writer.WriteEndElement()
 
-        writer.WriteStartElement("EncabezadoReceta")
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Sucursal", "0")
+            writer.WriteElementString("RazonSocial", "")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.NumPrestador)
+            writer.WriteEndElement()
 
-        writer.WriteStartElement("Financiador")
-        writer.WriteElementString("CodigoADESFA", "")
-        writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
-        writer.WriteElementString("Cuit", "")
-        writer.WriteElementString("Sucursal", "")
-        writer.WriteEndElement()
+            writer.WriteEndElement() 'EncabezadoMensaje
 
-        writer.WriteStartElement("Credencial")
-        writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
-        writer.WriteElementString("Track", "")
-        writer.WriteElementString("Version", "")
-        writer.WriteElementString("Vencimiento", "")
-        writer.WriteElementString("ModoIngreso", "")
-        writer.WriteElementString("EsProvisorio", "")
-        writer.WriteElementString("Plan", "")
-        writer.WriteEndElement()
+            writer.WriteStartElement("EncabezadoReceta")
 
-        writer.WriteStartElement("Formulario")
-        writer.WriteElementString("Fecha", "")
-        writer.WriteElementString("Tipo", "")
-        writer.WriteElementString("Numero", argReceta.NumReceta)
-        writer.WriteElementString("Serie", "")
-        writer.WriteEndElement()
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("CodigoADESFA", "")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+            writer.WriteElementString("Cuit", "")
+            writer.WriteElementString("Sucursal", "")
+            writer.WriteEndElement()
 
-        writer.WriteEndElement() 'EncabezadoReceta
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
+            writer.WriteElementString("Track", "")
+            writer.WriteElementString("Version", "")
+            writer.WriteElementString("Vencimiento", "")
+            writer.WriteElementString("ModoIngreso", "")
+            writer.WriteElementString("EsProvisorio", "")
+            writer.WriteElementString("Plan", "")
+            writer.WriteEndElement()
 
-    End Sub
+            writer.WriteStartElement("Formulario")
+            writer.WriteElementString("Fecha", "")
+            writer.WriteElementString("Tipo", "")
+            writer.WriteElementString("Numero", argReceta.NumReceta)
+            writer.WriteElementString("Serie", "")
+            writer.WriteEndElement()
 
-    '=========================================================
-    ' ENCABEZADO RECETA
-    '=========================================================
-    Private Sub EncabezadoRecetaAdesfa(writer As XmlWriter, argReceta As Receta, argFechaHora As DateTime)
+            writer.WriteEndElement() 'EncabezadoReceta
 
-        writer.WriteStartElement("EncabezadoReceta")
+            writer.WriteEndElement() 'MensajeADESFA
 
-        writer.WriteStartElement("Validador")
-        writer.WriteElementString("CodigoADESFA", "0")
-        writer.WriteElementString("Nombre", "IMED")
-        writer.WriteEndElement()
+        End Using
 
-        writer.WriteStartElement("Prescriptor")
-        writer.WriteElementString("Apellido", "")
-        writer.WriteElementString("Nombre", "")
-        writer.WriteElementString("TipoMatricula", If(argReceta.Prescriptor?.Matricula?.TipoMatricula?.CodiTMADESFA, ""))
-        writer.WriteElementString("Provincia", "")
-        writer.WriteElementString("NroMatricula", If(argReceta.Prescriptor?.Matricula?.Numero, ""))
-        writer.WriteElementString("TipoPrescriptor", If(argReceta.Prescriptor?.TipoPrescriptor?.CodiTPADESFA, ""))
-        writer.WriteElementString("Cuit", "")
-        writer.WriteElementString("Especialidad", "")
-        writer.WriteEndElement()
+        Return sb.ToString()
 
-        writer.WriteElementString("Beneficiario", "")
+    End Function
 
-        writer.WriteStartElement("Financiador")
-        writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
-        writer.WriteEndElement()
+    Private Function MensajeAdesfaAutorizacion(argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
 
-        writer.WriteStartElement("Credencial")
-        writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
-        writer.WriteElementString("Track", "")
-        writer.WriteElementString("Version", "")
-        writer.WriteElementString("Vencimiento", "")
-        writer.WriteElementString("ModoIngreso", "A")
-        writer.WriteElementString("EsProvisorio", "")
-        writer.WriteElementString("Plan", "0")
-        writer.WriteElementString("cvc2", "")
-        writer.WriteEndElement()
+        Dim settings As New XmlWriterSettings With {
+            .Indent = True,
+            .OmitXmlDeclaration = True}
 
-        writer.WriteStartElement("Preautorizacion")
-        writer.WriteElementString("Codigo", "")
-        writer.WriteElementString("Fecha", "")
-        writer.WriteEndElement()
+        Dim sb As New StringBuilder()
+        Dim argFechaHora As DateTime = DateTime.Now
 
-        writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
+        Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
-        writer.WriteStartElement("Dispensa")
-        writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
-        writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
-        writer.WriteEndElement()
+            writer.WriteStartElement("MensajeADESFA")
+            writer.WriteAttributeString("version", "3.1.0")
 
-        writer.WriteStartElement("Formulario")
-        writer.WriteElementString("Fecha", "")
-        writer.WriteElementString("Tipo", "0")
-        writer.WriteElementString("Numero", argReceta.NumReceta)
-        writer.WriteElementString("Serie", "0")
-        writer.WriteElementString("NroAutEspecial", "0")
-        writer.WriteElementString("NroFormulario", "0")
-        writer.WriteEndElement()
+            writer.WriteStartElement("EncabezadoMensaje")
 
-        writer.WriteElementString("TipoTratamiento", argReceta.Tratamiento)
-        writer.WriteElementString("Diagnostico", "")
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "290020")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
 
-        writer.WriteStartElement("Institucion")
-        writer.WriteElementString("Codigo", "000000000000000")
-        writer.WriteElementString("Cuit", "0")
-        writer.WriteElementString("Sucursal", "0")
-        writer.WriteEndElement()
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
 
-        writer.WriteStartElement("Retira")
-        writer.WriteElementString("Apellido", "")
-        writer.WriteElementString("Nombre", "")
-        writer.WriteElementString("TipoDoc", "")
-        writer.WriteElementString("NroDoc", "")
-        writer.WriteElementString("NroTelefono", "")
-        writer.WriteEndElement()
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
 
-        writer.WriteEndElement()
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "0")
+            writer.WriteElementString("Nombre", "IMED")
+            writer.WriteEndElement()
 
-    End Sub
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("Cuit", argReceta.Plan.OS.PValidacion.CuitPrestador)
+            writer.WriteElementString("Sucursal", "0")
+            writer.WriteElementString("RazonSocial", "")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.NumPrestador)
+            writer.WriteEndElement()
 
-    '=========================================================
-    ' DETALLE
-    '=========================================================
-    Private Sub DetalleRecetaAdesfa(writer As XmlWriter, argReceta As Receta)
+            writer.WriteEndElement() 'EncabezadoMensaje
 
-        writer.WriteStartElement("DetalleReceta")
+            writer.WriteStartElement("EncabezadoReceta")
 
-        Dim nroItem As Integer = 0
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("CodigoADESFA", "0")
+            writer.WriteElementString("Nombre", "IMED")
+            writer.WriteEndElement()
 
-        If argReceta.Items IsNot Nothing Then
+            writer.WriteStartElement("Prescriptor")
+            writer.WriteElementString("Apellido", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteElementString("TipoMatricula", If(argReceta.Prescriptor?.Matricula?.TipoMatricula?.CodiTMADESFA, ""))
+            writer.WriteElementString("Provincia", "")
+            writer.WriteElementString("NroMatricula", If(argReceta.Prescriptor?.Matricula?.Numero, ""))
+            writer.WriteElementString("TipoPrescriptor", If(argReceta.Prescriptor?.TipoPrescriptor?.CodiTPADESFA, ""))
+            writer.WriteElementString("Cuit", "")
+            writer.WriteElementString("Especialidad", "")
+            writer.WriteEndElement()
+
+            writer.WriteElementString("Beneficiario", "")
+
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("Codigo", argReceta.Plan.OS.PValidacion.Financiador)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
+            writer.WriteElementString("Track", "")
+            writer.WriteElementString("Version", "")
+            writer.WriteElementString("Vencimiento", "")
+            writer.WriteElementString("ModoIngreso", "A")
+            writer.WriteElementString("EsProvisorio", "")
+            writer.WriteElementString("Plan", "0")
+            writer.WriteElementString("cvc2", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Preautorizacion")
+            writer.WriteElementString("Codigo", "")
+            writer.WriteElementString("Fecha", "")
+            writer.WriteEndElement()
+
+            writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
+
+            writer.WriteStartElement("Dispensa")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Formulario")
+            writer.WriteElementString("Fecha", "")
+            writer.WriteElementString("Tipo", "0")
+            writer.WriteElementString("Numero", argReceta.NumReceta)
+            writer.WriteElementString("Serie", "0")
+            writer.WriteElementString("NroAutEspecial", "0")
+            writer.WriteElementString("NroFormulario", "0")
+            writer.WriteEndElement()
+
+            writer.WriteElementString("TipoTratamiento", argReceta.Tratamiento)
+            writer.WriteElementString("Diagnostico", "")
+
+            writer.WriteStartElement("Institucion")
+            writer.WriteElementString("Codigo", "000000000000000")
+            writer.WriteElementString("Cuit", "0")
+            writer.WriteElementString("Sucursal", "0")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Retira")
+            writer.WriteElementString("Apellido", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteElementString("TipoDoc", "")
+            writer.WriteElementString("NroDoc", "")
+            writer.WriteElementString("NroTelefono", "")
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoReceta
+
+            writer.WriteStartElement("DetalleReceta")
+
+            Dim nroItem As Integer = 0
+
+            If argReceta.Items Is Nothing Then
+                Return String.Empty
+            End If
 
             For Each i In argReceta.Items
 
@@ -371,35 +433,12 @@ Public Class FLINK
                     writer.WriteElementString("Diagnostico", "N")
                     writer.WriteElementString("DosisDiaria", "0")
                     writer.WriteElementString("Generico", "M")
-
                     writer.WriteEndElement()
                 End If
 
             Next
 
-        End If
-
-        writer.WriteEndElement()
-
-    End Sub
-
-    Private Function MensajeAdesfaConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
-
-        Dim settings As New XmlWriterSettings With {
-        .Indent = True,
-        .OmitXmlDeclaration = True}
-
-        Dim sb As New StringBuilder()
-        Dim argFechaHora As DateTime = DateTime.Now
-
-        Using writer As XmlWriter = XmlWriter.Create(sb, settings)
-
-            writer.WriteStartElement("MensajeADESFA")
-            writer.WriteAttributeString("version", VERSION_ADESFA)
-
-            EncabezadoMensajeAdesfa(writer, argReceta.Plan.OS.PValidacion, argTipoMensaje, COD_ACCION_CONSULTA_RECETA_ELECTRONICA, argIdMensaje, argFechaHora)
-
-            EncabezadoConsultaRecetaElectronicaAdesfa(writer, argReceta)
+            writer.WriteEndElement() 'DetalleReceta
 
             writer.WriteEndElement() 'MensajeADESFA
 
@@ -409,7 +448,7 @@ Public Class FLINK
 
     End Function
 
-    Private Function MensajeAdesfaAutorizacion(argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
+    Private Function MensajeAdesfaCancelacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
 
         Dim settings As New XmlWriterSettings With {.Indent = True, .OmitXmlDeclaration = True}
 
@@ -419,15 +458,117 @@ Public Class FLINK
         Using writer As XmlWriter = XmlWriter.Create(sb, settings)
 
             writer.WriteStartElement("MensajeADESFA")
-            writer.WriteAttributeString("version", VERSION_ADESFA)
+            writer.WriteAttributeString("version", "2.0")
 
-            EncabezadoMensajeAdesfa(writer, argReceta.Plan.OS.PValidacion, argTipoMensaje, COD_ACCION_AUTORIZACION, argIdMensaje, argFechaHora)
+            writer.WriteStartElement("EncabezadoMensaje")
 
-            EncabezadoRecetaAdesfa(writer, argReceta, argFechaHora)
+            writer.WriteElementString("NroReferencia", argReceta.NumAutorizacion)
+            writer.WriteElementString("TipoMsj", "200")
+            writer.WriteElementString("CodAccion", "20010")
+            writer.WriteElementString("IdMsj", argIdMensaje.ToString())
 
-            DetalleRecetaAdesfa(writer, argReceta)
-
+            writer.WriteStartElement("InicioTrx")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
             writer.WriteEndElement()
+
+            writer.WriteStartElement("Terminal")
+            writer.WriteElementString("Tipo", "PC")
+            writer.WriteElementString("Numero", argIdPC)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Software")
+            writer.WriteElementString("Nombre", NOMBRE_SOFTWARE)
+            writer.WriteElementString("Version", VERSION_SOFTWARE)
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Validador")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteElementString("Version", "")
+            writer.WriteEndElement()
+
+            writer.WriteElementString("VersionMsj", "2.0")
+
+            writer.WriteStartElement("Prestador")
+            writer.WriteElementString("Cuit", If(argReceta.Plan.OS.PValidacion?.CuitPrestador, ""))
+            writer.WriteElementString("Sucursal", "1")
+            writer.WriteElementString("RazonSocial", "")
+            writer.WriteElementString("Codigo", If(argReceta.Plan.OS.PValidacion?.NumPrestador, ""))
+            writer.WriteElementString("Vendedor", "")
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoMensaje
+
+            writer.WriteStartElement("EncabezadoReceta")
+
+            writer.WriteStartElement("Beneficiario")
+            writer.WriteElementString("TipoDoc", "")
+            writer.WriteElementString("NroDoc", "")
+            writer.WriteElementString("Apellido", "")
+            writer.WriteElementString("Nombre", "")
+            writer.WriteElementString("Sexo", "")
+            writer.WriteElementString("FechaNacimiento", "")
+            writer.WriteElementString("Parentesco", "")
+            writer.WriteElementString("EdadUnidad", "")
+            writer.WriteElementString("Edad", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Financiador")
+            writer.WriteElementString("Codigo", If(argReceta.Plan?.OS?.PValidacion?.Financiador, ""))
+            writer.WriteElementString("Cuit", "")
+            writer.WriteElementString("Sucursal", "")
+            writer.WriteEndElement()
+
+            writer.WriteStartElement("Credencial")
+            writer.WriteElementString("Numero", If(argReceta.Credencial?.Numero, ""))
+            writer.WriteElementString("Track", If(argReceta.Credencial?.Numero, ""))
+            writer.WriteElementString("Version", "")
+            writer.WriteElementString("Vencimiento", "")
+            writer.WriteElementString("ModoIngreso", "A")
+            writer.WriteElementString("EsProvisorio", "0")
+            writer.WriteElementString("Plan", "")
+            writer.WriteEndElement()
+
+            writer.WriteElementString("FechaReceta", argReceta.FechaPrescripcion.Value.ToString("yyyyMMdd"))
+
+            writer.WriteStartElement("Dispensa")
+            writer.WriteElementString("Fecha", argFechaHora.ToString("yyyyMMdd"))
+            writer.WriteElementString("Hora", argFechaHora.ToString("HHmmss"))
+            writer.WriteEndElement()
+
+            writer.WriteEndElement() 'EncabezadoReceta
+
+            writer.WriteStartElement("DetalleReceta")
+
+            Dim nroItem As Integer = 0
+
+            If argReceta.Items Is Nothing Then
+                Return String.Empty
+            End If
+
+            For Each i In argReceta.Items
+
+                If i.Articulo IsNot Nothing Then
+                    nroItem += 1
+
+                    writer.WriteStartElement("Item")
+
+                    writer.WriteElementString("NroItem", nroItem.ToString())
+                    writer.WriteElementString("CodAutOri", i.NumeroAutorizacionItem)
+                    writer.WriteElementString("CodBarras", i.CodBarras)
+                    writer.WriteElementString("CodTroquel", i.NTroquel)
+                    writer.WriteElementString("Alfabeta", i.Codigo.ToString)
+                    writer.WriteElementString("Kairos", "")
+                    writer.WriteElementString("Codigo", "")
+                    writer.WriteEndElement()
+
+                End If
+
+            Next
+
+            writer.WriteEndElement() 'DetalleReceta
+
+            writer.WriteEndElement() 'MensajeAdesfa
 
         End Using
 

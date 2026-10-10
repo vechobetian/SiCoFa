@@ -17,30 +17,6 @@ Public Class LPAMI
     Private Const UrlRecetaElectronicaTest As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://ws.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
 
-    Private Function LeerRespuestaAutorizacion() As XmlDocument
-
-        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_autor.xml")
-
-        If Not File.Exists(ruta) Then
-            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
-        End If
-
-        Dim xmlResponse As New XmlDocument()
-
-        Try
-
-            xmlResponse.Load(ruta)
-
-        Catch ex As XmlException
-
-            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
-
-        End Try
-
-        Return xmlResponse
-
-    End Function
-
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
         Try
@@ -131,7 +107,7 @@ Public Class LPAMI
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlRecetaElectronicaProduccion, soapAction, soap)
 
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -186,7 +162,7 @@ Public Class LPAMI
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
 
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -239,7 +215,15 @@ Public Class LPAMI
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
 
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml"), xmlResponse.OuterXml)
+
+            VerificarRespuestaGeneral(xmlResponse)
+
+            argReceta.NumAutorizacion = ""
+
+            For Each i As ItemComprobante In argReceta.Items
+                i.NumeroAutorizacionItem = ""
+            Next
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -623,7 +607,7 @@ Public Class LPAMI
             writer.WriteElementString("Sucursal", "1")
             writer.WriteElementString("RazonSocial", "")
             writer.WriteElementString("Codigo", If(argReceta.Plan.OS.PValidacion?.NumPrestador, ""))
-            writer.WriteElementString("Vendedror", "")
+            writer.WriteElementString("Vendedor", "")
             writer.WriteEndElement()
 
             writer.WriteEndElement() 'EncabezadoMensaje
@@ -683,7 +667,7 @@ Public Class LPAMI
                     writer.WriteStartElement("Item")
 
                     writer.WriteElementString("NroItem", nroItem.ToString())
-                    writer.WriteElementString("CodAutori", i.NumeroAutorizacionItem)
+                    writer.WriteElementString("CodAutOri", i.NumeroAutorizacionItem)
                     writer.WriteElementString("CodBarras", i.CodBarras)
                     writer.WriteElementString("CodTroquel", i.NTroquel)
                     writer.WriteElementString("Alfabeta", i.Codigo.ToString)
@@ -970,8 +954,8 @@ Public Class LPAMI
                     Throw New Exception("No se encontró en la receta el artículo " & idArticulo & " correspondiente al Alfabeta " & codigo)
                 End If
 
-                If codRta <> "0" Then
-                    Throw New Exception("Item " & nroItem.ToString() & " rechazado. Código: " & codRta & ". " & If(String.IsNullOrWhiteSpace(mensajeRta), "", mensajeRta))
+                If codRta <> "0" AndAlso codRta <> "00" Then
+                    Throw New Exception("Item " & nroItem.ToString() & " rechazado por LPAMI. Código: " & codRta & ". " & If(String.IsNullOrWhiteSpace(mensajeRta), "", mensajeRta))
                 End If
 
                 itemReceta.PrecioUnitario = importeUnitario
@@ -986,6 +970,32 @@ Public Class LPAMI
                 itemReceta.NumeroAutorizacionItem = codAutorizacion
 
             Next
+
+            ' =========================================================
+            ' BUSCAR Y MOSTRAR EL REPORTE PDF EN GOOGLE CHROME
+            ' =========================================================
+            Dim lineasRtaAdicional As XmlNodeList = xml.SelectNodes("//*[local-name()='RtaAdicional']//*[local-name()='Linea']")
+
+            If lineasRtaAdicional IsNot Nothing Then
+                For Each linea As XmlNode In lineasRtaAdicional
+                    Dim codigoLinea As String = ObtenerTextoNodo(linea, "Codigo")
+
+                    If codigoLinea = "URLPDF" Then
+                        Dim urlPdf As String = ObtenerTextoNodo(linea, "Mensaje")
+
+                        If Not String.IsNullOrWhiteSpace(urlPdf) Then
+                            Try
+                                ' Abre directamente en Google Chrome
+                                Process.Start("chrome.exe", urlPdf)
+                            Catch exProcess As Exception
+                                ' Plan de respaldo usando el navegador predeterminado del sistema si Chrome no está disponible en el PATH
+                                Process.Start(New ProcessStartInfo(urlPdf) With {.UseShellExecute = True})
+                            End Try
+                        End If
+                        Exit For
+                    End If
+                Next
+            End If
 
         Catch ex As Exception
 

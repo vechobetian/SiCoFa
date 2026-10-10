@@ -42,55 +42,6 @@ Public Class SIMED
 
     End Function
 
-    Private Function LeerRespuestaAutorizacion() As XmlDocument
-
-        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_autor.xml")
-
-        If Not File.Exists(ruta) Then
-            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
-        End If
-
-        Dim xmlResponse As New XmlDocument()
-
-        Try
-
-            xmlResponse.Load(ruta)
-
-        Catch ex As XmlException
-
-            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
-
-        End Try
-
-        Return xmlResponse
-
-    End Function
-
-    Private Function LeerRespuestaCancelacion() As XmlDocument
-
-        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_cancel.xml")
-
-        If Not File.Exists(ruta) Then
-            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
-        End If
-
-        Dim xmlResponse As New XmlDocument()
-
-        Try
-
-            xmlResponse.Load(ruta)
-
-        Catch ex As XmlException
-
-            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
-
-        End Try
-
-        Return xmlResponse
-
-    End Function
-
-
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
         Throw New NotSupportedException(argPValidacion.Descripcion & " no acepta consulta de recetas por beneficiario.")
@@ -140,7 +91,11 @@ Public Class SIMED
 
             VerificarRespuestaGeneral(xmlAdesfa)
 
-            ParsearCancelacion(argReceta)
+            argReceta.NumAutorizacion = ""
+
+            For Each i As ItemComprobante In argReceta.Items
+                i.NumeroAutorizacionItem = ""
+            Next
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -684,22 +639,5 @@ Public Class SIMED
         Return campo.InnerText.Trim()
 
     End Function
-
-    Private Sub ParsearCancelacion(argReceta As Receta)
-        Try
-
-            argReceta.NumAutorizacion = ""
-
-            For Each i As ItemComprobante In argReceta.Items
-                i.NumeroAutorizacionItem = ""
-            Next
-
-        Catch ex As Exception
-
-            Throw New Exception(Funciones.MensajeError(Me.ToString, "ParsearCancelacion", ex.Message))
-
-        End Try
-    End Sub
-
 
 End Class
