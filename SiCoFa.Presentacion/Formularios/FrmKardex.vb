@@ -53,20 +53,6 @@ Public Class FrmKardex
 
     End Function
 
-    Private Sub FrmKardex_Load(sender As Object, e As EventArgs) Handles Me.Load
-
-        Try
-
-            Me.dgvKardex.AutoGenerateColumns = False
-
-
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical, "SiCoFa")
-
-        End Try
-
-    End Sub
-
     Private Sub dgvKardex_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvKardex.CellFormatting
 
         If dgvKardex.Columns(e.ColumnIndex).Name = "Fraccionado" AndAlso e.Value IsNot Nothing AndAlso e.Value IsNot DBNull.Value Then

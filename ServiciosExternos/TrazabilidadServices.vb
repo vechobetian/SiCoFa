@@ -86,13 +86,13 @@ Public Class TrazabilidadServices
         End If
     End Sub
 
-    Public Async Function TransaccionesNoConfirmadasAsync(argUsuario As String, argContrasena As String, argGLN As String, argDesde As String, argHasta As String) As Task(Of List(Of ItemTrazable))
+    Public Async Function TransaccionesNoConfirmadasAsync(argUsuario As String, argContrasena As String, argGln As String, argDesde As String, argHasta As String) As Task(Of List(Of TransaccionTrazabilidad))
         Dim cuerpo =
             "<ns1:getTransaccionesNoConfirmadas xmlns:ns1=""http://business.mywebservice.inssjp.com/"">" &
                 $"<arg0>{argUsuario}</arg0>" &
                 $"<arg1>{argContrasena}</arg1>" &
                 "<arg2></arg2><arg3></arg3><arg4></arg4>" &
-                $"<arg5>{argGLN}</arg5>" &
+                $"<arg5>{argGln}</arg5>" &
                 "<arg6></arg6><arg7></arg7>" &
                 $"<arg8>{argDesde}</arg8>" &
                 $"<arg9>{argHasta}</arg9>" &
@@ -101,18 +101,28 @@ Public Class TrazabilidadServices
 
         Dim soapAction = "http://business.mywebservice.inssjp.com/getTransaccionesNoConfirmadas"
         Dim doc = Await EjecutarSoapAsync(cuerpo, soapAction)
-        Dim listaItems As New List(Of ItemTrazable)()
+        Dim listaItems As New List(Of TransaccionTrazabilidad)()
 
         If EsError Then Return listaItems
 
         Dim returnNode = doc.Descendants().FirstOrDefault(Function(e) e.Name.LocalName = "return")
         If returnNode IsNot Nothing Then
             For Each itemXml In returnNode.Elements().Where(Function(e) e.Name.LocalName = "list")
-                Dim item As New ItemTrazable()
+                Dim item As New TransaccionTrazabilidad()
 
                 Dim idTrans = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_id_transaccion")?.Value
                 If IsNumeric(idTrans) Then item.IdTransaccion = CLng(idTrans)
 
+                Dim fechaTexto = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_f_evento")?.Value
+                Dim fechaConvertida As Date
+                If Date.TryParse(fechaTexto, fechaConvertida) Then
+                    item.FechaEvento = fechaConvertida
+                End If
+
+                item.DescripcionEvento = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_d_evento")?.Value
+                item.GlnOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_gln_origen")?.Value
+                item.RazonSocialOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_razon_social_origen")?.Value
+                item.Comprobante = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_n_factura")?.Value
                 item.Nombre = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_nombre")?.Value
                 item.Gtin = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_gtin")?.Value
                 item.Serie = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_numero_serial")?.Value
@@ -121,17 +131,7 @@ Public Class TrazabilidadServices
                 Dim venc = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_vencimiento")?.Value
                 If DateTime.TryParse(venc, Nothing) Then item.Vencimiento = Convert.ToDateTime(venc)
 
-                item.GLNOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_gln_origen")?.Value
-                item.RazonSocialOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_razon_social_origen")?.Value
-                item.DescripcionEvento = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_descripcion_evento")?.Value
-
-                Dim fechaTexto = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_f_evento")?.Value
-                Dim fechaConvertida As Date
-                If Date.TryParse(fechaTexto, fechaConvertida) Then
-                    item.FechaEvento = fechaConvertida
-                End If
-
-                item.EstadoTransaccion = "NO CONFIRMADO"
+                item.Estado = "NO CONFIRMADO"
                 listaItems.Add(item)
             Next
         End If
@@ -142,7 +142,7 @@ Public Class TrazabilidadServices
     ''' <summary>
     ''' Consulta el historial de transacciones filtrando por estado y fechas.
     ''' </summary>
-    Public Async Function VerTransaccionesAsync(argUsuario As String, argContrasena As String, argGLN As String, argDesde As String, argHasta As String, argIdEstado As Integer) As Task(Of List(Of ItemTrazable))
+    Public Async Function VerTransaccionesAsync(argUsuario As String, argContrasena As String, argGln As String, argDesde As String, argHasta As String, argIdEstado As Integer) As Task(Of List(Of TransaccionTrazabilidad))
         Dim cuerpo =
             "<ns1:getTransaccionesWS xmlns:ns1=""http://business.mywebservice.inssjp.com/"">" &
                 $"<arg0>{argUsuario}</arg0>" &
@@ -168,14 +168,14 @@ Public Class TrazabilidadServices
         ' Ejecutamos la consulta enviando el SOAPAction correcto para getTransaccionesWS
         Dim soapAction = "http://business.mywebservice.inssjp.com/getTransaccionesWS"
         Dim doc = Await EjecutarSoapAsync(cuerpo, soapAction)
-        Dim listaItems As New List(Of ItemTrazable)()
+        Dim listaItems As New List(Of TransaccionTrazabilidad)()
 
         If EsError Then Return listaItems
 
         Dim returnNode = doc.Descendants().FirstOrDefault(Function(e) e.Name.LocalName = "return")
         If returnNode IsNot Nothing Then
             For Each itemXml In returnNode.Elements().Where(Function(e) e.Name.LocalName = "list")
-                Dim item As New ItemTrazable()
+                Dim item As New TransaccionTrazabilidad()
 
                 Dim idTrans = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_id_transaccion")?.Value
                 If IsNumeric(idTrans) Then item.IdTransaccion = CLng(idTrans)
@@ -188,7 +188,7 @@ Public Class TrazabilidadServices
                 Dim venc = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_vencimiento")?.Value
                 If DateTime.TryParse(venc, Nothing) Then item.Vencimiento = Convert.ToDateTime(venc)
 
-                item.GLNOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_gln_origen")?.Value
+                item.GlnOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_gln_origen")?.Value
                 item.RazonSocialOrigen = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_razon_social_origen")?.Value
                 item.DescripcionEvento = itemXml.Elements().FirstOrDefault(Function(e) e.Name.LocalName = "_descripcion_evento")?.Value
 
@@ -198,7 +198,7 @@ Public Class TrazabilidadServices
                     item.FechaEvento = fechaConvertida
                 End If
 
-                item.EstadoTransaccion = estadoStr
+                item.Estado = estadoStr
                 listaItems.Add(item)
             Next
         End If

@@ -467,13 +467,13 @@ Public Class FrmInicio
                 Try
                     ' 3. Llamamos a tu capa de negocio
                     Dim negocio As New N_AdminTrazabilidad()
-                    Dim listaItems = Await negocio.ObtenerTransaccionesNoConfirmadasAsync(strDesde, strHasta)
-                    Stop
+                    Dim transacciones As List(Of TransaccionTrazabilidad) = Await negocio.ObtenerTransaccionesNoConfirmadasAsync(strDesde, strHasta)
+
                     ' 4. Mostramos los datos en tu formulario de grilla (FrmTransacTraza)
-                    'Using frmGrilla As New FrmTransacTraza()
-                    'frmGrilla.CargarDatosEnGrilla(listaItems)
-                    'frmGrilla.ShowDialog()
-                    'End Using
+                    Using frmGrilla As New FrmTransaccionesTrazabilidad()
+                        frmGrilla.CargarDatosEnGrilla(transacciones)
+                        frmGrilla.ShowDialog()
+                    End Using
 
                 Catch ex As Exception
                     MessageBox.Show(ex.Message, "SiCoFa - Trazabilidad", MessageBoxButtons.OK, MessageBoxIcon.Warning)

@@ -212,10 +212,10 @@
     <Compile Include="Formularios\FrmDatosReceta.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\FrmSlectorPlanesOS.Designer.vb">
-      <DependentUpon>FrmSlectorPlanesOS.vb</DependentUpon>
+    <Compile Include="Formularios\FrmSelectorPlanesOS.Designer.vb">
+      <DependentUpon>FrmSelectorPlanesOS.vb</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\FrmSlectorPlanesOS.vb">
+    <Compile Include="Formularios\FrmSelectorPlanesOS.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmActualizaciones.Designer.vb">
@@ -384,6 +384,12 @@
       <DependentUpon>FrmResultadosMensuales.vb</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FrmResultadosMensuales.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\FrmTransaccionesTrazabilidad.Designer.vb">
+      <DependentUpon>FrmTransaccionesTrazabilidad.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\FrmTransaccionesTrazabilidad.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\FrmVentas.Designer.vb">
@@ -556,8 +562,8 @@
     <EmbeddedResource Include="Formularios\FrmDatosReceta.resx">
       <DependentUpon>FrmDatosReceta.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\FrmSlectorPlanesOS.resx">
-      <DependentUpon>FrmSlectorPlanesOS.vb</DependentUpon>
+    <EmbeddedResource Include="Formularios\FrmSelectorPlanesOS.resx">
+      <DependentUpon>FrmSelectorPlanesOS.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmActualizaciones.resx">
       <DependentUpon>FrmActualizaciones.vb</DependentUpon>
@@ -644,6 +650,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmResultadosMensuales.resx">
       <DependentUpon>FrmResultadosMensuales.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\FrmTransaccionesTrazabilidad.resx">
+      <DependentUpon>FrmTransaccionesTrazabilidad.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\FrmVentas.resx">
       <DependentUpon>FrmVentas.vb</DependentUpon>
