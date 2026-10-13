@@ -65,18 +65,21 @@ Partial Class FrmInicio
         Me.mnuObraSociales = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuDatosRequeridosValidacionOS = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHerramientas = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuTrazabilidad = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuConfirmarRecepcionDeTrazables = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPTerminal = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaPSistema = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaActualizaciones = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSistemaActualizarVersion = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAyuda = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuDescargarTransaccionesConfirmadas = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuContabilidad, Me.mnuAuditoria, Me.mnuEditar, Me.mnuObraSociales, Me.mnuHerramientas, Me.mnuSistema, Me.mnuAyuda})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuOperaciones, Me.mnuCaja, Me.mnuFiscal, Me.mnuContabilidad, Me.mnuAuditoria, Me.mnuEditar, Me.mnuObraSociales, Me.mnuHerramientas, Me.mnuTrazabilidad, Me.mnuSistema, Me.mnuAyuda})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(800, 24)
@@ -157,7 +160,7 @@ Partial Class FrmInicio
         Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuContabilidadResultadosMensuales, Me.mnuContabilidadSaldoCuentaPatrimoniales, Me.AsientoContableToolStripMenuItem, Me.CancelarCuentasIncobraToolStripMenuItem, Me.CierreEjercicioAbiertoToolStripMenuItem})
         Me.mnuContabilidad.Name = "mnuContabilidad"
         Me.mnuContabilidad.Size = New System.Drawing.Size(87, 20)
-        Me.mnuContabilidad.Text = "Con&tabilidad"
+        Me.mnuContabilidad.Text = "Co&ntabilidad"
         '
         'mnuContabilidadResultadosMensuales
         '
@@ -343,6 +346,19 @@ Partial Class FrmInicio
         Me.mnuHerramientas.Size = New System.Drawing.Size(90, 20)
         Me.mnuHerramientas.Text = "&Herramientas"
         '
+        'mnuTrazabilidad
+        '
+        Me.mnuTrazabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuConfirmarRecepcionDeTrazables, Me.mnuDescargarTransaccionesConfirmadas})
+        Me.mnuTrazabilidad.Name = "mnuTrazabilidad"
+        Me.mnuTrazabilidad.Size = New System.Drawing.Size(81, 20)
+        Me.mnuTrazabilidad.Text = "&Trazabilidad"
+        '
+        'mnuConfirmarRecepcionDeTrazables
+        '
+        Me.mnuConfirmarRecepcionDeTrazables.Name = "mnuConfirmarRecepcionDeTrazables"
+        Me.mnuConfirmarRecepcionDeTrazables.Size = New System.Drawing.Size(273, 22)
+        Me.mnuConfirmarRecepcionDeTrazables.Text = "Confirmar Recepción de Trazables"
+        '
         'mnuSistema
         '
         Me.mnuSistema.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSistemaPTerminal, Me.mnuSistemaPSistema, Me.mnuSistemaActualizaciones, Me.mnuSistemaActualizarVersion})
@@ -379,6 +395,12 @@ Partial Class FrmInicio
         Me.mnuAyuda.Name = "mnuAyuda"
         Me.mnuAyuda.Size = New System.Drawing.Size(53, 20)
         Me.mnuAyuda.Text = "Ay&uda"
+        '
+        'mnuDescargarTransaccionesConfirmadas
+        '
+        Me.mnuDescargarTransaccionesConfirmadas.Name = "mnuDescargarTransaccionesConfirmadas"
+        Me.mnuDescargarTransaccionesConfirmadas.Size = New System.Drawing.Size(273, 22)
+        Me.mnuDescargarTransaccionesConfirmadas.Text = "Descargar Transacciones Confirmadas"
         '
         'FrmInicio
         '
@@ -447,4 +469,7 @@ Partial Class FrmInicio
     Friend WithEvents mnuEditarFraccionables As ToolStripMenuItem
     Friend WithEvents mnuObraSociales As ToolStripMenuItem
     Friend WithEvents mnuDatosRequeridosValidacionOS As ToolStripMenuItem
+    Friend WithEvents mnuTrazabilidad As ToolStripMenuItem
+    Friend WithEvents mnuConfirmarRecepcionDeTrazables As ToolStripMenuItem
+    Friend WithEvents mnuDescargarTransaccionesConfirmadas As ToolStripMenuItem
 End Class

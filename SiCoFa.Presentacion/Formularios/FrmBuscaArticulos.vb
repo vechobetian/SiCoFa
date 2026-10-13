@@ -60,7 +60,7 @@ Public Class FrmBuscaArticulos
 
             Me.Monodroga.Text = a.Monodroga.Monodroga
             Me.AccionFarmacologica.Text = a.AccionFarmacologica.AccionFarmacologica
-            If a.GTIN <> "" Then Me.Trazabilidad.Text = "SI" Else Me.Trazabilidad.Text = "NO"
+            If a.Gtin <> "" Then Me.Trazabilidad.Text = "SI" Else Me.Trazabilidad.Text = "NO"
             Me.TipoControl.Text = a.TipoControl.Descripcion
             Me.TipoVenta.Text = a.TipoVenta.Descripcion
             Me.ViaAdministracion.Text = a.ViaAdministracion.ViaAdministracion

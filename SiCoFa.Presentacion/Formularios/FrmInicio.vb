@@ -453,6 +453,73 @@ Public Class FrmInicio
         End Try
     End Sub
 
+    Private Async Sub mnuConfirmarRecepcionDeTrazables_Click(sender As Object, e As EventArgs) Handles mnuConfirmarRecepcionDeTrazables.Click
+        ' 1. Abrimos el formulario de rango de fechas de forma modal
+        Using frmFechas As New FrmRangoFechas()
+
+            If frmFechas.ShowDialog() = DialogResult.OK Then
+
+                Dim strDesde As String = frmFechas.FechaDesde.ToString("dd/MM/yyyy")
+                Dim strHasta As String = frmFechas.FechaHasta.ToString("dd/MM/yyyy")
+
+                Cursor = Cursors.WaitCursor
+
+                Try
+                    ' 3. Llamamos a tu capa de negocio
+                    Dim negocio As New N_AdminTrazabilidad()
+                    Dim listaItems = Await negocio.ObtenerTransaccionesNoConfirmadasAsync(strDesde, strHasta)
+                    Stop
+                    ' 4. Mostramos los datos en tu formulario de grilla (FrmTransacTraza)
+                    'Using frmGrilla As New FrmTransacTraza()
+                    'frmGrilla.CargarDatosEnGrilla(listaItems)
+                    'frmGrilla.ShowDialog()
+                    'End Using
+
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, "SiCoFa - Trazabilidad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Finally
+                    Cursor = Cursors.Default
+                End Try
+
+            End If
+
+        End Using
+    End Sub
+
+    Private Async Sub mnuDescargarTransaccionesConfirmadas_Click(sender As Object, e As EventArgs) Handles mnuDescargarTransaccionesConfirmadas.Click
+        ' 1. Abrimos el formulario de rango de fechas de forma modal
+        Using frmFechas As New FrmRangoFechas()
+
+            If frmFechas.ShowDialog() = DialogResult.OK Then
+
+                Dim strDesde As String = frmFechas.FechaDesde.ToString("dd/MM/yyyy")
+                Dim strHasta As String = frmFechas.FechaHasta.ToString("dd/MM/yyyy")
+
+                Cursor = Cursors.WaitCursor
+
+                Try
+                    ' 3. Llamamos a tu capa de negocio
+                    Dim negocio As New N_AdminTrazabilidad()
+                    Dim listaItems = Await negocio.VerTransacciones(strDesde, strHasta, 1)
+                    Stop
+                    ' 4. Mostramos los datos en tu formulario de grilla (FrmTransacTraza)
+                    'Using frmGrilla As New FrmTransacTraza()
+                    'frmGrilla.CargarDatosEnGrilla(listaItems)
+                    'frmGrilla.ShowDialog()
+                    'End Using
+
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message, "SiCoFa - Trazabilidad", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Finally
+                    Cursor = Cursors.Default
+                End Try
+
+            End If
+
+        End Using
+
+    End Sub
+
     Private Sub mnuSistemaActualizaciones_Click(sender As Object, e As EventArgs) Handles mnuSistemaActualizaciones.Click
         FrmActualizaciones.Show()
     End Sub

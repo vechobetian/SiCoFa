@@ -41,7 +41,7 @@ Public Module ArticuloMapper
                             Convert.ToBoolean(datos("ActualizarPrecio")),
                             Convert.ToInt32(datos("StockC")),
                             Convert.ToInt32(datos("StockF")),
-                            datos("GTIN").ToString,
+                            datos("Gtin").ToString,
                             viaAdministracion,
                             Convert.ToDecimal(datos("DesOferta")),
                             tipoPromocion,

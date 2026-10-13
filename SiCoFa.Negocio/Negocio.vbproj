@@ -95,6 +95,7 @@
     <Compile Include="N_AdminProveedores.vb" />
     <Compile Include="N_AdminRecetas.vb" />
     <Compile Include="N_AdminSecciones.vb" />
+    <Compile Include="N_AdminTrazabilidad.vb" />
     <Compile Include="N_AdminUsuarios.vb" />
     <Compile Include="N_ParametrosSistema.vb" />
     <Compile Include="N_AdminEmail.vb" />

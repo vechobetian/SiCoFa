@@ -321,8 +321,8 @@ Public Class LPAMI
     Private Function MensajeAdesfaConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
 
         Dim settings As New XmlWriterSettings With {
-        .Indent = True,
-        .OmitXmlDeclaration = True}
+            .Indent = True,
+            .OmitXmlDeclaration = True}
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
@@ -563,7 +563,9 @@ Public Class LPAMI
 
     Private Function MensajeAdesfaCancelacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
 
-        Dim settings As New XmlWriterSettings With {.Indent = True, .OmitXmlDeclaration = True}
+        Dim settings As New XmlWriterSettings With {
+            .Indent = True,
+            .OmitXmlDeclaration = True}
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now

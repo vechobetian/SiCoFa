@@ -23,7 +23,7 @@ Public Class Articulo
     Property ActualizarPrecio As Boolean
     Property StockC As Integer
     Property StockF As Integer
-    Property GTIN As String
+    Property Gtin As String
     Property ViaAdministracion As ViaAdministracion
     Property DesOferta As Decimal
     Property Fraccionable As Boolean
@@ -61,7 +61,7 @@ Public Class Articulo
                    ByVal argActualizarPrecio As Boolean,
                    ByVal argStockC As Integer,
                    ByVal argStockF As Integer,
-                   ByVal argGTIN As String,
+                   ByVal argGtin As String,
                    ByVal argViaAdministracion As ViaAdministracion,
                    ByVal argDesOferta As Decimal,
                    ByVal argTipoPromocion As Promocion,
@@ -100,7 +100,7 @@ Public Class Articulo
         Me.ActualizarPrecio = argActualizarPrecio
         Me.StockC = argStockC
         Me.StockF = argStockF
-        Me.GTIN = argGTIN
+        Me.Gtin = argGtin
         Me.ViaAdministracion = argViaAdministracion
         Me.DesOferta = argDesOferta
         Me.TipoPromocion = argTipoPromocion

@@ -9,39 +9,13 @@ Public Class FLINK
 
     Implements IValidador
 
-    Private Const VERSION_ADESFA As String = "3.1.0"
     Private Const NOMBRE_SOFTWARE As String = "SiCoFa"
     Private Const VERSION_SOFTWARE As String = "4.0.0"
-    Private Const COD_ACCION_AUTORIZACION As String = "290020"
 
     Private Const UrlVentaTest As String = "https://homologacion.farmalink.com.ar/VentaSecureSvc?WSDL"
     Private Const UrlVentaProduccion As String = "https://servicios.farmalink.com.ar/VentaSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaTest As String = "https://homologacion.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
     Private Const UrlRecetaElectronicaProduccion As String = "https://servicios.farmalink.com.ar/RecetaElectSecureSvc?WSDL"
-
-    Private Function LeerRespuestaAutorizacion() As XmlDocument
-
-        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_autor.xml")
-
-        If Not File.Exists(ruta) Then
-            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
-        End If
-
-        Dim xmlResponse As New XmlDocument()
-
-        Try
-
-            xmlResponse.Load(ruta)
-
-        Catch ex As XmlException
-
-            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
-
-        End Try
-
-        Return xmlResponse
-
-    End Function
 
     Public Function ConsultaRecetasBeneficiario(argIdPC As String, argCredencial As CredencialOS, argPValidacion As ParametrosValidacion, argIdMensaje As Long) As List(Of Receta) Implements IValidador.ConsultaRecetasBeneficiario
 
@@ -88,7 +62,7 @@ Public Class FLINK
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlRecetaElectronicaProduccion, soapAction, soap)
 
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml"), xmlResponse.OuterXml)
 
             VerificarRespuestaGeneral(xmlResponse)
 
@@ -143,11 +117,11 @@ Public Class FLINK
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
 
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml"), xmlResponse.OuterXml)
 
-            'argReceta = ParsearRecetaElectronica(argReceta, xmlResponse)
+            VerificarRespuestaGeneral(xmlResponse)
 
-            'Return argReceta
+            ParsearAutorizacion(argReceta, xmlResponse)
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "AutorizacionReceta", ex.Message))
@@ -160,7 +134,7 @@ Public Class FLINK
 
         Try
 
-            Dim xmlAdesfa As String = MensajeAdesfaAutorizacion(argReceta, argIdMensaje, "200")
+            Dim xmlAdesfa As String = MensajeAdesfaCancelacion(argIdPC, argReceta, argIdMensaje)
             Dim ahora As String = Year(Now) & "-" & Format(Month(Now), "00") & "-" & Format(Day(Now), "00") & "T" & Format(Hour(Now), "00") & ":" & Format(Minute(Now), "00") & ":" & Format(Second(Now), "00") & "Z"
             Dim pVal As ParametrosValidacion = argReceta.Plan.OS.PValidacion
 
@@ -196,7 +170,15 @@ Public Class FLINK
 
             Dim xmlResponse As XmlDocument = PostWebservice(UrlVentaProduccion, soapAction, soap)
 
-            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_request.xml"), xmlResponse.OuterXml)
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response.xml"), xmlResponse.OuterXml)
+
+            VerificarRespuestaGeneral(xmlResponse)
+
+            argReceta.NumAutorizacion = ""
+
+            For Each i As ItemComprobante In argReceta.Items
+                i.NumeroAutorizacionItem = ""
+            Next
 
         Catch ex As Exception
             Throw New Exception(Funciones.MensajeError(Me.ToString, "CancelacionReceta", ex.Message))
@@ -208,8 +190,8 @@ Public Class FLINK
     Private Function MensajeAdesfaConsultaRecetaElectronica(argReceta As Receta, argIdMensaje As Long, argTipoMensaje As String) As String
 
         Dim settings As New XmlWriterSettings With {
-        .Indent = True,
-        .OmitXmlDeclaration = True}
+            .Indent = True,
+            .OmitXmlDeclaration = True}
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
@@ -450,7 +432,9 @@ Public Class FLINK
 
     Private Function MensajeAdesfaCancelacion(argIdPC As String, argReceta As Receta, argIdMensaje As Long) As String
 
-        Dim settings As New XmlWriterSettings With {.Indent = True, .OmitXmlDeclaration = True}
+        Dim settings As New XmlWriterSettings With {
+            .Indent = True,
+            .OmitXmlDeclaration = True}
 
         Dim sb As New StringBuilder()
         Dim argFechaHora As DateTime = DateTime.Now
@@ -643,10 +627,6 @@ Public Class FLINK
 
     Private Function ParsearRecetaElectronica(argReceta As Receta, xml As XmlDocument) As Receta
 
-        '=========================
-        ' Encabezado de la receta
-        '=========================
-
         Dim encabezado As XmlNode = xml.SelectSingleNode("//MensajeADESFA/EncabezadoReceta")
 
         Dim fecha As String = encabezado.SelectSingleNode("FechaReceta")?.InnerText
@@ -666,10 +646,6 @@ Public Class FLINK
             Dim matricula As New Matricula(codiTM, nMatricula)
             argReceta.Prescriptor = New Prescriptor(tipoPrescriptor, Nothing, "", "", matricula)
         End If
-
-        '=========================
-        ' Detalle
-        '=========================
 
         argReceta.Items = New List(Of ItemComprobante)
 
@@ -732,8 +708,161 @@ Public Class FLINK
 
     End Function
 
-    Public Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
+    Private Sub ParsearAutorizacion(argReceta As Receta, xml As XmlDocument)
+
+        Try
+
+            Dim nroReferencia As String = xml.SelectSingleNode("//*[local-name()='NroReferencia']")?.InnerText
+
+            If String.IsNullOrWhiteSpace(nroReferencia) Then
+                Throw New Exception("La respuesta de autorización no contiene NroReferencia.")
+            End If
+
+            argReceta.NumAutorizacion = nroReferencia.Trim()
+
+            Dim nodosItems As XmlNodeList = xml.SelectNodes("//*[local-name()='MensajeADESFA']//*[local-name()='DetalleReceta']//*[local-name()='Item']")
+
+            If nodosItems Is Nothing OrElse nodosItems.Count = 0 Then
+                Throw New Exception("La respuesta de autorización no contiene Items.")
+            End If
+
+            For Each nodoItem As XmlNode In nodosItems
+
+                Dim nroItemTexto As String = ObtenerTextoNodo(nodoItem, "NroItem")
+                Dim nroItem As Integer = 0
+                Integer.TryParse(nroItemTexto, nroItem)
+
+                Dim codRta As String = ObtenerTextoNodo(nodoItem, "CodRta")
+                Dim mensajeRta As String = ObtenerTextoNodo(nodoItem, "MensajeRta")
+                Dim codAutorizacion As String = ObtenerTextoNodo(nodoItem, "CodAutorizacion")
+
+                Dim cantidadAprobadaTexto As String = ObtenerTextoNodo(nodoItem, "CantidadAprobada")
+                Dim cantidadAprobada As Integer = 0
+                Integer.TryParse(cantidadAprobadaTexto, cantidadAprobada)
+
+                Dim porcentajeTexto As String = ObtenerTextoNodo(nodoItem, "PorcentajeCobertura")
+                Dim porcentajeCobertura As Decimal = 0D
+                Decimal.TryParse(porcentajeTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, porcentajeCobertura)
+
+                Dim importeUnitarioTexto As String = ObtenerTextoNodo(nodoItem, "ImporteUnitario")
+                Dim importeUnitario As Decimal = 0D
+                Decimal.TryParse(importeUnitarioTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeUnitario)
+
+                Dim importeAfiliadoTexto As String = ObtenerTextoNodo(nodoItem, "ImporteACargoAfiliado")
+                Dim importeAfiliado As Decimal = 0D
+                Decimal.TryParse(importeAfiliadoTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeAfiliado)
+
+                Dim importeCoberturaTexto As String = ObtenerTextoNodo(nodoItem, "ImporteCobertura")
+                Dim importeCobertura As Decimal = 0D
+                Dim tieneImporteCobertura As Boolean = Not String.IsNullOrWhiteSpace(importeCoberturaTexto)
+
+                If tieneImporteCobertura Then
+                    Decimal.TryParse(importeCoberturaTexto, Globalization.NumberStyles.Any, Globalization.CultureInfo.InvariantCulture, importeCobertura)
+                End If
+
+                Dim codBarras As String = ObtenerTextoNodo(nodoItem, "CodBarras")
+                Dim nTroquel As String = ObtenerTextoNodo(nodoItem, "CodTroquel")
+                Dim codigo As String = ObtenerTextoNodo(nodoItem, "Alfabeta")
+
+                If String.IsNullOrWhiteSpace(codigo) Then
+                    Throw New Exception("El item Nro " & nroItem.ToString() & " no contiene código Alfabeta.")
+                End If
+
+                Dim idArticulo As String = "M" & codigo
+
+                Dim itemReceta As ItemComprobante = Nothing
+
+                If argReceta.Items IsNot Nothing Then
+                    itemReceta = argReceta.Items.FirstOrDefault(Function(i) i.IdArticulo = idArticulo)
+                End If
+
+                If itemReceta Is Nothing Then
+                    Throw New Exception("No se encontró en la receta el artículo " & idArticulo & " correspondiente al Alfabeta " & codigo)
+                End If
+
+                If codRta <> "0" AndAlso codRta <> "00" Then
+                    Throw New Exception("Item " & nroItem.ToString() & " rechazado por LPAMI. Código: " & codRta & ". " & If(String.IsNullOrWhiteSpace(mensajeRta), "", mensajeRta))
+                End If
+
+                itemReceta.PrecioUnitario = importeUnitario
+                itemReceta.PorcentajeOS = porcentajeCobertura
+
+                If importeCobertura = 0 AndAlso porcentajeCobertura > 0 Then
+                    importeCobertura = Math.Round(importeUnitario * porcentajeCobertura / 100, 2)
+                End If
+
+                itemReceta.DescuentoUnitarioOS = importeCobertura
+                itemReceta.Cantidad = cantidadAprobada
+                itemReceta.NumeroAutorizacionItem = codAutorizacion
+
+            Next
+
+            ' =========================================================
+            ' BUSCAR Y MOSTRAR EL REPORTE PDF EN GOOGLE CHROME
+            ' =========================================================
+            Dim lineasRtaAdicional As XmlNodeList = xml.SelectNodes("//*[local-name()='RtaAdicional']//*[local-name()='Linea']")
+
+            If lineasRtaAdicional IsNot Nothing Then
+                For Each linea As XmlNode In lineasRtaAdicional
+                    Dim codigoLinea As String = ObtenerTextoNodo(linea, "Codigo")
+
+                    If codigoLinea = "URLPDF" Then
+                        Dim urlPdf As String = ObtenerTextoNodo(linea, "Mensaje")
+
+                        If Not String.IsNullOrWhiteSpace(urlPdf) Then
+                            Try
+                                ' Abre directamente en Google Chrome
+                                Process.Start("chrome.exe", urlPdf)
+                            Catch exProcess As Exception
+                                ' Plan de respaldo usando el navegador predeterminado del sistema si Chrome no está disponible en el PATH
+                                Process.Start(New ProcessStartInfo(urlPdf) With {.UseShellExecute = True})
+                            End Try
+                        End If
+                        Exit For
+                    End If
+                Next
+            End If
+
+        Catch ex As Exception
+
+            Throw New Exception(Funciones.MensajeError(Me.ToString, "ParsearAutorizacion", ex.Message))
+
+        End Try
 
     End Sub
+
+    Private Function ObtenerTextoNodo(nodo As XmlNode, nombreCampo As String) As String
+
+        Dim campo As XmlNode = nodo.SelectSingleNode("./*[local-name()='" & nombreCampo & "']")
+
+        If campo Is Nothing Then Return String.Empty
+
+        Return campo.InnerText.Trim()
+
+    End Function
+
+    Private Function LeerRespuestaAutorizacion() As XmlDocument
+
+        Dim ruta As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", "soap_response_autor.xml")
+
+        If Not File.Exists(ruta) Then
+            Throw New FileNotFoundException("No se encontró el archivo de respuesta del validador.", ruta)
+        End If
+
+        Dim xmlResponse As New XmlDocument()
+
+        Try
+
+            xmlResponse.Load(ruta)
+
+        Catch ex As XmlException
+
+            Throw New Exception("El archivo soap_response.xml no contiene un XML válido: " & ex.Message)
+
+        End Try
+
+        Return xmlResponse
+
+    End Function
 
 End Class
